@@ -1,5 +1,5 @@
-请审阅公开仓库 https://github.com/ChanStormstout/legal-fact-benchmark 。先读取 https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/main/review/START_HERE.md
-和MANIFEST.json，复述内容快照 a5f11fef7252a6123df3bf0d59beef10a7e24fc1f985e8f6e9964ea10c961074 及实际读取的文件。若GitHub访问不可用或只读取部分
+请审阅公开仓库的指定分支 https://github.com/ChanStormstout/legal-fact-benchmark/tree/research/rules-and-verdict 。先读取 https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/research/rules-and-verdict/review/START_HERE.md
+和MANIFEST.json，复述内容快照 91f6a127fe0dcd3813016d1fe49088d9e7c2ce99a5e267aee6edcb66284322e7 及实际读取的文件。若GitHub访问不可用或只读取部分
 文件，请说明访问限制，改读用户上传的同版本Markdown分卷，不能假装已读取。
 
 我们的目标是从案件事实与争点取得有来源的规则，帮助新案件找到适用法源并形成有依据的请求结果。

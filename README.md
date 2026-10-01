@@ -7,6 +7,10 @@
 [研究方向与实验影响](docs/RESEARCH_DIRECTION.md)记录2026-10-01的用户更正。
 现有三个对象关系问题属于中间表示和匹配的诊断，尚未检验适用法源检索、法律规则归纳或判决预测。
 
+当前开发分支为 [`research/rules-and-verdict`](https://github.com/ChanStormstout/legal-fact-benchmark/tree/research/rules-and-verdict)。
+规则与判决方向的代码、文档及新实验在该分支更新；`main`保留已有发布版本。
+[分支与同步说明](docs/DEVELOPMENT_BRANCH.md)记录开发起点及审阅方式。
+
 **当前状态：开发验证，整体可靠性尚未验证。** 最新完成的完整A/B比较使用固定的 Qwen3.5-9B-4bit，在8案、13道预定题上
 比较直接回答与“抽取后执行”。A全部完成，B一案输出截断；相对模型参考答案，5道正例
 均未识别。格式约束已让大部分输出可执行，但事实抽取仍有遗漏、状态与对象混淆。
@@ -49,7 +53,7 @@ UNKNOWN是实质信息不足。NOT_FOUND仅指给定材料/记录中未找到，
 核心使用Python3.9+标准库。MLX依赖仅在生成阶段需要，普通测试和阅读结果不加载模型。
 
 ```sh
-git clone https://github.com/ChanStormstout/legal-fact-benchmark.git
+git clone --branch research/rules-and-verdict https://github.com/ChanStormstout/legal-fact-benchmark.git
 cd legal-fact-benchmark
 python3 -m unittest discover -s tests -v
 python3 scripts/repository_bridge.py verify
@@ -64,7 +68,7 @@ python3 -m legal_bench --help
 
 ## 与 ChatGPT 网页版协作
 
-把 [review/START_HERE.md](https://github.com/ChanStormstout/legal-fact-benchmark/blob/main/review/START_HERE.md)
+把 [review/START_HERE.md](https://github.com/ChanStormstout/legal-fact-benchmark/blob/research/rules-and-verdict/review/START_HERE.md)
 和 [审阅请求](review/REVIEW_REQUEST.md) 给网页对话。连接GitHub后按需读取，未连接或链接
 读取不完整时，下载review目录中的Markdown分卷并上传。每次让审阅者注明内容快照编号，
 避免拿旧结果评当前代码。[协作说明](docs/CHATGPT_REVIEW.md) 包含读取与反馈路径。

@@ -113,6 +113,9 @@ def prepare(root=ROOT):
         state['development_follow_up'] = policy['development_follow_up']
     if policy.get('research_objective'):
         state['research_objective'] = policy['research_objective']
+    state['publication_target'] = {'repository': policy['repository'], 'branch': policy['branch']}
+    if policy.get('development_base_commit'):
+        state['publication_target']['development_base_commit'] = policy['development_base_commit']
     save(root, 'docs/PROJECT_STATE.json', state)
     table = '# 实验索引\n\n历史版本按实际角色区分；源码和结果在同一次提交中同步。\n\n| 版本 | 角色 | 报告 | 解释 |\n| --- | --- | --- | --- |\n'
     for exp in catalog['experiments']:
@@ -148,6 +151,8 @@ def prepare(root=ROOT):
 内容快照：`%s`
 
 仓库：https://github.com/%s
+审阅分支：`%s`
+分支目录：https://github.com/%s/tree/%s
 当前实验：%s（开发验证；已观察过格式问题，非独立新测试）。
 
 研究目标为从案件事实与争点取得有来源的规则，帮助新案件找到适用法源并形成有依据的请求结果。
@@ -167,20 +172,20 @@ def prepare(root=ROOT):
 
 [MANIFEST.json](MANIFEST.json)列出所有公开文件、哈希和raw链接，
 [PUBLICATION.json](PUBLICATION.json)说明本地保留内容，[审阅请求](REVIEW_REQUEST.md)
-给出要检查的问题。所有main链接会随下一次同步更新；需要固定版本时，在GitHub
-将URL中的main换为正在审阅的提交SHA。内容快照用于核验文件组合，不冒充Git提交SHA。
+给出要检查的问题。当前分支链接会随下一次同步更新；需要固定版本时，在GitHub
+将URL中的分支名`%s`换为正在审阅的提交SHA。内容快照用于核验文件组合，不冒充Git提交SHA。
 
 公开raw入口：%sreview/START_HERE.md
 原始完整结果：%s%s/scoring/results-v1.json
 
 每次更新：prepare生成文件，verify核验，sync明确提交并推送。不是后台自动同步。
 不要只读取本入口就声称已经阅读全部代码或全文判决。
-''' % (snapshot, repo, latest, latest, prefix, prefix, latest)
+''' % (snapshot, repo, branch, repo, branch, latest, latest, branch, prefix, prefix, latest)
     if policy.get('development_follow_up'):
         follow = policy['development_follow_up']
         start += '\n后续开发诊断：[报告](../' + follow['report'] + ')。当前2案6题：2个MATCH中1个来源支持、1个不支持；4 UNKNOWN。整体pipeline可靠性尚未验证。上方v3结果保留为完整A/B基线；后续诊断使用额外调用，不是独立测试。详见PROJECT_STATE与实验索引，务必检查事实类型和对象群体，而不只看关系边。\n'
     save(root, 'review/START_HERE.md', start)
-    request = '''请审阅公开仓库 https://github.com/%s 。先读取 %sreview/START_HERE.md
+    request = '''请审阅公开仓库的指定分支 https://github.com/%s/tree/%s 。先读取 %sreview/START_HERE.md
 和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
 文件，请说明访问限制，改读用户上传的同版本Markdown分卷，不能假装已读取。
 
@@ -206,7 +211,7 @@ def prepare(root=ROOT):
 不足之处。区分必须修复与下一轮研究建议；不要生成替代事实或建议覆盖旧结果。
 可以按review/feedback/schema.json输出JSON反馈，snapshot_id使用上述内容快照。
 本次只是review，不授权新实验、模型更换、重标注或冻结方法后的同题择优重算。
-''' % (repo, prefix, snapshot, latest)
+''' % (repo, branch, prefix, snapshot, latest)
     save(root, 'review/REVIEW_REQUEST.md', request)
     save(root, 'review/PUBLICATION.json', {'included_count':len(paths),'included_bytes':sum(x['bytes'] for x in base),'excluded':excluded,'unregistered_local_only':['.runtime/','work/','other outputs not registered in docs/repository-artifacts.json'],'policy':'Explicit artifact roots, file limits, no UI captures or third-party paper copies; originals unchanged.'})
     derived = records(root, [p for p in GENERATED if p != 'review/MANIFEST.json'])
@@ -255,13 +260,14 @@ def git_names(root, *args):
 
 def sync(root=ROOT, message=None):
     if not message:raise ValueError('--message is required for explicit publication')
-    prepare(root);manifest=read(root/'review/MANIFEST.json');policy=read(root/'docs/repository-artifacts.json')
-    names=[x['path'] for x in manifest['source_files']]+GENERATED
+    policy=read(root/'docs/repository-artifacts.json')
     remote=git(root,'remote','get-url','origin')
     expected=policy['repository']
     if remote not in ['https://github.com/'+expected+'.git','https://github.com/'+expected,'git@github.com:'+expected+'.git']:
         raise ValueError('origin differs from registered repository')
     if git(root,'branch','--show-current')!=policy['branch']:raise ValueError('Not on registered branch')
+    prepare(root);manifest=read(root/'review/MANIFEST.json')
+    names=[x['path'] for x in manifest['source_files']]+GENERATED
     tracked=git_names(root,'ls-files')
     if tracked-set(names):raise ValueError('Tracked files outside publication policy; inspect manually')
     staged=git_names(root,'diff','--cached','--name-only')

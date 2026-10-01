@@ -1,8 +1,10 @@
 # ChatGPT 审阅入口
 
-内容快照：`a5f11fef7252a6123df3bf0d59beef10a7e24fc1f985e8f6e9964ea10c961074`
+内容快照：`91f6a127fe0dcd3813016d1fe49088d9e7c2ce99a5e267aee6edcb66284322e7`
 
 仓库：https://github.com/ChanStormstout/legal-fact-benchmark
+审阅分支：`research/rules-and-verdict`
+分支目录：https://github.com/ChanStormstout/legal-fact-benchmark/tree/research/rules-and-verdict
 当前实验：outputs/local-qwen-pattern-eval-v3（开发验证；已观察过格式问题，非独立新测试）。
 
 研究目标为从案件事实与争点取得有来源的规则，帮助新案件找到适用法源并形成有依据的请求结果。
@@ -22,11 +24,11 @@
 
 [MANIFEST.json](MANIFEST.json)列出所有公开文件、哈希和raw链接，
 [PUBLICATION.json](PUBLICATION.json)说明本地保留内容，[审阅请求](REVIEW_REQUEST.md)
-给出要检查的问题。所有main链接会随下一次同步更新；需要固定版本时，在GitHub
-将URL中的main换为正在审阅的提交SHA。内容快照用于核验文件组合，不冒充Git提交SHA。
+给出要检查的问题。当前分支链接会随下一次同步更新；需要固定版本时，在GitHub
+将URL中的分支名`research/rules-and-verdict`换为正在审阅的提交SHA。内容快照用于核验文件组合，不冒充Git提交SHA。
 
-公开raw入口：https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/main/review/START_HERE.md
-原始完整结果：https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/main/outputs/local-qwen-pattern-eval-v3/scoring/results-v1.json
+公开raw入口：https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/research/rules-and-verdict/review/START_HERE.md
+原始完整结果：https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/research/rules-and-verdict/outputs/local-qwen-pattern-eval-v3/scoring/results-v1.json
 
 每次更新：prepare生成文件，verify核验，sync明确提交并推送。不是后台自动同步。
 不要只读取本入口就声称已经阅读全部代码或全文判决。

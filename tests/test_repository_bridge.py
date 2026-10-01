@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.repository_bridge import publication_paths, scan, prepare, verify, export, git, git_names
+from scripts.repository_bridge import publication_paths, scan, prepare, verify, export, git, git_names, sync
 
 
 class RepositoryBridgeTests(unittest.TestCase):
@@ -47,6 +47,43 @@ class RepositoryBridgeTests(unittest.TestCase):
         (self.root/'README.md').write_text('changed\n')
         with self.assertRaisesRegex(ValueError, 'stale'):
             verify(self.root)
+
+    def test_slash_branch_targets_all_review_links_without_changing_results(self):
+        branch = 'research/rules-and-verdict'
+        self.policy['branch'] = branch
+        self.write('docs/repository-artifacts.json', self.policy)
+        result_path = self.root/'outputs/run/scoring/results-v1.json'
+        original = result_path.read_bytes()
+        first = prepare(self.root)
+        manifest = json.loads((self.root/'review/MANIFEST.json').read_text())
+        self.assertEqual(manifest['branch'], branch)
+        prefix = 'https://raw.githubusercontent.com/example/repo/' + branch + '/'
+        for entry in manifest['source_files'] + manifest['derived_files']:
+            self.assertTrue(entry['raw_url'].startswith(prefix))
+        for name in ['review/START_HERE.md', 'review/REVIEW_REQUEST.md']:
+            content = (self.root/name).read_text()
+            self.assertIn('https://github.com/example/repo/tree/' + branch, content)
+            self.assertIn(prefix + 'review/START_HERE.md', content)
+            self.assertNotIn('example/repo/main/', content)
+        state = json.loads((self.root/'docs/PROJECT_STATE.json').read_text())
+        self.assertEqual(state['publication_target']['branch'], branch)
+        self.assertEqual(result_path.read_bytes(), original)
+        self.assertEqual(prepare(self.root), first)
+
+    def test_wrong_branch_refuses_sync_before_generating_or_staging(self):
+        from unittest.mock import patch
+        self.policy['branch'] = 'research/rules-and-verdict'
+        self.write('docs/repository-artifacts.json', self.policy)
+        def git_read(root, *args, **kwargs):
+            if args == ('remote', 'get-url', 'origin'):
+                return 'https://github.com/example/repo.git'
+            if args == ('branch', '--show-current'):
+                return 'main'
+            self.fail('Unexpected Git mutation or query: ' + repr(args))
+        with patch('scripts.repository_bridge.git', side_effect=git_read), patch('scripts.repository_bridge.prepare') as generator:
+            with self.assertRaisesRegex(ValueError, 'Not on registered branch'):
+                sync(self.root, message='Must not publish')
+            generator.assert_not_called()
 
     def test_export_exact_selected_files_with_reproducible_bytes(self):
         import zipfile
