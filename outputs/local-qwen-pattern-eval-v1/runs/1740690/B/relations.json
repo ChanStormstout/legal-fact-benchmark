@@ -1,0 +1,59 @@
+{
+  "case_id": "1740690",
+  "edges": [
+    {
+      "op": "part_of",
+      "left": "o4",
+      "right": "o3",
+      "decision": "SUPPORTED",
+      "explanation": "The building (o4) is described as constructed upon the purchased site (o3), satisfying the physical part relation.",
+      "evidence": [
+        {
+          "segment_id": "p0002.s002",
+          "quote": "The appellant herein upon entering into possession of the purchased site, constructed a six storied building including the basement floor."
+        }
+      ],
+      "id": "22f0cd43935e14ef4bae",
+      "origin": "LOCAL_MODEL_SOURCE_DECLARATION_NOT_HUMAN_GOLD",
+      "computational_evidence": [
+        {
+          "segment_id": "p0002.s002",
+          "quote": "The appellant herein upon entering into possession of the purchased site, constructed a six storied building including the basement floor.",
+          "page": 2,
+          "source_url": "https://drive.google.com/file/d/1JqpzgnUPQ3fgSTwaP0UOkct1IVvFFdlr/view?usp=drivesdk"
+        }
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "record": {
+        "op": "part_of",
+        "left": "o4",
+        "right": "o1",
+        "decision": "UNRESOLVED",
+        "explanation": "The source states the building is part of the site (o3), not the appellant (o1). No evidence links the building as a part of the appellant.",
+        "evidence": [
+          {
+            "segment_id": "p0002.s002",
+            "quote": "The appellant herein upon entering into possession of the purchased site, constructed a six storied building including the basement floor."
+          }
+        ]
+      },
+      "reason": "INVALID_PART_KINDS"
+    }
+  ],
+  "missing_parent_decisions": [
+    [
+      "o4",
+      "o1"
+    ]
+  ],
+  "missing_group_reviews": [],
+  "group_reviews": [],
+  "raw_hash": "fcfa59612a1d5bfb29af3125b7653deaffa84e136e9a3793f73177f37fc878f8",
+  "view_hash": "c4177bea8d310fe3ad2015a66d85b8fe9330491dcbfdd65f593471f9935a5fa4",
+  "source_hash": "5d460c9fffea42fe14ea66b157a58af4cbf37dc495fd606e3d412a86e90cbbd8",
+  "closed_world": false,
+  "semantic_accuracy": "NOT_ESTABLISHED"
+}

@@ -1,0 +1,191 @@
+10个新案件：已有事实关系能否跨案件匹配？
+
+
+
+本轮已结束。固定沿用上一轮3个重复查询及执行器；10案均为原开发文书之外的新材料。关联未全部查清，因此结果是新案件探索性实验，不是已证明独立的正式测试成绩。原20案没有重新标注。
+
+直接回答A读取完整判决，B单次抽取事实和已有对象关系后由本地执行器回答；共现对照读取B的同一份事实，只移除关系约束。原型回答的是指定状态下的来源断言结构，不是当前法律事实、胜败规律或开放模式发现能力。
+
+
+
+1. 固定题目与完整匹配结果
+
+题目 | 类别 | A：直接回答 | B：结构化后执行 | 共现（不检查关系）
+
+9c74983b08ed3850 法院明确认定转租的房产部分，是否是文书自身叙述所述拥有的房产的直接物理部分？ | FACT_ONLY | {"NOT_FOUND": 10} | {"UNKNOWN": 7, "NOT_FOUND": 3} | {"UNKNOWN": 7, "NOT_FOUND": 3}
+
+24d45ac35ac7f114 文书叙述另行提起程序的个人或机构，是否明确属于同一主请求的腾退被请求人群体？ | PROCEDURE_ONLY | {"NOT_FOUND": 8, "UNKNOWN": 2} | {"UNKNOWN": 7, "NOT_FOUND": 3} | {"MATCH": 9, "UNKNOWN": 1}
+
+52a7d11461a492d0 文书叙述租赁关系中的个人或机构租户，是否明确属于同一主请求的腾退被请求人群体？ | MIXED | {"NOT_FOUND": 8, "UNKNOWN": 2} | {"UNKNOWN": 7, "NOT_FOUND": 3} | {"MATCH": 7, "UNKNOWN": 3}
+
+B在0/10案找到至少一项匹配；A在0/10案声称至少一项匹配。两者都只是方法输出，不能先当成正确答案。
+
+NOT_FOUND只表示在当前材料或可用记录中没有找到完整实例。UNKNOWN不作为否定；暂不支持、格式失败另计。一个具体组合失败，不等于案件中所有组合均失败。
+
+原题的转租与所有权状态、物理部分关系，以及两题的个人/机构至群体成员方向均未改变。后两题是程序或混合关系诊断，不能包装成实体事实规律。
+
+
+
+2. 有限来源抽查
+
+候选池及固定种子：{"seed": 20261001, "candidate_counts": {"B_MATCH": 0, "COOCCURRENCE_REJECTED_PAIR": 31, "COOCCURRENCE_UNKNOWN_PAIR": 1, "A_B_STATUS_DIFFERENCE": 17}, "selected": 3}
+
+抽样规则：Sort eligible bindings by sample rank, task ID and canonical binding. Seeded random sample at most 3 B MATCH bindings; then at most 3 difference items, prioritize cooccurrence witness rejected by typed executor (known failing pair), then cooccurrence extra UNKNOWN bindings, then A/B status disagreements. Deduplicate exact selected item; no top-up beyond actual categories. One source review per selected item.
+
+实际完成3项，一项最多一次来源复核；没有为了凑满继续查找。
+
+本地引文定位检查：{"errors": [], "valid": true, "label_origin": "MODEL_REFERENCE_WITH_SOURCE_REVIEW_NOT_HUMAN_GOLD", "raw_hash": "e1f1731311101c42cd58358ad01e063ff1d1fda570271608d4bb738dda83c993"}
+
+audit-01；案1170087；题52a7d11461a492d0；断言=YES；对象=NO；关系=NO；A状态支持=NOT_ASSESSED；B状态支持=NOT_ASSESSED；诊断=NONE。For the fixed pair e0=a8 and e1=a2, both requested NARRATED positive assertions are source-supported. Case No. 36 of 1967 is narrated as a recovery-of-possession proceeding against tenant Janardhan, and the judgment separately narrates that Janardhan was the tenant of the same land on April 1, 1957. The relevant endpoints therefore both resolve to Janardhan (o3), which is a PERSON. The query requires member_of(e1.roles.tenant, e0.roles.respondent), with the right endpoint an explicitly sourced GROUP. Self-identity PERSON->PERSON cannot satisfy MEMBER_OF, and no group may be invented for the lone respondent. The pair is therefore correctly rejected on the relation constraint. Because this is a binding-item review, this rejected pair does not establish a case-level NOT_FOUND or UNKNOWN answer, so A and B case-level statuses are not assessed.
+
+  原文 p0005.s003：Janardhan, the father of the respondent was admittedly the tenant of this land on April 1, 1957.
+
+  原文 p0006.s003：36 of 1967 in the court of Tenancy Avail Karkoon having jurisdiction in the area for recovery of possession from tenant Janardhan who had become a deemed purchaser, u/s 14 read with sec. 29 of the Tenancy Act
+
+audit-02；案265203；题24d45ac35ac7f114；断言=YES；对象=NO；关系=NO；A状态支持=NOT_ASSESSED；B状态支持=NOT_ASSESSED；诊断=NONE。For the fixed pair e0=a3 and e1=a8, the source supports a NARRATED eviction filing by the respondent-landlord against the appellant and a later NARRATED second appeal filed/preferred by that same appellant. The relevant filer of a8 and respondent of a3 therefore both resolve to Sarup Singh Gupta (o1), a PERSON. The query requires member_of(e1.roles.filer, e0.roles.respondent), whose right endpoint must be an explicitly sourced GROUP. Identity of the appellant with himself cannot satisfy MEMBER_OF, and the source does not make the lone eviction respondent a group. The fixed pair is correctly rejected. As required for a binding item, the pair-level failure does not by itself establish either proposal's case-level status, so A and B statuses are not assessed.
+
+  原文 p0001.s003：the respondent herein, after serving a notice upon the appellant terminating the lease under Section 106 of the Transfer of Property Act, instituted a suit for his eviction on June 2, 1979.
+
+  原文 p0002.s001：The first appeal filed by the appellant was also dismissed, where after he preferred a second appeal which was also dismissed by the High Court by its Judgment and order dated August 1, 2002.
+
+audit-03；案265203；题24d45ac35ac7f114；断言=YES；对象=NO；关系=NO；A状态支持=NOT_ASSESSED；B状态支持=NOT_ASSESSED；诊断=NONE。For the fixed pair e0=a3 and e1=a9, the source supports the NARRATED eviction suit against the appellant and the later NARRATED special leave petition in the same procedural chain. In context, the special-leave petitioner is the appellant, and the liberty on dismissal is expressly granted to 'the appellant'; thus the filer of a9 and the respondent of a3 resolve to Sarup Singh Gupta (o1), a PERSON. The requested relation is member_of(e1.roles.filer, e0.roles.respondent), but MEMBER_OF requires a PERSON/ORGANIZATION member and a GROUP right endpoint. Here both endpoints are the same lone PERSON, so the directed relation does not hold and the fixed pair is correctly rejected. This pair-level determination does not decide the competing case-level A/B statuses.
+
+  原文 p0001.s003：the respondent herein, after serving a notice upon the appellant terminating the lease under Section 106 of the Transfer of Property Act, instituted a suit for his eviction on June 2, 1979.
+
+  原文 p0002.s001：The petitioner then preferred a special leave petition before this Court, which was also dismissed subject to the liberty granted to the appellant to seek a review from the High Court
+
+以上是模型参考判断，经来源复核但没有人工金标准。没有独立逐项答案，不报告30题准确率，也不从抽查比例推算整批性能。
+
+
+
+3. 每案完整状态及差异
+
+案ID / 原候选排名 / 判决标题：三题按上述顺序列A/B/共现
+
+197296101 / 24 / Md. Mohammad Ali (Dead) By Lrs vs Sri Jagadish Kalita & Ors on 7 October, 2003: 9c74: NOT_FOUND/UNKNOWN/UNKNOWN; 24d4: NOT_FOUND/UNKNOWN/MATCH; 52a7: NOT_FOUND/UNKNOWN/MATCH
+
+  分歧 9c74983b08ed3850: A No qualifying COURT_FOUND SUBLET_PROPERTY was located. The nearest property-disposition passage says that a portion of holding No. 523 was 'leased out' by Prafulla Kalita; it does not state subletting and is not an explicit court finding of SUBLET_PROPERTY. Without the required e0 atom, no directed proper PART_OF binding to a NARRATED OWN_PROPERTY can be formed.
+
+  B匹配=0；未知组合=4；失败组合=0；完整对象及出处见results.json
+
+  分歧 24d45ac35ac7f114: A The first scoped ejectment request is against defendant No. 4, identified as a cooperative society. The money suit was filed by the appellant, not by a specific PERSON/ORGANIZATION explicitly stated to be a member of an eviction-respondent GROUP. Moreover, the eviction respondent here is the lone cooperative society ORGANIZATION, not a GROUP; the task forbids inventing a group for a lone respondent.
+
+  B匹配=0；未知组合=3；失败组合=1；完整对象及出处见results.json
+
+  分歧 52a7d11461a492d0: A The judgment narrates a lease of a portion of holding No. 523 to respondent No. 3 and identifies defendant No. 4/respondent No. 3 as the cooperative-society tenant. That same entity is the sole target of the scoped ejectment request. Because the eviction respondent is a lone ORGANIZATION rather than a GROUP, the tenant cannot satisfy tenant MEMBER_OF respondent; equality with the lone respondent is insufficient.
+
+  B匹配=0；未知组合=3；失败组合=3；完整对象及出处见results.json
+
+867423 / 25 / P.K. Vijayan vs Kamalakshi Amma And Others on 30 March, 1994: 9c74: NOT_FOUND/UNKNOWN/UNKNOWN; 24d4: NOT_FOUND/UNKNOWN/MATCH; 52a7: NOT_FOUND/UNKNOWN/UNKNOWN
+
+  分歧 9c74983b08ed3850: A No qualifying COURT_FOUND SUBLET_PROPERTY was located. The Land Tribunal expressly found a commercial lease, not a sublease/subletting, and no court-found sublet-property atom appears in the supplied judgment. Therefore the required e0 atom and its proper PART_OF edge to a NARRATED OWN_PROPERTY are absent.
+
+  B匹配=0；未知组合=1；失败组合=0；完整对象及出处见results.json
+
+  分歧 24d45ac35ac7f114: A The first scoped eviction filing was RCP No. 19 of 1974 against the appellant-tenant. Before the later civil suit, the appellant filed OA No. 11730 of 1986. This gives a same-person candidate, but the eviction respondent is one appellant-tenant, not an explicitly sourced GROUP. The fixed rule forbids inventing a GROUP for a lone respondent, so identity cannot satisfy MEMBER_OF.
+
+  B匹配=0；未知组合=5；失败组合=4；完整对象及出处见results.json
+
+  分歧 52a7d11461a492d0: A The scoped eviction respondent is the lone appellant-tenant, not a GROUP. The closest lease-property evidence is either the appellant's own claim that the lease was agricultural land or the Land Tribunal's COURT_FOUND conclusion that the lease was of a commercial building; neither supplies the requested NARRATED LEASE_PROPERTY plus tenant MEMBER_OF respondent-GROUP binding. In any event, identity with a lone respondent cannot satisfy MEMBER_OF.
+
+  B匹配=0；未知组合=3；失败组合=12；完整对象及出处见results.json
+
+1982777 / 26 / Rafique Bibi (D) By Lrs vs Syed Waliuddin (D) By Lrs. And Ors on 28 August, 2003: 9c74: NOT_FOUND/UNKNOWN/UNKNOWN; 24d4: NOT_FOUND/UNKNOWN/MATCH; 52a7: NOT_FOUND/UNKNOWN/UNKNOWN
+
+  分歧 9c74983b08ed3850: A No qualifying COURT_FOUND SUBLET_PROPERTY was located. The High Court finding reported in the judgment establishes a landlord-tenant relationship and eviction liability, not subletting. With no court-found sublet-property atom, the requested direct PART_OF binding cannot be formed.
+
+  B匹配=0；未知组合=4；失败组合=0；完整对象及出处见results.json
+
+  分歧 24d45ac35ac7f114: A The 1956 eviction suit has the appellants as the respondent-side tenant group. The later special-leave appeal was filed by 'the aggrieved tenants' collectively. MEMBER_OF requires a specific PERSON/ORGANIZATION on the left; the source does not identify an atomic filer for that filing. A GROUP cannot itself be treated as an atomic member, so the collective filer does not satisfy the relation.
+
+  B匹配=0；未知组合=8；失败组合=1；完整对象及出处见results.json
+
+  分歧 52a7d11461a492d0: A The source attributes the initial tenancy allegation to the respondent-landlords, while the later positive landlord-tenant determination is an explicit High Court finding. Thus the strongest positive lease/tenancy statement is COURT_FOUND rather than NARRATED. It also concerns the appellants collectively, not a named atomic tenant member. The required NARRATED LEASE_PROPERTY tenant -> eviction-respondent GROUP MEMBER_OF binding is therefore not established.
+
+  B匹配=0；未知组合=6；失败组合=6；完整对象及出处见results.json
+
+1170087 / 27 / Amrit Bhikaji Kale & Ors vs Kashinath Janardhan Trade & Anr on 11 May, 1983: 9c74: NOT_FOUND/UNKNOWN/UNKNOWN; 24d4: NOT_FOUND/UNKNOWN/UNKNOWN; 52a7: NOT_FOUND/UNKNOWN/MATCH
+
+  分歧 9c74983b08ed3850: A No qualifying COURT_FOUND SUBLET_PROPERTY was located. The judgment narrates Janardhan's tenancy and later deemed purchase/ownership, but does not state that he or another tenant sublet any property. Consequently no court-found sublet property exists to bind by direct PART_OF to a narrated owned property.
+
+  B匹配=0；未知组合=2；失败组合=1；完整对象及出处见results.json
+
+  分歧 24d45ac35ac7f114: A The first scoped landlord recovery proceeding is Case No. 36 of 1967, brought by the minor landlord through his next friend for recovery of possession from tenant Janardhan. A later parallel Section 84 proceeding was initiated by the present respondent, identified elsewhere as Janardhan's son. The eviction respondent is the lone PERSON Janardhan, not a GROUP, and the later filer is a different person; no required MEMBER_OF edge is stated.
+
+  B匹配=0；未知组合=2；失败组合=0；完整对象及出处见results.json
+
+  分歧 52a7d11461a492d0: A The judgment narrates that Janardhan was the tenant of the land on April 1, 1957, and Case No. 36 of 1967 sought recovery of possession from Janardhan. This is a same-person candidate, but the scoped eviction respondent is the lone PERSON Janardhan, not a GROUP. Equality cannot satisfy MEMBER_OF and no respondent group may be invented.
+
+  B匹配=0；未知组合=3；失败组合=3；完整对象及出处见results.json
+
+265203 / 29 / Sarup Singh Gupta vs S. Jagdish Singh And Ors. on 29 March, 2006: 9c74: NOT_FOUND/UNKNOWN/UNKNOWN; 24d4: NOT_FOUND/UNKNOWN/MATCH; 52a7: NOT_FOUND/UNKNOWN/UNKNOWN
+
+  分歧 9c74983b08ed3850: A No qualifying COURT_FOUND SUBLET_PROPERTY was located. The judgment concerns termination of the appellant's lease and the landlord's eviction suit; it does not contain an explicit judicial finding of subletting. Therefore the required e0 atom and direct PART_OF relation are unavailable.
+
+  B匹配=0；未知组合=1；失败组合=0；完整对象及出处见results.json
+
+  分歧 24d45ac35ac7f114: A The scoped eviction suit was instituted by the respondent against the appellant after termination of the lease. The appellant later filed an appeal. Although this is a same-person candidate, the eviction respondent is one appellant, not an explicitly sourced GROUP. Identity with a lone respondent cannot satisfy MEMBER_OF.
+
+  B匹配=0；未知组合=6；失败组合=4；完整对象及出处见results.json
+
+  分歧 52a7d11461a492d0: A The narrative identifies a terminated lease, an eviction suit against the appellant, and later calls the occupant 'the tenant.' The tenant is the same lone appellant targeted by the eviction suit. Because the respondent is not a GROUP, the required tenant MEMBER_OF respondent relation cannot be satisfied by self-identity.
+
+  B匹配=0；未知组合=2；失败组合=0；完整对象及出处见results.json
+
+500624 / 30 / Pramod Kumar Jaiswal And Others vs Bibi Husn Bano & Ors on 3 May, 2005: 9c74: NOT_FOUND/UNKNOWN/UNKNOWN; 24d4: UNKNOWN/UNKNOWN/MATCH; 52a7: UNKNOWN/UNKNOWN/MATCH
+
+  分歧 9c74983b08ed3850: A No qualifying current-chain COURT_FOUND SUBLET_PROPERTY instance was located. The judgment's current facts concern a building leased to the appellants' predecessor and the landlords' later eviction suit; the explicit sub-letting passage concerns Nalakath Sainuddin, a cited precedent, not this case's analysis unit.
+
+  B匹配=0；未知组合=16；失败组合=0；完整对象及出处见results.json
+
+1134266 / 31 / Singer India Limited vs Chander Mohan Chadha & Ors on 13 August, 2004: 9c74: NOT_FOUND/UNKNOWN/UNKNOWN; 24d4: UNKNOWN/UNKNOWN/MATCH; 52a7: UNKNOWN/UNKNOWN/MATCH
+
+  分歧 9c74983b08ed3850: A The current case contains a judicial conclusion that the Indian Company occupied the premises and was liable for eviction after the American Company's tenancy/occupancy rights vested in it, but no NARRATED OWN_PROPERTY assertion for a distinct whole property containing that transferred premises was located. The natural property candidate is the same premises in dispute, and self-identity cannot satisfy proper PART_OF.
+
+  B匹配=0；未知组合=1；失败组合=0；完整对象及出处见results.json
+
+1355491 / 32 / Firms Amar Nath Basheshar Dass vs Tek Chand on 21 March, 1972: 9c74: NOT_FOUND/NOT_FOUND/NOT_FOUND; 24d4: NOT_FOUND/NOT_FOUND/MATCH; 52a7: NOT_FOUND/NOT_FOUND/MATCH
+
+1802788 / 33 / Vora Abbasbhai Alimahomed vs Haji Gulamnabi Haji Safibhai on 22 October, 1963: 9c74: NOT_FOUND/NOT_FOUND/NOT_FOUND; 24d4: NOT_FOUND/NOT_FOUND/MATCH; 52a7: NOT_FOUND/NOT_FOUND/MATCH
+
+55102 / 35 / Swadesh Ranjan Sinha vs Haradeb Banerjee on 3 October, 1991: 9c74: NOT_FOUND/NOT_FOUND/NOT_FOUND; 24d4: NOT_FOUND/NOT_FOUND/MATCH; 52a7: NOT_FOUND/NOT_FOUND/MATCH
+
+
+
+4. 自动检查与失败范围
+
+成功形成结构化视图10/10案，进入计算的断言127条。
+
+隔离记录原因：{"NOT_PRIMARY_REQUEST_UNIT": 4}
+
+字段阻止原因：{"UNKNOWN_OBJECT": 43, "Execution of the will is narrated, but the affirmative title-transfer effect is expressly negated by the statutory purchase; the REJECTED state records that legal treatment without denying execution of the instrument.": 1, "UNRESOLVED_OBJECT_IDENTITY": 10, "The source gives only the year 1956 for filing, not an exact YYYY-MM-DD date.": 1, "The source describes a rent-default period rather than one exact payment event, and the fixed representation cannot aggregate the interval into a single exact-date event.": 1, "UNPARSED_SCOPE": 8, "The notice is stated in the passive voice; the source segment does not expressly identify the sender.": 1, "The High Court finding adopts the alleged default, which is expressed as an interval rather than an exact individual payment event.": 1, "The source states only 'some time in the year 1958' for the initial letting.": 1, "No exact date of Quasim's death is supplied.": 1, "The source identifies co-owner status but does not state the exact share or which individual heirs formed this subset.": 1, "The exact fractional interest and identities of the assigning heirs are not stated.": 1, "The House Control Case sentence refers to fair rent without restating the building identifier; the property binding follows the immediately described continuing tenancy.": 1, "The appeal sentence does not restate the building identifier.": 1, "The revision sentence does not restate the building identifier.": 1, "The source does not give the exact date(s) of the alleged non-payment.": 1, "The exact arrears period and amount are not stated in the eviction-ground sentence.": 1, "The High Court revision sentence does not restate the building identifier.": 1, "The Court's adopted finding in this passage does not restate an exact acquisition date.": 1, "The exact fraction and identities of the co-owner transferors are unstated.": 1, "No exact date is supplied for the continuing relation as a single event.": 1, "The source does not expressly identify a respondent to this in-suit application.": 1, "The source expressly says March 2, 1956, although that is chronologically inconsistent with the immediately preceding February 14, 1957 order; the source date is preserved without correction.": 1, "The RCP filing sentence does not itself specify whether the eviction request concerned land, building, or both; later source passages dispute the leased subject.": 1, "The supplied passage does not identify a respondent for OA No. 11730 of 1986.": 1, "The filing sentence states eviction of the appellant but does not restate the exact property extent.": 1, "The revision-filing passage does not state the property.": 1, "The source states the appellant's earlier plea that the lease was only of open land, while separately recording other characterizations; exact identity/extent relative to the commercial building is not resolved.": 1, "The source gives the suit number 165/77 but no exact YYYY-MM-DD filing date.": 1, "The source identifies the defendant as appellant but does not expressly label the opposing respondent in the first appeal.": 1, "The filing sentence follows the statement that respondent No. 3 did not pay rent; respondent identity is contextually linked but the sentence does not separately name the money-suit defendant.": 1, "The first appellate court decided the title issue against the plaintiff, but the current Supreme Court judgment remitted the matter without itself finally determining title.": 1, "The money-suit discussion does not restate the exact physical extent of the property; it is linked to the suit-premises rent dispute.": 1, "The execution-petition passage does not expressly identify the respondent to that petition.": 1, "The record discusses termination and alleged waiver, so exact post-notice duration of the affirmative lease relation is not fully representable as one individually scoped proposition.": 1, "The source states that the notices were dated 1979-02-10 and 1979-03-17, but does not establish those dates as exact service dates.": 1, "The source gives months and 'thereafter', not a single exact YYYY-MM-DD payment date.": 1, "The finding is expressed by months and continuing conduct rather than a single exact payment date.": 1, "The first-appeal sentence does not restate the property.": 1, "The second-appeal sentence does not restate the property.": 1, "2002-08-01 is the High Court judgment date, not stated as the filing date.": 1, "The special-leave sentence does not restate the property.": 1, "The review-petition sentence does not restate the property.": 1, "The source gives only the year 1982, not an exact filing date.": 1, "SUBLET_PROPERTY is the only fixed tenancy-transfer predicate, but the pleading's exact language is 'parted with the possession'; this record preserves that limitation and must not be read as proof of a conventional sublease form.": 1, "The pleading does not state an exact start date for the alleged exclusive possession.": 1, "The company petition concerned amalgamation generally; the filing sentence does not bind it to the disputed shop as its proceeding property.": 1, "1981-12-31 is stated as the date the petition was allowed, not the filing date.": 1, "The source says the American Company ceased from 1982-01-01 and 'thereafter' the Indian Company came into possession; it does not expressly state the exact day possession began.": 1, "The negative finding is temporally contextual ('still in possession') and has no single exact date.": 1, "The source gives the Tribunal judgment date elsewhere as 1996-04-08, but not the filing date of the landlord's appeal.": 1, "2001-05-25 is the High Court decision date, not stated as the filing date.": 1, "The judgment date is 2004-08-13; no exact filing date for Civil Appeal No.387 of 2004 is supplied.": 1, "No exact filing date for Civil Appeal No.388 of 2004 is supplied.": 1, "The filing sentence does not itself restate the property; the companion appeal is treated within the same underlying eviction dispute.": 1}
+
+对象关系记录：{"member_of/SUPPORTED": 12, "part_of/SUPPORTED": 1}
+
+关系隔离原因：{}
+
+A/B状态配对：{"NOT_FOUND/UNKNOWN": 17, "UNKNOWN/UNKNOWN": 4, "NOT_FOUND/NOT_FOUND": 9}
+
+这些检查证明可读取和引用能定位，不能证明抽取完整或语义正确。保留原始回复，局部字段/记录隔离；没有第二次整案抽取或消除全部未知的修订。
+
+
+
+5. 样本、配置与工作量
+
+样本按既有固定候选顺序选取10个模型筛查为完整且符合腾退/返还租赁标的请求的来源。排除原5案和后20案，以及已知重复或关联；未确定关联保留。资格与完整性仍是既有模型来源判断，不是本轮新的人工作证。没有因抽取难或无匹配换案。
+
+网页正式提交任务6个，其中直接回答2个、一次抽取3个、局部核查1个。0次Pro、0次付费API。界面显示普通High，未暴露确切模型编号。
+
+任务包共664440 UTF-8字符；下载JSON共748492字节。网页模型任务重提/格式修复次数0；附件、页面导航及下载恢复另见UI记录。
+
+从固定配置保存到交付约37.4分钟，包含浏览器恢复、网页生成及本地导入。
+
+核心算法代码与冻结哈希一致，未新增或重跑全套程序测试；自动哈希、JSON和来源引用检查属于本轮导入步骤，不能作为法律能力成绩。
+
+
+
+6. 文件与停止状态
+
+入口：tasks.json、config.json、freeze.json、sample.json；sources/完整判决和稳定段落编号；web-tasks/原始任务、下载回复、URL、时间、设置、截图；views/和relations/计算视图、隔离记录及关系；runs/first-run/results.json全部30题的匹配/未知/失败组合，summary.json和audit-selection.json保存完整计数与抽样。
+
+本轮止于10案和实际不超过6项复核。没有根据这些新案件更改抽取规范、查询条件、关系定义或原执行器；没有开启下一轮修复。

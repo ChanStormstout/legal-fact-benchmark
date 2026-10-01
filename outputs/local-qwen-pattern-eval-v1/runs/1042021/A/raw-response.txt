@@ -1,0 +1,178 @@
+{
+"case_id": "1042021",
+"answers": [
+{
+"task_id": "9c74983b08ed3850",
+"answer_status": "UNKNOWN",
+"explanation": "The judgment identifies the 'SUBLET_PROPERTY' as the land let out by the mortgagee Ganga Din (p0003.s001) and the 'OWN_PROPERTY' as the land owned by the appellant Prabhu (p0002.s004). While the text states the mortgage was on 'the said land' (p0002.s004) and the sublet was on 'the aforesaid land' (p0003.s001), the specific Khasra Nos. for the mortgaged property are listed in p0002.s004, while the subletting event in p0003.s001 refers to 'the aforesaid land' without explicitly listing the Khasra Nos. again. It is unclear from the text if the subletting covered the exact same specific parcels (Khasra Nos. 224, 215, etc.) or just the land in general. Without explicit confirmation that the subletted Khasra Nos. are a proper physical part of the owned Khasra Nos. list, the relation cannot be confirmed as MATCH.",
+"bindings": [
+{
+"atoms": [
+{
+"var": "e0",
+"type": "SUBLET_PROPERTY",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "land let out by Ganga Din"
+},
+"evidence": [
+{
+"segment_id": "p0003.s001",
+"quote": "It appears that during the continuance of the mortgage, the mortgagee Ganga Din had let out the aforesaid land to respondents I to 3 Ramdey, Yadram and Nathu respectively."
+}
+]
+},
+{
+"var": "e1",
+"type": "OWN_PROPERTY",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "agricultural land bearing Khasra Nos. 224, 215, 244, 299, 320, 506, 617 and 687"
+},
+"evidence": [
+{
+"segment_id": "p0002.s004",
+"quote": "The appellant Prabhu is the owner of agricultural land bearing Khasra Nos. 224, 215, 244, 299, 320, 506, 617 and 687 situated in village Nilakpur..."
+}
+]
+}
+]
+},
+{
+"relation": {
+"op": "part_of",
+"left": "land let out by Ganga Din",
+"right": "agricultural land bearing Khasra Nos. 224, 215, 244, 299, 320, 506, 617 and 687",
+"evidence": [
+{
+"segment_id": "p0003.s001",
+"quote": "It appears that during the continuance of the mortgage, the mortgagee Ganga Din had let out the aforesaid land..."
+},
+{
+"segment_id": "p0002.s004",
+"quote": "The appellant's father Jora had executed a usufructuary mortgage of the said land..."
+}
+]
+}
+}
+]
+},
+{
+"missing_fields": [
+"Explicit confirmation that the 'aforesaid land' sublet by Ganga Din corresponds exactly to the specific Khasra Nos. owned by the appellant."
+],
+"other_combinations_considered": "None; the text links the subletting to 'the aforesaid land' which refers back to the land mortgaged by the father, but lacks the specific identifier for the subletted portion to verify it is a proper part of the specific owned list."
+}
+},
+{
+"task_id": "24d45ac35ac7f114",
+"answer_status": "NOT_FOUND",
+"explanation": "The judgment narrates that the respondents were inducted as tenants by the mortgagee (p0002.s001, p0006.s001) and were not the filers of any other proceeding. The filers of other proceedings mentioned are the appellant (Prabhu) in the suit (p0003.s001) and the writ petition (p0003.s005). The respondents (Ramdev & Ors) are the ones being sued and are not the filers of the other proceedings. Therefore, no 'FILE_OTHER_PROCEEDING' filer exists in the NARRATED text to be a member of the 'FILE_EVICTION' respondent group.",
+"bindings": [
+{
+"atoms": [
+{
+"var": "e0",
+"type": "FILE_EVICTION",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "Appellant's suit for possession"
+},
+"evidence": [
+{
+"segment_id": "p0003.s001",
+"quote": "On July 28, 1956, the appellant instituted the present suit for possession of the land in question against the three respondents."
+}
+]
+},
+{
+"var": "e1",
+"type": "FILE_OTHER_PROCEEDING",
+"status": "NOT_FOUND",
+"polarity": "NEGATIVE",
+"objects": {
+"role": "None found"
+},
+"evidence": [
+{
+"segment_id": "p0003.s001",
+"quote": "On July 28, 1956, the appellant instituted the present suit for possession of the land in question against the three respondents."
+}
+]
+}
+]
+},
+{
+"relation": {
+"op": "member_of",
+"left": "None found",
+"right": "three respondents",
+"evidence": [
+{
+"segment_id": "p0003.s001",
+"quote": "On July 28, 1956, the appellant instituted the present suit for possession of the land in question against the three respondents."
+}
+]
+}
+}
+]
+},
+{
+"missing_fields": [
+"None; the absence of a filer for other proceedings is established."
+],
+"other_combinations_considered": "The respondents are the ones being sued, not filing other proceedings."
+}
+},
+{
+"task_id": "52a7d11461a492d0",
+"answer_status": "MATCH",
+"explanation": "The judgment explicitly narrates that the respondents were tenants inducted by the mortgagee during the continuance of the mortgage (p0002.s001, p0006.s001). The judgment also narrates that the appellant instituted a suit for possession against the three respondents (p0003.s001), making them the respondents of the eviction request. Since the respondents are explicitly identified as the tenants inducted by the mortgagee, they are members of the respondent group in the eviction suit.",
+"bindings": [
+{
+"atoms": [
+{
+"var": "e0",
+"type": "FILE_EVICTION",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "Appellant's suit for possession"
+},
+"evidence": [
+{
+"segment_id": "p0003.s001",
+"quote": "On July 28, 1956, the appellant instituted the present suit for possession of the land in question against the three respondents."
+}
+]
+},
+{
+"var": "e1",
+"type": "LEASE_PROPERTY",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "Respondents (Ramdey, Yadram, Nathu)"
+},
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "During the continuance of the mortgage and while the respondents were in possession as tenants..."
+},
+{
+"segment_id": "p0006.s001",
+"quote": "The appellant's father created a usufructuary mortgage of the land and during the continuance of the said mortgage the respondents were admitted as tenants."
+}
+]
+}
+]
+},
+{
+"relation": {
+"op": "member_of",
+"left": "Respondents (Ramdey, Yadram, Nathu)",
+"right": "three respondents",
+"e

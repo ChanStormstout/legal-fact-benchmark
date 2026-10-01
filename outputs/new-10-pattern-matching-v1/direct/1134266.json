@@ -1,0 +1,81 @@
+{
+  "case_id": "1134266",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "status": "NOT_FOUND",
+      "explanation": "The current case contains a judicial conclusion that the Indian Company occupied the premises and was liable for eviction after the American Company's tenancy/occupancy rights vested in it, but no NARRATED OWN_PROPERTY assertion for a distinct whole property containing that transferred premises was located. The natural property candidate is the same premises in dispute, and self-identity cannot satisfy proper PART_OF.",
+      "bindings": [],
+      "uncertainty": [],
+      "evidence": [
+        {
+          "segment_id": "p0006.s003",
+          "quote": "Therefore, in view of the settled legal position, the original lessee, namely, the American Company ceased to exist with effect from the Appointed Day i.e. 1.1.1982 and thereafter the Indian Company came in possession and is in occupation of the premises in dispute."
+        },
+        {
+          "segment_id": "p0010.s002",
+          "quote": "On the contrary, the inescapable conclusion is that it is the Indian Company which is in occupation and is carrying on business in the premises in question rendering the appellant liable for eviction."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "status": "UNKNOWN",
+      "explanation": "A NARRATED other proceeding is explicit: Company Petition No. 66 of 1981 was filed by the Indian Company. The landlord's 1982 eviction petition is also explicit, but the supplied text does not enumerate the underlying eviction respondents as a GROUP. Because the Indian Company appears in the eviction chain and separately contested the petition, it is a plausible respondent-side candidate, yet the required directed MEMBER_OF edge into an explicitly stated eviction-respondent GROUP is not established.",
+      "bindings": [],
+      "uncertainty": [
+        "The source does not expressly define the respondent set of the 1982 eviction petition as a GROUP or expressly state Indian Company MEMBER_OF that group."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0002.s001",
+          "quote": "In the year 1982, the landlord filed an eviction petition on the ground, inter alia, that the American Company, without obtaining any written consent from the landlord, had parted with the possession of the premises in dispute in favour of Indian Sewing Machine Company Limited, incorporated under the Indian Companies Act (hereinafter referred to as 'Indian Company')"
+        },
+        {
+          "segment_id": "p0002.s002",
+          "quote": "The eviction petition was contested by the appellant"
+        },
+        {
+          "segment_id": "p0002.s003",
+          "quote": "66 of 1981 was filed by the Indian Company before the Bombay High Court under Sections 391 and 394 of the Companies Act which was allowed on 31.12.1981"
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "status": "UNKNOWN",
+      "explanation": "The original lease to the American Company is narrated, and the landlord later filed the eviction petition based on the transfer/parting of possession. However, the supplied text does not explicitly enumerate the eviction respondents as a GROUP or directly state that the American Company is a member of such a group. Because the American Company is the original lessee and is plainly part of the eviction controversy, the candidate is plausible but the required GROUP identity and MEMBER_OF edge remain unstated.",
+      "bindings": [],
+      "uncertainty": [
+        "The underlying eviction respondent GROUP is not explicitly stated; therefore American Company's membership in the required GROUP cannot be asserted."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "Shri Atma Ram Chadha, predecessor-in-interest of respondent Nos. 1 to 13 (hereinafter referred to as the 'landlord') let out Shop No. 13/14 (Private No. 15) Block'C', Cannaught Place, New Delhi to"
+        },
+        {
+          "segment_id": "p0002.s001",
+          "quote": "M/s. Singer Sewing Machine Company, incorporated under the laws of the State of New Jersey, USA, (hereinafter referred to as 'American Company'), at a rental of Rs. 1200/- per month vide a registered lease deed dated 11.7.1966."
+        },
+        {
+          "segment_id": "p0002.s001",
+          "quote": "In the year 1982, the landlord filed an eviction petition on the ground, inter alia, that the American Company, without obtaining any written consent from the landlord, had parted with the possession of the premises in dispute in favour of Indian Sewing Machine Company Limited"
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "semantic_correctness": "NOT_ESTABLISHED"
+}

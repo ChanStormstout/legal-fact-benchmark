@@ -1,0 +1,29 @@
+你正在参与一个真实的 Legal AI 学术研究项目。本轮必须先从 high-level 研究目标和领域文献出发，批判性检查问题设定，再提出方法路线；不要一开始把讨论缩成几条 prompt、某个聚类阈值或一个我们预设的新算法。请用清楚的中文，保留必要英文术语并首次解释。今天为 2026-09-29；近两年指 2024-09-29 至今，早期关键奠基论文也必须覆盖。请实际联网搜索、打开和阅读原论文，不能依靠印象编文献。
+
+【项目已有材料与事实】
+原 PDF《Algorithm for Canonicalizing Legal Facts》主要描述事实规范化：原子事实抽取→把有原文支持的具体实体替换成法律角色→谓词/论元及角色、对象、否定、模态(当事人主张/争议/法院认定)、时间、争点、要件、出处等结构→按兼容法律背景筛选候选→embedding只检索候选→LLM判EQUIVALENT/PARENT_CHILD/RELATED_SIBLINGS/CONTRADICTORY/UNRELATED/UNCERTAIN→只合并等价→检查整簇定义、medoid、边界实例、排除条件及现有成员，防止连锁误合并和漂移→命名标准谓词与类别关系→保存原文映射、决策理由和版本。误合并更危险，但全单例/全拒判不算成功。规范化不使用WIN/LOSE；结构评估或冻结后才接入标签，挖掘胜败相关事实/authority模式。PDF提到FP-Growth、gSpan、ANCO-HITS作为候选，并非已经有完整实现。PDF示例不一定逻辑可靠，例如公司不能无依据变成控制人、股东不能无依据变成少数股东，未提供不必然等于拒绝；请指出而非照搬。
+总流程图更广：Evidence→Canonical Facts→Fact Patterns→Subtests/Factors→Elements→Claims/Defenses→Issues→Conclusion。Authorities(宪法/法条/法规/判例)→Rules/Tests→要件标准。图是概念关系，未证明全链自动化已实现。事实规范化需要法律背景，不能假定严格单向且下游信息永远不可提前用。区分允许的规则背景与禁止的本案结果/理由泄漏。
+团队聊天明确分工：1抽取事实、角色替换、谓词论元；2聚类、候选检索、LLM裁决、稳定性和provenance；3模式挖掘；4评估，并行与聚类组协作；5抓取法院推理引用的authorities。建议约1000样本案件开发基本逻辑。尚无提供给我们的代码，也不能据此断言其他组员没代码。
+白板出现DB-Scan、案件×事实矩阵、f1∧f2/f3∧f4及W/L。第二条字样像“FP→Rules/predict”；第一条像“FP→auto”，手写不确定，第三条为空。不能把猜读当确定需求。
+本地已有land 1.jsonl：6954条，6954不同doc_id，url全部indiankanoon.org；status ok6418、empty497、error39；facts为空1530。包含case_id/doc_id/url/title/facts/issues/petitioners_arguments/respondents_arguments/analysis_of_the_law/precedent_analysis/courts_reasoning/conclusion/四类先例引用情感字段/scraped_at/status/note。样本是判决段落抽取，有混入其他章节的迹象，字段标注方法未验证。无独立专家等价gold，无现成干净WIN/LOSE标签，无明确统一案件领域或筛选条件；不能因为文件名land就断言都是土地法。原始判决的记载≠拿到了所有原始证据。此轮不需要上传整份224MB数据，以上为已检查的结构与计数。
+术语工作定义：fact instance是具体案件命题，cluster是给定法律语境/粒度下可统一表达的实例集合，canonical predicate是类别语义与标准表示。不同案件的实例不等于同一个现实事件。family暂指较宽父类别/相关类别组织，是我们的解释不是团队正式定义，允许重新审视。pattern是一个案件内事实类别及关系的组合，在跨案件中反复出现，与family不同。法律相关性≠等价；no evidence≠false；证据不足≠证明相反；统计关联≠因果或法律规则。
+此前另有3份Pro报告只研究了规范化内部的两事实等价/整簇准入/增量纠错，不覆盖完整项目。不能被那些问题局限。
+
+【当前需要探究的三个广义问题；允许重组】
+A 怎样形成可靠、可复用且稳定的法律事实表示与类别体系，包括抽取、role/context、canonicalization、ontology/family与human involvement？
+B 怎样从案件中发现有意义、稳健、非冗余、可泛化的事实或事实-authority模式，而非只有高频或偶然的结果关联？
+C 怎样从模式通向有依据的规则/法律推理，或有清楚输入时点和目标的结果预测？必须区分归纳的经验规则、规范性法律规则、判决理由重建和前瞻预测；不预先认定都应该做。
+你需要评价这三问是否是正确科研切分、主贡献应落哪里、怎样避免拼装整套系统却没有清晰科学问题。
+
+【文献质量与覆盖要求】
+用户要求尽可能全面阅读近两年相关论文，包括high-level领域。请先做scoping review：列研究分支、检索源/实际query、时间界限/语言、纳入排除规则、向前向后引文追踪、去重，以及覆盖缺口。尽可能广搜但不得声称已读“所有相关论文”。主来源用论文全文/作者仓库/官方论文集，搜索摘要只是线索。每项明确full-text methods+experiments已读/部分全文/仅摘要/无法访问，不得把有链接等同深读。最近且最接近的方法优先读方法、实验、假设、失败边界；区分preprint与正式发表、版本/重复工作，未来日期及疑似不存在论文核查。不要为数量凑无关论文。允许分轮；本轮用足工具和研究时间，完成实际研究后给实质结果，不要只给计划、问我们是否继续。
+覆盖但不限于AI & Law中case-based/factor-based reasoning、argumentation与defeasible reasoning、rule induction/ILP/statistical relational learning/neurosymbolic方法；LLM legal reasoning、benchmark与评估；ontology induction、OpenIE/KG canonicalization、entity resolution、active/constrained clustering、semantic uncertainty；contrast/emerging/subgroup/graph/relational/MDL pattern discovery与多重检验；grounded rule extraction、provenance、temporal/jurisdiction applicability、evaluation leakage/generalization。审查检索到的新分支，不把我们这份列表当封闭边界。
+
+【想法与新颖性原则】
+不追求绝对原创，不因有相似工作就轻易否定方向。可以推进、完善或重新组织已有思想，但要有明确且重要的新增贡献。优先保留和发展可行想法；系统找最接近论文，深入比较问题设定、方法、技术细节、贡献边界，再给可信novelty论证。若核心问题、方法、贡献高度重合且没有实质差异，明确指出撞车，停止强行论证。所有建议标“已有方法/合理组合/待验证假设”，不要把设想当结果。
+
+【终局交付标准】
+需要三个问题各自的多路线比较与推荐、完整I/O和接口、算法步骤/必要伪代码、选型理由/为什么可能有效、反例/失败条件、强基线/公平预算/消融、专家标注与成本、数据划分/无泄漏评估、可证伪研究假设、最小可行实验→扩展计划、主贡献边界和独立文献证据。先高层再具体，后续另开Extra High深挖细节。
+
+【本对话：领域文献与方向研究 B】
+B：法律事实模式发现与经验规则/结果关联。先从frequent/closed/maximal patterns、contrast/emerging patterns、subgroup discovery、relational/graph patterns、MDL/compression、statistical significance/multiple testing、predictive rule learning和legal factor reasoning等领域建立地图，再研究近两年LLM与这些方向如何结合。区分pattern与family，事实类型与实例关系，同一party/contract/event绑定、否定与unknown、稀有但重要的例外、case-level vs claim-level outcome及泄漏。核查FP-Growth/gSpan/ANCO-HITS各自真实作用，ANCO-HITS名称若无法确认不要编定义。用广泛检索及全文阅读比较至少3种可行路线，不预设“把二元矩阵送进FP-Growth”就是最终方案。第一轮交付证据表/近邻方法深比较、可证伪研究问题、整体算法候选、推荐与否决条件、数据/评估依赖，之后我们会带总论结论来逐步细化。

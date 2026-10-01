@@ -1,0 +1,225 @@
+{
+  "case_id": "103193047",
+  "objects": [
+    {
+      "id": "o1",
+      "label": "Hameed Kunju",
+      "kind": "PERSON",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "Hameed Kunju ...Appellant(s)"
+        }
+      ]
+    },
+    {
+      "id": "o2",
+      "label": "Nazim",
+      "kind": "PERSON",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "Nazim ….Respondent(s)"
+        }
+      ]
+    },
+    {
+      "id": "o3",
+      "label": "Eight schedule suit shops",
+      "kind": "PROPERTY",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The appellant is the owner/landlord of eight schedule suit shops"
+        }
+      ]
+    },
+    {
+      "id": "o4",
+      "label": "One shop (respondent's possession)",
+      "kind": "PROPERTY",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The respondent is in possession of one shop out of eight shops as tenant"
+        }
+      ]
+    },
+    {
+      "id": "o5",
+      "label": "Seven other shops",
+      "kind": "PROPERTY",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The remaining seven shops were in occupation of other tenants"
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "u1",
+      "primary": true,
+      "description": "Eviction petition filed by landlord against 8 tenants (including respondent) under Section 11(2)(b) and 11(3) of the Act",
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The appellant is the owner/landlord of eight schedule suit shops"
+        },
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The respondent is in possession of one shop out of eight shops as tenant"
+        },
+        {
+          "segment_id": "p0002.s001",
+          "quote": "The appellant filed one eviction petition (OP(RC) No.3/2006) before the Rent Controlling Court ... against his 8 tenants, which included the present respondent herein also."
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "a1",
+      "unit_id": "u1",
+      "kind": "FACT",
+      "type": "OWN_PROPERTY",
+      "roles": {
+        "owner": "o1",
+        "property": "o3"
+      },
+      "role_evidence": {
+        "owner": [
+          {
+            "segment_id": "p0001.s003",
+            "quote": "The appellant is the owner/landlord of eight schedule suit shops"
+          }
+        ],
+        "property": [
+          {
+            "segment_id": "p0001.s003",
+            "quote": "The appellant is the owner/landlord of eight schedule suit shops"
+          }
+        ]
+      },
+      "status": "NARRATED",
+      "status_evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The appellant is the owner/landlord of eight schedule suit shops"
+        }
+      ],
+      "polarity": "POSITIVE",
+      "time": null,
+      "origin": {
+        "speaker": "SC Bench",
+        "stage": "Factual Background"
+      },
+      "attributes": {},
+      "scope": {},
+      "scope_parsed": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The appellant is the owner/landlord of eight schedule suit shops"
+        }
+      ],
+      "known_fields": [
+        {
+          "field": "type",
+          "value": "OWN_PROPERTY",
+          "evidence": [
+            {
+              "segment_id": "p0001.s003",
+              "quote": "The appellant is the owner/landlord of eight schedule suit shops"
+            }
+          ]
+        }
+      ],
+      "unresolved": [],
+      "scope_dependencies": []
+    },
+    {
+      "id": "a2",
+      "unit_id": "u1",
+      "kind": "FACT",
+      "type": "SUBLET_PROPERTY",
+      "roles": {
+        "tenant": "o2",
+        "subtenant": null,
+        "property": "o4"
+      },
+      "role_evidence": {
+        "tenant": [
+          {
+            "segment_id": "p0001.s003",
+            "quote": "The respondent is in possession of one shop out of eight shops as tenant"
+          }
+        ],
+        "property": [
+          {
+            "segment_id": "p0001.s003",
+            "quote": "The respondent is in possession of one shop out of eight shops as tenant"
+          }
+        ]
+      },
+      "status": "NARRATED",
+      "status_evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The respondent is in possession of one shop out of eight shops as tenant"
+        }
+      ],
+      "polarity": "POSITIVE",
+      "time": null,
+      "origin": {
+        "speaker": "SC Bench",
+        "stage": "Factual Background"
+      },
+      "attributes": {},
+      "scope": {},
+      "scope_parsed": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The respondent is in possession of one shop out of eight shops as tenant"
+        }
+      ],
+      "known_fields": [
+        {
+          "field": "type",
+          "value": "SUBLET_PROPERTY",
+          "evidence": [
+            {
+              "segment_id": "p0001.s003",
+              "quote": "The respondent is in possession of one shop out of eight shops as tenant"
+            }
+          ]
+        }
+      ],
+      "unresolved": [],
+      "scope_dependencies": []
+    }
+  ],
+  "edges": [
+    {
+      "op": "part_of",
+      "left": "o4",
+      "right": "o3",
+      "decision": "SUPPORTED",
+      "explanation": "The text explicitly states the respondent is in possession of 'one shop out of eight shops' which are owned by the appellant. The one shop is a physical part of the eight shops.",
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The respondent is in possession of one shop out of eight shops as tenant"
+        }
+      ]
+    }
+  ],
+  "group_reviews": []
+}

@@ -1,0 +1,663 @@
+{
+  "cases": [
+    {
+      "case_id": "1982777",
+      "task_id": "9c74983b08ed3850",
+      "query": {
+        "atoms": [
+          {
+            "status": "COURT_FOUND",
+            "type": "SUBLET_PROPERTY",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "OWN_PROPERTY",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e0.roles.property",
+            "op": "part_of",
+            "right": "e1.roles.property"
+          }
+        ]
+      },
+      "A": {
+        "task_id": "9c74983b08ed3850",
+        "status": "NOT_FOUND",
+        "explanation": "No qualifying COURT_FOUND SUBLET_PROPERTY was located. The High Court finding reported in the judgment establishes a landlord-tenant relationship and eviction liability, not subletting. With no court-found sublet-property atom, the requested direct PART_OF binding cannot be formed.",
+        "bindings": [],
+        "uncertainty": [
+          "NOT_FOUND is limited to the supplied judgment and does not assert real-world absence of subletting."
+        ],
+        "evidence": [
+          {
+            "segment_id": "p0001.s003",
+            "quote": "The suit was decreed by the High Court holding the landlord-tenant relationship as proved and the appellants having incurred liability for eviction on the ground of default in payment of rent as alleged by the respondents."
+          }
+        ],
+        "automatic_validation": {
+          "errors": [],
+          "semantic_correctness": "NOT_ESTABLISHED"
+        }
+      },
+      "before_counts": {
+        "witnesses": 0,
+        "uncertain_bindings": 4,
+        "rejected_bindings": 0
+      },
+      "after_counts": {
+        "witnesses": 0,
+        "uncertain_bindings": 0,
+        "rejected_bindings": 0
+      },
+      "key_traces": [
+        {
+          "binding": {
+            "e0": "a3",
+            "e1": "a6"
+          },
+          "before": [
+            {
+              "category": "uncertain_bindings",
+              "trace": {
+                "binding": {
+                  "e0": "a3",
+                  "e1": "a6"
+                },
+                "uncertainty": [
+                  {
+                    "event_id": "a3",
+                    "field": "type",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The source describes a rent-default period rather than one exact payment event, and the fixed representation cannot aggregate the interval into a single exact-date event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a3",
+                    "field": "status",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The source describes a rent-default period rather than one exact payment event, and the fixed representation cannot aggregate the interval into a single exact-date event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a3",
+                    "field": "polarity",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The source describes a rent-default period rather than one exact payment event, and the fixed representation cannot aggregate the interval into a single exact-date event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a6",
+                    "field": "type",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The High Court finding adopts the alleged default, which is expressed as an interval rather than an exact individual payment event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a6",
+                    "field": "status",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The High Court finding adopts the alleged default, which is expressed as an interval rather than an exact individual payment event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a6",
+                    "field": "polarity",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The High Court finding adopts the alleged default, which is expressed as an interval rather than an exact individual payment event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a3",
+                    "field": "id",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The source describes a rent-default period rather than one exact payment event, and the fixed representation cannot aggregate the interval into a single exact-date event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a6",
+                    "field": "id",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The High Court finding adopts the alleged default, which is expressed as an interval rather than an exact individual payment event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a3",
+                    "field": "roles.property",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The source describes a rent-default period rather than one exact payment event, and the fixed representation cannot aggregate the interval into a single exact-date event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a6",
+                    "field": "roles.property",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The High Court finding adopts the alleged default, which is expressed as an interval rather than an exact individual payment event.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "constraint": {
+                      "left": "e0.roles.property",
+                      "op": "part_of",
+                      "right": "e1.roles.property"
+                    },
+                    "left": null,
+                    "right": null,
+                    "reason": "UNKNOWN_ENDPOINT",
+                    "edge_ids": []
+                  }
+                ],
+                "evidence_refs": [
+                  {
+                    "case_id": "1982777",
+                    "event_id": "a3"
+                  },
+                  {
+                    "case_id": "1982777",
+                    "event_id": "a6"
+                  }
+                ],
+                "relation_edge_refs": []
+              }
+            }
+          ],
+          "after": [],
+          "after_no_candidate": true
+        }
+      ]
+    },
+    {
+      "case_id": "500624",
+      "task_id": "24d45ac35ac7f114",
+      "query": {
+        "atoms": [
+          {
+            "status": "NARRATED",
+            "type": "FILE_EVICTION",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "FILE_OTHER_PROCEEDING",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e1.roles.filer",
+            "op": "member_of",
+            "right": "e0.roles.respondent"
+          }
+        ]
+      },
+      "A": {
+        "task_id": "24d45ac35ac7f114",
+        "status": "UNKNOWN",
+        "explanation": "The NARRATED eviction filing expressly targets the collective 'appellants', and the same collective is said to have filed a revision in the fair-rent matter. A named appellant (Pramod Kumar Jaiswal) exists, but the source does not state that he, atomically, was the filer of that revision; group-act inheritance is prohibited. Thus a plausible atomic filer/member candidate exists, but the required filer identity is not established.",
+        "bindings": [],
+        "uncertainty": [
+          "The source establishes a collective filing by the appellants, not an individual filing by a specific PERSON/ORGANIZATION member of that respondent GROUP."
+        ],
+        "evidence": [
+          {
+            "segment_id": "p0001.s001",
+            "quote": "PETITIONER: Pramod Kumar Jaiswal and others"
+          },
+          {
+            "segment_id": "p0001.s003",
+            "quote": "It is the case of the appellants that they have filed a revision under the Act against the order fixing fair rent and the same is pending."
+          },
+          {
+            "segment_id": "p0001.s003",
+            "quote": "On 13.8.1997, the respondents herein filed a suit, T.S. (Eviction) No.80/97, seeking eviction of the appellants on grounds of non payment of rent and the bona fide need of the landlords for their own occupation."
+          }
+        ],
+        "automatic_validation": {
+          "errors": [],
+          "semantic_correctness": "NOT_ESTABLISHED"
+        }
+      },
+      "before_counts": {
+        "witnesses": 0,
+        "uncertain_bindings": 36,
+        "rejected_bindings": 9
+      },
+      "after_counts": {
+        "witnesses": 0,
+        "uncertain_bindings": 0,
+        "rejected_bindings": 5
+      },
+      "key_traces": [
+        {
+          "binding": {
+            "e0": "a10",
+            "e1": "a11"
+          },
+          "before": [
+            {
+              "category": "uncertain_bindings",
+              "trace": {
+                "binding": {
+                  "e0": "a10",
+                  "e1": "a11"
+                },
+                "uncertainty": [
+                  {
+                    "event_id": "a11",
+                    "field": "type",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The exact arrears period and amount are not stated in the eviction-ground sentence.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a11",
+                    "field": "status",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The exact arrears period and amount are not stated in the eviction-ground sentence.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a11",
+                    "field": "polarity",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The exact arrears period and amount are not stated in the eviction-ground sentence.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a11",
+                    "field": "id",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The exact arrears period and amount are not stated in the eviction-ground sentence.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "event_id": "a11",
+                    "field": "roles.filer",
+                    "dependencies": [
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "The exact arrears period and amount are not stated in the eviction-ground sentence.",
+                        "kind": "LOCAL_ISOLATION"
+                      },
+                      {
+                        "affected_fields": [
+                          "*"
+                        ],
+                        "reason": "UNPARSED_SCOPE",
+                        "kind": "LOCAL_ISOLATION"
+                      }
+                    ]
+                  },
+                  {
+                    "constraint": {
+                      "left": "e1.roles.filer",
+                      "op": "member_of",
+                      "right": "e0.roles.respondent"
+                    },
+                    "left": null,
+                    "right": "o4",
+                    "reason": "UNKNOWN_ENDPOINT",
+                    "edge_ids": []
+                  }
+                ],
+                "evidence_refs": [
+                  {
+                    "case_id": "500624",
+                    "event_id": "a10"
+                  },
+                  {
+                    "case_id": "500624",
+                    "event_id": "a11"
+                  }
+                ],
+                "relation_edge_refs": []
+              }
+            }
+          ],
+          "after": [],
+          "after_no_candidate": true
+        },
+        {
+          "binding": {
+            "e0": "a10",
+            "e1": "a8"
+          },
+          "before": [
+            {
+              "category": "rejected_bindings",
+              "trace": {
+                "binding": {
+                  "e0": "a10",
+                  "e1": "a8"
+                },
+                "evidence_refs": [
+                  {
+                    "case_id": "500624",
+                    "event_id": "a10"
+                  },
+                  {
+                    "case_id": "500624",
+                    "event_id": "a8"
+                  }
+                ],
+                "relation_edge_refs": [],
+                "failed_conditions": [
+                  {
+                    "constraint": {
+                      "left": "e1.roles.filer",
+                      "op": "member_of",
+                      "right": "e0.roles.respondent"
+                    },
+                    "left": "o4",
+                    "right": "o4",
+                    "reason": "PROPER_EDGE_NOT_IDENTITY",
+                    "edge_ids": []
+                  }
+                ],
+                "uncertainty": []
+              }
+            }
+          ],
+          "after": [
+            {
+              "category": "rejected_bindings",
+              "trace": {
+                "binding": {
+                  "e0": "a10",
+                  "e1": "a8"
+                },
+                "evidence_refs": [
+                  {
+                    "case_id": "500624",
+                    "event_id": "a10"
+                  },
+                  {
+                    "case_id": "500624",
+                    "event_id": "a8"
+                  }
+                ],
+                "relation_edge_refs": [],
+                "failed_conditions": [
+                  {
+                    "constraint": {
+                      "left": "e1.roles.filer",
+                      "op": "member_of",
+                      "right": "e0.roles.respondent"
+                    },
+                    "left": "o4",
+                    "right": "o4",
+                    "reason": "PROPER_EDGE_NOT_IDENTITY",
+                    "edge_ids": []
+                  }
+                ],
+                "uncertainty": []
+              }
+            }
+          ],
+          "after_no_candidate": false
+        },
+        {
+          "binding": {
+            "e0": "a10",
+            "e1": "a9"
+          },
+          "before": [
+            {
+              "category": "rejected_bindings",
+              "trace": {
+                "binding": {
+                  "e0": "a10",
+                  "e1": "a9"
+                },
+                "failed_conditions": [
+                  {
+                    "event_id": "a9",
+                    "field": "status"
+                  }
+                ],
+                "uncertainty": [],
+                "evidence_refs": [
+                  {
+                    "case_id": "500624",
+                    "event_id": "a10"
+                  },
+                  {
+                    "case_id": "500624",
+                    "event_id": "a9"
+                  }
+                ]
+              }
+            }
+          ],
+          "after": [
+            {
+              "category": "rejected_bindings",
+              "trace": {
+                "binding": {
+                  "e0": "a10",
+                  "e1": "a9"
+                },
+                "failed_conditions": [
+                  {
+                    "event_id": "a9",
+                    "field": "status"
+                  }
+                ],
+                "uncertainty": [],
+                "evidence_refs": [
+                  {
+                    "case_id": "500624",
+                    "event_id": "a10"
+                  },
+                  {
+                    "case_id": "500624",
+                    "event_id": "a9"
+                  }
+                ]
+              }
+            }
+          ],
+          "after_no_candidate": false
+        }
+      ]
+    }
+  ],
+  "trace_keys": "case/task/event binding; original full traces remain in parent results.json"
+}

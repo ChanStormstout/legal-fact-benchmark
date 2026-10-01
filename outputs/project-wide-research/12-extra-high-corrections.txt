@@ -1,0 +1,2542 @@
+Share
+You said:
+请做第2轮技术修正，直接给确定的算法接口与小反例，避免重写泛综述。你上轮的总体区分有用，但有三处需要更精确：
+1) 你H1的hard negatives把same predicate/different contract,event列在一起，但推荐的跨案canonicalization目标是predicate TYPE，合同ID不同本来不应该阻止类型共享；只有案件内proposition去重才要求同指。请将任务T1表达/谓词定义等价、T2案件内命题或事件消歧、T3向某factor投影完全分开，给每个I/O、gold关系、拒绝条件、评估。给出同一predicate+facet保留与严格断言等价两种实现的兼容接口。不要用T2的简单ID差异给T1制造虚假的改进。
+2) 在开放世界关系模式P=∃c(A(c)∧B(c))中，找不到clean witness绝不能推断不存在。你上轮反例在FALSE/UNKNOWN混写后用了不存在符号，需要修正。给域未知/已枚举域分别的SUPPORTED/REFUTED/UNKNOWN/CONFLICT定义；两份合同一真一未知的例子，与都有明确反证的例子区别。要求query matcher返回witnesses、status及source IDs，支持度必须按case/claim计数。如何计算含unknown的对比指标而不把它们当negative？只选一种可实施的首版策略，说明失去的保证。
+3) 符号规则匹配检查SAT(F∧guard)只证明条件相容，不证明成立。给正确的蕴含测试或显式四状态premise匹配；冲突事实不能用经典爆炸。实际法律举证/例外默认只能来自显式规则，不能自作主张unknown=false。设计最小单元案例和错误分层：抽取/规范化/匹配/法律规则解释/形式推导。
+补充最接近文献：LexGuard https://arxiv.org/html/2605.26530v1 已做重要变化敏感性/无关变化不变性；LRI https://arxiv.org/html/2505.14104v1 已做类案规则归纳；因此不要宣称这些原则新。无需再大规模检索，先用已核实文献，给约2000字以内的可执行修正版与3个必须通过的反例测试；不提供未跑实验的结果。
+…
+Show more
+Worked for 1m 22s
+ChatGPT said:
+
+第2轮修正后，我建议把系统固定成 T1 类型规范化、T2 实例消歧、T3 法律因素投影 三个完全独立接口。LexGuard 已明确做“material change 应改变、irrelevant change 应不变”及 solver-grounded checking；LRI 已把“从类案归纳共享前提—行为—后果的规则”正式化，因此这两点都不应作为 novelty。
+arXiv
++1
+
+1. T1 / T2 / T3：禁止混评
+Task	I/O	Gold	拒绝	主要评价
+T1 Predicate canonicalization	expression + local definition/context → predicate_type	EQUIV_TYPE / PARENT / SIBLING / DIFFERENT / UNCERTAIN	多义、definition不足、必要facet无法判断	EQUIV precision/recall + coverage
+T2 Instance resolution	case_id + grounded args + event/contract IDs + time → proposition/event ID	SAME_INSTANCE / DISTINCT / UNCERTAIN	coreference、合同/事件指代 unresolved	same-instance P/R；false-merge rate
+T3 Factor projection	grounded propositions + FactorSpec → factor state	SUPPORTED / REFUTED / UNKNOWN / CONFLICT	factor定义/适用范围不足	四状态 Macro-F1 + factor-support precision
+
+关键修正：Contract C1 != C9 对 T1 完全不是 hard negative。例如：
+
+Plain text
+Case A: buyer fully paid price under C1
+Case B: purchaser discharged entire consideration under C9
+
+T1 可以都是 PAYMENT{completeness=FULL}；T2 必然不是同一 instance；T3 若 factor=full_performance_of_payment_obligation，两者又都可能投影过去。
+
+统一兼容接口：
+
+Python
+Run
+CanonicalAssertion(
+  source_id,
+  case_id,
+  predicate_type,
+  facets,
+  bindings,          # entity/contract/event
+  polarity,
+  assertion_status,
+  time
+)
+
+
+equiv(a,b, mode):
+  if mode=="TYPE_FACET":
+      compare(predicate_type, required_facets)
+  if mode=="STRICT_ASSERTION":
+      additionally require same scoped bindings,
+      polarity/status/time compatibility
+
+所以可以同时实现“共享 predicate+保留 facets”和“严格 assertion dedup”，而不混成一个 clustering task。
+
+2. OWA pattern matcher：绝不把没找到 witness 当 false
+
+令
+
+𝑃
+=
+∃
+𝑐
+(
+𝐴
+(
+𝑐
+)
+∧
+𝐵
+(
+𝑐
+)
+)
+.
+P=∃c(A(c)∧B(c)).
+
+每个原子采用四值：
+
+Plain text
+TRUE=(support=1, refute=0)
+FALSE=(0,1)
+CONFLICT=(1,1)
+UNKNOWN=(0,0)
+
+matcher 必须返回：
+
+Python
+Run
+MatchResult(
+  status,
+  clean_witnesses,
+  conflicted_witnesses,
+  source_ids
+)
+域未知 domain_closed=False
+SUPPORTED：存在一个 clean witness，A、B 都 TRUE。
+CONFLICT：无 clean witness，但存在能正向满足 conjunction、同时至少一原子有反证的 witness。
+UNKNOWN：其余情况。
+REFUTED：禁止产生。
+
+因为即使已知所有 c 都失败，也可能存在未观测的 c。
+
+域已完整枚举
+
+domain_closed=True, D={c1...cn}：
+
+SUPPORTED：存在 clean witness。
+CONFLICT：无 clean witness，但存在 conflicted positive witness。
+REFUTED：每个 
+𝑐
+∈
+𝐷
+c∈D 的 conjunction 都有明确反证。
+UNKNOWN：否则。
+
+例1：
+
+Plain text
+C1: A=T, B=T
+C2: A=T, B=UNKNOWN
+
+→ SUPPORTED(C1)，C2 未知不影响已有 existential witness。
+
+例2：
+
+Plain text
+C1: A=T, B=F
+C2: A=F, B=T
+
+若域未知 → UNKNOWN；
+只有明确声明合同域恰为 {C1,C2} → REFUTED。
+
+v1 首版策略
+
+只运行开放域模式挖掘，不输出 existential REFUTED。
+
+支持度：
+
+𝑠
+𝑢
+𝑝
+𝑝
+𝑜
+𝑟
+𝑡
+(
+𝑃
+)
+=
+∑
+𝑢
+∈
+𝑐
+𝑎
+𝑠
+𝑒
+/
+𝑐
+𝑙
+𝑎
+𝑖
+𝑚
+1
+[
+status
+𝑢
+=
+𝑆
+𝑈
+𝑃
+𝑃
+𝑂
+𝑅
+𝑇
+𝐸
+𝐷
+]
+support(P)=
+u∈case/claim
+∑
+	​
+
+1[status
+u
+	​
+
+=SUPPORTED]
+
+一个 claim 内 20 个 witnesses 仍只算 1 个样本。
+
+含 unknown 的评价采用固定三分类：
+
+Plain text
+SUPPORTED / CONFLICT / UNKNOWN
+
+Macro-F1；UNKNOWN 是独立 gold class，不作为 negative。
+
+代价很明确：v1 只能证明“发现支持模式”而不能证明模式不存在；因此不能做完整 association-rule confidence 的 closed-world 解释。
+
+3. 规则执行：SAT 不是证明
+
+这一点必须在接口层阻止：
+
+𝑆
+𝐴
+𝑇
+(
+𝐹
+∧
+𝑔
+𝑢
+𝑎
+𝑟
+𝑑
+)
+SAT(F∧guard)
+
+仅表示“存在一种模型让二者同时成立”。
+
+例如：
+
+Plain text
+F = {}
+guard = Paid(C1)
+
+F ∧ Paid(C1) 可满足，但显然不能推出已经付款。
+
+经典一致逻辑中要证明：
+
+𝐹
+⊨
+𝑔
+𝑢
+𝑎
+𝑟
+𝑑
+F⊨guard
+
+应检查：
+
+𝑈
+𝑁
+𝑆
+𝐴
+𝑇
+(
+𝐹
+∧
+¬
+𝑔
+𝑢
+𝑎
+𝑟
+𝑑
+)
+.
+UNSAT(F∧¬guard).
+
+但法律事实允许 conflict，所以不能直接把矛盾的 F 塞进 classical solver，否则会有 explosion。
+
+v1 选择更简单的显式四状态 premise matcher：
+
+Python
+Run
+eval_rule(rule, facts):
+    states = [eval_atom(p, facts) for p in rule.premises]
+
+
+    if all(s == TRUE for s in states):
+        return SUPPORTED
+    if any(s == CONFLICT for s in states):
+        return CONFLICT
+    if any(s == FALSE for s in states):
+        return REFUTED_PREMISE
+    return UNKNOWN
+
+因此：
+
+Plain text
+A = CONFLICT
+Rule: A -> Liability
+
+不得推出 Liability。
+
+exception / burden / presumption 也不能写：
+
+Plain text
+if Exception != TRUE:
+    apply_rule()
+
+只能由明确 RuleSpec 表达，例如：
+
+Plain text
+premises=[A,B]
+exception=E
+exception_policy=REQUIRES_EXPLICIT_ABSENCE
+
+v1 暂不实现法律上的非单调 burden/default；因此会多给 UNKNOWN，但不会擅自把 UNKNOWN 当 false。
+
+4. 错误必须分五层
+Plain text
+E1 Extraction：原文 → assertion 错
+E2 Normalization：assertion → predicate/facet 错
+E3 Matching：变量 binding / witness 错
+E4 Legal interpretation：authority → RuleSpec 错
+E5 Formal derivation：规则正确但执行器推出错误结论
+
+否则最终错判时无法知道该改 LLM、ontology、matcher 还是 rule formalization。
+
+三个必须通过的反例单元测试
+
+Test 1 — T1/T2 separation
+
+同案 C1、C2 都是 FULL_PAYMENT：
+
+Plain text
+T1: SAME_TYPE
+T2: DISTINCT_INSTANCE
+
+跨案 C9 仍可 SAME_TYPE。若 T1 因 contract ID 不同判不同，测试失败。
+
+Test 2 — Open-world existential
+
+C1=A=T,B=F，C2=A=F,B=T：
+
+Plain text
+domain_closed=False → UNKNOWN
+domain_closed=True,{C1,C2} → REFUTED
+
+任何默认输出 FALSE/REFUTED 都失败。
+
+Test 3 — SAT + explosion
+
+Plain text
+F={}
+guard=A
+
+SAT(F∧A) 不得判 A 成立；再给
+
+Plain text
+A=CONFLICT
+rule A→B
+
+不得推出 B=SUPPORTED。
+
+这三项通过以后，再谈 clustering、pattern mining 或 solver 优化才有意义。LexGuard 已经证明 relevance-sensitive evaluation 与 formalized legal constraints 是重要方向；LRI 已经覆盖类案规则归纳的任务定义，所以你们真正需要验证的是：这套 T1/T2/T3 分层和开放世界、provenance-preserving 执行是否减少具体 legal fact/pattern pipeline 的错误传播。 
+arXiv
++1
+
+You said:
+第3轮：从可靠基线推进到真正可比较的算法候选。请保留前两轮T1/T2/T3区分、开放世界、固定train/dev/test和成本公平原则。现在请审查并发展3个候选，不要只说都已有研究而放弃，但核心高度重合必须明确。最多约3000中文字，不再写完整综述。
+候选A：类别定义由训练中的困难反例驱动修订。每个predicate定义保留positive/boundary/negative，选择嵌入相似而语义决定冲突的对，专家确认最小区别，再修订required facets/定义，重检受影响映射。比较随机/最低置信抽检和给同样定义的EDC。新近近邻ClassMATe TACL2025 https://aclanthology.org/2025.tacl-1.55/ 已经做基于logprob困难样本、专家标注、迭代修改class definition。你必须检查其算法3.4后才能判断差异；不能把换法律领域当新颖性。
+候选B：将规范化/实体绑定歧义传到关系模式。每条记录可有几个映射假设；共享entity/schema决定必须全局一致。模式输出在可接受解释集下的certain/possible support下上界，优先保留下界有价值的模式。复核预算优先减少会改变模式选择的歧义。注意上界仅针对固定抽取材料及有限候选解释，不代表所有现实未知事实；必须区分有限解释不确定性与开放世界缺失。经典 Mining Uncertain Data with Probabilistic Guarantees https://cs.hku.hk/~ckcheng/papers/kdd10-mining.pdf 已有possible-world频繁模式与高效支持分布，不可宣称传播不确定性新；我们的候选不假设LLM分数是校准概率，且有共享决策依赖。要发展还是其复杂度不值得？
+候选C：根据法律适用链中的关键未定前提分配验证预算，优先复核会改变结论且缺证的条件；不同于简单self-reflection。原始法律材料不可凭LLM补齐；缺失保留未知。LegalReasoner ACL2025已做逐步验证修正 https://aclanthology.org/2025.acl-long.361/，证明义务/主动信息获取亦有经典工作。请判断这个方向应暂缓还是能有明确目标函数。
+每个候选给：最小可执行算法、清楚的optimization objective（若只是启发式就明说）、I/O、关键伪代码或公式、主要计算瓶颈、3个强基线/消融、一个会推翻它的实验。随后选1个最适合目前无代码且有6954判决文本的项目的主研究方向，并给baseline→候选→扩展的步骤。不编性能或费用，不用“保证法律正确”。
+…
+Show more
+Worked for 2m 20s
+ChatGPT said:
+
+第3轮我会把三个候选当成可被实验淘汰的算法，而不是“研究主题”。结论先给：A 可做但与 ClassMATe 核心高度重合，适合作为 T1 辅助模块；B 最值得作为当前主算法方向；C 有明确目标函数，但你们目前缺 RuleSpec/权威法源标注，应作为第二阶段扩展。
+
+ClassMATe §3.4 确实已经完成“LLM logprob 选高不确定样本→专家标注→LLM根据困难样本重写 class description→迭代”的核心循环，而且其 Algorithm 1 甚至以平均 uncertainty 是否下降决定是否接受更新。
+ACL Anthology
++2
+ 因此 A 的 novelty 不能是“hard examples refine definitions”。KDD 2010 已正式采用 possible-world semantics，将 pattern support 当随机变量并处理指数级 possible worlds，所以 B 也不能声称“首次传播 pattern uncertainty”。
+i.cs.hku.hk
++1
+ LegalReasoner 则已有逐步 process verification、错误归因以及 fact tracking / authority retrieval 等 correction。
+ACL Anthology
++1
+ LRI 更已经把从 analogous precedents 归纳共享 applicability conditions / behavior / consequences 明确定义成任务。
+arXiv
+
+A. Counterexample-Guided Predicate Definition Refinement
+I/O
+Plain text
+Input:
+  train assertions
+  current PredicateSpec Dp
+  T1 mapping candidates
+  expert budget B
+
+PredicateSpec:
+  definition
+  argument_types
+  required_facets
+  positive_examples
+  boundary_examples
+  negative_examples
+
+Output:
+  revised Dp'
+  affected T1 mappings
+  edit provenance
+
+这里只改 T1 predicate type；contract/event identity 仍属于 T2。
+
+最小算法
+
+先找“词面/embedding 很近但当前 T1 判决冲突”的 contrastive pair：
+
+𝑠
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑖
+,
+𝑗
+)
+=
+𝑠
+𝑖
+𝑚
+(
+𝑖
+,
+𝑗
+)
+⋅
+𝑑
+𝑖
+𝑠
+𝑎
+𝑔
+𝑟
+𝑒
+𝑒
+𝑚
+𝑒
+𝑛
+𝑡
+(
+𝑖
+,
+𝑗
+)
+score(i,j)=sim(i,j)⋅disagreement(i,j)
+
+专家不直接“重写 definition”，而回答结构化问题：
+
+Plain text
+same type?
+若否：最小区别是什么？
+  polarity?
+  degree/full-vs-partial?
+  object type?
+  temporal scope?
+  legal/factual sense?
+  other?
+
+再让模型生成最小 PredicateSpec edit，并只重检依赖该 predicate 的 mappings。
+
+Python
+Run
+for round:
+    pairs = retrieve_near_semantic_conflicts(train)
+    q = select_boundary_pairs(pairs, B_round)
+    labels, minimal_facets = expert(q)
+
+
+    edits = propose_minimal_spec_edits(labels, minimal_facets)
+
+
+    choose edit minimizing:
+        boundary_error(edit)
+        + λ * definition_complexity(edit)
+
+
+    revalidate(only_affected_mappings)
+
+这里定义更新搜索仍是 heuristic；真正明确的 optimization 是“在专家确认的 boundary set 上最小化错误+定义复杂度”，而不是宣称找到全局最优 ontology。
+
+与 ClassMATe 真正不同在哪里
+
+ClassMATe 的 hard sample 来自模型 token logprob，并让专家给真实 label，再由 LLM 从样本改 description。A 若值得做，差异必须落在：
+
+pairwise semantic boundary → 专家确认 minimal distinguishing facet → structured schema edit → dependency-scoped remapping，
+
+而不能只是换成法律数据。
+ACL Anthology
+
+瓶颈： pair 数 
+𝑂
+(
+𝑛
+2
+)
+O(n
+2
+)，需 ANN/blocking；definition edit 可能影响大量历史映射。
+
+三基线/消融：
+
+static EDC-style definition，完全不修订；
+ClassMATe-style lowest-logprob sampling，同专家预算；
+random contrast pairs，同专家预算。
+
+推翻实验： 在固定 train/dev/test、相同专家量下，若 boundary-driven refinement 对 T1 hard-boundary precision/recall 和 downstream mapping error 不优于 ClassMATe-style sampling，或者收益主要来自多写了 examples 而非 facet revision，则 A 不值得作为新算法贡献。
+
+B. Globally Consistent Interpretation Bounds for Pattern Mining
+
+这是三个里我最看好的。
+
+核心不是“uncertainty propagation”，而是：
+
+不使用伪概率；把 T1/T2 的多个有限解释表示成共享离散决策，在全局一致解释集合上计算 pattern support 的上下界。
+
+同时严格区分：
+
+Plain text
+Interpretation uncertainty:
+  “这句话映射 PAYMENT 还是 TENDER？”
+  “X 与 Y 是否同一 contract？”
+
+Open-world missingness:
+  “文本根本没告诉我们是否付款。”
+
+第二种永远不能靠 possible interpretations 填出来。
+
+I/O
+Plain text
+Input:
+  extracted assertions
+  candidate T1 mappings
+  candidate T2 bindings
+  consistency constraints
+  short relational patterns P
+  case/claim units U
+
+Output for every P:
+  lower_support
+  upper_support
+  certain/possible pattern status
+  ambiguity decisions responsible for interval
+
+令 
+𝑍
+Z 为所有满足共享 entity/schema constraints 的有限可接受解释。
+
+对 claim 
+𝑢
+u、pattern 
+𝑃
+P、解释 
+𝑧
+z：
+
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+=
+1
+y
+uP
+	​
+
+(z)=1
+
+仅当上一轮的四状态 matcher 找到一个 clean SUPPORTED witness；UNKNOWN 永远不算 0/negative evidence，只是不贡献 support。
+
+由于 schema/entity decision 可以跨多个 assertion 共享，不能逐记录独立求界：
+
+𝐿
+(
+𝑃
+)
+=
+min
+⁡
+𝑧
+∈
+𝑍
+∑
+𝑢
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+L(P)=
+z∈Z
+min
+	​
+
+u
+∑
+	​
+
+y
+uP
+	​
+
+(z)
+𝑈
+(
+𝑃
+)
+=
+max
+⁡
+𝑧
+∈
+𝑍
+∑
+𝑢
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+U(P)=
+z∈Z
+max
+	​
+
+u
+∑
+	​
+
+y
+uP
+	​
+
+(z)
+
+于是：
+
+Plain text
+L(P) ≥ minsup
+    → CERTAIN_SUPPORT
+
+L(P) < minsup ≤ U(P)
+    → POSSIBLE_SUPPORT
+
+U(P) < minsup
+    → NOT_SUPPORTED_ENOUGH
+      （只相对于当前抽取材料+候选解释，
+       绝不是现实世界中“不存在”）
+
+这与 KDD probabilistic possible worlds 的关键区别是：这里不给 world 概率，也不假定 LLM score 已校准；而且多个记录由共享 decision variables 产生依赖。
+i.cs.hku.hk
+
+复核预算也可以有明确目标函数
+
+定义当前“会改变 pattern selection 的不确定模式数”：
+
+𝑅
+(
+𝑍
+)
+=
+∣
+{
+𝑃
+:
+𝐿
+(
+𝑃
+)
+<
+𝜏
+≤
+𝑈
+(
+𝑃
+)
+}
+∣
+.
+R(Z)=∣{P:L(P)<τ≤U(P)}∣.
+
+对待复核决策 
+𝑑
+d，其专家可能返回若干合法值 
+𝑣
+v，选择：
+
+𝑑
+∗
+=
+arg
+⁡
+min
+⁡
+𝑑
+max
+⁡
+𝑣
+∈
+𝑉
+𝑑
+𝑅
+(
+𝑍
+∣
+𝑑
+=
+𝑣
+)
+.
+d
+∗
+=arg
+d
+min
+	​
+
+v∈V
+d
+	​
+
+max
+	​
+
+R(Z∣d=v).
+
+这是一个无概率 minimax objective：
+
+问哪一个 ambiguity，才能在最坏情况下最大程度减少“这个 pattern 到底过不过线”的不确定性？
+
+最小版：
+
+Python
+for P:
+    L[P] = MILP_min_support(P, constraints)
+    U[P] = MILP_max_support(P, constraints)
+
+while review_budget:
+    candidates = decisions_affecting_borderline_patterns()
+    d = argmin_d worst_case_remaining_borderline(candidates)
+    expert_resolve(d)
+    add_constraint(d)
+    recompute_affected_bounds()
+主要瓶颈
+
+这是 B 最大风险：每个 pattern 两个 CSP/MILP，再加 active query 的 counterfactual solves。
+
+所以 v1 必须限制：
+
+conjunction 长度 ≤2/3；
+pattern candidate set 先固定；
+只在 training mining；
+incremental solver + affected-pattern cache。
+
+不要一开始枚举所有 possible worlds。
+
+三基线/消融：
+
+deterministic top-1 T1/T2 mapping；
+local interval：每个 assertion 独立取上下界，去掉 shared consistency；
+random ambiguity review，同专家预算。
+
+推翻实验： 如果大多数 pattern 的 [L,U] 极窄、最终选择与 top-1 几乎相同，或者 minimax review 在相同预算下不能比 random 更快减少“跨阈值 patterns”，那么全局 solver 的复杂度没有得到回报，B 应被放弃。
+
+C. Conclusion-Sensitive Verification Budgeting
+
+C 不是“让 LLM 多反思几遍”。
+
+输入必须已经有：
+
+Plain text
+Authority-backed RuleSpec
+four-state premises
+evidence/source IDs
+target issue
+
+验证 action 只能：
+
+回查已有原始材料 / 权威来源 / 人工确认 extraction，
+
+不能让 LLM“推测缺失事实”。
+
+最小目标
+
+设当前规则系统允许的目标结论状态集合为：
+
+𝐶
+(
+𝐸
+)
+.
+C(E).
+
+一个 UNKNOWN premise 
+𝑞
+q 经复核后可能变成：
+
+Plain text
+TRUE / FALSE / CONFLICT / still UNKNOWN
+
+定义 conclusion ambiguity：
+
+𝐴
+(
+𝐸
+)
+=
+∣
+𝐶
+(
+𝐸
+)
+∣
+A(E)=∣C(E)∣
+
+或更实际地计数尚未定状态的 target elements。
+
+选择：
+
+𝑞
+∗
+=
+arg
+⁡
+min
+⁡
+𝑞
+max
+⁡
+𝑠
+∈
+𝑂
+𝑢
+𝑡
+𝑐
+𝑜
+𝑚
+𝑒
+𝑠
+(
+𝑞
+)
+𝐴
+(
+𝐸
+∪
+{
+𝑞
+=
+𝑠
+}
+)
+.
+q
+∗
+=arg
+q
+min
+	​
+
+s∈Outcomes(q)
+max
+	​
+
+A(E∪{q=s}).
+
+即优先检查“结果可能因此发生变化”的 unknown premise，而不是检查模型最没信心的句子。
+
+可以先做 dependency pruning：
+
+Python
+Run
+unknowns = unresolved_premises(on_paths_to_target)
+
+
+for q in unknowns:
+    if changing q can never change target status:
+        discard q
+
+
+choose q minimizing worst_case_target_ambiguity()
+
+这与 LegalReasoner 的主要区别应当是 budgeted conclusion sensitivity over explicit rule graph；LegalReasoner 已经在逐步 reasoning 上做 correctness/progressiveness/potential verification 和错误 correction，所以“step verification”本身不是贡献。
+ACL Anthology
+
+瓶颈： 每个候选 premise 都需要 counterfactual rule execution；更关键的是你们目前还没有可靠 RuleSpec。
+
+三基线/消融：
+
+random unknown premise；
+LLM uncertainty / self-reflection priority；
+graph heuristic：最短 applicability chain / highest-degree premise。
+
+推翻实验： 在 authority-grounded gold chains 上，相同 review budget 下，如果 conclusion-sensitive policy 不能比这些简单策略解决更多 target states，或者误差主要来自 RuleSpec 本身而不是 premise verification，则 C 的 active algorithm 没价值。
+
+主方向选择：B
+
+A 最容易开始，但 ClassMATe 已经非常接近其核心学习循环；除非 structured boundary edit 带来很清楚的新现象，否则很容易变成“ClassMATe for legal predicates”。C 的问题不是 idea 不清楚，而是你们现在没有可靠 rules、elements、exceptions 和 prospective evidence，现在做会建立在多层未经验证的自动产物上。
+
+B 正好处在你们现有项目的核心接口：
+
+𝑇
+1
+/
+𝑇
+2
+ 
+𝑢
+𝑛
+𝑐
+𝑒
+𝑟
+𝑡
+𝑎
+𝑖
+𝑛
+𝑡
+𝑦
+→
+𝑟
+𝑒
+𝑙
+𝑎
+𝑡
+𝑖
+𝑜
+𝑛
+𝑎
+𝑙
+ 
+𝑝
+𝑎
+𝑡
+𝑡
+𝑒
+𝑟
+𝑛
+𝑠
+T1/T2 uncertainty→relational patterns
+
+而且它能回答一个非常具体、可证伪的问题：
+
+在 canonicalization 和 entity/event binding 并不唯一时，单一早期决定是否会制造/删除下游法律事实模式？全局一致的 set-valued inference 是否值得成本？
+
+我建议实际顺序固定为：
+
+Baseline 0：确定性管线
+top-1 T1 → top-1 T2 → four-state matcher → length-2 patterns，先证明数据结构和无泄漏 split 能跑。
+
+Baseline 1：局部 uncertainty
+每条 assertion 保留 2–3 个 admissible alternatives，但忽略共享决策，得到 naive support intervals。
+
+Candidate B：global constrained bounds
+加入 entity/schema equality、cannot-link、同一决策复用，MILP/CSP 求真正的 
+𝐿
+/
+𝑈
+L/U。
+
+Extension B+：budgeted ambiguity resolution
+加入上面的 minimax review objective。
+
+最后再接 A/C： A 用来改善产生这些 alternatives 的 T1 definition；C 则等 authority→RuleSpec 层可靠以后，把同一“决策影响下游结果”的思想延伸到法律适用链。
+
+这样研究故事不是“我们又设计一个 legal clustering system”，而是一个更窄也更硬的算法问题：上游规范化的离散歧义如何在共享约束下传播到关系模式，以及有限人工预算应解决哪些歧义。 这个方向既保留你们前两轮的开放世界和 T1/T2/T3 边界，也不会把 classic uncertain-data mining 已经做过的 possible-world 思想重新包装成新贡献。
+
+You said:
+请最后做一次短审计（约1000字），修正B/C目标函数中的两个实质漏洞，不再扩展文献：
+1. 你的C把still UNKNOWN列为合法复核结果，因此minimax最坏分支始终可能不改善，所有query打平；B中专家也可能回答仍无法确定或候选都错，不能假设复核必定解决。请给v1真实可运行的选择策略：可以是“条件于有效回答的影响/成本”启发式或由小pilot估计可回答率，但必须标明无最坏情况收益保证，保留无法确定/OUT_OF_SET分支，空解释集不能当所有模式均certain。修改伪代码。
+2. 区分全局min_z Σ_u y与Σ_u min_z y；同一个共享决定z导致两个claim一个支持P另一个不支持，z翻转二者交换，前者L=U=1，后者local interval=[0,2]。请核对此反例，说明依赖约束的收益和代价；如果独立cases的候选mapping本来不共享global变量就可分解，不要人为制造跨案依赖。global schema变量只有语义确实共享才共享，专家单一instance标注不能自动resolve所有instances。
+3. 选择目标“减少跨阈值模式数量”可能只证明模式不满足最小支持，并不增加有价值发现。如何联合报告confirmed-supported、ruled-out、remaining、correctness、coverage/cost，且避免把输出更少当成功？把最终B主算法及active扩展的评估写清，不要求都作为一篇paper贡献。
+给精炼修正版，不再宣称现有新颖性已成立。
+ChatGPT said:
+
+这次只修 B/C 的目标函数与评估，不再扩展方法边界。
+
+1. 复核不一定能解决：v1 改为 answerability-aware heuristic
+
+前一版 minimax 确实有漏洞：如果合法结果包括 UNKNOWN，最坏分支永远可以“不改善”，于是所有 query 可能打平。
+
+因此 v1 不用 minimax guarantee，改成开发集小 pilot 估计的“可回答率 × 条件影响 / 成本”：
+
+𝑆
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑞
+)
+=
+𝑝
+^
+answer
+(
+𝑞
+)
+⋅
+𝐼
+𝑚
+𝑝
+𝑎
+𝑐
+𝑡
+(
+𝑞
+∣
+有效回答
+)
+𝐶
+𝑜
+𝑠
+𝑡
+(
+𝑞
+)
+Score(q)=
+Cost(q)
+p
+^
+	​
+
+answer
+	​
+
+(q)⋅Impact(q∣有效回答)
+	​
+
+
+其中有效回答包括当前候选中的明确选择；必须保留：
+
+Plain text
+UNRESOLVED
+OUT_OF_SET
+
+二者都不能强迫成已有候选。
+
+B 中：
+
+Python
+Run
+for d in ambiguities:
+    p = answerability_rate(type(d))   # dev pilot估计
+    impact = mean_reduction_if_resolved(d)
+    score[d] = p * impact / cost(d)
+
+
+d = argmax(score)
+
+
+ans = expert_review(d)
+
+
+if ans == UNRESOLVED:
+    mark_unresolved(d)
+elif ans == OUT_OF_SET:
+    invalidate_current_candidate_set(d)
+    trigger_candidate_expansion_or_reextraction(d)
+else:
+    add_constraint(d, ans)
+
+
+recompute_only_affected_bounds()
+
+C 同理：
+
+𝑆
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑞
+)
+=
+𝑝
+^
+answer
+(
+𝑞
+)
+⋅
+Δ
+𝐴
+(
+𝑞
+∣
+𝑟
+𝑒
+𝑠
+𝑜
+𝑙
+𝑣
+𝑒
+𝑑
+)
+𝐶
+𝑜
+𝑠
+𝑡
+(
+𝑞
+)
+Score(q)=
+Cost(q)
+p
+^
+	​
+
+answer
+	​
+
+(q)⋅ΔA(q∣resolved)
+	​
+
+
+其中 
+𝐴
+A 是目标结论状态的不确定度。没有最坏情况收益保证；只是一个可运行、可比较的 budget heuristic。
+
+另一个硬规则：
+
+𝑍
+=
+∅
+Z=∅
+
+不能解释成“所有模式都 certain”。它表示：
+
+Plain text
+INCONSISTENT_INTERPRETATION_SET
+
+必须回溯候选生成/约束冲突。
+
+2. Global bound 与 local interval 不是一回事
+
+正确的全局下界是：
+
+𝐿
+(
+𝑃
+)
+=
+min
+⁡
+𝑧
+∈
+𝑍
+∑
+𝑢
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+L(P)=
+z∈Z
+min
+	​
+
+u
+∑
+	​
+
+y
+uP
+	​
+
+(z)
+
+而不是：
+
+∑
+𝑢
+min
+⁡
+𝑧
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+.
+u
+∑
+	​
+
+z
+min
+	​
+
+y
+uP
+	​
+
+(z).
+
+你的反例正确。
+
+设一个真正共享决定 
+𝑧
+∈
+{
+0
+,
+1
+}
+z∈{0,1}：
+
+𝑦
+1
+(
+𝑧
+)
+=
+𝑧
+,
+𝑦
+2
+(
+𝑧
+)
+=
+1
+−
+𝑧
+.
+y
+1
+	​
+
+(z)=z,y
+2
+	​
+
+(z)=1−z.
+
+那么任意合法全局解释中总支持数都是 1：
+
+𝐿
+=
+𝑈
+=
+1.
+L=U=1.
+
+但若错误地让两个 claim 各自独立挑解释：
+
+𝐿
+local
+=
+0
++
+0
+=
+0
+,
+𝑈
+local
+=
+1
++
+1
+=
+2.
+L
+local
+	​
+
+=0+0=0,U
+local
+	​
+
+=1+1=2.
+
+所以共享约束的收益是减少不可能同时发生的组合；代价是求解耦合、缓存和增量更新复杂。
+
+但绝不能人为制造共享变量：
+
+不同案件中的 entity binding 默认独立；
+不同 instance 的 T1 mapping 默认独立；
+只有确实共享的 schema decision、同一实体/事件 identity decision，才使用同一个变量。
+
+例如专家确认：
+
+Plain text
+instance #37 → PAYMENT
+
+只能解决 #37，不能自动把全部相似实例都改成 PAYMENT。
+
+只有专家修改了真正共享的 PredicateSpec，才可能触发一批 instance 的重新验证。
+
+3. B 不能以“输出更少”作为成功
+
+Active review 若只优化：
+
+减少跨阈值 pattern 数量
+
+很可能只是不断把 candidate 判死。
+
+因此 B 的最终报告必须把四件事拆开：
+
+Plain text
+CONFIRMED_SUPPORTED
+RULED_OUT
+REMAINING_AMBIGUOUS
+INVALID / OUT_OF_SET
+B 主算法
+
+在一小块完全人工 adjudicated 的 evaluation set 上，首先检验 bounds 本身：
+
+bound soundness：真实 support 是否落在 [L,U]；
+interval width；
+CONFIRMED_SUPPORTED precision；
+CONFIRMED_SUPPORTED recall；
+RULED_OUT precision；
+unresolved coverage。
+
+如果只得到很少的 confirmed patterns，即使 precision 高，也不能称成功。
+
+B-active 扩展
+
+固定相同 review budget，与 random / uncertainty-only 比较，同时报告：
+
+confirmed-supported recall
+confirmed-supported recall
+confirmed-supported precision
+confirmed-supported precision
+ruled-out precision
+ruled-out precision
+remaining ambiguity rate
+remaining ambiguity rate
+
+以及：
+
+Plain text
+expert decisions
+expert time
+solver calls
+wall-clock / compute cost
+OUT_OF_SET rate
+
+可以额外报告：
+
+#
+new correctly confirmed-supported patterns
+review cost
+review cost
+#new correctly confirmed-supported patterns
+	​
+
+
+这样 active strategy 必须既能消除错误候选，也要实际找回有价值的真模式，而不能靠“把什么都排除”取胜。
+
+因此最终 B 应拆成两个可独立验证的问题：
+
+B-core：共享离散歧义下，global consistency 是否产生更紧且正确的 support bounds？
+
+B-active：在固定人工预算下，answerability-aware review 是否比简单策略更有效地增加正确 confirmed patterns，同时减少剩余歧义？
+
+两者都尚只是候选假设，不应提前宣称构成新颖贡献。
+
+You said:
+Pro第二轮高层裁决已完成：保留B，但主假设从普通bounds/下游复核进一步明确为“联合歧义下互补模式集合选择与预算复核”。新近邻Query-Guided Resolution in Uncertain Databases (2023) https://u.cs.biu.ac.il/~amstery/files/drien2023query.pdf 已考虑未知/相关概率；Query-Guided Analysis and Mitigation of Data Verification Errors(ICDE2026) https://arxiv.org/html/2603.08612v2 已有多个查询输出及预算策略MESReduce。不能主张首次下游复核。
+请最后补齐一个可实现的B-set版本，控制在1500中文字+伪代码，不扩文献：固定有限候选模式P、合法解释Z，定义模式集S的价值F(S,z)，包含去重覆盖和复杂度；不能让单个极宽单谓词覆盖所有样本取得最高分，必须说明使用何种独立任务单元/需要区分的对比案例或分层覆盖，并说明这只是价值代理而非法律重要性本身。给max-min robust selection或minimax regret一个具体方案，说明离散优化可解的限制、无通用贪心保证。
+复核策略要基于整个选择决策在解释变化时的损失/分歧，而非简单受影响模式数量，给真实可实现v1启发式，保留UNRESOLVED/OUT_OF_SET，不假设均匀解释就是实概率。专家只看原文与语义问题，不看想让哪些模式入选。比较共享同一集合选择器的query-output impact复核。v1固定所有候选和类别定义，只揭示已有映射选择；候选扩展属独立版本，不能偷偷边改边计分。给一个两三个模式的数字例子说明为什么集合决策会不同于局部不确定性/输出数。若目标仍不清楚就直接指出，不能写似是而非公式。
+…
+Show more
+Worked for 57s
+ChatGPT said:
+
+可以把 B 最终固定成 Robust Pattern-Set Selection under Joint Ambiguity。这里的目标不是证明 pattern 有法律重要性，而是在固定训练材料、固定候选 
+𝑃
+P、固定解释集合 
+𝑍
+Z 下，选择一个在联合歧义中仍有稳定表示价值的互补 pattern 集合。
+
+1. 固定对象与价值函数
+
+独立单位取
+
+𝑢
+=
+(
+𝑙
+𝑒
+𝑎
+𝑘
+𝑎
+𝑔
+𝑒
+_
+𝑔
+𝑟
+𝑜
+𝑢
+𝑝
+,
+ 
+𝑐
+𝑙
+𝑎
+𝑖
+𝑚
+/
+𝑖
+𝑠
+𝑠
+𝑢
+𝑒
+,
+ 
+𝑝
+𝑟
+𝑜
+𝑐
+𝑒
+𝑑
+𝑢
+𝑟
+𝑎
+𝑙
+ 
+𝑠
+𝑡
+𝑎
+𝑔
+𝑒
+)
+u=(leakage_group, claim/issue, procedural stage)
+
+同一 claim 内多个 witness 只算一次。另构造训练集内的 contrast pairs 
+𝐶
+𝑔
+C
+g
+	​
+
+：只在相同 issue/阶段层内配对，例如 outcome/factor annotation 不同的两个单位；它只用于衡量表示能否区分任务相关案例，不代表法律 materiality。
+
+令 
+𝑎
+𝑢
+𝑝
+(
+𝑧
+)
+∈
+{
+0
+,
+1
+}
+a
+up
+	​
+
+(z)∈{0,1} 表示解释 
+𝑧
+z 下 pattern 
+𝑝
+p 在单位 
+𝑢
+u 有 clean SUPPORTED witness。定义：
+
+𝐹
+(
+𝑆
+,
+𝑧
+)
+=
+𝛼
+𝐷
+(
+𝑆
+,
+𝑧
+)
++
+𝛽
+𝐶
+(
+𝑆
+,
+𝑧
+)
+−
+𝜌
+𝑅
+(
+𝑆
+,
+𝑧
+)
+−
+𝜂
+𝐾
+(
+𝑆
+)
+F(S,z)=αD(S,z)+βC(S,z)−ρR(S,z)−ηK(S)
+
+其中：
+
+𝐷
+=
+1
+∣
+𝐶
+∣
+∑
+(
+𝑢
+,
+𝑣
+)
+∈
+𝐶
+1
+[
+∃
+𝑝
+∈
+𝑆
+:
+𝑎
+𝑢
+𝑝
+(
+𝑧
+)
+≠
+𝑎
+𝑣
+𝑝
+(
+𝑧
+)
+]
+D=
+∣C∣
+1
+	​
+
+(u,v)∈C
+∑
+	​
+
+1[∃p∈S:a
+up
+	​
+
+(z)
+
+=a
+vp
+	​
+
+(z)]
+
+是对比区分覆盖；
+
+𝐶
+=
+1
+∣
+𝐺
+∣
+∑
+𝑔
+min
+⁡
+(
+1
+,
+#
+{
+𝑢
+∈
+𝑔
+:
+∃
+𝑝
+∈
+𝑆
+,
+𝑎
+𝑢
+𝑝
+=
+1
+}
+𝑞
+𝑔
+)
+C=
+∣G∣
+1
+	​
+
+g
+∑
+	​
+
+min(1,
+q
+g
+	​
+
+#{u∈g:∃p∈S,a
+up
+	​
+
+=1}
+	​
+
+)
+
+是分层且截断的 coverage；
+𝑅
+R 是 pattern 间覆盖重叠，
+𝐾
+K 是长度、facet 数等复杂度。
+
+这样一个“几乎所有案例都为真”的宽单谓词虽然 coverage 高，但 
+𝐷
+≈
+0
+D≈0，且 coverage 被截断，不会仅靠“什么都覆盖”获胜。这只是 representation-utility proxy，不是法律重要性分数。
+
+2. Robust set selection
+
+v1 采用：
+
+𝑆
+∗
+=
+arg
+⁡
+max
+⁡
+∣
+𝑆
+∣
+≤
+𝑘
+min
+⁡
+𝑧
+∈
+𝑍
+𝐹
+(
+𝑆
+,
+𝑧
+)
+S
+∗
+=arg
+∣S∣≤k
+max
+	​
+
+z∈Z
+min
+	​
+
+F(S,z)
+
+不采用 pattern-by-pattern bounds 再独立排序，因为互补性本身是目标。
+
+有限 
+𝑃
+,
+𝑍
+P,Z 小时直接 MILP/枚举；
+𝑍
+Z 大时采用 scenario generation：
+
+Python
+Run
+Z_work = initial_scenarios()
+
+
+while True:
+    S = solve_max_min(P, Z_work, k, F)
+
+
+    z_bad = solve_worst_interpretation(S, constraints)
+
+
+    if F(S, z_bad) >= current_lower_bound - tol:
+        break
+
+
+    Z_work.add(z_bad)
+
+
+return S
+
+由于 worst-case、redundancy、共享解释变量使目标通常不具标准 submodularity，没有通用 greedy approximation 保证。所以首版必须限制候选 pattern 数、长度和 
+𝑘
+k。
+
+共享变量只用于语义上真实共享的决定；独立案件的 instance mapping 默认可分解，不能为了“global”人为耦合。
+
+3. Active review：查询整个集合决策的价值
+
+当前集合为 
+𝑆
+∗
+S
+∗
+。对未决 mapping 
+𝑑
+d，每个已有候选值 
+𝑣
+v 都得到条件解释集 
+𝑍
+𝑑
+=
+𝑣
+Z
+d=v
+	​
+
+，并重新运行同一个 set selector：
+
+𝑉
+𝑑
+=
+𝑣
+∗
+=
+max
+⁡
+𝑆
+min
+⁡
+𝑧
+∈
+𝑍
+𝑑
+=
+𝑣
+𝐹
+(
+𝑆
+,
+𝑧
+)
+V
+d=v
+∗
+	​
+
+=
+S
+max
+	​
+
+z∈Z
+d=v
+	​
+
+min
+	​
+
+F(S,z)
+
+当前集合在该回答下的损失：
+
+𝑅
+𝑒
+𝑔
+𝑟
+𝑒
+𝑡
+(
+𝑑
+,
+𝑣
+)
+=
+𝑉
+𝑑
+=
+𝑣
+∗
+−
+min
+⁡
+𝑧
+∈
+𝑍
+𝑑
+=
+𝑣
+𝐹
+(
+𝑆
+∗
+,
+𝑧
+)
+Regret(d,v)=V
+d=v
+∗
+	​
+
+−
+z∈Z
+d=v
+	​
+
+min
+	​
+
+F(S
+∗
+,z)
+
+v1 查询分数：
+
+𝑆
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑑
+)
+=
+𝑝
+^
+a
+n
+s
+w
+e
+r
+(
+𝑡
+𝑦
+𝑝
+𝑒
+(
+𝑑
+)
+)
+⋅
+max
+⁡
+𝑣
+𝑅
+𝑒
+𝑔
+𝑟
+𝑒
+𝑡
+(
+𝑑
+,
+𝑣
+)
+𝑐
+𝑜
+𝑠
+𝑡
+(
+𝑑
+)
+Score(d)=
+cost(d)
+p
+^
+	​
+
+answer
+	​
+
+(type(d))⋅max
+v
+	​
+
+Regret(d,v)
+	​
+
+
+𝑝
+^
+a
+n
+s
+w
+e
+r
+p
+^
+	​
+
+answer
+	​
+
+ 只由 dev pilot 估计“专家能明确回答的比例”，不是解释概率，也不假设候选均匀。
+
+Python
+Run
+for d in unresolved:
+    impacts = []
+
+
+    for v in fixed_candidates[d]:
+        S_v = robust_select(Z conditioned on d=v)
+        impacts.append(
+            robust_value(S_v) -
+            robust_value(S_current, conditioned_on=(d,v))
+        )
+
+
+    score[d] = answerability[d.type] * max(impacts) / cost[d]
+
+
+d = argmax(score)
+ans = expert_read_original_text(d)
+
+
+if ans == UNRESOLVED:
+    freeze_as_unresolved(d)
+elif ans == OUT_OF_SET:
+    set_mapping_to_UNKNOWN(d)   # v1 不扩候选
+else:
+    constrain(d, ans)
+
+
+recompute()
+
+专家只回答原文语义问题，不知道当前想保留哪些 patterns。
+
+比较基线应使用完全相同的 robust set selector，只更换 query policy，例如：
+
+random；
+local mapping uncertainty；
+query-output impact：最大化 
+∣
+𝑆
+∗
+△
+𝑆
+𝑑
+=
+𝑣
+∗
+∣
+∣S
+∗
+△S
+d=v
+∗
+	​
+
+∣。
+4. 一个最小例子
+
+两个 contrast pairs：
+(
+𝑢
+1
+,
+𝑢
+2
+)
+,
+(
+𝑢
+3
+,
+𝑢
+4
+)
+(u
+1
+	​
+
+,u
+2
+	​
+
+),(u
+3
+	​
+
+,u
+4
+	​
+
+)。
+
+p1 在四个单位都成立，因此：
+
+𝐷
+(
+{
+𝑝
+1
+}
+)
+=
+0.
+D({p1})=0.
+
+共享歧义 
+𝑧
+z 导致：
+
+	
+𝑧
+1
+z
+1
+	​
+
+	
+𝑧
+2
+z
+2
+	​
+
+
+p2	区分 pair 1	区分 pair 2
+p3	区分 pair 2	区分 pair 1
+
+所以单独看 p2、p3 都有“局部语义不确定性”，但：
+
+𝐷
+(
+{
+𝑝
+2
+,
+𝑝
+3
+}
+,
+𝑧
+1
+)
+=
+𝐷
+(
+{
+𝑝
+2
+,
+𝑝
+3
+}
+,
+𝑧
+2
+)
+=
+1.
+D({p2,p3},z
+1
+	​
+
+)=D({p2,p3},z
+2
+	​
+
+)=1.
+
+因此 robust selector 可以稳定选择 {p2,p3}，而没有必要花专家预算解决这个歧义。这正是 B-set 相对“数有多少不确定 pattern / 有多少输出变化”更合理的地方：关注的是最终互补集合是否真的会受解释变化损害。
+
+最终应分别评价 B-core 的 robust-set correctness/stability/coverage/complexity，以及 B-active 在固定专家预算下减少 set regret、保持真实有价值 pattern recall 的能力；两者不必强行包装成同一个论文贡献。
+
+You said:
+对第五轮方案做最后一次技术核查，只处理以下问题并给纠正版伪代码，勿扩展新方向：
+1 分析单元应是(case_id,claim_id,stage)，related-case group仅作依赖/划分信息，不能合并不同裁判。
+2 max_S min_z F(S,z)的场景生成：只用部分z的master最优值是全问题上界；给定S的完整worst-case oracle值是可行方案下界。第五轮称master lower bound似乎反了。近似oracle/超时只报告有证据的界，不承诺普通greedy有保证。
+3 以y=是否有已记录支持作为二元contrast时，y=0包含未知。不能把未知当作反事实以奖励区分。首版应限定独立专家定义的任务对和有证据的差异，或明确只测记录差异并另审法律意义；你推荐哪个最小可执行定义？不要引入未经验证的胜败标签。broad-pattern coverage高的问题也不能仅靠任意加权声称被杜绝。
+4 OUT_OF_SET不是普通UNKNOWN。固定候选实验中必须标记候选失败，撤销受影响保证并计入失败/覆盖；扩展需新版本，不能静默删样本或把扩大搜索归功于复核策略。
+5 query-output baseline应优化单个匹配/支持输出的确定性，不使用所选模式集合的对称差（后者已经决策感知）；但必须另比较真实Query-Guided Resolution/MESReduce的适配加同一个集合选择器。
+请确认哪些纠正成立，给最简单且有实际任务意义的F(S,z)和复核排序；明确它是启发式/有限候选条件设计，而不是新颖性或收益已证明。约1200中文字。
+…
+Show more
+Worked for 1m 27s
+ChatGPT said:
+
+这五点纠正都成立，其中第 2、3、4 点是必须修的实质问题。最终 B-set v1 我建议收紧如下。
+
+1. 分析单位与依赖单位分离
+
+分析单位固定为
+
+𝑢
+=
+(
+𝑐
+𝑎
+𝑠
+𝑒
+_
+𝑖
+𝑑
+,
+𝑐
+𝑙
+𝑎
+𝑖
+𝑚
+_
+𝑖
+𝑑
+,
+𝑠
+𝑡
+𝑎
+𝑔
+𝑒
+)
+.
+u=(case_id,claim_id,stage).
+
+related_case_group 只用于：
+
+train/dev/test 防泄漏；
+已知共享实体/程序历史的依赖约束；
+bootstrap / error correlation。
+
+绝不能把不同裁判合并成一个 observation。
+
+2. Robust optimization 的界修正
+
+目标仍为
+
+𝑉
+∗
+=
+max
+⁡
+∣
+𝑆
+∣
+≤
+𝑘
+min
+⁡
+𝑧
+∈
+𝑍
+𝐹
+(
+𝑆
+,
+𝑧
+)
+.
+V
+∗
+=
+∣S∣≤k
+max
+	​
+
+z∈Z
+min
+	​
+
+F(S,z).
+
+对场景子集 
+𝑍
+𝑤
+⊂
+𝑍
+Z
+w
+	​
+
+⊂Z：
+
+𝑈
+𝐵
+=
+max
+⁡
+𝑆
+min
+⁡
+𝑧
+∈
+𝑍
+𝑤
+𝐹
+(
+𝑆
+,
+𝑧
+)
+UB=
+S
+max
+	​
+
+z∈Z
+w
+	​
+
+min
+	​
+
+F(S,z)
+
+是完整问题的上界。
+
+给定 master 解 
+𝑆
+𝑡
+S
+t
+	​
+
+，若 worst-case oracle 精确得到
+
+𝑤
+𝑡
+=
+min
+⁡
+𝑧
+∈
+𝑍
+𝐹
+(
+𝑆
+𝑡
+,
+𝑧
+)
+,
+w
+t
+	​
+
+=
+z∈Z
+min
+	​
+
+F(S
+t
+	​
+
+,z),
+
+则 
+𝑤
+𝑡
+w
+t
+	​
+
+ 是全局最优值的可行下界。
+
+Python
+Z_work = initial_scenarios()
+LB = -inf
+
+while True:
+    S, UB = solve_master(P, Z_work, k)
+
+    oracle = worst_case_oracle(S, Z)
+
+    if oracle.exact:
+        LB = max(LB, oracle.value)
+    elif oracle.has_certified_lower_bound:
+        LB = max(LB, oracle.lower_bound)
+
+    if oracle.found_scenario:
+        Z_work.add(oracle.z_bad)
+
+    if certified(UB - LB <= tol):
+        break
+    if timeout:
+        return S, LB, UB, "GAP_NOT_CLOSED"
+
+若 oracle 超时，只报告 solver 实际给出的 certified bounds；普通 greedy 没有保证。
+
+3. F 不再把 UNKNOWN 当成“另一类”
+
+首版我推荐一个小型、预注册的 expert contrast set 
+𝐶
+C，而不是 outcome label。
+
+每个 contrast：
+
+𝑐
+=
+(
+𝑢
+𝑖
+,
+𝑢
+𝑗
+,
+ℎ
+𝑐
+)
+c=(u
+i
+	​
+
+,u
+j
+	​
+
+,h
+c
+	​
+
+)
+
+满足：
+
+同 issue / stage；
+专家仅看原文，确认两边在预定义 factual facet 
+ℎ
+𝑐
+h
+c
+	​
+
+ 上存在有证据的不同值；
+例如 FULL_PAYMENT vs PARTIAL_PAYMENT；
+任何一边证据不足都不进入 
+𝐶
+C。
+
+这样不使用“没记录到 pattern”作为负例。
+
+最简单的价值函数：
+
+𝐹
+(
+𝑆
+,
+𝑧
+)
+=
+1
+∣
+𝐶
+∣
+∑
+𝑐
+∈
+𝐶
+1
+[
+∃
+𝑝
+∈
+𝑆
+:
+ 
+𝑝
+ correctly realizes 
+𝑐
+ under 
+𝑧
+]
+−
+𝜆
+∑
+𝑝
+∈
+𝑆
+𝑐
+𝑜
+𝑚
+𝑝
+𝑙
+𝑒
+𝑥
+𝑖
+𝑡
+𝑦
+(
+𝑝
+)
+−
+𝜌
+ 
+𝑟
+𝑒
+𝑑
+𝑢
+𝑛
+𝑑
+𝑎
+𝑛
+𝑐
+𝑦
+(
+𝑆
+,
+𝑧
+)
+.
+F(S,z)=
+∣C∣
+1
+	​
+
+c∈C
+∑
+	​
+
+1[∃p∈S: p correctly realizes c under z]−λ
+p∈S
+∑
+	​
+
+complexity(p)−ρredundancy(S,z).
+
+一个极宽 pattern 若在两边都相同，不覆盖 contrast，所以不会仅因覆盖很多案件得高分；但这仍只是一个 representation utility proxy，绝不是法律重要性本身。复杂度和 redundancy 系数必须在 dev 固定，不能事后调到“想要的结果”。
+
+4. OUT_OF_SET 必须使局部保证失效
+Python
+ans = expert_review(d)
+
+if ans == UNRESOLVED:
+    keep_all_current_candidates(d)
+
+elif ans == OUT_OF_SET:
+    mark_candidate_failure(d)
+    invalidate_bounds_for(dependent_units_and_patterns(d))
+    report_coverage_loss(d)
+    # v1 禁止扩候选
+
+else:
+    constrain(d, ans)
+
+OUT_OF_SET 不能变成 UNKNOWN，更不能静默删掉该样本。
+
+候选扩展必须作为 新版本实验，不能把扩展后的收益记到 review policy 名下。
+
+5. 最终复核排序
+
+B-active 仍用集合决策影响，但只作启发式：
+
+𝑆
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑑
+)
+=
+𝑝
+^
+answer
+(
+𝑡
+𝑦
+𝑝
+𝑒
+(
+𝑑
+)
+)
+⋅
+𝐼
+𝑚
+𝑝
+𝑎
+𝑐
+𝑡
+set
+(
+𝑑
+)
+𝑐
+𝑜
+𝑠
+𝑡
+(
+𝑑
+)
+.
+Score(d)=
+cost(d)
+p
+^
+	​
+
+answer
+	​
+
+(type(d))⋅Impact
+set
+	​
+
+(d)
+	​
+
+.
+
+其中 Impact_set 是：在各个已有候选答案下重新运行同一个 robust selector 后，当前集合可能遭受的 value regret；UNRESOLVED/OUT_OF_SET 不假设会改善。
+
+比较必须分开：
+
+random review；
+local/query-output review：只优化单个 mapping/support output 的确定性，不看最终集合；
+Query-Guided Resolution / MESReduce 适配：按其 query-output/data-verification 思路选择 query，但之后仍调用完全相同的 B-set selector；
+B 的 set-decision-aware heuristic。
+
+最终评价不能只看“ambiguous patterns 变少”，而要同时报告：
+
+correctly covered expert contrasts；
+robust-set value；
+confirmed / invalid / unresolved coverage；
+OUT_OF_SET rate；
+expert review 数量/时间；
+solver gap 与计算成本。
+
+因此，最终 B-set 是一个有限候选、有限解释、专家 contrast 代理目标下的 robust set-selection + decision-aware review 设计。它目前只是可比较算法候选；新颖性和收益都尚未由实验建立。
+
+ChatGPT can make mistakes. Check important info.
+Latest response
+
+
+
+
+Extra High

@@ -1,0 +1,123 @@
+{
+"case_id": "103193047",
+"answers": [
+{
+"task_id": "9c74983b08ed3850",
+"answer_status": "UNKNOWN",
+"explanation": "The source text identifies the respondent as a tenant of 'one shop' (p0001.s003) out of eight, but never explicitly names the specific shop in the 'sublet property' category (e0) or the 'owned property' category (e1) within the same sentence or paragraph to establish a direct physical part-of relationship. The text mentions 'schedule suit shops' generally (p0001.s003) and 'suit shops' (p0003.s005), but lacks the specific identifiers required to bind a specific sublet unit to a specific owned unit as a proper part.",
+"bindings": [],
+"missing_fields": [
+"Specific identifier for the sublet property (e0) to match the specific owned property (e1).",
+"Explicit statement linking the specific sublet unit to the specific owned unit as a physical part."
+],
+"other_combinations_considered": "General references to 'suit shops' or 'eight schedule suit shops' do not satisfy the constraint of specific property identity required for a proper part_of relation between distinct property entities.",
+"evidence": [
+{
+"segment_id": "p0001.s003",
+"quote": "The respondent is in possession of one shop out of eight shops as tenant..."
+},
+{
+"segment_id": "p0001.s003",
+"quote": "The appellant is the owner/landlord of eight schedule suit shops details of which are specified in the eviction petition."
+}
+]
+},
+{
+"task_id": "24d45ac35ac7f114",
+"answer_status": "MATCH",
+"explanation": "The source text explicitly narrates that the respondent filed a writ petition (FILE_OTHER_PROCEEDING) under Article 227. The text also explicitly narrates that the eviction petition (FILE_EVICTION) was filed against a group of tenants which included the respondent. The respondent is therefore a member of the respondent group of the eviction petition.",
+"bindings": [
+{
+"atoms": [
+{
+"var": "e0",
+"type": "FILE_EVICTION",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "RC(OP) No.3/2006",
+"kind": "eviction petition"
+}
+},
+{
+"var": "e1",
+"type": "FILE_OTHER_PROCEEDING",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "writ petition",
+"kind": "EA No. 35/2015"
+}
+}
+],
+"relation": {
+"op": "member_of",
+"left": "Nazim",
+"right": "tenants",
+"evidence": [
+{
+"segment_id": "p0001.s003",
+"quote": "The respondent is in possession of one shop out of eight shops as tenant..."
+},
+{
+"segment_id": "p0001.s003",
+"quote": "The appellant filed one eviction petition (OP(RC) No.3/2006)... against his 8 tenants, which included the present respondent herein also."
+},
+{
+"segment_id": "p0004.s001",
+"quote": "the respondent filed one application (IA 789/2015) in main case (RC(OP)No.3/2006)"
+}
+]
+}
+}
+]
+},
+{
+"task_id": "52a7d11461a492d0",
+"answer_status": "MATCH",
+"explanation": "The source text narrates that the respondent was a tenant in the lease property (FILE_EVICTION). The text also narrates that the respondent filed a writ petition (FILE_OTHER_PROCEEDING) and was a member of the respondent group in that petition. Since the respondent is the same person in both contexts, the tenant of the lease property is a member of the respondent group of the eviction petition.",
+"bindings": [
+{
+"atoms": [
+{
+"var": "e0",
+"type": "FILE_EVICTION",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "RC(OP) No.3/2006",
+"kind": "eviction petition"
+}
+},
+{
+"var": "e1",
+"type": "LEASE_PROPERTY",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "one shop",
+"kind": "shop"
+}
+}
+],
+"relation": {
+"op": "member_of",
+"left": "Nazim",
+"right": "tenants",
+"evidence": [
+{
+"segment_id": "p0001.s003",
+"quote": "The respondent is in possession of one shop out of eight shops as tenant..."
+},
+{
+"segment_id": "p0001.s003",
+"quote": "The appellant filed one eviction petition (OP(RC) No.3/2006)... against his 8 tenants, which included the present respondent herein also."
+}
+]
+}
+}
+}
+]
+}
+]
+}

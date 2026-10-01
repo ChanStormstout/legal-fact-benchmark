@@ -1,0 +1,5 @@
+第3轮：从可靠基线推进到真正可比较的算法候选。请保留前两轮T1/T2/T3区分、开放世界、固定train/dev/test和成本公平原则。现在请审查并发展3个候选，不要只说都已有研究而放弃，但核心高度重合必须明确。最多约3000中文字，不再写完整综述。
+候选A：类别定义由训练中的困难反例驱动修订。每个predicate定义保留positive/boundary/negative，选择嵌入相似而语义决定冲突的对，专家确认最小区别，再修订required facets/定义，重检受影响映射。比较随机/最低置信抽检和给同样定义的EDC。新近近邻ClassMATe TACL2025 https://aclanthology.org/2025.tacl-1.55/ 已经做基于logprob困难样本、专家标注、迭代修改class definition。你必须检查其算法3.4后才能判断差异；不能把换法律领域当新颖性。
+候选B：将规范化/实体绑定歧义传到关系模式。每条记录可有几个映射假设；共享entity/schema决定必须全局一致。模式输出在可接受解释集下的certain/possible support下上界，优先保留下界有价值的模式。复核预算优先减少会改变模式选择的歧义。注意上界仅针对固定抽取材料及有限候选解释，不代表所有现实未知事实；必须区分有限解释不确定性与开放世界缺失。经典 Mining Uncertain Data with Probabilistic Guarantees https://cs.hku.hk/~ckcheng/papers/kdd10-mining.pdf 已有possible-world频繁模式与高效支持分布，不可宣称传播不确定性新；我们的候选不假设LLM分数是校准概率，且有共享决策依赖。要发展还是其复杂度不值得？
+候选C：根据法律适用链中的关键未定前提分配验证预算，优先复核会改变结论且缺证的条件；不同于简单self-reflection。原始法律材料不可凭LLM补齐；缺失保留未知。LegalReasoner ACL2025已做逐步验证修正 https://aclanthology.org/2025.acl-long.361/，证明义务/主动信息获取亦有经典工作。请判断这个方向应暂缓还是能有明确目标函数。
+每个候选给：最小可执行算法、清楚的optimization objective（若只是启发式就明说）、I/O、关键伪代码或公式、主要计算瓶颈、3个强基线/消融、一个会推翻它的实验。随后选1个最适合目前无代码且有6954判决文本的项目的主研究方向，并给baseline→候选→扩展的步骤。不编性能或费用，不用“保证法律正确”。

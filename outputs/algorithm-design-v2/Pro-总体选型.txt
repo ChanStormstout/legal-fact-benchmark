@@ -1,0 +1,1932 @@
+  - heading "ChatGPT said:" [level=4]
+  - heading "Legal AI 整体算法选型与整合备忘录" [level=1]
+  - heading "一、实施结论" [level=2]
+  - paragraph:
+    - strong: 推荐采用下面这套算法组合，不把实现决定留给后续实验：
+  - table:
+    - rowgroup:
+      - row "模块 最推荐的可实现算法 实际产物":
+        - columnheader "模块"
+        - columnheader "最推荐的可实现算法"
+        - columnheader "实际产物"
+    - rowgroup:
+      - row "A：抽取、表示、规范化与聚类 来源锚定的 EDC 改造版＋固定定义、按需执行的 complete-link 准入＋局部拆分修复 保留案件内身份、参数和陈述状态的事实实例；标准谓词；等价簇；映射与版本":
+        - cell "A：抽取、表示、规范化与聚类":
+          - strong: A：抽取、表示、规范化与聚类
+        - cell "来源锚定的 EDC 改造版＋固定定义、按需执行的 complete-link 准入＋局部拆分修复":
+          - strong: 来源锚定的 EDC 改造版＋固定定义、按需执行的 complete-link 准入＋局部拆分修复
+        - cell "保留案件内身份、参数和陈述状态的事实实例；标准谓词；等价簇；映射与版本"
+      - row "B：跨案件关系事实模式 WARMR 式有限关系查询枚举＋见证连接与支持度计算＋预算约束最大覆盖选集 带变量绑定、原文见证、支持区间和非冗余展示集的关系模式":
+        - cell "B：跨案件关系事实模式":
+          - strong: B：跨案件关系事实模式
+        - cell "WARMR 式有限关系查询枚举＋见证连接与支持度计算＋预算约束最大覆盖选集":
+          - strong: WARMR 式有限关系查询枚举＋见证连接与支持度计算＋预算约束最大覆盖选集
+        - cell "带变量绑定、原文见证、支持区间和非冗余展示集的关系模式"
+      - row "C：事实／模式连接规则、要件与论证 经核验规则驱动的受限 ASPIC+ 论证构造＋grounded 标记＋有限未知前提／例外补全检查 前提匹配、支持／反驳／例外关系、未决原因及可追溯论证":
+        - cell "C：事实／模式连接规则、要件与论证":
+          - strong: C：事实／模式连接规则、要件与论证
+        - cell "经核验规则驱动的受限 ASPIC+ 论证构造＋grounded 标记＋有限未知前提／例外补全检查":
+          - strong: 经核验规则驱动的受限 ASPIC+ 论证构造＋grounded 标记＋有限未知前提／例外补全检查
+        - cell "前提匹配、支持／反驳／例外关系、未决原因及可追溯论证"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 这里有两个明确取舍。
+  - paragraph: "**第一，不以“LLM 自动发现一切”为默认机制。**A 中的困难语义判断仍由模型辅助；B 的模式枚举、连接和计数由程序执行；C 的推理由固定形式语义执行，模型不能直接决定结论。"
+  - paragraph:
+    - text: "**第二，不把三个模块各自包装成原创算法。**EDC、complete-link、关系查询挖掘、最大覆盖和 ASPIC+ 都有明确先例。当前选择依据是任务适配性与实现可控性，"
+    - strong: 尚无本项目实验结果证明其胜过强替代方案
+    - text: 。
+  - separator
+  - heading "二、A/B/C 与有效材料的对应" [level=1]
+  - paragraph: 以下需求映射只使用原 PDF、完整流程图，以及你提供的团队分工消息。
+  - table:
+    - rowgroup:
+      - row "内容 材料支持程度 本轮处理":
+        - columnheader "内容"
+        - columnheader "材料支持程度"
+        - columnheader "本轮处理"
+    - rowgroup:
+      - row "原子事实抽取、角色替换、谓词—论元表示 PDF 明确要求 纳入 A；角色必须有原文依据":
+        - cell "原子事实抽取、角色替换、谓词—论元表示"
+        - cell "PDF 明确要求":
+          - strong: PDF 明确要求
+        - cell "纳入 A；角色必须有原文依据"
+      - row "按法律背景检索候选、LLM 六类关系判断、仅合并等价 PDF 明确要求 纳入 A；补全具体判定协议":
+        - cell "按法律背景检索候选、LLM 六类关系判断、仅合并等价"
+        - cell "PDF 明确要求":
+          - strong: PDF 明确要求
+        - cell "纳入 A；补全具体判定协议"
+      - row "整簇一致性、边界成员、稳定定义和 provenance PDF 明确要求 采用最终覆盖全部必要成员的准入算法，不把抽样检查当整簇保证":
+        - cell "整簇一致性、边界成员、稳定定义和 provenance"
+        - cell "PDF 明确要求":
+          - strong: PDF 明确要求
+        - cell "采用最终覆盖全部必要成员的准入算法，不把抽样检查当整簇保证"
+      - row "规范化后挖掘重复事实或事实—authority 模式 PDF 明确要求 纳入 B；当前不依赖尚未建立的 W/L 标签":
+        - cell "规范化后挖掘重复事实或事实—authority 模式"
+        - cell "PDF 明确要求":
+          - strong: PDF 明确要求
+        - cell "纳入 B；当前不依赖尚未建立的 W/L 标签"
+      - row "事实／模式连接 subtests、factors、elements、claims 与论证 完整流程图支持的项目目标 纳入 C；图本身没有指定形式逻辑或完整实现":
+        - cell "事实／模式连接 subtests、factors、elements、claims 与论证"
+        - cell "完整流程图支持的项目目标":
+          - strong: 完整流程图支持的项目目标
+        - cell "纳入 C；图本身没有指定形式逻辑或完整实现"
+      - row "案件内实体、合同、请求、事件身份 实现关系模式所必需的选择 保留局部身份，不能只剩角色名称":
+        - cell "案件内实体、合同、请求、事件身份"
+        - cell "实现关系模式所必需的选择":
+          - strong: 实现关系模式所必需的选择
+        - cell "保留局部身份，不能只剩角色名称"
+      - row "有限查询语言、最大覆盖选集、ASPIC+ grounded 语义 本轮算法选择，不是原材料已经指定 明确实现，不冒充团队既定决定":
+        - cell "有限查询语言、最大覆盖选集、ASPIC+ grounded 语义"
+        - cell "本轮算法选择，不是原材料已经指定":
+          - strong: 本轮算法选择，不是原材料已经指定
+        - cell "明确实现，不冒充团队既定决定"
+      - row "预测输赢、复杂证明责任、自动学习规范性规则 条件性或可选扩展 不作为当前默认任务":
+        - cell "预测输赢、复杂证明责任、自动学习规范性规则"
+        - cell "条件性或可选扩展":
+          - strong: 条件性或可选扩展
+        - cell "不作为当前默认任务"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph:
+    - text: PDF 明确要求保留主张、争议和法院认定的区别，也要求实例保留角色、对象、极性、时间和来源。
+    - button "Open preview of Canonicalizing Legal Facts (1).pdf":
+      - generic: Canonicalizing Legal Facts (1)
+    - text: 它要求规范化后再进行结果相关模式挖掘，并把 FP-Growth、gSpan、ANCO-HITS 列为候选，而不是已经完成选型的实现。
+    - button "Open preview of Canonicalizing Legal Facts (1).pdf":
+      - generic: Canonicalizing Legal Facts (1)
+  - paragraph:
+    - text: 团队分工与你现在的分解相容：原消息中的第1、2项共同覆盖 A，第3项对应 B，第5项为 C 提供 authority 来源，第4项横跨各模块。但这
+    - strong: 不能证明团队已有完整 C 引擎，也不能确定你个人属于哪一组
+    - text: 。
+  - paragraph: "**默认运行模式定为回顾性发现与理由分析。**法院判决中的事实叙述已经包含事后选择与认定；删除 conclusion 字段，不会自动把它变成事前可获得的信息。"
+  - separator
+  - heading "三、补读文献中真正改变选型的内容" [level=1]
+  - paragraph: 阅读标记：**F＝核读核心方法、主要实验及相关消融／限制；P＝核读指定全文部分；A＝仅摘要。**F 不表示复现，也不表示逐条验证所有附录证明。
+  - table:
+    - rowgroup:
+      - row "工作 本轮阅读程度 改变选型的具体信息":
+        - columnheader "工作"
+        - columnheader "本轮阅读程度"
+        - columnheader "改变选型的具体信息"
+    - rowgroup:
+      - 'row "EDC，EMNLP 2024 F：抽取、定义、规范化、refinement、实验及消融 已经提供“抽取→定义→候选匹配”的主体流程；我们采用它，而不是重新发明。其通用关系规范化不直接解决本项目的实例身份、陈述状态和增量整簇准入。 arXiv: Extract, Define, Canonicalize: An LLM-based Framework for Knowledge Graph Construction, https://arxiv.org/html/2404.03868v2, 1 additional source"':
+        - cell "EDC，EMNLP 2024":
+          - strong: EDC，EMNLP 2024
+        - cell "F：抽取、定义、规范化、refinement、实验及消融":
+          - strong: F
+          - text: ：抽取、定义、规范化、refinement、实验及消融
+        - 'cell "已经提供“抽取→定义→候选匹配”的主体流程；我们采用它，而不是重新发明。其通用关系规范化不直接解决本项目的实例身份、陈述状态和增量整簇准入。 arXiv: Extract, Define, Canonicalize: An LLM-based Framework for Knowledge Graph Construction, https://arxiv.org/html/2404.03868v2, 1 additional source"':
+          - text: 已经提供“抽取→定义→候选匹配”的主体流程；我们采用它，而不是重新发明。其通用关系规范化不直接解决本项目的实例身份、陈述状态和增量整簇准入。
+          - 'link "arXiv: Extract, Define, Canonicalize: An LLM-based Framework for Knowledge Graph Construction, https://arxiv.org/html/2404.03868v2, 1 additional source"':
+            - /url: https://arxiv.org/html/2404.03868v2
+            - generic: arXiv
+            - generic: "+1"
+      - 'row "Cequel，2025，所读 v2 F：EdgeLLM／TriangleLLM、加权约束聚类、预算实验与消融 它具体优化约束查询和聚类，不是简单随机问 pair；必须作为预算匹配强基线。但固定簇数下的划分目标，不等同于法律等价准入。 arXiv: Cequel: Cost-Effective Querying of Large Language Models for Text Clustering, https://arxiv.org/html/2504.15640v2, 1 additional source"':
+        - cell "Cequel，2025，所读 v2":
+          - strong: Cequel，2025，所读 v2
+        - cell "F：EdgeLLM／TriangleLLM、加权约束聚类、预算实验与消融":
+          - strong: F
+          - text: ：EdgeLLM／TriangleLLM、加权约束聚类、预算实验与消融
+        - 'cell "它具体优化约束查询和聚类，不是简单随机问 pair；必须作为预算匹配强基线。但固定簇数下的划分目标，不等同于法律等价准入。 arXiv: Cequel: Cost-Effective Querying of Large Language Models for Text Clustering, https://arxiv.org/html/2504.15640v2, 1 additional source"':
+          - text: 它具体优化约束查询和聚类，不是简单随机问 pair；必须作为预算匹配强基线。但固定簇数下的划分目标，不等同于法律等价准入。
+          - 'link "arXiv: Cequel: Cost-Effective Querying of Large Language Models for Text Clustering, https://arxiv.org/html/2504.15640v2, 1 additional source"':
+            - /url: https://arxiv.org/html/2504.15640v2
+            - generic: arXiv
+            - generic: "+1"
+      - 'row "Optimized Algorithms for Text Clustering with LLM-Generated Constraints，AAAI 2026 P：约束集、硬／软约束算法及实验设置 已有集合式约束和容忍错误约束的优化。不能把“有约束聚类”当新增贡献；同时，本项目有来源的禁止合并条件不应仅作为可付出代价违反的软惩罚。 arXiv: https://arxiv.org/html/2601.11118v1, https://arxiv.org/html/2601.11118v1, 1 additional source"':
+        - cell "Optimized Algorithms for Text Clustering with LLM-Generated Constraints，AAAI 2026":
+          - strong: Optimized Algorithms for Text Clustering with LLM-Generated Constraints，AAAI 2026
+        - cell "P：约束集、硬／软约束算法及实验设置":
+          - strong: P
+          - text: ：约束集、硬／软约束算法及实验设置
+        - 'cell "已有集合式约束和容忍错误约束的优化。不能把“有约束聚类”当新增贡献；同时，本项目有来源的禁止合并条件不应仅作为可付出代价违反的软惩罚。 arXiv: https://arxiv.org/html/2601.11118v1, https://arxiv.org/html/2601.11118v1, 1 additional source"':
+          - text: 已有集合式约束和容忍错误约束的优化。不能把“有约束聚类”当新增贡献；同时，本项目有来源的禁止合并条件不应仅作为可付出代价违反的软惩罚。
+          - 'link "arXiv: https://arxiv.org/html/2601.11118v1, https://arxiv.org/html/2601.11118v1, 1 additional source"':
+            - /url: https://arxiv.org/html/2601.11118v1
+            - generic: arXiv
+            - generic: "+1"
+      - 'row "ClassMATe，TACL 2025 P：本轮重读 Algorithm 1 与定义更新机制 人工复核疑难样本再修订类别定义已有直接先例。本方案不会通过不断重写定义来合理化已经混入的成员。 ACL Anthology: https://aclanthology.org/2025.tacl-1.55.pdf, https://aclanthology.org/2025.tacl-1.55.pdf"':
+        - cell "ClassMATe，TACL 2025":
+          - strong: ClassMATe，TACL 2025
+        - cell "P：本轮重读 Algorithm 1 与定义更新机制":
+          - strong: P
+          - text: ：本轮重读 Algorithm 1 与定义更新机制
+        - 'cell "人工复核疑难样本再修订类别定义已有直接先例。本方案不会通过不断重写定义来合理化已经混入的成员。 ACL Anthology: https://aclanthology.org/2025.tacl-1.55.pdf, https://aclanthology.org/2025.tacl-1.55.pdf"':
+          - text: 人工复核疑难样本再修订类别定义已有直接先例。本方案不会通过不断重写定义来合理化已经混入的成员。
+          - 'link "ACL Anthology: https://aclanthology.org/2025.tacl-1.55.pdf, https://aclanthology.org/2025.tacl-1.55.pdf"':
+            - /url: https://aclanthology.org/2025.tacl-1.55.pdf
+            - generic: ACL Anthology
+      - 'row "GrOIL，2026-08 预印本 P：本体与实例构造、来源图、数据和评价 本体、来源追踪、实例查询的组合已有工作；所读实验包含合成保险合同，不能直接迁移其结论到真实判决。 arXiv: https://arxiv.org/html/2608.22135v1, https://arxiv.org/html/2608.22135v1, 1 additional source"':
+        - cell "GrOIL，2026-08 预印本":
+          - strong: GrOIL，2026-08 预印本
+        - cell "P：本体与实例构造、来源图、数据和评价":
+          - strong: P
+          - text: ：本体与实例构造、来源图、数据和评价
+        - 'cell "本体、来源追踪、实例查询的组合已有工作；所读实验包含合成保险合同，不能直接迁移其结论到真实判决。 arXiv: https://arxiv.org/html/2608.22135v1, https://arxiv.org/html/2608.22135v1, 1 additional source"':
+          - text: 本体、来源追踪、实例查询的组合已有工作；所读实验包含合成保险合同，不能直接迁移其结论到真实判决。
+          - 'link "arXiv: https://arxiv.org/html/2608.22135v1, https://arxiv.org/html/2608.22135v1, 1 additional source"':
+            - /url: https://arxiv.org/html/2608.22135v1
+            - generic: arXiv
+            - generic: "+1"
+      - 'row "WARMR／WARMeR，经典关系挖掘 P：查询定义、key constraint、语言偏置、候选生成 直接支持“用固定分析键计数的关系查询挖掘”；因此 B 采用这一算法家族，而不是给关系连接另起新名称。 arXiv: https://arxiv.org/pdf/cs/0206023, https://arxiv.org/pdf/cs/0206023, 1 additional source"':
+        - cell "WARMR／WARMeR，经典关系挖掘":
+          - strong: WARMR／WARMeR，经典关系挖掘
+        - cell "P：查询定义、key constraint、语言偏置、候选生成":
+          - strong: P
+          - text: ：查询定义、key constraint、语言偏置、候选生成
+        - 'cell "直接支持“用固定分析键计数的关系查询挖掘”；因此 B 采用这一算法家族，而不是给关系连接另起新名称。 arXiv: https://arxiv.org/pdf/cs/0206023, https://arxiv.org/pdf/cs/0206023, 1 additional source"':
+          - text: 直接支持“用固定分析键计数的关系查询挖掘”；因此 B 采用这一算法家族，而不是给关系连接另起新名称。
+          - 'link "arXiv: https://arxiv.org/pdf/cs/0206023, https://arxiv.org/pdf/cs/0206023, 1 additional source"':
+            - /url: https://arxiv.org/pdf/cs/0206023
+            - generic: arXiv
+            - generic: "+1"
+      - 'row "gSpan，2002 F：四页原文、DFS 编码、扩展、剪枝和实验 它已经处理有标签图、结构绑定和规范编码。不能声称只有本方案能表达关系。 UCSB Computer Science: https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf, https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf"':
+        - cell "gSpan，2002":
+          - strong: gSpan，2002
+        - cell "F：四页原文、DFS 编码、扩展、剪枝和实验":
+          - strong: F
+          - text: ：四页原文、DFS 编码、扩展、剪枝和实验
+        - 'cell "它已经处理有标签图、结构绑定和规范编码。不能声称只有本方案能表达关系。 UCSB Computer Science: https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf, https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf"':
+          - text: 它已经处理有标签图、结构绑定和规范编码。不能声称只有本方案能表达关系。
+          - 'link "UCSB Computer Science: https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf, https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf"':
+            - /url: https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf
+            - generic: UCSB Computer Science
+      - 'row "SLIM；Snor，2025 在线／2026 卷次 P：编码目标、候选接受／后剪枝、Snor 的覆盖替换与实验 紧凑模式集选择已有成熟机制；Snor 的改进与压缩目标相关，不保证法律意义，也并非每个数据集都改善。 CISPA EDA: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, 1 additional source"':
+        - cell "SLIM；Snor，2025 在线／2026 卷次":
+          - strong: SLIM；Snor，2025 在线／2026 卷次
+        - cell "P：编码目标、候选接受／后剪枝、Snor 的覆盖替换与实验":
+          - strong: P
+          - text: ：编码目标、候选接受／后剪枝、Snor 的覆盖替换与实验
+        - 'cell "紧凑模式集选择已有成熟机制；Snor 的改进与压缩目标相关，不保证法律意义，也并非每个数据集都改善。 CISPA EDA: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, 1 additional source"':
+          - text: 紧凑模式集选择已有成熟机制；Snor 的改进与压缩目标相关，不保证法律意义，也并非每个数据集都改善。
+          - 'link "CISPA EDA: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, 1 additional source"':
+            - /url: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf
+            - generic: CISPA EDA
+            - generic: "+1"
+      - 'row "Toward Robust Legal Text Formalization into Defeasible Deontic Logic using LLMs，2025 v3 P：形式化方法、两阶段消融、原子复用和限制 论文发现“先独立抽原子、再生成规则”的某些配置反而更差；因此 C 不默认增加多 agent、多阶段就会更好。共享术语和跨段引用需要显式处理。 arXiv: https://arxiv.org/html/2506.08899v3, https://arxiv.org/html/2506.08899v3, 1 additional source"':
+        - cell "Toward Robust Legal Text Formalization into Defeasible Deontic Logic using LLMs，2025 v3":
+          - strong: Toward Robust Legal Text Formalization into Defeasible Deontic Logic using LLMs，2025 v3
+        - cell "P：形式化方法、两阶段消融、原子复用和限制":
+          - strong: P
+          - text: ：形式化方法、两阶段消融、原子复用和限制
+        - 'cell "论文发现“先独立抽原子、再生成规则”的某些配置反而更差；因此 C 不默认增加多 agent、多阶段就会更好。共享术语和跨段引用需要显式处理。 arXiv: https://arxiv.org/html/2506.08899v3, https://arxiv.org/html/2506.08899v3, 1 additional source"':
+          - text: 论文发现“先独立抽原子、再生成规则”的某些配置反而更差；因此 C 不默认增加多 agent、多阶段就会更好。共享术语和跨段引用需要显式处理。
+          - 'link "arXiv: https://arxiv.org/html/2506.08899v3, https://arxiv.org/html/2506.08899v3, 1 additional source"':
+            - /url: https://arxiv.org/html/2506.08899v3
+            - generic: arXiv
+            - generic: "+1"
+      - 'row "Argumentative Reasoning in ASPIC+ under Incomplete Information，JAIR 2025 P：语义、算法1/2、实验和适用假设；未逐项核验52页证明 明确区分“当前被接受”与“补充信息后仍保持接受”。其主要算法针对特定 ASPIC+ 片段，不能无条件套到所有严格规则、普通前提和攻击类型上。 JAIR: https://www.jair.org/index.php/jair/article/download/18404/27209/48158, https://www.jair.org/index.php/jair/article/download/18404/27209/48158, 2 additional sources"':
+        - cell "Argumentative Reasoning in ASPIC+ under Incomplete Information，JAIR 2025":
+          - strong: Argumentative Reasoning in ASPIC+ under Incomplete Information，JAIR 2025
+        - cell "P：语义、算法1/2、实验和适用假设；未逐项核验52页证明":
+          - strong: P
+          - text: ：语义、算法1/2、实验和适用假设；未逐项核验52页证明
+        - 'cell "明确区分“当前被接受”与“补充信息后仍保持接受”。其主要算法针对特定 ASPIC+ 片段，不能无条件套到所有严格规则、普通前提和攻击类型上。 JAIR: https://www.jair.org/index.php/jair/article/download/18404/27209/48158, https://www.jair.org/index.php/jair/article/download/18404/27209/48158, 2 additional sources"':
+          - text: 明确区分“当前被接受”与“补充信息后仍保持接受”。其主要算法针对特定 ASPIC+ 片段，不能无条件套到所有严格规则、普通前提和攻击类型上。
+          - 'link "JAIR: https://www.jair.org/index.php/jair/article/download/18404/27209/48158, https://www.jair.org/index.php/jair/article/download/18404/27209/48158, 2 additional sources"':
+            - /url: https://www.jair.org/index.php/jair/article/download/18404/27209/48158
+            - generic: JAIR
+            - generic: "+2"
+      - 'row "LRI，所读2026 v2 P：规则归纳、支持／验证机制及限制 适合从类比判决提出经验规则；不替代有法律来源、例外和适用范围的规范性规则引擎。 arXiv: Legal Rule Induction: Towards Generalizable Principle Discovery from Analogous Judicial Precedents, https://arxiv.org/html/2505.14104v2"':
+        - cell "LRI，所读2026 v2":
+          - strong: LRI，所读2026 v2
+        - cell "P：规则归纳、支持／验证机制及限制":
+          - strong: P
+          - text: ：规则归纳、支持／验证机制及限制
+        - 'cell "适合从类比判决提出经验规则；不替代有法律来源、例外和适用范围的规范性规则引擎。 arXiv: Legal Rule Induction: Towards Generalizable Principle Discovery from Analogous Judicial Precedents, https://arxiv.org/html/2505.14104v2"':
+          - text: 适合从类比判决提出经验规则；不替代有法律来源、例外和适用范围的规范性规则引擎。
+          - 'link "arXiv: Legal Rule Induction: Towards Generalizable Principle Discovery from Analogous Judicial Precedents, https://arxiv.org/html/2505.14104v2"':
+            - /url: https://arxiv.org/html/2505.14104v2
+            - generic: arXiv
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 下面的选型依据这些方法的具体能力，而不是根据论文年份排序。
+  - separator
+  - heading "四、先统一三个模块共同使用的语义" [level=1]
+  - heading "4.1 四种身份不能混在一起" [level=2]
+  - paragraph: 建议保存四层对象：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Observation：原文中的一次陈述及其出处 FactInstance：该陈述表达的案件命题 PredicateType：可以跨案件复用的标准动作／关系类型 EquivalenceCluster：给定语境与抽象粒度下，可安全统一表达的命题集合
+  - paragraph: 例如，两个案件都可以使用 PAYMENT 类型，但不能因此共享同一个付款事件；同一公司在不同合同中的角色也不能只用一个全局 OBLIGOR 节点代替。
+  - paragraph: 必要的数据结构为：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Observation( observation_id, unit_id, source_span, speaker, source_status, extracted_instance_id ) FactInstance( instance_id, local_situation_id, predicate_type_or_candidates, ordered_arguments, retained_parameters, polarity, assertion_status, scope_id, observation_ids, interpretation_dependencies ) PredicateDefinition( type_id, version, argument_signature, meaning, required_qualifications, exclusions, permitted_rewrites, context_scope ) Cluster( cluster_id, definition_version, abstraction_policy_id, member_ids, admission_certificates, exclusions, status, lineage )
+  - paragraph:
+    - text: local_situation_id 是文书讨论的特定情境或候选事件标识，
+    - strong: 不承诺该事件确实发生
+    - text: 。因此，关于同一次被指称拒绝行为的正反记载，可以指向同一情境。
+  - heading "4.2 类型复用不等于完整命题等价" [level=2]
+  - paragraph: 这里需要对 PDF 的“按簇命名”做一个明确改造：
+  - paragraph:
+    - strong: 标准谓词类型允许复用得较宽；等价簇保持较严格。
+  - paragraph: 例如：
+  - list:
+    - listitem: 支付1000元与支付2000元可以都使用 PAYMENT；
+    - listitem: 数额必须保留；
+    - listitem: 在数额具有法律重要性的比较语境下，它们不能仅因类型相同而进入同一完整命题等价簇。
+  - paragraph: 因此，B 不能只消费 cluster_id，而应消费：
+  - blockquote:
+    - paragraph:
+      - strong: 标准谓词＋参数＋案件内绑定＋状态＋出处。
+  - paragraph: 这避免了两个退化方向：为了复用而过度合并，或者为了严格等价而让不同数值的事实全部失去下游可比性。
+  - heading "4.3 陈述状态与正负极性分开" [level=2]
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: ALLEGED(+REFUSE(...)) 当事人主张发生拒绝 COURT_FOUND(+REFUSE(...)) 法院认定发生拒绝 COURT_FOUND(-REFUSE(...)) 法院明确认定没有发生该拒绝 NOT_ESTABLISHED(REFUSE(...)) 未认定／未证明拒绝
+  - paragraph: 第四种不能转成第三种。
+  - paragraph: 同样：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: NOT_PROVIDED(records, deadline)
+  - paragraph:
+    - text: 表示记录中有“截至某时未提供”的陈述；它
+    - strong: 不自动等于
+    - text: REFUSE。
+  - paragraph:
+    - text: 不同来源状态可以共享谓词类型，但不能无标记混入等价簇或同一种匹配通道。PDF 对此有明确要求。
+    - button "Open preview of Canonicalizing Legal Facts (1).pdf":
+      - generic: Canonicalizing Legal Facts (1)
+  - heading "4.4 不确定性统一由有出处的决策变量表达" [level=2]
+  - paragraph: 默认每个实例有自己的候选映射或身份变量。只有有依据共享的决策才使用同一个变量，例如某个已明确限定语境的别名定义。
+  - paragraph:
+    - strong: 不能因为两个实例出现相同单词，就把它们的词义选择绑定成全局变量。
+  - paragraph: 固定版本下：
+  - list:
+    - math:
+      - generic: Z
+    - generic: Z
+    - text: ：有限、满足已记录约束的解释集合；
+    - text: 改谓词定义属于新版本，不在同一个
+    - math:
+      - generic: Z
+    - generic: Z
+    - text: 中偷偷改变模式含义；
+    - listitem: 错误解释不在候选集合中是 OUT_OF_SET；
+    - text: 约束互相冲突使
+    - math:
+      - generic: Z
+      - generic: =
+      - generic: ∅
+    - generic: Z =
+    - generic: ∅
+    - text: 是 INVALID；
+    - listitem: 未知不能用空字符串或统一 NULL 参加实体连接。
+  - separator
+  - heading "五、A 的最终算法：来源锚定 EDC＋固定定义的按需 complete-link" [level=1]
+  - heading "5.1 为什么选它" [level=2]
+  - paragraph: 真实困难不是“词向量不够好”，而是：
+  - blockquote:
+    - paragraph: 一个事实可能与簇中某成员很像，却与另一个成员在角色、状态、对象或限定条件上不兼容；增量合并还可能把局部错误传播到整个类别。
+  - paragraph:
+    - text: EDC 提供可靠的实现起点，但它的关系定义对齐并不直接承诺整簇准入。Cequel 通过预算化约束改善划分，但其优化可以接受局部约束错误，并不以“所有已准入成员均通过指定等价协议”为目标。
+    - 'link "arXiv: Extract, Define, Canonicalize: An LLM-based Framework for Knowledge Graph Construction, https://arxiv.org/html/2404.03868v2, 1 additional source"':
+      - /url: https://arxiv.org/html/2404.03868v2
+      - generic: arXiv
+      - generic: "+1"
+  - paragraph:
+    - strong: 选择机制：固定定义，先检查最容易否决的成员；只有必要比较全部通过才正式准入。
+  - paragraph:
+    - text: 预期收益是减少桥接合并和定义漂移。
+    - strong: 代价是最坏情况下仍需二次方数量的不同语义模板比较。
+    - text: “按需执行”节省的是提前失败、缓存和重复模板的成本，不是把全成员检查变成免费保证。
+  - heading "5.2 抽取与来源锚定" [level=2]
+  - paragraph: 执行顺序如下。
+  - paragraph: "**第一步：恢复来源边界。**已有 facts 等字段只作入口。每条输出必须定位到判决原文段落；无法定位的保留为 UNANCHORED，不当作已验证见证。字段名称本身不能证明它是法院认定。"
+  - paragraph: "**第二步：抽取原子命题。**模型返回谓词、论元、状态、限定条件，以及每项对应的原文字符范围。程序检查："
+  - list:
+    - listitem: 引用范围确实存在；
+    - listitem: 每个填入的角色、对象、时间和条件都有来源；
+    - listitem: 并列动作是否分开；
+    - listitem: 否定作用于哪个命题；
+    - listitem: “法院转述某方主张”是否被错误标为法院认定。
+  - paragraph: "**第三步：独立核对抽取。**核对调用只接收原文与抽取表，不接收期望聚类或结果。输出逐字段 SUPPORTED / CONTRADICTED / NOT_DETERMINED 及证据范围。出现错误允许一次自动修正；仍不确定则保留候选或未知，不继续无限自我修正。"
+  - paragraph:
+    - text: 这并不把语义核对变成形式证明。
+    - strong: 模型仍可能共同出错，来源审计必须独立于模型自报判断。
+  - heading "5.3 等价判定协议" [level=2]
+  - paragraph: 先执行确定性规则，再处理未覆盖的语言对应。
+  - heading "确定性部分" [level=3]
+  - paragraph:
+    - text: 在同一抽象政策
+    - math:
+      - generic: Γ
+    - generic: Γ
+    - text: 下，比较：
+  - list:
+    - listitem: 谓词定义或已登记的等义改写；
+    - listitem: 论元顺序与角色绑定；
+    - listitem: 对象类别及所属合同／请求范围；
+    - listitem: 正负极性；
+    - listitem: 陈述状态；
+    - listitem: 时间关系；
+    - listitem: 法律重要限定条件。
+  - paragraph: 姓名可以按已支持角色作一致变量重命名；合同、请求、事件之间的同一／不同关系不能丢失。重要数值、范围或条件不同，不能仅以“都是参数”跳过比较。
+  - heading "模型辅助部分" [level=3]
+  - paragraph: 对于未登记的措辞对应，进行两个方向的核对：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: 方向一：F 是否支持 G 的每个必要语义分量？ 方向二：G 是否支持 F 的每个必要语义分量？
+  - paragraph: 每个分量必须返回：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: 目标分量 → 对应原文／已登记规则 → PASS / FAIL / UNKNOWN
+  - paragraph: 程序按下表聚合，而不是读取一句自由文本“我认为等价”：
+  - table:
+    - rowgroup:
+      - row "结果 判定规则":
+        - columnheader "结果"
+        - columnheader "判定规则"
+    - rowgroup:
+      - row "EQUIVALENT 所有重要分量双向 PASS，结构和状态兼容，没有无依据增补":
+        - cell "EQUIVALENT"
+        - cell "所有重要分量双向 PASS，结构和状态兼容，没有无依据增补"
+      - row "PARENT_CHILD 一个方向全部 PASS，反方向存在明确的额外限定；不是仅缺少证据":
+        - cell "PARENT_CHILD"
+        - cell "一个方向全部 PASS，反方向存在明确的额外限定；不是仅缺少证据"
+      - row "CONTRADICTORY 对齐到相同抽象情境后存在明确互斥条件；不表示不同案件现实事实互相冲突":
+        - cell "CONTRADICTORY"
+        - cell "对齐到相同抽象情境后存在明确互斥条件；不表示不同案件现实事实互相冲突"
+      - row "RELATED_SIBLINGS 有已登记共同父类别，但存在保留的重要区别":
+        - cell "RELATED_SIBLINGS"
+        - cell "有已登记共同父类别，但存在保留的重要区别"
+      - row "UNRELATED 已确认属于不兼容类型／语境，且不存在所需对应关系":
+        - cell "UNRELATED"
+        - cell "已确认属于不兼容类型／语境，且不存在所需对应关系"
+      - row "UNCERTAIN 任一关键分量 UNKNOWN、方向判断不一致、身份无法对齐":
+        - cell "UNCERTAIN"
+        - cell "任一关键分量 UNKNOWN、方向判断不一致、身份无法对齐"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 反向核对不被视为统计独立投票，也不把两次 confidence 相乘。
+  - paragraph:
+    - text: PDF 原例中的“公司→控制人”“股东→少数股东”“未提供→拒绝”，会分别在角色依据或行为含义核对处失败，不能合并。
+    - button "Open preview of Canonicalizing Legal Facts (1).pdf":
+      - generic: Canonicalizing Legal Facts (1)
+  - heading "5.4 候选检索" [level=2]
+  - paragraph: 候选集合取三路并集：
+  - list:
+    - listitem: 标准类型／已登记别名的精确索引；
+    - listitem: 包含法律语境的 BM25 检索；
+    - listitem: 包含谓词、角色、对象和语境的向量检索。
+  - paragraph:
+    - text: 可运行初值为后两路各取20项，再去重。已确认不兼容的状态、对象类型和语境可阻断；
+    - strong: 缺失语境只标未知，不能当作不兼容而永久阻断。
+  - paragraph: 检索分数只决定检查顺序，不能决定合并。检索没有找到某簇，不代表已经证明两者不等价。
+  - heading "5.5 验簇、增量准入和停止规则" [level=2]
+  - paragraph:
+    - text: 簇定义在一个版本中固定。新事实
+    - math:
+      - generic: f
+    - generic: f
+    - text: 的检查顺序：
+  - list:
+    - listitem: 固定定义及排除条件；
+    - listitem: medoid；
+    - listitem: 重要字段取值不同的边界成员；
+    - listitem: 与新事实结构最不相似的成员；
+    - listitem: 其余尚未覆盖的不同语义模板。
+  - paragraph:
+    - text: medoid 按簇内距离和最小确定；边界集合按重要字段的不同取值及最远优先顺序确定。
+    - strong: 这些选择只是尽快找到反例；正式准入仍须覆盖全部必要模板。
+  - paragraph: 缓存键必须包含两端内容哈希、语境版本、抽象政策及模型／判定协议版本。
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "ADMIT(f, clusters, budget): candidates = exact_index ∪ BM25_top20 ∪ dense_top20 passed = [] for C in deterministic_order(candidates): if definition_or_exclusion_check(f, C) != PASS: continue verdict = PASS for m in medoid_boundary_then_remaining(C): r = cached_or_run_pair_protocol(f, m) if r is a definite non-equivalence: verdict = FAIL break if r == UNCERTAIN or budget exhausted: verdict = PENDING break record all decisions if verdict == PASS: passed.append(C) if passed is empty: create provisional singleton or retain candidate mappings elif passed has one cluster: commit f to that cluster else: check every previously unchecked cross-pair between passed clusters if all cross-pairs and definitions are EQUIVALENT: merge under unchanged equivalent definition; then admit f else: mark f as a bridge ambiguity; do not join clusters transitively"
+  - paragraph:
+    - text: 预算耗尽的结果是 PENDING，不是 PASS。所有 pair 通过，提供的是
+    - strong: 相对于该判定协议的 complete-link 性质
+    - text: ，不是模型永不犯法律错误的保证。
+  - heading "5.6 冲突与拆分修复" [level=2]
+  - paragraph: 触发修复的事件包括：已准入成员出现可靠反例；角色／身份被纠正；重要限定条件遗漏；簇定义与成员不符。
+  - paragraph: 修复不是重新总结整个簇：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "REPAIR(C, new_evidence): freeze C; mark affected memberships as quarantined correct only source-supported instance fields invalidate affected pair certificates reset affected component to singleton groups repeatedly consider group pairs in fixed order: merge only if definitions and all cross-pairs pass skip a pair with FAIL retain PENDING when checks remain unresolved retain old ID only for the group preserving the old definition create new IDs for genuinely different meanings save split/retirement lineage emit changed instance/type/constraint IDs"
+  - paragraph:
+    - text: 不允许根据污染成员扩大定义。PDF 的稳定谓词与追溯要求在这里落实为不可变版本和 split lineage。
+    - button "Open preview of Canonicalizing Legal Facts (1).pdf":
+      - generic: Canonicalizing Legal Facts (1)
+  - heading "A 的强替代与推翻条件" [level=3]
+  - table:
+    - rowgroup:
+      - row "替代方案 公平配置 何时更好／怎样推翻本选择":
+        - columnheader "替代方案"
+        - columnheader "公平配置"
+        - columnheader "何时更好／怎样推翻本选择"
+    - rowgroup:
+      - row "适配 EDC 相同抽取、字段、规则背景、候选库及总调用预算 若定义匹配已足够，完整验簇只增加成本而不减少重要错误，应采用 EDC":
+        - cell "适配 EDC":
+          - strong: 适配 EDC
+        - cell "相同抽取、字段、规则背景、候选库及总调用预算"
+        - cell "若定义匹配已足够，完整验簇只增加成本而不减少重要错误，应采用 EDC"
+      - row "Cequel／约束聚类 相同表示和硬约束；采用其强查询策略；簇数在开发集确定 大量类别边界稳定、目标偏整体划分时更合适；若同预算质量更高，应替换准入机制":
+        - cell "Cequel／约束聚类":
+          - strong: Cequel／约束聚类
+        - cell "相同表示和硬约束；采用其强查询策略；簇数在开发集确定"
+        - cell "大量类别边界稳定、目标偏整体划分时更合适；若同预算质量更高，应替换准入机制"
+      - row "专家 schema 给所有方法相同专家信息，并计入 schema 成本 小而稳定领域可能最可靠、最省总成本":
+        - cell "专家 schema":
+          - strong: 专家 schema
+        - cell "给所有方法相同专家信息，并计入 schema 成本"
+        - cell "小而稳定领域可能最可靠、最省总成本"
+      - row "query-local 比较 相同原文、语境、模型与累计任务预算 查询少或类别变化大时可能优于维护全局库":
+        - cell "query-local 比较":
+          - strong: query-local 比较
+        - cell "相同原文、语境、模型与累计任务预算"
+        - cell "查询少或类别变化大时可能优于维护全局库"
+      - row "全成员检查但不选边界顺序 完全相同判定协议 若边界优先没有减少失败比较成本，本方案的排序优化无价值":
+        - cell "全成员检查但不选边界顺序":
+          - strong: 全成员检查但不选边界顺序
+        - cell "完全相同判定协议"
+        - cell "若边界优先没有减少失败比较成本，本方案的排序优化无价值"
+  - button "Copy table":
+  - button "Expand table":
+  - separator
+  - heading "六、B 的最终算法：有限关系查询枚举＋见证计数＋最大覆盖选集" [level=1]
+  - heading "6.1 为什么采用关系查询，而不是直接选 FP-Growth 或裸 gSpan" [level=2]
+  - paragraph: 三个候选的真实功能不同：
+  - table:
+    - rowgroup:
+      - row "方法 实际功能 本项目采用方式":
+        - columnheader "方法"
+        - columnheader "实际功能"
+        - columnheader "本项目采用方式"
+    - rowgroup:
+      - row "FP-Growth 挖掘事务中的频繁项集 保留为强基线：先计算相同关系查询，再把匹配结果展开成特征":
+        - cell "FP-Growth":
+          - strong: FP-Growth
+        - cell "挖掘事务中的频繁项集"
+        - cell "保留为强基线：先计算相同关系查询，再把匹配结果展开成特征"
+      - row "gSpan 挖掘频繁有标签子图，使用最小 DFS 编码去重和结构扩展 强替代；把事实实体化为节点、论元角色为边后，可以表达本项目多数关系":
+        - cell "gSpan":
+          - strong: gSpan
+        - cell "挖掘频繁有标签子图，使用最小 DFS 编码去重和结构扩展"
+        - cell "强替代；把事实实体化为节点、论元角色为边后，可以表达本项目多数关系"
+      - row "ANCO-HITS 本轮核实的2012修改版在带正负边的二部图上传播和联合缩放分数 不作关系模式枚举器；当前没有经验证的 signed-edge 语义，不投入生产":
+        - cell "ANCO-HITS":
+          - strong: ANCO-HITS
+        - cell "本轮核实的2012修改版在带正负边的二部图上传播和联合缩放分数"
+        - cell "不作关系模式枚举器；当前没有经验证的 signed-edge 语义，不投入生产"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph:
+    - text: FP-Growth 的项集计数不自行规定两个事实是否涉及同一请求；gSpan 则已经具备结构匹配与规范编码，不能把它描述成“只看普通共现”。
+    - 'link "School of Computing Science: https://www.cs.sfu.ca/~jpei/publications/dami03_fpgrowth.pdf, https://www.cs.sfu.ca/~jpei/publications/dami03_fpgrowth.pdf, 1 additional source"':
+      - /url: https://www.cs.sfu.ca/~jpei/publications/dami03_fpgrowth.pdf
+      - generic: School of Computing Science
+      - generic: "+1"
+  - paragraph:
+    - text: ANCO-HITS 的可读原文确实给出了修改版迭代算法，但
+    - strong: 项目 PDF 意指哪一版原始算法仍未确定
+    - text: 。核实到的版本不是 f1∧f2 的枚举器，不能与 FP-Growth 当作同类算法替换。
+    - 'link "ResearchGate: https://www.researchgate.net/publication/241624201_Partisan_scale, https://www.researchgate.net/publication/241624201_Partisan_scale"':
+      - /url: https://www.researchgate.net/publication/241624201_Partisan_scale
+      - generic: ResearchGate
+  - paragraph: "**采用关系查询路线的理由是：**A 已产出多论元事实，直接连接可保留完整原子、类型约束、来源状态和见证公式；不必先把一个完整事实拆成多个图边，再过滤大量不完整事实子图。这是实现适配理由，不是表达能力优于 gSpan 的宣称。"
+  - heading "6.2 模式语言" [level=2]
+  - paragraph: 首版模式为有范围的、连通的合取查询：
+  - math:
+    - generic: P
+    - generic: (
+    - generic: u
+    - generic: )
+    - generic: =
+    - generic: ∃
+    - generic: x
+    - generic: A
+    - generic: "1"
+    - generic: (
+    - generic: u
+    - generic: ","
+    - generic: x
+    - generic: "1"
+    - generic: )
+    - generic: ∧
+    - generic: ⋯
+    - generic: ∧
+    - generic: A
+    - generic: m
+    - generic: (
+    - generic: u
+    - generic: ","
+    - generic: x
+    - generic: m
+    - generic: )
+    - generic: ∧
+    - generic: R
+    - generic: "1"
+    - generic: ∧
+    - generic: ⋯
+    - generic: ∧
+    - generic: R
+    - generic: r
+    - generic: .
+  - generic: P(u) =
+  - text: ∃x
+  - text: A
+  - generic: "1"
+  - text: (u,
+  - text: x
+  - generic: "1"
+  - text: ) ∧
+  - generic: ⋯ ∧
+  - text: A
+  - generic: m
+  - text: (u,
+  - text: x
+  - generic: m
+  - text: ) ∧
+  - text: R
+  - generic: "1"
+  - text: ∧
+  - generic: ⋯ ∧
+  - text: R
+  - generic: r
+  - text: .
+  - paragraph: 固定初始范围：
+  - list:
+    - math:
+      - generic: "2"
+      - generic: ≤
+      - generic: m
+      - generic: ≤
+      - generic: "4"
+    - generic: 2 ≤
+    - generic: m ≤
+    - generic: "4"
+    - text: 个实质事实原子；
+    - listitem: 至多2个额外时间／身份关系；
+    - listitem: 每个原子明确谓词、极性和陈述状态；
+    - listitem: 不使用“未查到某事实”作为否定原子；
+    - listitem: 不使用不受限递归、任意聚合或自动生成的因果边。
+  - paragraph: 共享变量要求绑定到同一个案件内对象。**不同变量默认不强制不同；只有显式 ≠ 才要求不同。**两个独立事件的模式必须加入事件不等式，不能用同一条事实重复匹配出“两次事件”。
+  - paragraph: 例如：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: CourtRequest(u, q, c, requester, recipient) AND CourtRefuse(u, e, q, c, recipient)
+  - paragraph: 重复出现的 q,c 强制同一请求、同一合同。
+  - paragraph:
+    - text: 当与 gSpan 比较时，须统一匹配语义：在 gSpan 的 injective 子图语义下，枚举允许的变量合并形态，并对剩余不同节点使用同样的不等约束。
+    - strong: 不能让两边分别使用同态匹配和单射匹配，却把差异算成模型优势。
+  - paragraph: 默认模式围绕一个法律关系范围，如合同、请求、行政决定。跨范围模式必须含有有来源的连接关系，不能仅凭“同一个当事人参与两个合同”就把所有事件接成一个交易。
+  - heading "6.3 分析单元与去重" [level=2]
+  - paragraph: 优先单位为：
+  - math:
+    - generic: u
+    - generic: =
+    - generic: (
+    - generic: c
+    - generic: a
+    - generic: s
+    - generic: e
+    - generic: _
+    - generic: i
+    - generic: d
+    - generic: ","
+    - generic: c
+    - generic: l
+    - generic: a
+    - generic: i
+    - generic: m
+    - generic: _
+    - generic: i
+    - generic: d
+    - generic: ","
+    - generic: s
+    - generic: t
+    - generic: a
+    - generic: g
+    - generic: e
+    - generic: )
+    - generic: .
+  - generic: u =
+  - text: (case_id,
+  - text: claim_id,
+  - text: stage).
+  - paragraph: 关联诉讼家族只作依赖和划分信息，不把不同裁判合并成一个记录。若当前只能可靠建立文书级范围，允许发布单独的文书级配置，但不能与 claim-level 支持度混报。
+  - paragraph:
+    - text: 同一模式在一个
+    - math:
+      - generic: u
+    - generic: u
+    - text: 内匹配十份合同，支持计数仍为1；十个见证单独保存。
+  - paragraph: 重复抓取、同段落被多个字段重复收录、重复引用同一命题，不增加支持度。
+  - heading "6.4 具体扩展、匹配与剪枝" [level=2]
+  - paragraph: 从单原子种子出发，逐层扩展：
+  - list:
+    - listitem: 加入一个允许的原子；
+    - listitem: 枚举其论元与已有变量的类型兼容绑定；
+    - listitem: 其余位置引入新变量，或执行允许的变量合并；
+    - listitem: 加入有记录支持的时间关系或不等关系；
+    - listitem: 要求语义连接，不能只通过公共 u 连接；
+    - listitem: 对变量重命名取规范形式，去除相同查询。
+  - paragraph: 小模式可直接对类型兼容的变量置换取最小序列化表示；规模扩大时替换为成熟图规范编码，不改变模式语义。
+  - paragraph: 为每个前缀维护投影匹配表：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: (unit_id, variable_binding, used_fact_ids, witness_formula)
+  - paragraph: 新增原子使用谓词／状态／论元索引连接。连接必须检查身份相等、显式不等式、范围、时间及来源状态；缺失身份不能参加确定匹配。
+  - paragraph:
+    - text: 对于固定
+    - math:
+      - generic: z
+    - generic: z
+    - text: ：
+  - math:
+    - generic: "y"
+    - generic: (
+    - generic: u
+    - generic: ","
+    - generic: P
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: =
+    - generic: "1"
+  - generic: y(u, P, z) =
+  - generic: "1"
+  - paragraph: 当且仅当存在一个匹配见证，且其中没有同一来源通道、同一情境下未解决的正反冲突。主张与法院认定之间的差异不是自动删除条件；混合状态模式必须在模式中显式写出。
+  - paragraph: 支持度仍是：
+  - math:
+    - generic: L
+    - generic: (
+    - generic: P
+    - generic: )
+    - generic: =
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: ∑
+    - generic: u
+    - generic: "y"
+    - generic: (
+    - generic: u
+    - generic: ","
+    - generic: P
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: ","
+    - generic: U
+    - generic: (
+    - generic: P
+    - generic: )
+    - generic: =
+    - generic: max
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: ∑
+    - generic: u
+    - generic: "y"
+    - generic: (
+    - generic: u
+    - generic: ","
+    - generic: P
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: .
+  - generic: L(P) =
+  - generic: z∈Z
+  - generic: min
+  - generic: u
+  - generic: ∑
+  - text: y(u, P, z), U(P) =
+  - generic: z∈Z
+  - generic: max
+  - generic: u
+  - generic: ∑
+  - text: y(u, P, z).
+  - paragraph:
+    - text: 实现上，见证公式是候选映射／身份选择的合取，
+    - math:
+      - generic: "y"
+    - generic: "y"
+    - text: 是该单位所有见证的析取；用有限约束求解与伪布尔优化计算两个极值。
+  - paragraph:
+    - text: "**扩展增加条件，因此每个"
+    - math:
+      - generic: z
+    - generic: z
+    - text: 下子模式支持不超过父模式。**只有当上界被证明低于阈值时才能剪枝；下界低不能剪枝，因为子模式仍可能值得保留为未决候选。
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "ENUMERATE(snapshot, grammar, threshold): verify Z is nonempty; otherwise return INVALID frontier = canonical one-atom seeds while frontier is not empty: P = pop in fixed length/lexicographic order M = indexed joins for P Y = OR-of-witness formulas, grouped by unit lower_certificate, upper_certificate = optimize support over Z if certified_upper < threshold: record pruned frontier continue archive P, formulas, witnesses, bounds if P can still be extended within grammar: for extension in all legal atom/binding/relation extensions: if canonical form is new: push extension return confirmed, unresolved, excluded, incomplete-search metadata"
+  - paragraph: 搜索超时必须报告哪些长度／前缀未完成。不能把已发现候选称为该语言下的完整模式集。
+  - heading "6.5 冗余与最终集合选择" [level=2]
+  - paragraph:
+    - text: 我不推荐把“支持度最高的十条”作为最终展示集。采用
+    - strong: 已有的预算最大覆盖问题
+    - text: ：
+  - paragraph: 首先定义固定的覆盖对象：
+  - blockquote:
+    - paragraph: 某分析单元中，经确认的一个二原子关系结构，例如“同一请求被提出并被明确拒绝”。
+  - paragraph: 每个单位总权重为1，在其覆盖对象之间均分，避免事实多、文书长的案件支配目标。
+  - paragraph:
+    - text: 模式
+    - math:
+      - generic: P
+    - generic: P
+    - text: 只有在该单位存在确定见证，且语法上包含相应关系结构时，才覆盖对象
+    - math:
+      - generic: h
+    - generic: h
+    - text: 。设覆盖矩阵为
+    - math:
+      - generic: a
+      - generic: h
+      - generic: P
+    - text: a
+    - generic: hP
+    - text: 。
+  - math:
+    - generic: max
+    - generic: ⁡
+    - generic: ∑
+    - generic: h
+    - generic: w
+    - generic: h
+    - generic: v
+    - generic: h
+  - text: max
+  - generic: h
+  - generic: ∑
+  - text: w
+  - generic: h
+  - text: v
+  - generic: h
+  - paragraph: 约束：
+  - math:
+    - generic: v
+    - generic: h
+    - generic: ≤
+    - generic: ∑
+    - generic: P
+    - generic: a
+    - generic: h
+    - generic: P
+    - generic: x
+    - generic: P
+    - generic: ","
+    - generic: ∑
+    - generic: P
+    - generic: x
+    - generic: P
+    - generic: ≤
+    - generic: K
+    - generic: ","
+    - generic: ∑
+    - generic: P
+    - generic: c
+    - generic: (
+    - generic: P
+    - generic: )
+    - generic: x
+    - generic: P
+    - generic: ≤
+    - generic: B
+    - generic: .
+  - text: v
+  - generic: h
+  - text: ≤
+  - generic: P
+  - generic: ∑
+  - text: a
+  - generic: hP
+  - text: x
+  - generic: P
+  - text: ","
+  - generic: P
+  - generic: ∑
+  - text: x
+  - generic: P
+  - text: ≤
+  - text: K,
+  - generic: P
+  - generic: ∑
+  - text: c(P)
+  - text: x
+  - generic: P
+  - text: ≤
+  - generic: B.
+  - paragraph:
+    - text: 其中
+    - math:
+      - generic: c
+      - generic: (
+      - generic: P
+      - generic: )
+    - generic: c(P)
+    - text: 为原子与附加关系数量。先最大化覆盖，再以总长度最小、规范ID顺序作确定性破同分。
+  - paragraph:
+    - text: 这属于已有最大覆盖家族，不是新的模式选择原理。
+    - 'link "ScienceDirect: The budgeted maximum coverage problem, https://www.sciencedirect.com/science/article/pii/S0020019099000319?utm_source=chatgpt.com"':
+      - /url: https://www.sciencedirect.com/science/article/pii/S0020019099000319?utm_source=chatgpt.com
+      - generic: ScienceDirect
+  - paragraph: 使用整数规划或分支定界：贪心边际收益／成本仅生成初始可行解；超时返回可行值与优化器上界，不宣称最优。
+  - paragraph: 冗余处理分三种：
+  - list:
+    - strong: 变量改名后完全相同
+    - text: ：合并；
+    - strong: 相同覆盖且更长
+    - text: ：可从展示候选中支配删除，但保留检索档案；
+    - strong: 当前样本支持集相同但语义不同
+    - text: ：不当作等价。一个额外时间条件不能因为当前都出现就被删除。
+  - paragraph: 仅有联合支持下界、却没有可确认的逐案见证的模式，保留在未决目录，不伪装成可用于案件比较的确定展示项。这会损失覆盖，必须计入成本，而不是隐藏。
+  - paragraph: "**最大覆盖只优化展示互补性，不证明法律重要性。**宽泛模式仍可能胜出；需要明确模式语言与覆盖对象，并用案件比较任务检查它们是否有用。"
+  - heading "B 的强替代与选择边界" [level=3]
+  - table:
+    - rowgroup:
+      - row "对照 具体配置 判断":
+        - columnheader "对照"
+        - columnheader "具体配置"
+        - columnheader "判断"
+    - rowgroup:
+      - row "相同关系查询→普通特征→现有选择器 完全相同查询、匹配、见证、专家信息和预算 它就是本推荐路线的重要组成部分，不是假想要战胜的弱基线":
+        - cell "相同关系查询→普通特征→现有选择器":
+          - strong: 相同关系查询→普通特征→现有选择器
+        - cell "完全相同查询、匹配、见证、专家信息和预算"
+        - cell "它就是本推荐路线的重要组成部分，不是假想要战胜的弱基线":
+          - strong: 它就是本推荐路线的重要组成部分，不是假想要战胜的弱基线
+      - row "gSpan 完整事实节点＋角色边＋状态标签；相同范围、匹配语义和后端选集 大量复杂图结构时可能更快；若生成同样模式更省资源，替换枚举器":
+        - cell "gSpan":
+          - strong: gSpan
+        - cell "完整事实节点＋角色边＋状态标签；相同范围、匹配语义和后端选集"
+        - cell "大量复杂图结构时可能更快；若生成同样模式更省资源，替换枚举器"
+      - row "FP-Growth 以已计算的关系查询为项目，而非原始词袋 适合继续挖掘关系特征的共同出现；不能把两个独立存在量词自动解释为共享实体":
+        - cell "FP-Growth":
+          - strong: FP-Growth
+        - cell "以已计算的关系查询为项目，而非原始词袋"
+        - cell "适合继续挖掘关系特征的共同出现；不能把两个独立存在量词自动解释为共享实体"
+      - row "ILP 相同背景知识、谓词语言、明确学习目标 当任务变为预测／解释指定 head，且正负例可靠时更合适；当前无干净标签，不强造监督目标":
+        - cell "ILP":
+          - strong: ILP
+        - cell "相同背景知识、谓词语言、明确学习目标"
+        - cell "当任务变为预测／解释指定 head，且正负例可靠时更合适；当前无干净标签，不强造监督目标"
+      - row "SLIM／Snor 相同特征与候选池，计入完整编码及搜索成本 语料压缩是主要目标时可能更好；若其选集在相同阅读预算下更有用，应替换覆盖目标":
+        - cell "SLIM／Snor":
+          - strong: SLIM／Snor
+        - cell "相同特征与候选池，计入完整编码及搜索成本"
+        - cell "语料压缩是主要目标时可能更好；若其选集在相同阅读预算下更有用，应替换覆盖目标"
+  - button "Copy table":
+  - button "Expand table":
+  - separator
+  - heading "七、C 的最终算法：受限 ASPIC+＋grounded 推理＋未知补全检查" [level=1]
+  - heading "7.1 选择理由" [level=2]
+  - paragraph: 结构清单能够回答“哪些前提已经出现”，但当存在相反规则、例外或前提冲突时，仅打勾不够。
+  - paragraph: 直接／RAG LLM 可以生成论证，却不自动提供固定的攻击、优先级和未决语义。另一方面，完整法律形式化又很容易超出当前资源。
+  - paragraph: 因此首版选择一个明确片段：
+  - blockquote:
+    - paragraph:
+      - strong: 有限对象域、无函数生成、无循环支持链；法律应用规则可推翻；显式反驳和例外攻击；采用唯一的 grounded 结果。
+  - paragraph:
+    - text: ASPIC+ 已经区分严格／可推翻规则和不同攻击位置；grounded 是现成的审慎语义，不是本项目发明。
+    - 'link "Sage Journals: https://journals.sagepub.com/doi/10.1080/19462166.2013.869766, https://journals.sagepub.com/doi/10.1080/19462166.2013.869766, 1 additional source"':
+      - /url: https://journals.sagepub.com/doi/10.1080/19462166.2013.869766
+      - generic: Sage Journals
+      - generic: "+1"
+  - heading "7.2 规则表示与生产流程" [level=2]
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Rule( rule_id, version, body_literals, head_literal, exceptions, jurisdiction, effective_interval, procedural_scope, authority_spans, origin, priority_relations, validation_status )
+  - paragraph: origin 至少区分：
+  - list:
+    - listitem: authority 中的规范性规则；
+    - listitem: 某判决明确使用的测试；
+    - listitem: B／LRI 提出的经验性假说。
+  - paragraph: 第三类不能自动进入规范性推理引擎。
+  - paragraph: 规则获取流程固定为：
+  - list:
+    - listitem: 检索原始 authority 及被引用条款，展开相关交叉引用；
+    - text: 提供共享谓词注册表，让模型
+    - strong: 联合生成规则前提、结论、例外和出处
+    - text: ；
+    - listitem: 编译检查变量范围、类型、否定、模态、引用及循环；
+    - listitem: 专家核验每条新规范性规则及优先级；
+    - listitem: 用正常适用、缺少必要前提、例外成立和相反规则四类小测试检查编码；
+    - listitem: 允许一次修正；仍不支持则隔离，不进入正式规则集。
+  - paragraph:
+    - text: 这并不要求先独立生成一套全新 atom 再让另一模型编规则。相关消融表明额外的原子抽取阶段可能引入多余原子并降低效果；我们采用共享注册表，但不把多阶段本身当收益来源。
+    - 'link "arXiv: https://arxiv.org/html/2506.08899v3, https://arxiv.org/html/2506.08899v3"':
+      - /url: https://arxiv.org/html/2506.08899v3
+      - generic: arXiv
+  - paragraph: 规则里的 Permission(p)、Obligation(p)、¬Obligation(p) 必须分开，不能凭名称相似互换。
+  - heading "7.3 从陈述进入推理：使用显式桥接规则" [level=2]
+  - paragraph: 严格保存的是“文书中存在这条陈述”这一来源记录，而不是把全部抽取命题当作不可攻击的现实真理。
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: OBSERVATION(o, COURT_FOUND(+p)) ⇒ p [来源桥接规则 b_o] OBSERVATION(o, COURT_FOUND(-p)) ⇒ -p [来源桥接规则 b_o]
+  - paragraph: 两个桥接规则默认同等地位。若法院记录中同一情境有正反陈述，两边都保留，可以互相攻击。
+  - paragraph: 当事人主张只进入：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: SAYS(party, p)
+  - paragraph:
+    - text: 除非运行一个明确标注的假设场景，否则不桥接成
+    - math:
+      - generic: p
+    - generic: p
+    - text: 。
+  - paragraph:
+    - text: NOT_ESTABLISHED(p) 不桥接成
+    - math:
+      - generic: ¬
+      - generic: p
+    - generic: ¬p
+    - text: 。
+  - paragraph:
+    - text: 首版领域推理不混入可争议的严格法律规则。确有严格定义时先作经核验的定义展开；超出这个片段的严格规则体系单独报告不支持，不私自近似。这样避免在未满足条件时声称获得 ASPIC+ 的全部一致性性质。
+    - 'link "Sage Journals: https://journals.sagepub.com/doi/10.1080/19462166.2013.869766, https://journals.sagepub.com/doi/10.1080/19462166.2013.869766"':
+      - /url: https://journals.sagepub.com/doi/10.1080/19462166.2013.869766
+      - generic: Sage Journals
+  - heading "7.4 前提匹配、例外、优先级与攻击" [level=2]
+  - paragraph: "**前提匹配：**用 A 的类型与局部身份作精确连接。每个规则变量必须绑定同一个合同／请求等对象。前提可以来自源事实或已构造的子论证，不从生成文本中临时补出。"
+  - paragraph:
+    - text: "**反驳：**若论证"
+    - math:
+      - generic: A
+    - generic: A
+    - text: 的结论与论证
+    - math:
+      - generic: B
+    - generic: B
+    - text: 某个可推翻子论证
+    - math:
+      - generic: B
+      - generic: ′
+    - text: B
+    - generic: ′
+    - text: 的结论相反，则
+    - math:
+      - generic: A
+    - generic: A
+    - text: 攻击
+    - math:
+      - generic: B
+    - generic: B
+    - text: 。
+  - paragraph: "**优先级：**采用 last-link，即比较攻击者与被攻击子论证最后使用的规则。只有有来源、经核验的优先关系才有效；没有优先关系时不自动套“更具体”“更晚”“引用更多”。"
+  - paragraph: 反驳转为成功击败的条件为：
+  - math:
+    - generic: A
+    - generic: rebuts
+    - generic: B
+    - generic: ′
+    - generic: 且
+    - generic: A
+    - generic: ⊀
+    - generic: B
+    - generic: ′
+    - generic: .
+  - text: A
+  - generic: rebuts
+  - text: B
+  - generic: ′
+  - generic: 且
+  - text: A
+  - generic: 
+  - text: ≺
+  - text: B
+  - generic: ′
+  - text: .
+  - paragraph:
+    - text: 这个片段每个论证只有一个最后的可推翻规则，避免了多规则集合提升的额外歧义。
+    - 'link "JAIR: https://www.jair.org/index.php/jair/article/download/18404/27209/48158, https://www.jair.org/index.php/jair/article/download/18404/27209/48158"':
+      - /url: https://www.jair.org/index.php/jair/article/download/18404/27209/48158
+      - generic: JAIR
+  - paragraph:
+    - text: "**例外：**把规则实例命名为 applicable(r, binding)。若该规则的已核验例外"
+    - math:
+      - generic: E
+    - generic: E
+    - text: 有支持论证，构造：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: E(binding) ⇒ -applicable(r, binding)
+  - paragraph: 它攻击使用该规则实例的推理步骤，属于 undercut，而不是简单支持相反结论。该攻击不因被攻击规则优先级较高就自动消失；但例外论证本身仍可被反驳。
+  - paragraph: "**优先级出现循环：**规则包标为 INVALID_PRIORITY，不通过按ID排序等方式强行解决。"
+  - heading "7.5 grounded 标记" [level=2]
+  - paragraph: 先完整构造有限论证图，再执行：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "GROUNDED(arguments, defeats): IN = empty OUT = empty repeat: new_IN = undecided arguments whose attackers are all OUT new_OUT = undecided arguments attacked by IN ∪ new_IN add new_IN to IN add new_OUT to OUT until neither set changes UNDECIDED = all remaining arguments return IN, OUT, UNDECIDED"
+  - paragraph: 攻击必须传播到包含被攻击子论证的上层论证。不能只标记底层事实冲突，却让依赖它的结论继续被接受。
+  - paragraph: 结果解释：
+  - list:
+    - text: 有 IN 论证支持
+    - math:
+      - generic: p
+    - generic: p
+    - text: ：当前理论接受
+    - math:
+      - generic: p
+    - generic: p
+    - text: ；
+    - text: 所有
+    - math:
+      - generic: p
+    - generic: p
+    - text: 论证都 OUT：这些论证被击败，
+    - strong:
+      - text: 不自动等于已证明
+      - math:
+        - generic: ¬
+        - generic: p
+      - generic: ¬p
+    - text: ；
+    - listitem: 仍有相互攻击未解决：未决；
+    - listitem: 根本没有论证：当前输入不支持，不等于命题为假。
+  - paragraph: 若论证生成本身超时，不能在不完整攻击图上认证 IN，必须返回 INCOMPLETE_ARGUMENT_GRAPH。
+  - heading "7.6 未知例外不能当不存在" [level=2]
+  - paragraph: 这是 C 必须单独处理的一步。
+  - paragraph: 普通默认推理可能在“没有已知例外”时让一个论证当前 IN。但我们不会直接把它输出成没有条件的法律结论。
+  - paragraph: 对目标结论做反向依赖遍历，包含：
+  - list:
+    - listitem: 支持它的规则；
+    - listitem: 反对它及其子论证的规则；
+    - listitem: 相关例外；
+    - listitem: 上述规则尚未知的基础前提。
+  - paragraph:
+    - text: 得到有限集合
+    - math:
+      - generic: Q
+    - generic: Q
+    - text: 。对每个未知基础命题，考虑“仍未知、假设为正、假设为负”的允许补全；这些是
+    - strong: 敏感性分析假设，不是新证据
+    - text: 。
+  - paragraph:
+    - text: 在每个有效
+    - math:
+      - generic: z
+      - generic: ∈
+      - generic: Z
+    - generic: z ∈
+    - generic: Z
+    - text: 和补全
+    - math:
+      - generic: w
+    - generic: w
+    - text: 下重新构造／标记：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "REASON(target, A_snapshot, approved_rules): slice = backward closure of support, rebuttal and exception dependencies Q = unknown base premises in slice for admissible interpretation z: compute current grounded status with no hypothetical additions for admissible completion w over Q: label = grounded status in theory(z, w) if label differs from current: save counterexample assumptions mark target conditional / unstable if all required checks complete with target IN throughout: return STABLE_WITHIN_DECLARED_SCOPE if a counterexample is found: return CONDITIONAL with the changing premises if checking times out: return STABILITY_UNKNOWN, not stable"
+  - paragraph:
+    - text: JAIR 2025 对不完整 ASPIC+ 的稳定性和相关性已有精确算法与实验；但它主要研究的片段采用特定观察前提和 rebuttal。
+    - strong: 我们加入 undercut 后，不能直接继承其编码或复杂性保证。首版使用上述有限枚举／反例搜索作为可核验参考实现。
+    - 'link "JAIR: https://www.jair.org/index.php/jair/article/download/18404/27209/48158, https://www.jair.org/index.php/jair/article/download/18404/27209/48158, 1 additional source"':
+      - /url: https://www.jair.org/index.php/jair/article/download/18404/27209/48158
+      - generic: JAIR
+      - generic: "+1"
+  - paragraph:
+    - text: “稳定”始终限于已登记规则、有限
+    - math:
+      - generic: Q
+    - generic: Q
+    - text: 和候选
+    - math:
+      - generic: Z
+    - generic: Z
+    - text: 。它不证明没有未收录的法律例外。
+  - heading "C 的强替代与推翻条件" [level=3]
+  - table:
+    - rowgroup:
+      - row "替代 相同输入下比较什么 何时更好":
+        - columnheader "替代"
+        - columnheader "相同输入下比较什么"
+        - columnheader "何时更好"
+    - rowgroup:
+      - row "结构清单／前提匹配器 同样规则、状态、例外与出处 规则基本不冲突、没有优先级互动时，可能更简单且同样有效":
+        - cell "结构清单／前提匹配器":
+          - strong: 结构清单／前提匹配器
+        - cell "同样规则、状态、例外与出处"
+        - cell "规则基本不冲突、没有优先级互动时，可能更简单且同样有效"
+      - row "标准 ASPIC+／defeasible 引擎 同样编译规则与事实 应作为推理正确性对照；若成熟实现支持所需片段，优先复用，不坚持自写":
+        - cell "标准 ASPIC+／defeasible 引擎":
+          - strong: 标准 ASPIC+／defeasible 引擎
+        - cell "同样编译规则与事实"
+        - cell "应作为推理正确性对照；若成熟实现支持所需片段，优先复用，不坚持自写"
+      - row "直接／RAG LLM 同样原文、结构事实、规则及总预算 开放解释、规则未形式化的案件可能更灵活；若错误与遗漏不更高且更省成本，可承担更多输出任务":
+        - cell "直接／RAG LLM":
+          - strong: 直接／RAG LLM
+        - cell "同样原文、结构事实、规则及总预算"
+        - cell "开放解释、规则未形式化的案件可能更灵活；若错误与遗漏不更高且更省成本，可承担更多输出任务"
+      - row "LRI 比较经验规则获取，而非强行比较不同终点 若目标变成概括历史判决规律，LRI 更匹配；它不是默认的规范性适用引擎":
+        - cell "LRI":
+          - strong: LRI
+        - cell "比较经验规则获取，而非强行比较不同终点"
+        - cell "若目标变成概括历史判决规律，LRI 更匹配；它不是默认的规范性适用引擎"
+      - row "更完整的 DDL／义务逻辑 同样事实和经核验规范 任务核心变成义务、许可、违反后的补救链时更合适；当前不提前承担这部分复杂度":
+        - cell "更完整的 DDL／义务逻辑":
+          - strong: 更完整的 DDL／义务逻辑
+        - cell "同样事实和经核验规范"
+        - cell "任务核心变成义务、许可、违反后的补救链时更合适；当前不提前承担这部分复杂度"
+  - button "Copy table":
+  - button "Expand table":
+  - separator
+  - heading "八、贯穿执行例子" [level=1]
+  - paragraph:
+    - text: 以下是
+    - strong: 人为构造的算法单元测试，不是真实案件、真实法律规则或6954条数据上的实验结果
+    - text: 。
+  - heading "8.1 原文记录" [level=2]
+  - paragraph:
+    - text: 同一案件
+    - math:
+      - generic: u
+      - generic: "1"
+    - text: u
+    - generic: "1"
+    - text: 涉及合同
+    - math:
+      - generic: c
+      - generic: A
+      - generic: ","
+      - generic: c
+      - generic: B
+    - text: c
+    - generic: A
+    - text: ","
+    - text: c
+    - generic: B
+    - text: ：
+  - table:
+    - rowgroup:
+      - row "记录 内容":
+        - columnheader "记录"
+        - columnheader "内容"
+    - rowgroup:
+      - row "s1 原告主张，被告明确拒绝了合同 下的请求":
+        - cell "s1"
+        - cell "原告主张，被告明确拒绝了合同 下的请求":
+          - text: 原告主张，被告明确拒绝了合同
+          - math:
+            - generic: c
+            - generic: A
+          - text: c
+          - generic: A
+          - text: 下的请求
+          - math:
+            - generic: q
+            - generic: A
+          - text: q
+          - generic: A
+      - row "s2 法院认定原告提出了 ，截至指定日期相关记录未被提供；法院未认定存在明确拒绝":
+        - cell "s2"
+        - cell "法院认定原告提出了 ，截至指定日期相关记录未被提供；法院未认定存在明确拒绝":
+          - text: 法院认定原告提出了
+          - math:
+            - generic: q
+            - generic: A
+          - text: q
+          - generic: A
+          - text: ，截至指定日期相关记录未被提供；法院未认定存在明确拒绝
+      - row "s3 法院认定原告提出了合同 下的请求 ，被告随后明确表示不会提供该请求的记录":
+        - cell "s3"
+        - cell "法院认定原告提出了合同 下的请求 ，被告随后明确表示不会提供该请求的记录":
+          - text: 法院认定原告提出了合同
+          - math:
+            - generic: c
+            - generic: B
+          - text: c
+          - generic: B
+          - text: 下的请求
+          - math:
+            - generic: q
+            - generic: B
+          - text: q
+          - generic: B
+          - text: ，被告随后明确表示不会提供该请求的记录
+      - row "s4 对 是否存在合法拒绝事由，材料没有说明":
+        - cell "s4"
+        - cell "对 是否存在合法拒绝事由，材料没有说明":
+          - text: 对
+          - math:
+            - generic: q
+            - generic: B
+          - text: q
+          - generic: B
+          - text: 是否存在合法拒绝事由，材料没有说明
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 另有：
+  - list:
+    - math:
+      - generic: u
+      - generic: "2"
+    - text: u
+    - generic: "2"
+    - text: ：法院认定请求及明确拒绝，且明确排除了本例涉及的两种例外；
+    - math:
+      - generic: u
+      - generic: "3"
+    - text: u
+    - generic: "3"
+    - text: ：只有请求及未提供，没有明确拒绝；
+    - math:
+      - generic: u
+      - generic: "4"
+    - text: u
+    - generic: "4"
+    - text: ：同一请求、同一时间范围出现法院认定拒绝和法院明确认定未拒绝的冲突记载；
+    - math:
+      - generic: u
+      - generic: "5"
+    - text: u
+    - generic: "5"
+    - text: ：法院记载了一次拒绝，但其指向
+    - math:
+      - generic: q
+      - generic: "1"
+    - text: q
+    - generic: "1"
+    - text: 还是
+    - math:
+      - generic: q
+      - generic: "2"
+    - text: q
+    - generic: "2"
+    - text: 不确定；只有
+    - math:
+      - generic: q
+      - generic: "1"
+    - text: q
+    - generic: "1"
+    - text: 有已记录请求。
+  - heading "8.2 A 的中间表示" [level=2]
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "a1: ALLEGED +REFUSE(eA, defendant, qA, cA) a2: FOUND +REQUEST(qA, plaintiff, defendant, cA) a3: FOUND +NOT_PROVIDED(recordsA, qA, cA, deadline) a4: META NOT_ESTABLISHED(REFUSE(eA, defendant, qA, cA)) a5: FOUND +REQUEST(qB, plaintiff, defendant, cB) a6: FOUND +REFUSE(eB, defendant, qB, cB) a7: FOUND +BEFORE(request_time(qB), refusal_time(eB))"
+  - paragraph: 实际决策不是一句“模型觉得不同”：
+  - list:
+    - text: a1 与 a6：都使用 REFUSE 类型，但状态不同、请求与合同不同；
+    - strong: 不合并实例，不进入相同状态的等价簇
+    - text: 。
+    - listitem: a3 与 a6：NOT_PROVIDED 只陈述未提供状态；REFUSE 还包含明确拒绝行为。目标分量“明确拒绝”无法由 s2 支持，故不等价。
+    - listitem: a4：是未认定的元陈述，不能生成 -REFUSE。
+    - math:
+      - generic: u
+      - generic: "4"
+    - text: u
+    - generic: "4"
+    - text: 的正反记载：同一情境、同一通道，建立冲突链接；不选一条覆盖另一条。
+    - math:
+      - generic: u
+      - generic: "5"
+    - text: u
+    - generic: "5"
+    - text: ：建立局部变量
+    - math:
+      - generic: b
+      - generic: "5"
+      - generic: ∈
+      - generic: "{"
+      - generic: q
+      - generic: "1"
+      - generic: ","
+      - generic: q
+      - generic: "2"
+      - generic: "}"
+      - generic: .
+    - text: b
+    - generic: "5"
+    - text: ∈
+    - text: "{"
+    - text: q
+    - generic: "1"
+    - text: ","
+    - text: q
+    - generic: "2"
+    - text: "}."
+    - text: 它不会改变别的案件中任何拒绝事实的指向。
+  - heading "8.3 B 的实际匹配" [level=2]
+  - paragraph: 两个模式：
+  - math:
+    - generic: P
+    - generic: R
+    - generic: =
+    - generic: ∃
+    - generic: q
+    - generic: ","
+    - generic: c
+    - generic: ","
+    - generic: e
+    - generic: F
+    - generic: O
+    - generic: U
+    - generic: "N"
+    - generic: D
+    - generic: (
+    - generic: R
+    - generic: E
+    - generic: Q
+    - generic: U
+    - generic: E
+    - generic: S
+    - generic: T
+    - generic: (
+    - generic: q
+    - generic: ","
+    - generic: c
+    - generic: )
+    - generic: )
+    - generic: ∧
+    - generic: F
+    - generic: O
+    - generic: U
+    - generic: "N"
+    - generic: D
+    - generic: (
+    - generic: R
+    - generic: E
+    - generic: F
+    - generic: U
+    - generic: S
+    - generic: E
+    - generic: (
+    - generic: e
+    - generic: ","
+    - generic: q
+    - generic: ","
+    - generic: c
+    - generic: )
+    - generic: )
+  - text: P
+  - generic: R
+  - text: =
+  - generic: ∃q, c, e FOUND(REQUEST(q, c)) ∧
+  - generic: FOUND(REFUSE(e, q, c))
+  - math:
+    - generic: P
+    - generic: "N"
+    - generic: =
+    - generic: ∃
+    - generic: q
+    - generic: ","
+    - generic: c
+    - generic: ","
+    - generic: d
+    - generic: F
+    - generic: O
+    - generic: U
+    - generic: "N"
+    - generic: D
+    - generic: (
+    - generic: R
+    - generic: E
+    - generic: Q
+    - generic: U
+    - generic: E
+    - generic: S
+    - generic: T
+    - generic: (
+    - generic: q
+    - generic: ","
+    - generic: c
+    - generic: )
+    - generic: )
+    - generic: ∧
+    - generic: F
+    - generic: O
+    - generic: U
+    - generic: "N"
+    - generic: D
+    - generic: (
+    - generic: "N"
+    - generic: O
+    - generic: T
+    - generic: _
+    - generic: P
+    - generic: R
+    - generic: O
+    - generic: V
+    - generic: I
+    - generic: D
+    - generic: E
+    - generic: D
+    - generic: (
+    - generic: d
+    - generic: ","
+    - generic: q
+    - generic: ","
+    - generic: c
+    - generic: )
+    - generic: )
+    - generic: .
+  - text: P
+  - generic: "N"
+  - text: =
+  - generic: ∃q, c, d FOUND(REQUEST(q, c)) ∧
+  - generic: FOUND(NOT_PROVIDED(d, q, c)).
+  - paragraph: 结果：
+  - table:
+    - rowgroup:
+      - row "单位 ：请求＋明确拒绝 ：请求＋未提供":
+        - columnheader "单位"
+        - columnheader "：请求＋明确拒绝":
+          - math:
+            - generic: P
+            - generic: R
+          - text: P
+          - generic: R
+          - text: ：请求＋明确拒绝
+        - columnheader "：请求＋未提供":
+          - math:
+            - generic: P
+            - generic: "N"
+          - text: P
+          - generic: "N"
+          - text: ：请求＋未提供
+    - rowgroup:
+      - row "在 上成立 在 上成立":
+        - cell:
+          - math:
+            - generic: u
+            - generic: "1"
+          - text: u
+          - generic: "1"
+        - cell "在 上成立":
+          - text: 在
+          - math:
+            - generic: c
+            - generic: B
+            - generic: ","
+            - generic: q
+            - generic: B
+          - text: c
+          - generic: B
+          - text: ","
+          - text: q
+          - generic: B
+          - text: 上成立
+        - cell "在 上成立":
+          - text: 在
+          - math:
+            - generic: c
+            - generic: A
+            - generic: ","
+            - generic: q
+            - generic: A
+          - text: c
+          - generic: A
+          - text: ","
+          - text: q
+          - generic: A
+          - text: 上成立
+      - row "成立 没有记录见证":
+        - cell:
+          - math:
+            - generic: u
+            - generic: "2"
+          - text: u
+          - generic: "2"
+        - cell "成立"
+        - cell "没有记录见证"
+      - row "没有记录见证 成立":
+        - cell:
+          - math:
+            - generic: u
+            - generic: "3"
+          - text: u
+          - generic: "3"
+        - cell "没有记录见证"
+        - cell "成立"
+      - row "正反冲突，不能提供正常无冲突见证 没有记录见证":
+        - cell:
+          - math:
+            - generic: u
+            - generic: "4"
+          - text: u
+          - generic: "4"
+        - cell "正反冲突，不能提供正常无冲突见证"
+        - cell "没有记录见证"
+      - row "取决于 没有记录见证":
+        - cell:
+          - math:
+            - generic: u
+            - generic: "5"
+          - text: u
+          - generic: "5"
+        - cell "取决于":
+          - text: 取决于
+          - math:
+            - generic: b
+            - generic: "5"
+          - text: b
+          - generic: "5"
+        - cell "没有记录见证"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 所以：
+  - math:
+    - generic: L
+    - generic: (
+    - generic: P
+    - generic: R
+    - generic: )
+    - generic: =
+    - generic: "2"
+    - generic: ","
+    - generic: U
+    - generic: (
+    - generic: P
+    - generic: R
+    - generic: )
+    - generic: =
+    - generic: "3"
+    - generic: ;
+    - generic: L
+    - generic: (
+    - generic: P
+    - generic: "N"
+    - generic: )
+    - generic: =
+    - generic: U
+    - generic: (
+    - generic: P
+    - generic: "N"
+    - generic: )
+    - generic: =
+    - generic: "2."
+  - text: L(
+  - text: P
+  - generic: R
+  - text: ) =
+  - text: 2, U(
+  - text: P
+  - generic: R
+  - text: ) =
+  - text: 3; L(
+  - text: P
+  - generic: "N"
+  - text: ) =
+  - text: U(
+  - text: P
+  - generic: "N"
+  - text: ) =
+  - generic: "2."
+  - paragraph:
+    - text: 这里
+    - math:
+      - generic: u
+      - generic: "3"
+    - text: u
+    - generic: "3"
+    - text: 的
+    - math:
+      - generic: P
+      - generic: R
+      - generic: =
+      - generic: "0"
+    - text: P
+    - generic: R
+    - text: =
+    - generic: "0"
+    - text: 表示
+    - strong: 没有合格记录见证
+    - text: ，不是“现实中绝对没有拒绝”。
+  - paragraph:
+    - text: 同案不同合同的错误连接被变量绑定排除：不能用
+    - math:
+      - generic: c
+      - generic: A
+    - text: c
+    - generic: A
+    - text: 的请求与
+    - math:
+      - generic: c
+      - generic: B
+    - text: c
+    - generic: B
+    - text: 的拒绝，生成关于
+    - math:
+      - generic: c
+      - generic: A
+    - text: c
+    - generic: A
+    - text: 的模式见证。
+  - paragraph:
+    - text: 若最终展示预算为两条，
+    - math:
+      - generic: P
+      - generic: R
+    - text: P
+    - generic: R
+    - text: 与一个仅换名称的副本覆盖相同对象，新增收益为零；
+    - math:
+      - generic: P
+      - generic: "N"
+    - text: P
+    - generic: "N"
+    - text: 带来
+    - math:
+      - generic: u
+      - generic: "1"
+    - text: u
+    - generic: "1"
+    - text: 的另一类关系和
+    - math:
+      - generic: u
+      - generic: "3"
+    - text: u
+    - generic: "3"
+    - text: 的关系。因此选择
+    - math:
+      - generic: "{"
+      - generic: P
+      - generic: R
+      - generic: ","
+      - generic: P
+      - generic: "N"
+      - generic: "}"
+    - text: "{"
+    - text: P
+    - generic: R
+    - text: ","
+    - text: P
+    - generic: "N"
+    - text: "}"
+    - text: ，而不是两条重复拒绝模式。
+  - paragraph: “请求后才拒绝”的时间细化若当前覆盖完全相同，不被当作语义等价删除，但可能因阅读成本更高而不进入这次展示集。
+  - heading "8.4 C 的实际推理" [level=2]
+  - paragraph:
+    - text: 给定以下
+    - strong: 虚构且已经核验的示例规则
+    - text: ：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "r0: VALID_REQUEST(q,c) ⇒ DUTY_PROVIDE(q,c) r1: LAWFUL_BAR(q,c) ⇒ -DUTY_PROVIDE(q,c) priority: r1 > r0 r2: DUTY_PROVIDE(q,c) AND REFUSE(q,c) ⇒ DENIAL_ELEMENT(q,c) exception: AUTHORIZED_WITHHOLDING(q,c)"
+  - paragraph: 这里 -DUTY_PROVIDE 是“没有该义务”，不是“有义务不提供”。
+  - paragraph: 假设本例另有原文明确支持请求有效性；不能仅由 REQUEST 自动补出 VALID_REQUEST。
+  - paragraph:
+    - text: "**对"
+    - math:
+      - generic: u
+      - generic: "1"
+      - generic: ","
+      - generic: c
+      - generic: A
+    - text: u
+    - generic: "1"
+    - text: ","
+    - text: c
+    - generic: A
+    - text: ：**只有当事人主张拒绝和法院认定未提供。REFUSE 前提缺失，不能构造 r2 论证。B 中存在
+    - math:
+      - generic: P
+      - generic: "N"
+    - text: P
+    - generic: "N"
+    - text: 也不能补成 REFUSE。
+  - paragraph:
+    - text: "**对"
+    - math:
+      - generic: u
+      - generic: "1"
+      - generic: ","
+      - generic: c
+      - generic: B
+    - text: u
+    - generic: "1"
+    - text: ","
+    - text: c
+    - generic: B
+    - text: ：**法院认定请求和明确拒绝，可以构造 r0、r2 的当前论证；但两个例外未知。
+  - list:
+    - listitem: 假设 LAWFUL_BAR=+：r1 的结论反驳 r0，且 r1 优先；义务论证被击败。
+    - listitem: 假设 AUTHORIZED_WITHHOLDING=+：例外论证攻击 r2 的应用步骤。
+    - text: 因而输出为
+    - strong: CONDITIONAL
+    - text: ，并准确指出需要核查哪两个前提。
+  - paragraph:
+    - text: "**对"
+    - math:
+      - generic: u
+      - generic: "2"
+    - text: u
+    - generic: "2"
+    - text: ：**本例相关例外均有明确排除依据，可以得到所声明规则范围内稳定的要件论证。仍不自动推出整个案件胜诉，因为其他要件和抗辩尚未建模。
+  - paragraph:
+    - text: "**对"
+    - math:
+      - generic: u
+      - generic: "4"
+    - text: u
+    - generic: "4"
+    - text: ：**拒绝与未拒绝的来源桥接论证同等地位、互相攻击，grounded 标记为未决；依赖拒绝的上层论证也不能被认证。
+  - heading "8.5 错误修复怎样贯穿全链" [level=2]
+  - paragraph: 假设旧版本错误地把 NOT_PROVIDED 合并到 REFUSE：
+  - list:
+    - listitem: A 收到 s2 的反例，撤销相关映射，拆分类型／簇；
+    - text: B 删除由该错误映射产生的见证，重新计算
+    - math:
+      - generic: P
+      - generic: R
+    - text: P
+    - generic: R
+    - text: 的支持；
+    - listitem: C 撤销依赖错误 REFUSE 前提的论证；
+    - listitem: 未使用该映射的请求、付款和其他案件不被全局重写。
+  - paragraph:
+    - text: 这就是修复机制的具体收益假设：
+    - strong: 错误可以定位到来源—映射—见证—论证，而不是重新让模型生成一遍答案。
+  - separator
+  - heading "九、整体协调：谁生产什么，谁可以修改什么" [level=1]
+  - table:
+    - rowgroup:
+      - row "组件 生产 消费 权限边界":
+        - columnheader "组件"
+        - columnheader "生产"
+        - columnheader "消费"
+        - columnheader "权限边界"
+    - rowgroup:
+      - row "原文与来源层 文书、段落、重复关系、来源哈希 抓取结果 不决定法律事实真值":
+        - cell "原文与来源层"
+        - cell "文书、段落、重复关系、来源哈希"
+        - cell "抓取结果"
+        - cell "不决定法律事实真值"
+      - row "A 抽取层 实例、状态、局部身份候选 原文、允许背景 不根据 B 的模式效果改事实":
+        - cell "A 抽取层"
+        - cell "实例、状态、局部身份候选"
+        - cell "原文、允许背景"
+        - cell "不根据 B 的模式效果改事实"
+      - row "A 规范化层 类型、等价簇、映射决策与版本 实例、定义、专家约束 不改变原文；不把一个实例标注传播到全体":
+        - cell "A 规范化层"
+        - cell "类型、等价簇、映射决策与版本"
+        - cell "实例、定义、专家约束"
+        - cell "不改变原文；不把一个实例标注传播到全体"
+      - row "B 查询、见证、区间、展示集 冻结 A 快照 不自行补身份、不创造规范性规则":
+        - cell "B"
+        - cell "查询、见证、区间、展示集"
+        - cell "冻结 A 快照"
+        - cell "不自行补身份、不创造规范性规则"
+      - row "authority／规则获取层 带出处和适用范围的规则包 法律来源、明确判决测试 经验模式不能自动升级为法律依据":
+        - cell "authority／规则获取层"
+        - cell "带出处和适用范围的规则包"
+        - cell "法律来源、明确判决测试"
+        - cell "经验模式不能自动升级为法律依据"
+      - row "C 论证、攻击、优先级应用与未决原因 A、规则包、可选 B 不把检索不到例外当例外不存在":
+        - cell "C"
+        - cell "论证、攻击、优先级应用与未决原因"
+        - cell "A、规则包、可选 B"
+        - cell "不把检索不到例外当例外不存在"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: "**C 必须能够直接查询 A。**B 是候选比较结构与检索辅助，不是 C 获得事实的唯一入口；否则模式选集没选到某事实，就会让推理漏掉必要前提。"
+  - paragraph: B 模式也不能作为一个额外独立证据，与组成它的原始事实重复计权。
+  - heading "更新与重算" [level=2]
+  - paragraph: 每次发布固定以下版本：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: source_version extraction_version identity_version predicate/cluster_version interpretation_constraints_version pattern_grammar_version rule_package_version
+  - paragraph: 变更先在影子版本执行，再整体发布。
+  - paragraph: 重算不能只追踪已经输出的正依赖：
+  - list:
+    - listitem: A 的别名或身份约束变化，可能改变同一约束连通分量中其他模式的区间；
+    - listitem: B 中曾被低支持剪掉的前缀，可能在更新后变得频繁，必须保存剪枝前沿或重新枚举；
+    - listitem: 最终覆盖选集是全局优化，相关覆盖改变后要重新选集；
+    - listitem: C 新增事实可能形成攻击，所以必须重算相应论证连通部分，不能只更新原有证明链。
+  - paragraph: 开发初期，B 对更新后的限定领域做全量重算通常比实现复杂的增量挖掘更可靠；A 的局部修复与 C 的案件级重算仍可先实现。
+  - separator
+  - heading "十、怎样排除“只是多调用、多人工、多拒答”的解释" [level=1]
+  - paragraph: 算法已经选定，实验用于推翻或保留它，而不是替代实现。
+  - table:
+    - rowgroup:
+      - row "核心机制 必须进行的对照 推翻条件":
+        - columnheader "核心机制"
+        - columnheader "必须进行的对照"
+        - columnheader "推翻条件"
+    - rowgroup:
+      - row "A 全簇准入 同一判定协议，比较定义-only、medoid-only、边界抽样、全成员；匹配总预算与覆盖率 优势仅来自输出更少，或等预算下没有减少重要误合并":
+        - cell "A 全簇准入"
+        - cell "同一判定协议，比较定义-only、medoid-only、边界抽样、全成员；匹配总预算与覆盖率"
+        - cell "优势仅来自输出更少，或等预算下没有减少重要误合并"
+      - row "A 固定定义与拆分 冻结定义、允许重写定义、局部修复、定期全量重聚类 局部机制不能降低错误传播或成本":
+        - cell "A 固定定义与拆分"
+        - cell "冻结定义、允许重写定义、局部修复、定期全量重聚类"
+        - cell "局部机制不能降低错误传播或成本"
+      - row "B 关系绑定 相同关系查询结果交给所有挖掘／选择方法 只有弱词袋基线输，而同查询强基线不输；应承认收益来自表示而非新挖掘器":
+        - cell "B 关系绑定"
+        - cell "相同关系查询结果交给所有挖掘／选择方法"
+        - cell "只有弱词袋基线输，而同查询强基线不输；应承认收益来自表示而非新挖掘器"
+      - row "B 最终选集 最大覆盖、SLIM／Snor、支持度排序，在相同阅读预算下比较 覆盖分数提高却没有改善案件比较与反例发现":
+        - cell "B 最终选集"
+        - cell "最大覆盖、SLIM／Snor、支持度排序，在相同阅读预算下比较"
+        - cell "覆盖分数提高却没有改善案件比较与反例发现"
+      - row "C 论证引擎 同样结构事实、规则和来源的清单、RAG LLM、成熟形式引擎 形式化额外成本没有降低错误断言、身份错配或例外遗漏":
+        - cell "C 论证引擎"
+        - cell "同样结构事实、规则和来源的清单、RAG LLM、成熟形式引擎"
+        - cell "形式化额外成本没有降低错误断言、身份错配或例外遗漏"
+      - row "C 未知补全 当前 grounded 与补全检查分开报告 只让所有结论条件化，没有准确识别会改变结论的缺失信息":
+        - cell "C 未知补全"
+        - cell "当前 grounded 与补全检查分开报告"
+        - cell "只让所有结论条件化，没有准确识别会改变结论的缺失信息"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 专家定义、来源核验、规则校正和 schema 建设全部计入成本。主动挑选的困难样本与随机审计样本分开，不能用前者估计整体错误率。
+  - paragraph:
+    - text: 终端任务直接采用
+    - strong: 限定争点的案件比较
+    - text: ：找共同结构、重要差异、支持／反对实例和未决前提。按案件家族划分开发、发现和确认集，尽量加入时间隔离；当前完全可以不依赖 W/L 标签启动。
+  - separator
+  - heading "最终边界" [level=2]
+  - paragraph: 这套方案的算法决策已经确定：
+  - paragraph:
+    - strong: A 不用平均语义或单个代表替代整簇准入；B 不用无绑定共现替代关系模式；C 不用流畅生成替代明确的前提、例外、攻击和接受语义。
+  - paragraph: 与此同时，三个边界必须保留：
+  - list:
+    - strong: A 的 complete-link 只约束已执行的判定协议，不能把可错的语义判断变成法律真理。
+    - strong: B 的支持与最大覆盖只针对已记录见证和声明的模式语言，不证明法律有效性。
+    - strong: C 的 grounded 与稳定性只针对已登记事实解释、规则和补全范围，不证明法律知识已经完备。
+  - paragraph:
+    - text: 目前没有本项目实测优势。最值得实现和检验的，正是这套已有算法的具体改造能否在相同信息、人工、模型和总预算下，减少
+    - strong: 错误身份连接、状态混淆、连锁合并、重复模式和遗漏例外
+    - text: ，同时保留足够的有效输出。
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - button "Sources":
+  - generic: ChatGPT can make mistakes. Check important info.
+  - button "Scroll to bottom":
+  - heading "Latest response" [level=4]
+  - status
+  - button "Add files and more":
+  - textbox "Ask ChatGPT":
+    - paragraph: Ask ChatGPT
+  - button "Select ChatGPT model":
+    - generic: Pro
+  - button "Dictate":
+  - button "Start Voice":
+- status
+- status
+- status
+- status: Response complete

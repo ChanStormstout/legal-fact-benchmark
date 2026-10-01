@@ -1,0 +1,38 @@
+{
+  "case_id": "148738",
+  "task_id": "9c74983b08ed3850",
+  "label": "MODEL_REFERENCE_WITH_LOCAL_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "review_method": "LOCAL_FULL_SOURCE_COMPARISON_NO_ADDITIONAL_WEB_TASK",
+  "source_evidence": [
+    {
+      "segment_id": "p0003.s002",
+      "quote": "The Judgment of the Court was delivered by KASLIWAL, J. This is a tenant's appeal by grant of Special Leave in a suit for eviction decreed against him by all the Courts. The appellant took one road side shop room in the ground floor of premises No. 75, Surendra Nath Banerjee Road, Calcutta on rent @ Rs.50 per month. On 27th September, 1973 the respondents herein purchased the premises in question from the Commissioner of Partition and Receiver in High Court Suit No. 1183 of 1961 (Anuo Kumar Dhar v. Satya Narayan Dhar & Ors.), a suit for partition etc., between the owners of the said premises. ",
+      "page": 3,
+      "source_url": "https://drive.google.com/file/d/1dyrH32Q9zZEiIDML_z0ibIn_gyM878Mw/view?usp=drivesdk"
+    },
+    {
+      "segment_id": "p0003.s004",
+      "quote": "The suit was based on the ground of default in the payment of rent and subletting. The trial court decided the question of default in the payment of rent in favour of the appellant but decided the question of subletting against him and as such decreed the suit by Judgment dated 12th June, 1979. The appellant aggrieved against the aforesaid Judgment filed an appeal before the High Court. A Division Bench of the High Court consisting of N.C. Mukherji and Surendra Mohan Guha, JJ. heard the appeal. Guha, J. held that the plaintiffs had knowledge of assignment or subletting in favour of Sujoy Kumar Dass Gupta much earlier than the last payment of rent in January, 1975. ",
+      "page": 3,
+      "source_url": "https://drive.google.com/file/d/1dyrH32Q9zZEiIDML_z0ibIn_gyM878Mw/view?usp=drivesdk"
+    },
+    {
+      "segment_id": "p0004.s002",
+      "quote": "third Learned Judge by his order dated 23rd June, 1980 agreed with the view of N.C. Mukherji, J. The majority view being in favour of the respondent landlords, the appeal was ultimately dismissed by the High Court by order dated 25th July, 1980. Aggrieved against the Judgment of the High Court, the tenant has come in appeal to this Court. We have heard Learned counsel for the parties and have gone through the record. The trial court as well as all the Learned Judges including Guha, J. in the High Court have recorded a finding of fact that there was no previous consent in writing by the landlord for the sub\u0002tenancy created by the tenant appellant. ",
+      "page": 4,
+      "source_url": "https://drive.google.com/file/d/1dyrH32Q9zZEiIDML_z0ibIn_gyM878Mw/view?usp=drivesdk"
+    }
+  ],
+  "reference_decision": "MATCH_UNCHANGED",
+  "A_decision": "NOT_FOUND",
+  "B_decision": "NOT_FOUND",
+  "source_support": "判决将租赁标的写为75号房产底层的一个临街店铺房间，同段记载被上诉人购买该处房产；p0003.s004和p0004.s002记载法院对转租作出事实认定。房间属于整处房产来自文本中的部位描述及同段指代，不是外部产权登记证明。",
+  "A_error": "未识别法院转租认定及房间与整处房产的区别。",
+  "B_error": "e1把转租状态写为NARRATED，未保存COURT_FOUND；e1、e2均将property绑定shop_r，未保存部分与整体两个房产对象。",
+  "executor_explanation": "e1+e2被status条件及PROPER_EDGE_NOT_IDENTITY拒绝；这与输入结构一致，不是日期未知扩散，也未观察到该查询的执行错误。",
+  "record_ids": [
+    "e1",
+    "e2"
+  ],
+  "remaining_limitation": "房产范围依赖判决同段指代解释，未核验外部登记材料；仅核查本题，不推出全案所有事实均正确。"
+}

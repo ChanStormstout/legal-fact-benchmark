@@ -1,0 +1,206 @@
+{
+  "case_id": "1740690",
+  "objects": [
+    {
+      "id": "o1",
+      "label": "Teri Oat Estates (P) Ltd",
+      "kind": "ORGANIZATION",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "PETITIONER: TERI OAT ESTATES (P) LTD."
+        }
+      ]
+    },
+    {
+      "id": "o2",
+      "label": "U.T. Chandigarh",
+      "kind": "ORGANIZATION",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "RESPONDENT: U.T. CHANDIGARH AND ORS."
+        }
+      ]
+    },
+    {
+      "id": "o3",
+      "label": "Site bearing No. SCO 126-127, Sector 34-A, Chandigarh",
+      "kind": "PROPERTY",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+        }
+      ]
+    },
+    {
+      "id": "o4",
+      "label": "Building constructed by the appellant",
+      "kind": "PROPERTY",
+      "identity_resolved": true,
+      "evidence": [
+        {
+          "segment_id": "p0002.s002",
+          "quote": "The appellant herein upon entering into possession of the purchased site, constructed a six storied building including the basement floor."
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "u1",
+      "primary": true,
+      "description": "First underlying request: Lease of site and building (resumption/forfeiture)",
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "a1",
+      "unit_id": "u1",
+      "kind": "PROCEDURAL_ACT",
+      "type": "LEASE_PROPERTY",
+      "roles": {
+        "landlord": "o2",
+        "tenant": "o1",
+        "property": "o3"
+      },
+      "role_evidence": {
+        "landlord": [
+          {
+            "segment_id": "p0001.s002",
+            "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+          }
+        ]
+      },
+      "status": "NARRATED",
+      "status_evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+        }
+      ],
+      "polarity": "POSITIVE",
+      "time": null,
+      "origin": {
+        "speaker": "S.B. SINHA",
+        "stage": "NARRATED"
+      },
+      "attributes": {},
+      "scope": {},
+      "scope_parsed": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+        }
+      ],
+      "known_fields": [
+        {
+          "field": "type",
+          "value": "LEASE_PROPERTY",
+          "evidence": [
+            {
+              "segment_id": "p0001.s002",
+              "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+            }
+          ]
+        }
+      ],
+      "unresolved": [],
+      "scope_dependencies": []
+    },
+    {
+      "id": "a2",
+      "unit_id": "u1",
+      "kind": "PROCEDURAL_ACT",
+      "type": "OWN_PROPERTY",
+      "roles": {
+        "owner": "o1",
+        "property": "o3"
+      },
+      "role_evidence": {
+        "owner": [
+          {
+            "segment_id": "p0001.s002",
+            "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+          }
+        ]
+      },
+      "status": "NARRATED",
+      "status_evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+        }
+      ],
+      "polarity": "POSITIVE",
+      "time": null,
+      "origin": {
+        "speaker": "S.B. SINHA",
+        "stage": "NARRATED"
+      },
+      "attributes": {},
+      "scope": {},
+      "scope_parsed": true,
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+        }
+      ],
+      "known_fields": [
+        {
+          "field": "type",
+          "value": "OWN_PROPERTY",
+          "evidence": [
+            {
+              "segment_id": "p0001.s002",
+              "quote": "The site bearing No. SCO 126-127, Sector 34-A, Chandigarh was purchased on lease-hold basis by the appellant"
+            }
+          ]
+        }
+      ],
+      "unresolved": [],
+      "scope_dependencies": []
+    }
+  ],
+  "edges": [
+    {
+      "op": "part_of",
+      "left": "o4",
+      "right": "o3",
+      "decision": "SUPPORTED",
+      "explanation": "The building (o4) is described as constructed upon the purchased site (o3), satisfying the physical part relation.",
+      "evidence": [
+        {
+          "segment_id": "p0002.s002",
+          "quote": "The appellant herein upon entering into possession of the purchased site, constructed a six storied building including the basement floor."
+        }
+      ]
+    },
+    {
+      "op": "part_of",
+      "left": "o4",
+      "right": "o1",
+      "decision": "UNRESOLVED",
+      "explanation": "The source states the building is part of the site (o3), not the appellant (o1). No evidence links the building as a part of the appellant.",
+      "evidence": [
+        {
+          "segment_id": "p0002.s002",
+          "quote": "The appellant herein upon entering into possession of the purchased site, constructed a six storied building including the basement floor."
+        }
+      ]
+    }
+  ],
+  "group_reviews": []
+}

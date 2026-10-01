@@ -1,0 +1,171 @@
+{
+  "case_id": "265203",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "status": "NOT_FOUND",
+      "explanation": "No qualifying COURT_FOUND SUBLET_PROPERTY was located. The judgment concerns termination of the appellant's lease and the landlord's eviction suit; it does not contain an explicit judicial finding of subletting. Therefore the required e0 atom and direct PART_OF relation are unavailable.",
+      "bindings": [],
+      "uncertainty": [
+        "NOT_FOUND is limited to the supplied judgment; ordinary lease/tenancy language was not treated as subletting."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "the respondent herein, after serving a notice upon the appellant terminating the lease under Section 106 of the Transfer of Property Act, instituted a suit for his eviction on June 2, 1979."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "status": "NOT_FOUND",
+      "explanation": "The scoped eviction suit was instituted by the respondent against the appellant after termination of the lease. The appellant later filed an appeal. Although this is a same-person candidate, the eviction respondent is one appellant, not an explicitly sourced GROUP. Identity with a lone respondent cannot satisfy MEMBER_OF.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Respondent instituted the June 2, 1979 suit for eviction of the appellant.",
+              "objects": {
+                "filer": "respondent-landlord",
+                "respondent": "appellant",
+                "property": "premises under the terminated lease"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0001.s003",
+                  "quote": "the respondent herein, after serving a notice upon the appellant terminating the lease under Section 106 of the Transfer of Property Act, instituted a suit for his eviction on June 2, 1979."
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "FILE_OTHER_PROCEEDING",
+              "status": "NARRATED",
+              "description": "The appellant filed the first appeal and then preferred a second appeal.",
+              "objects": {
+                "filer": "appellant",
+                "proceeding": "first appeal / second appeal"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s001",
+                  "quote": "The first appeal filed by the appellant was also dismissed, where after he preferred a second appeal which was also dismissed by the High Court by its Judgment and order dated August 1, 2002."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "appellant",
+            "right": "appellant",
+            "evidence": []
+          },
+          "limitations": [
+            "The right-hand eviction respondent is a lone PERSON, not a GROUP.",
+            "The same person's later filing does not establish MEMBER_OF(person, person)."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "No alternative qualifying respondent GROUP and atomic filer membership edge was located."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "the respondent herein, after serving a notice upon the appellant terminating the lease under Section 106 of the Transfer of Property Act, instituted a suit for his eviction on June 2, 1979."
+        },
+        {
+          "segment_id": "p0002.s001",
+          "quote": "The first appeal filed by the appellant was also dismissed, where after he preferred a second appeal which was also dismissed by the High Court by its Judgment and order dated August 1, 2002."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "status": "NOT_FOUND",
+      "explanation": "The narrative identifies a terminated lease, an eviction suit against the appellant, and later calls the occupant 'the tenant.' The tenant is the same lone appellant targeted by the eviction suit. Because the respondent is not a GROUP, the required tenant MEMBER_OF respondent relation cannot be satisfied by self-identity.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Respondent instituted the June 2, 1979 suit for eviction of the appellant after terminating the lease.",
+              "objects": {
+                "filer": "respondent-landlord",
+                "respondent": "appellant",
+                "property": "premises under the terminated lease"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0001.s003",
+                  "quote": "the respondent herein, after serving a notice upon the appellant terminating the lease under Section 106 of the Transfer of Property Act, instituted a suit for his eviction on June 2, 1979."
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "LEASE_PROPERTY",
+              "status": "NARRATED",
+              "description": "The judgment narrates the terminated lease and identifies the occupant as the tenant who continued paying rent.",
+              "objects": {
+                "tenant": "appellant/tenant",
+                "property": "premises under the terminated lease"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0001.s003",
+                  "quote": "the respondent herein, after serving a notice upon the appellant terminating the lease under Section 106 of the Transfer of Property Act, instituted a suit for his eviction on June 2, 1979."
+                },
+                {
+                  "segment_id": "p0003.s002",
+                  "quote": "The tenant offered and the landlord accepted the rent for the months of April, May and thereafter."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "appellant/tenant",
+            "right": "appellant",
+            "evidence": []
+          },
+          "limitations": [
+            "The eviction respondent is a lone PERSON, not a GROUP.",
+            "Self-identity is not MEMBER_OF, and the task forbids inventing a GROUP for a lone respondent."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "The premises are not separately named in the supplied text; this does not cure the missing GROUP/member relation."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "the respondent herein, after serving a notice upon the appellant terminating the lease under Section 106 of the Transfer of Property Act, instituted a suit for his eviction on June 2, 1979."
+        },
+        {
+          "segment_id": "p0003.s002",
+          "quote": "The tenant offered and the landlord accepted the rent for the months of April, May and thereafter."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "semantic_correctness": "NOT_ESTABLISHED"
+}

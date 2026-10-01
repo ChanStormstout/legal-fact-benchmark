@@ -1,0 +1,10 @@
+你是 Legal AI 项目的独立算法与实验设计审查者。本对话用 Extra High 处理具体问题，另有四个 Pro 对话正在做广泛文献研究与高层路线比较。不要假装已经读过它们的回答，也不要重复一篇泛综述。
+项目背景：目前没有代码。材料的总体图是 Evidence→Canonical Facts→Fact Patterns→Subtests/Factors→Elements→Claims/Defenses→Issues→Conclusion；Authorities→Rules/Tests 给 Elements 定义标准。PDF 已提出原子事实抽取、带原文出处的角色/谓词—论元表示、按法律语境阻断、embedding 只召回候选、LLM 判 EQUIVALENT/PARENT_CHILD/RELATED_SIBLINGS/CONTRADICTORY/UNRELATED/UNCERTAIN，仅合并等价，保留出处和合并历史；先不看 WIN/LOSE 做规范化，冻结后再挖模式。团队还要做模式挖掘、评价和权威法源获取。family 尚无正式定义，不能默认一个事实必须先属于唯一 family。
+本地 land 1.jsonl 有6954条 unique doc_id，全来自IndianKanoon；status ok6418/empty497/error39，facts字段为空1530。字段包含facts/issues/双方arguments/analysis_of_the_law/precedent_analysis/courts_reasoning/conclusion/先例使用状态；标签、字段正确性、原始证据和真正诉前数据均未验证。案例可能包含多个请求、部分胜败、不同审理阶段。不可假设文件名land代表全是土地法。
+待比较的暂定路线（只是候选，请反驳）：保留不可覆盖的原文断言层及案件内实体/合同/事件ID；建立可复用的谓词定义和类型映射；等价表达共享类型但不抹掉实例信息；父子/关联/矛盾另存关系。基于这种表示发现带同一当事人/合同/事件变量绑定的短合取模式。经验规律和有权威依据的规范规则分开，前者辅助检索/候选发现，后者需要来源、时间、适用范围与例外，最后输出可检查的适用链及不确定性。
+请针对下列技术问题设计可执行方案并找反例：
+1. 首先精确定义到底在聚类什么：事实实例、命题模板、谓词还是法律因素？什么叫上下文相对等价，如何避免把两个不同案件都“已付款”误当同一事实，或者把属性保留在旁边但下游实际丢掉？明确 polarity、assertion status(主张/认定/否认)、unknown、时间、角色和法律评价分别在哪一层进入计算。定义映射、合并条件与失败/拒绝条件，比较严格事实簇与谓词＋facet两种设计。
+2. 给一个案件含两份合同的最小反例，说明二元事实矩阵会如何错误拼接；给可运行思想的关系匹配伪代码、开放世界下正/负/unknown/conflict的语义以及支持度计数单位。同一案件多个匹配不能当独立样本。区分模式组合带来额外预测价值与因果/法律充分性。
+3. 设计无泄漏评价：外层按案件家族/时间切分，开发内规范化/词表/模式/阈值各在哪拟合；目标案法院理由/结论/实际引用法源能用于哪些任务；从整份判决抽facts的回溯性偏差如何审计。不能仅删conclusion就声称前瞻预测。
+4. 给三个可证伪假设及最小实验，每个列强基线、公平模型与token/专家预算、消融、主要指标、覆盖率、失败判定。控制“全单例/全拒答/只选简单案”取巧。试点标注量只给可调整的预算方案，别编已测性能、普适阈值或功效保证。
+请先检查最接近的关键源头：EDC EMNLP2024 https://aclanthology.org/2024.emnlp-main.548/；Gray等2024 https://arxiv.org/html/2410.07504v1；AJF EACL2026 https://aclanthology.org/2026.eacl-long.128/；LLM-CER https://arxiv.org/html/2506.02509v1；LLM自动language bias＋ILP https://arxiv.org/html/2505.21486v2。仅用实际核实的方法比较，不要把“LLM＋逻辑”“保留来源”“变量绑定”单独包装成全新思想。区分现有方法、组合设计和未验证假设。中文输出一份技术审查结论、修正版定义、关键伪代码和实验协议；指出哪些问题其实靠数据/标注/任务定义，不能靠算法魔法解决。

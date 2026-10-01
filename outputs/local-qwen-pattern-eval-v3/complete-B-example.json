@@ -1,0 +1,106 @@
+{
+  "case_id": "DEMO",
+  "unit_evidence": [
+    "demo.s001"
+  ],
+  "objects": [
+    {
+      "id": "l",
+      "label": "Landlord L",
+      "kind": "PERSON",
+      "resolved": true,
+      "evidence": [
+        "demo.s001"
+      ]
+    },
+    {
+      "id": "t",
+      "label": "Tenant T",
+      "kind": "PERSON",
+      "resolved": true,
+      "evidence": [
+        "demo.s001"
+      ]
+    },
+    {
+      "id": "r",
+      "label": "Room R",
+      "kind": "PROPERTY",
+      "resolved": true,
+      "evidence": [
+        "demo.s001"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "a1",
+      "type": "FILE_EVICTION",
+      "status": "NARRATED",
+      "polarity": "POSITIVE",
+      "roles": [
+        {
+          "name": "filer",
+          "object": "l"
+        },
+        {
+          "name": "respondent",
+          "object": "t"
+        },
+        {
+          "name": "property",
+          "object": "r"
+        }
+      ],
+      "evidence": [
+        "demo.s001"
+      ],
+      "known": [
+        "type",
+        "status",
+        "polarity",
+        "roles.filer",
+        "roles.respondent",
+        "roles.property"
+      ],
+      "unknown": [],
+      "speaker": "judgment narration",
+      "stage": "underlying tenancy dispute"
+    },
+    {
+      "id": "a2",
+      "type": "LEASE_PROPERTY",
+      "status": "NARRATED",
+      "polarity": "POSITIVE",
+      "roles": [
+        {
+          "name": "landlord",
+          "object": "l"
+        },
+        {
+          "name": "tenant",
+          "object": "t"
+        },
+        {
+          "name": "property",
+          "object": "r"
+        }
+      ],
+      "evidence": [
+        "demo.s001"
+      ],
+      "known": [
+        "type",
+        "status",
+        "polarity",
+        "roles.landlord",
+        "roles.tenant",
+        "roles.property"
+      ],
+      "unknown": [],
+      "speaker": "judgment narration",
+      "stage": "underlying tenancy dispute"
+    }
+  ],
+  "edges": []
+}

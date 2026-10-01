@@ -1,0 +1,38 @@
+{
+  "case_id": "123036",
+  "task_id": "52a7d11461a492d0",
+  "label": "MODEL_REFERENCE_WITH_LOCAL_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "review_method": "LOCAL_FULL_SOURCE_COMPARISON_NO_ADDITIONAL_WEB_TASK",
+  "source_evidence": [
+    {
+      "segment_id": "p0002.s002",
+      "quote": "The respondent issued a notice on 12.6.1974 terminating the tenancy with effect from 30.6.1974 and called upon the first appellant wife to surrender possesssion of the leased shop from 1.7.74. As the appellants (wife and son of Dr. Rama\u0002chandra) failed tO deliver possession a salt for eviction was filed under the Bihar Buildings (Lease, Rent and Evic\u0002tion) Control Act on two grounds: (a) default of rent and (b) bonafide requirements of the junior members of the Joint family. The trial court allowed the eviction petition. ",
+      "page": 2,
+      "source_url": "https://drive.google.com/file/d/13lthu6NhDfnhYhMJX-jc5gkJ9xEsdBm3/view?usp=drivesdk"
+    },
+    {
+      "segment_id": "p0003.s004",
+      "quote": "Ramachandra, the tenant died in or about 1960 and therefore his wife, the first appellant came to be recognised as the tenant and rent receipts were issued in her name. Before the Trial Court it was sought to be contended that the second appellant had become the tenant after the demise of his father and as such the notice of termination of tenancy issued to the first appellant was not an effective and valid notice. The conten- tion was repelled by the Trial Court and that finding has not been challenged before the Appellate Court and the High Court. As already stated Babu Lal the Karta of the family died on 14.11.73. ",
+      "page": 3,
+      "source_url": "https://drive.google.com/file/d/13lthu6NhDfnhYhMJX-jc5gkJ9xEsdBm3/view?usp=drivesdk"
+    },
+    {
+      "segment_id": "p0003.s006",
+      "quote": "As the appellants failed to deliver possession a suit for eviction was filed under the Bihar Buildings (Lease, Rent and Eviction) Control Act (hereinafter referred to as the 'Act') for a decree for eviction against the appellants. A sum of Rs.540 was also claimed in the suit as arrears of rent. Budhwanti And Anr vs Gulab Chand Prasad on 4 March, 1987",
+      "page": 3,
+      "source_url": "https://drive.google.com/file/d/13lthu6NhDfnhYhMJX-jc5gkJ9xEsdBm3/view?usp=drivesdk"
+    }
+  ],
+  "reference_decision": "MATCH_UNCHANGED",
+  "A_decision": "NOT_FOUND",
+  "B_decision": "NOT_FOUND",
+  "source_support": "p0003.s004明确记载妻子被认可为租户；p0002.s002明确妻子和儿子构成appellants，p0003.s006记载腾退诉讼针对appellants。个体妻子是腾退被请求人群体成员。",
+  "A_error": "将上诉阶段的respondent Gulab Chand Prasad与原腾退诉讼的被请求人混淆，认为不存在群体。",
+  "B_error": "仅保存e0 FILE_EVICTION及e1 OWN_PROPERTY，遗漏LEASE_PROPERTY；腾退respondent绑定单个tenant对象，未保存妻子和儿子的GROUP。",
+  "executor_explanation": "LEASE_PROPERTY候选池为空，因此没有完整组合；执行器不能从遗漏的记录推导租户或补造群体。未观察到本题执行错误。",
+  "record_ids": [
+    "e0",
+    "e1"
+  ],
+  "remaining_limitation": "未对全案其他标注开展语义核查，不据本题推断全部案件错误来源。"
+}

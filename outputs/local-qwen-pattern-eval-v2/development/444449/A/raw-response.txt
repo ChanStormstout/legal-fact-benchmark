@@ -1,0 +1,29 @@
+{
+  "case_id": "444449",
+  "answers": {
+    "9c74983b08ed3850": {
+      "answer_status": "NOT_FOUND",
+      "reason": "No sublet property event found; only eviction and lease events exist. No owned property event is narrated or court-found to link to a sublet property via part_of relation within the text scope provided for this specific query definition (which requires a sublet property atom).",
+      "bindings": [],
+      "missing": [],
+      "alternatives": "The text mentions subletting and ownership, but lacks a specific 'SUBLET_PROPERTY' event atom with the required status to form the requested binding pair with an 'OWN_PROPERTY' atom in the specified configuration (e0=SUBLET, e1=OWN).",
+      "evidence": ["p0001.s001", "p0001.s002", "p0001.s003", "p0001.s004", "p0001.s005", "p0001.s006", "p0002.s001", "p0002.s002", "p0002.s003", "p0002.s004", "p0002.s005", "p0002.s006", "p0003.s001", "p0003.s002", "p0003.s003", "p0003.s004", "p0003.s005", "p0003.s006", "p0004.s001", "p0004.s002"]
+    },
+    "24d45ac35ac7f114": {
+      "answer_status": "NOT_FOUND",
+      "reason": "The respondent in the eviction proceeding is an individual ('the appellant'), not a group. The constraint requires the filer of the other proceeding to be a member of the respondent group, which is impossible as no group respondent exists in the eviction case facts or findings provided in the text segments regarding the parties to the suit/eviction. The text mentions 'Motilal And Ors.' as respondents to the appeal, but the eviction suit was filed against the appellant (individual).",
+      "bindings": [],
+      "missing": ["group_identity_for_respondent_in_eviction"],
+      "alternatives": "The eviction respondent is the appellant (individual). The other proceeding filer is the landlord. No group membership relation can be established between the landlord and the individual respondent as required by the query constraints (e1.filer member_of e0.respondent).",
+      "evidence": ["p0001.s001", "p0001.s002", "p0001.s003", "p0001.s004", "p0001.s005", "p0001.s006", "p0002.s001", "p0002.s002", "p0002.s003", "p0002.s004", "p0002.s005", "p0002.s006", "p0003.s001", "p0003.s002", "p0003.s003", "p0003.s004", "p0003.s005", "p0003.s006", "p0004.s001", "p0004.s002"]
+    },
+    "52a7d11461a492d0": {
+      "answer_status": "NOT_FOUND",
+      "reason": "The respondent in the eviction proceeding is an individual ('the appellant'), not a group. The constraint requires the tenant of the lease property to be a member of the respondent group. Since the respondent is an individual, no group membership relation can be established. The text describes a lease between individuals, not a group tenancy where a named group member is the tenant of the property being evicted from in a way that satisfies the 'member_of' constraint against a group respondent in the eviction case (which targets an individual).",
+      "bindings": [],
+      "missing": ["group_identity_for_respondent_in_eviction"],
+      "alternatives": "The eviction respondent is the appellant (individual). The lease tenant is the appellant (individual). The constraint requires the tenant to be a member of the respondent group. Since the respondent is an individual, this relation cannot be formed as 'member_of' implies membership in a group, not identity with an individual. The text does not support a scenario where the respondent is a group containing the tenant as a member in the context of the eviction suit against the individual appellant (though 'Motilal And Ors' are respondents to the appeal, the eviction suit respondent is the individual).",
+      "evidence": ["p0001.s001", "p0001.s002", "p0001.s003", "p0001.s004", "p0001.s005", "p0001.s006", "p0002.s001", "p0002.s002", "p0002.s003", "p0002.s004", "p0002.s005", "p0002.s006", "p0003.s001", "p0003.s002", "p0003.s003", "p0003.s004", "p0003.s005", "p0003.s006", "p0004.s001", "p0004.s002"]
+    }
+  }
+}

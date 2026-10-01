@@ -1,0 +1,65 @@
+{
+  "case_id": "967452",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "answer_status": "UNKNOWN",
+      "explanation": "The source text mentions a single petition for two tenancies in the same premises but does not explicitly identify the specific 'sublet property' (e0) or 'owned property' (e1) by distinct labels to establish a direct physical part_of relationship between them. The text describes the premises generally without distinguishing sublet portions from the whole owned property in a way that satisfies the specific atom constraints.",
+      "bindings": [],
+      "missing_fields": [
+        "Explicit identification of 'sublet property' (e0) and 'owned property' (e1) as distinct entities within the narrative or findings."
+      ],
+      "other_combinations_considered": "The text mentions 'two different tenancies' and 'the premises' but does not map a specific sublet portion to a specific owned portion with the required status and relation.",
+      "evidence": [
+        {
+          "segment_id": "p0002.s001",
+          "quote": "The appellant filed one petition for evicting the tenants in respect of two different tenancies, one for residential purpose and the other for non-residential purpose."
+        },
+        {
+          "segment_id": "p0003.s002",
+          "quote": "The second question raised in one of the appeals is whether a single petition is maintainable to evict the tenants from two different tenancies one for residential purpose and the other for non-residential purpose."
+        }
+      ]
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "answer_status": "NOT_FOUND",
+      "explanation": "The source text describes a single eviction petition filed by the landlord against a group of respondents (Ganeshan & Ors). There is no mention of the landlord filing a separate or 'other' proceeding against a different individual or institution. The dispute is contained within the single eviction case.",
+      "bindings": [],
+      "missing_fields": [
+        "Narration or finding of a separate 'FILE_OTHER_PROCEEDING' initiated by the landlord against a different filer."
+      ],
+      "other_combinations_considered": "None, as no other proceeding is mentioned in the text.",
+      "evidence": [
+        {
+          "segment_id": "p0002.s001",
+          "quote": "The appellant filed one petition for evicting the tenants in respect of two different tenancies..."
+        },
+        {
+          "segment_id": "p0003.s002",
+          "quote": "The only questions in controversy in these appeals are whether the landlord in this case... is entitled to evict the tenants..."
+        }
+      ]
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "answer_status": "NOT_FOUND",
+      "explanation": "The source text describes the respondents as 'Ganeshan & Ors' and states the landlord has a life interest. It does not explicitly identify any of the respondents as a 'tenant' under a 'LEASE_PROPERTY' relationship in the narrative or findings. The text refers to them as 'tenants' generally but does not establish a specific named lease property relationship that maps to the respondent group via the 'member_of' constraint as defined (requiring a specific PERSON/ORGANIZATION explicitly included in GROUP at the stated source scope). The text says 'The tenancy under the landlord is admitted by the tenants' but does not link a specific 'LEASE_PROPERTY' entity to the 'respondent' group in the required structural way.",
+      "bindings": [],
+      "missing_fields": [
+        "Explicit identification of a 'LEASE_PROPERTY' entity (e1) and a specific 'tenant' role within it that is explicitly stated as a member of the 'respondent' group (e0) in the narrative or findings."
+      ],
+      "other_combinations_considered": "The text mentions 'tenants' generally, but the task requires a specific 'LEASE_PROPERTY' atom and a 'member_of' relation to the respondent group, which is not explicitly constructed in the text.",
+      "evidence": [
+        {
+          "segment_id": "p0003.s001",
+          "quote": "The tenancy under the landlord is admitted by the tenants there is also no question with regard to validity of the notice of eviction."
+        },
+        {
+          "segment_id": "p0003.s002",
+          "quote": "The only questions in controversy in these appeals are whether the landlord in this case, who is the holder of life interest in the property, is entitled to evict the tenants under section 14(1) (b) of the Act..."
+        }
+      ]
+    }
+  ]
+}

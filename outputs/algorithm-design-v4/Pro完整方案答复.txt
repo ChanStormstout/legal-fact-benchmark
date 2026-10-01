@@ -1,0 +1,857 @@
+最终推荐：保留 v3 主线，补齐“什么信息可以被怎样使用”的执行语义
+
+**我推荐采用 v3 的总体方向，但做五项实质修改。**核心不再是“模型给事实贴上正确类别”，而是：每条规范事实、每个派生关系、每次法律规则应用，都明确声明自己使用了哪些来源信息；未解析限定只阻断依赖它的使用，修复也只作用于有证据支持的错误位置。
+
+位置	最终实施决定
+A：未解析限定	增加语义依赖契约与局部阻断，不能只保存在原文中。类型映射成功不等于所有查询都可使用该实例
+B：默认搜索	采用真实连通片段泛化＋按固定意图进行局部编辑。WARMR 不再是主搜索，只占小额预算补查短查询
+B：候选接受	语义正确性、描述复用和法律价值分开。不按覆盖率把不同意图的候选放进同一个 beam 竞争
+B：MDL	首版采用事实记录不重叠、实体绑定可共享的可解码编码；暂不实现 Snor 式重复覆盖同一事实记录
+C：例外与因素	每条规则使用经审阅的例外政策；区分形式计算结果与其依赖的默认条件。非充分因素保留为理由，不能自动编译成胜诉条件
+
+这不是推翻原 PDF。它已经提出抽取、角色替换、上下文检索、关系判断、保守合并、定义与边界检查、来源保存；v3 的 C 也已经包含联合规则获取与审阅。本次改进是补齐跨模块的使用条件、搜索与编码，以及默认推理的确切含义，而不是声称原方案只有流程图。
+Pasted text
+ 
+Pasted text
+
+一、近期方法复核后，哪些机制真正进入首版？
+
+以下是本轮影响决定的阅读，不把附件作者的阅读记录算成我的独立核验，也不把打开链接算作全文精读。
+
+原论文	本轮核读范围	对最终算法的实际影响
+GraphRefine，ACL 2026	§4 方法、§5 实验设置、附录操作消融	保留 KEEP／FIX／REWRITE／EXCLUDE 的区分。其监督训练和合成错误数据是成绩来源的一部分，不能把操作名称迁移等同于迁移其效果。
+ACL Anthology
++1
+
+ClassMATe，TACL 2025；DeLFGCD，EACL 2026	前者定义、推断与主动修订；后者实例／类别反馈、学习机制及消融	采用“实例与定义共同检查”；不采用模型不确定性下降作为语义验收，也不加入需要已知类别数和训练编码器的完整 DeLFGCD。
+ACL Anthology
++2
+
+RHDA，ICLR 2025	分解—执行—修正方法、实验消融及失败分析	保存查询节点的中间绑定，用具体失败修局部程序。其任务有可执行输入输出依据；法律意图仍需独立原文审阅。论文也报告过多修订并不总能改善结果。
+ICLR Proceedings
++1
+
+ADVENT，2026 预印本；LLM-Automated Language Bias for ILP v2	表示检查、谓词生成、执行反馈、语言偏置及实验设定	将“取得可用关系语言”纳入算法；但不照搬正负标签覆盖目标，也不把已有宏包装成新增表达能力。
+arXiv
++1
+
+KG-MDL；Snor	前者图表示、编码、搜索和资源限制；后者覆盖算法、搜索及相关实验	**这是本轮改变 MDL 实施的重要依据。**KG-MDL 本来就允许共享节点而禁止边重叠；Snor 的重叠收益有条件，并非简单取消“不相交”检查。因此先做记录级分区编码是合理取舍。
+arXiv
++1
+
+DDL Formalization v3；LRI/SILVER v2	联合／分阶段形式化、修订与规则匹配实验；归纳、验证和覆盖补充机制	C 联合生成规则与桥接，用来源组成清单检查遗漏。DDL 的分离原子抽取实验出现额外原子和性能下降；SILVER 的多数支持不能代替法源解释批准。
+arXiv
++1
+
+Argumentation and Judgement Factors，EACL 2026	候选获得、筛选、RECREW、相关评价	采用“拒绝后有证据地修订”，不采用自动生成的有利方判断作为 B 的语义标准。其 basic AJF 还包含对象、文书和角色，并不都对应本项目的法律因素。
+ACL Anthology
+
+另外，本轮核对了 KGGen／GraphJudge 的构造和评价方法、UniPred 的转移监督、NRI 的输入与域外设定、受约束子群发现的搜索目标。这些检查支持暂不加入专用神经训练：UniPred 的独立约束来自状态转移；NRI 使用带标签布尔输入，较大特征维度下还有特定适配机制。它们的机制可以启发设计，但不能直接替换当前关系执行器。
+NeurIPS Proceedings
++3
+
+**阅读缺口仍保留：**NeSy 2025 的 Description Logic Concept Learning using Large Language Models 本轮取得官方页面，但 PDF 获取仍失败，因此没有依据其方法作新选型。其余上表也不代表逐页审完全部附录或复现。
+Proceedings of Machine Learning Research
+
+二、共享表示：把“记录了什么”“机器怎样理解”“允许怎样用”分开
+
+三个模块使用同一套对象，不各自重新发明身份和状态。
+
+对象	必须保存的内容
+SourceAssertion	文书、原文位置、说话者、陈述状态、极性、原始文本
+FactInstance	类型版本、局部主体／合同／债务／事件绑定、参数、限定、来源断言
+DefinitionCard	参数签名、含义、保留区别、排除项、允许改写、适用语境及版本
+ResidualQualifier	未解析原文、可能影响的断言及字段、作用域审阅状态
+RelationProgram	固定描述意图、类型化查询、依赖字段、算子、见证与修订记录
+RuleCard／BridgeCard／FactorCard	法源、适用范围、规则或连接含义、例外政策、审阅状态
+
+以下四种状态独立存储：
+
+Plain text
+来源状态：COURT_FOUND / ALLEGED / DISPUTED / NOT_ESTABLISHED …
+字段可用性：KNOWN / MISSING / AMBIGUOUS / CONFLICTED
+机器状态：AUTO_ACCEPTED / PENDING / REJECTED
+人工状态：UNREVIEWED / REVIEWED_SUPPORTED / REVIEWED_REJECTED
+
+例如，COURT_FOUND + AUTO_ACCEPTED + UNREVIEWED 表示：
+
+机器认为原文中法院认定了此命题，但这项抽取／映射尚未由人核验。
+
+它不表示专家已经批准，更不表示现实事实已被系统独立证明。
+
+类型集合、严格等价和 family 继续分开。PAYMENT 类型允许参数不同；严格 EQ 需要在声明的抽象政策下保留区别后的签名一致；family 只组织上下位或相关类别，不产生事实替换许可。这与附件的分层方向一致。
+Pasted text
+
+三、A：定义卡映射＋语义依赖阻断＋有来源的版本修订
+3.1 类型、参数和 family 怎样划分？
+
+采用一个可执行的原则：
+
+改变动作或关系含义的差异进入类型／子类型；同一关系的取值进入参数；只有明确的上下位或相关联系进入 family。
+
+例如：
+
+NOTICE_SENT 与 NOTICE_RECEIVED 是不同事件类型，可以同属 NOTICE_EVENT。
+PAYMENT 的金额、日期、合同、债务归属是参数。
+“部分／足额清偿”可以作为付款对特定债务的效果参数，但必须显式绑定该债务；不能把 full=true 理解成“付清了所有相关债务”。
+VALID_NOTICE 不是仅靠规范化得到的普通别名，它属于 C 需要法源支持的法律条件。
+
+一个字段放在类型还是参数中不是唯一正确答案；**真正不可妥协的是查询和桥接不能把这个区别丢掉。**首版固定一种表示后，不在不同实例中随意切换。
+
+3.2 未解析残余的最终方案：使用时检查，不只存档
+
+为每个残余保存：
+
+Plain text
+ResidualQualifier(
+  residual_id,
+  source_span,
+  owner_assertions,
+  impact = {字段／语义位置集合},
+  scope_status = DRAFT / REVIEWED / RESOLVED
+)
+
+语义位置不仅包括具体字段，还包括：
+
+Plain text
+assertion_truth、polarity、source_status、
+event_identity、contract_binding、debt_binding、
+amount、fullness、time、legal_effect
+
+每个查询原子、算子和桥接必须声明读取需求，编译器再计算依赖闭包。
+
+例如：
+
+Plain text
+FULL_SETTLEMENT(payment, debt)
+reads:
+  payment存在及极性
+  允许的来源状态
+  payment身份
+  debt绑定
+  fullness及其适用债务
+
+即使查询没有输出 debt_binding，它仍然必须读取债务绑定。不能通过投影掉一个字段绕过限定。
+
+设某次使用为 
+𝑎
+a，其依赖闭包为 
+Req
+⁡
+∗
+(
+𝑎
+)
+Req
+∗
+(a)。执行规则是：
+
+Blocked
+⁡
+(
+𝑎
+)
+  
+⟺
+  
+∃
+𝑟
+:
+𝑟
+尚未解决
+∧
+Impact
+⁡
+(
+𝑟
+)
+∩
+Req
+⁡
+∗
+(
+𝑎
+)
+≠
+∅
+.
+Blocked(a)⟺∃r:r尚未解决∧Impact(r)∩Req
+∗
+(a)
+
+=∅.
+
+还需满足所有必需字段可用、身份兼容，以及当前运行视图所要求的来源与审阅状态。
+
+作用域不明时怎样处理？
+
+默认阻断该残余所属断言；若原子拆分时无法确定归属，则阻断原始断言组中的可能受影响成员。不是封锁整案。
+
+只有两种依据可以缩小阻断范围：
+
+经审阅的原文作用域分析；
+已批准、具有明确适用条件的解析／投影规则。
+
+LLM 提议“这个限定与当前问题无关”，本身不足以解除阻断。
+
+哪些使用可以继续？
+残余或缺失	可以继续	必须阻断
+已确认付款发生，但款项归属债务未知	在经批准的投影下回答“记载了一次付款”	“清偿了 D1”“与 D1 通知组成合格关系”
+付款额明确，是否足额未知	读取原文金额	推断足额清偿
+收到日期缺失	使用独立记录的寄出事件	用寄出日期计算收到后的期限
+条件可能影响整个命题是否成立，作用域未明	检索、展示原文	将该命题作为事实前提
+另一条独立来源完整支持所需事实	使用那条独立见证	把独立见证当作已修复原残余
+
+因此，一个有问题的付款不会阻断同案所有付款。存在性查询只需一条完整、相容的合格见证；但必须展示它实际用了哪条见证。
+
+还要区分“残余未明”与“明确相反证据”。后者不能被全部删成 UNKNOWN：B 的普通描述查询可标为冲突见证，C 则需要读取两边的原文断言，构造相互攻击的论证。
+
+上述规则具有的是相对于已登记依赖的条件性性质。若作用域分析遗漏了关键限定，系统仍会出错；这正是随机原文审计要发现的错误，不是形式化已经消除的风险。
+
+3.3 映射与修订流程
+
+保留开放抽取和定义卡冷启动，但不要求所有缺失槽位都补齐后才能识别基础类型。
+
+例如，原文明确记载付款，但未说明债务，可以映射到 PAYMENT，同时禁止需要债务身份的用途。否则“定义驱动”仍会退化为全拒绝。
+
+每个实例按如下顺序处理：
+
+来源约束抽取，区分 KEEP、FIX、含义不变的 REWRITE、移出计算视图但保留记录的 EXCLUDE。
+用精确别名、BM25、向量检索取候选并集，初值最多20张卡。
+逐项填槽，返回来源支持、明确冲突、未知；重要冲突不能被总分抵消。
+双向检查：规范表达不能添加原文没有的断言，原文的重要限定不能无声消失。
+已知最具体定义唯一时接受机器映射；两个无已审核包含关系的定义都适用时保留歧义。
+生成使用依赖和残余阻断；严格签名存在相关未决限定时，不赋予严格 EQ 资格。
+
+审阅预算保留 1/4 随机、3/4 冲突／边界 的初值，但随机部分必须从原文段落抽样，包含零抽取、被排除和高置信映射，不能只从已经输出的事实中抽。这才能发现漏抽和漏检索。
+
+允许的补丁仍是：修实例、缩小别名适用范围、补参数、拆分定义、经审阅合并。不使用旧 cluster ID 或模型平均信心作为真值。
+
+Plain text
+A_BUILD_AND_REPAIR(texts, registry, budget):
+    assertions = source_anchored_extract(texts)
+    apply at most one automatic extraction repair per item
+
+    for assertion in assertions:
+        candidates = retrieve_definition_cards(assertion)
+        mappings = align_slots_and_check_bidirectional_coverage(candidates)
+        retain unique mapping or explicit alternatives
+        attach residuals and compile use-dependency contracts
+
+    while review budget remains:
+        item = random_source_audit_or_prioritized_boundary()
+        reviewed_issue = inspect_original_source(item)
+        if unresolved: retain pending; continue
+
+        patches = permitted_source_supported_edits(reviewed_issue)
+        test each patch on a shadow version
+
+        accept the smallest patch that:
+            fixes a reviewed error or reviewed missing distinction
+            violates no protected distinction
+            regresses no applicable reviewed answer
+
+        recompute all affected mappings and use contracts
+
+    publish immutable registry and assertion versions
+
+若审阅样例本身互相矛盾，没有补丁能通过，就标记标注／解释争议，不能通过扩大定义“解决”。
+
+四、B：唯一默认搜索是“源片段泛化—执行—局部修订”
+4.1 为什么不再用 WARMR 穷举作主线？
+
+首版选择真实片段泛化。
+
+当前最大的瓶颈不是对固定语言漏枚举一个短合取，而是语言本身尚未稳定：债务归属、收到时间、足额含义都可能缺失。穷举可以完整搜索一个有限语言，却不能因此补出缺失的观察关系。
+
+真实片段路线有两个实际优势：初始候选至少有原文锚点；程序修正可以定位到真实变量绑定，而不是在大量无见证组合上浪费预算。代价是会遗漏采样没看到的结构。
+
+因此，保留10%的查询执行预算，穷举同一类型语言内的短二原子查询作漏检补充。它是同一候选队列的补充，不是另一套默认算法。
+
+KG-MDL 的方法也提示一个额外限制：不能让公共类型、相同数值或 case_id 形成伪连接。它专门处理了共享字面值和类型节点产生的无意义模式。我们的源片段图同样不把“两个金额恰好相同”作为连通证据。
+arXiv
+
+4.2 查询语言和种子构造
+
+首版使用无任意代码的、有类型的连通合取语言：
+
+展开最多6个基础原子；
+最多6个对象变量，另限最多4个数值／日期变量；
+派生定义最多2层，无循环；
+允许明确身份关系、显式不等式、日期／数值比较；
+不允许以未查到记录实现现实否定；
+不允许无完整性依据的总额、“全部履行”或全称聚合。
+
+新增的数值变量上限是为了让规范化和执行预算可控，不是理论最优值。
+
+种子按案件家族、合同／请求范围、片段大小和结构分层采样。初值采用附件的每家族50片段、每桶100对；尚未核验家族关系时只能按文书分层，并标明未解决的依赖，不能称为独立案件。
+Pasted text
+
+反统一过程具体为：
+
+按谓词、论元类型、状态及原子数量分桶。
+桶内枚举类型兼容的原子对应。
+对对应位置的常量对建立变量；同一常量对重复出现时复用变量。
+仅保留两份材料共同支持的等同关系。
+只有来源支持对象确实不同，才加入 ≠；不同临时 ID 不自动证明现实对象不同。
+案件名称、主体名称不能因两份样本碰巧相同就固化为模式常量。
+不满足范围与连通要求的泛化结果丢弃。
+
+**规范化去重采用类型保持的变量重命名枚举，取最小序列化字符串。**原子和约束排序、输出参数位置、状态及常量都进入字符串。6个对象变量和4个标量变量的保守上界为 
+6
+!
+×
+4
+!
+6!×4! 种重命名，首版可实现。
+
+它保证的是该语言内的变量改名等价去重，不是任意两个逻辑等价查询的判定。只排序原子再按首次出现重命名，不足以给出这个保证。
+
+4.3 固定意图后再修程序
+
+每个候选建立：
+
+Plain text
+IntentCard:
+  描述含义
+  所需范围与重要区别
+  输入/输出参数
+  原文正例、明确近邻反例、未知样例
+  不允许在本次修复中删除的语义条件
+
+然后编译 AST，自动生成读取依赖，执行得到：
+
+Plain text
+(unit, binding, source_ids,
+ intermediate_bindings, failed_guards,
+ blockers, conflicts, review_grade)
+
+失败反馈必须指出：是债务绑定错误、收到日期缺失、状态不符、类型冲突，还是自然语言意图本身尚未明确。
+
+**不同意图分开维护 beam。**否则，“同一债务在收到通知后足额清偿”很容易输给覆盖更多的“文书里出现通知和付款”。
+
+每个意图的局部修订最多3轮，每父8个补丁、beam12。排序为：
+
+类型、来源、作用域和受保护区别不合格者拒绝。
+先减少独立审阅的错误肯定，再减少已可回答正例的遗漏。
+不把未知当负例；不允许已正确答案回退。
+同等语义表现下，优先较小的局部修改、较短展开和较低执行成本。
+覆盖率只作同一意图内的后置参考，不能通过改意图取得优势。
+
+删除一个重要约束或改变状态范围，只有在原文审阅说明原意图写错时才可做；此时创建新意图版本，不能继承旧版本的通过标签。
+
+4.4 G、S 与“不匹配”的确切含义
+
+关系库 
+𝐺
+G 保存可执行描述关系，含机器候选和人工确认的明确等级；只有满足当前审阅要求的候选进入描述选集。
+
+support
+⁡
+(
+𝑃
+)
+=
+∣
+{
+𝑢
+:
+∃
+𝜃
+,
+ 
+𝑃
+(
+𝑢
+,
+𝜃
+)
+有合格记录见证
+}
+∣
+.
+support(P)=∣{u:∃θ, P(u,θ)有合格记录见证}∣.
+
+同一 unit 支持一次，全部绑定另存。一个错误绑定不证明该 unit 没有其他正确绑定。
+
+输出至少区分：
+
+有合格见证；
+某绑定被明确条件排除；
+相关字段未知／受残余阻断；
+无记录见证；
+执行尚未完成。
+
+超时未找到见证不能填成“确定不支持”；缺失更不能成为现实负例。
+
+Plain text
+B_SEARCH(frozen_A, budgets):
+    seeds = typed_generalizations(real_connected_fragments)
+    add bounded LLM proposals from source residuals and near-misses
+    reserve 10% execution budget for short-query enumeration
+
+    for intent in fair round-robin order:
+        beam = canonicalize(initial programs of this intent)
+
+        repeat at most 3 rounds:
+            compile dependency contracts
+            execute and record node-level bindings
+            review source-grounded matches and near-misses
+            archive passing programs in G
+
+            children = at most 8 permitted patches per parent
+            beam = best 12 distinct programs under semantic-first ordering
+            if no admissible improvement: stop this intent
+
+    return G, all witnesses, blockers and searched-space ledger
+
+“无标签下有用”分成三件事：表达是否忠实、能否跨材料复用、是否值得压缩。法律相关性由 C 的来源连接确定，结果关联等待可靠标签。不能把三者揉成一个打分。
+
+五、MDL：首版选择记录不重叠的真实编码
+5.1 为什么暂不采用我上一轮推荐的重叠 token？
+
+撤回“首版就应允许同一基础事实被多个 token 重复覆盖”的建议。
+
+允许重叠不是错误，但会增加覆盖选择、重复恢复和码长核对的复杂度。Snor 讨论的是特定项集编码；不能只搬来“允许重叠”四个字。KG-MDL 则说明，模式共享实体节点、但不重复覆盖边本身是成熟的可用设计。
+CISPA EDA
++1
+
+首版因此采用：
+
+查询和 G 中的见证可以重叠；压缩流中每条基础事实记录恰好恢复一次。不同 token 可以引用同一个合同、债务、主体或事件 ID。
+
+代价是可能错过重叠编码的压缩收益，也可能让某个有用模式不进入 S。但它仍保留在 G，C 不受影响。
+
+5.2 编码对象必须固定
+
+令 
+𝐷
+D 为某个 A 发布版本的基础断言记录序列，包含身份、参数、状态、来源位置、限定、残余及审阅状态。重复抽取同一来源命题可以按明确规则去重；不同来源记录不因含义相近而被删除。
+
+𝐿
+t
+o
+t
+a
+l
+=
+𝐿
+(
+𝐻
+)
++
+𝐿
+(
+𝑆
+)
++
+𝐿
+(
+𝐷
+∣
+𝐻
+,
+𝑆
+)
+.
+L
+total
+	​
+
+=L(H)+L(S)+L(D∣H,S).
+
+其中 
+𝐻
+H 是所有方案共用、实际计费的头部：
+
+编码版本；
+来源文书表及其文本／固定来源存档；
+unit 和局部实体表；
+字面值表；
+基础类型及字段布局；
+已登记的确定性算子定义。
+
+用于某方案的派生定义不能偷偷放进免费头部。报告可以同时给出总长度和相对全 literal 的净节省，但不能把压缩基础记录说成压缩了全部法律原文。
+
+5.3 最小可解码结构
+
+使用实际前缀码实现即可：非负整数采用 gamma(n+1)，字符串编码长度后写 UTF-8 字节；表内 ID 使用由表大小决定的固定宽度。首版不需要学习神经编码器或估计复杂概率模型。
+
+部分	编码内容
+字典 S	模式数、规范顺序、AST、参数类型、常量、guard、辅助定义的完整依赖闭包
+unit 头	unit ID、基础记录数、token 数
+literal token	标签位、记录 ID、谓词 ID、全部参数及完整元数据
+pattern token	标签位、模式 ID、对应的不同记录 ID、全部自由／存在变量绑定、各记录未被模式确定的剩余字段
+来源与残余	每条记录的来源引用、状态、未解析文本／引用、影响范围及审阅标记；不能省略
+
+三条特别重要的规则：
+
+**所有恢复基础事实所需的绑定都要编码。**查询不输出某个存在变量，不代表解码器免费知道它。
+
+guard 不一定生成数据。“日期差≤10”只约束两个日期；除非编码了一个日期和可恢复的差值，否则两个原日期仍须写入。
+
+**模式 ID 不可以指向一份未计费的外部完整候选库。**解码包必须携带实际使用的定义。
+
+解码器按模式展开恢复对应记录，附加剩余字段，最后按记录 ID 排序；检查记录数正确、无缺失、无重复 ID。每次接受字典更新都执行：
+
+Plain text
+decode(encode(D, S)) == D
+
+这验证编码实现，不验证事实语义。
+
+5.4 cover 与外层选集
+
+固定字典后，cover 从全 literal 开始。每个候选使用 
+𝑜
+o 有一个记录集合 
+𝑅
+𝑜
+R
+o
+	​
+
+。
+
+只允许选择与已有 pattern token 的记录集合不相交的使用；比较的是加入该 token 后完整数据码长的下降，包含 token 数头变化。
+
+新模式的字典成本在外层评估。内层不能要求第一条调用独自偿还整项定义成本。
+
+Plain text
+COVER(D, S):
+    C = all-literal encoding
+    repeatedly:
+        among disjoint legal occurrences,
+        choose the one with largest exact decrease in L(D | H,S)
+        include changed token-count headers and all payload bits
+        if decrease < 1 bit: stop
+        replace its literal records with one pattern token
+    return C
+
+SELECT_DICTIONARY(D, G):
+    S = empty
+    C = COVER(D, S)
+
+    repeatedly:
+        try adding each unused eligible pattern
+        try deleting each selected pattern
+
+        for each trial S':
+            recompute cover under S'
+            compute complete L(H)+L(S')+L(D | H,S')
+            verify exact decoding
+
+        accept the best trial only if total decreases by ≥1 bit
+        otherwise stop
+        stop also on declared compute budget
+
+    return S, C, exact achieved length
+
+可以额外保留当前 cover 的合法转换作为 warm start，并取它与全 literal 重建结果中较短者。首版不必做复杂多模式交换。
+
+这是明确的近似：会停在局部解，可能漏掉必须成组加入才获益的字典项。不应把“每步精确算位数”误写成“全局最优 MDL”。
+
+宽泛模式仍可能压缩得更好。这不是漏洞被完全消除，而是 MDL 的任务边界：它选择简洁描述，不决定哪个关系在法律上重要。较具体关系与罕见例外继续保留在 G／C。
+
+六、C：来源获取、桥接翻译与例外政策一起编译
+6.1 获取阶段不是推理引擎的前置假设
+
+C 的输入是来源包，不是现成可靠规则：
+
+Plain text
+正文 + 定义 + 例外 + 交叉引用
++ 法域/有效时间/程序阶段
++ 法院如何使用该来源
++ 尚未取得的依赖
+
+“完整”只能解释为相对于已识别引用闭包的完整性。引用展开使用 visited 集合和预算；无法取得的条款显式保留。预算停止不能假称没有其他例外。
+
+联合生成三类对象：
+
+RuleCard：法律前提、结论、模态、例外、适用性；
+BridgeCard：描述事实怎样满足法律条件；
+FactorCard：支持／削弱作用，但未必足以推出结论。
+
+SENT、RECEIVED、DEEMED_RECEIVED、VALID_NOTICE 分开。依法视为收到属于法律规则，不回写成 A 的实际收到事实。
+
+生成最多3种解释；每种最多3轮来源支持的修正。可编辑操作包括变量统一、条件拆分、模态纠正、时间触发点更换、交叉引用展开、例外方向修复和桥接补充。
+
+测试预期来自原文独立解释或专家审阅，不能从候选程序自己生成答案。程序找到两个解释输出不同的最小输入，只说明解释有差异，不决定哪个解释正确。
+
+Plain text
+C_ACQUIRE(source_packet, A_registry, G):
+    expand identified references within budget
+    build source-component coverage ledger
+
+    jointly propose RuleCards and BridgeCards
+    construct independent source-based contrast tests
+
+    for each interpretation:
+        compile; run tests; locate failed bindings/components
+        apply at most 3 source-supported local repairs
+        reject unsupported additions and reviewed regressions
+
+    obtain expert approval for:
+        normative meaning, applicability, substantive bridges,
+        exception policies and priorities
+
+    publish approved cards; keep others as explicit hypotheses
+
+删除困难条件会减少来源覆盖，因此不能通过“删到容易通过”为自己取得高分。
+
+6.2 未知例外：每条规则采用一种经批准政策
+
+不再统一 gate，也不统一忽略。
+
+政策	正式编译	例外未知时
+DEFEATER_IF_SUPPORTED	普通规则可构造论证；有资格的例外论证攻击该规则实例	可形成默认论证，但记录依赖该默认；不推出“例外不存在”
+REQUIRE_EXPLICIT_ABSENCE	把明确的 
+¬
+𝑒
+¬e 加入必要前提	没有支持 
+¬
+𝑒
+¬e 的论证，就不能应用
+POLICY_UNRESOLVED	不进入正式规则包	输出待解释政策，不能自动选一个默认
+
+“有资格的例外论证”由来源状态、桥接和该规则的举证条件决定。当事人仅仅提出例外，不必然等于例外已获支持。
+
+技术上，先构造可用的例外论证和攻击，再由 grounded 语义决定接受状态；不能先要求例外已经 IN 才允许它进入攻击图，否则会造成循环定义。
+
+ASPIC+ 中 undercut 攻击规则应用，rebut 攻击相反结论，优先级用于相应的成功反驳判定。这些是已有语义，不按模型信心决定。
+Sage Journals
+
+6.3 正式计算与谨慎报告必须一致
+
+对于默认政策，可能得到：
+
+Plain text
+formal_status = IN
+default_dependencies = {本规则对“付款撤销”的默认政策}
+exception_observation = UNKNOWN
+
+输出应是：
+
+在当前输入及经审阅的默认政策下，该论证被接受；付款是否撤销尚未查明。
+
+不能在展示时偷偷改成“没有结论”，也不能写成“已经证明付款未撤销”。
+
+对于 REQUIRE_EXPLICIT_ABSENCE，同样的未知信息会导致前提缺失。这是来源政策造成的不同结论，不是程序不一致。
+
+6.4 首版支持的 ASPIC+ 片段
+
+选择有限对象、无支持递归的规则包；攻击图可以有循环，由 grounded 处理。
+
+严格步骤限于经核验的类型、定义展开与数值／日期计算。存在实质争议的法律应用使用经批准的可推翻规则。需要复杂严格法律规则闭包、证明责任转移或嵌套义务语义的来源，先保留规则卡，不强行削弱成可推翻规则后声称等价。
+
+**last-link 不能简单等于“最后执行的一行”。**首版将可执行片段限制为每次相关攻击比较有明确唯一的最后可推翻规则；超出这个片段时不随意选择一条。完整 ASPIC+ 中可能出现多个最后可推翻规则，需要集合偏序的明确提升。
+Sage Journals
+
+对有限完整论证图：
+
+Plain text
+IN = OUT = empty
+repeat:
+    add to IN every undecided argument whose defeaters are all OUT
+    add to OUT every argument defeated by an IN argument
+until unchanged
+remaining arguments = UNDECIDED
+
+没有论证不等于相反结论成立。若论证图生成超时，不在不完整攻击图上认证最终 IN。
+
+我也不承袭 ANGRY 的带 priorities 正确性保证；需要使用成熟引擎或自行实现时，应针对实际采用的片段逐项核对。
+
+6.5 仅支持／削弱的因素如何保留？
+
+保存：
+
+Plain text
+FactorCard(
+  描述触发条件,
+  target_issue,
+  direction,
+  qualitative_magnitude,
+  source_and_scope,
+  interactions,
+  inferential_status = CONTRIBUTORY
+)
+
+如“部分付款可支持继续履行意愿”，只生成：
+
+Plain text
+ReasonFor(继续履行意愿, factor_id)
+
+不会生成“债务已清偿”或“应当胜诉”。
+
+多个因素不自动加权求和。只有存在经审阅的论证规则，才从一组理由连接到具体法律结论；缺少这一步就交付因素比较和争议，而不是伪造完整裁判。
+
+七、贯穿执行例子
+
+以下规则与案件全部虚构，仅演示算法。
+
+7.1 来源记录
+
+同一案件甲涉及 K1、K2 两份合同，K1 下又有 D1、D2 两笔债务。
+
+ID	原文明确记载
+n1	法院认定：针对 K1/D1 的通知5月1日寄出，5月4日由指定收件人实际收到，通知明确标识该合同和债务
+p1	法院认定：5月10日有足额付款，但仅用于 K1/D2；初次抽取未解析后半句
+p2	法院认定：5月11日针对 K1/D1 部分付款
+p3	当事人主张5月12日已足额清偿 K1/D1，法院未认定
+n2/p4	K2/D3 的通知5月2日寄出，收到日期未知；5月8日存在针对 D3 的足额付款
+p5	另一段独立记载中，法院明确认定5月13日已足额清偿 K1/D1；是否撤销没有交代
+
+案件乙另有法院认定：5月5日实际收到 K3/D4 通知，5月12日足额清偿同一债务，并明确付款未被撤销。
+
+7.2 A 的局部阻断
+
+p1 初次映射：
+
+Plain text
+PAYMENT(p1, contract=K1, debt=UNKNOWN, fullness=FULL)
+residual = “但仅用于D2”
+impact = {debt_binding, fullness_target}
+
+因此：
+
+可以在有依据的投影下说“原文记载一次付款”；
+不能把它用于 FULL_SETTLEMENT(p1,D1)；
+不能因 fullness=FULL 就绕过 fullness_target。
+
+原文审阅后补为 debt=D2，残余解决。针对 D1 的绑定变成明确不匹配。
+
+p2 的部分付款不满足足额条件；p3 不进入法院认定通道；n2 缺少收到日期，不能用寄出日期顶替。
+
+**p5 不受 p1 残余影响。**它提供同案独立的合格见证，因此案件甲不会被整体封锁。
+
+7.3 B 从错误候选修成描述关系
+
+错误种子：
+
+Plain text
+NOTICE(n,c1,d1) AND PAYMENT(p,c2,d2)
+
+它会把 n1 与 p1 错配。执行器反馈具体合同／债务绑定，不只返回“失败”。
+
+修复操作：
+
+Plain text
+UNIFY(contract variables)
+UNIFY(debt variables)
+REQUIRE(receipt event)
+REQUIRE(full settlement of the bound debt)
+REQUIRE(COURT_FOUND channel)
+COMPUTE(payment_date - receipt_date)
+
+得到：
+
+Plain text
+FullPaymentAfterReceipt(c,d,n,p,delta) :-
+    ReceivedNotice(n,c,d,receipt_date),
+    FullSettlement(p,c,d,payment_date),
+    delta = payment_date - receipt_date,
+    delta >= 0.
+
+案件甲的有效绑定是 (K1,D1,n1,p5,9)；案件乙为 (K3,D4,n3,p6,7)。
+
+这里9日是5月13日减5月4日。使用寄出日会得到12日，但那不是该关系声明读取的时间。
+
+这两个见证支持一个跨材料描述关系；尚不能由此命名为“合法及时付款”。是否进入 S 要实算完整码长，不能根据两条示例编造压缩收益。
+
+7.4 C 的法源与结果
+
+假设虚构来源规定：
+
+通知须实际到达指定收件人，并明确合同和债务；收到有效通知后十日内足额清偿同一债务的，不得仅以该债务未清偿为由解除合同。付款被依法撤销可排除此保护；在没有合格撤销依据时，按本条默认适用。
+
+规则包明确采用 DEFEATER_IF_SUPPORTED，并规定本例按日历日期差计算，区间为 
+0
+≤
+Δ
+≤
+10
+0≤Δ≤10。
+
+C 先通过 BridgeCard 检查指定收件人、合同／债务标识等条件，不能只凭 ReceivedNotice 推出有效通知。
+
+结果为：
+
+对象	可输出结果
+甲 K1/D1，使用 p5	普通前提齐备；撤销未知；论证按已审阅默认政策 IN，报告默认依赖
+乙 K3/D4	普通前提齐备，且撤销明确排除；得到当前规则包下的接受论证
+甲 K2/D3	收到日期缺失；无法计算该法律期限，前提未齐
+p1 对 D1	债务绑定不符，不参与该论证
+p2	可作为“部分付款”的描述／理由，但不替代足额清偿
+p3	保留当事人主张，不冒充法院认定
+
+这些结果仅针对“以该债务未清偿为由解除”的特定理由，不等于整个案件胜诉，也不排除其他解除依据。
+
+八、冻结、重算与结果关联
+
+首版采用小领域全量重算，而不假装已经有成熟动态依赖算法。
+
+A 的定义、字段或身份变化后，要重算：
+
+成功映射与先前未决映射；
+B 的匹配、未匹配、被剪枝候选和残余补抽取请求；
+G 中受影响的语义测试；
+新固定 
+𝐷
+D 下的全 literal 基线与 MDL；
+C 的相关桥接、规则实例、反对论证。
+
+**新旧 
+𝐷
+D 不同，码长下降不能直接解释为更好的压缩算法。**同样，改变自然语言意图后不能沿用旧测试通过率。
+
+开发／发现阶段可以反馈修正；确认阶段冻结类型、读取依赖、关系程序、编码政策及规则包。确认错误进入下一个版本，旧确认集随之变成已见材料。附件对此已有明确要求。
+Pasted text
+
+原 PDF 的结果相关目标保留，不取消。它明确要求 A 独立于 WIN/LOSE，之后再比较结果组。
+Canonicalizing Legal Facts (1)
+
+标签核验后实施为：在训练折内分别检查结果组模式，同时用按纠纷家族分组的内层验证比较“单事实特征”与“单事实＋关系组合”的正则逻辑回归。候选选择、正则和长度限制都留在训练内部；A 不因关联结果改变语义。受约束子群发现可用于保留简短替代描述，但其目标本身是监督性的，不搬到当前无标签接受规则中。
+arXiv
+
+现有6954条是文书结构计数，领域与分段均有问题，没有这些结果监督；当前运行仍是回顾性描述发现与论证重建。
+Pasted text
+
+九、首版做什么、删什么，以及唯一首要贡献假设
+首版必须完成
+
+一套共享类型和身份注册表；来源字段状态与残余依赖契约；定义卡及局部版本修订；源片段泛化和受限程序修正；G／S 分离及实际编解码器；少量完整来源包、规则／桥接获取、逐规则例外政策与受限论证执行。
+
+这些共同形成一个能从来源运行到比较结果的小型系统，而不是先建立完整 benchmark 才决定算法。
+
+明确延期
+
+专用编码器或判断器微调、全成员 EQ/MILP、主搜索中的大范围 WARMR 穷举、重叠记录编码、复杂多模式交换、可能世界求解、一般严格法律逻辑、证明责任转移、自动学习因素权重，以及未经核验标签的结果预测。
+
+它们不是永远不做，而是当前没有理由让首版同时承担。
+
+一个首要研究贡献假设
+
+基于语义依赖的局部阻断与来源驱动修复，能够在相同模型、原文和审阅预算下，比“忽略残余继续使用”与“整条事实一律弃用”保留更多正确的关系见证，同时减少跨合同、跨债务、状态与期限错误。
+
+贡献候选是抽象使用与修复机制，不是新 MDL、新 ASPIC+，也不是“LLM＋验证器”。
+
+最接近的重叠要承认：GraphRefine 修事实，ClassMATe 修定义，RHDA／ADVENT 修可执行表达。我们提出的差别在于：**修复依据来自同一来源链中的使用依赖，且允许同一断言对一种用途被阻断、对另一种经过批准的用途仍可用。**依赖传播本身不是新思想；只有这套法律语义接口及其修复策略产生实质增量，才有论文贡献。
+
+最小必要验证围绕这个假设，而不是铺开完整 benchmark：
+
+同样数据与预算，比较无阻断、整断言阻断、依赖级阻断＋局部修复；
+同时看错误使用、正确见证保留、未决率和专家时间；
+用原文盲评案件比较中的关键区别与遗漏，不能只看系统自己的通过率；
+编码器另做完整往返测试，小规模 cover 与穷举解比较，确认近似差距和实现正确性。
+
+若局部作用域经常判错，回退到断言级阻断，不扩大成全案阻断；若 LLM 编辑没有净收益，保留源片段泛化与确定性执行；若压缩选集不能帮助阅读，S 只作存储与概览，G 和 C 仍可直接使用。
+
+最终选型不是把所有新论文组件装在一起，而是把三个问题接成同一条可检查的链：A 决定一条来源断言允许怎样使用，B 学习可执行的描述关系，C 决定这些关系在特定法源和例外政策下能支持什么论证。任何一环的成功，都不能替下一环自动作出更强的承诺。
+
+ChatGPT can make mistakes. Check important info.
+Latest response
+
+
+
+
+Pro
+Response complete

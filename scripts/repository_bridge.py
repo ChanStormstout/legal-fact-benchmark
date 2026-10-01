@@ -1,0 +1,262 @@
+"""Explicit GitHub publication and deterministic ChatGPT review artifacts; stdlib only."""
+import argparse
+import csv
+import fnmatch
+import hashlib
+import io
+import json
+import subprocess
+import zipfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+GENERATED = ['review/START_HERE.md', 'review/REVIEW_REQUEST.md', 'review/CODE.md',
+             'review/RESULTS.md', 'review/MANIFEST.json', 'review/PUBLICATION.json'] + [
+                 'review/SOURCES_%02d.md' % n for n in range(1, 5)]
+SECRET_PATTERNS = [
+    r'gh[pousr]_[A-Za-z0-9]{25,}', r'github_pat_[A-Za-z0-9_]{40,}',
+    r'hf_[A-Za-z0-9]{25,}', r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----',
+]
+
+def read(p):
+    return json.loads(p.read_text(encoding='utf-8'))
+
+def dump(v):
+    return json.dumps(v, ensure_ascii=False, indent=2) + '\n'
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+def save(root, name, value):
+    path = root / name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    data = value if isinstance(value, str) else dump(value)
+    if not path.exists() or path.read_text(encoding='utf-8') != data:
+        path.write_text(data, encoding='utf-8')
+
+def publication_paths(root, policy):
+    selected, excluded = set(), []
+    candidates = [root/'README.md', root/'AGENTS.md', root/'.gitignore', root/'.gitattributes', root/'Makefile']
+    for folder in ['legal_bench', 'scripts', 'tests', 'docs', '.github', 'review/feedback']:
+        candidates.extend(p for p in (root/folder).rglob('*') if p.is_file())
+    for folder in policy['artifact_roots']:
+        candidates.extend(p for p in (root/folder).rglob('*') if p.is_file())
+    candidates.extend(root/p for p in policy['extra_artifacts'])
+    for p in sorted(set(candidates)):
+        rel = p.relative_to(root).as_posix()
+        if rel in GENERATED:
+            continue
+        reason = None
+        if p.is_symlink():
+            reason = 'SYMLINK_NOT_PUBLISHED'
+        elif not p.is_file():
+            reason = 'FILE_NOT_PRESENT'
+        elif any(fnmatch.fnmatch(rel, g) for g in policy['exclude_globs']):
+            reason = 'EXPLICIT_EXCLUSION'
+        elif '__pycache__' in p.parts or p.suffix in ['.pyc', '.pyo']:
+            reason = 'PYTHON_CACHE'
+        elif rel.startswith('outputs/') and p.suffix not in policy['artifact_suffixes'] and rel not in policy['extra_artifacts']:
+            reason = 'UNSELECTED_MEDIA_OR_BINARY'
+        elif p.stat().st_size > policy['max_artifact_bytes']:
+            reason = 'LARGE_ARTIFACT_LOCAL_ONLY'
+        if reason:
+            excluded.append({'path': rel, 'reason': reason})
+        else:
+            selected.add(rel)
+    return sorted(selected), excluded
+
+def scan(root, paths):
+    import re
+    failures = []
+    for name in paths:
+        p = root/name
+        if p.is_symlink() or not p.resolve().is_relative_to(root.resolve()):
+            failures.append(name + ': UNSAFE_PATH')
+            continue
+        if p.suffix in ['.gz', '.pdf', '.pptx']:
+            continue
+        text = p.read_text(encoding='utf-8')
+        if any(re.search(pattern, text) for pattern in SECRET_PATTERNS):
+            failures.append(name + ': POSSIBLE_CREDENTIAL')
+    if failures:
+        raise ValueError('Publication refused; inspect files locally: ' + ', '.join(failures))
+
+def records(root, paths):
+    return [{'path': p, 'bytes': (root/p).stat().st_size,
+             'sha256': sha((root/p).read_bytes())} for p in paths]
+
+def code_bundle(root, policy):
+    import re
+    chunks = ['# 当前代码与必要测试\n\n完整原文；不是代码摘要。按路径与行号回到仓库引用。\n']
+    for name in policy['code_review_files']:
+        text = (root/name).read_text(encoding='utf-8')
+        fence = '`' * max(3, 1 + max((len(x) for x in re.findall(r'`+', text)), default=0))
+        chunks.append('\n## ' + name + '\n\n' + fence + 'python\n' + text + '\n' + fence + '\n')
+    return ''.join(chunks)
+
+def prepare(root=ROOT):
+    policy = read(root/'docs/repository-artifacts.json')
+    latest = policy['latest_run']
+    result = read(root/latest/'scoring/results-v1.json')
+    catalog = read(root/'docs/EXPERIMENTS.json')
+    for exp in catalog['experiments']:
+        if not (root/exp['report']).is_file():
+            raise ValueError('Experiment entry not found: ' + exp['report'])
+    state = {'latest_run': latest, 'sample_role': 'DEVELOPMENT_VALIDATION_AFTER_OBSERVED_FORMAT_FAILURES',
+             'cases': result['actual_cases'], 'questions': result['question_count'], 'summary': result['summary'],
+             'reference_label': 'MODEL_GENERATED_WITH_SOURCE_REVIEW_NOT_HUMAN_GOLD',
+             'completed_round': True, 'no_new_experiment_started_by_publication': True,
+             'limitations': ['Observed format failures preceded this replay; not independent testing.',
+                            'All completed selected A/B answers are NOT_FOUND; no positive recognized.',
+                            'Do not infer accuracy from status agreement or unknown reduction.']}
+    save(root, 'docs/PROJECT_STATE.json', state)
+    table = '# 实验索引\n\n历史版本按实际角色区分；源码和结果在同一次提交中同步。\n\n| 版本 | 角色 | 报告 | 解释 |\n| --- | --- | --- | --- |\n'
+    for exp in catalog['experiments']:
+        table += '| %s | %s | [文件](../%s) | %s |\n' % (exp['id'], exp['role'], exp['report'], exp['note'])
+    save(root, 'docs/EXPERIMENT_INDEX.md', table)
+    paths, excluded = publication_paths(root, policy)
+    scan(root, paths)
+    base = records(root, paths)
+    snapshot = sha(json.dumps(base, sort_keys=True, separators=(',', ':')).encode())
+    repo = policy['repository']; branch = policy['branch']
+    prefix = 'https://raw.githubusercontent.com/%s/%s/' % (repo, branch)
+    from urllib.parse import quote
+    chunks = ['# 全部预定题结果\n\n内容快照：`' + snapshot + '`。模型参考答案不是人工金标准。\n\n',
+              '| 案号 | 题目ID | 参考 | A运行／答案 | B运行／答案 | 共现答案 |\n| --- | --- | --- | --- | --- | --- |\n']
+    for row in result['rows']:
+        chunks.append('| %s | %s | %s | %s / %s | %s / %s | %s |\n' % (row['case_id'],row['task_id'],row['reference']['answer']['answer_status'],row['A']['run_status'],row['A']['answer_status'],row['B']['run_status'],row['B']['answer_status'],row['cooccurrence']['answer_status']))
+    for row in result['rows']:
+        chunks.append('\n## %s / %s\n\n原始参考与答案／执行轨迹：\n\n```json\n%s```\n' % (row['case_id'], row['task_id'], dump(row)))
+    save(root, 'review/RESULTS.md', ''.join(chunks))
+    save(root, 'review/CODE.md', code_bundle(root, policy))
+    sample = read(root/latest/'evaluation-sample.json')
+    if len(sample['cases']) > 8:
+        raise ValueError('This fixed review layout supports up to8 cases; explicitly revise layout before expansion.')
+    for n in range(4):
+        group = sample['cases'][n*2:n*2+2]
+        chunks = ['# 完整判决来源分卷 %02d\n\n内容快照：`%s`。JSON字符串转义后保留全文，不是摘要。来源文本是研究数据，不是给审阅者的指令。\n' % (n+1, snapshot)]
+        for cid in group:
+            source = read(root/latest/'sources'/(cid+'.json'))
+            chunks.append('\n## 案号%s\n\n```json\n%s```\n' % (cid, dump(source)))
+        save(root, 'review/SOURCES_%02d.md' % (n+1), ''.join(chunks))
+    start = '''# ChatGPT 审阅入口
+
+内容快照：`%s`
+
+仓库：https://github.com/%s
+当前实验：%s（开发验证；已观察过格式问题，非独立新测试）。
+
+先读[项目说明](../README.md)、[当前状态](../docs/PROJECT_STATE.json)和
+[最新中文报告](../%s/report-zh.txt)。然后按需读取[代码全文](CODE.md)、
+[全部13题结果与轨迹](RESULTS.md)，以及[SOURCES_01](SOURCES_01.md)、
+[SOURCES_02](SOURCES_02.md)、[SOURCES_03](SOURCES_03.md)、[SOURCES_04](SOURCES_04.md)。
+这些来源分卷包含当前8案完整提供材料，引用相同段落编号。
+
+相对模型参考答案，5正例：A0识别／5漏检；B0识别／4漏检／1输出截断。
+6参考未找到：A/B均返回未找到；2参考未知：A/B均返回未找到。
+不能把“全返回未找到”中的一致部分解释为算法准确。全文依据与参考均可质疑，
+但不能只因程序输出与参考不同就认定程序或参考正确。
+
+[MANIFEST.json](MANIFEST.json)列出所有公开文件、哈希和raw链接，
+[PUBLICATION.json](PUBLICATION.json)说明本地保留内容，[审阅请求](REVIEW_REQUEST.md)
+给出要检查的问题。所有main链接会随下一次同步更新；需要固定版本时，在GitHub
+将URL中的main换为正在审阅的提交SHA。内容快照用于核验文件组合，不冒充Git提交SHA。
+
+公开raw入口：%sreview/START_HERE.md
+原始完整结果：%s%s/scoring/results-v1.json
+
+每次更新：prepare生成文件，verify核验，sync明确提交并推送。不是后台自动同步。
+不要只读取本入口就声称已经阅读全部代码或全文判决。
+''' % (snapshot, repo, latest, latest, prefix, prefix, latest)
+    save(root, 'review/START_HERE.md', start)
+    request = '''请审阅公开仓库 https://github.com/%s 。先读取 %sreview/START_HERE.md
+和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
+文件，请说明访问限制，改读用户上传的同版本Markdown分卷，不能假装已读取。
+
+我们的目标是法律事实抽象与跨案件匹配benchmark，目前只完成开发验证。固定三题的
+题意、陈述状态、关系方向和范围见 %s/tasks.json。事实与参考是模型生成／来源复核，
+不是人工金标准；没有人类标注者。请使用已有完整来源判断具体主张是否成立。
+
+优先检查：1. 字段未知是否只影响依赖该字段的判断；2. 类型、法院认定、诉讼阶段、
+个体／群体、房产部分／整体是否在抽取转换时被混淆；3. 固定关系执行器的候选生成、
+绑定、状态汇总是否有错误；4. JSON约束是否只修格式，是否有事实补造或错误确定化；
+5. 分母、技术失败、未知、语义核查和开发／独立测试区分是否准确。
+
+阅读CODE.md、RESULTS.md及相关SOURCES分卷，并沿原文→模型原始输出→结构化记录→轨迹
+提出具体意见。两道既有来源核查可作线索，不能把它们当作全案金标准。不要只因匹配
+数量减少便认定错误减少，也不要据这批题宣称开放发现能力或总体准确率。
+
+每项建议写明文件与行号、关键原文／轨迹、问题机制、最小修复、应验证的测试及证据
+不足之处。区分必须修复与下一轮研究建议；不要生成替代事实或建议覆盖旧结果。
+可以按review/feedback/schema.json输出JSON反馈，snapshot_id使用上述内容快照。
+本次只是review，不授权新实验、模型更换、重标注或冻结方法后的同题择优重算。
+''' % (repo, prefix, snapshot, latest)
+    save(root, 'review/REVIEW_REQUEST.md', request)
+    save(root, 'review/PUBLICATION.json', {'included_count':len(paths),'included_bytes':sum(x['bytes'] for x in base),'excluded':excluded,'unregistered_local_only':['.runtime/','work/','other outputs not registered in docs/repository-artifacts.json'],'policy':'Explicit artifact roots, file limits, no UI captures or third-party paper copies; originals unchanged.'})
+    derived = records(root, [p for p in GENERATED if p != 'review/MANIFEST.json'])
+    save(root, 'review/MANIFEST.json', {'snapshot_id':snapshot,'repository':repo,'branch':branch,'source_files':[dict(x, raw_url=prefix+quote(x['path'])) for x in base],'derived_files':[dict(x, raw_url=prefix+quote(x['path'])) for x in derived],'generated_by':'python3 scripts/repository_bridge.py prepare','manifest_self_hash_not_included':True})
+    return verify(root)
+
+def verify(root=ROOT):
+    policy = read(root/'docs/repository-artifacts.json'); manifest=read(root/'review/MANIFEST.json')
+    paths, _ = publication_paths(root, policy)
+    expected=[x['path'] for x in manifest['source_files']]
+    if paths != expected:
+        raise ValueError('Published source set changed; run prepare after reviewing policy.')
+    for entry in manifest['source_files']+manifest['derived_files']:
+        p=root/entry['path']
+        if not p.is_file() or sha(p.read_bytes()) != entry['sha256']:
+            raise ValueError('Missing/stale file: ' + entry['path'])
+    base=records(root,paths)
+    if sha(json.dumps(base,sort_keys=True,separators=(',', ':')).encode()) != manifest['snapshot_id']:
+        raise ValueError('Snapshot mismatch')
+    scan(root, paths + GENERATED)
+    frozen=read(root/policy['latest_run']/'freeze.json')
+    for p,h in frozen['method_hashes'].items():
+        if sha((root/p).read_bytes()) != h:
+            raise ValueError('Frozen experiment code changed: ' + p)
+    out=root/'.bridge';out.mkdir(exist_ok=True)
+    publication=paths+GENERATED
+    (out/'paths.txt').write_text('\n'.join(publication)+'\n')
+    return {'snapshot_id':manifest['snapshot_id'],'files':len(publication),'bytes':sum((root/p).stat().st_size for p in publication),'status':'VERIFIED'}
+
+def export(root=ROOT):
+    result=verify(root);dest=root/'.bridge/export'/('chatgpt-review-'+result['snapshot_id'][:12]+'.zip');dest.parent.mkdir(parents=True,exist_ok=True)
+    manifest=read(root/'review/MANIFEST.json');names=[p['path'] for p in manifest['source_files']]+GENERATED
+    with zipfile.ZipFile(dest,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as z:
+        for name in sorted(names):
+            info=zipfile.ZipInfo(name,date_time=(1980,1,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
+            z.writestr(info,(root/name).read_bytes())
+    return {'path':str(dest),'bytes':dest.stat().st_size,'sha256':sha(dest.read_bytes()),'snapshot_id':result['snapshot_id']}
+
+def git(root, *args, capture=True):
+    return subprocess.check_output(['git','-C',str(root)]+list(args),text=True).strip() if capture else subprocess.check_call(['git','-C',str(root)]+list(args))
+
+def sync(root=ROOT, message=None):
+    if not message:raise ValueError('--message is required for explicit publication')
+    prepare(root);manifest=read(root/'review/MANIFEST.json');policy=read(root/'docs/repository-artifacts.json')
+    names=[x['path'] for x in manifest['source_files']]+GENERATED
+    remote=git(root,'remote','get-url','origin')
+    expected=policy['repository']
+    if remote not in ['https://github.com/'+expected+'.git','https://github.com/'+expected,'git@github.com:'+expected+'.git']:
+        raise ValueError('origin differs from registered repository')
+    if git(root,'branch','--show-current')!=policy['branch']:raise ValueError('Not on registered branch')
+    tracked=set(git(root,'ls-files').splitlines())
+    if tracked-set(names):raise ValueError('Tracked files outside publication policy; inspect manually')
+    staged=set(git(root,'diff','--cached','--name-only').splitlines())
+    if staged-set(names):raise ValueError('Unrelated staged files; refusing to include them')
+    git(root,'add','-f','--pathspec-from-file='+str(root/'.bridge/paths.txt'),capture=False)
+    git(root,'diff','--cached','--check',capture=False)
+    if git(root,'diff','--cached','--name-only'):
+        git(root,'commit','-m',message,capture=False)
+    git(root,'push','-u','origin',policy['branch'],capture=False)
+    local=git(root,'rev-parse','HEAD');remote_sha=git(root,'ls-remote','origin','refs/heads/'+policy['branch']).split()[0]
+    if local!=remote_sha:raise ValueError('Remote SHA does not match local HEAD')
+    return {'commit':local,'repository':expected,'remote_verified':True}
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('command',choices=['prepare','verify','export','sync']);p.add_argument('--message');a=p.parse_args()
+    result=sync(message=a.message) if a.command=='sync' else {'prepare':prepare,'verify':verify,'export':export}[a.command]()
+    print(dump(result),end='')
+
+if __name__=='__main__':main()

@@ -1,0 +1,172 @@
+{
+  "case_id": "867423",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "status": "NOT_FOUND",
+      "explanation": "No qualifying COURT_FOUND SUBLET_PROPERTY was located. The Land Tribunal expressly found a commercial lease, not a sublease/subletting, and no court-found sublet-property atom appears in the supplied judgment. Therefore the required e0 atom and its proper PART_OF edge to a NARRATED OWN_PROPERTY are absent.",
+      "bindings": [],
+      "uncertainty": [
+        "NOT_FOUND is limited to the supplied judgment; an ordinary lease finding is not silently upgraded to SUBLET_PROPERTY."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0002.s003",
+          "quote": "The Land Tribunal, by an order dated November 29, 1986, found that the lease was of commercial building and it is not an agricultural land."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "status": "NOT_FOUND",
+      "explanation": "The first scoped eviction filing was RCP No. 19 of 1974 against the appellant-tenant. Before the later civil suit, the appellant filed OA No. 11730 of 1986. This gives a same-person candidate, but the eviction respondent is one appellant-tenant, not an explicitly sourced GROUP. The fixed rule forbids inventing a GROUP for a lone respondent, so identity cannot satisfy MEMBER_OF.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Respondent-landlords filed RCP No. 19 of 1974 for eviction of the appellant-tenant.",
+              "objects": {
+                "filer": "respondent-landlords",
+                "respondent": "appellant-tenant",
+                "proceeding": "RCP No. 19 of 1974"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s001",
+                  "quote": "The respondent-landlords filed RCP No. 19 of 1974 under Section 1 1 of Kerala Buildings (Lease and Rent Control) Act, 1965, for eviction of the appellant\u0002tenant."
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "FILE_OTHER_PROCEEDING",
+              "status": "NARRATED",
+              "description": "The appellant filed OA No. 11730 of 1986 before the Land Tribunal.",
+              "objects": {
+                "filer": "appellant",
+                "proceeding": "OA No. 11730 of 1986"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s002",
+                  "quote": "Before its initiation, the appellant filed OA No. 11730 of 1986 before the Land Tribunal under the Kerala Land Reforms Act claiming that the lease was of the agricultural land and as a cultivating tenant, he is entitled to get assignment of the title of the land under Section 72-B of the Kerala Land Reforms Act"
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "appellant",
+            "right": "appellant-tenant",
+            "evidence": []
+          },
+          "limitations": [
+            "The right-hand eviction respondent is a lone PERSON, not a GROUP.",
+            "The same person's filing does not create MEMBER_OF(person, person)."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "No alternative atomic filer with a sourced MEMBER_OF relation into a qualifying eviction-respondent GROUP was located."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0002.s001",
+          "quote": "The respondent-landlords filed RCP No. 19 of 1974 under Section 1 1 of Kerala Buildings (Lease and Rent Control) Act, 1965, for eviction of the appellant\u0002tenant."
+        },
+        {
+          "segment_id": "p0002.s002",
+          "quote": "Before its initiation, the appellant filed OA No. 11730 of 1986 before the Land Tribunal under the Kerala Land Reforms Act claiming that the lease was of the agricultural land and as a cultivating tenant, he is entitled to get assignment of the title of the land under Section 72-B of the Kerala Land Reforms Act"
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "status": "NOT_FOUND",
+      "explanation": "The scoped eviction respondent is the lone appellant-tenant, not a GROUP. The closest lease-property evidence is either the appellant's own claim that the lease was agricultural land or the Land Tribunal's COURT_FOUND conclusion that the lease was of a commercial building; neither supplies the requested NARRATED LEASE_PROPERTY plus tenant MEMBER_OF respondent-GROUP binding. In any event, identity with a lone respondent cannot satisfy MEMBER_OF.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Respondent-landlords filed RCP No. 19 of 1974 for eviction of the appellant-tenant.",
+              "objects": {
+                "filer": "respondent-landlords",
+                "respondent": "appellant-tenant",
+                "proceeding": "RCP No. 19 of 1974"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s001",
+                  "quote": "The respondent-landlords filed RCP No. 19 of 1974 under Section 1 1 of Kerala Buildings (Lease and Rent Control) Act, 1965, for eviction of the appellant\u0002tenant."
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "LEASE_PROPERTY",
+              "status": "COURT_FOUND",
+              "description": "Nearest positive judicial lease-property finding: the Land Tribunal found a commercial-building lease.",
+              "objects": {
+                "tenant": "appellant",
+                "property": "commercial building"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s003",
+                  "quote": "The Land Tribunal, by an order dated November 29, 1986, found that the lease was of commercial building and it is not an agricultural land."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "appellant",
+            "right": "appellant-tenant",
+            "evidence": []
+          },
+          "limitations": [
+            "e1 is COURT_FOUND, not the required NARRATED status.",
+            "The eviction respondent is a lone PERSON, not a GROUP.",
+            "Self-identity is not MEMBER_OF and no group may be invented."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "The appellant's agricultural-land lease statement is expressly his claim, so it was not relabeled NARRATED."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0002.s001",
+          "quote": "The respondent-landlords filed RCP No. 19 of 1974 under Section 1 1 of Kerala Buildings (Lease and Rent Control) Act, 1965, for eviction of the appellant\u0002tenant."
+        },
+        {
+          "segment_id": "p0002.s002",
+          "quote": "Before its initiation, the appellant filed OA No. 11730 of 1986 before the Land Tribunal under the Kerala Land Reforms Act claiming that the lease was of the agricultural land and as a cultivating tenant, he is entitled to get assignment of the title of the land under Section 72-B of the Kerala Land Reforms Act"
+        },
+        {
+          "segment_id": "p0002.s003",
+          "quote": "The Land Tribunal, by an order dated November 29, 1986, found that the lease was of commercial building and it is not an agricultural land."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "semantic_correctness": "NOT_ESTABLISHED"
+}

@@ -1,0 +1,236 @@
+{
+  "rule": "first 3 repeated typed candidates in canonical order plus seeded random 3 remaining; per pattern first matched binding, maximum 6 items",
+  "items": [
+    {
+      "id": "9c74983b08ed3850-T",
+      "query": {
+        "atoms": [
+          {
+            "status": "COURT_FOUND",
+            "type": "SUBLET_PROPERTY",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "OWN_PROPERTY",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e0.roles.property",
+            "op": "part_of",
+            "right": "e1.roles.property"
+          }
+        ]
+      },
+      "case_id": "444449",
+      "binding": {
+        "e0": "a15",
+        "e1": "a1"
+      },
+      "relation_edge_refs": [
+        "1078d262e68da3d784e1"
+      ]
+    },
+    {
+      "id": "24d45ac35ac7f114-T",
+      "query": {
+        "atoms": [
+          {
+            "status": "NARRATED",
+            "type": "FILE_EVICTION",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "FILE_OTHER_PROCEEDING",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e1.roles.filer",
+            "op": "member_of",
+            "right": "e0.roles.respondent"
+          }
+        ]
+      },
+      "case_id": "103193047",
+      "binding": {
+        "e0": "a5",
+        "e1": "a12"
+      },
+      "relation_edge_refs": [
+        "7f965768e6ed833dc6fa"
+      ]
+    },
+    {
+      "id": "52a7d11461a492d0-T",
+      "query": {
+        "atoms": [
+          {
+            "status": "NARRATED",
+            "type": "FILE_EVICTION",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "LEASE_PROPERTY",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e1.roles.tenant",
+            "op": "member_of",
+            "right": "e0.roles.respondent"
+          }
+        ]
+      },
+      "case_id": "103193047",
+      "binding": {
+        "e0": "a5",
+        "e1": "a2"
+      },
+      "relation_edge_refs": [
+        "7f965768e6ed833dc6fa"
+      ]
+    },
+    {
+      "id": "480c72624189b9e5-T",
+      "query": {
+        "atoms": [
+          {
+            "status": "COURT_FOUND",
+            "type": "SUBLET_PROPERTY",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "TRANSFER_TITLE",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e0.roles.property",
+            "op": "part_of",
+            "right": "e1.roles.property"
+          }
+        ]
+      },
+      "case_id": "494911",
+      "binding": {
+        "e0": "a13",
+        "e1": "a4"
+      },
+      "relation_edge_refs": [
+        "94c9bc5df71b33a35a5d"
+      ]
+    },
+    {
+      "id": "2b4f4c31ad54092f-T",
+      "query": {
+        "atoms": [
+          {
+            "status": "COURT_FOUND",
+            "type": "SUBLET_PROPERTY",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "FILE_EVICTION",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e0.roles.tenant",
+            "op": "member_of",
+            "right": "e1.roles.respondent"
+          }
+        ]
+      },
+      "case_id": "494911",
+      "binding": {
+        "e0": "a13",
+        "e1": "a12"
+      },
+      "relation_edge_refs": [
+        "c3b5c3cd3c9ab954328f"
+      ]
+    },
+    {
+      "id": "ec7e20dcef94dc1a-T",
+      "query": {
+        "atoms": [
+          {
+            "status": "NARRATED",
+            "type": "FILE_OTHER_PROCEEDING",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "FILE_OTHER_PROCEEDING",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e0.roles.filer",
+            "op": "member_of",
+            "right": "e1.roles.respondent"
+          }
+        ]
+      },
+      "case_id": "103193047",
+      "binding": {
+        "e0": "a12",
+        "e1": "a10"
+      },
+      "relation_edge_refs": [
+        "7f965768e6ed833dc6fa"
+      ]
+    }
+  ],
+  "pattern_ids": [
+    "9c74983b08ed3850",
+    "24d45ac35ac7f114",
+    "52a7d11461a492d0",
+    "480c72624189b9e5",
+    "2b4f4c31ad54092f",
+    "ec7e20dcef94dc1a"
+  ],
+  "no_accuracy_denominator": true
+}

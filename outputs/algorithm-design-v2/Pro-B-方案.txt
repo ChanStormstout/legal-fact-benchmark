@@ -1,0 +1,1668 @@
+  - heading "ChatGPT said:" [level=4]
+  - heading "B 分支最终选型：有类型的 WARMR 式搜索＋保留绑定的关系字典压缩" [level=1]
+  - paragraph:
+    - strong: 我推荐现在实现这一套算法：
+  - blockquote:
+    - paragraph:
+      - strong: 用带类型、对象身份约束的 WARMR 式逐层扩展，枚举有界的关系事实模式；再把每个模式的具体匹配实例作为压缩单元，通过带字典开启成本的集合覆盖整数规划，联合选择最终模式集合。
+  - paragraph: 这里的“压缩”不是把案件变成一个事实类别向量后再压缩，而是：
+  - blockquote:
+    - paragraph:
+      - strong: 模式定义＋该次出现的具体实体绑定，必须能够还原被覆盖的原始结构化事实。
+  - paragraph: 因此，它可以复用普通集合覆盖优化，但不会把“K1 的付款”和“K2 的未交付”压缩成“同一合同付款后未交付”。
+  - paragraph:
+    - text: 这是一套
+    - strong: 已有搜索思想、已有优化方法与明确关系编码的组合
+    - text: ，不是宣称发明了新的通用模式挖掘范式。首版不引入 possible worlds、联合稳健优化、自动谓词发明或胜败标签。当前任务是：
+    - strong: 在冻结的规范化记录中，发现跨案件重复、能够准确匹配且共同概括数据的关系事实模式。
+  - separator
+  - heading "一、本轮原文阅读怎样改变了选型" [level=2]
+  - paragraph: 下面只列真正影响本次决定的文献，不重新展开领域综述。“方法与实验已读”指核读相应正文，不等于逐页读完所有附录。
+  - table:
+    - rowgroup:
+      - row "工作与阅读状态 原文中影响选型的内容 本次取舍":
+        - columnheader "工作与阅读状态"
+        - columnheader "原文中影响选型的内容"
+        - columnheader "本次取舍"
+    - rowgroup:
+      - 'row "WARMR／Discovery of frequent DATALOG patterns，1999；部分全文：查询定义、语言偏置、逐层搜索、应用实验 按指定分析对象计算支持度，用语言偏置限定关系查询，并利用专化后的支持度反单调性搜索。 采用其搜索骨架，明确改为下文的有类型、单射匹配语言，不声称原样运行 WARMR。 Lirias: Discovery of frequent DATALOG patterns, https://lirias.kuleuven.be/retrieve/3e57d624-2a5a-4308-952b-6a84375942c2, 1 additional source"':
+        - cell "WARMR／Discovery of frequent DATALOG patterns，1999；部分全文：查询定义、语言偏置、逐层搜索、应用实验":
+          - strong: WARMR／Discovery of frequent DATALOG patterns，1999
+          - text: ；部分全文：查询定义、语言偏置、逐层搜索、应用实验
+        - cell "按指定分析对象计算支持度，用语言偏置限定关系查询，并利用专化后的支持度反单调性搜索。"
+        - 'cell "采用其搜索骨架，明确改为下文的有类型、单射匹配语言，不声称原样运行 WARMR。 Lirias: Discovery of frequent DATALOG patterns, https://lirias.kuleuven.be/retrieve/3e57d624-2a5a-4308-952b-6a84375942c2, 1 additional source"':
+          - strong: 采用其搜索骨架
+          - text: ，明确改为下文的有类型、单射匹配语言，不声称原样运行 WARMR。
+          - 'link "Lirias: Discovery of frequent DATALOG patterns, https://lirias.kuleuven.be/retrieve/3e57d624-2a5a-4308-952b-6a84375942c2, 1 additional source"':
+            - /url: https://lirias.kuleuven.be/retrieve/3e57d624-2a5a-4308-952b-6a84375942c2
+            - generic: Lirias
+            - generic: "+1"
+      - 'row "gSpan，2002；CloseGraph，2003；方法和主要实验已读，CloseGraph 部分全文 gSpan 的规范 DFS 编码和子图扩展能够保留关系。CloseGraph 的提前终止需要关于出现关系的条件；原文专门讨论了不满足条件时漏掉模式的情形。 保留强替代；不把“支持案件相同”直接当作安全剪枝条件。 UCSB Computer Science: dfm.dvi, https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf, 1 additional source"':
+        - cell "gSpan，2002；CloseGraph，2003；方法和主要实验已读，CloseGraph 部分全文":
+          - strong: gSpan，2002；CloseGraph，2003
+          - text: ；方法和主要实验已读，CloseGraph 部分全文
+        - cell "gSpan 的规范 DFS 编码和子图扩展能够保留关系。CloseGraph 的提前终止需要关于出现关系的条件；原文专门讨论了不满足条件时漏掉模式的情形。"
+        - 'cell "保留强替代；不把“支持案件相同”直接当作安全剪枝条件。 UCSB Computer Science: dfm.dvi, https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf, 1 additional source"':
+          - text: 保留强替代；
+          - strong: 不把“支持案件相同”直接当作安全剪枝条件
+          - text: 。
+          - 'link "UCSB Computer Science: dfm.dvi, https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf, 1 additional source"':
+            - /url: https://sites.cs.ucsb.edu/~xyan/papers/gSpan-short.pdf
+            - generic: UCSB Computer Science
+            - generic: "+1"
+      - 'row "FP-Growth，2000；核心算法、性质和性能实验已读 条件模式库与条件 FP-tree 可以有效枚举频繁项集，但原始输入是事务项集。 保留“项集筛选＋关系展开＋相同匹配器”的强基线，不宣称 FP 路线不能处理绑定。 School of Computing Science: https://www.cs.sfu.ca/~jpei/publications/sigmod00.pdf, https://www.cs.sfu.ca/~jpei/publications/sigmod00.pdf, 1 additional source"':
+        - cell "FP-Growth，2000；核心算法、性质和性能实验已读":
+          - strong: FP-Growth，2000
+          - text: ；核心算法、性质和性能实验已读
+        - cell "条件模式库与条件 FP-tree 可以有效枚举频繁项集，但原始输入是事务项集。"
+        - 'cell "保留“项集筛选＋关系展开＋相同匹配器”的强基线，不宣称 FP 路线不能处理绑定。 School of Computing Science: https://www.cs.sfu.ca/~jpei/publications/sigmod00.pdf, https://www.cs.sfu.ca/~jpei/publications/sigmod00.pdf, 1 additional source"':
+          - text: 保留“项集筛选＋关系展开＋相同匹配器”的强基线，不宣称 FP 路线不能处理绑定。
+          - 'link "School of Computing Science: https://www.cs.sfu.ca/~jpei/publications/sigmod00.pdf, https://www.cs.sfu.ca/~jpei/publications/sigmod00.pdf, 1 additional source"':
+            - /url: https://www.cs.sfu.ca/~jpei/publications/sigmod00.pdf
+            - generic: School of Computing Science
+            - generic: "+1"
+      - 'row "SLIM，2012；方法、主要实验及贪心对照已读 通过现有编码表中模式的合并提议候选，以压缩增益更新；精确评估更多候选可能略改善结果，但代价可能明显增加。 借鉴整体编码目标；首版不用其局部搜索决定所有候选，也不假定更重的优化一定划算。 CISPA EDA: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, 1 additional source"':
+        - cell "SLIM，2012；方法、主要实验及贪心对照已读":
+          - strong: SLIM，2012
+          - text: ；方法、主要实验及贪心对照已读
+        - cell "通过现有编码表中模式的合并提议候选，以压缩增益更新；精确评估更多候选可能略改善结果，但代价可能明显增加。"
+        - 'cell "借鉴整体编码目标；首版不用其局部搜索决定所有候选，也不假定更重的优化一定划算。 CISPA EDA: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, 1 additional source"':
+          - text: 借鉴整体编码目标；首版不用其局部搜索决定所有候选，也不假定更重的优化一定划算。
+          - 'link "CISPA EDA: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, 1 additional source"':
+            - /url: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf
+            - generic: CISPA EDA
+            - generic: "+1"
+      - 'row "Snor；2025 年上线、书目年份 2026；方法、主实验与对照已读 Snor 是允许重叠的 cover function，不是完整搜索算法。它将覆盖与集合覆盖联系起来；实验收益并非每个数据集都一致。 允许重叠，但覆盖对象改成有具体绑定的事实行；不照搬原事务覆盖函数。 CISPA EDA: https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf, 1 additional source"':
+        - cell "Snor；2025 年上线、书目年份 2026；方法、主实验与对照已读":
+          - strong: Snor
+          - text: ；2025 年上线、书目年份 2026；方法、主实验与对照已读
+        - cell "Snor 是允许重叠的 cover function，不是完整搜索算法。它将覆盖与集合覆盖联系起来；实验收益并非每个数据集都一致。":
+          - text: Snor 是允许重叠的
+          - strong: cover function
+          - text: ，不是完整搜索算法。它将覆盖与集合覆盖联系起来；实验收益并非每个数据集都一致。
+        - 'cell "允许重叠，但覆盖对象改成有具体绑定的事实行；不照搬原事务覆盖函数。 CISPA EDA: https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf, 1 additional source"':
+          - strong: 允许重叠
+          - text: ，但覆盖对象改成有具体绑定的事实行；不照搬原事务覆盖函数。
+          - 'link "CISPA EDA: https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf, 1 additional source"':
+            - /url: https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf
+            - generic: CISPA EDA
+            - generic: "+1"
+      - 'row "KG-MDL，2023；部分全文：表示、搜索、编码和主要实验 已有保留图连接的 MDL 模式发现；通过模式实例和连接接口重写图。原文还显示，实例枚举预算过少或过多都可能损害最终结果。 这是非常近的已有方法。“关系＋MDL”不是新颖性；本方案选择更小的查询语言和更容易审计的固定编码，但可能付出表达能力及压缩效率的代价。 arXiv: https://arxiv.org/pdf/2309.12908, https://arxiv.org/pdf/2309.12908, 1 additional source"':
+        - cell "KG-MDL，2023；部分全文：表示、搜索、编码和主要实验":
+          - strong: KG-MDL，2023
+          - text: ；部分全文：表示、搜索、编码和主要实验
+        - cell "已有保留图连接的 MDL 模式发现；通过模式实例和连接接口重写图。原文还显示，实例枚举预算过少或过多都可能损害最终结果。"
+        - 'cell "这是非常近的已有方法。“关系＋MDL”不是新颖性；本方案选择更小的查询语言和更容易审计的固定编码，但可能付出表达能力及压缩效率的代价。 arXiv: https://arxiv.org/pdf/2309.12908, https://arxiv.org/pdf/2309.12908, 1 additional source"':
+          - text: 这是非常近的已有方法。
+          - strong: “关系＋MDL”不是新颖性
+          - text: ；本方案选择更小的查询语言和更容易审计的固定编码，但可能付出表达能力及压缩效率的代价。
+          - 'link "arXiv: https://arxiv.org/pdf/2309.12908, https://arxiv.org/pdf/2309.12908, 1 additional source"':
+            - /url: https://arxiv.org/pdf/2309.12908
+            - generic: arXiv
+            - generic: "+1"
+      - 'row "SSD++，2022；保留前轮阅读，本轮复查方法 目标是描述具有特殊目标分布的子群列表，不是无目标变量的关系数据库压缩。 当前没有自然且可靠的目标变量，不作为首版核心。 Springer: https://link.springer.com/article/10.1007/s10618-022-00856-x, https://link.springer.com/article/10.1007/s10618-022-00856-x"':
+        - cell "SSD++，2022；保留前轮阅读，本轮复查方法":
+          - strong: SSD++，2022
+          - text: ；保留前轮阅读，本轮复查方法
+        - cell "目标是描述具有特殊目标分布的子群列表，不是无目标变量的关系数据库压缩。"
+        - 'cell "当前没有自然且可靠的目标变量，不作为首版核心。 Springer: https://link.springer.com/article/10.1007/s10618-022-00856-x, https://link.springer.com/article/10.1007/s10618-022-00856-x"':
+          - text: 当前没有自然且可靠的目标变量，
+          - strong: 不作为首版核心
+          - text: 。
+          - 'link "Springer: https://link.springer.com/article/10.1007/s10618-022-00856-x, https://link.springer.com/article/10.1007/s10618-022-00856-x"':
+            - /url: https://link.springer.com/article/10.1007/s10618-022-00856-x
+            - generic: Springer
+      - 'row "Robust Hypothesis Generation: LLM-Automated Language Bias for ILP，2025 预印本；方法、主实验、数据变量消融及限制已读 LLM 生成谓词和语言偏置，再交给 ILP；实验是 SHOES、ZENDO 两个合成二元分类任务，噪声主要是标签翻转。作者承认复杂真实文本仍待验证。 可借鉴类型和语言偏置接口；不能把其结果当作无标签法律模式发现的直接证据。 arXiv: https://arxiv.org/html/2505.21486v1, https://arxiv.org/html/2505.21486v1"':
+        - 'cell "Robust Hypothesis Generation: LLM-Automated Language Bias for ILP，2025 预印本；方法、主实验、数据变量消融及限制已读"':
+          - strong: "Robust Hypothesis Generation: LLM-Automated Language Bias for ILP，2025 预印本"
+          - text: ；方法、主实验、数据变量消融及限制已读
+        - cell "LLM 生成谓词和语言偏置，再交给 ILP；实验是 SHOES、ZENDO 两个合成二元分类任务，噪声主要是标签翻转。作者承认复杂真实文本仍待验证。"
+        - 'cell "可借鉴类型和语言偏置接口；不能把其结果当作无标签法律模式发现的直接证据。 arXiv: https://arxiv.org/html/2505.21486v1, https://arxiv.org/html/2505.21486v1"':
+          - text: 可借鉴类型和语言偏置接口；不能把其结果当作无标签法律模式发现的直接证据。
+          - 'link "arXiv: https://arxiv.org/html/2505.21486v1, https://arxiv.org/html/2505.21486v1"':
+            - /url: https://arxiv.org/html/2505.21486v1
+            - generic: arXiv
+      - 'row "ADVENT，2026；核读 arXiv v1 的方法、主实验与消融；另检到 IRI 2026 正式条目，未逐项比对正式稿 用 LLM 发明辅助谓词、Prolog 执行反馈、知识池与 ILP 学习；核心实验是有正负例的概念学习。 首版不需要改写谓词空间，也没有对应监督目标，不接入自动谓词发明。 arXiv: https://arxiv.org/html/2607.01585v1, https://arxiv.org/html/2607.01585v1, 1 additional source"':
+        - cell "ADVENT，2026；核读 arXiv v1 的方法、主实验与消融；另检到 IRI 2026 正式条目，未逐项比对正式稿":
+          - strong: ADVENT，2026
+          - text: ；核读 arXiv v1 的方法、主实验与消融；另检到 IRI 2026 正式条目，未逐项比对正式稿
+        - cell "用 LLM 发明辅助谓词、Prolog 执行反馈、知识池与 ILP 学习；核心实验是有正负例的概念学习。"
+        - 'cell "首版不需要改写谓词空间，也没有对应监督目标，不接入自动谓词发明。 arXiv: https://arxiv.org/html/2607.01585v1, https://arxiv.org/html/2607.01585v1, 1 additional source"':
+          - text: 首版不需要改写谓词空间，也没有对应监督目标，
+          - strong: 不接入自动谓词发明
+          - text: 。
+          - 'link "arXiv: https://arxiv.org/html/2607.01585v1, https://arxiv.org/html/2607.01585v1, 1 additional source"':
+            - /url: https://arxiv.org/html/2607.01585v1
+            - generic: arXiv
+            - generic: "+1"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph:
+    - text: "**ANCO-HITS 不进入本算法。**核查到的原稿将其用于带符号二部图上的共同分区与尺度计算，不是关系事实合取模式的枚举器。不能因为 PDF 列出了这个名字，就把它接到 B 的主链上。"
+    - 'link "ResearchGate: https://www.researchgate.net/publication/241624201_Partisan_scale, https://www.researchgate.net/publication/241624201_Partisan_scale"':
+      - /url: https://www.researchgate.net/publication/241624201_Partisan_scale
+      - generic: ResearchGate
+  - separator
+  - heading "二、先固定任务、输入和输出" [level=2]
+  - heading "2.1 分析单元" [level=3]
+  - paragraph: 首版固定：
+  - math:
+    - generic: u
+    - generic: =
+    - generic: (
+    - generic: c
+    - generic: a
+    - generic: s
+    - generic: e
+    - generic: _
+    - generic: i
+    - generic: d
+    - generic: ","
+    - generic: c
+    - generic: l
+    - generic: a
+    - generic: i
+    - generic: m
+    - generic: _
+    - generic: i
+    - generic: d
+    - generic: ","
+    - generic: s
+    - generic: t
+    - generic: a
+    - generic: g
+    - generic: e
+    - generic: )
+  - generic: u =
+  - text: (case_id,
+  - text: claim_id,
+  - text: stage)
+  - paragraph:
+    - text: related_case_group 只用于依赖关系、跨诉讼支持检查和数据划分，
+    - strong: 不把不同裁判合并成一个分析单元
+    - text: 。当事人、救济事项、司法辖区、时期等作为单元元数据；无法可靠确定请求归属的材料单独标记，不能偷偷混入请求级统计。
+  - paragraph:
+    - text: 依据你提供的审计，现有的是
+    - strong: 6,954 条判决字段记录，其中 facts 为空 1,530 条
+    - text: ，不是已经准备好的 6,954 个可比较请求级单元。B 的入口必须是 A 交付的冻结结构化快照；这里不把缺失字段自动补成事实不存在，也不重新声称审计过原文件。
+  - heading "2.2 最低数据结构" [level=3]
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "Snapshot snapshot_id schema_version, canonicalization_version language_version cohort_definition units[] AnalysisUnit unit_id = (case_id, claim_id, stage) related_case_group jurisdiction, court, decision_date target_party, relief extraction_status entities[] facts[] unresolved_records[] Entity local_entity_id base_type # Party / Contract / Anchor / Object ... source_refs[] Fact fact_id signature_id # 谓词 + 极性 + 记载状态 arguments[] # 有序的本地实体ID；必要时包括主张者 source_refs[] temporal_scope extraction_version Pattern pattern_id canonical_query signature_and_variable_types unit_support_bitmap litigation_group_support occurrence_ids[] conflict_annotations search_completeness Occurrence pattern_id, unit_id variable_binding covered_fact_ids[] source_refs[] SelectionResult selected_patterns[] selected_occurrences[] residual_fact_ids[] objective_value solver_lower_bound, solver_upper_bound, gap search_manifest"
+  - paragraph: 结果标签只预留独立接口：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Outcome(unit_id, target_definition, label, source, availability_time)
+  - paragraph:
+    - strong: 它不进入本轮查询生成、支持度计算或集合目标。
+  - heading "2.3 不确定映射怎样处理" [level=3]
+  - paragraph: 首版只使用 A 已接受的一个版本化表示。尚未解决的谓词或实体绑定放入 unresolved_records，保留原文，不凭最大 LLM 分数填一个答案。
+  - paragraph: 这不是宣称未知材料不重要，而是让本轮算法研究一个清楚的问题：**给定这一版记录，究竟能发现哪些模式。**输出同时报告未进入可匹配结构的材料比例；以后再研究不确定解释集，是独立扩展，不混进当前算法的正确性声明。
+  - separator
+  - heading "三、模式语言：究竟允许搜索什么" [level=2]
+  - heading "3.1 基本形式" [level=3]
+  - paragraph: 模式是一个存在量化的合取查询：
+  - math:
+    - generic: q
+    - generic: (
+    - generic: u
+    - generic: )
+    - generic: =
+    - generic: ∃
+    - generic: v
+    - generic: A
+    - generic: "1"
+    - generic: (
+    - generic: u
+    - generic: ","
+    - generic: v
+    - generic: "1"
+    - generic: )
+    - generic: ∧
+    - generic: ⋯
+    - generic: ∧
+    - generic: A
+    - generic: m
+    - generic: (
+    - generic: u
+    - generic: ","
+    - generic: v
+    - generic: m
+    - generic: )
+  - generic: q(u) =
+  - text: ∃v
+  - text: A
+  - generic: "1"
+  - text: (u,
+  - text: v
+  - generic: "1"
+  - text: ) ∧
+  - generic: ⋯ ∧
+  - text: A
+  - generic: m
+  - text: (u,
+  - text: v
+  - generic: m
+  - text: )
+  - paragraph: 例如：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Paid_FOUND_POS(e1, buyer, seller, k) AND Delivered_FOUND_NEG(e2, seller, buyer, k)
+  - paragraph: 它表示：
+  - blockquote:
+    - paragraph: 该单元记载了买方向卖方付款，以及卖方在同一合同下未交付的法院认定。
+  - paragraph:
+    - text: 这里的 e2 是
+    - strong: 交付事项或履行时间范围的锚点
+    - text: ，不是凭空创造一个“实际发生的未交付动作”。
+  - paragraph: 谓词参数顺序固定。法律角色可以体现于参数位置，但本地当事人 ID 不能被删除。buyer 和 seller 是查询变量名，不是将同案所有“买方”“卖方”分别合成一个实体。
+  - heading "3.2 明确选择单射语义，而不是默认同态" [level=3]
+  - paragraph:
+    - strong: 首版采用 Object Identity，简称 OI，即对象身份区分语义：
+  - list:
+    - listitem: 同一个变量反复出现，必须绑定同一个本地对象。
+    - listitem: 同一基础类型的不同变量，必须绑定不同对象。
+    - listitem: 不同匹配实例之间可以重复使用对象。
+  - paragraph: 因此：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Paid(e1, a, b, k) AND Paid(e2, a, b, k)
+  - paragraph: 要求两个不同的付款锚点，不能用同一条付款记录满足两次。
+  - paragraph: 而：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Paid(e, a, b, k) AND Acknowledged(e, b, a, k)
+  - paragraph: 明确允许两个谓词描述同一个事项。
+  - paragraph: 普通同态匹配允许不同变量映射到同一对象，两者不等价。选择 OI 的原因是让“两个当事人”“两份合同”“两次事件”的含义明确，代价是不能用一个查询同时含糊覆盖“可能相同，也可能不同”；这两类情况需要分支表达。
+  - paragraph:
+    - strong: 不同合同模式仍然允许搜索：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Paid(e1, a, b, k1) AND Delivered_FOUND_NEG(e2, b, a, k2)
+  - paragraph: 它是一个显式的双合同模式，而不是同合同模式的错误匹配。
+  - heading "3.3 状态、否定、缺失和矛盾" [level=3]
+  - table:
+    - rowgroup:
+      - row "情况 编码与匹配规则":
+        - columnheader "情况"
+        - columnheader "编码与匹配规则"
+    - rowgroup:
+      - row "当事人主张未交付 Delivered_ALLEGED_NEG；必要时增加主张者参数。":
+        - cell "当事人主张未交付"
+        - cell "Delivered_ALLEGED_NEG；必要时增加主张者参数。"
+      - row "法院认定未交付 Delivered_FOUND_NEG；不与主张自动互换。":
+        - cell "法院认定未交付"
+        - cell "Delivered_FOUND_NEG；不与主张自动互换。"
+      - row "未提供证书 ProvidedCertificate_FOUND_NEG。":
+        - cell "未提供证书"
+        - cell "ProvidedCertificate_FOUND_NEG。"
+      - row "明确拒绝提供证书 RefusedCertificate_FOUND_POS；不是上一项的同义词。":
+        - cell "明确拒绝提供证书"
+        - cell "RefusedCertificate_FOUND_POS；不是上一项的同义词。"
+      - row "没有关于交付的记录 不生成负谓词，不运行否定即失败。":
+        - cell "没有关于交付的记录"
+        - cell "不生成负谓词，不运行否定即失败。"
+      - row "同一事项存在相反记载 两条带来源的记录都保留，标注冲突；不让经典逻辑的矛盾爆炸进入匹配器。":
+        - cell "同一事项存在相反记载"
+        - cell "两条带来源的记录都保留，标注冲突；不让经典逻辑的矛盾爆炸进入匹配器。"
+      - row "缺少合同 ID、无法确定指的是哪份合同 不把公共 NULL 当成共享合同；相关陈述保留为未解决记录。":
+        - cell "缺少合同 ID、无法确定指的是哪份合同"
+        - cell "不把公共 NULL 当成共享合同；相关陈述保留为未解决记录。"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph:
+    - text: 本算法发现的是
+    - strong: 记录结构
+    - text: 。在存在矛盾的单元中找到一条负向认定记录，可以得到“有该记录支持、同时存在冲突”的匹配，不能改写成“现实中已经确定没有交付”。
+  - heading "3.4 时间关系与连接性" [level=3]
+  - paragraph: 首版时间原子使用有来源的结构化关系，例如：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Before_FOUND_POS(payment_anchor, delivery_deadline_anchor)
+  - paragraph:
+    - text: 只接受有依据的时间关系；日期未知不等于关系为假。
+    - strong: 默认不生成所有事件两两组合的时间闭包
+    - text: ，避免人为制造大量容易压缩的派生事实。
+  - paragraph: 模式的实质事实原子必须通过共享的当事人、合同、事项或对象连接。所有原子仅共享 unit_id 不算连接。时间原子只引用已经被事实原子绑定的锚点，不单独把两组完全无关的事实拼起来。
+  - heading "3.5 第一版语言边界" [level=3]
+  - paragraph: 固定以下初始规格：
+  - table:
+    - rowgroup:
+      - row "参数 首版取值":
+        - columnheader "参数"
+        - columnheader "首版取值"
+    - rowgroup:
+      - row "实质事实原子数 最多 3 个":
+        - cell "实质事实原子数"
+        - cell "最多 3 个"
+      - row "时间关系原子数 最多 1 个":
+        - cell "时间关系原子数"
+        - cell "最多 1 个"
+      - row "总原子数 最多 4 个":
+        - cell "总原子数"
+        - cell "最多 4 个"
+      - row "非单元变量数 最多 8 个":
+        - cell "非单元变量数"
+        - cell "最多 8 个"
+      - row "最终非平凡模式 至少包含 2 个实质事实原子":
+        - cell "最终非平凡模式"
+        - cell "至少包含 2 个实质事实原子"
+      - row "常量 允许冻结的有限类别值；不允许特定当事人姓名、合同编号成为模式常量":
+        - cell "常量"
+        - cell "允许冻结的有限类别值；不允许特定当事人姓名、合同编号成为模式常量"
+      - row "不支持 递归、任意析取、全称量化、否定即失败、开放式数值公式、自动新谓词发明":
+        - cell "不支持"
+        - cell "递归、任意析取、全称量化、否定即失败、开放式数值公式、自动新谓词发明"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 这些上限不是定理给出的最佳值，而是明确的实现范围。它会漏掉长链、多阶段以及只有一个稀有因素的模式，不能把这种损失包装成算法更准确。
+  - separator
+  - heading "四、可编码的搜索：逐层、单原子扩展，不由 LLM 决定" [level=2]
+  - heading "4.1 查询规范编码" [level=3]
+  - paragraph: 一个查询可能仅因变量名称或原子顺序不同而重复。首版原子数最多 4，因此采用一个直接、容易验证的规范化算法：
+  - list:
+    - text: 枚举原子的所有排列，最多
+    - math:
+      - generic: "4"
+      - generic: "!"
+      - generic: =
+      - generic: "24"
+    - generic: 4! =
+    - generic: "24"
+    - text: 个。
+    - listitem: 在每个排列中，按首次出现顺序，分别对每种类型的变量重命名。
+    - listitem: 序列化谓词签名及有序参数。
+    - listitem: 取字典序最小的序列作为 canonical_query。
+  - paragraph:
+    - text: 它消除的是
+    - strong: 变量重命名和原子换序重复
+    - text: ，不是宣称两个支持集合相同的查询法律等价。
+  - heading "4.2 单步扩展" [level=3]
+  - paragraph:
+    - text: 对父查询
+    - math:
+      - generic: q
+    - generic: q
+    - text: ，逐一尝试加入一个签名允许的新原子。
+  - paragraph: 每个参数只能选择：
+  - list:
+    - listitem: 已有的同类型变量；
+    - listitem: 这个新原子中此前引入的同类型新变量；
+    - listitem: 一个全新的同类型变量。
+  - paragraph: 按固定次序创建新变量，避免把“新变量 x、新变量 y”的交换重复枚举。新增实质原子至少共享一个已有非单元变量；时间原子不引入新变量。拒绝重复原子、类型冲突和超过语言上限的查询。
+  - paragraph: "**关键限制：不把合并两个已有变量当作专化步骤。**在 OI 语义下，“不同合同”变成“同一合同”不是可以随意沿用支持度反单调性的操作。相同／不同的选择在新原子加入时分支生成。"
+  - heading "4.3 支持度和匹配" [level=3]
+  - paragraph: 定义：
+  - math:
+    - generic: supp
+    - generic: ⁡
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: =
+    - generic: ∣
+    - generic: "{"
+    - generic: u
+    - generic: ":"
+    - generic: ∃
+    - generic: θ
+    - generic: ","
+    - generic: q
+    - generic: θ
+    - generic: ⊆
+    - generic: F
+    - generic: u
+    - generic: ，且
+    - generic: θ
+    - generic: 满足类型与 OI
+    - generic: "}"
+    - generic: ∣
+  - generic: supp
+  - text: (q) =
+  - text: "∣{u : ∃θ,"
+  - text: qθ ⊆
+  - text: F
+  - generic: u
+  - generic: ，且
+  - text: θ
+  - generic: 满足类型与 OI
+  - text: "}∣"
+  - paragraph: 一个单元有十个匹配实例，支持度仍然只加一；另外计算不同 related_case_group 的支持数。
+  - paragraph: 实际匹配器是索引连接：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "MATCH(q, unit, stop_after_first): 按当前候选行数估计，将原子从最有选择性到最弱排序 建立空变量绑定和各类型已占用对象集合 递归处理下一个原子： 从“签名 + 已绑定参数值”索引取候选事实行 检查已有变量是否一致 检查新变量是否违反同类型单射约束 通过则扩展绑定，继续递归 全部原子匹配： 返回变量绑定和具体 fact_id 集合 若 stop_after_first，则结束该单元的支持度检查"
+  - paragraph: "**支持度检查可以遇到第一个匹配就停；后续集合选择需要的实例枚举不能只保留第一个。**否则第一条付款恰好不能与某个交付事项连接时，系统会漏掉真正有效的另一条绑定。"
+  - paragraph: 完整实例按：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: (unit_id, pattern_id, sorted(covered_fact_ids))
+  - paragraph: 去重。同一组事实由查询自同构产生多种等价变量排列时，只保留规范表示；不同事实集合保留。
+  - heading "4.4 哪些剪枝是正确的" [level=3]
+  - paragraph: 在固定单元全集、固定记录快照、只添加原子、不合并旧变量的条件下：
+  - math:
+    - generic: supp
+    - generic: ⁡
+    - generic: (
+    - generic: q
+    - generic: ∧
+    - generic: A
+    - generic: )
+    - generic: ≤
+    - generic: supp
+    - generic: ⁡
+    - generic: (
+    - generic: q
+    - generic: )
+  - generic: supp
+  - text: (q ∧
+  - generic: A) ≤
+  - generic: supp
+  - text: (q)
+  - paragraph: 因此可以安全使用父查询支持度、签名出现单元的交集和已经验证的子查询支持度作为上界。搜索某个查询时，若“已找到支持数＋尚可能支持的剩余单元数”低于阈值，也可以停止。
+  - paragraph:
+    - text: 以下剪枝
+    - strong: 不采用
+    - text: ：
+  - blockquote:
+    - paragraph: “这个查询当前压缩收益不好，所以不再扩展。”
+  - paragraph: 它的更长扩展可能有更好的编码收益。
+  - blockquote:
+    - paragraph: “两个查询支持的案件一样，所以删除较短或较长那个。”
+  - paragraph:
+    - text: 它们可能覆盖不同事实、拥有不同绑定和不同集合贡献。CloseGraph 的闭合搜索有自己的适用条件，不能简化成这一条。
+    - 'link "UCSB Computer Science: https://sites.cs.ucsb.edu/~xyan/papers/CloseGraph.pdf, https://sites.cs.ucsb.edu/~xyan/papers/CloseGraph.pdf"':
+      - /url: https://sites.cs.ucsb.edu/~xyan/papers/CloseGraph.pdf
+      - generic: UCSB Computer Science
+  - heading "4.5 搜索主程序" [level=3]
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "SEARCH(snapshot, language, min_support, min_groups, deadline): index = BUILD_TYPED_FACT_INDEX(snapshot) active_signatures = signatures whose unit support >= min_support frontier = {empty_query} visited = {} candidates = {} pending = {} for depth in 1 .. language.max_atoms: next_frontier = {} for parent in deterministic_order(frontier): for q in ONE_ATOM_EXTENSIONS(parent, active_signatures, language): code = CANONICALIZE(q) if code in visited: continue visited.add(code) upper_units = SAFE_UNIT_UPPER_BOUND(q, parent, index) if len(upper_units) < min_support: continue if group_count(upper_units) < min_groups: continue result = EXACT_UNIT_SUPPORT(q, upper_units, index, deadline) if result.timed_out: pending.add(q) checkpoint() return candidates, pending, complete=False if result.support < min_support: continue if result.group_support < min_groups: continue next_frontier.add(q) if q.has_at_least_two_substantive_atoms: candidates.add(q, result) frontier = next_frontier if frontier is empty: break return candidates, pending, complete=True"
+  - paragraph: 只要搜索完整结束，这会枚举上述语言中所有满足频度条件的连接模式：每个合法模式都存在一个连接的事实原子加入顺序，时间原子可以在其变量出现后加入。
+  - paragraph:
+    - text: 这个完整性结论
+    - strong: 不覆盖语言外模式，也不覆盖被截止时间截断的搜索
+    - text: 。
+  - separator
+  - heading "五、最终集合目标：压缩具体关系事实，不压缩“模式出现位图”" [level=2]
+  - heading "5.1 为什么不能直接把查询 ID 交给普通 SLIM" [level=3]
+  - paragraph: 假设把每个查询的出现与否转成一个新二元特征。此时对查询 ID 的压缩能描述“这些查询经常共同成立”，但不会自动保留：
+  - list:
+    - listitem: 两个查询是否使用同一份合同；
+    - listitem: 是否共享同一次付款；
+    - listitem: 它们覆盖了相同事实，还是不同事实；
+    - listitem: 这种共同出现能否组成一个更大的连接模式。
+  - paragraph: 这并不意味着事务方法没有价值。**强 FP／SLIM 对照可以使用相同关系查询和绑定结果。**这里只是不把支持位图的压缩误称为原关系记录的压缩。
+  - paragraph:
+    - text: KG-MDL 已经提供了保留图连接的编码思想；本方案不是首次解决这一点。我们的实现改为直接编码模式变量与单元内实体 ID，结构较简单，但可能比其图连接编码更费空间。
+    - 'link "arxiv.org: https://arxiv.org/pdf/2309.12908, https://arxiv.org/pdf/2309.12908"':
+      - /url: https://arxiv.org/pdf/2309.12908
+      - generic: arxiv.org
+  - heading "5.2 三种需要付费的对象" [level=3]
+  - paragraph:
+    - text: 令
+    - math:
+      - generic: C
+    - generic: C
+    - text: 为候选模式集，
+    - math:
+      - generic: O
+      - generic: p
+    - text: O
+    - generic: p
+    - text: 为模式
+    - math:
+      - generic: p
+    - generic: p
+    - text: 的全部已验证实例。每个实例
+    - math:
+      - generic: o
+    - generic: o
+    - text: 覆盖事实集合
+    - math:
+      - generic: F
+      - generic: o
+    - text: F
+    - generic: o
+    - text: 。
+  - paragraph: 需要付费的是：
+  - math:
+    - generic: 模式定义
+    - generic: +
+    - generic: 使用模式时的绑定
+    - generic: +
+    - generic: 没有被模式覆盖的原始事实
+  - generic: 模式定义
+  - text: +
+  - generic: 使用模式时的绑定
+  - text: +
+  - generic: 没有被模式覆盖的原始事实
+  - paragraph: 这使“大而泛的模式”“大量重复的模式”和“只有一次漂亮出现的长模式”都需要真正赚回成本，而不是通过手工加一个“多样性权重”解决。
+  - heading "5.3 固定编码：可以直接实现的版本" [level=3]
+  - paragraph: 为避免一开始同时优化复杂概率编码，首版使用一个简单、可解码的二段编码。
+  - paragraph: 设：
+  - list:
+    - math:
+      - generic: Σ
+    - generic: Σ
+    - text: ：冻结的签名表；
+    - math:
+      - generic: "n"
+      - generic: u
+      - generic: ","
+      - generic: t
+    - text: "n"
+    - generic: u,t
+    - text: ：单元
+    - math:
+      - generic: u
+    - generic: u
+    - text: 中类型
+    - math:
+      - generic: t
+    - generic: t
+    - text: 的对象目录大小；
+    - math:
+      - generic: M
+    - generic: M
+    - text: ：字典槽位上限；
+    - math:
+      - generic: v
+      - generic: t
+      - generic: (
+      - generic: p
+      - generic: )
+    - text: v
+    - generic: t
+    - text: (p)
+    - text: ：模式
+    - math:
+      - generic: p
+    - generic: p
+    - text: 中类型
+    - math:
+      - generic: t
+    - generic: t
+    - text: 的变量数；
+    - math:
+      - generic: b
+      - generic: (
+      - generic: "n"
+      - generic: )
+      - generic: =
+      - generic: ⌈
+      - generic: log
+      - generic: ⁡
+      - generic: "2"
+      - generic: "n"
+      - generic: ⌉
+    - generic: b(n) =
+    - text: ⌈
+    - generic: log
+    - generic: "2"
+    - text: n⌉
+    - text: ；
+    - math:
+      - generic: g
+      - generic: (
+      - generic: "n"
+      - generic: )
+      - generic: =
+      - generic: "2"
+      - generic: ⌊
+      - generic: log
+      - generic: ⁡
+      - generic: "2"
+      - generic: (
+      - generic: "n"
+      - generic: +
+      - generic: "1"
+      - generic: )
+      - generic: ⌋
+      - generic: +
+      - generic: "1"
+    - generic: g(n) =
+    - text: 2⌊
+    - generic: log
+    - generic: "2"
+    - text: (n +
+    - generic: 1)⌋ +
+    - generic: "1"
+    - text: ，即对
+    - math:
+      - generic: "n"
+      - generic: +
+      - generic: "1"
+    - generic: n +
+    - generic: "1"
+    - text: 使用整数前缀编码的长度。
+  - paragraph: 签名已经确定参数类型与顺序。单元目录、来源映射和版本信息固定保存，所有方法使用相同侧信息。
+  - paragraph:
+    - strong: 逐条事实编码：
+  - math:
+    - generic: c
+    - generic: "0"
+    - generic: (
+    - generic: f
+    - generic: )
+    - generic: =
+    - generic: "2"
+    - generic: +
+    - generic: b
+    - generic: (
+    - generic: ∣
+    - generic: Σ
+    - generic: ∣
+    - generic: )
+    - generic: +
+    - generic: ∑
+    - generic: 参数
+    - generic: a
+    - generic: 的类型
+    - generic: t
+    - generic: b
+    - generic: (
+    - generic: "n"
+    - generic: u
+    - generic: ","
+    - generic: t
+    - generic: )
+  - text: c
+  - generic: "0"
+  - text: (f) =
+  - generic: 2 +
+  - generic: b(∣Σ∣) +
+  - generic: 参数
+  - text: a
+  - generic: 的类型
+  - text: t
+  - generic: ∑
+  - text: b(
+  - text: "n"
+  - generic: u,t
+  - text: )
+  - paragraph: 前面的 2 位区分普通事实、模式调用、结束标记等。不能匹配的未解决记录使用独立的原样保存格式，其成本固定，不因算法拒绝它而消失。
+  - paragraph:
+    - strong: 一个模式实例的编码：
+  - math:
+    - generic: c
+    - generic: (
+    - generic: o
+    - generic: )
+    - generic: =
+    - generic: "2"
+    - generic: +
+    - generic: b
+    - generic: (
+    - generic: M
+    - generic: )
+    - generic: +
+    - generic: ∑
+    - generic: t
+    - generic: ∑
+    - generic: j
+    - generic: =
+    - generic: "0"
+    - generic: v
+    - generic: t
+    - generic: (
+    - generic: p
+    - generic: )
+    - generic: −
+    - generic: "1"
+    - generic: b
+    - generic: (
+    - generic: "n"
+    - generic: u
+    - generic: ","
+    - generic: t
+    - generic: −
+    - generic: j
+    - generic: )
+  - generic: c(o) =
+  - generic: 2 +
+  - generic: b(M) +
+  - generic: t
+  - generic: ∑
+  - generic: j=0
+  - generic: ∑
+  - text: v
+  - generic: t
+  - text: (p)−1
+  - text: b(
+  - text: "n"
+  - generic: u,t
+  - text: −
+  - generic: j)
+  - paragraph:
+    - text: 这里发送一次模式编号，再发送变量对应的本地实体。单射语义允许编码第
+    - math:
+      - generic: j
+      - generic: +
+      - generic: "1"
+    - generic: j +
+    - generic: "1"
+    - text: 个变量时排除此前已用的同类型对象。
+  - paragraph:
+    - strong: 模式定义编码：
+  - math:
+    - generic: L
+    - generic: (
+    - generic: p
+    - generic: )
+    - generic: =
+    - generic: g
+    - generic: (
+    - generic: m
+    - generic: p
+    - generic: )
+    - generic: +
+    - generic: ∑
+    - generic: t
+    - generic: g
+    - generic: (
+    - generic: v
+    - generic: t
+    - generic: (
+    - generic: p
+    - generic: )
+    - generic: )
+    - generic: +
+    - generic: ∑
+    - generic: A
+    - generic: ∈
+    - generic: p
+    - generic: "["
+    - generic: b
+    - generic: (
+    - generic: ∣
+    - generic: Σ
+    - generic: ∣
+    - generic: )
+    - generic: +
+    - generic: ∑
+    - generic: 参数类型
+    - generic: t
+    - generic: b
+    - generic: (
+    - generic: v
+    - generic: t
+    - generic: (
+    - generic: p
+    - generic: )
+    - generic: )
+    - generic: "]"
+  - generic: L(p) =
+  - text: g(
+  - text: m
+  - generic: p
+  - text: ) +
+  - generic: t
+  - generic: ∑
+  - text: g(
+  - text: v
+  - generic: t
+  - text: (p)) +
+  - generic: A∈p
+  - generic: ∑
+  - generic: "["
+  - text: b(∣Σ∣) +
+  - generic: 参数类型
+  - text: t
+  - generic: ∑
+  - text: b(
+  - text: v
+  - generic: t
+  - text: (p))
+  - generic: "]"
+  - paragraph: 固定的字典头、目录及单元结束标记在模型间相同，可以从比较式中省略。
+  - paragraph:
+    - text: 这套编码不声称统计最优，也不是 NML 编码。它的价值是：
+    - strong: 定义明确、成本固定、能完整解码，因此集合优化不存在含混的“LLM 认为更简洁”评分。
+  - heading "5.4 一个明确的整数规划" [level=3]
+  - paragraph: 变量：
+  - list:
+    - math:
+      - generic: x
+      - generic: p
+      - generic: =
+      - generic: "1"
+    - text: x
+    - generic: p
+    - text: =
+    - generic: "1"
+    - text: ：选入模式
+    - math:
+      - generic: p
+    - generic: p
+    - text: ；
+    - math:
+      - generic: z
+      - generic: o
+      - generic: =
+      - generic: "1"
+    - text: z
+    - generic: o
+    - text: =
+    - generic: "1"
+    - text: ：使用具体实例
+    - math:
+      - generic: o
+    - generic: o
+    - text: 编码；
+    - math:
+      - generic: r
+      - generic: f
+      - generic: =
+      - generic: "1"
+    - text: r
+    - generic: f
+    - text: =
+    - generic: "1"
+    - text: ：将事实
+    - math:
+      - generic: f
+    - generic: f
+    - text: 原样编码。
+  - paragraph: 目标：
+  - math:
+    - generic: min
+    - generic: ⁡
+    - generic: J
+    - generic: =
+    - generic: ∑
+    - generic: p
+    - generic: ∈
+    - generic: C
+    - generic: L
+    - generic: (
+    - generic: p
+    - generic: )
+    - generic: x
+    - generic: p
+    - generic: +
+    - generic: ∑
+    - generic: o
+    - generic: c
+    - generic: (
+    - generic: o
+    - generic: )
+    - generic: z
+    - generic: o
+    - generic: +
+    - generic: ∑
+    - generic: f
+    - generic: c
+    - generic: "0"
+    - generic: (
+    - generic: f
+    - generic: )
+    - generic: r
+    - generic: f
+  - text: min J =
+  - generic: p∈C
+  - generic: ∑
+  - text: L(p)
+  - text: x
+  - generic: p
+  - text: +
+  - generic: o
+  - generic: ∑
+  - text: c(o)
+  - text: z
+  - generic: o
+  - text: +
+  - generic: f
+  - generic: ∑
+  - text: c
+  - generic: "0"
+  - text: (f)
+  - text: r
+  - generic: f
+  - paragraph: 主要约束：
+  - math:
+    - generic: r
+    - generic: f
+    - generic: +
+    - generic: ∑
+    - generic: o
+    - generic: ":"
+    - generic: f
+    - generic: ∈
+    - generic: F
+    - generic: o
+    - generic: z
+    - generic: o
+    - generic: ≥
+    - generic: "1"
+    - generic: ∀
+    - generic: f
+  - text: r
+  - generic: f
+  - text: +
+  - text: o:f∈
+  - text: F
+  - generic: o
+  - generic: ∑
+  - text: z
+  - generic: o
+  - text: ≥
+  - generic: 1 ∀f
+  - paragraph: 每条事实必须被保存，不能靠拒绝处理降低成本。
+  - math:
+    - generic: ∑
+    - generic: o
+    - generic: ∈
+    - generic: O
+    - generic: p
+    - generic: ","
+    - generic: u
+    - generic: z
+    - generic: o
+    - generic: ≤
+    - generic: x
+    - generic: p
+    - generic: ∀
+    - generic: p
+    - generic: ","
+    - generic: u
+  - text: o∈
+  - text: O
+  - generic: p,u
+  - generic: ∑
+  - text: z
+  - generic: o
+  - text: ≤
+  - text: x
+  - generic: p
+  - text: ∀p, u
+  - paragraph: "**每个模式在每个分析单元至多使用一次。**这是为跨案件发现增加的明确限制，防止同一长判决中重复几十次的结构主导收益；代价是放弃一部分单案内部重复压缩。"
+  - math:
+    - generic: ∑
+    - generic: p
+    - generic: x
+    - generic: p
+    - generic: ≤
+    - generic: M
+  - generic: p
+  - generic: ∑
+  - text: x
+  - generic: p
+  - text: ≤
+  - generic: M
+  - paragraph:
+    - text: 另外用二元变量
+    - math:
+      - generic: h
+      - generic: p
+      - generic: ","
+      - generic: g
+    - text: h
+    - generic: p,g
+    - text: 表示模式是否实际用于诉讼群组
+    - math:
+      - generic: g
+    - generic: g
+    - text: ，将它与该群组的实例选择做 OR 连接，并要求：
+  - math:
+    - generic: ∑
+    - generic: g
+    - generic: h
+    - generic: p
+    - generic: ","
+    - generic: g
+    - generic: ≥
+    - generic: g
+    - generic: min
+    - generic: ⁡
+    - generic: x
+    - generic: p
+  - generic: g
+  - generic: ∑
+  - text: h
+  - generic: p,g
+  - text: ≥
+  - text: g
+  - generic: min
+  - text: x
+  - generic: p
+  - paragraph:
+    - text: 首版
+    - math:
+      - generic: g
+      - generic: min
+      - generic: ⁡
+      - generic: =
+      - generic: "3"
+    - text: g
+    - generic: min
+    - text: =
+    - generic: "3"
+    - text: 。这保证字典不是仅在候选支持表里“跨案”，却只靠一个诉讼赚取编码收益。
+  - paragraph:
+    - strong:
+      - text: 允许不同模式覆盖同一事实。
+      - strong: 但每次实例调用都付费；冗余覆盖不会免费增加收益。最终数据通过所有模式实例和残余事实的
+      - text: 集合并集
+    - text: 还原，不会产生额外事实。
+  - paragraph:
+    - text: 这是带开启成本的集合覆盖整数规划。可使用现成 MILP 求解器，不需要开发新求解器；重叠覆盖采用集合覆盖视角与 Snor 的思想相近，但这里的模式定义成本、实体绑定和跨单元限制是明确的任务适配。
+    - 'link "CISPA EDA: https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf"':
+      - /url: https://eda.rg.cispa.io/pubs/2025/snor-vanleeuwen%2Cvreeken.pdf
+      - generic: CISPA EDA
+  - heading "5.5 候选评分与安全淘汰" [level=3]
+  - paragraph:
+    - text: 候选不按支持度独立 top-k。最终评分就是对
+    - math:
+      - generic: J
+    - generic: J
+    - text: 的贡献。
+  - paragraph: 在实例已经完整枚举后，可以计算一个乐观收益上界：
+  - math:
+    - generic: U
+    - generic: (
+    - generic: p
+    - generic: )
+    - generic: =
+    - generic: ∑
+    - generic: u
+    - generic: max
+    - generic: ⁡
+    - generic: (
+    - generic: "0"
+    - generic: ","
+    - generic: max
+    - generic: ⁡
+    - generic: o
+    - generic: ∈
+    - generic: O
+    - generic: p
+    - generic: ","
+    - generic: u
+    - generic: "["
+    - generic: ∑
+    - generic: f
+    - generic: ∈
+    - generic: F
+    - generic: o
+    - generic: c
+    - generic: "0"
+    - generic: (
+    - generic: f
+    - generic: )
+    - generic: −
+    - generic: c
+    - generic: (
+    - generic: o
+    - generic: )
+    - generic: "]"
+    - generic: )
+    - generic: −
+    - generic: L
+    - generic: (
+    - generic: p
+    - generic: )
+  - generic: U(p) =
+  - generic: u
+  - generic: ∑
+  - text: max
+  - text: 0,
+  - text: o∈
+  - text: O
+  - generic: p,u
+  - generic: max
+  - text: f∈
+  - text: F
+  - generic: o
+  - generic: ∑
+  - text: c
+  - generic: "0"
+  - text: (f) − c(o)
+  - text: −
+  - generic: L(p)
+  - paragraph:
+    - text: 它假定该模式覆盖的事实全部尚未被其他模式编码，因此只会高估收益。若
+    - math:
+      - generic: U
+      - generic: (
+      - generic: p
+      - generic: )
+      - generic: ≤
+      - generic: "0"
+    - generic: U(p) ≤
+    - generic: "0"
+    - text: ，在当前固定编码和“每单元至多一次”的限制下，可以删除该候选。
+  - paragraph:
+    - strong: 这不能用来剪掉它的后代，也不能在实例枚举不完整时把所得值当上界。
+  - paragraph: 求解完成后，报告模式的删除代价：
+  - math:
+    - generic: Δ
+    - generic: delete
+    - generic: (
+    - generic: p
+    - generic: )
+    - generic: =
+    - generic: J
+    - generic: 重新优化但禁止
+    - generic: p
+    - generic: −
+    - generic: J
+    - generic: 当前集合
+  - text: Δ
+  - generic: delete
+  - text: (p) =
+  - text: J
+  - generic: 重新优化但禁止
+  - text: p
+  - text: −
+  - text: J
+  - generic: 当前集合
+  - paragraph: 这比单独支持度更接近“它对整个字典贡献了什么”，但不等于法律重要性。
+  - separator
+  - heading "六、贯穿合同例子：从记录到最终集合" [level=2]
+  - paragraph:
+    - text: 下面是
+    - strong: 合成的算法核验例子，不是真实判决实验
+    - text: 。每个单元属于不同诉讼群组；A、B 是该单元内的两名当事人。
+  - paragraph: 缩写：
+  - list:
+    - listitem: P：法院认定 A 向 B 付款。
+    - listitem: N：法院认定 B 未向 A 交付。
+    - listitem: A-N：A 主张 B 未交付。
+    - listitem: R：法院认定 B 明确拒绝提供证书。
+    - listitem: V：法院认定 B 未提供证书。
+    - listitem: T：记录支持付款先于相关履行截止锚点。
+    - listitem: D：法院认定已经交付。
+  - table:
+    - rowgroup:
+      - row "单元 记录":
+        - columnheader "单元"
+        - columnheader "记录"
+    - rowgroup:
+      - row "u1 P(K1)；N(K2)；A-N(K1)":
+        - cell "u1"
+        - cell "P(K1)；N(K2)；A-N(K1)"
+      - row "u2 P(K1)；N(K1)；T；V(K1)":
+        - cell "u2"
+        - cell "P(K1)；N(K1)；T；V(K1)"
+      - row "u3 P(K1)；N(K1)；T；R(K1)":
+        - cell "u3"
+        - cell "P(K1)；N(K1)；T；R(K1)"
+      - row "u4 与 u3 相同结构，属于另一案件":
+        - cell "u4"
+        - cell "与 u3 相同结构，属于另一案件"
+      - row "u5 只有 P(K1)，交付情况没有记录":
+        - cell "u5"
+        - cell "只有 P(K1)，交付情况没有记录"
+      - row "u6 P(K1)；同一履行范围同时记载 N(K1) 和 D(K1)":
+        - cell "u6"
+        - cell "P(K1)；同一履行范围同时记载 N(K1) 和 D(K1)"
+      - row "u7、u8、u9 各自记载 N(K1) 与 R(K1)，没有付款记录":
+        - cell "u7、u8、u9"
+        - cell "各自记载 N(K1) 与 R(K1)，没有付款记录"
+  - button "Copy table":
+  - button "Expand table":
+  - heading "第一步：从付款原子扩展" [level=3]
+  - paragraph: 种子：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Paid_FOUND_POS(e1, a, b, k)
+  - paragraph: 它在 u1—u6 得到记录支持。
+  - paragraph: 加入未交付原子时，分别生成合同变量共享或不同的分支。
+  - paragraph:
+    - strong: 同合同分支：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: Q := Paid_FOUND_POS(e1, a, b, k) AND Delivered_FOUND_NEG(e2, b, a, k)
+  - paragraph: 匹配结果是：
+  - math:
+    - generic: supp
+    - generic: ⁡
+    - generic: (
+    - generic: Q
+    - generic: )
+    - generic: =
+    - generic: "4"
+    - generic: ":"
+    - generic: "{"
+    - generic: u
+    - generic: "2"
+    - generic: ","
+    - generic: u
+    - generic: "3"
+    - generic: ","
+    - generic: u
+    - generic: "4"
+    - generic: ","
+    - generic: u
+    - generic: "6"
+    - generic: "}"
+  - generic: supp
+  - text: (Q) =
+  - generic: "4 :"
+  - generic: "{u2, u3, u4, u6}"
+  - paragraph: 逐项看：
+  - list:
+    - listitem: u1 的认定未交付属于 K2，不能接到 K1；K1 上的当事人主张也不能替代法院认定。
+    - listitem: u5 没有交付信息，不能补出 N。
+    - listitem: u6 有负向认定记录，因此得到记录支持，同时标注相反记载冲突。
+  - paragraph: 双合同分支可以匹配 u1，但它只有一个支持单元，未达到本例阈值 3；不是因为“跨合同一定不合法”被禁止。
+  - heading "第二步：扩展时间关系" [level=3]
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: QT := Q AND Before_FOUND_POS(e1, e2)
+  - paragraph: 只匹配：
+  - math:
+    - generic: "{"
+    - generic: u
+    - generic: "2"
+    - generic: ","
+    - generic: u
+    - generic: "3"
+    - generic: ","
+    - generic: u
+    - generic: "4"
+    - generic: "}"
+  - generic: "{u2, u3, u4}"
+  - paragraph: u6 没有相应时间关系，不被解释为时间顺序相反。
+  - heading "第三步：另一条搜索分支" [level=3]
+  - paragraph: 从未交付原子加入明确拒绝：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: QR := Delivered_FOUND_NEG(e1, b, a, k) AND RefusedCertificate_FOUND_POS(e2, b, a, k)
+  - paragraph: 匹配：
+  - math:
+    - generic: "{"
+    - generic: u
+    - generic: "3"
+    - generic: ","
+    - generic: u
+    - generic: "4"
+    - generic: ","
+    - generic: u
+    - generic: "7"
+    - generic: ","
+    - generic: u
+    - generic: "8"
+    - generic: ","
+    - generic: u
+    - generic: "9"
+    - generic: "}"
+  - generic: "{u3, u4, u7, u8, u9}"
+  - paragraph: u2 的“未提供”不能满足“明确拒绝”。
+  - heading "第四步：实际执行集合优化" [level=3]
+  - paragraph:
+    - text: 我已经用一个小型可运行程序完成了这个例子的有界搜索和整数规划核验。在上述签名、阈值和语言范围下，程序测试了
+    - strong: 770 个规范候选形状
+    - text: ，得到这
+    - strong: 3 个非平凡频繁候选
+    - text: 。这只是小实例正确性测试，不是运行效率基准。
+  - paragraph: 为便于复算，例子使用 8 个签名、4 个字典槽位，以及固定的本地对象目录。主张者是主张谓词的一个显式参数。按上一节编码：
+  - table:
+    - rowgroup:
+      - row "候选 支持单元数 定义成本 每个实例成本 单独使用时的总编码长度":
+        - columnheader "候选"
+        - columnheader "支持单元数"
+        - columnheader "定义成本"
+        - columnheader "每个实例成本"
+        - columnheader "单独使用时的总编码长度"
+    - rowgroup:
+      - row "不使用模式 — — — 248 bits":
+        - cell "不使用模式"
+        - cell "—"
+        - cell "—"
+        - cell "—"
+        - cell "248 bits"
+      - row "Q 4 24 10 232 bits":
+        - cell "Q"
+        - cell "4"
+        - cell "24"
+        - cell "10"
+        - cell "232 bits"
+      - row "QT 3 31 10 222 bits":
+        - cell "QT"
+        - cell "3"
+        - cell "31"
+        - cell "10"
+        - cell "222 bits"
+      - row "QR 5 24 10 222 bits":
+        - cell "QR"
+        - cell "5"
+        - cell "24"
+        - cell "10"
+        - cell "222 bits"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 联合最优结果是：
+  - math:
+    - generic: S
+    - generic: =
+    - generic: "{"
+    - generic: Q
+    - generic: T
+    - generic: ","
+    - generic: Q
+    - generic: R
+    - generic: "}"
+    - generic: ","
+    - generic: J
+    - generic: =
+    - generic: "216"
+    - generic: bits
+  - text: "S = {QT, QR}, J = 216"
+  - generic: bits
+  - paragraph: 实际编码分配是：
+  - list:
+    - listitem: QT 用于 u2、u3、u4；
+    - listitem: QR 用于 u7、u8、u9；
+    - listitem: 其余事实原样保存。
+  - paragraph:
+    - text: QR 在 u3、u4
+    - strong: 确实成立
+    - text: ，但在那里再调用它只会重复覆盖已经被 QT 编码的未交付事实，新增收益不足，因此不必在那里使用。
+  - paragraph: Q 虽然支持度更高，但在 QT 已经入选后，它主要增加 u6 的覆盖，不足以支付额外定义成本，所以没有进入字典。
+  - paragraph: "**u1 的不同合同、u5 的缺失、u6 的矛盾，都没有被删掉或“修正”为方便压缩的答案。**该解用模式编码了 6/9 个单元中的部分事实；残余保存不是模式覆盖，二者分开报告。"
+  - paragraph:
+    - text: 这个例子验证了搜索、绑定和目标函数之间的协调性，
+    - strong: 没有证明 MILP 比贪心方法更好
+    - text: 。
+  - separator
+  - heading "七、集合求解、停止与错误修复" [level=2]
+  - heading "7.1 集合阶段伪代码" [level=3]
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "SELECT_DICTIONARY(snapshot, candidates, parameters): occurrences = {} for p in candidates: occurrences[p] = ENUMERATE_ALL_OI_OCCURRENCES(p, snapshot) DEDUP_BY_COVERED_FACT_IDS(occurrences[p]) if enumeration timed out: mark p as incomplete do not claim a complete occurrence-based optimum compute literal costs, pattern definition costs, occurrence costs remove p only if its proven optimistic gain upper bound <= 0 model = BUILD_FIXED_CHARGE_SET_COVER_MILP( all semantic facts, complete verified occurrences, at most one occurrence per pattern per unit, dictionary size <= M, actual use in at least min_groups litigation groups ) initial feasible solution: choose no patterns preserve every fact literally solve until: optimality proved, or relative gap target reached, or time/memory budget reached verify decoder output equals the original semantic fact sets verify every selected occurrence has valid bindings and sources return selected dictionary, residuals, incumbent objective, lower bound, gap, search and occurrence completeness"
+  - paragraph:
+    - text: 全残余保存只是可行初始化，
+    - strong: 不是研究成功
+    - text: 。模式产出与覆盖为零时必须明确报告。
+  - heading "7.2 参数怎样确定" [level=3]
+  - paragraph: 首版采用：
+  - list:
+    - listitem: max_core_atoms=3
+    - listitem: max_temporal_atoms=1
+    - listitem: max_variables=8
+    - listitem: M=20
+    - listitem: min_groups=3
+    - listitem: min_support=max(3, ceil(0.005 × N))
+  - paragraph: 这些是初始实现设置。参数选择程序是：
+  - paragraph: "**先在开发材料上固定类型和语义边界，再做资源试跑。**只在预先列出的规模配置中调整原子上限和支持阈值，选择能在共同资源预算内完成的配置，然后冻结到正式比较。不能看到确认集之后，为了保住某条漂亮模式反复修改语言。"
+  - paragraph:
+    - text: 支持阈值是计算和重复性门槛，
+    - strong: 不是显著性水平
+    - text: 。低于门槛的稀有结构不会作为“已发现的重复模式”入选；其原始事实仍保留。
+  - heading "7.3 超时不能伪装成不存在" [level=3]
+  - paragraph: 需要分开记录三件事：
+  - list:
+    - listitem: 候选搜索是否完整；
+    - listitem: 每个候选的匹配实例是否完整；
+    - listitem: 集合优化是否达到最优。
+  - paragraph:
+    - text: MILP 是最小化问题：已知可行解给出上界，求解器证明的界给出下界。候选或实例不完整时，求解器的最优性最多只针对当前子问题，
+    - strong: 不是整个模式语言的最优性
+    - text: 。
+  - heading "7.4 错误修复" [level=3]
+  - paragraph: 发现章节混入、错误实体绑定或错误谓词归类后，B 不自行重写法律含义：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: 错误定位到 source → fact → occurrence → pattern → dictionary
+  - paragraph: 将修复交回 A，生成新快照，再更新索引和输出版本。
+  - paragraph:
+    - text: 首版建议
+    - strong: 重新枚举受影响法律语境内的候选并重求解集合
+    - text: ，而不是只重算旧字典。原因是修复可能使原来不频繁、已经被剪掉的模式重新满足门槛。
+  - paragraph: 相反，u6 这样的相反记载不自动视为抽取错误。只有核对出处后确定是错误，才进入修复；真实存在的争议必须留下。
+  - separator
+  - heading "八、强替代比较：在哪些地方可能更好，哪些地方没有优势" [level=2]
+  - paragraph: 所有比较先共享同一快照、来源、类型、模式语言、允许的专家信息与匹配语义。
+  - table:
+    - rowgroup:
+      - row "强替代配置 具体困难／机制局限 本方案的差异与可测收益 成本、失败与否决实验":
+        - columnheader "强替代配置"
+        - columnheader "具体困难／机制局限"
+        - columnheader "本方案的差异与可测收益"
+        - columnheader "成本、失败与否决实验"
+    - rowgroup:
+      - row "FP-Growth／闭合项集＋关系展开＋同一匹配器＋同一集合目标 粗粒度项集可能产生大量在关系展开后才失败的候选；但它完全可以获得相同绑定特征。 直接按关系变量扩展，可能减少无效展开和连接次数。测候选测试量、连接成本及同预算完成度。 **不预言语义准确率更高。**若两者完整得到相同候选，输出应一致；若 FP 更快，搜索器优势撤回。":
+        - cell "FP-Growth／闭合项集＋关系展开＋同一匹配器＋同一集合目标":
+          - strong: FP-Growth／闭合项集＋关系展开＋同一匹配器＋同一集合目标
+        - cell "粗粒度项集可能产生大量在关系展开后才失败的候选；但它完全可以获得相同绑定特征。"
+        - cell "直接按关系变量扩展，可能减少无效展开和连接次数。测候选测试量、连接成本及同预算完成度。"
+        - cell "**不预言语义准确率更高。**若两者完整得到相同候选，输出应一致；若 FP 更快，搜索器优势撤回。"
+      - row "gSpan／CloseGraph，使用参数位置标记的关系图、完整原子约束和相同 OI 语义 通用边扩展可能搜索部分关系结构；闭合性与本编码的贡献也不相同。 以完整事实原子为扩展单位，可能减少不合法中间片段。 gSpan 也能加入同样语法约束。若它在相同语言下更快，本方案没有表达能力优势；不得用弱图编码制造胜利。":
+        - cell "gSpan／CloseGraph，使用参数位置标记的关系图、完整原子约束和相同 OI 语义":
+          - strong: gSpan／CloseGraph，使用参数位置标记的关系图、完整原子约束和相同 OI 语义
+        - cell "通用边扩展可能搜索部分关系结构；闭合性与本编码的贡献也不相同。"
+        - cell "以完整事实原子为扩展单位，可能减少不合法中间片段。"
+        - cell "gSpan 也能加入同样语法约束。若它在相同语言下更快，本方案没有表达能力优势；不得用弱图编码制造胜利。"
+      - row "相同候选与绑定编码，SLIM／Snor 风格的贪心增删与重叠覆盖 局部更新可能错过联合更好的字典或覆盖安排。 MILP 联合优化定义开启与实例选择；若求解至最优，在同一目标和候选集上不会劣于该贪心解。 只保证训练编码目标，不保证法律价值。若改进很小、耗时明显更大，或者外样本收益不增加，重优化组件不值得保留。":
+        - cell "相同候选与绑定编码，SLIM／Snor 风格的贪心增删与重叠覆盖":
+          - strong: 相同候选与绑定编码，SLIM／Snor 风格的贪心增删与重叠覆盖
+        - cell "局部更新可能错过联合更好的字典或覆盖安排。"
+        - cell "MILP 联合优化定义开启与实例选择；若求解至最优，在同一目标和候选集上不会劣于该贪心解。":
+          - text: MILP 联合优化定义开启与实例选择；若求解至最优，在
+          - strong: 同一目标和候选集
+          - text: 上不会劣于该贪心解。
+        - cell "只保证训练编码目标，不保证法律价值。若改进很小、耗时明显更大，或者外样本收益不增加，重优化组件不值得保留。"
+      - row "KG-MDL，限制到可比较语言和相同关系数据 原算法以图重写及模式合并探索，实例枚举与搜索预算存在权衡。 本方案提供更直接的原子语言、绑定核验和固定候选上的优化界。 本方案可能漏掉更长结构，编码也可能更差。两者原始 bit 数不能在不同编码下直接排名；应用共同外部指标或共同编码消融。":
+        - cell "KG-MDL，限制到可比较语言和相同关系数据":
+          - strong: KG-MDL，限制到可比较语言和相同关系数据
+        - cell "原算法以图重写及模式合并探索，实例枚举与搜索预算存在权衡。"
+        - cell "本方案提供更直接的原子语言、绑定核验和固定候选上的优化界。"
+        - cell "本方案可能漏掉更长结构，编码也可能更差。两者原始 bit 数不能在不同编码下直接排名；应用共同外部指标或共同编码消融。"
+      - row "LLM 生成同一语言内的查询＋同一执行器＋同一集合目标 候选可有针对性，但可能遗漏、不稳定，或消耗大量调用。 有界枚举在完成时有语言内完整性，不依赖模型记忆发现候选。 大语言空间下枚举可能更贵。若 LLM 在同总预算内发现更多真实、可复现的有效模式，它可以替换候选生成器。":
+        - cell "LLM 生成同一语言内的查询＋同一执行器＋同一集合目标":
+          - strong: LLM 生成同一语言内的查询＋同一执行器＋同一集合目标
+        - cell "候选可有针对性，但可能遗漏、不稳定，或消耗大量调用。"
+        - cell "有界枚举在完成时有语言内完整性，不依赖模型记忆发现候选。"
+        - cell "大语言空间下枚举可能更贵。若 LLM 在同总预算内发现更多真实、可复现的有效模式，它可以替换候选生成器。"
+      - row "SSD++／有监督 ILP，包括 ADVENT 方向 需要目标分布或正负例；当前没有应当默认使用的目标。 本方案直接优化无标签关系记录的描述。 这是任务匹配差异，不是证明它们算法更弱；不能造一个 WIN/LOSE 再比较。":
+        - cell "SSD++／有监督 ILP，包括 ADVENT 方向":
+          - strong: SSD++／有监督 ILP，包括 ADVENT 方向
+        - cell "需要目标分布或正负例；当前没有应当默认使用的目标。"
+        - cell "本方案直接优化无标签关系记录的描述。"
+        - cell "这是任务匹配差异，不是证明它们算法更弱；不能造一个 WIN/LOSE 再比较。"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph:
+    - text: 前两行的优势，
+    - strong: 最多是搜索组织和资源效率优势
+    - text: 。相同表示、相同完整语言、相同匹配器、相同最终目标下，不应该出现凭空的语义质量提升。
+  - paragraph:
+    - text: 第三行才是一个较清楚的优化假设，但它仍需要资源收益验证。SLIM 原文已经表明，更多精确优化可能带来很大的计算成本；因此不能只报压缩多了几位，不报总耗时。
+    - 'link "CISPA EDA: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf, https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf"':
+      - /url: https://eda.rg.cispa.io/pubs/2012/slim-smets%2Cvreeken.pdf
+      - generic: CISPA EDA
+  - heading "公平预算的具体执行" [level=3]
+  - paragraph: 上游抽取和规范化调用全部共享。专家只修订共享语义指南或共享快照；不能只向本方案提供额外角色绑定。所有方法报告：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: 总 CPU/GPU 时间 LLM token 与失败重试 专家分钟数 候选生成成本 匹配实例枚举成本 集合选择成本
+  - paragraph: 匹配语义正确性、模式覆盖和拒绝比例同时报告。通过删除难材料而获得低错误率，不算优势。
+  - separator
+  - heading "九、复杂度、条件性质和实际失败边界" [level=2]
+  - heading "9.1 复杂度" [level=3]
+  - paragraph:
+    - text: 设签名数为
+    - math:
+      - generic: S
+    - generic: S
+    - text: ，最大参数数为
+    - math:
+      - generic: a
+    - generic: a
+    - text: ，变量上限为
+    - math:
+      - generic: V
+    - generic: V
+    - text: ，原子上限为
+    - math:
+      - generic: m
+    - generic: m
+    - text: 。
+  - paragraph: 候选数量随原子数和绑定选择组合增长，粗略上界具有：
+  - math:
+    - generic: O
+    - generic: ⁣
+    - generic: (
+    - generic: "["
+    - generic: S
+    - generic: (
+    - generic: V
+    - generic: +
+    - generic: a
+    - generic: )
+    - generic: a
+    - generic: "]"
+    - generic: m
+    - generic: )
+  - text: O
+  - text: ([S(V + a
+  - text: )
+  - generic: a
+  - text: "]"
+  - generic: m
+  - text: )
+  - paragraph:
+    - text: 这样的组合规模；这里不是紧界。规范化另有每候选最多
+    - math:
+      - generic: m
+      - generic: "!"
+    - generic: m!
+    - text: 个原子排列。
+  - paragraph: 匹配的最坏情况仍是组合搜索。索引连接能改善实际运行，却不能承诺大规模多实体案件上线性复杂度。
+  - paragraph:
+    - text: 设全部具体实例数为
+    - math:
+      - generic: W
+    - generic: W
+    - text: ，事实数为
+    - math:
+      - generic: F
+    - generic: F
+    - text: ，候选数为
+    - math:
+      - generic: C
+    - generic: C
+    - text: ，MILP 至少包含约：
+  - math:
+    - generic: O
+    - generic: (
+    - generic: C
+    - generic: +
+    - generic: W
+    - generic: +
+    - generic: F
+    - generic: )
+  - generic: O(C +
+  - generic: W +
+  - generic: F)
+  - paragraph:
+    - text: 个主要二元变量，另有群组使用变量；覆盖关联规模约为
+    - math:
+      - generic: O
+      - generic: (
+      - generic: m
+      - generic: W
+      - generic: )
+    - generic: O(mW)
+    - text: 。实例爆炸和整数规划都是实质成本，不是实现细节。KG-MDL 的实验也直接显示了实例枚举预算对结果的影响。
+    - 'link "arXiv: https://arxiv.org/pdf/2309.12908, https://arxiv.org/pdf/2309.12908"':
+      - /url: https://arxiv.org/pdf/2309.12908
+      - generic: arXiv
+  - heading "9.2 可以证明的性质" [level=3]
+  - paragraph: 在前述条件下，可以给出四项明确性质：
+  - paragraph: "**语言内枚举完整性。**完整运行、没有额外启发式丢弃时，所有符合连接性、大小和支持条件的查询都会被生成。"
+  - paragraph: "**支持剪枝正确性。**只添加原子、不合并旧变量、固定分母时，子查询支持度不增加。"
+  - paragraph: "**绑定保真。**每个选中实例都是查询的实际单射匹配；解码使用同一变量绑定，因此不会把不同合同改成相同合同。"
+  - paragraph: "**记录无损。**覆盖约束和残余编码使解码后的结构化事实集合等于输入集合；前提是源元数据也按既定协议保存。"
+  - paragraph: 这些性质都不能推出：输入抽取正确、模式具有规范法律效力、未记载事实不存在，或所得模式能够前瞻预测。
+  - heading "9.3 仍然可能失败的地方" [level=3]
+  - paragraph:
+    - text: 即使优化完全正确，字典仍可能主要描述法院写作惯例、程序性套话或上游系统性误抽取。压缩偏好重复结构，
+    - strong: 不会自动理解法律重要性
+    - text: 。
+  - paragraph: 另外，每模式每单元只用一次、原子数上限和支持门槛，会舍弃一些真实结构。这些是主动选择的研究范围，不是算法证明无价值的对象。
+  - separator
+  - heading "十、一个能推翻本选型的决定性比较" [level=2]
+  - paragraph: 主实验不需要造 WIN/LOSE，也不应变成主要建设新基准。直接对同一个冻结的真实案件语境做三组受控比较：
+  - paragraph: "**先比搜索器。**WARMR 式、强 FP＋关系展开、受约束 gSpan 使用相同语言、同一匹配器和同一最终选择器。完成运行时，核对候选与支持结果是否一致；在相同总预算下比较谁能完成更多搜索、产生更好的最终集合。"
+  - paragraph: "**再比集合选择器。**固定全部候选、实例及编码，只比较 MILP 与允许重叠的贪心增删／覆盖。记录编码收益、单位与事实覆盖、总时间，以及冻结字典在后期案件上的编码收益。"
+  - paragraph: "**最后审查语义。**专家盲审选中模式的具体绑定、来源、主张／认定区分和反例。固定每种方法相同的审查分钟数，不按各方法自选的“容易样本”审查。"
+  - paragraph: 核心结果至少同时包含：
+  - math:
+    - generic: 有效模式数、单元覆盖、事实覆盖、残余比例、 冲突比例、外样本复现、总成本
+  - generic: 有效模式数、单元覆盖、事实覆盖、残余比例、 冲突比例、外样本复现、总成本
+  - paragraph: 没有覆盖的全空字典，不能因为没有误匹配就赢。空 facts 或不可解析材料单列为不可观察记录，不加入“明确不存在模式”的负例集合。
+  - paragraph:
+    - strong: 以下结果足以推翻对应优势主张：
+  - list:
+    - listitem: 强 FP 或 gSpan 在相同语言下更快，并得到相同或更好的集合：撤回 WARMR 搜索效率优势。
+    - listitem: MILP 仅改善训练编码，却没有增加可复现的有效模式，或者成本明显不划算：撤回重优化的实用优势。
+    - listitem: 用相同绑定复核后，基线与本方案语义正确性相同：不能继续把正确绑定当作独有贡献。
+    - listitem: 去掉错误拒绝、补回未处理材料后收益消失：当前结果无效。
+    - listitem: 后期案件只复现了写作模板，没有复现事实结构：压缩目标与研究效用之间的假设失败。
+  - separator
+  - heading "最终决定" [level=2]
+  - paragraph:
+    - strong: 首版就实现：有类型、OI 单射语义的 WARMR 式逐层关系查询搜索，接上“模式定义＋具体绑定＋残余事实”的固定编码目标，并用集合覆盖 MILP 选择字典。
+  - paragraph: 不采用单纯支持度 top-k，不默认只保留闭模式，不把普通模式出现位图的压缩当成关系压缩；不接入未经需要证明的 possible-world 优化、自动谓词发明或 ANCO-HITS。
+  - paragraph: 这套选择的直接价值是：**搜索什么、何时匹配、怎样计数、为什么入选、漏掉什么、何时停止，都有可执行定义。**它是否比强 FP、受约束 gSpan 或 KG-MDL 更值得使用，必须由同语言、同信息、同预算的比较决定，而不是由“更懂法律”这样的名称决定。
+  - paragraph:
+    - text: 附上已经运行的合同例子核验程序。它实现了类型化扩展、规范编码、单射匹配和上述集合目标，
+    - strong: 尚未接入 6,954 条判决数据
+    - text: ：
+  - paragraph:
+    - button "Open preview of b_relational_pattern_toy.py":
+      - text: 下载可运行的核验代码
+    - text: ·
+    - button "Open preview of toy_run.txt":
+      - text: 查看本次运行结果
+    - button "View analysis":
+  - button "Open preview of b_relational_pattern_toy.py"
+  - generic "b_relational_pattern_toy.py"
+  - generic: Code
+  - button "Download file":
+  - button "Open preview of toy_run.txt"
+  - generic "toy_run.txt"
+  - generic: Document
+  - button "Download file":
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - button "Sources":
+  - generic: ChatGPT can make mistakes. Check important info.
+  - button "Scroll to bottom":
+  - heading "Latest response" [level=4]
+  - status
+  - button "Add files and more":
+  - textbox "Ask ChatGPT":
+    - paragraph: Ask ChatGPT
+  - button "Select ChatGPT model":
+    - generic: Pro
+  - button "Dictate":
+  - button "Start Voice":
+- status
+- status
+- status
+- status: Response complete

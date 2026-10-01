@@ -1,0 +1,207 @@
+{
+  "case_id": "197296101",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "status": "NOT_FOUND",
+      "explanation": "No qualifying COURT_FOUND SUBLET_PROPERTY was located. The nearest property-disposition passage says that a portion of holding No. 523 was 'leased out' by Prafulla Kalita; it does not state subletting and is not an explicit court finding of SUBLET_PROPERTY. Without the required e0 atom, no directed proper PART_OF binding to a NARRATED OWN_PROPERTY can be formed.",
+      "bindings": [],
+      "uncertainty": [
+        "NOT_FOUND is limited to the supplied judgment; it is not a closed-world assertion that no subletting ever occurred."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "Holding No. 522 was sold and portion of holding No. 523 was leased out in favour of"
+        },
+        {
+          "segment_id": "p0002.s001",
+          "quote": "the respondent No. 3 by Prafulla Kalita."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "status": "NOT_FOUND",
+      "explanation": "The first scoped ejectment request is against defendant No. 4, identified as a cooperative society. The money suit was filed by the appellant, not by a specific PERSON/ORGANIZATION explicitly stated to be a member of an eviction-respondent GROUP. Moreover, the eviction respondent here is the lone cooperative society ORGANIZATION, not a GROUP; the task forbids inventing a group for a lone respondent.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Title suit sought ejectment of defendant No. 4 from the suit house.",
+              "objects": {
+                "filer": "appellant/plaintiff",
+                "respondent": "defendant No. 4, the cooperative society",
+                "property": "suit house"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s003",
+                  "quote": "(ii) A decree may also be passed against the defendant No. 4 for ejectment from the suit house by removing its goods and articles therefrom and also a decree for mesne profit of Rs. 4350.00 against defendant No. 4."
+                },
+                {
+                  "segment_id": "p0002.s005",
+                  "quote": "The defendant No. 4 (Respondent no.3 herein) was a cooperative society"
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "FILE_OTHER_PROCEEDING",
+              "status": "NARRATED",
+              "description": "Appellant filed Money Suit No. 83 of 1978 for arrears of rent.",
+              "objects": {
+                "filer": "appellant",
+                "proceeding": "Money Suit No. 83 of 1978"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s002",
+                  "quote": "As the respondent No. 3 did not pay rent to the appellant, he filed a money suit for recovery of arrears of rent being No. 83 of 1978 in the Court of Munsif which was dismissed."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "appellant",
+            "right": "defendant No. 4 cooperative society",
+            "evidence": []
+          },
+          "limitations": [
+            "The right-hand object is an ORGANIZATION, not an explicitly sourced GROUP.",
+            "The source does not state that the appellant is a member of the cooperative society; identity or party alignment cannot supply MEMBER_OF."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "No alternative FILE_OTHER_PROCEEDING with an atomic filer and a sourced MEMBER_OF edge into a qualifying eviction-respondent GROUP was located."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0002.s003",
+          "quote": "(ii) A decree may also be passed against the defendant No. 4 for ejectment from the suit house by removing its goods and articles therefrom and also a decree for mesne profit of Rs. 4350.00 against defendant No. 4."
+        },
+        {
+          "segment_id": "p0002.s005",
+          "quote": "The defendant No. 4 (Respondent no.3 herein) was a cooperative society"
+        },
+        {
+          "segment_id": "p0002.s002",
+          "quote": "As the respondent No. 3 did not pay rent to the appellant, he filed a money suit for recovery of arrears of rent being No. 83 of 1978 in the Court of Munsif which was dismissed."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "status": "NOT_FOUND",
+      "explanation": "The judgment narrates a lease of a portion of holding No. 523 to respondent No. 3 and identifies defendant No. 4/respondent No. 3 as the cooperative-society tenant. That same entity is the sole target of the scoped ejectment request. Because the eviction respondent is a lone ORGANIZATION rather than a GROUP, the tenant cannot satisfy tenant MEMBER_OF respondent; equality with the lone respondent is insufficient.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Title suit sought ejectment of defendant No. 4 from the suit house.",
+              "objects": {
+                "filer": "appellant/plaintiff",
+                "respondent": "defendant No. 4, the cooperative society",
+                "property": "suit house"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s003",
+                  "quote": "(ii) A decree may also be passed against the defendant No. 4 for ejectment from the suit house by removing its goods and articles therefrom and also a decree for mesne profit of Rs. 4350.00 against defendant No. 4."
+                },
+                {
+                  "segment_id": "p0002.s005",
+                  "quote": "The defendant No. 4 (Respondent no.3 herein) was a cooperative society"
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "LEASE_PROPERTY",
+              "status": "NARRATED",
+              "description": "A portion of holding No. 523 was leased to respondent No. 3; defendant No. 4/respondent No. 3 was the cooperative-society tenant.",
+              "objects": {
+                "tenant": "defendant No. 4 / respondent No. 3 cooperative society",
+                "property": "portion of holding No. 523"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0001.s003",
+                  "quote": "Holding No. 522 was sold and portion of holding No. 523 was leased out in favour of"
+                },
+                {
+                  "segment_id": "p0002.s001",
+                  "quote": "the respondent No. 3 by Prafulla Kalita."
+                },
+                {
+                  "segment_id": "p0002.s005",
+                  "quote": "The defendant No. 4 (Respondent no.3 herein) was a cooperative society which was inducted as a tenant"
+                },
+                {
+                  "segment_id": "p0003.s001",
+                  "quote": "by Prafulla Kalita."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "defendant No. 4 / respondent No. 3 cooperative society",
+            "right": "defendant No. 4 cooperative society",
+            "evidence": []
+          },
+          "limitations": [
+            "The eviction respondent is not a GROUP.",
+            "The tenant and eviction respondent are the same organization; self-identity is not MEMBER_OF, and no group may be invented around a lone respondent."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "No alternative qualifying respondent GROUP was located for the scoped eviction request."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0002.s003",
+          "quote": "(ii) A decree may also be passed against the defendant No. 4 for ejectment from the suit house by removing its goods and articles therefrom and also a decree for mesne profit of Rs. 4350.00 against defendant No. 4."
+        },
+        {
+          "segment_id": "p0001.s003",
+          "quote": "Holding No. 522 was sold and portion of holding No. 523 was leased out in favour of"
+        },
+        {
+          "segment_id": "p0002.s001",
+          "quote": "the respondent No. 3 by Prafulla Kalita."
+        },
+        {
+          "segment_id": "p0002.s005",
+          "quote": "The defendant No. 4 (Respondent no.3 herein) was a cooperative society which was inducted as a tenant"
+        },
+        {
+          "segment_id": "p0003.s001",
+          "quote": "by Prafulla Kalita."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "semantic_correctness": "NOT_ESTABLISHED"
+}

@@ -1,0 +1,215 @@
+  - heading "ChatGPT said:" [level=4]
+  - paragraph:
+    - text: 整体上 A/B/C 已经能进入 spec；需要修的主要是
+    - strong: A 的 TYPE-EQ 与 assertion-EQ 混淆、B 的 support/编码边界条件、C 的 UNKNOWN exception 不能直接进入 argumentation
+    - text: 。
+  - heading "A：可用，但“双向蕴含”只能定义严格语义签名 EQ" [level=2]
+  - paragraph: 最大问题：如果直接对完整 assertion 做双向蕴含，会把 polarity/status/instance identity 混进 T1。例如 paid(C1) 与 not paid(C2) 的 assertion 不等价，但二者仍共享 PAYMENT predicate type。
+  - paragraph: 建议 spec 明确两层：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "TYPE_EQ(x,y): variable abstraction 后 core predicate definition 双向蕴含 AND required type-defining facets 相同 # 不比较 case/entity/contract ID、polarity、assertion status ASSERTION_EQ(x,y): TYPE_EQ AND bindings同指 AND polarity/status/time/required facets兼容"
+  - paragraph: 较宽/较窄定义不是 EQ：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "FULL_PAYMENT -> PAYMENT : TYPE_SUBSUMES PAYMENT -> FULL_PAYMENT : 不成立"
+  - paragraph: 因此 T1 聚类只能用 TYPE_EQ；T2 去重使用 ASSERTION_EQ。
+  - paragraph:
+    - text: 完全链接方案可保留，但 noisy EQ 不保证传递，所以稳定排序只提供
+    - strong: 可复现性，不提供唯一真实partition
+    - text: ：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "if all(TYPE_EQ(x,m) for m in cluster.signatures): admissible(cluster) if >1 admissible clusters and not all_cross_pairs_EQ(those_clusters): AMBIGUOUS # 不分配"
+  - paragraph: 重建同理；不要把 deterministic rebuild 写成恢复“正确簇”。
+  - separator
+  - heading "B：三处需要修" [level=2]
+  - heading "1. support 不能按 litigation family 去重" [level=3]
+  - paragraph: 这与已确定分析单位冲突。主 support 必须：
+  - math:
+    - generic: s
+    - generic: u
+    - generic: p
+    - generic: p
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: =
+    - generic: ∣
+    - generic: "{"
+    - generic: (
+    - generic: c
+    - generic: a
+    - generic: s
+    - generic: e
+    - generic: ","
+    - generic: c
+    - generic: l
+    - generic: a
+    - generic: i
+    - generic: m
+    - generic: ","
+    - generic: s
+    - generic: t
+    - generic: a
+    - generic: g
+    - generic: e
+    - generic: )
+    - generic: ":"
+    - generic: ∃
+    - generic: c
+    - generic: l
+    - generic: e
+    - generic: a
+    - generic: "n"
+    - generic: w
+    - generic: i
+    - generic: t
+    - generic: "n"
+    - generic: e
+    - generic: s
+    - generic: s
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: "}"
+    - generic: ∣
+    - generic: .
+  - generic: supp(q) =
+  - generic: "∣{(case, claim, stage) :"
+  - text: ∃clean
+  - text: "witness(q)}∣."
+  - paragraph: related_case_group 仅用于 split/dependence/bootstrap。可以另报 family-capped sensitivity，但不能作为主 mining support。
+  - paragraph: 反单调剪枝成立的前提写死：
+  - list:
+    - listitem: candidate universe 固定；
+    - listitem: 分母固定；
+    - listitem: support 只表示“存在已记录 clean witness”，absence 不解释成 FALSE；
+    - listitem: extension 只能增加 atom/neq/constant constraint。
+  - paragraph:
+    - text: 于是
+    - math:
+      - generic: q
+      - generic: ′
+      - generic: ⊃
+      - generic: q
+      - generic: ⇒
+      - generic: s
+      - generic: u
+      - generic: p
+      - generic: p
+      - generic: (
+      - generic: q
+      - generic: ′
+      - generic: )
+      - generic: ≤
+      - generic: s
+      - generic: u
+      - generic: p
+      - generic: p
+      - generic: (
+      - generic: q
+      - generic: )
+    - text: q
+    - generic: ′
+    - text: ⊃
+    - generic: q ⇒
+    - text: supp(
+    - text: q
+    - generic: ′
+    - text: ) ≤
+    - generic: supp(q)
+    - text: 。
+  - heading "2. MDL 必须条件于固定 side information" [level=3]
+  - paragraph: typed entity table、predicate registry、source provenance 若不压缩，就写：
+  - math:
+    - generic: L
+    - generic: (
+    - generic: S
+    - generic: )
+    - generic: +
+    - generic: L
+    - generic: (
+    - generic: D
+    - generic: ∣
+    - generic: S
+    - generic: ","
+    - generic: E
+    - generic: )
+  - generic: L(S) +
+  - generic: L(D ∣
+  - generic: S, E)
+  - paragraph: 其中 E 为固定 side information；不能暗示总系统把 provenance 一起压缩了。
+  - paragraph: 可解码格式至少固定：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "gamma(|S|+1) # gamma不能编码0 dictionary entries per unit: gamma(token_count+1) token := 0 | literal_pred_id | typed_arg_ids 1 | pattern_id | ordered_variable_bindings"
+  - paragraph: pattern_id 位宽：
+  - list:
+    - listitem: "|S|<=1: 0 bit；"
+    - listitem: 否则 ceil(log2 |S|)。
+  - paragraph: pattern dictionary 必须编码 predicate、polarity/status guard、neq、变量类型、canonical variable numbering；decoder 因而知道 binding 数及顺序。
+  - heading "3. cover 时不能只比较 literal bits−macro bits" [level=3]
+  - paragraph:
+    - text: token-count header 也会变化，overlap 也会改变增量。因此每步用
+    - strong: 精确边际码长
+    - text: ：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "while True: best = None for occ in valid_occurrences: new_atoms = expansion(occ) - covered_union if not new_atoms: continue delta = exact_L_after(occ) - current_L choose minimum delta if best.delta >= 0: break apply(best)"
+  - paragraph: dictionary add/delete 外层仍每次完整 re-cover；严格至少降 1 bit，所以不会循环。不声称全局最优。
+  - separator
+  - heading "C：UNKNOWN exception 应在“规则实例化门”处理，而不是伪造攻击" [level=2]
+  - paragraph: 否则会出现矛盾：没有 exception 证据，却凭“未知”生成攻击，再交给 grounded semantics。
+  - paragraph: 对 material exception E：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "def instantiate(rule, binding): if any(body_atom is UNKNOWN): return BLOCKED_PREMISE e = state(rule.exception) if e == TRUE: return BLOCKED_EXCEPTION if e == FALSE: # 有显式 ¬E 支持 return build_argument(rule) if e == UNKNOWN: if has_verified_default_rule(rule, E): return build_argument_with_assumption(NotE_default) return BLOCKED_EXCEPTION_UNKNOWN if e == CONFLICT: if has_support(NotE): A = build_argument(rule) # 允许形成 X = build_exception_undercutter(E) return [A, X] return BLOCKED_EXCEPTION"
+  - paragraph:
+    - text: 关键是 NotE_default 是
+    - strong: argument-level assumption
+    - text: ，不是 reported fact，所以：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: reported_support(E) / reported_support(¬E)
+  - paragraph: 仍与：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: argument_acceptability
+  - paragraph: 完全分开。
+  - paragraph: 最后 attack→defeat 也应固定一条规则，避免 preferences 含糊：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: attack succeeds as defeat unless target is explicitly strictly preferred to attacker
+  - paragraph: 只接受已审阅、无循环的 preference relation；未比较的两个 argument 不自动产生优先级。Grounded semantics 然后正常迭代 IN/OUT/UNDEC；规则 DAG 不要求 attack graph 无环。
+  - paragraph: "**结论：**A 的结构基本成立，只需把 TYPE_EQ/ASSERTION_EQ 分离；B 的核心算法可实现，但 primary support 必须回到 (case,claim,stage)，且 MDL cover 要算精确边际码长；C 最关键的是把 UNKNOWN exception 作为 rule-instantiation gate，只有明确 default/burden rule 才生成 assumption argument。这样三套算法的语义接口已经足够明确，可以直接进入实现 spec。"
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - generic: ChatGPT can make mistakes. Check important info.
+  - button "Scroll to bottom":
+  - heading "Latest response" [level=4]
+  - status
+  - button "Add files and more":
+  - textbox "Ask ChatGPT":
+    - paragraph: Ask ChatGPT
+  - button "Select ChatGPT model":
+    - generic: Extra High
+  - button "Dictate":
+  - button "Start Voice":
+- status
+- status
+- status
+- status: Response complete

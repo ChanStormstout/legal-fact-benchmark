@@ -1,0 +1,92 @@
+{
+  "case_id": "283081",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "answer_status": "UNKNOWN",
+      "explanation": "The judgment explicitly defines 'scheduled building' as a kind of 'residential building' (p0003.s002, p0003.s003, p0005.s005, p0015.s002), but it does not contain a specific narrated assertion identifying the 'suit premises' as a 'scheduled building' or 'owned property' by the landlord. The court assumes the premises are a 'scheduled building' for the sake of argument (p0002.s003, p0004.s005, p0005.s006) to decide the legal principle, but does not affirmatively state in the 'NARRATED' facts that the specific property in dispute was a 'scheduled building' or that the landlord owned it as a 'scheduled building' at the time of the specific eviction petition facts. The text states the building was let out for residential purpose and partly used for profession (p0002.s001, p0004.s003, p0005.s005), which fits the definition, but lacks the explicit positive assertion required to match the specific atom types 'SUBLET_PROPERTY' and 'OWN_PROPERTY' with the required statuses.",
+      "bindings": [],
+      "missing_fields": [
+        "Explicit narrated assertion that the specific suit premises is a 'scheduled building' (SUBLET_PROPERTY status).",
+        "Explicit narrated assertion that the landlord owns the specific suit premises as 'owned property' (OWN_PROPERTY status)."
+      ],
+      "other_combinations_considered": "The judgment discusses the legal definition where a scheduled building is a subset of residential buildings. It does not explicitly record the physical property status of the specific premises in the 'NARRATED' section as a 'scheduled building' or 'owned property' with the required positive status."
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "answer_status": "MATCH",
+      "explanation": "The judgment narrates that the respondents filed a petition for eviction on three grounds, including personal need (p0002.s001, p0004.s004). It also narrates that the respondents are Dr. Harbans Singh and Dr. Ravinder Singh, both medical practitioners, and that the personal need of respondent No. 2 (Dr. Ravinder Singh) was proved (p0004.s004, p0004.s005). The judgment explicitly states that the ground of eviction based on personal need is available for a 'scheduled building' (p0002.s003, p0004.s005, p0005.s006). Since the personal need of respondent 2 was proved and the building is treated as a scheduled building, respondent 2 is a member of the group of respondents (respondents) seeking eviction. The text explicitly links the filing of the petition by the respondents to the grounds including personal need of respondent 2.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "polarity": "POSITIVE",
+              "objects": {
+                "role": "petition filed by respondents for eviction"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s001",
+                  "quote": "The respondent riled a petition for eviction of the appellant tenant on three grounds: their personal need under Section 13(3)(a)(i)(a)..."
+                },
+                {
+                  "segment_id": "p0004.s004",
+                  "quote": "The respondents filed a petition for eviction of the appellant-tenant on three grounds, namely, personal need of the respondents..."
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "FILE_OTHER_PROCEEDING",
+              "status": "NARRATED",
+              "polarity": "POSITIVE",
+              "objects": {
+                "role": "Dr. Ravinder Singh (Respondent 2)"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0004.s004",
+                  "quote": "The respondents filed a petition for eviction of the appellant-tenant on three grounds, namely, personal need of the respondents..."
+                },
+                {
+                  "segment_id": "p0004.s005",
+                  "quote": "On appeal by the respondents, the appellate authority held that the personal need of respondent No. 2, Dr. Ravinder Singh, one of the landlords, was proved..."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "Dr. Ravinder Singh",
+            "right": "respondents",
+            "evidence": [
+              {
+                "segment_id": "p0004.s004",
+                "quote": "The respondents filed a petition for eviction of the appellant-tenant on three grounds, namely, personal need of the respondents..."
+              },
+              {
+                "segment_id": "p0004.s005",
+                "quote": "On appeal by the respondents, the appellate authority held that the personal need of respondent No. 2, Dr. Ravinder Singh, one of the landlords, was proved..."
+              }
+            ]
+          }
+        }
+      ],
+      "missing_fields": [],
+      "other_combinations_considered": "None. The text explicitly identifies Dr. Ravinder Singh as one of the respondents who filed the eviction petition."
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "answer_status": "UNKNOWN",
+      "explanation": "The judgment narrates that the building was let out for residential purpose and partly used for profession, making it a 'scheduled building' (p0002.s001, p0004.s003, p0004.s005, p0005.s005). It also narrates that the tenant is Dr. Ravinder Singh (p0004.s003). However, the judgment does not contain an explicit narrated assertion that the tenant (Dr. Ravinder Singh) is a 'member' of the 'respondent' group in the context of the lease relationship. The text states the tenant is Dr. Ravinder Singh (p0004.s003) and the landlord is Dr. Harbans Singh (p0004.s003). The task requires the tenant to be a 'member' of the 'respondent' group. While Dr. Ravinder Singh is a respondent, the specific relationship of 'tenant' to 'respondent' as a 'member' of the 'respondent' group is not explicitly asserted as a membership relation in the text; it is inferred from the fact that he is one of the respondents. The definition requires a specific PERSON explicitly included in GROUP. The text says 'The respondents filed a petition... personal need of respondent No. 2...'. It does not explicitly say 'Dr. Ravinder Singh is a member of the group of respondents'. This distinction makes it UNKNOWN if the specific 'LEASE_PROPERTY' tenant is a 'MEMBER_OF' the 'FILE_EVICTION' respondent group based strictly on the text's explicit assertions.",
+      "bindings": [],
+      "missing_fields": [
+        "Explicit narrated assertion that the specific tenant (Dr. Ravinder Singh) is a 'member' of the 'respondent' group."
+      ],
+      "other_combinations_considered": "The text identifies Dr. Ravinder Singh as 'respondent No. 2' (p0004.s003, p0004.s005). While this implies membership, the specific relation 'member_of' between the tenant and the respondent group is not explicitly stated as a fact in the narrative, only implied by the role assignment."
+    }
+  ]
+}

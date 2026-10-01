@@ -1,0 +1,3787 @@
+Share
+You said:
+你是 Legal AI 项目的独立算法与实验设计审查者。本对话用 Extra High 处理具体问题，另有四个 Pro 对话正在做广泛文献研究与高层路线比较。不要假装已经读过它们的回答，也不要重复一篇泛综述。
+项目背景：目前没有代码。材料的总体图是 Evidence→Canonical Facts→Fact Patterns→Subtests/Factors→Elements→Claims/Defenses→Issues→Conclusion；Authorities→Rules/Tests 给 Elements 定义标准。PDF 已提出原子事实抽取、带原文出处的角色/谓词—论元表示、按法律语境阻断、embedding 只召回候选、LLM 判 EQUIVALENT/PARENT_CHILD/RELATED_SIBLINGS/CONTRADICTORY/UNRELATED/UNCERTAIN，仅合并等价，保留出处和合并历史；先不看 WIN/LOSE 做规范化，冻结后再挖模式。团队还要做模式挖掘、评价和权威法源获取。family 尚无正式定义，不能默认一个事实必须先属于唯一 family。
+本地 land 1.jsonl 有6954条 unique doc_id，全来自IndianKanoon；status ok6418/empty497/error39，facts字段为空1530。字段包含facts/issues/双方arguments/analysis_of_the_law/precedent_analysis/courts_reasoning/conclusion/先例使用状态；标签、字段正确性、原始证据和真正诉前数据均未验证。案例可能包含多个请求、部分胜败、不同审理阶段。不可假设文件名land代表全是土地法。
+待比较的暂定路线（只是候选，请反驳）：保留不可覆盖的原文断言层及案件内实体/合同/事件ID；建立可复用的谓词定义和类型映射；等价表达共享类型但不抹掉实例信息；父子/关联/矛盾另存关系。基于这种表示发现带同一当事人/合同/事件变量绑定的短合取模式。经验规律和有权威依据的规范规则分开，前者辅助检索/候选发现，后者需要来源、时间、适用范围与例外，最后输出可检查的适用链及不确定性。
+请针对下列技术问题设计可执行方案并找反例：
+1. 首先精确定义到底在聚类什么：事实实例、命题模板、谓词还是法律因素？什么叫上下文相对等价，如何避免把两个不同案件都“已付款”误当同一事实，或者把属性保留在旁边但下游实际丢掉？明确 polarity、assertion status(主张/认定/否认)、unknown、时间、角色和法律评价分别在哪一层进入计算。定义映射、合并条件与失败/拒绝条件，比较严格事实簇与谓词＋facet两种设计。
+2. 给一个案件含两份合同的最小反例，说明二元事实矩阵会如何错误拼接；给可运行思想的关系匹配伪代码、开放世界下正/负/unknown/conflict的语义以及支持度计数单位。同一案件多个匹配不能当独立样本。区分模式组合带来额外预测价值与因果/法律充分性。
+3. 设计无泄漏评价：外层按案件家族/时间切分，开发内规范化/词表/模式/阈值各在哪拟合；目标案法院理由/结论/实际引用法源能用于哪些任务；从整份判决抽facts的回溯性偏差如何审计。不能仅删conclusion就声称前瞻预测。
+4. 给三个可证伪假设及最小实验，每个列强基线、公平模型与token/专家预算、消融、主要指标、覆盖率、失败判定。控制“全单例/全拒答/只选简单案”取巧。试点标注量只给可调整的预算方案，别编已测性能、普适阈值或功效保证。
+请先检查最接近的关键源头：EDC EMNLP2024 https://aclanthology.org/2024.emnlp-main.548/；Gray等2024 https://arxiv.org/html/2410.07504v1；AJF EACL2026 https://aclanthology.org/2026.eacl-long.128/；LLM-CER https://arxiv.org/html/2506.02509v1；LLM自动language bias＋ILP https://arxiv.org/html/2505.21486v2。仅用实际核实的方法比较，不要把“LLM＋逻辑”“保留来源”“变量绑定”单独包装成全新思想。区分现有方法、组合设计和未验证假设。中文输出一份技术审查结论、修正版定义、关键伪代码和实验协议；指出哪些问题其实靠数据/标注/任务定义，不能靠算法魔法解决。
+…
+Show more
+Worked for 7m 41s
+ChatGPT said:
+
+下面这份审查把问题限定在你现在真正需要定下来的算法语义、数据结构和实验协议。我核实了你点名的五个源头；结论先放前面：
+
+目前最该修正的不是“选哪个 clustering algorithm”，而是不要再把“事实实例、谓词类型、法律因素、经验模式”当成同一种可聚类对象。
+
+最稳妥的系统应当同时保存：
+
+不可覆盖的原文 assertion；
+案件内、带实体/合同/事件绑定的 proposition instance；
+跨案件复用的 predicate type；
+更高层的 empirical pattern / legal factor / normative rule。
+
+跨案件共享的是 predicate/type/pattern，不是同一个事实实例。
+
+这也意味着，你们当前候选路线的大方向是对的，但“canonical facts”这个名字本身容易让实现者误以为最终要得到跨案件的一堆“事实簇”。我建议从数据模型上彻底堵住这个歧义。
+
+一、先核实五个最接近的源头：它们真正解决了什么
+工作	它实际做的东西	对本项目可借的部分	不能从它推出什么
+EDC, EMNLP 2024	从文本做开放三元组抽取，给 relation/schema component 写自然语言 definition，然后 embedding 检索候选 relation，最后让 LLM 根据原文、triplet 和 definition 判断能否替换成目标 schema relation；没有合适项可以 None of the above。它明确是在做 schema canonicalization，并把 entity deduplication 留作未来工作。
+ACL Anthology
++2
+	“embedding 只召回、语义模型最终验证”“先定义再 canonicalize”“允许拒绝”	它没有解决同案两个合同、assertion status、法律 modality、实体/event identity，也没有证明 relation type 相同意味着两个 fact instance 相同。
+Gray et al. 2024	从 court opinion 的 analysis 和 conclusion 中发现 legal factors；50 个案件用于 factor induction，人或 LLM 再做 factor refinement，随后将案例表示成 binary factor vector 做 outcome prediction。作者自己发现 fully automatic refinement 明显弱于 human-refined representation。
+arXiv
++2
+	“factor 不是原子事实，而是相对稳定的事实模式/理由抽象”；factor discovery 可以作为独立研究层	它的 factor induction 故意使用法院 analysis/conclusion，因此不是你们“诉前/无泄漏预测”的模板；也不能把它的 binary vector 直接移植到多合同、多事件案件。
+AJF, EACL 2026	从 judgments、LLM summaries、statutes/policies 中抽 basic AJF；用 complete-link embedding clustering 去重；然后 RECREW 用 LLM 生成/批判/修正 basic 和 complex AJF，complex AJF 带“有利于哪方”的 tilt。
+ACL Anthology
++1
+	factor discovery、critic/review、extrinsic downstream evaluation	它不是 ground-proposition canonicalizer。尤其 complex AJF 的 party tilt 是 LLM distill 出来的，并非直接从原案件文本抽出的。
+ACL Anthology
+
+LLM-CER	generic entity resolution：blocking → 多记录 in-context clustering → similarity-based misclustering guardrail → hierarchical cluster merge。它比较了 pairwise matching 和多记录 clustering 的质量/成本。
+arXiv
+	可以作为你们 cluster merging / API-cost 的强基线；尤其要借鉴“不能只做一次 pairwise decision 然后无限传递”这个问题意识	entity identity ≠ legal proposition equivalence；其基于已有聚类结果形成 cannot-link/anti-transitivity 信息的做法，在一次错误决定代价很高的法律 fact merge 上不能直接照搬。
+LLM automated language bias + ILP	LLM Actor/Critic 自动设计 typed predicate system、arity、argument type、mode；Translator 把文本变成 Prolog facts；MAXSYNTH 用全局优化学习 Horn rules。
+arXiv
++1
+	typed variables、relational binding、Horn/conjunctive patterns 都已有强先例，所以不能把这些本身当创新	论文主要用 SHOES/ZENDO 这种由已知 rules 生成的 synthetic binary tasks，并有明确 positive/negative examples；不能据此证明真实 legal opinion 的开放世界事实能直接交给 ILP。
+arXiv
+
+一个特别值得注意的点是 AJF 的 leakage 处理：他们明确说用于 stronger-party evaluation 的 disputes 也是形成 basic AJF 的那些 disputes，但认为因为最终输入的是 LLM 生成的 complex AJF，所以不存在 label leakage。
+ACL Anthology
++1
+
+对你们而言，这个标准不够严格。 即使没有直接把 winner label 喂进去，同一测试案件参与了 vocabulary/factor construction，也已经不是“完全 held-out future case”的外层泛化测试。这并不是说 AJF 的实验无效，而是它回答的问题和你们想回答的 prospective/generalization 问题不同。
+
+二、修正版定义：到底应该 canonicalize / cluster 什么
+
+我建议最终模型明确区分 四层对象。
+
+Layer 0：Evidence / Assertion，不可覆盖
+
+不是：
+
+Plain text
+Fact: buyer paid
+
+而是：
+
+Plain text
+Assertion A137
+case_id       = C17
+source_span    = paragraph 23, chars ...
+speaker/source = Plaintiff
+base_atom      = PAY(...)
+polarity       = AFFIRM
+epistemic_mode = ALLEGED
+time_scope     = ...
+provenance     = original text
+
+法院后来可能又有：
+
+Plain text
+Assertion A211
+base_atom      = same PAY(...)
+polarity       = NEGATE
+source          = Court
+epistemic_mode  = FOUND
+
+两个 assertion 都不能删。
+
+关键区别
+
+“被告否认付款”与“法院认定没有付款”不是同一件事。
+
+“原告没有证明已经付款”甚至不等于“法院认定没有付款”。
+
+因此建议把：
+
+polarity；
+source；
+alleged / admitted / stipulated / denied / found / rejected / not-established；
+
+全部留在 assertion layer。
+
+三、Layer 1：Grounded Proposition Instance —— 这才是真正的“案件事实实例”
+
+例如：
+
+Plain text
+p_81 =
+PAY(
+    payer   = entity_E17,
+    payee   = entity_E21,
+    object  = contract_C1,
+    amount  = FULL,
+    time    = 2019-05-03
+)
+
+它必须是 case-scoped。
+
+同一 predicate 在另一个案件出现：
+
+Plain text
+PAY(E412, E417, C88, FULL, ...)
+
+这是另一个 proposition instance。
+
+即：
+
+𝐹
+𝑎
+𝑐
+𝑡
+𝐼
+𝑛
+𝑠
+𝑡
+𝑎
+𝑛
+𝑐
+𝑒
+(
+𝐶
+𝑎
+𝑠
+𝑒
+1
+,
+ 
+𝑃
+𝐴
+𝑌
+(
+.
+.
+.
+)
+)
+≠
+𝐹
+𝑎
+𝑐
+𝑡
+𝐼
+𝑛
+𝑠
+𝑡
+𝑎
+𝑛
+𝑐
+𝑒
+(
+𝐶
+𝑎
+𝑠
+𝑒
+2
+,
+ 
+𝑃
+𝐴
+𝑌
+(
+.
+.
+.
+)
+)
+FactInstance(Case
+1
+	​
+
+, PAY(...))
+
+=FactInstance(Case
+2
+	​
+
+, PAY(...))
+
+即使二者英语都是：
+
+“The purchase price was fully paid.”
+
+所以，“两个案件都已经付款”为什么不能合并？
+
+因为它们只共享：
+
+Plain text
+predicate_type = FULL_PAYMENT
+
+而不共享：
+
+Plain text
+proposition_id
+entity_id
+contract_id
+event_id
+case_id
+四、Layer 2：Predicate Type —— 这才适合跨案件 canonicalize
+
+例如：
+
+Plain text
+PredicateType P37
+
+name:
+    payment_made
+
+arguments:
+    payer: PERSON/ORG
+    payee: PERSON/ORG
+    transaction: CONTRACT/OBLIGATION
+
+facets:
+    completeness: {FULL, PARTIAL, UNSPECIFIED}
+    amount
+    payment_time
+    payment_method
+
+definition:
+    transfer of consideration satisfying all or part
+    of an obligation
+
+那么：
+
+“The purchaser discharged the entire consideration.”
+
+和：
+
+“The full sale price was paid by the buyer.”
+
+可能都映射到：
+
+Plain text
+predicate = PAYMENT
+completeness = FULL
+
+但原始实例和 provenance 仍然存在。
+
+这和 EDC 最接近：EDC 实际 canonicalize 的也是 schema/relation phrase，而不是把 Alan Shepard 的具体两次事件彼此变成同一个 instance。
+ACL Anthology
++1
+
+五、Layer 3：Factor / Pattern / Rule 必须再分开
+
+这一层至少要分三个对象。
+
+A. Empirical pattern
+
+例如：
+
+Plain text
+PAY_FULL(Buyer, Seller, Contract)
+AND
+POSSESSION_NOT_DELIVERED(Seller, Buyer, Contract)
+
+在历史案件中经常跟某 outcome/issue 一起出现。
+
+这是经验规律。
+
+B. Legal factor
+
+例如：
+
+Plain text
+substantial_performance_by_buyer
+
+可能由一个或多个低层事实触发。
+
+它可能来源于：
+
+法条/判例；
+专家定义；
+数据归纳。
+
+来源要明确标记。
+
+Gray 2024 和 AJF 2026 主要工作在这一层，而不是底层 proposition equivalence。Gray 甚至明确把 factor 描述成会支持法院某项结论的 generalized relevant pattern。
+arXiv
+
+C. Normative rule/test
+
+例如：
+
+Plain text
+Authority X
+jurisdiction = ...
+effective_period = ...
+issue = ...
+element E is satisfied if ...
+exceptions = ...
+
+历史 pattern 不能自动升级成 normative rule。
+
+这条界线非常重要：
+
+数据中 80% 的法院在 A+B 时判原告胜
+≠
+法律规定 A+B 足以使原告胜。
+
+六、因此严格事实簇 vs predicate+facet：我不建议二选一
+
+应该两者都保留：
+
+设计	优点	致命风险
+strict fact cluster	非常安全；不会轻易丢 instance identity	极度碎片化；无法直接跨案统计
+predicate + facets	跨案复用、检索和 pattern mining 都方便	downstream 很容易只拿 predicate boolean，把 facet、entity、contract 偷偷丢掉
+推荐 hybrid	proposition instance 严格保留；instance 指向共享 predicate type	实现稍复杂，但基本消除了这个根本矛盾
+
+因此我建议把 PDF 中的 “canonical fact” 在实现里拆成：
+
+Plain text
+CanonicalPredicateType
+GroundedPropositionInstance
+
+而不是只有一个 canonical_fact_id。
+
+七、什么叫“上下文相对等价”
+
+这里必须防止一个很危险的偷换：
+
+“对这个法律问题而言差不多”
+
+不等于
+
+“两个事实相同”。
+
+我建议至少定义两个关系。
+
+1. Proposition equivalence
+
+用于真正 merge：
+
+𝑎
+≡
+Γ
+𝑏
+a≡
+Γ
+	​
+
+b
+
+要求在给定解释上下文 
+Γ
+Γ 下：
+
+predicate sense 相同；
+arguments 一一对应并 corefer；
+contract/event/object binding 相同；
+polarity 相同——如果你们 cluster 的是 truth-valued assertions；
+时间范围相容；
+required facets 相同；
+modality/assertion status 不被偷偷消掉；
+两边语义应为双向蕴含，而非单向 generalization。
+
+如果只有：
+
+𝑎
+⇒
+𝑏
+a⇒b
+
+而：
+
+𝑏
+⇏
+𝑎
+b⇏a
+
+就应是：
+
+Plain text
+PARENT_CHILD
+
+而不是 EQUIVALENT。
+
+2. Task projection equivalence
+
+例如：
+
+Plain text
+paid $100,000 in full
+paid $98,000 plus agreed adjustment
+
+某个特定 factor 也许都映射为：
+
+Plain text
+substantial_payment
+
+那么只允许：
+
+Plain text
+π_factor(a) = π_factor(b)
+
+但绝不允许因此把原 proposition merge 掉。
+
+这正是防止“属性虽然保存在旁边，下游最后还是丢了”的关键。
+
+八、怎样从系统上防止下游偷偷丢 facet
+
+不要让 downstream API 返回这种东西：
+
+Python
+case["PAYMENT"] = True
+
+必须至少返回：
+
+Python
+FeatureMatch(
+    predicate="PAYMENT",
+    binding={
+        "payer": E17,
+        "payee": E21,
+        "contract": C1
+    },
+    facets={
+        "completeness": "FULL",
+        "time": ...
+    },
+    evidence=[A137, A142],
+    projection="payment_full_v3"
+)
+
+每个下游 abstraction 都必须声明：
+
+Plain text
+projection_spec
+required arguments
+required facets
+ignored facets
+legal/task scope
+
+也就是说：
+
+lossiness 必须显式声明，而不是隐式发生。
+
+九、polarity、assertion status、unknown、时间、角色、法律评价分别在哪里
+
+我建议：
+
+信息	存放层	是否参与 fact merge
+实体/contract/event ID	proposition	硬约束
+predicate	proposition/type	硬约束
+polarity	assertion / proposition interpretation	硬约束或分离 assertion
+allegation / denial / court-found	assertion	不应被 merge 掉
+unknown	derived epistemic state	绝不是 False
+时间	proposition facet/event	视 predicate 定义通常是硬约束
+amount / full vs partial	facet	required-facet 时是硬约束
+buyer/seller 等 role	scoped role edge	必须保留 entity ID
+legal conclusion/evaluation	factor/rule/legal-characterization	不要塞进 factual predicate
+
+特别是 role 应该是：
+
+Plain text
+role(E17, BUYER, scope=Contract_C1)
+
+而不是：
+
+Plain text
+E17 → BUYER
+
+因为同一个人在同案的不同交易甚至可以拥有不同角色。
+
+十、canonicalization 的最低可运行算法
+
+这部分不需要声称是新算法。
+
+Python
+Run
+def canonicalize_assertion(a, predicate_registry, context):
+    # 1. 不可修改的 provenance
+    span = a.source_span
+
+
+    # 2. 提取案件内 grounding
+    atom = extract_grounded_atom(
+        span,
+        preserve_entities=True,
+        preserve_events=True,
+        preserve_contracts=True,
+        preserve_time=True,
+        preserve_polarity=True,
+        preserve_assertion_status=True
+    )
+
+
+    # 3. 类似 EDC：embedding 只做候选召回
+    candidates = retrieve_predicate_types(
+        atom,
+        predicate_registry,
+        context
+    )
+
+
+    # 4. 对每个 candidate 做显式 argument/facet alignment
+    decisions = []
+    for p in candidates:
+        alignment = align_arguments_and_facets(atom, p)
+
+
+        if violates_hard_constraints(alignment):
+            continue
+
+
+        verdict = semantic_verifier(
+            source_span=span,
+            atom=atom,
+            predicate=p,
+            alignment=alignment,
+            labels=[
+必须拒绝 merge 的典型情况
+
+任何一个都足够：
+
+Plain text
+DIFFERENT_CONTRACT
+DIFFERENT_EVENT
+DIFFERENT_ENTITY_BINDING
+POLARITY_CONFLICT
+TEMPORAL_INCOMPATIBILITY
+FULL_VS_PARTIAL_PAYMENT
+ALLEGATION_VS_FINDING if assertions themselves are being merged
+FACTUAL_VS_LEGAL_CHARACTERIZATION
+MISSING_REQUIRED_FACET
+AMBIGUOUS_COREFERENCE
+UNSUPPORTED_ROLE_INFERENCE
+UNCERTAIN
+十一、两份合同的最小反例：为什么 binary fact matrix 会出错
+
+同一个案子：
+
+Contract C1：Plot A
+Plain text
+PAY_FULL(Buyer, Seller, C1)       = TRUE
+POSSESSION_DELIVERED(..., C1)     = FALSE/UNKNOWN
+Contract C2：Plot B
+Plain text
+PAY_FULL(Buyer, Seller, C2)       = FALSE/UNKNOWN
+POSSESSION_DELIVERED(..., C2)     = TRUE
+
+如果你们做 Gray 风格的 case-level binary vector：
+
+Case	FULL_PAYMENT	POSSESSION_DELIVERED
+Case X	1	1
+
+系统会错误认为：
+
+𝐹
+𝑈
+𝐿
+𝐿
+_
+𝑃
+𝐴
+𝑌
+𝑀
+𝐸
+𝑁
+𝑇
+∧
+𝑃
+𝑂
+𝑆
+𝑆
+𝐸
+𝑆
+𝑆
+𝐼
+𝑂
+𝑁
+_
+𝐷
+𝐸
+𝐿
+𝐼
+𝑉
+𝐸
+𝑅
+𝐸
+𝐷
+FULL_PAYMENT∧POSSESSION_DELIVERED
+
+在这个案件中成立。
+
+实际上真正需要判断的是：
+
+∃
+𝑐
+:
+𝐹
+𝑈
+𝐿
+𝐿
+_
+𝑃
+𝐴
+𝑌
+𝑀
+𝐸
+𝑁
+𝑇
+(
+𝑏
+𝑢
+𝑦
+𝑒
+𝑟
+,
+𝑠
+𝑒
+𝑙
+𝑙
+𝑒
+𝑟
+,
+𝑐
+)
+∧
+𝑃
+𝑂
+𝑆
+𝑆
+𝐸
+𝑆
+𝑆
+𝐼
+𝑂
+𝑁
+_
+𝐷
+𝐸
+𝐿
+𝐼
+𝑉
+𝐸
+𝑅
+𝐸
+𝐷
+(
+𝑠
+𝑒
+𝑙
+𝑙
+𝑒
+𝑟
+,
+𝑏
+𝑢
+𝑦
+𝑒
+𝑟
+,
+𝑐
+)
+∃c:FULL_PAYMENT(buyer,seller,c)∧POSSESSION_DELIVERED(seller,buyer,c)
+
+C1 不满足第二个。
+
+C2 不满足第一个。
+
+因此：
+
+∄
+𝑐
+∄c
+
+满足整个 pattern。
+
+这叫典型的 spurious join / cross-object conjunction。
+
+而且即便你保留：
+
+Plain text
+buyer
+seller
+
+仍然不够，因为两份合同可以是同一 buyer、同一 seller。
+
+所以至少必须有：
+
+Plain text
+contract_id / obligation_id / event_id
+十二、关系 pattern matching：真正需要 variable unification
+
+最小实现不需要先上复杂 ILP。
+
+Python
+Run
+def match_pattern(pattern, case_graph, policy):
+
+
+    partial_bindings = [ {} ]
+
+
+    # 优先匹配最稀有 predicate
+    for atom in query_plan(pattern):
+
+
+        next_bindings = []
+
+
+        for theta in partial_bindings:
+
+
+            for proposition in lookup(case_graph, atom.predicate):
+
+
+                theta2 = unify(
+                    pattern_args=atom.arguments,
+                    fact_args=proposition.arguments,
+                    existing_binding=theta
+                )
+
+
+                if theta2 is FAIL:
+                    continue
+
+
+                state = evidence_state(
+                    proposition,
+                    policy=policy,
+                    required_facets=atom.facets
+                )
+
+
+                if state == TRUE:
+                    next_bindings.append(theta2)
+
+
+                elif state == CONFLICT:
+                    record_conflicted_binding(theta2)
+
+
+                # FALSE 和 UNKNOWN 都不能被当 TRUE
+
+
+
+如果 pattern 是：
+
+Plain text
+PAY_FULL(B, S, C)
+AND
+POSSESSION_DELIVERED(S, B, C)
+
+同一个变量 C 会强制两个 atom 指向同一 contract ID。
+
+十三、开放世界下必须用 4-state，而不是 binary matrix
+
+对 grounded atom 
+𝑞
+q，先定义：
+
+Plain text
+S+(q) = admissible evidence explicitly supporting q
+S-(q) = admissible evidence explicitly supporting ¬q
+
+然后：
+
+状态	含义
+TRUE	S+ != ∅，S- = ∅
+FALSE	S+ = ∅，S- != ∅
+CONFLICT	两者均非空
+UNKNOWN	两者均为空
+
+注意：
+
+Plain text
+没有写付款
+
+是：
+
+Plain text
+UNKNOWN
+
+而不是：
+
+Plain text
+NOT_PAID
+
+同样：
+
+“Plaintiff failed to establish payment.”
+
+通常应编码：
+
+Plain text
+NOT_ESTABLISHED(PAYMENT)
+
+而不是直接：
+
+Plain text
+¬PAYMENT
+
+这是非常重要的法律语义区别。
+
+十四、pattern 本身在 OWA 下也不能粗暴二值化
+
+例如：
+
+𝑃
+=
+∃
+𝑐
+(
+𝐴
+(
+𝑐
+)
+∧
+𝐵
+(
+𝑐
+)
+)
+P=∃c(A(c)∧B(c))
+
+建议至少：
+
+SUPPORTED
+
+存在一个 binding：
+
+Plain text
+A(c) = TRUE
+B(c) = TRUE
+CONFLICT
+
+存在 candidate binding，其中至少一个 atom 为 conflict，但没有 clean supported binding。
+
+UNKNOWN
+
+找不到 supported binding，但由于信息不完整，也不能证明不存在。
+
+REFUTED
+
+只有当相关变量 domain 足够 closed，并且所有可能 binding 都有明确反证时才能说。
+
+真实法律判决里最后这种情况其实会少很多。
+
+所以不要做：
+
+Python
+feature = 0 if no_match else 1
+
+而做：
+
+Plain text
+SUPPORTED
+UNKNOWN
+CONFLICT
+EXPLICITLY_REFUTED
+十五、支持度到底按什么计数
+
+绝不能：
+
+Plain text
+Case A 内有 12 个匹配
+=> support = 12
+
+最低标准：
+
+𝑠
+𝑢
+𝑝
+𝑝
+𝑜
+𝑟
+𝑡
+(
+𝑃
+)
+=
+∑
+𝑢
+1
+[
+∃
+𝜃
+,
+ 
+𝑃
+(
+𝑢
+,
+𝜃
+)
+=
+𝑆
+𝑈
+𝑃
+𝑃
+𝑂
+𝑅
+𝑇
+𝐸
+𝐷
+]
+support(P)=
+u
+∑
+	​
+
+1[∃θ, P(u,θ)=SUPPORTED]
+
+其中 
+𝑢
+u 是分析单位。
+
+最理想不是整案，而是：
+
+Plain text
+issue_decision_unit
+
+例如：
+
+Plain text
+(case_id,
+ claim_id,
+ issue_id,
+ procedural_stage)
+
+因为同一 opinion 可能：
+
+claim A 赢；
+claim B 输；
+damages 部分支持；
+injunction 驳回；
+appeal 只处理一个 issue。
+
+如果目前做不到 issue segmentation，则 pilot 先按 case 算，但不要声称是在学习 element/claim-specific rules。
+
+此外，同一 litigation 的几个 appeal/opinion 即使作为多个 issue row 使用：
+
+统计置信区间、bootstrap、outer split 仍应在 litigation leakage-group 层处理。
+
+十六、“pattern 有额外预测价值”怎么证明
+
+不能这样证明：
+
+A+B 经常和胜诉一起出现，所以 A+B 是法律上的充分条件。
+
+正确实验是：
+
+Model 0：只有 atomic features
+𝑌
+∼
+𝐴
++
+𝐵
++
+𝐶
++
+…
+Y∼A+B+C+…
+Model 1：同样的 atomic features，再加 pattern
+𝑌
+∼
+𝐴
++
+𝐵
++
+𝐶
++
+…
++
+(
+𝐴
+∧
+𝐵
+)
+Y∼A+B+C+…+(A∧B)
+
+在 held-out future families 上比较：
+
+log loss；
+Brier score；
+MCC / Macro-F1；
+calibration；
+selective risk。
+
+如果 Model 1 稳定优于 Model 0，最多能说：
+
+这个 relational conjunction 带来了 incremental predictive information。
+
+不能说：
+
+A+B causes the outcome。
+
+也不能说：
+
+A+B legally sufficient。
+
+法律充分性只能来自：
+
+authority；
+明确的 legal rule annotation；
+或极其谨慎的人类法律解释。
+十七、无泄漏 evaluation：我建议用“grouped temporal outer split”
+
+由于 family 尚未正式定义，我甚至不建议把这个对象叫 family。
+
+先叫：
+
+Plain text
+leakage_group
+
+它只解决：
+
+哪些 documents 绝不能跨 train/test。
+
+可以由：
+
+case number/docket；
+parties；
+property/contract identifiers；
+appellate history；
+near-duplicate text；
+explicit lower-court references；
+
+高召回地构建。
+
+它不是 fact ontology，也不要求每个 fact 属于某个唯一 family。
+
+外层
+Plain text
+past leakage groups → TRAIN
+later leakage groups → TEST
+
+一整个 group 只能在一边。
+
+不能：
+
+Plain text
+trial judgment → train
+same dispute appeal → test
+内层
+
+TRAIN 再切：
+
+Plain text
+train-inner
+dev-inner
+
+同样按 leakage group，而且最好保持时间方向。
+
+十八、哪些东西到底在哪拟合
+组件	train	dev	test
+predicate vocabulary	构建	可评估 OOV / 调参	freeze
+canonical definitions	构建	可选择版本	freeze
+embedding candidate index	train schema	freeze/tune k	fixed
+merge/calibration threshold	—	拟合	fixed
+abstention threshold	—	拟合	fixed
+pattern candidates	挖掘	不新增	不新增
+pattern selection/pruning	train	选择	freeze
+downstream model	train	调参	final
+authority index	只能包含 target date 前有效法源	—	按 target date 截断
+test outcome	不看	不看	evaluation only
+
+最后如果采用标准 ML protocol，可以在 hyperparameter 完全锁定以后，用 train+dev 重训一次 final pipeline，然后只运行一次 test。
+
+十九、目标案的法院 reasoning / conclusion / citation 到底什么时候能用
+
+这是你们必须预先写进 protocol 的。
+
+Task	target court reasoning	target conclusion	target actual cited authorities
+整份判决 retrospective KG extraction	可	可	可
+canonicalization accuracy	取决于待 canonicalize 的 source	不需要	不需要
+prospective issue/outcome prediction	禁用	禁用	禁用
+applicable-authority retrieval	禁用	禁用	只能作 label
+retrospective reasoning reconstruction	可以	可作为 gold	可作为 gold
+从过去案件学习 factor	过去 train 案可用	过去 train 案可用	过去 train 案可用
+
+Gray 2024 本身就是从法院 analysis/conclusion 识别相关 factors，然后做 factor representation，所以它非常适合做 retrospective factor discovery 参照，但不是你们 prospective evaluation 的直接模板。
+arXiv
+
+二十、“只删 conclusion”远远不够
+
+因为整份 published opinion 中：
+
+哪些事实被写进去、写多详细、放在 facts 还是 reasoning、法院采用谁的版本，
+
+本身已经受最终争点和判决影响。
+
+所以你们现在的 facts 字段即使完全没写 winner，也仍可能有强 retrospective bias。
+
+我建议至少做四个 audit。
+
+Audit A — source-section audit
+
+人工抽样标：
+
+Plain text
+FACTUAL_BACKGROUND
+PARTY_ARGUMENT
+COURT_FINDING
+LEGAL_ANALYSIS
+DISPOSITION
+UNKNOWN
+
+检查自动 facts 中到底多少来自各部分。
+
+Audit B — paired extraction
+
+对同一案件分别运行：
+
+Plain text
+Version A: facts/background only
+Version B: facts + party arguments
+Version C: full judgment minus explicit conclusion
+Version D: full judgment
+
+比较：
+
+extracted facts；
+canonical facts；
+discovered patterns；
+outcome score。
+
+如果 C/D 明显暴涨：
+
+很可能是在利用 judicial hindsight。
+
+Audit C — pre-decision knowability annotation
+
+抽样问标注者：
+
+这个 proposition 是在法院裁判前可以存在/获知的事实，
+还是法院裁判过程创造出来的 finding/legal characterization？
+
+例如：
+
+Plain text
+“Buyer paid Rs. 10 lakh”
+
+和：
+
+Plain text
+“Buyer was ready and willing to perform”
+
+性质可能完全不同。
+
+Audit D — 真正 pre-decision corpus
+
+如果将来拿不到：
+
+complaint；
+answer；
+affidavit；
+contract；
+exhibits；
+briefs；
+
+那么不要把系统描述成真正的：
+
+pre-trial / prospective predictor
+
+最多说：
+
+judgment-text-based retrospective case modeling with leakage-controlled sections。
+
+这个边界不是算法能修掉的。
+
+二十一、三个可证伪假设与最小实验
+
+我建议三个实验分别对应：
+
+canonicalization；
+relational pattern；
+downstream/no-leak utility。
+H1：Grounded/facet-aware canonicalization 是否真的更安全
+假设
+
+在同一个 LLM backend 和相近 token/cost 下：
+
+带 entity/event/contract binding + polarity/status/time hard constraints 的 canonicalization，会比 predicate-only / raw-text / embedding clustering 更少错误合并 hard negatives，同时保持有意义的 equivalence recall。
+
+强基线
+
+至少：
+
+embedding + agglomerative complete-link；
+raw-text pairwise strong LLM；
+structured-context strong LLM；
+EDC-style definition → retrieval → LLM verify；
+可行的话，把 LLM-CER adapt 成多记录 clustering baseline；
+proposed grounded constrained canonicalizer。
+
+EDC 和 LLM-CER 是必须有价值的 baselines，而不是在 related work 里说一句就完。EDC 已经有 retrieve-then-LLM-canonicalize；LLM-CER 已经系统研究了 multi-record clustering、verification 和 merge。
+ACL Anthology
++1
+
+标注预算
+
+不要一次承诺几千。
+
+例如做三个可调整档：
+
+Plain text
+small:   ~100–150 pair decisions
+medium:  ~250–350
+large:   ~500–700
+
+不是 power guarantee。
+
+重点 stratify：
+
+真 paraphrase；
+same predicate / different contract；
+same predicate / different event；
+polarity；
+allegation vs finding；
+time；
+parent-child；
+sibling；
+contradiction。
+主要指标
+
+不是 overall accuracy。
+
+主要：
+
+Plain text
+EQUIVALENT precision
+false-merge rate on hard negatives
+equivalence recall
+B-cubed / pairwise cluster F1
+risk-coverage curve
+abstention coverage
+防作弊
+
+all singleton：
+
+precision 很高；
+recall / compression 接近 0。
+
+所以必须同时报告 recall。
+
+all UNCERTAIN：
+
+error 很低；
+coverage = 0。
+
+所以用 risk–coverage curve。
+
+Ablation
+Plain text
+- entity/contract/event IDs
+- polarity
+- assertion status
+- time
+- must-preserve facets
+- abstention
+失败条件
+
+如果所谓改进：
+
+只来自大量 abstention；
+在 matched coverage 下消失；
+在 hard-negative subset 上不优于 structured LLM；
+或 token/expert budget 大幅增加后才出现；
+
+则 H1 没有得到支持。
+
+二十二、H2：变量绑定的 relational pattern 是否真的比 binary matrix 有价值
+假设
+
+在包含多个合同/事件/对象的案件中：
+
+variable-bound relational representation 能显著减少 false conjunction，并且在 held-out issue units 上比 flat binary conjunction 提供额外预测信息。
+
+输入必须相同
+
+所有方法拿到同一批 canonical propositions。
+
+因此测试的是：
+
+relational representation
+
+不是：
+
+谁的 LLM extraction 更强。
+
+Baselines
+atomic case-level binary features；
+flat conjunction mining；
+relational conjunctive-query miner；
+typed MAXSYNTH/ILP baseline，使用同一 predicate inventory；
+optional raw-text strong LLM downstream baseline。
+
+第 4 个特别重要，因为 typed variables + ILP 已经存在，不能把：
+
+PAY(X,C) ∧ DELIVER(Y,C)
+
+本身当作你们的方法创新。LLM+ILP 工作已经明确让 LLM 产生 typed predicates，再由 solver 学 Horn rules。
+arXiv
+
+Pilot 标注
+
+可按：
+
+Plain text
+small:  ~50–75 issue units
+medium: ~120–180
+large:  ~250–350
+
+并故意提高：
+
+Plain text
+multi-contract
+multi-property
+multi-event
+same parties / different transaction
+
+的比例。
+
+主要指标
+
+先做一个不依赖 outcome 的结构测试：
+
+Plain text
+false pattern support rate
+
+也就是人工知道 A 和 B 来自不同 contract，却被 flat matrix 判断 conjunction 成立多少次。
+
+然后才是 downstream：
+
+Plain text
+Δ log loss over atomic model
+Δ Brier
+Macro-F1/MCC
+temporal stability
+pattern coverage
+Ablation
+Plain text
+remove contract/event IDs
+remove variable equality
+unknown -> false
+remove time facet
+remove assertion-status filtering
+失败条件
+
+若：
+
+relational binding 确实修复 spurious joins，
+但 downstream 没有任何稳定增量，
+
+那么结论应该是：
+
+relational representation improves semantic correctness but has not shown predictive utility.
+
+这仍然是一个有价值、诚实的结果。
+
+二十三、H3：所谓 canonical facts/pattern gain 能否在严格无泄漏条件下存活
+假设
+
+在 family/leakage-group + temporal outer holdout 中，并且 target：
+
+Plain text
+court reasoning
+conclusion
+actual citations
+post-hoc legal characterizations
+
+全部禁止进入输入时：
+
+canonical-fact/pattern representation 对 issue-level task 的增量仍然存在。
+
+强 baselines
+
+至少：
+
+same-input raw-text LLM；
+TF-IDF / sparse linear baseline；
+canonical atomic facts only；
+canonical facts + patterns；
+Gray/AJF-style flat factor representation；
+full-judgment contaminated diagnostic——只作为 leakage upper bound，不作为合法 competitor。
+公平预算
+
+我建议同时报告两条曲线：
+
+Iso-budget
+
+同一个 backend：
+
+Plain text
+same max input/output tokens per issue
+same API call budget
+Natural-cost Pareto
+
+允许方法跑完整 pipeline，但报告：
+
+Plain text
+tokens
+API calls
+embedding calls
+$
+latency
+expert minutes
+
+如果 proposed method 使用人工 predicate definitions：
+
+baseline 也应该得到同样定义，或者把额外专家时间算入成本。
+
+Ablation
+Plain text
+facts only
+facts + status
+facts + relational binding
+facts + patterns
+full judgment diagnostic
+主要指标
+
+如果 outcome 是可靠 binary issue label：
+
+Plain text
+log loss / Brier
+MCC
+Macro-F1
+calibration
+coverage
+
+如果 outcome 不是可靠 binary label，不要硬做。
+
+失败条件
+
+如果优势：
+
+只存在 full judgment；
+去掉 court reasoning 后消失；
+random split 有、temporal/group split 没有；
+只在选择出来的 easy cases 上存在；
+
+则 downstream claim 失败。
+
+二十四、怎么防止“只挑简单案件”
+
+所有方法必须在固定 evaluation population上报告：
+
+Plain text
+N total
+N processed
+N abstained
+N failed extraction
+N OOV
+N predicted
+coverage
+
+不能：
+
+“我们在能够 canonicalize 的 61% 案件上 F1 很高。”
+
+然后把剩下 39% 消失掉。
+
+建议 primary report 明确：
+
+risk
+(
+𝑐
+)
+risk(c)
+
+随 coverage 
+𝑐
+c 的曲线。
+
+同时单独报告：
+
+Plain text
+hard cases
+multi-object cases
+conflict cases
+missing-field cases
+二十五、当前 land 1.jsonl 最大的问题其实不是算法
+
+基于你给出的统计，现在有几个 blocker。
+
+1. facts == empty 不能解释成“没有事实”
+
+1530 个 facts 为空，可能是：
+
+extraction failure；
+source formatting；
+parser failure；
+document type；
+document 本身不是 merits judgment；
+真空值。
+
+不查清之前：
+
+Plain text
+absence of fact
+
+完全不能从：
+
+Plain text
+facts field empty
+
+推出。
+
+2. 案例 outcome 目前不是合法的单个 Y
+
+你已经指出：
+
+多个请求；
+partial win/loss；
+不同 stages；
+appeal；
+claim/defense/issue 不同。
+
+那么：
+
+Plain text
+case → WIN/LOSE
+
+很可能一开始就是错误 task definition。
+
+应尽量变成：
+
+Plain text
+IssueDecisionUnit:
+    case
+    procedural_stage
+    claim/defense
+    issue
+    requested_relief
+    issue_outcome
+3. land 不是 domain label
+
+不能因为文件名叫 land 就设：
+
+Plain text
+jurisdiction/domain = LAND_LAW
+
+必须实际验证 case type / issue distribution。
+
+4. 你们没有真正的 pre-trial evidence
+
+所以现阶段算法无法让 retrospective judgment 神奇变成 prospective evidence。
+
+5. materiality 本身需要定义
+
+例如：
+
+是否“付款日期差一天”影响 equivalence？
+
+这是task / legal ontology decision，不是让 LLM 自己学一个 universal threshold 可以解决的。
+
+需要 predicate-specific facet schema：
+
+Plain text
+PAYMENT:
+    payer          required
+    payee          required
+    obligation     required
+    completeness   required
+    exact_amount   optional/required-by-task
+    exact_day      maybe optional
+
+而这个 schema 的来源必须可审查。
+
+二十六、我认为目前最合理的“修正版总体设计”
+
+不是：
+
+Plain text
+raw facts
+→ cluster facts
+→ binary matrix
+→ mine frequent conjunctions
+→ call them legal rules
+
+而是：
+
+Plain text
+Original Evidence
+      ↓
+Assertion Mentions
+  source / speaker / polarity / status
+      ↓
+Grounded Proposition Instances
+  entity / contract / event / time IDs
+      │
+      ├──────────────→ conflict / provenance graph
+      │
+      ↓
+Canonical Predicate Types
+  definition / arg types / facet schema
+      ↓
+Task-specific explicit projections
+      ↓
+Variable-bound Empirical Patterns
+      ↓
+Predictive / retrieval evaluation
+
+独立另一支：
+
+Plain text
+Authorities
+   ↓
+Rules / Tests / Exceptions
+   ↓
+Elements / Factors
+
+最后才允许做：
+
+Plain text
+empirical proposition/pattern
+        +
+authority-backed rule
+        ↓
+inspectable applicability chain
+
+并始终知道：
+
+Plain text
+THIS CAME FROM CASE DATA
+
+还是：
+
+Plain text
+THIS CAME FROM AUTHORITY
+二十七、哪些部分是现有方法，哪些只是组合，哪些才是待验证研究假设
+
+这一点建议你们以后写 paper 时自己先划清。
+
+已经明显有现有工作
+open extraction → define → canonicalize；
+embedding candidate retrieval + LLM verification；
+LLM legal factor discovery；
+factor refinement；
+multi-record LLM clustering；
+typed relational predicates；
+variable binding；
+ILP/Horn rules；
+LLM + symbolic solver。
+
+这些分别在 EDC、Gray/AJF、LLM-CER、LLM+ILP 中都已经有很直接的先例。
+ACL Anthology
++3
+
+目前更像“合理的组合设计”
+legal provenance-preserving assertion layer；
+grounded proposition + reusable predicate type 双层表示；
+open-world conflict semantics；
+relational short-pattern mining；
+empirical patterns 与 authority rules 分离；
+family/time leakage-safe evaluation。
+
+这套组合我认为很合理，但“组合得合理”不自动等于算法创新。
+
+真正尚未验证的研究假设
+这些硬 binding/facet constraints 是否实际减少 dangerous false merges；
+relational patterns 是否比 atomic facts 有额外 downstream value；
+这些 gains 是否在严格 temporal/family no-leak evaluation 仍存在；
+自动 canonicalization 的错误是否会被 pattern mining 放大；
+provenance/conflict-aware representation 是否能改善最终 legal analysis，而不仅仅变得更复杂。
+
+这些才是实验应该攻击的对象。
+
+最终审查结论
+
+如果让我现在决定项目第一版怎么实现，我不会先设计一个新的 clustering algorithm。
+
+我会先实现一个相对“无聊”但语义正确的 baseline stack：
+
+Plain text
+immutable assertions
+→ scoped entity/event/contract linking
+→ predicate registry
+→ EDC-style retrieve + verify
+→ strict proposition dedup
+→ four-state evidence semantics
+→ variable-bound conjunctive queries
+→ issue-level grouped temporal evaluation
+
+然后把 EDC-style canonicalization、LLM-CER、flat factor vectors、typed ILP/MAXSYNTH、strong raw/structured LLM 都摆进 baseline。
+
+只有当 H1 或 H2 暴露出一个这些现有方法解决不了、而且可重复测量的 failure mode 时，再设计真正的新算法。
+
+你目前材料中，最可能形成真正研究贡献的不是“又一种 canonical fact clustering”本身，而是“安全 fact canonicalization 如何和 legal factor/pattern discovery 相连、同时不产生 instance conflation、spurious joins、open-world false negatives 和 retrospective leakage”。但这句话目前仍然是研究方向，不是已经成立的 novelty claim。
+
+You said:
+请做第2轮技术修正，直接给确定的算法接口与小反例，避免重写泛综述。你上轮的总体区分有用，但有三处需要更精确：
+1) 你H1的hard negatives把same predicate/different contract,event列在一起，但推荐的跨案canonicalization目标是predicate TYPE，合同ID不同本来不应该阻止类型共享；只有案件内proposition去重才要求同指。请将任务T1表达/谓词定义等价、T2案件内命题或事件消歧、T3向某factor投影完全分开，给每个I/O、gold关系、拒绝条件、评估。给出同一predicate+facet保留与严格断言等价两种实现的兼容接口。不要用T2的简单ID差异给T1制造虚假的改进。
+2) 在开放世界关系模式P=∃c(A(c)∧B(c))中，找不到clean witness绝不能推断不存在。你上轮反例在FALSE/UNKNOWN混写后用了不存在符号，需要修正。给域未知/已枚举域分别的SUPPORTED/REFUTED/UNKNOWN/CONFLICT定义；两份合同一真一未知的例子，与都有明确反证的例子区别。要求query matcher返回witnesses、status及source IDs，支持度必须按case/claim计数。如何计算含unknown的对比指标而不把它们当negative？只选一种可实施的首版策略，说明失去的保证。
+3) 符号规则匹配检查SAT(F∧guard)只证明条件相容，不证明成立。给正确的蕴含测试或显式四状态premise匹配；冲突事实不能用经典爆炸。实际法律举证/例外默认只能来自显式规则，不能自作主张unknown=false。设计最小单元案例和错误分层：抽取/规范化/匹配/法律规则解释/形式推导。
+补充最接近文献：LexGuard https://arxiv.org/html/2605.26530v1 已做重要变化敏感性/无关变化不变性；LRI https://arxiv.org/html/2505.14104v1 已做类案规则归纳；因此不要宣称这些原则新。无需再大规模检索，先用已核实文献，给约2000字以内的可执行修正版与3个必须通过的反例测试；不提供未跑实验的结果。
+…
+Show more
+Worked for 1m 22s
+ChatGPT said:
+
+第2轮修正后，我建议把系统固定成 T1 类型规范化、T2 实例消歧、T3 法律因素投影 三个完全独立接口。LexGuard 已明确做“material change 应改变、irrelevant change 应不变”及 solver-grounded checking；LRI 已把“从类案归纳共享前提—行为—后果的规则”正式化，因此这两点都不应作为 novelty。
+arXiv
++1
+
+1. T1 / T2 / T3：禁止混评
+Task	I/O	Gold	拒绝	主要评价
+T1 Predicate canonicalization	expression + local definition/context → predicate_type	EQUIV_TYPE / PARENT / SIBLING / DIFFERENT / UNCERTAIN	多义、definition不足、必要facet无法判断	EQUIV precision/recall + coverage
+T2 Instance resolution	case_id + grounded args + event/contract IDs + time → proposition/event ID	SAME_INSTANCE / DISTINCT / UNCERTAIN	coreference、合同/事件指代 unresolved	same-instance P/R；false-merge rate
+T3 Factor projection	grounded propositions + FactorSpec → factor state	SUPPORTED / REFUTED / UNKNOWN / CONFLICT	factor定义/适用范围不足	四状态 Macro-F1 + factor-support precision
+
+关键修正：Contract C1 != C9 对 T1 完全不是 hard negative。例如：
+
+Plain text
+Case A: buyer fully paid price under C1
+Case B: purchaser discharged entire consideration under C9
+
+T1 可以都是 PAYMENT{completeness=FULL}；T2 必然不是同一 instance；T3 若 factor=full_performance_of_payment_obligation，两者又都可能投影过去。
+
+统一兼容接口：
+
+Python
+Run
+CanonicalAssertion(
+  source_id,
+  case_id,
+  predicate_type,
+  facets,
+  bindings,          # entity/contract/event
+  polarity,
+  assertion_status,
+  time
+)
+
+
+equiv(a,b, mode):
+  if mode=="TYPE_FACET":
+      compare(predicate_type, required_facets)
+  if mode=="STRICT_ASSERTION":
+      additionally require same scoped bindings,
+      polarity/status/time compatibility
+
+所以可以同时实现“共享 predicate+保留 facets”和“严格 assertion dedup”，而不混成一个 clustering task。
+
+2. OWA pattern matcher：绝不把没找到 witness 当 false
+
+令
+
+𝑃
+=
+∃
+𝑐
+(
+𝐴
+(
+𝑐
+)
+∧
+𝐵
+(
+𝑐
+)
+)
+.
+P=∃c(A(c)∧B(c)).
+
+每个原子采用四值：
+
+Plain text
+TRUE=(support=1, refute=0)
+FALSE=(0,1)
+CONFLICT=(1,1)
+UNKNOWN=(0,0)
+
+matcher 必须返回：
+
+Python
+Run
+MatchResult(
+  status,
+  clean_witnesses,
+  conflicted_witnesses,
+  source_ids
+)
+域未知 domain_closed=False
+SUPPORTED：存在一个 clean witness，A、B 都 TRUE。
+CONFLICT：无 clean witness，但存在能正向满足 conjunction、同时至少一原子有反证的 witness。
+UNKNOWN：其余情况。
+REFUTED：禁止产生。
+
+因为即使已知所有 c 都失败，也可能存在未观测的 c。
+
+域已完整枚举
+
+domain_closed=True, D={c1...cn}：
+
+SUPPORTED：存在 clean witness。
+CONFLICT：无 clean witness，但存在 conflicted positive witness。
+REFUTED：每个 
+𝑐
+∈
+𝐷
+c∈D 的 conjunction 都有明确反证。
+UNKNOWN：否则。
+
+例1：
+
+Plain text
+C1: A=T, B=T
+C2: A=T, B=UNKNOWN
+
+→ SUPPORTED(C1)，C2 未知不影响已有 existential witness。
+
+例2：
+
+Plain text
+C1: A=T, B=F
+C2: A=F, B=T
+
+若域未知 → UNKNOWN；
+只有明确声明合同域恰为 {C1,C2} → REFUTED。
+
+v1 首版策略
+
+只运行开放域模式挖掘，不输出 existential REFUTED。
+
+支持度：
+
+𝑠
+𝑢
+𝑝
+𝑝
+𝑜
+𝑟
+𝑡
+(
+𝑃
+)
+=
+∑
+𝑢
+∈
+𝑐
+𝑎
+𝑠
+𝑒
+/
+𝑐
+𝑙
+𝑎
+𝑖
+𝑚
+1
+[
+status
+𝑢
+=
+𝑆
+𝑈
+𝑃
+𝑃
+𝑂
+𝑅
+𝑇
+𝐸
+𝐷
+]
+support(P)=
+u∈case/claim
+∑
+	​
+
+1[status
+u
+	​
+
+=SUPPORTED]
+
+一个 claim 内 20 个 witnesses 仍只算 1 个样本。
+
+含 unknown 的评价采用固定三分类：
+
+Plain text
+SUPPORTED / CONFLICT / UNKNOWN
+
+Macro-F1；UNKNOWN 是独立 gold class，不作为 negative。
+
+代价很明确：v1 只能证明“发现支持模式”而不能证明模式不存在；因此不能做完整 association-rule confidence 的 closed-world 解释。
+
+3. 规则执行：SAT 不是证明
+
+这一点必须在接口层阻止：
+
+𝑆
+𝐴
+𝑇
+(
+𝐹
+∧
+𝑔
+𝑢
+𝑎
+𝑟
+𝑑
+)
+SAT(F∧guard)
+
+仅表示“存在一种模型让二者同时成立”。
+
+例如：
+
+Plain text
+F = {}
+guard = Paid(C1)
+
+F ∧ Paid(C1) 可满足，但显然不能推出已经付款。
+
+经典一致逻辑中要证明：
+
+𝐹
+⊨
+𝑔
+𝑢
+𝑎
+𝑟
+𝑑
+F⊨guard
+
+应检查：
+
+𝑈
+𝑁
+𝑆
+𝐴
+𝑇
+(
+𝐹
+∧
+¬
+𝑔
+𝑢
+𝑎
+𝑟
+𝑑
+)
+.
+UNSAT(F∧¬guard).
+
+但法律事实允许 conflict，所以不能直接把矛盾的 F 塞进 classical solver，否则会有 explosion。
+
+v1 选择更简单的显式四状态 premise matcher：
+
+Python
+Run
+eval_rule(rule, facts):
+    states = [eval_atom(p, facts) for p in rule.premises]
+
+
+    if all(s == TRUE for s in states):
+        return SUPPORTED
+    if any(s == CONFLICT for s in states):
+        return CONFLICT
+    if any(s == FALSE for s in states):
+        return REFUTED_PREMISE
+    return UNKNOWN
+
+因此：
+
+Plain text
+A = CONFLICT
+Rule: A -> Liability
+
+不得推出 Liability。
+
+exception / burden / presumption 也不能写：
+
+Plain text
+if Exception != TRUE:
+    apply_rule()
+
+只能由明确 RuleSpec 表达，例如：
+
+Plain text
+premises=[A,B]
+exception=E
+exception_policy=REQUIRES_EXPLICIT_ABSENCE
+
+v1 暂不实现法律上的非单调 burden/default；因此会多给 UNKNOWN，但不会擅自把 UNKNOWN 当 false。
+
+4. 错误必须分五层
+Plain text
+E1 Extraction：原文 → assertion 错
+E2 Normalization：assertion → predicate/facet 错
+E3 Matching：变量 binding / witness 错
+E4 Legal interpretation：authority → RuleSpec 错
+E5 Formal derivation：规则正确但执行器推出错误结论
+
+否则最终错判时无法知道该改 LLM、ontology、matcher 还是 rule formalization。
+
+三个必须通过的反例单元测试
+
+Test 1 — T1/T2 separation
+
+同案 C1、C2 都是 FULL_PAYMENT：
+
+Plain text
+T1: SAME_TYPE
+T2: DISTINCT_INSTANCE
+
+跨案 C9 仍可 SAME_TYPE。若 T1 因 contract ID 不同判不同，测试失败。
+
+Test 2 — Open-world existential
+
+C1=A=T,B=F，C2=A=F,B=T：
+
+Plain text
+domain_closed=False → UNKNOWN
+domain_closed=True,{C1,C2} → REFUTED
+
+任何默认输出 FALSE/REFUTED 都失败。
+
+Test 3 — SAT + explosion
+
+Plain text
+F={}
+guard=A
+
+SAT(F∧A) 不得判 A 成立；再给
+
+Plain text
+A=CONFLICT
+rule A→B
+
+不得推出 B=SUPPORTED。
+
+这三项通过以后，再谈 clustering、pattern mining 或 solver 优化才有意义。LexGuard 已经证明 relevance-sensitive evaluation 与 formalized legal constraints 是重要方向；LRI 已经覆盖类案规则归纳的任务定义，所以你们真正需要验证的是：这套 T1/T2/T3 分层和开放世界、provenance-preserving 执行是否减少具体 legal fact/pattern pipeline 的错误传播。 
+arXiv
++1
+
+You said:
+第3轮：从可靠基线推进到真正可比较的算法候选。请保留前两轮T1/T2/T3区分、开放世界、固定train/dev/test和成本公平原则。现在请审查并发展3个候选，不要只说都已有研究而放弃，但核心高度重合必须明确。最多约3000中文字，不再写完整综述。
+候选A：类别定义由训练中的困难反例驱动修订。每个predicate定义保留positive/boundary/negative，选择嵌入相似而语义决定冲突的对，专家确认最小区别，再修订required facets/定义，重检受影响映射。比较随机/最低置信抽检和给同样定义的EDC。新近近邻ClassMATe TACL2025 https://aclanthology.org/2025.tacl-1.55/ 已经做基于logprob困难样本、专家标注、迭代修改class definition。你必须检查其算法3.4后才能判断差异；不能把换法律领域当新颖性。
+候选B：将规范化/实体绑定歧义传到关系模式。每条记录可有几个映射假设；共享entity/schema决定必须全局一致。模式输出在可接受解释集下的certain/possible support下上界，优先保留下界有价值的模式。复核预算优先减少会改变模式选择的歧义。注意上界仅针对固定抽取材料及有限候选解释，不代表所有现实未知事实；必须区分有限解释不确定性与开放世界缺失。经典 Mining Uncertain Data with Probabilistic Guarantees https://cs.hku.hk/~ckcheng/papers/kdd10-mining.pdf 已有possible-world频繁模式与高效支持分布，不可宣称传播不确定性新；我们的候选不假设LLM分数是校准概率，且有共享决策依赖。要发展还是其复杂度不值得？
+候选C：根据法律适用链中的关键未定前提分配验证预算，优先复核会改变结论且缺证的条件；不同于简单self-reflection。原始法律材料不可凭LLM补齐；缺失保留未知。LegalReasoner ACL2025已做逐步验证修正 https://aclanthology.org/2025.acl-long.361/，证明义务/主动信息获取亦有经典工作。请判断这个方向应暂缓还是能有明确目标函数。
+每个候选给：最小可执行算法、清楚的optimization objective（若只是启发式就明说）、I/O、关键伪代码或公式、主要计算瓶颈、3个强基线/消融、一个会推翻它的实验。随后选1个最适合目前无代码且有6954判决文本的项目的主研究方向，并给baseline→候选→扩展的步骤。不编性能或费用，不用“保证法律正确”。
+…
+Show more
+Worked for 2m 20s
+ChatGPT said:
+
+第3轮我会把三个候选当成可被实验淘汰的算法，而不是“研究主题”。结论先给：A 可做但与 ClassMATe 核心高度重合，适合作为 T1 辅助模块；B 最值得作为当前主算法方向；C 有明确目标函数，但你们目前缺 RuleSpec/权威法源标注，应作为第二阶段扩展。
+
+ClassMATe §3.4 确实已经完成“LLM logprob 选高不确定样本→专家标注→LLM根据困难样本重写 class description→迭代”的核心循环，而且其 Algorithm 1 甚至以平均 uncertainty 是否下降决定是否接受更新。
+ACL Anthology
++2
+ 因此 A 的 novelty 不能是“hard examples refine definitions”。KDD 2010 已正式采用 possible-world semantics，将 pattern support 当随机变量并处理指数级 possible worlds，所以 B 也不能声称“首次传播 pattern uncertainty”。
+i.cs.hku.hk
++1
+ LegalReasoner 则已有逐步 process verification、错误归因以及 fact tracking / authority retrieval 等 correction。
+ACL Anthology
++1
+ LRI 更已经把从 analogous precedents 归纳共享 applicability conditions / behavior / consequences 明确定义成任务。
+arXiv
+
+A. Counterexample-Guided Predicate Definition Refinement
+I/O
+Plain text
+Input:
+  train assertions
+  current PredicateSpec Dp
+  T1 mapping candidates
+  expert budget B
+
+PredicateSpec:
+  definition
+  argument_types
+  required_facets
+  positive_examples
+  boundary_examples
+  negative_examples
+
+Output:
+  revised Dp'
+  affected T1 mappings
+  edit provenance
+
+这里只改 T1 predicate type；contract/event identity 仍属于 T2。
+
+最小算法
+
+先找“词面/embedding 很近但当前 T1 判决冲突”的 contrastive pair：
+
+𝑠
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑖
+,
+𝑗
+)
+=
+𝑠
+𝑖
+𝑚
+(
+𝑖
+,
+𝑗
+)
+⋅
+𝑑
+𝑖
+𝑠
+𝑎
+𝑔
+𝑟
+𝑒
+𝑒
+𝑚
+𝑒
+𝑛
+𝑡
+(
+𝑖
+,
+𝑗
+)
+score(i,j)=sim(i,j)⋅disagreement(i,j)
+
+专家不直接“重写 definition”，而回答结构化问题：
+
+Plain text
+same type?
+若否：最小区别是什么？
+  polarity?
+  degree/full-vs-partial?
+  object type?
+  temporal scope?
+  legal/factual sense?
+  other?
+
+再让模型生成最小 PredicateSpec edit，并只重检依赖该 predicate 的 mappings。
+
+Python
+Run
+for round:
+    pairs = retrieve_near_semantic_conflicts(train)
+    q = select_boundary_pairs(pairs, B_round)
+    labels, minimal_facets = expert(q)
+
+
+    edits = propose_minimal_spec_edits(labels, minimal_facets)
+
+
+    choose edit minimizing:
+        boundary_error(edit)
+        + λ * definition_complexity(edit)
+
+
+    revalidate(only_affected_mappings)
+
+这里定义更新搜索仍是 heuristic；真正明确的 optimization 是“在专家确认的 boundary set 上最小化错误+定义复杂度”，而不是宣称找到全局最优 ontology。
+
+与 ClassMATe 真正不同在哪里
+
+ClassMATe 的 hard sample 来自模型 token logprob，并让专家给真实 label，再由 LLM 从样本改 description。A 若值得做，差异必须落在：
+
+pairwise semantic boundary → 专家确认 minimal distinguishing facet → structured schema edit → dependency-scoped remapping，
+
+而不能只是换成法律数据。
+ACL Anthology
+
+瓶颈： pair 数 
+𝑂
+(
+𝑛
+2
+)
+O(n
+2
+)，需 ANN/blocking；definition edit 可能影响大量历史映射。
+
+三基线/消融：
+
+static EDC-style definition，完全不修订；
+ClassMATe-style lowest-logprob sampling，同专家预算；
+random contrast pairs，同专家预算。
+
+推翻实验： 在固定 train/dev/test、相同专家量下，若 boundary-driven refinement 对 T1 hard-boundary precision/recall 和 downstream mapping error 不优于 ClassMATe-style sampling，或者收益主要来自多写了 examples 而非 facet revision，则 A 不值得作为新算法贡献。
+
+B. Globally Consistent Interpretation Bounds for Pattern Mining
+
+这是三个里我最看好的。
+
+核心不是“uncertainty propagation”，而是：
+
+不使用伪概率；把 T1/T2 的多个有限解释表示成共享离散决策，在全局一致解释集合上计算 pattern support 的上下界。
+
+同时严格区分：
+
+Plain text
+Interpretation uncertainty:
+  “这句话映射 PAYMENT 还是 TENDER？”
+  “X 与 Y 是否同一 contract？”
+
+Open-world missingness:
+  “文本根本没告诉我们是否付款。”
+
+第二种永远不能靠 possible interpretations 填出来。
+
+I/O
+Plain text
+Input:
+  extracted assertions
+  candidate T1 mappings
+  candidate T2 bindings
+  consistency constraints
+  short relational patterns P
+  case/claim units U
+
+Output for every P:
+  lower_support
+  upper_support
+  certain/possible pattern status
+  ambiguity decisions responsible for interval
+
+令 
+𝑍
+Z 为所有满足共享 entity/schema constraints 的有限可接受解释。
+
+对 claim 
+𝑢
+u、pattern 
+𝑃
+P、解释 
+𝑧
+z：
+
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+=
+1
+y
+uP
+	​
+
+(z)=1
+
+仅当上一轮的四状态 matcher 找到一个 clean SUPPORTED witness；UNKNOWN 永远不算 0/negative evidence，只是不贡献 support。
+
+由于 schema/entity decision 可以跨多个 assertion 共享，不能逐记录独立求界：
+
+𝐿
+(
+𝑃
+)
+=
+min
+⁡
+𝑧
+∈
+𝑍
+∑
+𝑢
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+L(P)=
+z∈Z
+min
+	​
+
+u
+∑
+	​
+
+y
+uP
+	​
+
+(z)
+𝑈
+(
+𝑃
+)
+=
+max
+⁡
+𝑧
+∈
+𝑍
+∑
+𝑢
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+U(P)=
+z∈Z
+max
+	​
+
+u
+∑
+	​
+
+y
+uP
+	​
+
+(z)
+
+于是：
+
+Plain text
+L(P) ≥ minsup
+    → CERTAIN_SUPPORT
+
+L(P) < minsup ≤ U(P)
+    → POSSIBLE_SUPPORT
+
+U(P) < minsup
+    → NOT_SUPPORTED_ENOUGH
+      （只相对于当前抽取材料+候选解释，
+       绝不是现实世界中“不存在”）
+
+这与 KDD probabilistic possible worlds 的关键区别是：这里不给 world 概率，也不假定 LLM score 已校准；而且多个记录由共享 decision variables 产生依赖。
+i.cs.hku.hk
+
+复核预算也可以有明确目标函数
+
+定义当前“会改变 pattern selection 的不确定模式数”：
+
+𝑅
+(
+𝑍
+)
+=
+∣
+{
+𝑃
+:
+𝐿
+(
+𝑃
+)
+<
+𝜏
+≤
+𝑈
+(
+𝑃
+)
+}
+∣
+.
+R(Z)=∣{P:L(P)<τ≤U(P)}∣.
+
+对待复核决策 
+𝑑
+d，其专家可能返回若干合法值 
+𝑣
+v，选择：
+
+𝑑
+∗
+=
+arg
+⁡
+min
+⁡
+𝑑
+max
+⁡
+𝑣
+∈
+𝑉
+𝑑
+𝑅
+(
+𝑍
+∣
+𝑑
+=
+𝑣
+)
+.
+d
+∗
+=arg
+d
+min
+	​
+
+v∈V
+d
+	​
+
+max
+	​
+
+R(Z∣d=v).
+
+这是一个无概率 minimax objective：
+
+问哪一个 ambiguity，才能在最坏情况下最大程度减少“这个 pattern 到底过不过线”的不确定性？
+
+最小版：
+
+Python
+for P:
+    L[P] = MILP_min_support(P, constraints)
+    U[P] = MILP_max_support(P, constraints)
+
+while review_budget:
+    candidates = decisions_affecting_borderline_patterns()
+    d = argmin_d worst_case_remaining_borderline(candidates)
+    expert_resolve(d)
+    add_constraint(d)
+    recompute_affected_bounds()
+主要瓶颈
+
+这是 B 最大风险：每个 pattern 两个 CSP/MILP，再加 active query 的 counterfactual solves。
+
+所以 v1 必须限制：
+
+conjunction 长度 ≤2/3；
+pattern candidate set 先固定；
+只在 training mining；
+incremental solver + affected-pattern cache。
+
+不要一开始枚举所有 possible worlds。
+
+三基线/消融：
+
+deterministic top-1 T1/T2 mapping；
+local interval：每个 assertion 独立取上下界，去掉 shared consistency；
+random ambiguity review，同专家预算。
+
+推翻实验： 如果大多数 pattern 的 [L,U] 极窄、最终选择与 top-1 几乎相同，或者 minimax review 在相同预算下不能比 random 更快减少“跨阈值 patterns”，那么全局 solver 的复杂度没有得到回报，B 应被放弃。
+
+C. Conclusion-Sensitive Verification Budgeting
+
+C 不是“让 LLM 多反思几遍”。
+
+输入必须已经有：
+
+Plain text
+Authority-backed RuleSpec
+four-state premises
+evidence/source IDs
+target issue
+
+验证 action 只能：
+
+回查已有原始材料 / 权威来源 / 人工确认 extraction，
+
+不能让 LLM“推测缺失事实”。
+
+最小目标
+
+设当前规则系统允许的目标结论状态集合为：
+
+𝐶
+(
+𝐸
+)
+.
+C(E).
+
+一个 UNKNOWN premise 
+𝑞
+q 经复核后可能变成：
+
+Plain text
+TRUE / FALSE / CONFLICT / still UNKNOWN
+
+定义 conclusion ambiguity：
+
+𝐴
+(
+𝐸
+)
+=
+∣
+𝐶
+(
+𝐸
+)
+∣
+A(E)=∣C(E)∣
+
+或更实际地计数尚未定状态的 target elements。
+
+选择：
+
+𝑞
+∗
+=
+arg
+⁡
+min
+⁡
+𝑞
+max
+⁡
+𝑠
+∈
+𝑂
+𝑢
+𝑡
+𝑐
+𝑜
+𝑚
+𝑒
+𝑠
+(
+𝑞
+)
+𝐴
+(
+𝐸
+∪
+{
+𝑞
+=
+𝑠
+}
+)
+.
+q
+∗
+=arg
+q
+min
+	​
+
+s∈Outcomes(q)
+max
+	​
+
+A(E∪{q=s}).
+
+即优先检查“结果可能因此发生变化”的 unknown premise，而不是检查模型最没信心的句子。
+
+可以先做 dependency pruning：
+
+Python
+Run
+unknowns = unresolved_premises(on_paths_to_target)
+
+
+for q in unknowns:
+    if changing q can never change target status:
+        discard q
+
+
+choose q minimizing worst_case_target_ambiguity()
+
+这与 LegalReasoner 的主要区别应当是 budgeted conclusion sensitivity over explicit rule graph；LegalReasoner 已经在逐步 reasoning 上做 correctness/progressiveness/potential verification 和错误 correction，所以“step verification”本身不是贡献。
+ACL Anthology
+
+瓶颈： 每个候选 premise 都需要 counterfactual rule execution；更关键的是你们目前还没有可靠 RuleSpec。
+
+三基线/消融：
+
+random unknown premise；
+LLM uncertainty / self-reflection priority；
+graph heuristic：最短 applicability chain / highest-degree premise。
+
+推翻实验： 在 authority-grounded gold chains 上，相同 review budget 下，如果 conclusion-sensitive policy 不能比这些简单策略解决更多 target states，或者误差主要来自 RuleSpec 本身而不是 premise verification，则 C 的 active algorithm 没价值。
+
+主方向选择：B
+
+A 最容易开始，但 ClassMATe 已经非常接近其核心学习循环；除非 structured boundary edit 带来很清楚的新现象，否则很容易变成“ClassMATe for legal predicates”。C 的问题不是 idea 不清楚，而是你们现在没有可靠 rules、elements、exceptions 和 prospective evidence，现在做会建立在多层未经验证的自动产物上。
+
+B 正好处在你们现有项目的核心接口：
+
+𝑇
+1
+/
+𝑇
+2
+ 
+𝑢
+𝑛
+𝑐
+𝑒
+𝑟
+𝑡
+𝑎
+𝑖
+𝑛
+𝑡
+𝑦
+→
+𝑟
+𝑒
+𝑙
+𝑎
+𝑡
+𝑖
+𝑜
+𝑛
+𝑎
+𝑙
+ 
+𝑝
+𝑎
+𝑡
+𝑡
+𝑒
+𝑟
+𝑛
+𝑠
+T1/T2 uncertainty→relational patterns
+
+而且它能回答一个非常具体、可证伪的问题：
+
+在 canonicalization 和 entity/event binding 并不唯一时，单一早期决定是否会制造/删除下游法律事实模式？全局一致的 set-valued inference 是否值得成本？
+
+我建议实际顺序固定为：
+
+Baseline 0：确定性管线
+top-1 T1 → top-1 T2 → four-state matcher → length-2 patterns，先证明数据结构和无泄漏 split 能跑。
+
+Baseline 1：局部 uncertainty
+每条 assertion 保留 2–3 个 admissible alternatives，但忽略共享决策，得到 naive support intervals。
+
+Candidate B：global constrained bounds
+加入 entity/schema equality、cannot-link、同一决策复用，MILP/CSP 求真正的 
+𝐿
+/
+𝑈
+L/U。
+
+Extension B+：budgeted ambiguity resolution
+加入上面的 minimax review objective。
+
+最后再接 A/C： A 用来改善产生这些 alternatives 的 T1 definition；C 则等 authority→RuleSpec 层可靠以后，把同一“决策影响下游结果”的思想延伸到法律适用链。
+
+这样研究故事不是“我们又设计一个 legal clustering system”，而是一个更窄也更硬的算法问题：上游规范化的离散歧义如何在共享约束下传播到关系模式，以及有限人工预算应解决哪些歧义。 这个方向既保留你们前两轮的开放世界和 T1/T2/T3 边界，也不会把 classic uncertain-data mining 已经做过的 possible-world 思想重新包装成新贡献。
+
+You said:
+请最后做一次短审计（约1000字），修正B/C目标函数中的两个实质漏洞，不再扩展文献：
+1. 你的C把still UNKNOWN列为合法复核结果，因此minimax最坏分支始终可能不改善，所有query打平；B中专家也可能回答仍无法确定或候选都错，不能假设复核必定解决。请给v1真实可运行的选择策略：可以是“条件于有效回答的影响/成本”启发式或由小pilot估计可回答率，但必须标明无最坏情况收益保证，保留无法确定/OUT_OF_SET分支，空解释集不能当所有模式均certain。修改伪代码。
+2. 区分全局min_z Σ_u y与Σ_u min_z y；同一个共享决定z导致两个claim一个支持P另一个不支持，z翻转二者交换，前者L=U=1，后者local interval=[0,2]。请核对此反例，说明依赖约束的收益和代价；如果独立cases的候选mapping本来不共享global变量就可分解，不要人为制造跨案依赖。global schema变量只有语义确实共享才共享，专家单一instance标注不能自动resolve所有instances。
+3. 选择目标“减少跨阈值模式数量”可能只证明模式不满足最小支持，并不增加有价值发现。如何联合报告confirmed-supported、ruled-out、remaining、correctness、coverage/cost，且避免把输出更少当成功？把最终B主算法及active扩展的评估写清，不要求都作为一篇paper贡献。
+给精炼修正版，不再宣称现有新颖性已成立。
+ChatGPT said:
+
+这次只修 B/C 的目标函数与评估，不再扩展方法边界。
+
+1. 复核不一定能解决：v1 改为 answerability-aware heuristic
+
+前一版 minimax 确实有漏洞：如果合法结果包括 UNKNOWN，最坏分支永远可以“不改善”，于是所有 query 可能打平。
+
+因此 v1 不用 minimax guarantee，改成开发集小 pilot 估计的“可回答率 × 条件影响 / 成本”：
+
+𝑆
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑞
+)
+=
+𝑝
+^
+answer
+(
+𝑞
+)
+⋅
+𝐼
+𝑚
+𝑝
+𝑎
+𝑐
+𝑡
+(
+𝑞
+∣
+有效回答
+)
+𝐶
+𝑜
+𝑠
+𝑡
+(
+𝑞
+)
+Score(q)=
+Cost(q)
+p
+^
+	​
+
+answer
+	​
+
+(q)⋅Impact(q∣有效回答)
+	​
+
+
+其中有效回答包括当前候选中的明确选择；必须保留：
+
+Plain text
+UNRESOLVED
+OUT_OF_SET
+
+二者都不能强迫成已有候选。
+
+B 中：
+
+Python
+Run
+for d in ambiguities:
+    p = answerability_rate(type(d))   # dev pilot估计
+    impact = mean_reduction_if_resolved(d)
+    score[d] = p * impact / cost(d)
+
+
+d = argmax(score)
+
+
+ans = expert_review(d)
+
+
+if ans == UNRESOLVED:
+    mark_unresolved(d)
+elif ans == OUT_OF_SET:
+    invalidate_current_candidate_set(d)
+    trigger_candidate_expansion_or_reextraction(d)
+else:
+    add_constraint(d, ans)
+
+
+recompute_only_affected_bounds()
+
+C 同理：
+
+𝑆
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑞
+)
+=
+𝑝
+^
+answer
+(
+𝑞
+)
+⋅
+Δ
+𝐴
+(
+𝑞
+∣
+𝑟
+𝑒
+𝑠
+𝑜
+𝑙
+𝑣
+𝑒
+𝑑
+)
+𝐶
+𝑜
+𝑠
+𝑡
+(
+𝑞
+)
+Score(q)=
+Cost(q)
+p
+^
+	​
+
+answer
+	​
+
+(q)⋅ΔA(q∣resolved)
+	​
+
+
+其中 
+𝐴
+A 是目标结论状态的不确定度。没有最坏情况收益保证；只是一个可运行、可比较的 budget heuristic。
+
+另一个硬规则：
+
+𝑍
+=
+∅
+Z=∅
+
+不能解释成“所有模式都 certain”。它表示：
+
+Plain text
+INCONSISTENT_INTERPRETATION_SET
+
+必须回溯候选生成/约束冲突。
+
+2. Global bound 与 local interval 不是一回事
+
+正确的全局下界是：
+
+𝐿
+(
+𝑃
+)
+=
+min
+⁡
+𝑧
+∈
+𝑍
+∑
+𝑢
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+L(P)=
+z∈Z
+min
+	​
+
+u
+∑
+	​
+
+y
+uP
+	​
+
+(z)
+
+而不是：
+
+∑
+𝑢
+min
+⁡
+𝑧
+𝑦
+𝑢
+𝑃
+(
+𝑧
+)
+.
+u
+∑
+	​
+
+z
+min
+	​
+
+y
+uP
+	​
+
+(z).
+
+你的反例正确。
+
+设一个真正共享决定 
+𝑧
+∈
+{
+0
+,
+1
+}
+z∈{0,1}：
+
+𝑦
+1
+(
+𝑧
+)
+=
+𝑧
+,
+𝑦
+2
+(
+𝑧
+)
+=
+1
+−
+𝑧
+.
+y
+1
+	​
+
+(z)=z,y
+2
+	​
+
+(z)=1−z.
+
+那么任意合法全局解释中总支持数都是 1：
+
+𝐿
+=
+𝑈
+=
+1.
+L=U=1.
+
+但若错误地让两个 claim 各自独立挑解释：
+
+𝐿
+local
+=
+0
++
+0
+=
+0
+,
+𝑈
+local
+=
+1
++
+1
+=
+2.
+L
+local
+	​
+
+=0+0=0,U
+local
+	​
+
+=1+1=2.
+
+所以共享约束的收益是减少不可能同时发生的组合；代价是求解耦合、缓存和增量更新复杂。
+
+但绝不能人为制造共享变量：
+
+不同案件中的 entity binding 默认独立；
+不同 instance 的 T1 mapping 默认独立；
+只有确实共享的 schema decision、同一实体/事件 identity decision，才使用同一个变量。
+
+例如专家确认：
+
+Plain text
+instance #37 → PAYMENT
+
+只能解决 #37，不能自动把全部相似实例都改成 PAYMENT。
+
+只有专家修改了真正共享的 PredicateSpec，才可能触发一批 instance 的重新验证。
+
+3. B 不能以“输出更少”作为成功
+
+Active review 若只优化：
+
+减少跨阈值 pattern 数量
+
+很可能只是不断把 candidate 判死。
+
+因此 B 的最终报告必须把四件事拆开：
+
+Plain text
+CONFIRMED_SUPPORTED
+RULED_OUT
+REMAINING_AMBIGUOUS
+INVALID / OUT_OF_SET
+B 主算法
+
+在一小块完全人工 adjudicated 的 evaluation set 上，首先检验 bounds 本身：
+
+bound soundness：真实 support 是否落在 [L,U]；
+interval width；
+CONFIRMED_SUPPORTED precision；
+CONFIRMED_SUPPORTED recall；
+RULED_OUT precision；
+unresolved coverage。
+
+如果只得到很少的 confirmed patterns，即使 precision 高，也不能称成功。
+
+B-active 扩展
+
+固定相同 review budget，与 random / uncertainty-only 比较，同时报告：
+
+confirmed-supported recall
+confirmed-supported recall
+confirmed-supported precision
+confirmed-supported precision
+ruled-out precision
+ruled-out precision
+remaining ambiguity rate
+remaining ambiguity rate
+
+以及：
+
+Plain text
+expert decisions
+expert time
+solver calls
+wall-clock / compute cost
+OUT_OF_SET rate
+
+可以额外报告：
+
+#
+new correctly confirmed-supported patterns
+review cost
+review cost
+#new correctly confirmed-supported patterns
+	​
+
+
+这样 active strategy 必须既能消除错误候选，也要实际找回有价值的真模式，而不能靠“把什么都排除”取胜。
+
+因此最终 B 应拆成两个可独立验证的问题：
+
+B-core：共享离散歧义下，global consistency 是否产生更紧且正确的 support bounds？
+
+B-active：在固定人工预算下，answerability-aware review 是否比简单策略更有效地增加正确 confirmed patterns，同时减少剩余歧义？
+
+两者都尚只是候选假设，不应提前宣称构成新颖贡献。
+
+You said:
+Pro第二轮高层裁决已完成：保留B，但主假设从普通bounds/下游复核进一步明确为“联合歧义下互补模式集合选择与预算复核”。新近邻Query-Guided Resolution in Uncertain Databases (2023) https://u.cs.biu.ac.il/~amstery/files/drien2023query.pdf 已考虑未知/相关概率；Query-Guided Analysis and Mitigation of Data Verification Errors(ICDE2026) https://arxiv.org/html/2603.08612v2 已有多个查询输出及预算策略MESReduce。不能主张首次下游复核。
+请最后补齐一个可实现的B-set版本，控制在1500中文字+伪代码，不扩文献：固定有限候选模式P、合法解释Z，定义模式集S的价值F(S,z)，包含去重覆盖和复杂度；不能让单个极宽单谓词覆盖所有样本取得最高分，必须说明使用何种独立任务单元/需要区分的对比案例或分层覆盖，并说明这只是价值代理而非法律重要性本身。给max-min robust selection或minimax regret一个具体方案，说明离散优化可解的限制、无通用贪心保证。
+复核策略要基于整个选择决策在解释变化时的损失/分歧，而非简单受影响模式数量，给真实可实现v1启发式，保留UNRESOLVED/OUT_OF_SET，不假设均匀解释就是实概率。专家只看原文与语义问题，不看想让哪些模式入选。比较共享同一集合选择器的query-output impact复核。v1固定所有候选和类别定义，只揭示已有映射选择；候选扩展属独立版本，不能偷偷边改边计分。给一个两三个模式的数字例子说明为什么集合决策会不同于局部不确定性/输出数。若目标仍不清楚就直接指出，不能写似是而非公式。
+…
+Show more
+Worked for 57s
+ChatGPT said:
+
+可以把 B 最终固定成 Robust Pattern-Set Selection under Joint Ambiguity。这里的目标不是证明 pattern 有法律重要性，而是在固定训练材料、固定候选 
+𝑃
+P、固定解释集合 
+𝑍
+Z 下，选择一个在联合歧义中仍有稳定表示价值的互补 pattern 集合。
+
+1. 固定对象与价值函数
+
+独立单位取
+
+𝑢
+=
+(
+𝑙
+𝑒
+𝑎
+𝑘
+𝑎
+𝑔
+𝑒
+_
+𝑔
+𝑟
+𝑜
+𝑢
+𝑝
+,
+ 
+𝑐
+𝑙
+𝑎
+𝑖
+𝑚
+/
+𝑖
+𝑠
+𝑠
+𝑢
+𝑒
+,
+ 
+𝑝
+𝑟
+𝑜
+𝑐
+𝑒
+𝑑
+𝑢
+𝑟
+𝑎
+𝑙
+ 
+𝑠
+𝑡
+𝑎
+𝑔
+𝑒
+)
+u=(leakage_group, claim/issue, procedural stage)
+
+同一 claim 内多个 witness 只算一次。另构造训练集内的 contrast pairs 
+𝐶
+𝑔
+C
+g
+	​
+
+：只在相同 issue/阶段层内配对，例如 outcome/factor annotation 不同的两个单位；它只用于衡量表示能否区分任务相关案例，不代表法律 materiality。
+
+令 
+𝑎
+𝑢
+𝑝
+(
+𝑧
+)
+∈
+{
+0
+,
+1
+}
+a
+up
+	​
+
+(z)∈{0,1} 表示解释 
+𝑧
+z 下 pattern 
+𝑝
+p 在单位 
+𝑢
+u 有 clean SUPPORTED witness。定义：
+
+𝐹
+(
+𝑆
+,
+𝑧
+)
+=
+𝛼
+𝐷
+(
+𝑆
+,
+𝑧
+)
++
+𝛽
+𝐶
+(
+𝑆
+,
+𝑧
+)
+−
+𝜌
+𝑅
+(
+𝑆
+,
+𝑧
+)
+−
+𝜂
+𝐾
+(
+𝑆
+)
+F(S,z)=αD(S,z)+βC(S,z)−ρR(S,z)−ηK(S)
+
+其中：
+
+𝐷
+=
+1
+∣
+𝐶
+∣
+∑
+(
+𝑢
+,
+𝑣
+)
+∈
+𝐶
+1
+[
+∃
+𝑝
+∈
+𝑆
+:
+𝑎
+𝑢
+𝑝
+(
+𝑧
+)
+≠
+𝑎
+𝑣
+𝑝
+(
+𝑧
+)
+]
+D=
+∣C∣
+1
+	​
+
+(u,v)∈C
+∑
+	​
+
+1[∃p∈S:a
+up
+	​
+
+(z)
+
+=a
+vp
+	​
+
+(z)]
+
+是对比区分覆盖；
+
+𝐶
+=
+1
+∣
+𝐺
+∣
+∑
+𝑔
+min
+⁡
+(
+1
+,
+#
+{
+𝑢
+∈
+𝑔
+:
+∃
+𝑝
+∈
+𝑆
+,
+𝑎
+𝑢
+𝑝
+=
+1
+}
+𝑞
+𝑔
+)
+C=
+∣G∣
+1
+	​
+
+g
+∑
+	​
+
+min(1,
+q
+g
+	​
+
+#{u∈g:∃p∈S,a
+up
+	​
+
+=1}
+	​
+
+)
+
+是分层且截断的 coverage；
+𝑅
+R 是 pattern 间覆盖重叠，
+𝐾
+K 是长度、facet 数等复杂度。
+
+这样一个“几乎所有案例都为真”的宽单谓词虽然 coverage 高，但 
+𝐷
+≈
+0
+D≈0，且 coverage 被截断，不会仅靠“什么都覆盖”获胜。这只是 representation-utility proxy，不是法律重要性分数。
+
+2. Robust set selection
+
+v1 采用：
+
+𝑆
+∗
+=
+arg
+⁡
+max
+⁡
+∣
+𝑆
+∣
+≤
+𝑘
+min
+⁡
+𝑧
+∈
+𝑍
+𝐹
+(
+𝑆
+,
+𝑧
+)
+S
+∗
+=arg
+∣S∣≤k
+max
+	​
+
+z∈Z
+min
+	​
+
+F(S,z)
+
+不采用 pattern-by-pattern bounds 再独立排序，因为互补性本身是目标。
+
+有限 
+𝑃
+,
+𝑍
+P,Z 小时直接 MILP/枚举；
+𝑍
+Z 大时采用 scenario generation：
+
+Python
+Z_work = initial_scenarios()
+
+while True:
+    S = solve_max_min(P, Z_work, k, F)
+
+    z_bad = solve_worst_interpretation(S, constraints)
+
+    if F(S, z_bad) >= current_lower_bound - tol:
+        break
+
+    Z_work.add(z_bad)
+
+return S
+
+由于 worst-case、redundancy、共享解释变量使目标通常不具标准 submodularity，没有通用 greedy approximation 保证。所以首版必须限制候选 pattern 数、长度和 
+𝑘
+k。
+
+共享变量只用于语义上真实共享的决定；独立案件的 instance mapping 默认可分解，不能为了“global”人为耦合。
+
+3. Active review：查询整个集合决策的价值
+
+当前集合为 
+𝑆
+∗
+S
+∗
+。对未决 mapping 
+𝑑
+d，每个已有候选值 
+𝑣
+v 都得到条件解释集 
+𝑍
+𝑑
+=
+𝑣
+Z
+d=v
+	​
+
+，并重新运行同一个 set selector：
+
+𝑉
+𝑑
+=
+𝑣
+∗
+=
+max
+⁡
+𝑆
+min
+⁡
+𝑧
+∈
+𝑍
+𝑑
+=
+𝑣
+𝐹
+(
+𝑆
+,
+𝑧
+)
+V
+d=v
+∗
+	​
+
+=
+S
+max
+	​
+
+z∈Z
+d=v
+	​
+
+min
+	​
+
+F(S,z)
+
+当前集合在该回答下的损失：
+
+𝑅
+𝑒
+𝑔
+𝑟
+𝑒
+𝑡
+(
+𝑑
+,
+𝑣
+)
+=
+𝑉
+𝑑
+=
+𝑣
+∗
+−
+min
+⁡
+𝑧
+∈
+𝑍
+𝑑
+=
+𝑣
+𝐹
+(
+𝑆
+∗
+,
+𝑧
+)
+Regret(d,v)=V
+d=v
+∗
+	​
+
+−
+z∈Z
+d=v
+	​
+
+min
+	​
+
+F(S
+∗
+,z)
+
+v1 查询分数：
+
+𝑆
+𝑐
+𝑜
+𝑟
+𝑒
+(
+𝑑
+)
+=
+𝑝
+^
+a
+n
+s
+w
+e
+r
+(
+𝑡
+𝑦
+𝑝
+𝑒
+(
+𝑑
+)
+)
+⋅
+max
+⁡
+𝑣
+𝑅
+𝑒
+𝑔
+𝑟
+𝑒
+𝑡
+(
+𝑑
+,
+𝑣
+)
+𝑐
+𝑜
+𝑠
+𝑡
+(
+𝑑
+)
+Score(d)=
+cost(d)
+p
+^
+	​
+
+answer
+	​
+
+(type(d))⋅max
+v
+	​
+
+Regret(d,v)
+	​
+
+
+𝑝
+^
+a
+n
+s
+w
+e
+r
+p
+^
+	​
+
+answer
+	​
+
+ 只由 dev pilot 估计“专家能明确回答的比例”，不是解释概率，也不假设候选均匀。
+
+Python
+for d in unresolved:
+    impacts = []
+
+    for v in fixed_candidates[d]:
+        S_v = robust_select(Z conditioned on d=v)
+        impacts.append(
+            robust_value(S_v) -
+            robust_value(S_current, conditioned_on=(d,v))
+        )
+
+    score[d] = answerability[d.type] * max(impacts) / cost[d]
+
+d = argmax(score)
+ans = expert_read_original_text(d)
+
+if ans == UNRESOLVED:
+    freeze_as_unresolved(d)
+elif ans == OUT_OF_SET:
+    set_mapping_to_UNKNOWN(d)   # v1 不扩候选
+else:
+    constrain(d, ans)
+
+recompute()
+
+专家只回答原文语义问题，不知道当前想保留哪些 patterns。
+
+比较基线应使用完全相同的 robust set selector，只更换 query policy，例如：
+
+random；
+local mapping uncertainty；
+query-output impact：最大化 
+∣
+𝑆
+∗
+△
+𝑆
+𝑑
+=
+𝑣
+∗
+∣
+∣S
+∗
+△S
+d=v
+∗
+	​
+
+∣。
+4. 一个最小例子
+
+两个 contrast pairs：
+(
+𝑢
+1
+,
+𝑢
+2
+)
+,
+(
+𝑢
+3
+,
+𝑢
+4
+)
+(u
+1
+	​
+
+,u
+2
+	​
+
+),(u
+3
+	​
+
+,u
+4
+	​
+
+)。
+
+p1 在四个单位都成立，因此：
+
+𝐷
+(
+{
+𝑝
+1
+}
+)
+=
+0.
+D({p1})=0.
+
+共享歧义 
+𝑧
+z 导致：
+
+	
+𝑧
+1
+z
+1
+	​
+
+	
+𝑧
+2
+z
+2
+	​
+
+
+p2	区分 pair 1	区分 pair 2
+p3	区分 pair 2	区分 pair 1
+
+所以单独看 p2、p3 都有“局部语义不确定性”，但：
+
+𝐷
+(
+{
+𝑝
+2
+,
+𝑝
+3
+}
+,
+𝑧
+1
+)
+=
+𝐷
+(
+{
+𝑝
+2
+,
+𝑝
+3
+}
+,
+𝑧
+2
+)
+=
+1.
+D({p2,p3},z
+1
+	​
+
+)=D({p2,p3},z
+2
+	​
+
+)=1.
+
+因此 robust selector 可以稳定选择 {p2,p3}，而没有必要花专家预算解决这个歧义。这正是 B-set 相对“数有多少不确定 pattern / 有多少输出变化”更合理的地方：关注的是最终互补集合是否真的会受解释变化损害。
+
+最终应分别评价 B-core 的 robust-set correctness/stability/coverage/complexity，以及 B-active 在固定专家预算下减少 set regret、保持真实有价值 pattern recall 的能力；两者不必强行包装成同一个论文贡献。
+
+ChatGPT can make mistakes. Check important info.
+Latest response
+
+
+
+
+Extra High

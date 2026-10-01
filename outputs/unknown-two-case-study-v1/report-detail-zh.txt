@@ -1,0 +1,39 @@
+两案例研究：UNKNOWN从哪里产生？
+
+本轮固定研究1982777案，以及按原样本顺序选出的第一个A/B均为UNKNOWN的不同案件500624（题24d45ac35ac7f114）。只核实两个案例中与候选类型污染相关的6个字段，没有重新标注案件。原始模型回复、127条事实、13条关系和直接回答均未改动；没有提交新的网页任务。
+
+1982777：来源有欠租区间，表示不能完整处理，阻止又扩散到了无关类型。
+
+固定题9c74983b08ed3850要求两个不同记录：法院认定的肯定SUBLET_PROPERTY、文书叙述的肯定OWN_PROPERTY，以及转租标的→拥有标的的直接物理部分关系。它不问欠租、付款日期或欠租累计金额。
+
+p0001.s002写：“According to the respondents, the appellants had defaulted in payment of rent for a period running over three years since 29.11.1952.” 来源明确提供欠租起点和超过三年的区间；没有提供可逐次计算的每笔付款日期，原查询也不需要这些日期。p0001.s003记述高院基于欠租作出腾退判决。这些段落没有支持将欠租断言改成转租或拥有断言。
+
+模型把前一句保存成a3：PAY_RENT、NEGATIVE、ALLEGED；高院处理保存为a6：PAY_RENT、NEGATIVE、COURT_FOUND。payer=o1（上诉人群体）、payee=o2（房东群体）、property=o3（争议房产）。两条均保存default/alleged_period、period_qualifier，time=null。信息没有从存储中丢失；模型因为区间不能化为单次付款，填写unresolved.field="*"及scope_parsed=false。
+
+导入器保留模型的*，再添加UNPARSED_SCOPE，并置type_unresolved=true。*表示全部字段受到阻止，field_value因此读不出类型、肯否、状态、对象甚至记录编号。候选池允许“类型未确定”记录进入任意类型，故a3/a6进入转租/拥有候选；其负面欠租性质也被屏蔽，程序不能以已知类型或否定排除它们。该题产生4个未知组合，包括a3/a6、a6/a3和同条记录重复绑定。并非程序凭空认为发生转租，而是过宽的类型不确定与字段阻止使不相关组合无法排除。根源依次为区间表示不足、模型过宽标记、导入/执行规则放大；不能将此全部归为来源缺失或代码违反既有规则。
+
+500624：缺少个人提起人的来源信息，同时存在同一种候选污染。
+
+固定题24d45ac35ac7f114要求NARRATED FILE_EVICTION和NARRATED FILE_OTHER_PROCEEDING；后者的filer必须是一个PERSON/ORGANIZATION，明确属于前者respondent GROUP。相同群体、群体子集和某人姓名出现在标题，都不能自动满足这个题意。
+
+p0001.s003的“An appeal preferred by the appellants ...”及“seeking eviction of the appellants ...”分别保存为a8和a10。a13保存p0002.s001的“This was challenged in revision by the appellants, before the High Court.” 两次程序的filer和腾退respondent均为o4（Pramod Kumar Jaiswal and others群体）。原文有群体共同参与，却没有在这些程序中指出哪一个个人成员是提起人。o5 Pramod是o4的成员，关系表已经保存；缺的是某个合格程序的filer=o5，不能继承群体行为补出这个字段。这不是将群体漏抽成个人，也不是表示完全不能保存个人：记录已区分o4 GROUP和o5 PERSON。
+
+此外，a9是“It is the case of the appellants that they have filed a revision ...”保存的ALLEGED断言，不满足固定NARRATED状态。直接回答A把这句在解释中称作NARRATED，存在状态表述混淆，但最终UNKNOWN也指出个人提起人身份未建立；不能因此判定A整案正确或错误。
+
+程序对真实程序组合已有明确排除：a10/a8和a10/a13是同群体自连，PROPER_EDGE_NOT_IDENTITY；a10/a6、a10/a12是群体作成员，WRONG_OBJECT_KINDS；a10/a9不满足状态。原来的36个未知组合反而包含a4 OWN_PROPERTY、a5/a14 TRANSFER_TITLE、a11 PAY_RENT；它们因股份、转让者或欠租区间限制带有*，被当成可能的程序事件。例如a10/a11的roles.filer是未知，并不是原文暗示欠租记录可能是一项个人提起程序。本案因此同时有来源粒度缺口、原有组合不满足题意，以及局部未知扩大到无关事件三种原因。不能根据这几组失败推断全案现实中绝无个人申请。
+
+实施的唯一修复：显式来源复核的“类型字段投影”。
+
+新增type_projection.py，允许另存一个与案件、原事实版本及原文哈希绑定的类型复核记录。本轮仅给1982777的a3/a6，以及500624的a4/a5/a11/a14增加type支持依据。对应引文确实支持粗粒度“欠租/共有/权利转让断言”的类型；这不证明肯定事件发生、法院采纳、整栋房产转移、具体份额或完整区间。没有仅凭JSON的type值恢复可信度。
+
+conditional_engine.field_value只在存在上述复核依据时读取可靠type；显式的type不确定仍禁止恢复。候选池因此不再把这些已知类型的断言塞入无关类型。原来的*、scope、unresolved、时间、陈述状态、肯否和对象阻止全部保留，原source_assertion不变。没有添加关系、修改状态或查询，也没有自动核实其他案件；其余未经复核的记录维持原处理。这是需明确语义依据的局部类型恢复，不是已经实现自动理解所有未知范围。
+
+修复后，仅重算原10案30题及同份事实共现，直接回答不重跑。B从21 UNKNOWN/9 NOT_FOUND变为16 UNKNOWN/14 NOT_FOUND；MATCH仍0。共现从16 MATCH/11 UNKNOWN/3 NOT_FOUND变为16 MATCH/8 UNKNOWN/6 NOT_FOUND。A仍为4 UNKNOWN/26 NOT_FOUND。51项相关程序测试通过，其中6项针对类型恢复、明确谓词歧义、时间阻止和来源版本保护；测试不证明法律语义准确。
+
+B改变的5项全部为UNKNOWN→NOT_FOUND：1982777的3题，以及500624的转租题、另案提起人题。原因是去掉了不相关类型的未知候选，现有可计算记录中仍未找到满足完整定义的实例；并非补出了肯定关系或证明现实不存在。其他8案所有方法结果保持原样。完整状态变化及组合数量见summary.json。
+
+仍无法判断：500624的承租人成员题保留UNKNOWN，具体为e0=a10/e1=a1，原始承租人o3 Ram Babu Jaiswal→当前群体o4，EDGE_NOT_ESTABLISHED。p0001.s001称Ram Babu是上诉人的predecessor，这不是member_of关系的来源支持，也不是明确否定，故不补造或删除未知。其他案例的15项UNKNOWN本轮没有做语义归因。个别个人是否实际提起上述群体程序、区间内每笔付款情况及部分权利具体归属仍没有被本轮确认。
+
+这些结果验证了两个案例中的候选污染机制，同时保留来源不充分的情况。未知减少只表示当前记录更可判定，不代表准确率提高。这是原样本诊断重跑，包含来源复核介入，不是新独立测试或全自动方法成绩。完成两个案例、一个统一修复和一次本地重跑后停止。
+
+关键文件：selection.json（固定选例）；type-only-source-reviews.json（6个类型支持依据）；case-traces.json（指定问题的关键前后轨迹）；summary.json（所有状态变化）；results.json（原30题重跑）；original-method/与原实验目录保存原算法及结果。旧10案实验仍在outputs/new-10-pattern-matching-v1，本轮未覆盖其文件。

@@ -1,0 +1,5 @@
+请最后做一次短审计（约1000字），修正B/C目标函数中的两个实质漏洞，不再扩展文献：
+1. 你的C把still UNKNOWN列为合法复核结果，因此minimax最坏分支始终可能不改善，所有query打平；B中专家也可能回答仍无法确定或候选都错，不能假设复核必定解决。请给v1真实可运行的选择策略：可以是“条件于有效回答的影响/成本”启发式或由小pilot估计可回答率，但必须标明无最坏情况收益保证，保留无法确定/OUT_OF_SET分支，空解释集不能当所有模式均certain。修改伪代码。
+2. 区分全局min_z Σ_u y与Σ_u min_z y；同一个共享决定z导致两个claim一个支持P另一个不支持，z翻转二者交换，前者L=U=1，后者local interval=[0,2]。请核对此反例，说明依赖约束的收益和代价；如果独立cases的候选mapping本来不共享global变量就可分解，不要人为制造跨案依赖。global schema变量只有语义确实共享才共享，专家单一instance标注不能自动resolve所有instances。
+3. 选择目标“减少跨阈值模式数量”可能只证明模式不满足最小支持，并不增加有价值发现。如何联合报告confirmed-supported、ruled-out、remaining、correctness、coverage/cost，且避免把输出更少当成功？把最终B主算法及active扩展的评估写清，不要求都作为一篇paper贡献。
+给精炼修正版，不再宣称现有新颖性已成立。

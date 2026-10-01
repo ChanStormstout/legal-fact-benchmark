@@ -1,0 +1,1915 @@
+- link "Skip to content":
+  - /url: "#_r_d6_"
+- complementary:
+  - navigation "Show sidebar":
+    - button "Show sidebar"
+    - button "Show sidebar":
+    - button "New chat":
+      - generic: New chat
+    - button "Search":
+      - generic: Search
+    - button "Pinned":
+      - generic: Pinned
+    - button "Recents":
+      - generic: Recents
+    - button "Library":
+      - generic: Library
+    - button "Open profile menu"
+- main:
+  - button "Share":
+    - text: Share
+  - button "More":
+  - heading "You said:" [level=4]
+  - generic: 请最后做一次短审计（约1000字），修正B/C目标函数中的两个实质漏洞，不再扩展文献： 1. 你的C把still UNKNOWN列为合法复核结果，因此minimax最坏分支始终可能不改善，所有query打平；B中专家也可能回答仍无法确定或候选都错，不能假设复核必定解决。请给v1真实可运行的选择策略：可以是“条件于有效回答的影响/成本”启发式或由小pilot估计可回答率，但必须标明无最坏情况收益保证，保留无法确定/OUT_OF_SET分支，空解释集不能当所有模式均certain。修改伪代码。 2. 区分全局min_z Σ_u y与Σ_u min_z y；同一个共享决定z导致两个claim一个支持P另一个不支持，z翻转二者交换，前者L=U=1，后者local interval=[0,2]。请核对此反例，说明依赖约束的收益和代价；如果独立cases的候选mapping本来不共享global变量就可分解，不要人为制造跨案依赖。global schema变量只有语义确实共享才共享，专家单一instance标注不能自动resolve所有instances。 3. 选择目标“减少跨阈值模式数量”可能只证明模式不满足最小支持，并不增加有价值发现。如何联合报告confirmed-supported、ruled-out、remaining、correctness、coverage/cost，且避免把输出更少当成功？把最终B主算法及active扩展的评估写清，不要求都作为一篇paper贡献。 给精炼修正版，不再宣称现有新颖性已成立。
+  - button "Copy message":
+  - button "Share prompt":
+  - button "Edit message":
+  - heading "ChatGPT said:" [level=4]
+  - paragraph: 这次只修 B/C 的目标函数与评估，不再扩展方法边界。
+  - heading "1. 复核不一定能解决：v1 改为 answerability-aware heuristic" [level=3]
+  - paragraph: 前一版 minimax 确实有漏洞：如果合法结果包括 UNKNOWN，最坏分支永远可以“不改善”，于是所有 query 可能打平。
+  - paragraph:
+    - text: 因此
+    - strong: v1 不用 minimax guarantee
+    - text: ，改成开发集小 pilot 估计的“可回答率 × 条件影响 / 成本”：
+  - math:
+    - generic: S
+    - generic: c
+    - generic: o
+    - generic: r
+    - generic: e
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: =
+    - generic: p
+    - generic: ^
+    - generic: answer
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: ⋅
+    - generic: I
+    - generic: m
+    - generic: p
+    - generic: a
+    - generic: c
+    - generic: t
+    - generic: (
+    - generic: q
+    - generic: ∣
+    - generic: 有效回答
+    - generic: )
+    - generic: C
+    - generic: o
+    - generic: s
+    - generic: t
+    - generic: (
+    - generic: q
+    - generic: )
+  - generic: Score(q) =
+  - generic: Cost(q)
+  - generic: p
+  - text: ^
+  - generic: answer
+  - text: (q) ⋅ Impact(q ∣
+  - generic: 有效回答
+  - text: )
+  - paragraph: 其中有效回答包括当前候选中的明确选择；必须保留：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: UNRESOLVED OUT_OF_SET
+  - paragraph: 二者都不能强迫成已有候选。
+  - paragraph: B 中：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - button "Run code":
+    - text: Run
+  - textbox "Edit code":
+    - generic: "for d in ambiguities:"
+    - generic: "p = answerability_rate(type(d)) # dev pilot估计"
+    - generic: impact = mean_reduction_if_resolved(d)
+    - generic: score[d] = p * impact / cost(d)
+    - generic: d = argmax(score)
+    - generic: ans = expert_review(d)
+    - generic: "if ans == UNRESOLVED:"
+    - generic: mark_unresolved(d)
+    - generic: "elif ans == OUT_OF_SET:"
+    - generic: invalidate_current_candidate_set(d)
+    - generic: trigger_candidate_expansion_or_reextraction(d)
+    - generic: "else:"
+    - generic: add_constraint(d, ans)
+    - generic: recompute_only_affected_bounds()
+  - button:
+  - paragraph: C 同理：
+  - math:
+    - generic: S
+    - generic: c
+    - generic: o
+    - generic: r
+    - generic: e
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: =
+    - generic: p
+    - generic: ^
+    - generic: answer
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: ⋅
+    - generic: Δ
+    - generic: A
+    - generic: (
+    - generic: q
+    - generic: ∣
+    - generic: r
+    - generic: e
+    - generic: s
+    - generic: o
+    - generic: l
+    - generic: v
+    - generic: e
+    - generic: d
+    - generic: )
+    - generic: C
+    - generic: o
+    - generic: s
+    - generic: t
+    - generic: (
+    - generic: q
+    - generic: )
+  - generic: Score(q) =
+  - generic: Cost(q)
+  - generic: p
+  - text: ^
+  - generic: answer
+  - text: (q) ⋅ ΔA(q ∣ resolved)
+  - paragraph:
+    - text: 其中
+    - math:
+      - generic: A
+    - generic: A
+    - text: 是目标结论状态的不确定度。
+    - strong: 没有最坏情况收益保证
+    - text: ；只是一个可运行、可比较的 budget heuristic。
+  - paragraph: 另一个硬规则：
+  - math:
+    - generic: Z
+    - generic: =
+    - generic: ∅
+  - generic: Z =
+  - generic: ∅
+  - paragraph: 不能解释成“所有模式都 certain”。它表示：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: INCONSISTENT_INTERPRETATION_SET
+  - paragraph: 必须回溯候选生成/约束冲突。
+  - separator
+  - heading "2. Global bound 与 local interval 不是一回事" [level=2]
+  - paragraph: 正确的全局下界是：
+  - math:
+    - generic: L
+    - generic: (
+    - generic: P
+    - generic: )
+    - generic: =
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: ∑
+    - generic: u
+    - generic: "y"
+    - generic: u
+    - generic: P
+    - generic: (
+    - generic: z
+    - generic: )
+  - generic: L(P) =
+  - generic: z∈Z
+  - generic: min
+  - generic: u
+  - generic: ∑
+  - text: "y"
+  - generic: uP
+  - text: (z)
+  - paragraph: 而不是：
+  - math:
+    - generic: ∑
+    - generic: u
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: "y"
+    - generic: u
+    - generic: P
+    - generic: (
+    - generic: z
+    - generic: )
+    - generic: .
+  - generic: u
+  - generic: ∑
+  - generic: z
+  - generic: min
+  - text: "y"
+  - generic: uP
+  - text: (z).
+  - paragraph: 你的反例正确。
+  - paragraph:
+    - text: 设一个
+    - strong: 真正共享
+    - text: 决定
+    - math:
+      - generic: z
+      - generic: ∈
+      - generic: "{"
+      - generic: "0"
+      - generic: ","
+      - generic: "1"
+      - generic: "}"
+    - generic: z ∈
+    - generic: "{0, 1}"
+    - text: ：
+  - math:
+    - generic: "y"
+    - generic: "1"
+    - generic: (
+    - generic: z
+    - generic: )
+    - generic: =
+    - generic: z
+    - generic: ","
+    - generic: "y"
+    - generic: "2"
+    - generic: (
+    - generic: z
+    - generic: )
+    - generic: =
+    - generic: "1"
+    - generic: −
+    - generic: z
+    - generic: .
+  - text: "y"
+  - generic: "1"
+  - text: (z) =
+  - text: z,
+  - text: "y"
+  - generic: "2"
+  - text: (z) =
+  - generic: 1 −
+  - generic: z.
+  - paragraph: 那么任意合法全局解释中总支持数都是 1：
+  - math:
+    - generic: L
+    - generic: =
+    - generic: U
+    - generic: =
+    - generic: "1."
+  - generic: L =
+  - generic: U =
+  - generic: "1."
+  - paragraph: 但若错误地让两个 claim 各自独立挑解释：
+  - math:
+    - generic: L
+    - generic: local
+    - generic: =
+    - generic: "0"
+    - generic: +
+    - generic: "0"
+    - generic: =
+    - generic: "0"
+    - generic: ","
+    - generic: U
+    - generic: local
+    - generic: =
+    - generic: "1"
+    - generic: +
+    - generic: "1"
+    - generic: =
+    - generic: "2."
+  - text: L
+  - generic: local
+  - text: =
+  - generic: 0 +
+  - generic: 0 =
+  - text: 0,
+  - text: U
+  - generic: local
+  - text: =
+  - generic: 1 +
+  - generic: 1 =
+  - generic: "2."
+  - paragraph: 所以共享约束的收益是减少不可能同时发生的组合；代价是求解耦合、缓存和增量更新复杂。
+  - paragraph:
+    - text: 但
+    - strong: 绝不能人为制造共享变量
+    - text: ：
+  - list:
+    - listitem: 不同案件中的 entity binding 默认独立；
+    - listitem: 不同 instance 的 T1 mapping 默认独立；
+    - listitem: 只有确实共享的 schema decision、同一实体/事件 identity decision，才使用同一个变量。
+  - paragraph: 例如专家确认：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: "instance #37 → PAYMENT"
+  - paragraph:
+    - text: "只能解决 #37，"
+    - strong: 不能自动把全部相似实例都改成 PAYMENT
+    - text: 。
+  - paragraph: 只有专家修改了真正共享的 PredicateSpec，才可能触发一批 instance 的重新验证。
+  - separator
+  - heading "3. B 不能以“输出更少”作为成功" [level=2]
+  - paragraph: Active review 若只优化：
+  - blockquote:
+    - paragraph: 减少跨阈值 pattern 数量
+  - paragraph: 很可能只是不断把 candidate 判死。
+  - paragraph: 因此 B 的最终报告必须把四件事拆开：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: CONFIRMED_SUPPORTED RULED_OUT REMAINING_AMBIGUOUS INVALID / OUT_OF_SET
+  - heading "B 主算法" [level=3]
+  - paragraph: 在一小块完全人工 adjudicated 的 evaluation set 上，首先检验 bounds 本身：
+  - list:
+    - strong: bound soundness
+    - text: ：真实 support 是否落在 [L,U]；
+    - listitem: interval width；
+    - listitem: CONFIRMED_SUPPORTED precision；
+    - listitem: CONFIRMED_SUPPORTED recall；
+    - listitem: RULED_OUT precision；
+    - listitem: unresolved coverage。
+  - paragraph: 如果只得到很少的 confirmed patterns，即使 precision 高，也不能称成功。
+  - heading "B-active 扩展" [level=3]
+  - paragraph: 固定相同 review budget，与 random / uncertainty-only 比较，同时报告：
+  - math:
+    - generic: confirmed-supported recall
+  - generic: confirmed-supported recall
+  - math:
+    - generic: confirmed-supported precision
+  - generic: confirmed-supported precision
+  - math:
+    - generic: ruled-out precision
+  - generic: ruled-out precision
+  - math:
+    - generic: remaining ambiguity rate
+  - generic: remaining ambiguity rate
+  - paragraph: 以及：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: expert decisions expert time solver calls wall-clock / compute cost OUT_OF_SET rate
+  - paragraph: 可以额外报告：
+  - math:
+    - generic: "#"
+    - generic: new correctly confirmed-supported patterns
+    - generic: review cost
+  - generic: review cost
+  - text: "#"
+  - generic: new correctly confirmed-supported patterns
+  - paragraph:
+    - text: 这样 active strategy 必须既能消除错误候选，也要
+    - strong: 实际找回有价值的真模式
+    - text: ，而不能靠“把什么都排除”取胜。
+  - paragraph: 因此最终 B 应拆成两个可独立验证的问题：
+  - blockquote:
+    - paragraph:
+      - strong: B-core：共享离散歧义下，global consistency 是否产生更紧且正确的 support bounds？
+  - blockquote:
+    - paragraph:
+      - strong: B-active：在固定人工预算下，answerability-aware review 是否比简单策略更有效地增加正确 confirmed patterns，同时减少剩余歧义？
+  - paragraph: 两者都尚只是候选假设，不应提前宣称构成新颖贡献。
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - heading "You said:" [level=4]
+  - generic: Pro第二轮高层裁决已完成：保留B，但主假设从普通bounds/下游复核进一步明确为“联合歧义下互补模式集合选择与预算复核”。新近邻Query-Guided Resolution in Uncertain Databases (2023) https://u.cs.biu.ac.il/~amstery/files/drien2023query.pdf 已考虑未知/相关概率；Query-Guided Analysis and Mitigation of Data Verification Errors(ICDE2026) https://arxiv.org/html/2603.08612v2 已有多个查询输出及预算策略MESReduce。不能主张首次下游复核。 请最后补齐一个可实现的B-set版本，控制在1500中文字+伪代码，不扩文献：固定有限候选模式P、合法解释Z，定义模式集S的价值F(S,z)，包含去重覆盖和复杂度；不能让单个极宽单谓词覆盖所有样本取得最高分，必须说明使用何种独立任务单元/需要区分的对比案例或分层覆盖，并说明这只是价值代理而非法律重要性本身。给max-min robust selection或minimax regret一个具体方案，说明离散优化可解的限制、无通用贪心保证。 复核策略要基于整个选择决策在解释变化时的损失/分歧，而非简单受影响模式数量，给真实可实现v1启发式，保留UNRESOLVED/OUT_OF_SET，不假设均匀解释就是实概率。专家只看原文与语义问题，不看想让哪些模式入选。比较共享同一集合选择器的query-output impact复核。v1固定所有候选和类别定义，只揭示已有映射选择；候选扩展属独立版本，不能偷偷边改边计分。给一个两三个模式的数字例子说明为什么集合决策会不同于局部不确定性/输出数。若目标仍不清楚就直接指出，不能写似是而非公式。
+  - generic: …
+  - button "Show more":
+    - generic: Show more
+  - button "Copy message":
+  - button "Share prompt":
+  - button "Edit message":
+  - button "Worked for 57s"
+  - generic: Worked for 57s
+  - heading "ChatGPT said:" [level=4]
+  - paragraph:
+    - text: 可以把 B 最终固定成
+    - strong: Robust Pattern-Set Selection under Joint Ambiguity
+    - text: 。这里的目标不是证明 pattern 有法律重要性，而是在固定训练材料、固定候选
+    - math:
+      - generic: P
+    - generic: P
+    - text: 、固定解释集合
+    - math:
+      - generic: Z
+    - generic: Z
+    - text: 下，选择一个在联合歧义中仍有稳定表示价值的互补 pattern 集合。
+  - heading "1. 固定对象与价值函数" [level=3]
+  - paragraph: 独立单位取
+  - math:
+    - generic: u
+    - generic: =
+    - generic: (
+    - generic: l
+    - generic: e
+    - generic: a
+    - generic: k
+    - generic: a
+    - generic: g
+    - generic: e
+    - generic: _
+    - generic: g
+    - generic: r
+    - generic: o
+    - generic: u
+    - generic: p
+    - generic: ","
+    - generic: c
+    - generic: l
+    - generic: a
+    - generic: i
+    - generic: m
+    - generic: /
+    - generic: i
+    - generic: s
+    - generic: s
+    - generic: u
+    - generic: e
+    - generic: ","
+    - generic: p
+    - generic: r
+    - generic: o
+    - generic: c
+    - generic: e
+    - generic: d
+    - generic: u
+    - generic: r
+    - generic: a
+    - generic: l
+    - generic: s
+    - generic: t
+    - generic: a
+    - generic: g
+    - generic: e
+    - generic: )
+  - generic: u =
+  - text: (leakage_group,
+  - text: claim/issue,
+  - text: procedural
+  - text: stage)
+  - paragraph:
+    - text: 同一 claim 内多个 witness 只算一次。另构造训练集内的
+    - strong: contrast pairs
+    - math:
+      - generic: C
+      - generic: g
+    - text: C
+    - generic: g
+    - text: ：只在相同 issue/阶段层内配对，例如 outcome/factor annotation 不同的两个单位；它只用于衡量表示能否区分任务相关案例，不代表法律 materiality。
+  - paragraph:
+    - text: 令
+    - math:
+      - generic: a
+      - generic: u
+      - generic: p
+      - generic: (
+      - generic: z
+      - generic: )
+      - generic: ∈
+      - generic: "{"
+      - generic: "0"
+      - generic: ","
+      - generic: "1"
+      - generic: "}"
+    - text: a
+    - generic: up
+    - text: (z) ∈
+    - generic: "{0, 1}"
+    - text: 表示解释
+    - math:
+      - generic: z
+    - generic: z
+    - text: 下 pattern
+    - math:
+      - generic: p
+    - generic: p
+    - text: 在单位
+    - math:
+      - generic: u
+    - generic: u
+    - text: 有 clean SUPPORTED witness。定义：
+  - math:
+    - generic: F
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: =
+    - generic: α
+    - generic: D
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: +
+    - generic: β
+    - generic: C
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: −
+    - generic: ρ
+    - generic: R
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: −
+    - generic: η
+    - generic: K
+    - generic: (
+    - generic: S
+    - generic: )
+  - generic: F(S, z) =
+  - generic: αD(S, z) +
+  - generic: βC(S, z) −
+  - generic: ρR(S, z) −
+  - generic: ηK(S)
+  - paragraph: 其中：
+  - math:
+    - generic: D
+    - generic: =
+    - generic: "1"
+    - generic: ∣
+    - generic: C
+    - generic: ∣
+    - generic: ∑
+    - generic: (
+    - generic: u
+    - generic: ","
+    - generic: v
+    - generic: )
+    - generic: ∈
+    - generic: C
+    - generic: "1"
+    - generic: "["
+    - generic: ∃
+    - generic: p
+    - generic: ∈
+    - generic: S
+    - generic: ":"
+    - generic: a
+    - generic: u
+    - generic: p
+    - generic: (
+    - generic: z
+    - generic: )
+    - generic: ≠
+    - generic: a
+    - generic: v
+    - generic: p
+    - generic: (
+    - generic: z
+    - generic: )
+    - generic: "]"
+  - generic: D =
+  - generic: ∣C∣
+  - generic: "1"
+  - generic: (u,v)∈C
+  - generic: ∑
+  - text: 1[∃p ∈
+  - generic: "S :"
+  - text: a
+  - generic: up
+  - text: (z)
+  - generic: 
+  - text: =
+  - text: a
+  - generic: vp
+  - text: (z)]
+  - paragraph:
+    - text: 是
+    - strong: 对比区分覆盖
+    - text: ；
+  - math:
+    - generic: C
+    - generic: =
+    - generic: "1"
+    - generic: ∣
+    - generic: G
+    - generic: ∣
+    - generic: ∑
+    - generic: g
+    - generic: min
+    - generic: ⁡
+    - generic: (
+    - generic: "1"
+    - generic: ","
+    - generic: "#"
+    - generic: "{"
+    - generic: u
+    - generic: ∈
+    - generic: g
+    - generic: ":"
+    - generic: ∃
+    - generic: p
+    - generic: ∈
+    - generic: S
+    - generic: ","
+    - generic: a
+    - generic: u
+    - generic: p
+    - generic: =
+    - generic: "1"
+    - generic: "}"
+    - generic: q
+    - generic: g
+    - generic: )
+  - generic: C =
+  - generic: ∣G∣
+  - generic: "1"
+  - generic: g
+  - generic: ∑
+  - text: min
+  - generic: (
+  - text: 1,
+  - text: q
+  - generic: g
+  - text: "#{u ∈ g : ∃p ∈ S,"
+  - text: a
+  - generic: up
+  - text: "= 1}"
+  - generic: )
+  - paragraph:
+    - text: 是分层且截断的 coverage；
+    - math:
+      - generic: R
+    - generic: R
+    - text: 是 pattern 间覆盖重叠，
+    - math:
+      - generic: K
+    - generic: K
+    - text: 是长度、facet 数等复杂度。
+  - paragraph:
+    - text: 这样一个“几乎所有案例都为真”的宽单谓词虽然 coverage 高，但
+    - math:
+      - generic: D
+      - generic: ≈
+      - generic: "0"
+    - generic: D ≈
+    - generic: "0"
+    - text: ，且 coverage 被截断，不会仅靠“什么都覆盖”获胜。
+    - strong: 这只是 representation-utility proxy，不是法律重要性分数。
+  - heading "2. Robust set selection" [level=3]
+  - paragraph: v1 采用：
+  - math:
+    - generic: S
+    - generic: ∗
+    - generic: =
+    - generic: arg
+    - generic: ⁡
+    - generic: max
+    - generic: ⁡
+    - generic: ∣
+    - generic: S
+    - generic: ∣
+    - generic: ≤
+    - generic: k
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: F
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+  - text: S
+  - generic: ∗
+  - text: =
+  - generic: arg
+  - generic: ∣S∣≤k
+  - generic: max
+  - generic: z∈Z
+  - generic: min
+  - text: F(S, z)
+  - paragraph: 不采用 pattern-by-pattern bounds 再独立排序，因为互补性本身是目标。
+  - paragraph:
+    - text: 有限
+    - math:
+      - generic: P
+      - generic: ","
+      - generic: Z
+    - generic: P, Z
+    - text: 小时直接 MILP/枚举；
+    - math:
+      - generic: Z
+    - generic: Z
+    - text: 大时采用 scenario generation：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - button "Run code":
+    - text: Run
+  - textbox "Edit code":
+    - generic: Z_work = initial_scenarios()
+    - generic: "while True:"
+    - generic: S = solve_max_min(P, Z_work, k, F)
+    - generic: z_bad = solve_worst_interpretation(S, constraints)
+    - generic: "if F(S, z_bad) >= current_lower_bound - tol:"
+    - generic: break
+    - generic: Z_work.add(z_bad)
+    - generic: return S
+  - button:
+  - paragraph:
+    - text: 由于 worst-case、redundancy、共享解释变量使目标通常不具标准 submodularity，
+    - strong: 没有通用 greedy approximation 保证
+    - text: 。所以首版必须限制候选 pattern 数、长度和
+    - math:
+      - generic: k
+    - generic: k
+    - text: 。
+  - paragraph: 共享变量只用于语义上真实共享的决定；独立案件的 instance mapping 默认可分解，不能为了“global”人为耦合。
+  - separator
+  - heading "3. Active review：查询整个集合决策的价值" [level=3]
+  - paragraph:
+    - text: 当前集合为
+    - math:
+      - generic: S
+      - generic: ∗
+    - text: S
+    - generic: ∗
+    - text: 。对未决 mapping
+    - math:
+      - generic: d
+    - generic: d
+    - text: ，每个已有候选值
+    - math:
+      - generic: v
+    - generic: v
+    - text: 都得到条件解释集
+    - math:
+      - generic: Z
+      - generic: d
+      - generic: =
+      - generic: v
+    - text: Z
+    - generic: d=v
+    - text: ，并重新运行
+    - strong: 同一个 set selector
+    - text: ：
+  - math:
+    - generic: V
+    - generic: d
+    - generic: =
+    - generic: v
+    - generic: ∗
+    - generic: =
+    - generic: max
+    - generic: ⁡
+    - generic: S
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: d
+    - generic: =
+    - generic: v
+    - generic: F
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+  - text: V
+  - generic: d=v
+  - generic: ∗
+  - text: =
+  - generic: S
+  - generic: max
+  - text: z∈
+  - text: Z
+  - generic: d=v
+  - generic: min
+  - text: F(S, z)
+  - paragraph: 当前集合在该回答下的损失：
+  - math:
+    - generic: R
+    - generic: e
+    - generic: g
+    - generic: r
+    - generic: e
+    - generic: t
+    - generic: (
+    - generic: d
+    - generic: ","
+    - generic: v
+    - generic: )
+    - generic: =
+    - generic: V
+    - generic: d
+    - generic: =
+    - generic: v
+    - generic: ∗
+    - generic: −
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: d
+    - generic: =
+    - generic: v
+    - generic: F
+    - generic: (
+    - generic: S
+    - generic: ∗
+    - generic: ","
+    - generic: z
+    - generic: )
+  - generic: Regret(d, v) =
+  - text: V
+  - generic: d=v
+  - generic: ∗
+  - text: −
+  - text: z∈
+  - text: Z
+  - generic: d=v
+  - generic: min
+  - text: F(
+  - text: S
+  - generic: ∗
+  - text: ", z)"
+  - paragraph: v1 查询分数：
+  - math:
+    - generic: S
+    - generic: c
+    - generic: o
+    - generic: r
+    - generic: e
+    - generic: (
+    - generic: d
+    - generic: )
+    - generic: =
+    - generic: p
+    - generic: ^
+    - generic: a
+    - generic: "n"
+    - generic: s
+    - generic: w
+    - generic: e
+    - generic: r
+    - generic: (
+    - generic: t
+    - generic: "y"
+    - generic: p
+    - generic: e
+    - generic: (
+    - generic: d
+    - generic: )
+    - generic: )
+    - generic: ⋅
+    - generic: max
+    - generic: ⁡
+    - generic: v
+    - generic: R
+    - generic: e
+    - generic: g
+    - generic: r
+    - generic: e
+    - generic: t
+    - generic: (
+    - generic: d
+    - generic: ","
+    - generic: v
+    - generic: )
+    - generic: c
+    - generic: o
+    - generic: s
+    - generic: t
+    - generic: (
+    - generic: d
+    - generic: )
+  - generic: Score(d) =
+  - generic: cost(d)
+  - generic: p
+  - text: ^
+  - generic: answer
+  - text: (type(d)) ⋅
+  - text: max
+  - generic: v
+  - text: Regret(d, v)
+  - paragraph:
+    - math:
+      - generic: p
+      - generic: ^
+      - generic: a
+      - generic: "n"
+      - generic: s
+      - generic: w
+      - generic: e
+      - generic: r
+    - generic: p
+    - text: ^
+    - generic: answer
+    - text: 只由 dev pilot 估计“专家能明确回答的比例”，
+    - strong: 不是解释概率
+    - text: ，也不假设候选均匀。
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - button "Run code":
+    - text: Run
+  - textbox "Edit code":
+    - generic: "for d in unresolved:"
+    - generic: impacts = []
+    - generic: "for v in fixed_candidates[d]:"
+    - generic: S_v = robust_select(Z conditioned on d=v)
+    - generic: impacts.append(
+    - generic: robust_value(S_v) -
+    - generic: robust_value(S_current, conditioned_on=(d,v))
+    - generic: )
+    - generic: score[d] = answerability[d.type] * max(impacts) / cost[d]
+    - generic: d = argmax(score)
+    - generic: ans = expert_read_original_text(d)
+    - generic: "if ans == UNRESOLVED:"
+    - generic: freeze_as_unresolved(d)
+    - generic: "elif ans == OUT_OF_SET:"
+    - generic: "set_mapping_to_UNKNOWN(d) # v1 不扩候选"
+    - generic: "else:"
+    - generic: constrain(d, ans)
+    - generic: recompute()
+  - button:
+  - paragraph: 专家只回答原文语义问题，不知道当前想保留哪些 patterns。
+  - paragraph:
+    - text: 比较基线应使用
+    - strong: 完全相同的 robust set selector
+    - text: ，只更换 query policy，例如：
+  - list:
+    - listitem: random；
+    - listitem: local mapping uncertainty；
+    - text: query-output impact：最大化
+    - math:
+      - generic: ∣
+      - generic: S
+      - generic: ∗
+      - generic: △
+      - generic: S
+      - generic: d
+      - generic: =
+      - generic: v
+      - generic: ∗
+      - generic: ∣
+    - text: ∣
+    - text: S
+    - generic: ∗
+    - text: △
+    - text: S
+    - generic: d=v
+    - generic: ∗
+    - text: ∣
+    - text: 。
+  - separator
+  - heading "4. 一个最小例子" [level=3]
+  - paragraph:
+    - text: 两个 contrast pairs：
+    - math:
+      - generic: (
+      - generic: u
+      - generic: "1"
+      - generic: ","
+      - generic: u
+      - generic: "2"
+      - generic: )
+      - generic: ","
+      - generic: (
+      - generic: u
+      - generic: "3"
+      - generic: ","
+      - generic: u
+      - generic: "4"
+      - generic: )
+    - text: (
+    - text: u
+    - generic: "1"
+    - text: ","
+    - text: u
+    - generic: "2"
+    - text: ), (
+    - text: u
+    - generic: "3"
+    - text: ","
+    - text: u
+    - generic: "4"
+    - text: )
+    - text: 。
+  - paragraph: p1 在四个单位都成立，因此：
+  - math:
+    - generic: D
+    - generic: (
+    - generic: "{"
+    - generic: p
+    - generic: "1"
+    - generic: "}"
+    - generic: )
+    - generic: =
+    - generic: "0."
+  - generic: "D({p1}) ="
+  - generic: "0."
+  - paragraph:
+    - text: 共享歧义
+    - math:
+      - generic: z
+    - generic: z
+    - text: 导致：
+  - table:
+    - rowgroup:
+      - row:
+        - columnheader
+        - columnheader:
+          - math:
+            - generic: z
+            - generic: "1"
+          - text: z
+          - generic: "1"
+        - columnheader:
+          - math:
+            - generic: z
+            - generic: "2"
+          - text: z
+          - generic: "2"
+    - rowgroup:
+      - row "p2 区分 pair 1 区分 pair 2":
+        - cell "p2"
+        - cell "区分 pair 1"
+        - cell "区分 pair 2"
+      - row "p3 区分 pair 2 区分 pair 1":
+        - cell "p3"
+        - cell "区分 pair 2"
+        - cell "区分 pair 1"
+  - button "Copy table":
+  - button "Expand table":
+  - paragraph: 所以单独看 p2、p3 都有“局部语义不确定性”，但：
+  - math:
+    - generic: D
+    - generic: (
+    - generic: "{"
+    - generic: p
+    - generic: "2"
+    - generic: ","
+    - generic: p
+    - generic: "3"
+    - generic: "}"
+    - generic: ","
+    - generic: z
+    - generic: "1"
+    - generic: )
+    - generic: =
+    - generic: D
+    - generic: (
+    - generic: "{"
+    - generic: p
+    - generic: "2"
+    - generic: ","
+    - generic: p
+    - generic: "3"
+    - generic: "}"
+    - generic: ","
+    - generic: z
+    - generic: "2"
+    - generic: )
+    - generic: =
+    - generic: "1."
+  - text: "D({p2, p3},"
+  - text: z
+  - generic: "1"
+  - text: ) =
+  - text: "D({p2, p3},"
+  - text: z
+  - generic: "2"
+  - text: ) =
+  - generic: "1."
+  - paragraph:
+    - text: "因此 robust selector 可以稳定选择 {p2,p3}，而"
+    - strong: 没有必要花专家预算解决这个歧义
+    - text: 。这正是 B-set 相对“数有多少不确定 pattern / 有多少输出变化”更合理的地方：关注的是
+    - strong: 最终互补集合是否真的会受解释变化损害
+    - text: 。
+  - paragraph:
+    - text: 最终应分别评价
+    - strong: B-core 的 robust-set correctness/stability/coverage/complexity
+    - text: ，以及
+    - strong: B-active 在固定专家预算下减少 set regret、保持真实有价值 pattern recall 的能力
+    - text: ；两者不必强行包装成同一个论文贡献。
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - heading "You said:" [level=4]
+  - generic: 对第五轮方案做最后一次技术核查，只处理以下问题并给纠正版伪代码，勿扩展新方向： 1 分析单元应是(case_id,claim_id,stage)，related-case group仅作依赖/划分信息，不能合并不同裁判。 2 max_S min_z F(S,z)的场景生成：只用部分z的master最优值是全问题上界；给定S的完整worst-case oracle值是可行方案下界。第五轮称master lower bound似乎反了。近似oracle/超时只报告有证据的界，不承诺普通greedy有保证。 3 以y=是否有已记录支持作为二元contrast时，y=0包含未知。不能把未知当作反事实以奖励区分。首版应限定独立专家定义的任务对和有证据的差异，或明确只测记录差异并另审法律意义；你推荐哪个最小可执行定义？不要引入未经验证的胜败标签。broad-pattern coverage高的问题也不能仅靠任意加权声称被杜绝。 4 OUT_OF_SET不是普通UNKNOWN。固定候选实验中必须标记候选失败，撤销受影响保证并计入失败/覆盖；扩展需新版本，不能静默删样本或把扩大搜索归功于复核策略。 5 query-output baseline应优化单个匹配/支持输出的确定性，不使用所选模式集合的对称差（后者已经决策感知）；但必须另比较真实Query-Guided Resolution/MESReduce的适配加同一个集合选择器。 请确认哪些纠正成立，给最简单且有实际任务意义的F(S,z)和复核排序；明确它是启发式/有限候选条件设计，而不是新颖性或收益已证明。约1200中文字。
+  - generic: …
+  - button "Show more":
+    - generic: Show more
+  - button "Copy message":
+  - button "Share prompt":
+  - button "Edit message":
+  - button "Worked for 1m 27s"
+  - generic: Worked for 1m 27s
+  - heading "ChatGPT said:" [level=4]
+  - paragraph: 这五点纠正都成立，其中第 2、3、4 点是必须修的实质问题。最终 B-set v1 我建议收紧如下。
+  - heading "1. 分析单位与依赖单位分离" [level=3]
+  - paragraph: 分析单位固定为
+  - math:
+    - generic: u
+    - generic: =
+    - generic: (
+    - generic: c
+    - generic: a
+    - generic: s
+    - generic: e
+    - generic: _
+    - generic: i
+    - generic: d
+    - generic: ","
+    - generic: c
+    - generic: l
+    - generic: a
+    - generic: i
+    - generic: m
+    - generic: _
+    - generic: i
+    - generic: d
+    - generic: ","
+    - generic: s
+    - generic: t
+    - generic: a
+    - generic: g
+    - generic: e
+    - generic: )
+    - generic: .
+  - generic: u =
+  - generic: (case_id, claim_id, stage).
+  - paragraph: related_case_group 只用于：
+  - list:
+    - listitem: train/dev/test 防泄漏；
+    - listitem: 已知共享实体/程序历史的依赖约束；
+    - listitem: bootstrap / error correlation。
+  - paragraph:
+    - strong: 绝不能把不同裁判合并成一个 observation。
+  - separator
+  - heading "2. Robust optimization 的界修正" [level=3]
+  - paragraph: 目标仍为
+  - math:
+    - generic: V
+    - generic: ∗
+    - generic: =
+    - generic: max
+    - generic: ⁡
+    - generic: ∣
+    - generic: S
+    - generic: ∣
+    - generic: ≤
+    - generic: k
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: F
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: .
+  - text: V
+  - generic: ∗
+  - text: =
+  - generic: ∣S∣≤k
+  - generic: max
+  - generic: z∈Z
+  - generic: min
+  - text: F(S, z).
+  - paragraph:
+    - text: 对场景子集
+    - math:
+      - generic: Z
+      - generic: w
+      - generic: ⊂
+      - generic: Z
+    - text: Z
+    - generic: w
+    - text: ⊂
+    - generic: Z
+    - text: ：
+  - math:
+    - generic: U
+    - generic: B
+    - generic: =
+    - generic: max
+    - generic: ⁡
+    - generic: S
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: w
+    - generic: F
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+  - generic: UB =
+  - generic: S
+  - generic: max
+  - text: z∈
+  - text: Z
+  - generic: w
+  - generic: min
+  - text: F(S, z)
+  - paragraph:
+    - text: 是完整问题的
+    - strong: 上界
+    - text: 。
+  - paragraph:
+    - text: 给定 master 解
+    - math:
+      - generic: S
+      - generic: t
+    - text: S
+    - generic: t
+    - text: ，若 worst-case oracle 精确得到
+  - math:
+    - generic: w
+    - generic: t
+    - generic: =
+    - generic: min
+    - generic: ⁡
+    - generic: z
+    - generic: ∈
+    - generic: Z
+    - generic: F
+    - generic: (
+    - generic: S
+    - generic: t
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: ","
+  - text: w
+  - generic: t
+  - text: =
+  - generic: z∈Z
+  - generic: min
+  - text: F(
+  - text: S
+  - generic: t
+  - text: ", z),"
+  - paragraph:
+    - text: 则
+    - math:
+      - generic: w
+      - generic: t
+    - text: w
+    - generic: t
+    - text: 是全局最优值的
+    - strong: 可行下界
+    - text: 。
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - button "Run code":
+    - text: Run
+  - textbox "Edit code":
+    - generic: Z_work = initial_scenarios()
+    - generic: LB = -inf
+    - generic: "while True:"
+    - generic: S, UB = solve_master(P, Z_work, k)
+    - generic: oracle = worst_case_oracle(S, Z)
+    - generic: "if oracle.exact:"
+    - generic: LB = max(LB, oracle.value)
+    - generic: "elif oracle.has_certified_lower_bound:"
+    - generic: LB = max(LB, oracle.lower_bound)
+    - generic: "if oracle.found_scenario:"
+    - generic: Z_work.add(oracle.z_bad)
+    - generic: "if certified(UB - LB <= tol):"
+    - generic: break
+    - generic: "if timeout:"
+    - generic: return S, LB, UB, "GAP_NOT_CLOSED"
+  - button:
+  - paragraph:
+    - text: 若 oracle 超时，只报告 solver 实际给出的 certified bounds；普通 greedy
+    - strong: 没有保证
+    - text: 。
+  - separator
+  - heading "3. F 不再把 UNKNOWN 当成“另一类”" [level=3]
+  - paragraph:
+    - text: 首版我推荐一个小型、预注册的
+    - strong: expert contrast set
+    - math:
+      - generic: C
+    - generic: C
+    - text: ，而不是 outcome label。
+  - paragraph: 每个 contrast：
+  - math:
+    - generic: c
+    - generic: =
+    - generic: (
+    - generic: u
+    - generic: i
+    - generic: ","
+    - generic: u
+    - generic: j
+    - generic: ","
+    - generic: h
+    - generic: c
+    - generic: )
+  - generic: c =
+  - text: (
+  - text: u
+  - generic: i
+  - text: ","
+  - text: u
+  - generic: j
+  - text: ","
+  - text: h
+  - generic: c
+  - text: )
+  - paragraph: 满足：
+  - list:
+    - listitem: 同 issue / stage；
+    - text: 专家仅看原文，确认两边在预定义 factual facet
+    - math:
+      - generic: h
+      - generic: c
+    - text: h
+    - generic: c
+    - text: 上存在
+    - strong: 有证据的不同值
+    - text: ；
+    - listitem: 例如 FULL_PAYMENT vs PARTIAL_PAYMENT；
+    - text: 任何一边证据不足都不进入
+    - math:
+      - generic: C
+    - generic: C
+    - text: 。
+  - paragraph: 这样不使用“没记录到 pattern”作为负例。
+  - paragraph: 最简单的价值函数：
+  - math:
+    - generic: F
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: =
+    - generic: "1"
+    - generic: ∣
+    - generic: C
+    - generic: ∣
+    - generic: ∑
+    - generic: c
+    - generic: ∈
+    - generic: C
+    - generic: "1"
+    - generic: "["
+    - generic: ∃
+    - generic: p
+    - generic: ∈
+    - generic: S
+    - generic: ":"
+    - generic: p
+    - generic: correctly realizes
+    - generic: c
+    - generic: under
+    - generic: z
+    - generic: "]"
+    - generic: −
+    - generic: λ
+    - generic: ∑
+    - generic: p
+    - generic: ∈
+    - generic: S
+    - generic: c
+    - generic: o
+    - generic: m
+    - generic: p
+    - generic: l
+    - generic: e
+    - generic: x
+    - generic: i
+    - generic: t
+    - generic: "y"
+    - generic: (
+    - generic: p
+    - generic: )
+    - generic: −
+    - generic: ρ
+    - generic: r
+    - generic: e
+    - generic: d
+    - generic: u
+    - generic: "n"
+    - generic: d
+    - generic: a
+    - generic: "n"
+    - generic: c
+    - generic: "y"
+    - generic: (
+    - generic: S
+    - generic: ","
+    - generic: z
+    - generic: )
+    - generic: .
+  - generic: F(S, z) =
+  - generic: ∣C∣
+  - generic: "1"
+  - generic: c∈C
+  - generic: ∑
+  - text: 1[∃p ∈
+  - generic: "S :"
+  - text: p
+  - generic: correctly realizes
+  - text: c
+  - generic: under
+  - text: z] −
+  - text: λ
+  - generic: p∈S
+  - generic: ∑
+  - text: complexity(p) −
+  - generic: ρ redundancy(S, z).
+  - paragraph:
+    - text: 一个极宽 pattern 若在两边都相同，
+    - strong: 不覆盖 contrast
+    - text: ，所以不会仅因覆盖很多案件得高分；但这仍只是一个
+    - strong: representation utility proxy
+    - text: ，绝不是法律重要性本身。复杂度和 redundancy 系数必须在 dev 固定，不能事后调到“想要的结果”。
+  - separator
+  - heading "4. OUT_OF_SET 必须使局部保证失效" [level=3]
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - button "Run code":
+    - text: Run
+  - textbox "Edit code":
+    - generic: ans = expert_review(d)
+    - generic: "if ans == UNRESOLVED:"
+    - generic: keep_all_current_candidates(d)
+    - generic: "elif ans == OUT_OF_SET:"
+    - generic: mark_candidate_failure(d)
+    - generic: invalidate_bounds_for(dependent_units_and_patterns(d))
+    - generic: report_coverage_loss(d)
+    - generic: "# v1 禁止扩候选"
+    - generic: "else:"
+    - generic: constrain(d, ans)
+  - button:
+  - paragraph: OUT_OF_SET 不能变成 UNKNOWN，更不能静默删掉该样本。
+  - paragraph:
+    - text: 候选扩展必须作为
+    - strong: 新版本实验
+    - text: ，不能把扩展后的收益记到 review policy 名下。
+  - separator
+  - heading "5. 最终复核排序" [level=3]
+  - paragraph: B-active 仍用集合决策影响，但只作启发式：
+  - math:
+    - generic: S
+    - generic: c
+    - generic: o
+    - generic: r
+    - generic: e
+    - generic: (
+    - generic: d
+    - generic: )
+    - generic: =
+    - generic: p
+    - generic: ^
+    - generic: answer
+    - generic: (
+    - generic: t
+    - generic: "y"
+    - generic: p
+    - generic: e
+    - generic: (
+    - generic: d
+    - generic: )
+    - generic: )
+    - generic: ⋅
+    - generic: I
+    - generic: m
+    - generic: p
+    - generic: a
+    - generic: c
+    - generic: t
+    - generic: set
+    - generic: (
+    - generic: d
+    - generic: )
+    - generic: c
+    - generic: o
+    - generic: s
+    - generic: t
+    - generic: (
+    - generic: d
+    - generic: )
+    - generic: .
+  - generic: Score(d) =
+  - generic: cost(d)
+  - generic: p
+  - text: ^
+  - generic: answer
+  - text: (type(d)) ⋅ Impac
+  - text: t
+  - generic: set
+  - text: (d)
+  - text: .
+  - paragraph:
+    - text: 其中 Impact_set 是：在各个
+    - strong: 已有候选答案
+    - text: 下重新运行同一个 robust selector 后，当前集合可能遭受的 value regret；UNRESOLVED/OUT_OF_SET 不假设会改善。
+  - paragraph: 比较必须分开：
+  - list:
+    - strong: random review
+    - text: ；
+    - strong: local/query-output review
+    - text: ：只优化单个 mapping/support output 的确定性，不看最终集合；
+    - strong: Query-Guided Resolution / MESReduce 适配
+    - text: ：按其 query-output/data-verification 思路选择 query，但之后仍调用
+    - strong: 完全相同的 B-set selector
+    - text: ；
+    - listitem: B 的 set-decision-aware heuristic。
+  - paragraph: 最终评价不能只看“ambiguous patterns 变少”，而要同时报告：
+  - list:
+    - listitem: correctly covered expert contrasts；
+    - listitem: robust-set value；
+    - listitem: confirmed / invalid / unresolved coverage；
+    - listitem: OUT_OF_SET rate；
+    - listitem: expert review 数量/时间；
+    - listitem: solver gap 与计算成本。
+  - paragraph:
+    - text: 因此，最终 B-set 是一个
+    - strong: 有限候选、有限解释、专家 contrast 代理目标下的 robust set-selection + decision-aware review 设计
+    - text: 。它目前只是可比较算法候选；新颖性和收益都尚未由实验建立。
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - heading "You said:" [level=4]
+  - generic: 现在用户要求完成明确可实现的A/B/C算法，不能再把主要目标改成稳健复核/benchmark。请审计下面将采用的具体机制，只指出实质缺陷与最小修正，不重新广搜。A：采用原PDF与EDC的source-grounded extraction/define/retrieve，保留状态/极性/模态/身份。retrieval候选后双向蕴含判定EQ，完全链接核验全部不同语义签名才准入（先边界/最远成员失败早停），未知不当EQ；多个簇均过但跨簇不全EQ则暂存ambiguous，不随便选簇。错误发生后受影响簇稳定排序从singleton重建，所有交叉对EQ才合并，版本化使下游失效。判断器只是可测oracle不保证语义真值。B：有限类型安全、range-restricted、无函数、连接的2–4 atom关系查询，显式极性/状态，共享K合同变量，同态匹配+显式neq，WARMR式一原子扩展，每个分析单元SQLjoin witness，支持数按诉讼family去重；固定分母，用支持反单调剪枝；模式变量重命名和atom置换取最小编码（最多4atom）去重，不用发现集相同support删除语义不同query。最终采用可解码的字典压缩：字典S编码每个query结构；每个case保存固定typed entity table。数据token为literal(predicate,args)或macro(pattern_id,ordered variable bindings)，macro必须展开成已观察到的事实集合。编码包括token类别1bit、pattern ID ceil(log2 max(1,|S|))、各typed entity索引、literal谓词/论元，以及Elias-gamma正整数编码的pattern数/长度与token数。重复来源的相同ground atom先去重；covered facts允许重叠但按union重建。每次cover贪心选最大“新增literal编码bits减macro bits”的正收益occurrence，tie lex，剩下写literal，最终计算包括token count等全部bits。从空字典开始对每个候选实际重cover，只接受总L(S)+L(D|S)至少下降1bit的最佳addition，然后最佳deletion直到不再下降，再重新addition，直到局部最优或budget。不声称globaloptimal，不声称继承SLIM/KG-MDL理论。C：有限无函数安全Horn、依赖DAG规则，明确相反literal，source-grounded普通premises+defeasible bridges+规则出处。每个规则body正匹配，missing不变false；materialexception未知若无核验过的举证/default规则则blocking/incomplete，若有明确默认规则才生条件assumption。生成arguments，undermine/rebut/undercut作用到子论证，按已审阅rule/premise优先关系筛defeat，然后groundedF迭代到固定点，保留IN/OUT/UNDEC。同一literal的reported support双位与argument acceptability分开。ANGRY2025本身未支持preferences，不能直接套其优化保证，先用小规模完整ground+argument construction。请重点检查：A定义双向蕴含与类型泛化是否合理；B编码可解码性/支持剪枝/前缀限定/覆写算法是否有漏洞；C unknown exception gating与grounded semantics如何不互相矛盾。需要能直接写入spec的修正，约1500字。
+  - generic: …
+  - button "Show more":
+    - generic: Show more
+  - button "Copy message":
+  - button "Share prompt":
+  - button "Edit message":
+  - button "Worked for 1m 35s"
+  - generic: Worked for 1m 35s
+  - heading "ChatGPT said:" [level=4]
+  - paragraph:
+    - text: 整体上 A/B/C 已经能进入 spec；需要修的主要是
+    - strong: A 的 TYPE-EQ 与 assertion-EQ 混淆、B 的 support/编码边界条件、C 的 UNKNOWN exception 不能直接进入 argumentation
+    - text: 。
+  - heading "A：可用，但“双向蕴含”只能定义严格语义签名 EQ" [level=2]
+  - paragraph: 最大问题：如果直接对完整 assertion 做双向蕴含，会把 polarity/status/instance identity 混进 T1。例如 paid(C1) 与 not paid(C2) 的 assertion 不等价，但二者仍共享 PAYMENT predicate type。
+  - paragraph: 建议 spec 明确两层：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - text: "TYPE_EQ(x,y): variable abstraction 后 core predicate definition 双向蕴含 AND required type-defining facets 相同 # 不比较 case/entity/contract ID、polarity、assertion status"
+    - text: "ASSERTION_EQ(x,y): TYPE_EQ AND bindings同指 AND polarity/status/time/required facets兼容"
+  - paragraph: 较宽/较窄定义不是 EQ：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "FULL_PAYMENT -> PAYMENT : TYPE_SUBSUMES PAYMENT -> FULL_PAYMENT : 不成立"
+  - paragraph: 因此 T1 聚类只能用 TYPE_EQ；T2 去重使用 ASSERTION_EQ。
+  - paragraph:
+    - text: 完全链接方案可保留，但 noisy EQ 不保证传递，所以稳定排序只提供
+    - strong: 可复现性，不提供唯一真实partition
+    - text: ：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - button "Run code":
+    - text: Run
+  - textbox "Edit code":
+    - generic: "if all(TYPE_EQ(x,m) for m in cluster.signatures):"
+    - generic: admissible(cluster)
+    - generic: if >1 admissible clusters and
+    - generic: "not all_cross_pairs_EQ(those_clusters):"
+    - generic: "AMBIGUOUS # 不分配"
+  - button:
+  - paragraph: 重建同理；不要把 deterministic rebuild 写成恢复“正确簇”。
+  - separator
+  - heading "B：三处需要修" [level=2]
+  - heading "1. support 不能按 litigation family 去重" [level=3]
+  - paragraph: 这与已确定分析单位冲突。主 support 必须：
+  - math:
+    - generic: s
+    - generic: u
+    - generic: p
+    - generic: p
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: =
+    - generic: ∣
+    - generic: "{"
+    - generic: (
+    - generic: c
+    - generic: a
+    - generic: s
+    - generic: e
+    - generic: ","
+    - generic: c
+    - generic: l
+    - generic: a
+    - generic: i
+    - generic: m
+    - generic: ","
+    - generic: s
+    - generic: t
+    - generic: a
+    - generic: g
+    - generic: e
+    - generic: )
+    - generic: ":"
+    - generic: ∃
+    - generic: c
+    - generic: l
+    - generic: e
+    - generic: a
+    - generic: "n"
+    - generic: w
+    - generic: i
+    - generic: t
+    - generic: "n"
+    - generic: e
+    - generic: s
+    - generic: s
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: "}"
+    - generic: ∣
+    - generic: .
+  - generic: supp(q) =
+  - generic: "∣{(case, claim, stage) :"
+  - text: ∃clean
+  - text: "witness(q)}∣."
+  - paragraph: related_case_group 仅用于 split/dependence/bootstrap。可以另报 family-capped sensitivity，但不能作为主 mining support。
+  - paragraph: 反单调剪枝成立的前提写死：
+  - list:
+    - listitem: candidate universe 固定；
+    - listitem: 分母固定；
+    - listitem: support 只表示“存在已记录 clean witness”，absence 不解释成 FALSE；
+    - listitem: extension 只能增加 atom/neq/constant constraint。
+  - paragraph:
+    - text: 于是
+    - math:
+      - generic: q
+      - generic: ′
+      - generic: ⊃
+      - generic: q
+      - generic: ⇒
+      - generic: s
+      - generic: u
+      - generic: p
+      - generic: p
+      - generic: (
+      - generic: q
+      - generic: ′
+      - generic: )
+      - generic: ≤
+      - generic: s
+      - generic: u
+      - generic: p
+      - generic: p
+      - generic: (
+      - generic: q
+      - generic: )
+    - text: q
+    - generic: ′
+    - text: ⊃
+    - generic: q ⇒
+    - text: supp(
+    - text: q
+    - generic: ′
+    - text: ) ≤
+    - generic: supp(q)
+    - text: 。
+  - heading "2. MDL 必须条件于固定 side information" [level=3]
+  - paragraph: typed entity table、predicate registry、source provenance 若不压缩，就写：
+  - math:
+    - generic: L
+    - generic: (
+    - generic: S
+    - generic: )
+    - generic: +
+    - generic: L
+    - generic: (
+    - generic: D
+    - generic: ∣
+    - generic: S
+    - generic: ","
+    - generic: E
+    - generic: )
+  - generic: L(S) +
+  - generic: L(D ∣
+  - generic: S, E)
+  - paragraph: 其中 E 为固定 side information；不能暗示总系统把 provenance 一起压缩了。
+  - paragraph: 可解码格式至少固定：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: "gamma(|S|+1) # gamma不能编码0 dictionary entries per unit: gamma(token_count+1) token := 0 | literal_pred_id | typed_arg_ids 1 | pattern_id | ordered_variable_bindings"
+  - paragraph: pattern_id 位宽：
+  - list:
+    - listitem: "|S|<=1: 0 bit；"
+    - listitem: 否则 ceil(log2 |S|)。
+  - paragraph: pattern dictionary 必须编码 predicate、polarity/status guard、neq、变量类型、canonical variable numbering；decoder 因而知道 binding 数及顺序。
+  - heading "3. cover 时不能只比较 literal bits−macro bits" [level=3]
+  - paragraph:
+    - text: token-count header 也会变化，overlap 也会改变增量。因此每步用
+    - strong: 精确边际码长
+    - text: ：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - button "Run code":
+    - text: Run
+  - textbox "Edit code":
+    - generic: "while True:"
+    - generic: best = None
+    - generic: "for occ in valid_occurrences:"
+    - generic: new_atoms = expansion(occ) - covered_union
+    - generic: "if not new_atoms:"
+    - generic: continue
+    - generic: delta = exact_L_after(occ) - current_L
+    - generic: choose minimum delta
+    - generic: "if best.delta >= 0: break"
+    - generic: apply(best)
+  - button:
+  - paragraph: dictionary add/delete 外层仍每次完整 re-cover；严格至少降 1 bit，所以不会循环。不声称全局最优。
+  - separator
+  - heading "C：UNKNOWN exception 应在“规则实例化门”处理，而不是伪造攻击" [level=2]
+  - paragraph: 否则会出现矛盾：没有 exception 证据，却凭“未知”生成攻击，再交给 grounded semantics。
+  - paragraph: 对 material exception E：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - button "Run code":
+    - text: Run
+  - textbox "Edit code":
+    - generic: "def instantiate(rule, binding):"
+    - generic: "if any(body_atom is UNKNOWN):"
+    - generic: return BLOCKED_PREMISE
+    - generic: e = state(rule.exception)
+    - generic: "if e == TRUE:"
+    - generic: return BLOCKED_EXCEPTION
+    - generic: "if e == FALSE: # 有显式 ¬E 支持"
+    - generic: return build_argument(rule)
+    - generic: "if e == UNKNOWN:"
+    - generic: "if has_verified_default_rule(rule, E):"
+    - generic: return build_argument_with_assumption(NotE_default)
+    - generic: return BLOCKED_EXCEPTION_UNKNOWN
+    - generic: "if e == CONFLICT:"
+    - generic: "if has_support(NotE):"
+    - generic: "A = build_argument(rule) # 允许形成"
+    - generic: X = build_exception_undercutter(E)
+    - generic: return [A, X]
+    - generic: return BLOCKED_EXCEPTION
+  - button:
+  - paragraph:
+    - text: 关键是 NotE_default 是
+    - strong: argument-level assumption
+    - text: ，不是 reported fact，所以：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: reported_support(E) / reported_support(¬E)
+  - paragraph: 仍与：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: argument_acceptability
+  - paragraph: 完全分开。
+  - paragraph: 最后 attack→defeat 也应固定一条规则，避免 preferences 含糊：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code:
+    - generic: attack succeeds as defeat unless target is explicitly strictly preferred to attacker
+  - paragraph: 只接受已审阅、无循环的 preference relation；未比较的两个 argument 不自动产生优先级。Grounded semantics 然后正常迭代 IN/OUT/UNDEC；规则 DAG 不要求 attack graph 无环。
+  - paragraph: "**结论：**A 的结构基本成立，只需把 TYPE_EQ/ASSERTION_EQ 分离；B 的核心算法可实现，但 primary support 必须回到 (case,claim,stage)，且 MDL cover 要算精确边际码长；C 最关键的是把 UNKNOWN exception 作为 rule-instantiation gate，只有明确 default/burden rule 才生成 assumption argument。这样三套算法的语义接口已经足够明确，可以直接进入实现 spec。"
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - heading "You said:" [level=4]
+  - generic: 综合三个Pro分支后已更新实现。请只找数学或语义漏洞，约800字，不重新扩展研究。A：将已核验语义签名作为节点，E+只有明确EQ。未知/未查询/非等价都禁止同簇但分别保存原因。二元zij同簇，非E+=0，所有三元传递约束；max sumE+ zij，次目标尽量保持旧关系。≤80节点60秒MILP，大组件完全链接贪心回退。只有完整EQ团能发布，定义还需逐成员双向核验。不要把最优图目标写成最优语义。B：同态查询匹配、显式neq、绑定相同合同；unit=(诉讼组,请求,阶段)，每组每阶段选一个来源快照，不跨阶段拼接；另计family支持≥5。固定候选、完整见证、固定typed实体表与词典。数据2bit标签 literal/macro/end；literal固定谓词与实体ID成本，macro固定候选ID宽度(头保存宽度，字典项保存该ID及完整模式定义)+全部变量绑定；字典项1开头0结束，不用可变token计数头。故线性目标 min sum Lp xp+sum co zo+sum cf rf，cover每fact≥1；zo≤xp；每模式每unit最多1次；hpg OR该模式在family的zo；sumg hpg≥3xp。所有展开是原数据子集，集合并集解码。300秒最优或可行解，报告gap，与同编码约束贪心比较。C采纳C-Pro：Kn只有来源记录，Kp空；来源投射、桥接、规范/例外都defeasible，strict仅技术谓词。Last-link strict elitist：weaker(A,B) iff 两Last非空，存在a∈Last(A)使所有b∈Last(B)都有b>R a。rebut当not weaker(attacker,target-sub)成为defeat；undercut无条件，攻击子论证传播上层。优先无环有出处。源投射正反冲突用rebut。grounded F迭代空集到fixedpoint。例外不统一强制NotE：ATTACK_ONLY必须有审阅的默认适用依据，body=>q而E=>not_applicable(r,bind)，E未知不生成NotE但论证可构造；REQUIRES_NEG明确需¬E才构造；UNSPECIFIED规则不发布。规则模式不可为了当前案例改。检查此方案有无必须修正处；不要因与此前方案不同就默认它错误。
+  - generic: …
+  - button "Show more":
+    - generic: Show more
+  - button "Copy message":
+  - button "Share prompt":
+  - button "Edit message":
+  - button "Worked for 1m 25s"
+  - generic: Worked for 1m 25s
+  - heading "ChatGPT said:" [level=4]
+  - paragraph: 整体可实现；必须修的点如下。
+  - paragraph:
+    - strong: A：基本成立。
+    - text: 需要在 spec 写清“两两未知=0”意味着
+    - strong: 不利用 EQ 的传递性补齐未查询边
+    - text: ：即使 a EQ b, b EQ c，只要 a,c 未核验，三者不能同簇。这是保守设计，不是语义结论。MILP 的传递约束必须包含每个三元组的三个方向。大组件 greedy fallback 也只能生成
+    - strong: E+ complete clique
+    - text: ，并明确它只是可行回退，不等价于 MILP 次目标最优。“max ΣE+zij”只能称图划分目标，不能称语义最优，这一点你已经处理正确。
+  - paragraph:
+    - strong: B 有三处必须改。
+  - list:
+    - text: unit=(诉讼组,请求,阶段) 会再次合并不同裁判。主单位应恢复为
+    - text: (case_id, claim_id, stage)；litigation_family 只用于 split、依赖和 family-support。
+    - listitem: 文中“family支持≥5”与约束 Σg h_pg ≥ 3 x_p 直接矛盾；二者必须统一，例如若门槛是5，就写 ≥5x_p。
+    - text: “每模式每unit最多一次”混淆了
+    - strong: 统计支持
+    - text: 和
+    - strong: 压缩 occurrence
+    - text: 。同一 query 可在同一 unit 有两个不同 binding，分别覆盖不同 facts。最小修正：
+  - generic: Python
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: "z_o ∈ {0,1} # o=(pattern, unit, binding) h_pu = OR_o z_o # support只计unit一次 h_pg = OR_{u in g} h_pu"
+  - paragraph: 允许多个 z_o，但 support 仍只计一次。另需确保 dictionary entry 真正 self-delimiting：仅“1开头/0结束”不足，除非内部所有字段固定宽度；最简单是显式编码 atom 数、变量数及各字段长度。
+  - paragraph:
+    - strong: C 有两处语义边界要固定。
+    - text: 第一，not weaker(attacker,target) 不能让 defeasible rebut 去击败
+    - strong: strict technical inference
+    - text: 。应规定：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: rebut only targets a subargument whose top rule is defeasible undercut only targets a defeasible rule application strict-rule conclusions只能通过攻击其可攻击前提间接失效
+  - paragraph: 否则 Last(target)=∅ 时 weaker=false，会错误使普通 defeasible attacker 自动击败 strict technical derivation。
+  - paragraph: 第二，ATTACK_ONLY 的“默认适用依据”最好显式进入 argument，而不是只作为元规则：
+  - generic: Plain text
+  - button "Enable word wrap":
+  - button "Copy":
+  - code: default_applicable(r,b) => applicable(r,b) body ∧ applicable(r,b) => q E => ¬applicable(r,b)
+  - paragraph: E=UNKNOWN 时不生成 ¬E，但默认适用 argument 可以存在；若 E 后来有支持，则形成 undercut/rebut。这样 unknown-exception gating 与 grounded semantics 不冲突，也完整保留默认依据 provenance。
+  - paragraph: 除以上几点外，A/B/C 当前没有明显必须推翻的数学结构。
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - generic: ChatGPT can make mistakes. Check important info.
+  - button "Scroll to bottom":
+  - heading "Latest response" [level=4]
+  - status
+  - button "Add files and more":
+  - textbox "Ask ChatGPT" [active]:
+    - paragraph: Ask ChatGPT
+  - button "Select ChatGPT model":
+    - generic: Extra High
+  - button "Dictate":
+  - button "Start Voice":
+- status
+- status
+- status
+- status: Response complete

@@ -1,0 +1,73 @@
+{
+  "case_id": "69305",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "answer_status": "UNKNOWN",
+      "explanation": "The judgment explicitly finds the sub-leased property (United Automobiles' premises) is the same physical premises as the owned property (Appellant's premises) because the Appellant parted with possession of the whole premises to the sub-lessee. However, the query requires the sub-leased property to be a 'direct physical part' of the owned property with 'different' IDs. The text does not establish two distinct physical properties; it establishes one property with two different tenancy interests (Appellant as tenant, United Automobiles as sub-tenant). The 'different' constraint on property IDs cannot be satisfied as the source describes a single property context.",
+      "bindings": [],
+      "missing_fields": [
+        "Distinct physical property identifiers for the sub-leased portion and the owned portion to satisfy the 'different' constraint."
+      ],
+      "other_combinations_considered": "The source describes the Appellant owning the premises and sub-letting the same premises. No separate property entity is mentioned for the sub-lease.",
+      "evidence": [
+        {
+          "segment_id": "p0003.s003",
+          "quote": "The respondent, the owner of the premises, let it out to the appellant in 1961 as a monthly tenant."
+        },
+        {
+          "segment_id": "p0003.s003",
+          "quote": "That they will not assign or underlet or part with the premises hereby demised..."
+        },
+        {
+          "segment_id": "p0004.s001",
+          "quote": "The eviction proceeding was defended by the appellant on the ground that the M/s. United Automobiles are the authorised dealer... and has been in occupation of the premises..."
+        },
+        {
+          "segment_id": "p0004.s005",
+          "quote": "There is no dispute that the appellant has put M/s. United Automobiles in possession of the premises and has thus parted with the possession within the meaning of S. 14(1) Proviso (b) of the Act."
+        }
+      ],
+      "run_status": "OK",
+      "raw_answer_status": "UNKNOWN",
+      "automatic_errors": [
+        "UNLOCATED_QUOTE:p0003.s003",
+        "UNLOCATED_QUOTE:p0004.s001"
+      ],
+      "source_anchor_valid": false,
+      "semantic_validity": "NOT_ESTABLISHED"
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "answer_status": "NOT_FOUND",
+      "explanation": "The source text contains no instance of a 'FILE_OTHER_PROCEEDING' event. The only proceedings mentioned are the eviction proceedings initiated by the Respondent and the subsequent appeals filed by the Appellant. Therefore, no filer of a separate proceeding can be found to match the constraint.",
+      "bindings": [],
+      "missing_fields": [
+        "Any event record of type FILE_OTHER_PROCEEDING in the NARRATED section."
+      ],
+      "other_combinations_considered": "None, as the event type is absent from the source.",
+      "evidence": [],
+      "run_status": "OK",
+      "raw_answer_status": "NOT_FOUND",
+      "automatic_errors": [],
+      "source_anchor_valid": true,
+      "semantic_validity": "NOT_ESTABLISHED"
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "answer_status": "NOT_FOUND",
+      "explanation": "The source text contains no instance of a 'LEASE_PROPERTY' event. The relationship described is a sub-lease (unregistered lease deed) created by the Appellant, not a primary lease relationship where the Appellant is the tenant of the Respondent in a way that triggers a 'LEASE_PROPERTY' event type defined in the query schema (which implies a standard tenancy). Even if interpreted broadly, the specific event type 'LEASE_PROPERTY' is not present in the NARRATED text to serve as the 'e1' atom.",
+      "bindings": [],
+      "missing_fields": [
+        "Any event record of type LEASE_PROPERTY in the NARRATED section."
+      ],
+      "other_combinations_considered": "The text describes a sub-lease relationship, but the specific event type 'LEASE_PROPERTY' is not found.",
+      "evidence": [],
+      "run_status": "OK",
+      "raw_answer_status": "NOT_FOUND",
+      "automatic_errors": [],
+      "source_anchor_valid": true,
+      "semantic_validity": "NOT_ESTABLISHED"
+    }
+  ]
+}

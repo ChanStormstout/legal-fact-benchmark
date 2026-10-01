@@ -1,0 +1,19 @@
+{
+  "version": "new-10-pattern-matching-v1",
+  "methods_fixed": true,
+  "seed": 20261001,
+  "query_ids": [
+    "9c74983b08ed3850",
+    "24d45ac35ac7f114",
+    "52a7d11461a492d0"
+  ],
+  "evaluation": "Case/question status and binding/source differences; no overall accuracy without independent references",
+  "audit_rule": "Sort eligible bindings by sample rank, task ID and canonical binding. Seeded random sample at most 3 B MATCH bindings; then at most 3 difference items, prioritize cooccurrence witness rejected by typed executor (known failing pair), then cooccurrence extra UNKNOWN bindings, then A/B status disagreements. Deduplicate exact selected item; no top-up beyond actual categories. One source review per selected item.",
+  "max_audit": 6,
+  "web_extraction_passes": 1,
+  "format_repair_max": 1,
+  "new_relations": false,
+  "held_out": false,
+  "material": "New documents not used to develop these fixed tasks; dispute independence unverified",
+  "stop": "10 cases + at most 6 audit items; no new cases, semantic repair rounds, discovery or outcomes"
+}

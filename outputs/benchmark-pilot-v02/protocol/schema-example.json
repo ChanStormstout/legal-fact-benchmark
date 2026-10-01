@@ -1,0 +1,178 @@
+{
+  "synthetic_source": [
+    {
+      "segment_id": "ex1",
+      "text": "At this trial, Tenant T resisted Owner L’s claim to recover possession of Shop S. In that defense, T alleged that L received compensation associated with Shop S."
+    },
+    {
+      "segment_id": "ex2",
+      "text": "The court held the compensation allegation unproved."
+    }
+  ],
+  "annotation.json": {
+    "schema_version": "pilot-0.2-dev",
+    "case_id": "SYNTHETIC_EXAMPLE_ONLY",
+    "eligible": true,
+    "eligibility_reason": "Tenant seeks to resist recovery of possession in current trial.",
+    "objects": [
+      {
+        "id": "o1",
+        "label": "Tenant T",
+        "kind": "PERSON",
+        "evidence": [
+          {
+            "segment_id": "ex1",
+            "quote": "Tenant T"
+          }
+        ]
+      },
+      {
+        "id": "o2",
+        "label": "Owner L",
+        "kind": "PERSON",
+        "evidence": [
+          {
+            "segment_id": "ex1",
+            "quote": "Owner L"
+          }
+        ]
+      },
+      {
+        "id": "o3",
+        "label": "Shop S",
+        "kind": "PROPERTY",
+        "evidence": [
+          {
+            "segment_id": "ex1",
+            "quote": "Shop S"
+          }
+        ]
+      }
+    ],
+    "stages": [
+      {
+        "id": "st1",
+        "label": "current trial",
+        "current": true,
+        "evidence": [
+          {
+            "segment_id": "ex1",
+            "quote": "At this trial"
+          }
+        ]
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "kind": "DEFENSE",
+        "party": "o1",
+        "relief": "Resist recovery of possession of Shop S",
+        "stage_id": "st1",
+        "primary": true,
+        "grounds": [],
+        "evidence": [
+          {
+            "segment_id": "ex1",
+            "quote": "Tenant T resisted Owner L’s claim to recover possession of Shop S"
+          }
+        ]
+      }
+    ],
+    "predicate_definitions": [
+      {
+        "id": "RECEIVE_COMPENSATION",
+        "meaning": "Receiver receives compensation associated with premises.",
+        "roles": {
+          "receiver": "person alleged to receive compensation",
+          "property": "premises associated with compensation"
+        }
+      }
+    ],
+    "assertions": [
+      {
+        "id": "a1",
+        "kind": "FACT",
+        "predicate": "RECEIVE_COMPENSATION",
+        "polarity": "POSITIVE",
+        "roles": {
+          "receiver": "o2",
+          "property": "o3"
+        },
+        "attributes": {},
+        "scope": {},
+        "time": null,
+        "origin": {
+          "speaker_entity": "o1",
+          "speaker_label": "Tenant T",
+          "stage_id": "st1",
+          "mode": "ALLEGED"
+        },
+        "deciding_court_treatment": {
+          "value": "NOT_ESTABLISHED",
+          "evidence": [
+            {
+              "segment_id": "ex2",
+              "quote": "The court held the compensation allegation unproved."
+            }
+          ]
+        },
+        "relevance": [
+          {
+            "unit_id": "u1",
+            "basis": "EXPLICIT",
+            "explanation": "Allegation raised within this possession defense.",
+            "evidence": [
+              {
+                "segment_id": "ex1",
+                "quote": "In that defense, T alleged that L received compensation associated with Shop S."
+              }
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "segment_id": "ex1",
+            "quote": "In that defense, T alleged that L received compensation associated with Shop S."
+          }
+        ],
+        "unresolved": []
+      }
+    ],
+    "relations": []
+  },
+  "review_notes.json": {
+    "schema_version": "pilot-0.2-dev",
+    "case_id": "SYNTHETIC_EXAMPLE_ONLY",
+    "coverage": [
+      {
+        "segment_id": "ex1",
+        "category": "MIXED",
+        "assertion_ids": [
+          "a1"
+        ],
+        "reason": "Registers current stage, parties, defense and attributed compensation assertion."
+      },
+      {
+        "segment_id": "ex2",
+        "category": "REASONING",
+        "assertion_ids": [
+          "a1"
+        ],
+        "reason": "Records current treatment as unproved; does not derive a negative compensation fact."
+      }
+    ],
+    "source_issues": [],
+    "unresolved": [],
+    "unsupported_phenomena": [],
+    "self_checks": {
+      "json_parsed": true,
+      "ids_unique": true,
+      "references_valid": true,
+      "coverage_complete": true,
+      "checks_not_performed": [
+        "Independent semantic review"
+      ]
+    }
+  }
+}

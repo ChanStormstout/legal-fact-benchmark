@@ -1,0 +1,69 @@
+{
+  "case_id": "283081",
+  "unit_evidence": ["p0002.s001", "p0002.s002", "p0002.s003", "p0004.s003", "p0004.s004", "p0004.s005", "p0004.s006"],
+  "objects": [
+    {
+      "id": "grewal",
+      "label": "Gulraj Singh Grewal",
+      "kind": "PERSON",
+      "resolved": true,
+      "evidence": ["p0002.s001", "p0004.s003", "p0004.s005"]
+    },
+    {
+      "id": "harbans",
+      "label": "Dr. Harbans Singh",
+      "kind": "PERSON",
+      "resolved": true,
+      "evidence": ["p0002.s001", "p0004.s003", "p0004.s004"]
+    },
+    {
+      "id": "ravinder",
+      "label": "Dr. Ravinder Singh",
+      "kind": "PERSON",
+      "resolved": true,
+      "evidence": ["p0004.s003", "p0004.s004", "p0006.s002"]
+    },
+    {
+      "id": "suit_premises",
+      "label": "suit premises situate in Ludhiana",
+      "kind": "PROPERTY",
+      "resolved": true,
+      "evidence": ["p0002.s001", "p0004.s003", "p0004.s005"]
+    }
+  ],
+  "events": [
+    {
+      "id": "e0",
+      "type": "FILE_EVICTION",
+      "status": "NARRATED",
+      "polarity": "POSITIVE",
+      "roles": [
+        {"name": "filer", "object": "harbans"},
+        {"name": "respondent", "object": "grewal"},
+        {"name": "property", "object": "suit_premises"}
+      ],
+      "evidence": ["p0002.s002", "p0004.s004"],
+      "known": ["type", "status", "polarity", "roles.filer", "roles.respondent", "roles.property"],
+      "unknown": [],
+      "speaker": "judgment narration",
+      "stage": "underlying tenancy dispute"
+    },
+    {
+      "id": "e1",
+      "type": "LEASE_PROPERTY",
+      "status": "NARRATED",
+      "polarity": "POSITIVE",
+      "roles": [
+        {"name": "landlord", "object": "harbans"},
+        {"name": "tenant", "object": "grewal"},
+        {"name": "property", "object": "suit_premises"}
+      ],
+      "evidence": ["p0002.s001", "p0004.s003"],
+      "known": ["type", "status", "polarity", "roles.landlord", "roles.tenant", "roles.property"],
+      "unknown": [],
+      "speaker": "judgment narration",
+      "stage": "underlying tenancy dispute"
+    }
+  ],
+  "edges": []
+}

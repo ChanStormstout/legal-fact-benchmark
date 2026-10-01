@@ -1,0 +1,104 @@
+{
+  "case_id": "500624",
+  "edges": [
+    {
+      "op": "member_of",
+      "left": "o5",
+      "right": "o4",
+      "decision": "SUPPORTED",
+      "stage_scope": "case caption / appellant group",
+      "explanation": "The caption expressly names Pramod Kumar Jaiswal as part of 'Pramod Kumar Jaiswal and others', the petitioner/appellant group.",
+      "evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "PETITIONER: Pramod Kumar Jaiswal and others"
+        }
+      ],
+      "id": "6bbdd87c35b61e9316de",
+      "origin": "TARGETED_WEB_MODEL_RELATION_NOT_HUMAN_GOLD",
+      "computational_evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "PETITIONER: Pramod Kumar Jaiswal and others",
+          "page": 1,
+          "source_url": "https://drive.google.com/file/d/1UaisdaO_vfPYkO_BKqp0zeYOc49Oso--/view?usp=drivesdk"
+        }
+      ]
+    },
+    {
+      "op": "member_of",
+      "left": "o7",
+      "right": "o6",
+      "decision": "SUPPORTED",
+      "stage_scope": "case caption / respondent group",
+      "explanation": "The caption expressly names Bibi Husn Bano as part of 'Bibi Husn Bano & Ors.', the respondent group.",
+      "evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "RESPONDENT: Bibi Husn Bano & Ors."
+        }
+      ],
+      "id": "7cc7968bf71ee81fbd15",
+      "origin": "TARGETED_WEB_MODEL_RELATION_NOT_HUMAN_GOLD",
+      "computational_evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "RESPONDENT: Bibi Husn Bano & Ors.",
+          "page": 1,
+          "source_url": "https://drive.google.com/file/d/1UaisdaO_vfPYkO_BKqp0zeYOc49Oso--/view?usp=drivesdk"
+        }
+      ]
+    }
+  ],
+  "rejected": [],
+  "missing_parent_decisions": [],
+  "missing_group_reviews": [],
+  "group_reviews": [
+    {
+      "group_id": "o4",
+      "supported_member_ids": [
+        "o5"
+      ],
+      "uncertainty": "Only Pramod Kumar Jaiswal is individually named within the supplied appellant-group caption; no other atomic appellant members are created from 'others'.",
+      "evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "PETITIONER: Pramod Kumar Jaiswal and others"
+        }
+      ]
+    },
+    {
+      "group_id": "o6",
+      "supported_member_ids": [
+        "o7"
+      ],
+      "uncertainty": "Only Bibi Husn Bano is individually named within the supplied respondent-group caption; the source also identifies the respondents as heirs of Quasim.",
+      "evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "RESPONDENT: Bibi Husn Bano & Ors."
+        },
+        {
+          "segment_id": "p0001.s002",
+          "quote": "The respondents in this appeal, the heirs of Quasim"
+        }
+      ]
+    },
+    {
+      "group_id": "o8",
+      "supported_member_ids": [],
+      "uncertainty": "No supplied atomic person is explicitly identified as one of the 'certain heirs' who assigned co-owner landlord rights; source silence is not treated as denial.",
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "certain heirs, being co-owner landlords"
+        }
+      ]
+    }
+  ],
+  "raw_hash": "badc6680d891cd8f34c295b72a850ca411cda5b890499016b73d4c9f8e659ff0",
+  "view_hash": "69b01063f4c832590472a9a8afe44ddbc13535d9ec114bbebfc39feb325e15d7",
+  "source_hash": "908dbbbc8683c998c17c616d3a3dddbfb38419ec799265f7fb5a3b46fff76e61",
+  "closed_world": false,
+  "semantic_accuracy": "NOT_ESTABLISHED"
+}

@@ -1,0 +1,118 @@
+{
+  "case_id": "148738",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "answer_status": "UNKNOWN",
+      "explanation": "The source explicitly identifies the 'SUBLET_PROPERTY' as the tenancy created in 1970 in favor of Sujoy Kumar Das Gupta (s006). It also identifies the 'OWN_PROPERTY' as the premises purchased by the respondents on 27th September, 1973 (s003). While the sub-letting occurred within the premises, the text does not contain a specific positive assertion stating that the 1970 sub-let property is a 'direct physical part' of the 1973 purchased property; it only states the sub-letting was created in 1970 and the purchase happened later, implying the sub-letting existed within the property but lacking the specific 'part_of' phrasing required for a MATCH on the direct physical relationship between the specific sub-let unit and the purchased whole.",
+      "bindings": [],
+      "missing_fields": [
+        "Direct assertion linking the specific 1970 sub-let property to the 1973 purchased property as a physical part."
+      ],
+      "other_combinations_considered": "The text mentions the sub-letting was created in 1970 and the property was purchased in 1973, implying the sub-letting was within the property, but does not explicitly assert the 'part_of' relationship between the specific sub-let property and the purchased property.",
+      "evidence": [
+        {
+          "segment_id": "p0006.s006",
+          "quote": "In the said notice it had been stated that the appellant Pulin Behari Pal due to old age and physical infirmities had become unable to discharge his duties in the partnership business and as such had transferred, assigned all his interest, goodwill of the business and his right, title and interest to the said Sujoy Das Gupta absolutely and forever."
+        },
+        {
+          "segment_id": "p0003.s002",
+          "quote": "On 27th September, 1973 the respondents herein purchased the premises in question from the Commissioner of Partition and Receiver..."
+        }
+      ]
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "answer_status": "MATCH",
+      "explanation": "The source narrates that the respondents filed a suit for ejectment (FILE_EVICTION) and also filed a suit for partition (FILE_OTHER_PROCEEDING). The text explicitly states that the respondents in the eviction suit are the same as the respondents in the partition suit (Mahadeb Dutte and Ors), establishing that the filers of the other proceeding are members of the respondent group in the eviction request.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "polarity": "POSITIVE",
+              "objects": {
+                "role": "respondent",
+                "value": "Mahadeb Dutte And Ors"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0001.s001",
+                  "quote": "PETITIONER: PULIN BEHARI LAL Vs. RESPONDENT: MAHADEB DUTTE AND ORS."
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "FILE_OTHER_PROCEEDING",
+              "status": "NARRATED",
+              "polarity": "POSITIVE",
+              "objects": {
+                "role": "filer",
+                "value": "Mahadeb Dutte And Ors"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s001",
+                  "quote": "The respondents filed a suit for ejectment on 12th December, 1975 in the City Civil Court on the ground of default In payment of rent and sub-letting."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "Mahadeb Dutte And Ors",
+            "right": "Mahadeb Dutte And Ors",
+            "evidence": [
+              {
+                "segment_id": "p0002.s001",
+                "quote": "The respondents filed a suit for ejectment on 12th December, 1975 in the City Civil Court on the ground of default In payment of rent and sub-letting."
+              },
+              {
+                "segment_id": "p0003.s002",
+                "quote": "On 27th September, 1973 the respondents herein purchased the premises in question from the Commissioner of Partition and Receiver in High Court Suit No. 1183 of 1961 (Anuo Kumar Dhar v. Satya Narayan Dhar & Ors.), a suit for partition etc., between the owners of the said premises."
+              }
+            ]
+          }
+        }
+      ],
+      "missing_fields": [],
+      "other_combinations_considered": "None; the text consistently identifies the same group as respondents in both proceedings.",
+      "evidence": [
+        {
+          "segment_id": "p0002.s001",
+          "quote": "The respondents filed a suit for ejectment on 12th December, 1975 in the City Civil Court on the ground of default In payment of rent and sub-letting."
+        },
+        {
+          "segment_id": "p0002.s001",
+          "quote": "The Trial Court decreed the suit on the ground of sub-letting."
+        },
+        {
+          "segment_id": "p0003.s002",
+          "quote": "On 27th September, 1973 the respondents herein purchased the premises in question from the Commissioner of Partition and Receiver in High Court Suit No. 1183 of 1961 (Anuo Kumar Dhar v. Satya Narayan Dhar & Ors.), a suit for partition etc., between the owners of the said premises."
+        }
+      ]
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "answer_status": "UNKNOWN",
+      "explanation": "The source identifies a 'LEASE_PROPERTY' (the shop room rented to the appellant) and a 'FILE_EVICTION' request with respondents 'Mahadeb Dutte And Ors'. The text states the appellant was the tenant of the shop room (s002) and the respondents purchased the premises (s003). However, the text does not explicitly assert that the 'appellant' (the specific tenant of the leased property) is a 'member' of the 'Mahadeb Dutte And Ors' group. The text states the respondents purchased the premises from the Commissioner, and the appellant was notified to pay rent to the respondents, but it does not explicitly state the appellant is a member of the 'Mahadeb Dutte And Ors' group (which implies a specific membership relation). The text says 'The appellant tenant was notified about the sale and was asked to pay rent to the respondents' (s001), but does not explicitly link the appellant's identity to the specific 'Mahadeb Dutte And Ors' group members in a way that satisfies the 'member_of' constraint for the specific group defined in the eviction suit.",
+      "bindings": [],
+      "missing_fields": [
+        "Explicit assertion that the specific tenant (Pulin Behari Lal) is a member of the specific respondent group (Mahadeb Dutte And Ors)."
+      ],
+      "other_combinations_considered": "The text implies the respondents are the purchasers and the appellant is the tenant, but does not explicitly state the appellant is a member of the respondent group 'Mahadeb Dutte And Ors' in the context of the eviction suit respondents.",
+      "evidence": [
+        {
+          "segment_id": "p0001.s001",
+          "quote": "PETITIONER: PULIN BEHARI LAL Vs. RESPONDENT: MAHADEB DUTTE AND ORS."
+        },
+        {
+          "segment_id": "p0003.s002",
+          "quote": "The appellant took one road side shop room in the ground floor of premises No. 75, Surendra Nath Banerjee Road, Calcutta on rent @ Rs.50 per month."
+        },
+        {
+          "segment_id": "p0003.s003",
+          "quote": "The said Commissioner of Partition and Receiver notified the appellant about the said

@@ -1,0 +1,5 @@
+请做第2轮技术修正，直接给确定的算法接口与小反例，避免重写泛综述。你上轮的总体区分有用，但有三处需要更精确：
+1) 你H1的hard negatives把same predicate/different contract,event列在一起，但推荐的跨案canonicalization目标是predicate TYPE，合同ID不同本来不应该阻止类型共享；只有案件内proposition去重才要求同指。请将任务T1表达/谓词定义等价、T2案件内命题或事件消歧、T3向某factor投影完全分开，给每个I/O、gold关系、拒绝条件、评估。给出同一predicate+facet保留与严格断言等价两种实现的兼容接口。不要用T2的简单ID差异给T1制造虚假的改进。
+2) 在开放世界关系模式P=∃c(A(c)∧B(c))中，找不到clean witness绝不能推断不存在。你上轮反例在FALSE/UNKNOWN混写后用了不存在符号，需要修正。给域未知/已枚举域分别的SUPPORTED/REFUTED/UNKNOWN/CONFLICT定义；两份合同一真一未知的例子，与都有明确反证的例子区别。要求query matcher返回witnesses、status及source IDs，支持度必须按case/claim计数。如何计算含unknown的对比指标而不把它们当negative？只选一种可实施的首版策略，说明失去的保证。
+3) 符号规则匹配检查SAT(F∧guard)只证明条件相容，不证明成立。给正确的蕴含测试或显式四状态premise匹配；冲突事实不能用经典爆炸。实际法律举证/例外默认只能来自显式规则，不能自作主张unknown=false。设计最小单元案例和错误分层：抽取/规范化/匹配/法律规则解释/形式推导。
+补充最接近文献：LexGuard https://arxiv.org/html/2605.26530v1 已做重要变化敏感性/无关变化不变性；LRI https://arxiv.org/html/2505.14104v1 已做类案规则归纳；因此不要宣称这些原则新。无需再大规模检索，先用已核实文献，给约2000字以内的可执行修正版与3个必须通过的反例测试；不提供未跑实验的结果。

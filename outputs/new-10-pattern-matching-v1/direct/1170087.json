@@ -1,0 +1,191 @@
+{
+  "case_id": "1170087",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "status": "NOT_FOUND",
+      "explanation": "No qualifying COURT_FOUND SUBLET_PROPERTY was located. The judgment narrates Janardhan's tenancy and later deemed purchase/ownership, but does not state that he or another tenant sublet any property. Consequently no court-found sublet property exists to bind by direct PART_OF to a narrated owned property.",
+      "bindings": [],
+      "uncertainty": [
+        "NOT_FOUND is search-limited to this supplied judgment; tenancy, transfer, and sale passages were not reinterpreted as subletting."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0005.s003",
+          "quote": "Janardhan, the father of the respondent was admittedly the tenant of this land on April 1, 1957."
+        },
+        {
+          "segment_id": "p0005.s004",
+          "quote": "Thus by operation of law, Janardhan, who was the tenant of the land on the tillers' day became the deemed purchaser thereof."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "status": "NOT_FOUND",
+      "explanation": "The first scoped landlord recovery proceeding is Case No. 36 of 1967, brought by the minor landlord through his next friend for recovery of possession from tenant Janardhan. A later parallel Section 84 proceeding was initiated by the present respondent, identified elsewhere as Janardhan's son. The eviction respondent is the lone PERSON Janardhan, not a GROUP, and the later filer is a different person; no required MEMBER_OF edge is stated.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Minor landlord through his next friend commenced Case No. 36 of 1967 for recovery of possession from Janardhan.",
+              "objects": {
+                "filer": "minor landlord Ashoklal through his next friend",
+                "respondent": "Janardhan",
+                "property": "the land at issue"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0006.s002",
+                  "quote": "In the meantime, minor landlord through his next friend commenced proceedings in Case No."
+                },
+                {
+                  "segment_id": "p0006.s003",
+                  "quote": "36 of 1967 in the court of Tenancy Avail Karkoon having jurisdiction in the area for recovery of possession from tenant Janardhan who had become a deemed purchaser, u/s 14 read with sec. 29 of the Tenancy Act"
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "FILE_OTHER_PROCEEDING",
+              "status": "NARRATED",
+              "description": "A parallel Section 84 proceeding was initiated by the present respondent for recovery of possession.",
+              "objects": {
+                "filer": "present respondent, Janardhan's son",
+                "proceeding": "parallel proceeding under Section 84"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0005.s003",
+                  "quote": "Janardhan, the father of the respondent was admittedly the tenant of this land on April 1, 1957."
+                },
+                {
+                  "segment_id": "p0007.s002",
+                  "quote": "A parallel proceeding was initiated by the respondent u/s 84 of the Tenancy Act for recovery of possession which was illegally taken from him."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "present respondent (Janardhan's son)",
+            "right": "Janardhan",
+            "evidence": []
+          },
+          "limitations": [
+            "The right-hand eviction respondent is a lone PERSON, not a GROUP.",
+            "The later filer is Janardhan's son, not Janardhan; no MEMBER_OF relation into a respondent group is stated."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "No alternative qualifying eviction-respondent GROUP or atomic-filer membership edge was located."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0006.s002",
+          "quote": "In the meantime, minor landlord through his next friend commenced proceedings in Case No."
+        },
+        {
+          "segment_id": "p0006.s003",
+          "quote": "36 of 1967 in the court of Tenancy Avail Karkoon having jurisdiction in the area for recovery of possession from tenant Janardhan who had become a deemed purchaser, u/s 14 read with sec. 29 of the Tenancy Act"
+        },
+        {
+          "segment_id": "p0007.s002",
+          "quote": "A parallel proceeding was initiated by the respondent u/s 84 of the Tenancy Act for recovery of possession which was illegally taken from him."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "status": "NOT_FOUND",
+      "explanation": "The judgment narrates that Janardhan was the tenant of the land on April 1, 1957, and Case No. 36 of 1967 sought recovery of possession from Janardhan. This is a same-person candidate, but the scoped eviction respondent is the lone PERSON Janardhan, not a GROUP. Equality cannot satisfy MEMBER_OF and no respondent group may be invented.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Case No. 36 of 1967 sought recovery of possession from tenant Janardhan.",
+              "objects": {
+                "filer": "minor landlord Ashoklal through his next friend",
+                "respondent": "Janardhan",
+                "property": "the land at issue"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0006.s002",
+                  "quote": "In the meantime, minor landlord through his next friend commenced proceedings in Case No."
+                },
+                {
+                  "segment_id": "p0006.s003",
+                  "quote": "36 of 1967 in the court of Tenancy Avail Karkoon having jurisdiction in the area for recovery of possession from tenant Janardhan who had become a deemed purchaser, u/s 14 read with sec. 29 of the Tenancy Act"
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "LEASE_PROPERTY",
+              "status": "NARRATED",
+              "description": "Janardhan was admittedly the tenant of the land on April 1, 1957.",
+              "objects": {
+                "tenant": "Janardhan",
+                "property": "land bearing Survey No. 1052 / the land described in the judgment"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0005.s003",
+                  "quote": "Janardhan, the father of the respondent was admittedly the tenant of this land on April 1, 1957."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "Janardhan",
+            "right": "Janardhan",
+            "evidence": []
+          },
+          "limitations": [
+            "The eviction respondent is a lone PERSON, not a GROUP.",
+            "Self-identity is not MEMBER_OF; the fixed rule prohibits inventing a group for a lone respondent."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "The later legal conclusion that Janardhan became deemed purchaser was not used to erase the historical narrated tenancy."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0005.s003",
+          "quote": "Janardhan, the father of the respondent was admittedly the tenant of this land on April 1, 1957."
+        },
+        {
+          "segment_id": "p0006.s002",
+          "quote": "In the meantime, minor landlord through his next friend commenced proceedings in Case No."
+        },
+        {
+          "segment_id": "p0006.s003",
+          "quote": "36 of 1967 in the court of Tenancy Avail Karkoon having jurisdiction in the area for recovery of possession from tenant Janardhan who had become a deemed purchaser, u/s 14 read with sec. 29 of the Tenancy Act"
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "semantic_correctness": "NOT_ESTABLISHED"
+}

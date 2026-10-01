@@ -1,0 +1,2313 @@
+[
+  {
+    "id": "8f70bae43fd4e459-R",
+    "case_id": "444449",
+    "previous_method": "relation",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "COURT_FOUND",
+          "type": "GRANT_EVICTION",
+          "var": "e0",
+          "event_id": "a14"
+        },
+        {
+          "status": "COURT_FOUND",
+          "type": "GRANT_EVICTION",
+          "var": "e1",
+          "event_id": "a17"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.affected_party",
+          "op": "same",
+          "right": "e1.roles.affected_party"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MATCH",
+      "unit_id": "u1",
+      "witnesses": [
+        {
+          "binding": {
+            "e0": "a14",
+            "e1": "a17"
+          },
+          "evidence_refs": [
+            {
+              "case_id": "444449",
+              "event_id": "a14"
+            },
+            {
+              "case_id": "444449",
+              "event_id": "a17"
+            }
+          ]
+        }
+      ],
+      "uncertain_bindings": [],
+      "rejected_bindings": [],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.affected_party",
+          "e1.roles.affected_party"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.affected_party",
+                    "op": "part_of",
+                    "right": "e1.roles.affected_party"
+                  },
+                  "left": "o2",
+                  "right": "o2",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.affected_party",
+          "e0.roles.affected_party"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.affected_party",
+                    "op": "part_of",
+                    "right": "e0.roles.affected_party"
+                  },
+                  "left": "o2",
+                  "right": "o2",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.affected_party",
+          "e1.roles.affected_party"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.affected_party",
+                    "op": "member_of",
+                    "right": "e1.roles.affected_party"
+                  },
+                  "left": "o2",
+                  "right": "o2",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.affected_party",
+          "e0.roles.affected_party"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.affected_party",
+                    "op": "member_of",
+                    "right": "e0.roles.affected_party"
+                  },
+                  "left": "o2",
+                  "right": "o2",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  },
+  {
+    "id": "8f70bae43fd4e459-C",
+    "case_id": "494911",
+    "previous_method": "cooccurrence_extra",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "COURT_FOUND",
+          "type": "GRANT_EVICTION",
+          "var": "e0",
+          "event_id": "a14"
+        },
+        {
+          "status": "COURT_FOUND",
+          "type": "GRANT_EVICTION",
+          "var": "e1",
+          "event_id": "a24"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.affected_party",
+          "op": "same",
+          "right": "e1.roles.affected_party"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MISMATCH",
+      "unit_id": "u1",
+      "witnesses": [],
+      "uncertain_bindings": [],
+      "rejected_bindings": [
+        {
+          "binding": {
+            "e0": "a14",
+            "e1": "a24"
+          },
+          "failed_conditions": [
+            {
+              "constraint": {
+                "left": "e0.roles.affected_party",
+                "op": "same",
+                "right": "e1.roles.affected_party"
+              },
+              "left": "o7",
+              "right": "o1"
+            }
+          ],
+          "uncertainty": [],
+          "evidence_refs": [
+            {
+              "case_id": "494911",
+              "event_id": "a14"
+            },
+            {
+              "case_id": "494911",
+              "event_id": "a24"
+            }
+          ]
+        }
+      ],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.affected_party",
+          "e1.roles.affected_party"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a24"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a24"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.affected_party",
+                    "op": "part_of",
+                    "right": "e1.roles.affected_party"
+                  },
+                  "left": "o7",
+                  "right": "o1",
+                  "reason": "WRONG_OBJECT_KINDS",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.affected_party",
+          "e0.roles.affected_party"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a24"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a24"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.affected_party",
+                    "op": "part_of",
+                    "right": "e0.roles.affected_party"
+                  },
+                  "left": "o1",
+                  "right": "o7",
+                  "reason": "WRONG_OBJECT_KINDS",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.affected_party",
+          "e1.roles.affected_party"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a24"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a24"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.affected_party",
+                    "op": "member_of",
+                    "right": "e1.roles.affected_party"
+                  },
+                  "left": "o7",
+                  "right": "o1",
+                  "reason": "WRONG_OBJECT_KINDS",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.affected_party",
+          "e0.roles.affected_party"
+        ],
+        "result": {
+          "status": "MATCH",
+          "unit_id": "u1",
+          "witnesses": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a24"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a24"
+                }
+              ],
+              "relation_edge_refs": [
+                "c3b5c3cd3c9ab954328f"
+              ]
+            }
+          ],
+          "uncertain_bindings": [],
+          "rejected_bindings": [],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  },
+  {
+    "id": "c617fe76e6cdb9db-R",
+    "case_id": "444449",
+    "previous_method": "relation",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "COURT_FOUND",
+          "type": "GRANT_EVICTION",
+          "var": "e0",
+          "event_id": "a14"
+        },
+        {
+          "status": "COURT_FOUND",
+          "type": "GRANT_EVICTION",
+          "var": "e1",
+          "event_id": "a17"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.beneficiary",
+          "op": "same",
+          "right": "e1.roles.beneficiary"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MATCH",
+      "unit_id": "u1",
+      "witnesses": [
+        {
+          "binding": {
+            "e0": "a14",
+            "e1": "a17"
+          },
+          "evidence_refs": [
+            {
+              "case_id": "444449",
+              "event_id": "a14"
+            },
+            {
+              "case_id": "444449",
+              "event_id": "a17"
+            }
+          ]
+        }
+      ],
+      "uncertain_bindings": [],
+      "rejected_bindings": [],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.beneficiary",
+          "e1.roles.beneficiary"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.beneficiary",
+                    "op": "part_of",
+                    "right": "e1.roles.beneficiary"
+                  },
+                  "left": "o1",
+                  "right": "o1",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.beneficiary",
+          "e0.roles.beneficiary"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.beneficiary",
+                    "op": "part_of",
+                    "right": "e0.roles.beneficiary"
+                  },
+                  "left": "o1",
+                  "right": "o1",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.beneficiary",
+          "e1.roles.beneficiary"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.beneficiary",
+                    "op": "member_of",
+                    "right": "e1.roles.beneficiary"
+                  },
+                  "left": "o1",
+                  "right": "o1",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.beneficiary",
+          "e0.roles.beneficiary"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.beneficiary",
+                    "op": "member_of",
+                    "right": "e0.roles.beneficiary"
+                  },
+                  "left": "o1",
+                  "right": "o1",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  },
+  {
+    "id": "1991ce72f46e90a3-R",
+    "case_id": "444449",
+    "previous_method": "relation",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "COURT_FOUND",
+          "type": "GRANT_EVICTION",
+          "var": "e0",
+          "event_id": "a14"
+        },
+        {
+          "status": "COURT_FOUND",
+          "type": "GRANT_EVICTION",
+          "var": "e1",
+          "event_id": "a17"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.property",
+          "op": "same",
+          "right": "e1.roles.property"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MATCH",
+      "unit_id": "u1",
+      "witnesses": [
+        {
+          "binding": {
+            "e0": "a14",
+            "e1": "a17"
+          },
+          "evidence_refs": [
+            {
+              "case_id": "444449",
+              "event_id": "a14"
+            },
+            {
+              "case_id": "444449",
+              "event_id": "a17"
+            }
+          ]
+        }
+      ],
+      "uncertain_bindings": [],
+      "rejected_bindings": [],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.property",
+                    "op": "part_of",
+                    "right": "e1.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o4",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "part_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o4",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.property",
+                    "op": "member_of",
+                    "right": "e1.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o4",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a14",
+                "e1": "a17"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a14"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a17"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "member_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o4",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a44f636b97127f96-R",
+    "case_id": "494911",
+    "previous_method": "relation",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "COURT_FOUND",
+          "type": "SUBLET_PROPERTY",
+          "var": "e0",
+          "event_id": "a13"
+        },
+        {
+          "status": "NARRATED",
+          "type": "LEASE_PROPERTY",
+          "var": "e1",
+          "event_id": "a2"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.property",
+          "op": "same",
+          "right": "e1.roles.property"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MATCH",
+      "unit_id": "u1",
+      "witnesses": [
+        {
+          "binding": {
+            "e0": "a13",
+            "e1": "a2"
+          },
+          "evidence_refs": [
+            {
+              "case_id": "494911",
+              "event_id": "a13"
+            },
+            {
+              "case_id": "494911",
+              "event_id": "a2"
+            }
+          ]
+        }
+      ],
+      "uncertain_bindings": [],
+      "rejected_bindings": [],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a13",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a13"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.property",
+                    "op": "part_of",
+                    "right": "e1.roles.property"
+                  },
+                  "left": "o8",
+                  "right": "o8",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a13",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a13"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "part_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o8",
+                  "right": "o8",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a13",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a13"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.property",
+                    "op": "member_of",
+                    "right": "e1.roles.property"
+                  },
+                  "left": "o8",
+                  "right": "o8",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a13",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a13"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "member_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o8",
+                  "right": "o8",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a44f636b97127f96-C",
+    "case_id": "444449",
+    "previous_method": "cooccurrence_extra",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "COURT_FOUND",
+          "type": "SUBLET_PROPERTY",
+          "var": "e0",
+          "event_id": "a15"
+        },
+        {
+          "status": "NARRATED",
+          "type": "LEASE_PROPERTY",
+          "var": "e1",
+          "event_id": "a2"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.property",
+          "op": "same",
+          "right": "e1.roles.property"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MISMATCH",
+      "unit_id": "u1",
+      "witnesses": [],
+      "uncertain_bindings": [],
+      "rejected_bindings": [
+        {
+          "binding": {
+            "e0": "a15",
+            "e1": "a2"
+          },
+          "failed_conditions": [
+            {
+              "constraint": {
+                "left": "e0.roles.property",
+                "op": "same",
+                "right": "e1.roles.property"
+              },
+              "left": "o7",
+              "right": "o4"
+            }
+          ],
+          "uncertainty": [],
+          "evidence_refs": [
+            {
+              "case_id": "444449",
+              "event_id": "a15"
+            },
+            {
+              "case_id": "444449",
+              "event_id": "a2"
+            }
+          ]
+        }
+      ],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MATCH",
+          "unit_id": "u1",
+          "witnesses": [
+            {
+              "binding": {
+                "e0": "a15",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a15"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [
+                "1078d262e68da3d784e1"
+              ]
+            }
+          ],
+          "uncertain_bindings": [],
+          "rejected_bindings": [],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "UNKNOWN",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [
+            {
+              "binding": {
+                "e0": "a15",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a15"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "uncertainty": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "part_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o7",
+                  "reason": "EDGE_NOT_ESTABLISHED",
+                  "edge_ids": []
+                }
+              ]
+            }
+          ],
+          "rejected_bindings": [],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a15",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a15"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.property",
+                    "op": "member_of",
+                    "right": "e1.roles.property"
+                  },
+                  "left": "o7",
+                  "right": "o4",
+                  "reason": "WRONG_OBJECT_KINDS",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a15",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a15"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "member_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o7",
+                  "reason": "WRONG_OBJECT_KINDS",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  },
+  {
+    "id": "b1afbdb4000a736e-R",
+    "case_id": "1613617",
+    "previous_method": "relation",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "COURT_FOUND",
+          "type": "REJECT_EVICTION",
+          "var": "e0",
+          "event_id": "a18"
+        },
+        {
+          "status": "NARRATED",
+          "type": "TRANSFER_TITLE",
+          "var": "e1",
+          "event_id": "a2"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.claimant",
+          "op": "same",
+          "right": "e1.roles.transferee"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MATCH",
+      "unit_id": "u1",
+      "witnesses": [
+        {
+          "binding": {
+            "e0": "a18",
+            "e1": "a2"
+          },
+          "evidence_refs": [
+            {
+              "case_id": "1613617",
+              "event_id": "a18"
+            },
+            {
+              "case_id": "1613617",
+              "event_id": "a2"
+            }
+          ]
+        }
+      ],
+      "uncertain_bindings": [],
+      "rejected_bindings": [],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.claimant",
+          "e1.roles.transferee"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a18",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "1613617",
+                  "event_id": "a18"
+                },
+                {
+                  "case_id": "1613617",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.claimant",
+                    "op": "part_of",
+                    "right": "e1.roles.transferee"
+                  },
+                  "left": "o2",
+                  "right": "o2",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.transferee",
+          "e0.roles.claimant"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a18",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "1613617",
+                  "event_id": "a18"
+                },
+                {
+                  "case_id": "1613617",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.transferee",
+                    "op": "part_of",
+                    "right": "e0.roles.claimant"
+                  },
+                  "left": "o2",
+                  "right": "o2",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.claimant",
+          "e1.roles.transferee"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a18",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "1613617",
+                  "event_id": "a18"
+                },
+                {
+                  "case_id": "1613617",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.claimant",
+                    "op": "member_of",
+                    "right": "e1.roles.transferee"
+                  },
+                  "left": "o2",
+                  "right": "o2",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.transferee",
+          "e0.roles.claimant"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a18",
+                "e1": "a2"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "1613617",
+                  "event_id": "a18"
+                },
+                {
+                  "case_id": "1613617",
+                  "event_id": "a2"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.transferee",
+                    "op": "member_of",
+                    "right": "e0.roles.claimant"
+                  },
+                  "left": "o2",
+                  "right": "o2",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  },
+  {
+    "id": "3662302fd33f30a4-R",
+    "case_id": "444449",
+    "previous_method": "relation",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "NARRATED",
+          "type": "FILE_EVICTION",
+          "var": "e0",
+          "event_id": "a13"
+        },
+        {
+          "status": "NARRATED",
+          "type": "OWN_PROPERTY",
+          "var": "e1",
+          "event_id": "a1"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.property",
+          "op": "same",
+          "right": "e1.roles.property"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MATCH",
+      "unit_id": "u1",
+      "witnesses": [
+        {
+          "binding": {
+            "e0": "a13",
+            "e1": "a1"
+          },
+          "evidence_refs": [
+            {
+              "case_id": "444449",
+              "event_id": "a13"
+            },
+            {
+              "case_id": "444449",
+              "event_id": "a1"
+            }
+          ]
+        }
+      ],
+      "uncertain_bindings": [],
+      "rejected_bindings": [],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a13",
+                "e1": "a1"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a13"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a1"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.property",
+                    "op": "part_of",
+                    "right": "e1.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o4",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a13",
+                "e1": "a1"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a13"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a1"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "part_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o4",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a13",
+                "e1": "a1"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a13"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a1"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.property",
+                    "op": "member_of",
+                    "right": "e1.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o4",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a13",
+                "e1": "a1"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "444449",
+                  "event_id": "a13"
+                },
+                {
+                  "case_id": "444449",
+                  "event_id": "a1"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "member_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o4",
+                  "right": "o4",
+                  "reason": "PROPER_EDGE_NOT_IDENTITY",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  },
+  {
+    "id": "3662302fd33f30a4-C",
+    "case_id": "494911",
+    "previous_method": "cooccurrence_extra",
+    "exact_query": {
+      "atoms": [
+        {
+          "status": "NARRATED",
+          "type": "FILE_EVICTION",
+          "var": "e0",
+          "event_id": "a12"
+        },
+        {
+          "status": "NARRATED",
+          "type": "OWN_PROPERTY",
+          "var": "e1",
+          "event_id": "a1"
+        }
+      ],
+      "constraints": [
+        {
+          "left": "e0.id",
+          "op": "different",
+          "right": "e1.id"
+        },
+        {
+          "left": "e0.roles.property",
+          "op": "same",
+          "right": "e1.roles.property"
+        }
+      ]
+    },
+    "exact_result": {
+      "status": "MISMATCH",
+      "unit_id": "u1",
+      "witnesses": [],
+      "uncertain_bindings": [],
+      "rejected_bindings": [
+        {
+          "binding": {
+            "e0": "a12",
+            "e1": "a1"
+          },
+          "failed_conditions": [
+            {
+              "constraint": {
+                "left": "e0.roles.property",
+                "op": "same",
+                "right": "e1.roles.property"
+              },
+              "left": "o8",
+              "right": "o5"
+            }
+          ],
+          "uncertainty": [],
+          "evidence_refs": [
+            {
+              "case_id": "494911",
+              "event_id": "a12"
+            },
+            {
+              "case_id": "494911",
+              "event_id": "a1"
+            }
+          ]
+        }
+      ],
+      "conflict_event_ids": [],
+      "closed_world": false
+    },
+    "typed_variants": [
+      {
+        "op": "part_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MATCH",
+          "unit_id": "u1",
+          "witnesses": [
+            {
+              "binding": {
+                "e0": "a12",
+                "e1": "a1"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a12"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a1"
+                }
+              ],
+              "relation_edge_refs": [
+                "94c9bc5df71b33a35a5d"
+              ]
+            }
+          ],
+          "uncertain_bindings": [],
+          "rejected_bindings": [],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "part_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "UNKNOWN",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [
+            {
+              "binding": {
+                "e0": "a12",
+                "e1": "a1"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a12"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a1"
+                }
+              ],
+              "relation_edge_refs": [],
+              "uncertainty": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "part_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o5",
+                  "right": "o8",
+                  "reason": "EDGE_NOT_ESTABLISHED",
+                  "edge_ids": []
+                }
+              ]
+            }
+          ],
+          "rejected_bindings": [],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e0.roles.property",
+          "e1.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a12",
+                "e1": "a1"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a12"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a1"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e0.roles.property",
+                    "op": "member_of",
+                    "right": "e1.roles.property"
+                  },
+                  "left": "o8",
+                  "right": "o5",
+                  "reason": "WRONG_OBJECT_KINDS",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      },
+      {
+        "op": "member_of",
+        "direction": [
+          "e1.roles.property",
+          "e0.roles.property"
+        ],
+        "result": {
+          "status": "MISMATCH",
+          "unit_id": "u1",
+          "witnesses": [],
+          "uncertain_bindings": [],
+          "rejected_bindings": [
+            {
+              "binding": {
+                "e0": "a12",
+                "e1": "a1"
+              },
+              "evidence_refs": [
+                {
+                  "case_id": "494911",
+                  "event_id": "a12"
+                },
+                {
+                  "case_id": "494911",
+                  "event_id": "a1"
+                }
+              ],
+              "relation_edge_refs": [],
+              "failed_conditions": [
+                {
+                  "constraint": {
+                    "left": "e1.roles.property",
+                    "op": "member_of",
+                    "right": "e0.roles.property"
+                  },
+                  "left": "o5",
+                  "right": "o8",
+                  "reason": "WRONG_OBJECT_KINDS",
+                  "edge_ids": []
+                }
+              ],
+              "uncertainty": []
+            }
+          ],
+          "conflict_event_ids": [],
+          "closed_world": false,
+          "answer_scope": "Scoped assertion records plus direct recorded object-edge evidence; not simultaneous truth or legal applicability"
+        }
+      }
+    ]
+  }
+]

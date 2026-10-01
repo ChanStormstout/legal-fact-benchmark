@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "required": ["snapshot_id", "findings"],
+  "properties": {
+    "snapshot_id": {"type": "string"},
+    "findings": {"type": "array", "items": {
+      "type": "object",
+      "required": ["file", "lines", "problem", "evidence", "suggested_change", "validation"],
+      "properties": {
+        "file": {"type": "string"},
+        "lines": {"type": "string"},
+        "problem": {"type": "string"},
+        "evidence": {"type": "string"},
+        "suggested_change": {"type": "string"},
+        "validation": {"type": "string"}
+      },
+      "additionalProperties": false
+    }}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,52 @@
+{
+  "seed": 20261001,
+  "rule": "Sort eligible bindings by sample rank, task ID and canonical binding. Seeded random sample at most 3 B MATCH bindings; then at most 3 difference items, prioritize cooccurrence witness rejected by typed executor (known failing pair), then cooccurrence extra UNKNOWN bindings, then A/B status disagreements. Deduplicate exact selected item; no top-up beyond actual categories. One source review per selected item.",
+  "category_candidates": {
+    "B_MATCH": 0,
+    "COOCCURRENCE_REJECTED_PAIR": 31,
+    "COOCCURRENCE_UNKNOWN_PAIR": 1,
+    "A_B_STATUS_DIFFERENCE": 17
+  },
+  "items": [
+    {
+      "row_key": {
+        "case_id": "1170087",
+        "task_id": "52a7d11461a492d0",
+        "rank": 27
+      },
+      "kind": "COOCCURRENCE_REJECTED_PAIR",
+      "binding": {
+        "e0": "a8",
+        "e1": "a2"
+      },
+      "id": "audit-01"
+    },
+    {
+      "row_key": {
+        "case_id": "265203",
+        "task_id": "24d45ac35ac7f114",
+        "rank": 29
+      },
+      "kind": "COOCCURRENCE_REJECTED_PAIR",
+      "binding": {
+        "e0": "a3",
+        "e1": "a8"
+      },
+      "id": "audit-02"
+    },
+    {
+      "row_key": {
+        "case_id": "265203",
+        "task_id": "24d45ac35ac7f114",
+        "rank": 29
+      },
+      "kind": "COOCCURRENCE_REJECTED_PAIR",
+      "binding": {
+        "e0": "a3",
+        "e1": "a9"
+      },
+      "id": "audit-03"
+    }
+  ],
+  "before_audit_conclusions": true
+}

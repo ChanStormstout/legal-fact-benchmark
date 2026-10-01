@@ -1,0 +1,266 @@
+{
+"case_id": "69305",
+"objects": [
+{
+"id": "o1",
+"label": "Behari Lal Kohli",
+"kind": "PERSON",
+"identity_resolved": true,
+"evidence": [
+{
+"segment_id": "p0001.s001",
+"quote": "RESPONDENT: BEHARI LAL KOHLI"
+}
+]
+},
+{
+"id": "o2",
+"label": "Bajaj Auto Limited",
+"kind": "ORGANIZATION",
+"identity_resolved": true,
+"evidence": [
+{
+"segment_id": "p0001.s001",
+"quote": "PETITIONER: BAJAJ AUTO LIMITED"
+}
+]
+},
+{
+"id": "o3",
+"label": "M/s United Automobiles",
+"kind": "ORGANIZATION",
+"identity_resolved": true,
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "Alleging that the appellant, a manufacturing company of automobiles, had sub-let the premises to M/s United Automobiles without his consent"
+}
+]
+},
+{
+"id": "o4",
+"label": "Disputed Premises",
+"kind": "PROPERTY",
+"identity_resolved": true,
+"evidence": [
+{
+"segment_id": "p0003.s003",
+"quote": "This is a tenant's appeal against the decree for his eviction from certain disputed premises"
+}
+]
+},
+{
+"id": "o5",
+"label": "Unregistered Lease Deed",
+"kind": "PROPERTY",
+"identity_resolved": true,
+"evidence": [
+{
+"segment_id": "p0003.s003",
+"quote": "An unregis- tered deed of lease was executed on that occasion"
+}
+]
+}
+],
+"units": [
+{
+"id": "u1",
+"primary": true,
+"description": "Eviction request filed by Behari Lal Kohli against Bajaj Auto Limited for sub-letting",
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "Alleging that the appellant, a manufacturing company of automobiles, had sub-let the premises to M/s United Automobiles without his consent, the respondent initiated eviction proceedings."
+}
+]
+}
+],
+"events": [
+{
+"id": "a1",
+"unit_id": "u1",
+"kind": "PROCEDURAL_ACT",
+"type": "FILE_EVICTION",
+"roles": {
+"filer": "o1",
+"respondent": "o2",
+"property": "o4"
+},
+"role_evidence": {
+"filer": [
+{
+"segment_id": "p0002.s001",
+"quote": "the respondent initiated eviction proceedings"
+}
+],
+"respondent": [
+{
+"segment_id": "p0003.s004",
+"quote": "the respondent contended that the ground mentioned in S. 14 (1) Proviso (b) of the Delhi Rent Control Act, 1958 was made out and the appellant was liable to be evicted"
+}
+]
+},
+"property": [
+{
+"segment_id": "p0003.s003",
+"quote": "eviction from certain disputed premises"
+}
+]
+},
+"status": "NARRATED",
+"status_evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "the respondent initiated eviction proceedings"
+}
+],
+"polarity": "POSITIVE",
+"time": null,
+"origin": {
+"speaker": "Narrator",
+"stage": "Narrative"
+},
+"attributes": {},
+"scope": {},
+"scope_parsed": true,
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "Alleging that the appellant, a manufacturing company of automobiles, had sub-let the premises to M/s United Automobiles without his consent, the respondent initiated eviction proceedings."
+}
+],
+"known_fields": [
+{
+"field": "type",
+"value": "FILE_EVICTION",
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "initiated eviction proceedings"
+}
+]
+},
+{
+"field": "status",
+"value": "NARRATED",
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "the respondent initiated eviction proceedings"
+}
+]
+}
+],
+"unresolved": [],
+"scope_dependencies": []
+},
+{
+"id": "a2",
+"unit_id": "u1",
+"kind": "FACT",
+"type": "SUBLET_PROPERTY",
+"roles": {
+"tenant": "o2",
+"subtenant": "o3",
+"property": "o4"
+},
+"role_evidence": {
+"tenant": [
+{
+"segment_id": "p0003.s003",
+"quote": "The respondent, the owner of the premises, let it out to the appellant in 1961"
+}
+],
+"subtenant": [
+{
+"segment_id": "p0002.s001",
+"quote": "had sub-let the premises to M/s United Automobiles"
+}
+]
+},
+"property": [
+{
+"segment_id": "p0002.s001",
+"quote": "sub-let the premises"
+}
+]
+},
+"status": "NARRATED",
+"status_evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "had sub-let the premises"
+}
+],
+"polarity": "POSITIVE",
+"time": null,
+"origin": {
+"speaker": "Narrator",
+"stage": "Narrative"
+},
+"attributes": {},
+"scope": {},
+"scope_parsed": true,
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "Alleging that the appellant, a manufacturing company of automobiles, had sub-let the premises to M/s United Automobiles without his consent, the respondent initiated eviction proceedings."
+}
+],
+"known_fields": [
+{
+"field": "type",
+"value": "SUBLET_PROPERTY",
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "had sub-let the premises"
+}
+]
+},
+{
+"field": "status",
+"value": "NARRATED",
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "Alleging that the appellant... had sub-let the premises"
+}
+]
+}
+],
+"unresolved": [],
+"scope_dependencies": []
+}
+]
+},
+"edges": [
+{
+"op": "part_of",
+"left": "o5",
+"right": "o4",
+"decision": "SUPPORTED",
+"explanation": "The unregistered lease deed (o5) is the instrument creating the tenancy for the disputed premises (o4), making it a part of the property interest.",
+"evidence": [
+{
+"segment_id": "p0003.s003",
+"quote": "An unregis- tered deed of lease was executed on that occasion"
+}
+]
+},
+{
+"op": "member_of",
+"left": "o3",
+"right": "o2",
+"decision": "SUPPORTED",
+"explanation": "M/s United Automobiles (o3) is explicitly identified as the subtenant of Bajaj Auto Limited (o2) in the narrative.",
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "had sub-let the premises to M/s United Automobiles"
+}
+]
+}
+],
+"group_reviews": []
+}

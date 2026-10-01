@@ -1,0 +1,47 @@
+{
+  "case_id": "444449",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "answer_status": "UNKNOWN",
+      "explanation": "The source contains a narrated assertion that the respondents sublet portions of the property (p0001.s003, p0004.s004), but it does not explicitly state that the sublet property is a direct physical part of the property owned by the respondents in a way that satisfies the 'direct physical part' constraint without ambiguity regarding the specific 'OWN_PROPERTY' instance in the narrative versus the 'SUBLET_PROPERTY' instance. The text mentions 'portions of the premises' and 'some of the rooms', but lacks a specific declarative sentence linking a specific sublet property ID to a specific owned property ID as a direct physical part within the same sentence structure required for a definitive MATCH on the specific variables.",
+      "bindings": [],
+      "missing_fields": [
+        "Explicit narrated sentence linking a specific sublet property instance to a specific owned property instance with the relation 'direct physical part'."
+      ],
+      "other_combinations_considered": "Narrations in p0001.s003 and p0004.s004 describe subletting but do not explicitly define the sublet property as a 'direct physical part' of the owned property in a single atomic assertion matching the required variables.",
+      "run_status": "OK",
+      "raw_answer_status": "UNKNOWN",
+      "automatic_errors": [],
+      "semantic_validity": "NOT_ESTABLISHED"
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "answer_status": "NOT_FOUND",
+      "explanation": "The source text narrates that the respondents (Motilal And Ors.) filed the eviction suit (p0001.s003, p0001.s004). It does not narrate any separate proceeding filed by a different person or institution. The only other parties mentioned are the appellant (Pooran Chand) and the appellate courts. Therefore, no 'FILE_OTHER_PROCEEDING' filer exists in the NARRATED text to be a member of the eviction respondent group.",
+      "bindings": [],
+      "missing_fields": [
+        "Narration of a separate proceeding filed by a person/institution other than the respondents."
+      ],
+      "other_combinations_considered": "None, as no other filers are mentioned in the narrative.",
+      "run_status": "OK",
+      "raw_answer_status": "NOT_FOUND",
+      "automatic_errors": [],
+      "semantic_validity": "NOT_ESTABLISHED"
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "answer_status": "NOT_FOUND",
+      "explanation": "The source text narrates that the respondents leased the property to the appellant (p0001.s002). It does not narrate that the appellant is a tenant under a 'LEASE_PROPERTY' event in the NARRATED text; rather, the tenancy is described as a fact ('taken on lease') or a status under the lease deed. The definition requires a 'NARRATED' type 'LEASE_PROPERTY' event. The text describes the lease as a fact ('On July 10, 1950, the respondents gave a lease...') but does not frame it as a distinct 'LEASE_PROPERTY' event object with a 'tenant' role that can be checked for membership in the respondent group in the manner required by the query schema (which expects an event object). Even if interpreted loosely, the 'tenant' is the appellant, who is the respondent in the eviction suit, but the strict schema requires a 'NARRATED' type 'LEASE_PROPERTY' event which is not explicitly instantiated as such an event object in the text, only described as a fact.",
+      "bindings": [],
+      "missing_fields": [
+        "Explicit NARRATED event object of type 'LEASE_PROPERTY' with a 'tenant' role."
+      ],
+      "other_combinations_considered": "The text describes the lease as a fact ('taken on lease'), not as a distinct 'LEASE_PROPERTY' event object.",
+      "run_status": "OK",
+      "raw_answer_status": "NOT_FOUND",
+      "automatic_errors": [],
+      "semantic_validity": "NOT_ESTABLISHED"
+    }
+  ]
+}

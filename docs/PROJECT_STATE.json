@@ -1,0 +1,138 @@
+{
+  "latest_run": "outputs/local-qwen-pattern-eval-v3",
+  "sample_role": "DEVELOPMENT_VALIDATION_AFTER_OBSERVED_FORMAT_FAILURES",
+  "cases": 8,
+  "questions": 13,
+  "summary": {
+    "MATCH": {
+      "questions": 5,
+      "methods": {
+        "A": {
+          "run_status": {
+            "OK": 5
+          },
+          "answer_status": {
+            "NOT_FOUND": 5
+          },
+          "comparison": {
+            "MISSED_MATCH": 5
+          }
+        },
+        "B": {
+          "run_status": {
+            "OK": 4,
+            "OUTPUT_TRUNCATED": 1
+          },
+          "answer_status": {
+            "NOT_FOUND": 4,
+            "None": 1
+          },
+          "comparison": {
+            "MISSED_MATCH": 4,
+            "TECHNICAL_FAILURE": 1
+          }
+        },
+        "cooccurrence": {
+          "run_status": {
+            "OK": 4,
+            "OUTPUT_TRUNCATED": 1
+          },
+          "answer_status": {
+            "NOT_FOUND": 4,
+            "None": 1
+          },
+          "comparison": {
+            "MISSED_MATCH": 4,
+            "TECHNICAL_FAILURE": 1
+          }
+        }
+      }
+    },
+    "NOT_FOUND": {
+      "questions": 6,
+      "methods": {
+        "A": {
+          "run_status": {
+            "OK": 6
+          },
+          "answer_status": {
+            "NOT_FOUND": 6
+          },
+          "comparison": {
+            "NOT_FOUND_CONSISTENT": 6
+          }
+        },
+        "B": {
+          "run_status": {
+            "OK": 6
+          },
+          "answer_status": {
+            "NOT_FOUND": 6
+          },
+          "comparison": {
+            "NOT_FOUND_CONSISTENT": 6
+          }
+        },
+        "cooccurrence": {
+          "run_status": {
+            "OK": 6
+          },
+          "answer_status": {
+            "NOT_FOUND": 5,
+            "MATCH": 1
+          },
+          "comparison": {
+            "NOT_FOUND_CONSISTENT": 5,
+            "FALSE_POSITIVE_RELATIVE_REFERENCE": 1
+          }
+        }
+      }
+    },
+    "UNKNOWN": {
+      "questions": 2,
+      "methods": {
+        "A": {
+          "run_status": {
+            "OK": 2
+          },
+          "answer_status": {
+            "NOT_FOUND": 2
+          },
+          "comparison": {
+            "OVERDETERMINED_NOT_FOUND_RELATIVE_REFERENCE": 2
+          }
+        },
+        "B": {
+          "run_status": {
+            "OK": 2
+          },
+          "answer_status": {
+            "NOT_FOUND": 2
+          },
+          "comparison": {
+            "OVERDETERMINED_NOT_FOUND_RELATIVE_REFERENCE": 2
+          }
+        },
+        "cooccurrence": {
+          "run_status": {
+            "OK": 2
+          },
+          "answer_status": {
+            "NOT_FOUND": 2
+          },
+          "comparison": {
+            "OVERDETERMINED_NOT_FOUND_RELATIVE_REFERENCE": 2
+          }
+        }
+      }
+    }
+  },
+  "reference_label": "MODEL_GENERATED_WITH_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "completed_round": true,
+  "no_new_experiment_started_by_publication": true,
+  "limitations": [
+    "Observed format failures preceded this replay; not independent testing.",
+    "All completed selected A/B answers are NOT_FOUND; no positive recognized.",
+    "Do not infer accuracy from status agreement or unknown reduction."
+  ]
+}

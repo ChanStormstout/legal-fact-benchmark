@@ -1,0 +1,93 @@
+{
+"case_id": "123036",
+"answers": [
+{
+"task_id": "9c74983b08ed3850",
+"answer_status": "UNKNOWN",
+"explanation": "The source contains a narrated assertion of the sublet property ('One room in the said building') and a narrated assertion of the owned property ('non-residential building'). However, the source does not contain a COURT_FOUND assertion explicitly stating that the sublet property is a direct physical part of the owned property. The court's reasoning focuses on the legal doctrine of 'in pari delicto' and the bona fide requirement, not on establishing the physical part-of relationship between the specific rooms.",
+"bindings": [],
+"missing_fields": [
+"COURT_FOUND assertion for SUBLET_PROPERTY",
+"COURT_FOUND assertion for OWN_PROPERTY",
+"COURT_FOUND assertion for part_of relation between sublet and owned property"
+],
+"other_combinations_considered": "None. The source only provides narrated facts about the property structure.",
+"evidence": [
+{
+"segment_id": "p0003.s003",
+"quote": "One room in the said building was given on rent in the year 1932 to one Dr. Ramachandra..."
+},
+{
+"segment_id": "p0003.s002",
+"quote": "The joint family was the owner of a non-residential building in the G.B. Road, Gaya."
+}
+]
+},
+{
+"task_id": "24d45ac35ac7f114",
+"answer_status": "MATCH",
+"explanation": "The source narrates that the respondent (Gulab Chand Prasad) filed a suit for eviction. The source also narrates that the respondent filed a second appeal. The respondent is explicitly identified as the same person/entity in both procedural stages, satisfying the member_of constraint where the filer of the other proceeding is a member of the respondent group of the main request.",
+"bindings": [
+{
+"atoms": [
+{
+"var": "e0",
+"type": "FILE_EVICTION",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "respondent",
+"specific": "Gulab Chand Prasad"
+}
+},
+{
+"var": "e1",
+"type": "FILE_OTHER_PROCEEDING",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"objects": {
+"role": "filer",
+"specific": "Gulab Chand Prasad"
+}
+}
+],
+"relation": {
+"op": "member_of",
+"left": "Gulab Chand Prasad",
+"right": "Gulab Chand Prasad",
+"evidence": [
+{
+"segment_id": "p0002.s002",
+"quote": "The respondent issued a notice on 12.6.1974 terminating the tenancy... As the appellants (wife and son of Dr. Ramachandra) failed tO deliver possession a salt for eviction was filed..."
+},
+{
+"segment_id": "p0003.s001",
+"quote": "This appeal by special leave by the tenants is directed against the judgment of a Full Bench of the Patna High Court... From the Judgment and Order dated 22.5.1985 of the, Patna High Court in Appeal from Appellate Decree No. 51 of 1982."
+}
+]
+}
+}
+]
+},
+{
+"task_id": "52a7d11461a492d0",
+"answer_status": "UNKNOWN",
+"explanation": "The source narrates that the tenant is 'Budhwanti And Anr' (widow of Dr. Ramachandra). The source narrates that the respondent group consists of 'Gulab Chand Prasad' and 'one Babu Lal' (brothers). While the tenant is a named individual, the source does not explicitly state that 'Budhwanti' is a member of the specific group 'Gulab Chand Prasad and Babu Lal' or that she is a member of the 'Joint Hindu Family' in a way that satisfies the strict 'member_of' constraint for the respondent group defined in the eviction request. The text says the respondent became Karta of the family, but does not explicitly list the tenant as a member of that specific respondent group in a way that allows a direct member_of binding without inference about family membership rules.",
+"bindings": [],
+"missing_fields": [
+"Explicit statement that the tenant (Budhwanti) is a member of the respondent group (Gulab Chand Prasad and Babu Lal) or the Joint Hindu Family as defined in the eviction context."
+],
+"other_combinations_considered": "Checking if 'Budhwanti' is a member of 'Joint Hindu Family' which is the respondent. The text says 'respondent became the Karta of the family', implying the family is the respondent, but the constraint requires membership in the 'respondent' group of the eviction request specifically.",
+"evidence": [
+{
+"segment_id": "p0002.s001",
+"quote": "The first appellant, widow of one Dr. Ramachandra... was recognised as tenant... Babulal died on 14.11.1973 and the respondent became the Karta of the family as the senior most male member of the joint family."
+},
+{
+"segment_id": "p0003.s002",
+"quote": "One Babu Lal who died on 14.11.73 and the respondent were brothers and were members of a Joint Hindu Family... The joint family was the owner..."
+}
+]
+}
+]
+}

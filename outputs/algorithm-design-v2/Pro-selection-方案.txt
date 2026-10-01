@@ -1,0 +1,70 @@
+  - heading "ChatGPT said:" [level=4]
+  - paragraph: "**裁决：首版采用 WARMR＋保留绑定的可解码字典压缩；最大覆盖降为相同候选上的对照。**我撤回将最大覆盖作为默认选集目标的建议。"
+  - paragraph:
+    - text: "**目标匹配：**当前要发现无标签语料中的重复关系结构，"
+    - math:
+      - generic: L
+      - generic: (
+      - generic: S
+      - generic: )
+      - generic: +
+      - generic: L
+      - generic: (
+      - generic: D
+      - generic: ∣
+      - generic: S
+      - generic: ","
+      - generic: E
+      - generic: )
+    - generic: L(S) +
+    - generic: L(D ∣
+    - generic: S, E)
+    - text: 直接权衡“哪些结构值得复用”与字典复杂度。最大覆盖回答的是“覆盖哪些预先规定的对象”；只覆盖案件或边，容易奖励泛泛模板，不能自动代表有意义的规律。
+  - paragraph:
+    - text: "**专家前提：**两者都需要专家审阅类型、范围及必须保留的区别。最大覆盖还需论证二原子目标与权重为何有价值；压缩不需要这层价值赋权，但必须预先固定编码及条件信息"
+    - math:
+      - generic: E
+    - generic: E
+    - text: ，不能把新增字典、身份或绑定成本免费藏进去。
+    - strong: 压缩同样不是无设计偏好的目标。
+  - paragraph:
+    - strong:
+      - text: 执行定稿：
+      - strong: 采用 literal 或 pattern＋binding token，确保精确解码；每次 cover 修改重算包括 token 数头在内的全部受影响位数。外层 best-add/delete 比较重算后的
+      - text: 总码长
+    - text: ，仅接受净下降≥1 bit；无合格操作则停止。它保证已接受步骤单调下降，
+    - strong: 不保证 cover 或字典全局最优
+    - text: 。
+  - paragraph:
+    - text: "**稀有重要模式：**压缩会倾向排除无法摊销字典成本的稀有结构；无权最大覆盖也可能遗漏。只有显式设置稀有目标或保留约束时，最大覆盖更便于保护它们，不能无条件断言谁召回更高。未入选事实保留为 literal，稀有候选另存审阅目录，不把“未压缩”解释为“不重要”；原文映射继续保留。"
+    - button "Open preview of Canonicalizing Legal Facts (1).pdf":
+      - generic: Canonicalizing Legal Facts (1)
+  - paragraph:
+    - text: KG-MDL、SLIM、Snor及最大覆盖作为强比较：对齐候选、绑定信息和总预算；不能天然对齐的原生版本另列端到端对照。
+    - strong: 本方案是既有 MDL 思路的任务适配，不宣称新 MDL。
+  - paragraph:
+    - text: C 按例外未知 gate＋经审阅 default 条件执行；依据你补充的核验，
+    - strong: 不承袭 ANGRY 的带 priorities 正确性保证
+    - text: 。
+  - button "Copy":
+  - button "Rate response":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - button "Sources":
+  - generic: ChatGPT can make mistakes. Check important info.
+  - button "Scroll to bottom":
+  - heading "Latest response" [level=4]
+  - status
+  - button "Add files and more":
+  - textbox "Ask ChatGPT":
+    - paragraph: Ask ChatGPT
+  - button "Select ChatGPT model":
+    - generic: Pro
+  - button "Dictate":
+  - button "Start Voice":
+- status
+- status
+- status
+- status: Response complete

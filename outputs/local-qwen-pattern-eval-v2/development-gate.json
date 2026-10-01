@@ -1,0 +1,23 @@
+{
+  "saved_at": 1790863241.564492,
+  "cases": [
+    "444449",
+    "103193047"
+  ],
+  "maximum_generation_attempts_per_case": 1,
+  "maximum_cases": 2,
+  "pass_criteria": [
+    "A completes normal stop, one valid schema object with all three question keys",
+    "B completes normal stop, valid schema object and source-anchored primary unit",
+    "All provided non-null object references resolve to provided unique object IDs",
+    "Explicitly selected evidence IDs exist, expanded quotes equal full supplied source segment exactly",
+    "B enters fixed relation executor and produces all three statuses without execution exception"
+  ],
+  "not_required": [
+    "Expected MATCH or agreement with reference answers",
+    "Zero unknown fields",
+    "Semantic correctness"
+  ],
+  "failure_action": "Save failed output and exact blocker; no new-case batch or same-case generation retries.",
+  "engineering_preflight": "One adapter startup failed before any A/B token generation due EOS field being scalar, corrected with no case answer seen."
+}

@@ -1,0 +1,177 @@
+{
+  "case_id": "1982777",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "status": "NOT_FOUND",
+      "explanation": "No qualifying COURT_FOUND SUBLET_PROPERTY was located. The High Court finding reported in the judgment establishes a landlord-tenant relationship and eviction liability, not subletting. With no court-found sublet-property atom, the requested direct PART_OF binding cannot be formed.",
+      "bindings": [],
+      "uncertainty": [
+        "NOT_FOUND is limited to the supplied judgment and does not assert real-world absence of subletting."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The suit was decreed by the High Court holding the landlord-tenant relationship as proved and the appellants having incurred liability for eviction on the ground of default in payment of rent as alleged by the respondents."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "status": "NOT_FOUND",
+      "explanation": "The 1956 eviction suit has the appellants as the respondent-side tenant group. The later special-leave appeal was filed by 'the aggrieved tenants' collectively. MEMBER_OF requires a specific PERSON/ORGANIZATION on the left; the source does not identify an atomic filer for that filing. A GROUP cannot itself be treated as an atomic member, so the collective filer does not satisfy the relation.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Respondent-landlords filed the 1956 suit against the appellants and sought their eviction for alleged rent default.",
+              "objects": {
+                "filer": "respondents-landlords",
+                "respondent": "appellants/tenants group",
+                "property": "suit premises"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0001.s002",
+                  "quote": "In the year 1956, a suit was filed by the respondents-landlords alleging the appellants to be their tenants in the suit premises."
+                },
+                {
+                  "segment_id": "p0001.s003",
+                  "quote": "A demand-cum-quit notice was served on the appellants, which having not been complied with, rendered the appellants liable to be evicted under clause (a) of sub-section (1) of Section 13 of the Delhi and Ajmer Rent Control Act, 1952."
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "FILE_OTHER_PROCEEDING",
+              "status": "NARRATED",
+              "description": "The aggrieved tenants collectively filed the special-leave appeal.",
+              "objects": {
+                "filer": "aggrieved tenants (group)",
+                "proceeding": "appeal by special leave"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0002.s003",
+                  "quote": "The aggrieved tenants have filed this appeal by special leave."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "aggrieved tenants group",
+            "right": "appellants/tenants group",
+            "evidence": []
+          },
+          "limitations": [
+            "The left-hand filer is a GROUP, not a specific PERSON or ORGANIZATION.",
+            "The source does not name an atomic filer and separately establish that person's or organization's membership in the eviction-respondent GROUP.",
+            "Group co-reference or overlap cannot be converted into MEMBER_OF for an unnamed atomic member."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "The caption names 'RAFique Bibi (D) BY LRS.' as petitioner, but the supplied filing statement is collective and does not identify a specific legal representative as the filer; no atomic membership edge was inferred."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "In the year 1956, a suit was filed by the respondents-landlords alleging the appellants to be their tenants in the suit premises."
+        },
+        {
+          "segment_id": "p0002.s003",
+          "quote": "The aggrieved tenants have filed this appeal by special leave."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "status": "NOT_FOUND",
+      "explanation": "The source attributes the initial tenancy allegation to the respondent-landlords, while the later positive landlord-tenant determination is an explicit High Court finding. Thus the strongest positive lease/tenancy statement is COURT_FOUND rather than NARRATED. It also concerns the appellants collectively, not a named atomic tenant member. The required NARRATED LEASE_PROPERTY tenant -> eviction-respondent GROUP MEMBER_OF binding is therefore not established.",
+      "bindings": [
+        {
+          "atoms": [
+            {
+              "var": "e0",
+              "type": "FILE_EVICTION",
+              "status": "NARRATED",
+              "description": "Respondent-landlords filed the 1956 suit against the appellants, with eviction sought after the quit notice.",
+              "objects": {
+                "filer": "respondents-landlords",
+                "respondent": "appellants/tenants group",
+                "property": "suit premises"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0001.s002",
+                  "quote": "In the year 1956, a suit was filed by the respondents-landlords alleging the appellants to be their tenants in the suit premises."
+                },
+                {
+                  "segment_id": "p0001.s003",
+                  "quote": "A demand-cum-quit notice was served on the appellants, which having not been complied with, rendered the appellants liable to be evicted under clause (a) of sub-section (1) of Section 13 of the Delhi and Ajmer Rent Control Act, 1952."
+                }
+              ]
+            },
+            {
+              "var": "e1",
+              "type": "LEASE_PROPERTY",
+              "status": "COURT_FOUND",
+              "description": "Nearest positive lease/tenancy determination: the High Court held the landlord-tenant relationship proved.",
+              "objects": {
+                "tenant": "appellants (group)",
+                "property": "suit premises"
+              },
+              "evidence": [
+                {
+                  "segment_id": "p0001.s003",
+                  "quote": "The suit was decreed by the High Court holding the landlord-tenant relationship as proved and the appellants having incurred liability for eviction on the ground of default in payment of rent as alleged by the respondents."
+                }
+              ]
+            }
+          ],
+          "relation": {
+            "op": "member_of",
+            "left": "appellants/tenants group",
+            "right": "appellants/tenants group",
+            "evidence": []
+          },
+          "limitations": [
+            "e1 is COURT_FOUND, not the required NARRATED status.",
+            "The left-hand tenant is a GROUP, not a specific PERSON or ORGANIZATION.",
+            "Group identity does not satisfy atomic MEMBER_OF."
+          ]
+        }
+      ],
+      "uncertainty": [
+        "The phrase 'alleging the appellants to be their tenants' preserves the respondents-landlords as speaker and was not relabeled as NARRATED."
+      ],
+      "evidence": [
+        {
+          "segment_id": "p0001.s002",
+          "quote": "In the year 1956, a suit was filed by the respondents-landlords alleging the appellants to be their tenants in the suit premises."
+        },
+        {
+          "segment_id": "p0001.s003",
+          "quote": "The suit was decreed by the High Court holding the landlord-tenant relationship as proved and the appellants having incurred liability for eviction on the ground of default in payment of rent as alleged by the respondents."
+        }
+      ],
+      "automatic_validation": {
+        "errors": [],
+        "semantic_correctness": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "semantic_correctness": "NOT_ESTABLISHED"
+}

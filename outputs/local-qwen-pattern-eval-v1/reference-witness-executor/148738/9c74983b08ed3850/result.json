@@ -1,0 +1,70 @@
+{
+  "status": "MATCH",
+  "witnesses": [
+    {
+      "binding": {
+        "e0": "e0",
+        "e1": "e1"
+      },
+      "evidence_refs": [
+        {
+          "case_id": "148738",
+          "event_id": "e0"
+        },
+        {
+          "case_id": "148738",
+          "event_id": "e1"
+        }
+      ],
+      "relation_edge_refs": [
+        "3f1fc91e538cfb19a546"
+      ]
+    }
+  ],
+  "uncertain_bindings": [],
+  "rejected_bindings": [],
+  "candidate_decisions": [
+    {
+      "var": "e0",
+      "event_id": "e0",
+      "field": "type",
+      "required": "SUBLET_PROPERTY",
+      "known": "SUBLET_PROPERTY",
+      "decision": "KEEP",
+      "reason": "KNOWN_REQUIRED_TYPE",
+      "dependencies": []
+    },
+    {
+      "var": "e0",
+      "event_id": "e1",
+      "field": "type",
+      "required": "SUBLET_PROPERTY",
+      "known": "OWN_PROPERTY",
+      "decision": "EXCLUDE",
+      "reason": "KNOWN_DIFFERENT_TYPE",
+      "dependencies": []
+    },
+    {
+      "var": "e1",
+      "event_id": "e0",
+      "field": "type",
+      "required": "OWN_PROPERTY",
+      "known": "SUBLET_PROPERTY",
+      "decision": "EXCLUDE",
+      "reason": "KNOWN_DIFFERENT_TYPE",
+      "dependencies": []
+    },
+    {
+      "var": "e1",
+      "event_id": "e1",
+      "field": "type",
+      "required": "OWN_PROPERTY",
+      "known": "OWN_PROPERTY",
+      "decision": "KEEP",
+      "reason": "KNOWN_REQUIRED_TYPE",
+      "dependencies": []
+    }
+  ],
+  "closed_world": false,
+  "version": "declared-fields-v2"
+}
