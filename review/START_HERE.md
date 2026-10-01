@@ -1,9 +1,13 @@
 # ChatGPT 审阅入口
 
-内容快照：`03e7626c2f3c0cff1ce65b05c60cc7eaf216ae5950c542dc8f65de5472b0a69c`
+内容快照：`a5f11fef7252a6123df3bf0d59beef10a7e24fc1f985e8f6e9964ea10c961074`
 
 仓库：https://github.com/ChanStormstout/legal-fact-benchmark
 当前实验：outputs/local-qwen-pattern-eval-v3（开发验证；已观察过格式问题，非独立新测试）。
+
+研究目标为从案件事实与争点取得有来源的规则，帮助新案件找到适用法源并形成有依据的请求结果。
+是否以benchmark作为主要产出尚未决定。现有三个关系问题只检验中间表示和匹配，不能据此评价
+法律规则归纳、法源适用性或判决预测。详见[研究方向](../docs/RESEARCH_DIRECTION.md)。
 
 先读[项目说明](../README.md)、[当前状态](../docs/PROJECT_STATE.json)和
 [最新中文报告](../outputs/local-qwen-pattern-eval-v3/report-zh.txt)。然后按需读取[代码全文](CODE.md)、
