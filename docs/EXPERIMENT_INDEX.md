@@ -11,3 +11,13 @@
 | local-qwen-pattern-eval-v1 | interrupted_development | [文件](../outputs/local-qwen-pattern-eval-v1/scoring/results-partial-v1.json) | 保存原格式失败与截断；因用户要求暂停，不是完整成功运行。 |
 | local-qwen-pattern-eval-v2 | format_development | [文件](../outputs/local-qwen-pattern-eval-v2/development/444449/B/run.json) | 首次约束生成开发检查；B仍在无界字符串中截断。 |
 | local-qwen-pattern-eval-v3 | development_validation_after_observed_failures | [文件](../outputs/local-qwen-pattern-eval-v3/report-zh.txt) | 同8案13题统一重跑；非独立新测试。相对模型参考正例，A0/5，B0/5并含一技术失败。 |
+| local-qwen-pattern-eval-v4 | exposed_development_diagnosis | [文件](../outputs/local-qwen-pattern-eval-v4/report-zh.txt) | 三题UNKNOWN；引用命名混淆。 |
+| local-qwen-pattern-eval-v5 | exposed_development_diagnosis | [文件](../outputs/local-qwen-pattern-eval-v5/report-zh.txt) | 对象全null；零上限不被生成器可靠执行，停止于格式失败。 |
+| local-qwen-pattern-eval-v6 | exposed_development_diagnosis | [文件](../outputs/local-qwen-pattern-eval-v6/report-zh.txt) | 两个MATCH的所有权主体或群体绑定不正确，均未计成功。 |
+| local-qwen-pattern-eval-v7 | exposed_development_diagnosis | [文件](../outputs/local-qwen-pattern-eval-v7/report-zh.txt) | 路由漏掉关键段落；法律关系被错当房产。 |
+| local-qwen-pattern-eval-v8 | exposed_development_diagnosis | [文件](../outputs/local-qwen-pattern-eval-v8/report-zh.txt) | 关键购买/转租抽取改善，但没有关系边；发现示例污染。 |
+| local-qwen-pattern-eval-v9 | exposed_development_diagnosis | [文件](../outputs/local-qwen-pattern-eval-v9/report-zh.txt) | 目标类型强制重述其他事件；合并超20条失败，保留原结果。 |
+| local-qwen-pattern-eval-v10 | exposed_development_diagnosis | [文件](../outputs/local-qwen-pattern-eval-v10/report-zh.txt) | 2案6题；2个MATCH中1个有来源支持、1个转租类型错误；4 UNKNOWN。 |
+| local-qwen-semantic-probe-v1 | diagnostic | [文件](../outputs/local-qwen-semantic-probe-v1/report-zh.txt) | 两个原文短段有/无约束对照；非完整pipeline评分。 |
+| local-qwen-split-assembly-v1 | diagnostic | [文件](../outputs/local-qwen-split-assembly-v1/report-zh.txt) | 同一v9输出的结构合并修复，无新生成；26记录进入导入/执行。 |
+| local-qwen-type-gate-probe-v1 | diagnostic | [文件](../outputs/local-qwen-type-gate-probe-v1/report-zh.txt) | 类型核验分出转租/自用需要，状态核验误拒正例；未自动应用到事实。 |

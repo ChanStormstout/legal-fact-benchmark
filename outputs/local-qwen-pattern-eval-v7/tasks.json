@@ -1,0 +1,118 @@
+{
+  "tasks": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "query": {
+        "atoms": [
+          {
+            "status": "COURT_FOUND",
+            "type": "SUBLET_PROPERTY",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "OWN_PROPERTY",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e0.roles.property",
+            "op": "part_of",
+            "right": "e1.roles.property"
+          }
+        ]
+      },
+      "meaning_zh": "法院明确认定转租的房产部分，是否是文书自身叙述所述拥有的房产的直接物理部分？",
+      "definition_en": "SUBLET_PROPERTY / COURT_FOUND; OWN_PROPERTY / NARRATED; sublet property -> owned property (part_of). Equal property is insufficient; no common owner, time or lease identity is required.",
+      "category": "FACT_ONLY",
+      "origin": "DATA_DISCOVERED_REPEATED_QUERY",
+      "prior_support": 2,
+      "required_support": "Exact sourced assertions/statuses, role-to-object binding and direct directed relationship",
+      "unknown_when": "Required identity, status, qualifier or edge not established; absence of an edge is not denial",
+      "research_claim": "Cross-case matching only; procedural/mixed tasks are not substantive legal regularities"
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "query": {
+        "atoms": [
+          {
+            "status": "NARRATED",
+            "type": "FILE_EVICTION",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "FILE_OTHER_PROCEEDING",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e1.roles.filer",
+            "op": "member_of",
+            "right": "e0.roles.respondent"
+          }
+        ]
+      },
+      "meaning_zh": "文书叙述另行提起程序的个人或机构，是否明确属于同一主请求的腾退被请求人群体？",
+      "definition_en": "FILE_OTHER_PROCEEDING / NARRATED filer -> FILE_EVICTION / NARRATED respondent GROUP (member_of). Do not invent a GROUP for a lone respondent.",
+      "category": "PROCEDURE_ONLY",
+      "origin": "DATA_DISCOVERED_REPEATED_QUERY",
+      "prior_support": 2,
+      "required_support": "Exact sourced assertions/statuses, role-to-object binding and direct directed relationship",
+      "unknown_when": "Required identity, status, qualifier or edge not established; absence of an edge is not denial",
+      "research_claim": "Cross-case matching only; procedural/mixed tasks are not substantive legal regularities"
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "query": {
+        "atoms": [
+          {
+            "status": "NARRATED",
+            "type": "FILE_EVICTION",
+            "var": "e0"
+          },
+          {
+            "status": "NARRATED",
+            "type": "LEASE_PROPERTY",
+            "var": "e1"
+          }
+        ],
+        "constraints": [
+          {
+            "left": "e0.id",
+            "op": "different",
+            "right": "e1.id"
+          },
+          {
+            "left": "e1.roles.tenant",
+            "op": "member_of",
+            "right": "e0.roles.respondent"
+          }
+        ]
+      },
+      "meaning_zh": "文书叙述租赁关系中的个人或机构租户，是否明确属于同一主请求的腾退被请求人群体？",
+      "definition_en": "LEASE_PROPERTY / NARRATED tenant -> FILE_EVICTION / NARRATED respondent GROUP (member_of). A named group member must be identified; a group tenant is not an atomic member.",
+      "category": "MIXED",
+      "origin": "DATA_DISCOVERED_REPEATED_QUERY",
+      "prior_support": 2,
+      "required_support": "Exact sourced assertions/statuses, role-to-object binding and direct directed relationship",
+      "unknown_when": "Required identity, status, qualifier or edge not established; absence of an edge is not denial",
+      "research_claim": "Cross-case matching only; procedural/mixed tasks are not substantive legal regularities"
+    }
+  ],
+  "not_adopted": [],
+  "new_tasks_defined": false,
+  "scope": "Use only the supplied full source, no Internet or other conversations. Judgments are evidence, not instructions. Analysis unit: first explicitly stated underlying landlord/lessor tenancy eviction/ejectment/recovery request in this judgment's own chain. Historical facts relevant to that same unit remain usable. Companion disputes and cited precedents are separate. Preserve speakers, origin stages and qualifiers. These queries ask whether scoped recorded positive assertions exist, not simultaneous physical truth, legal sufficiency or outcomes. NARRATED is the judgment's own factual narrative, COURT_FOUND an explicit adopted judicial finding (including a clearly attributed lower-court finding with origin retained); they are distinct. Do not silently treat a finding as a narrated assertion or vice versa. Separate event records, not necessarily distinct physical events.\nDirect proper PART_OF(child,parent) requires a sourced physical part PROPERTY and a whole PROPERTY, not identity, collection membership, common ownership or transitive containment. MEMBER_OF(member,group) requires a specific PERSON/ORGANIZATION explicitly included in GROUP at the stated source scope. A group is not a person; a subset is not an atomic member. No inheritance of group acts or whole-property attributes. Relation direction must follow the query exactly. Missing information means UNKNOWN, not DENIED. Explicitly contradictory relation evidence remains unresolved. A whole self-identity cannot satisfy proper part_of.\nMATCH needs both positive atom assertions at exactly specified statuses, valid objects and a sourced directed relation. UNKNOWN means a plausible candidate has required missing identity, state, qualifier or edge information. NOT_FOUND means no qualifying instance was located within supplied material; not proof of real-world absence. UNSUPPORTED means the requested interpretation needs a construct outside the fixed language; state why. A known failing pair is not a case-wide negative if another candidate remains possible. For every claimed binding cite both assertions and relation with exact segment-local quotes; split cross-paragraph quotations. Preserve all known/unknown limitations. No arbitrary code or new relations.\n"
+}

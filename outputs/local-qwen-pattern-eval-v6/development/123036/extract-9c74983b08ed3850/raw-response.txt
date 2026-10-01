@@ -1,0 +1,96 @@
+{
+"case_id": "123036",
+"unit_evidence": [
+"p0003.s003",
+"p0003.s005",
+"p0004.s003",
+"p0004.s004",
+"p0005.s003",
+"p0006.s008"
+],
+"events": [
+{
+"id": "e1",
+"type": "OWN_PROPERTY",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"roles": [
+{
+"name": "owner",
+"object": "o6"
+},
+{
+"name": "property",
+"object": "o7"
+}
+],
+"evidence": [
+"p0003.s003",
+"p0003.s005",
+"p0006.s008"
+],
+"known": [
+"type",
+"status",
+"polarity",
+"roles.owner",
+"roles.property"
+],
+"unknown": [],
+"speaker": "Supreme Court Judgment",
+"stage": "underlying property history"
+},
+{
+"id": "e2",
+"type": "SUBLET_PROPERTY",
+"status": "UNKNOWN",
+"polarity": "UNKNOWN",
+"roles": [
+{
+"name": "tenant",
+"object": "o3"
+},
+{
+"name": "property",
+"object": "o8"
+}
+],
+"evidence": [
+"p0003.s003"
+],
+"known": [
+"type",
+"roles.tenant",
+"roles.property"
+],
+"unknown": [
+{
+"affects": [
+"status",
+"polarity"
+],
+"reason": "The court explicitly refrains from deciding whether the tenant sublet the property, stating the eviction decree can be sustained on the bona fide requirement of",
+"evidence": [
+"p0005.s003"
+]
+}
+],
+"speaker": "Supreme Court Judgment",
+"stage": "current appeal"
+}
+],
+"edges": [
+{
+"op": "part_of",
+"left": "o8",
+"right": "o7",
+"decision": "SUPPORTED",
+"reason": "The text explicitly states 'One room in the said building' and 'leased portion' refers to the building owned by the family, establishing a physical part-whole",
+"evidence": [
+"p0003.s003",
+"p0003.s005"
+]
+}
+],
+"overflow": false
+}

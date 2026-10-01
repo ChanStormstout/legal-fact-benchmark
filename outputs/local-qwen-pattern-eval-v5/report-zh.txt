@@ -1,0 +1,11 @@
+v5：固定12对象槽，开发格式诊断
+复用148738案已完成且输入相同的v4路由。对象任务返回12个null，缺乏可用对象；后续事实任务仍生成边，违反maxItems=0，本地校验报Array exceeds schema bound并停止。保留失败原输出。令牌约束库未保证此边界，不能将模型权重、JSON解析或约束调用成功视为正确抽取。
+本版没有程序答案，answer_status应为null；失败不记为UNKNOWN。未启动123036，未修补输出事实。
+
+生成成本（保存的任务记录）
+{
+  "new_jobs_with_saved_run": 2,
+  "elapsed_seconds_sum": 85.2,
+  "known_output_tokens_sum": 131,
+  "note": "Only saved new jobs; reused routing is not charged again. Failed-job token counts may be unavailable."
+}

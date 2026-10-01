@@ -1,0 +1,714 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "148738"
+      ]
+    },
+    "unit_evidence": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "p0001.s001",
+          "p0001.s002",
+          "p0001.s003",
+          "p0002.s001",
+          "p0002.s002",
+          "p0002.s003",
+          "p0002.s004",
+          "p0002.s005",
+          "p0003.s001",
+          "p0003.s002",
+          "p0003.s003",
+          "p0003.s004",
+          "p0003.s005",
+          "p0004.s001",
+          "p0004.s002",
+          "p0004.s003",
+          "p0004.s004",
+          "p0004.s005",
+          "p0004.s006",
+          "p0005.s001",
+          "p0005.s002",
+          "p0005.s003",
+          "p0005.s004",
+          "p0005.s005",
+          "p0005.s006",
+          "p0005.s007",
+          "p0006.s001",
+          "p0006.s002",
+          "p0006.s003",
+          "p0006.s004",
+          "p0006.s005",
+          "p0006.s006",
+          "p0006.s007",
+          "p0007.s001"
+        ]
+      },
+      "maxItems": 6
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8"
+                ]
+              },
+              "type": {
+                "enum": [
+                  "FILE_EVICTION"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "ALLEGED",
+                  "COURT_FOUND",
+                  "DISPUTED",
+                  "NARRATED",
+                  "REJECTED",
+                  "UNKNOWN"
+                ]
+              },
+              "polarity": {
+                "enum": [
+                  "POSITIVE",
+                  "NEGATIVE",
+                  "UNKNOWN"
+                ]
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "filer"
+                          ]
+                        },
+                        "object": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "o1",
+                                "o2",
+                                "o3",
+                                "o6",
+                                "o7",
+                                "o8",
+                                "o9",
+                                "o10",
+                                "o11",
+                                "o12"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "object"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "respondent"
+                          ]
+                        },
+                        "object": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "o1",
+                                "o2",
+                                "o3",
+                                "o6",
+                                "o7",
+                                "o8",
+                                "o9",
+                                "o10",
+                                "o11",
+                                "o12"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "object"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "property"
+                          ]
+                        },
+                        "object": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "o4",
+                                "o5"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "object"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "maxItems": 3
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "p0001.s001",
+                    "p0001.s002",
+                    "p0001.s003",
+                    "p0002.s001",
+                    "p0002.s002",
+                    "p0002.s003",
+                    "p0002.s004",
+                    "p0002.s005",
+                    "p0003.s001",
+                    "p0003.s002",
+                    "p0003.s003",
+                    "p0003.s004",
+                    "p0003.s005",
+                    "p0004.s001",
+                    "p0004.s002",
+                    "p0004.s003",
+                    "p0004.s004",
+                    "p0004.s005",
+                    "p0004.s006",
+                    "p0005.s001",
+                    "p0005.s002",
+                    "p0005.s003",
+                    "p0005.s004",
+                    "p0005.s005",
+                    "p0005.s006",
+                    "p0005.s007",
+                    "p0006.s001",
+                    "p0006.s002",
+                    "p0006.s003",
+                    "p0006.s004",
+                    "p0006.s005",
+                    "p0006.s006",
+                    "p0006.s007",
+                    "p0007.s001"
+                  ]
+                },
+                "maxItems": 6
+              },
+              "known": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "type",
+                    "status",
+                    "polarity",
+                    "roles.filer",
+                    "roles.respondent",
+                    "roles.property"
+                  ]
+                },
+                "maxItems": 12
+              },
+              "unknown": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "affects": {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "type",
+                          "status",
+                          "polarity",
+                          "*",
+                          "roles.filer",
+                          "roles.respondent",
+                          "roles.property"
+                        ]
+                      },
+                      "maxItems": 8
+                    },
+                    "reason": {
+                      "type": "string",
+                      "maxLength": 160
+                    },
+                    "evidence": {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "p0001.s001",
+                          "p0001.s002",
+                          "p0001.s003",
+                          "p0002.s001",
+                          "p0002.s002",
+                          "p0002.s003",
+                          "p0002.s004",
+                          "p0002.s005",
+                          "p0003.s001",
+                          "p0003.s002",
+                          "p0003.s003",
+                          "p0003.s004",
+                          "p0003.s005",
+                          "p0004.s001",
+                          "p0004.s002",
+                          "p0004.s003",
+                          "p0004.s004",
+                          "p0004.s005",
+                          "p0004.s006",
+                          "p0005.s001",
+                          "p0005.s002",
+                          "p0005.s003",
+                          "p0005.s004",
+                          "p0005.s005",
+                          "p0005.s006",
+                          "p0005.s007",
+                          "p0006.s001",
+                          "p0006.s002",
+                          "p0006.s003",
+                          "p0006.s004",
+                          "p0006.s005",
+                          "p0006.s006",
+                          "p0006.s007",
+                          "p0007.s001"
+                        ]
+                      },
+                      "maxItems": 6
+                    }
+                  },
+                  "required": [
+                    "affects",
+                    "reason",
+                    "evidence"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 4
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 160
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 160
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "status",
+              "polarity",
+              "roles",
+              "evidence",
+              "known",
+              "unknown",
+              "speaker",
+              "stage"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8"
+                ]
+              },
+              "type": {
+                "enum": [
+                  "LEASE_PROPERTY"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "ALLEGED",
+                  "COURT_FOUND",
+                  "DISPUTED",
+                  "NARRATED",
+                  "REJECTED",
+                  "UNKNOWN"
+                ]
+              },
+              "polarity": {
+                "enum": [
+                  "POSITIVE",
+                  "NEGATIVE",
+                  "UNKNOWN"
+                ]
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "landlord"
+                          ]
+                        },
+                        "object": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "o1",
+                                "o2",
+                                "o3",
+                                "o6",
+                                "o7",
+                                "o8",
+                                "o9",
+                                "o10",
+                                "o11",
+                                "o12"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "object"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "tenant"
+                          ]
+                        },
+                        "object": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "o1",
+                                "o2",
+                                "o3",
+                                "o6",
+                                "o7",
+                                "o8",
+                                "o9",
+                                "o10",
+                                "o11",
+                                "o12"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "object"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "property"
+                          ]
+                        },
+                        "object": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "o4",
+                                "o5"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "object"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "agreement"
+                          ]
+                        },
+                        "object": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "o1",
+                                "o2",
+                                "o3",
+                                "o6",
+                                "o7",
+                                "o8",
+                                "o9",
+                                "o10",
+                                "o11",
+                                "o12"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "object"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "maxItems": 4
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "p0001.s001",
+                    "p0001.s002",
+                    "p0001.s003",
+                    "p0002.s001",
+                    "p0002.s002",
+                    "p0002.s003",
+                    "p0002.s004",
+                    "p0002.s005",
+                    "p0003.s001",
+                    "p0003.s002",
+                    "p0003.s003",
+                    "p0003.s004",
+                    "p0003.s005",
+                    "p0004.s001",
+                    "p0004.s002",
+                    "p0004.s003",
+                    "p0004.s004",
+                    "p0004.s005",
+                    "p0004.s006",
+                    "p0005.s001",
+                    "p0005.s002",
+                    "p0005.s003",
+                    "p0005.s004",
+                    "p0005.s005",
+                    "p0005.s006",
+                    "p0005.s007",
+                    "p0006.s001",
+                    "p0006.s002",
+                    "p0006.s003",
+                    "p0006.s004",
+                    "p0006.s005",
+                    "p0006.s006",
+                    "p0006.s007",
+                    "p0007.s001"
+                  ]
+                },
+                "maxItems": 6
+              },
+              "known": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "type",
+                    "status",
+                    "polarity",
+                    "roles.landlord",
+                    "roles.tenant",
+                    "roles.property",
+                    "roles.agreement"
+                  ]
+                },
+                "maxItems": 12
+              },
+              "unknown": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "affects": {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "type",
+                          "status",
+                          "polarity",
+                          "*",
+                          "roles.landlord",
+                          "roles.tenant",
+                          "roles.property",
+                          "roles.agreement"
+                        ]
+                      },
+                      "maxItems": 8
+                    },
+                    "reason": {
+                      "type": "string",
+                      "maxLength": 160
+                    },
+                    "evidence": {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "p0001.s001",
+                          "p0001.s002",
+                          "p0001.s003",
+                          "p0002.s001",
+                          "p0002.s002",
+                          "p0002.s003",
+                          "p0002.s004",
+                          "p0002.s005",
+                          "p0003.s001",
+                          "p0003.s002",
+                          "p0003.s003",
+                          "p0003.s004",
+                          "p0003.s005",
+                          "p0004.s001",
+                          "p0004.s002",
+                          "p0004.s003",
+                          "p0004.s004",
+                          "p0004.s005",
+                          "p0004.s006",
+                          "p0005.s001",
+                          "p0005.s002",
+                          "p0005.s003",
+                          "p0005.s004",
+                          "p0005.s005",
+                          "p0005.s006",
+                          "p0005.s007",
+                          "p0006.s001",
+                          "p0006.s002",
+                          "p0006.s003",
+                          "p0006.s004",
+                          "p0006.s005",
+                          "p0006.s006",
+                          "p0006.s007",
+                          "p0007.s001"
+                        ]
+                      },
+                      "maxItems": 6
+                    }
+                  },
+                  "required": [
+                    "affects",
+                    "reason",
+                    "evidence"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 4
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 160
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 160
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "status",
+              "polarity",
+              "roles",
+              "evidence",
+              "known",
+              "unknown",
+              "speaker",
+              "stage"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "maxItems": 8
+    },
+    "edges": {
+      "enum": [
+        "NO_ELIGIBLE_OBJECT_PAIR"
+      ]
+    },
+    "overflow": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "case_id",
+    "unit_evidence",
+    "events",
+    "edges",
+    "overflow"
+  ],
+  "additionalProperties": false
+}

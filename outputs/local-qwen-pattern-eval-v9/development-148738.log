@@ -1,0 +1,37 @@
+START 148738 objects 5909
+END 148738 objects OK 516
+START 148738 facts-OWN_PROPERTY 6260
+END 148738 facts-OWN_PROPERTY OK 166
+START 148738 facts-SUBLET_PROPERTY 6265
+END 148738 facts-SUBLET_PROPERTY OK 1297
+START 148738 facts-LEASE_PROPERTY 6269
+END 148738 facts-LEASE_PROPERTY OK 192
+START 148738 facts-FILE_EVICTION 6266
+END 148738 facts-FILE_EVICTION OK 1324
+START 148738 facts-FILE_OTHER_PROCEEDING 6267
+END 148738 facts-FILE_OTHER_PROCEEDING OK 1300
+START 148738 pair-000 4152
+END 148738 pair-000 OK 85
+Traceback (most recent call last):
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/local_qwen_pairs_v9.py", line 95, in <module>
+    p=argparse.ArgumentParser();p.add_argument('command',choices=['prepare','run']);p.add_argument('--case');a=p.parse_args();prepare() if a.command=='prepare' else run(a.case)
+                                                                                                                                                                     ^^^^^^^^^^^
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/local_qwen_pairs_v9.py", line 82, in run
+    data,ops=convert(outputs,judgments,registry_objects,source,tasks['tasks']);view=import_declared(data,source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/legal_bench/pair_extraction_v9.py", line 66, in convert
+    return old_convert(outputs,edges,registry,source,tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/legal_bench/atomic_extraction_v8.py", line 67, in convert
+    out,ops=base_convert(compact,source,'B',tasks)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/legal_bench/compact_output_v3.py", line 59, in convert
+    validate_shape(data,schema(source,method,tasks));sm={s['id']:s['text'] for s in source['segments']};ops=[]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/legal_bench/compact_output_v3.py", line 44, in validate_shape
+    for k,v in data.items():validate_shape(v,schema['properties'][k])
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/legal_bench/compact_output_v3.py", line 47, in validate_shape
+    if len(data)>schema.get('maxItems',len(data)):raise ValueError('Array exceeds schema bound')
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Array exceeds schema bound

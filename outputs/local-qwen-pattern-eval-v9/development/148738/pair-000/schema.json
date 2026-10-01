@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "properties": {
+    "reason": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "decision": {
+      "enum": [
+        "SUPPORTED",
+        "DENIED",
+        "UNRESOLVED"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "p0001.s001",
+          "p0001.s002",
+          "p0002.s003",
+          "p0002.s004",
+          "p0002.s005",
+          "p0003.s001",
+          "p0003.s002",
+          "p0003.s003",
+          "p0003.s004",
+          "p0003.s005",
+          "p0004.s001",
+          "p0004.s002",
+          "p0004.s003",
+          "p0004.s004",
+          "p0004.s006",
+          "p0005.s001",
+          "p0005.s002",
+          "p0005.s007",
+          "p0006.s001",
+          "p0006.s002",
+          "p0006.s003",
+          "p0006.s004",
+          "p0006.s005",
+          "p0006.s006",
+          "p0006.s007"
+        ]
+      },
+      "maxItems": 6
+    }
+  },
+  "required": [
+    "reason",
+    "decision",
+    "evidence"
+  ],
+  "additionalProperties": false
+}

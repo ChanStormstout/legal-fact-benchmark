@@ -109,6 +109,8 @@ def prepare(root=ROOT):
              'limitations': ['Observed format failures preceded this replay; not independent testing.',
                             'All completed selected A/B answers are NOT_FOUND; no positive recognized.',
                             'Do not infer accuracy from status agreement or unknown reduction.']}
+    if policy.get('development_follow_up'):
+        state['development_follow_up'] = policy['development_follow_up']
     save(root, 'docs/PROJECT_STATE.json', state)
     table = '# 实验索引\n\n历史版本按实际角色区分；源码和结果在同一次提交中同步。\n\n| 版本 | 角色 | 报告 | 解释 |\n| --- | --- | --- | --- |\n'
     for exp in catalog['experiments']:
@@ -168,6 +170,9 @@ def prepare(root=ROOT):
 每次更新：prepare生成文件，verify核验，sync明确提交并推送。不是后台自动同步。
 不要只读取本入口就声称已经阅读全部代码或全文判决。
 ''' % (snapshot, repo, latest, latest, prefix, prefix, latest)
+    if policy.get('development_follow_up'):
+        follow = policy['development_follow_up']
+        start += '\n后续开发诊断：[报告](../' + follow['report'] + ')。当前2案6题：2个MATCH中1个来源支持、1个不支持；4 UNKNOWN。整体pipeline可靠性尚未验证。上方v3结果保留为完整A/B基线；后续诊断使用额外调用，不是独立测试。详见PROJECT_STATE与实验索引，务必检查事实类型和对象群体，而不只看关系边。\n'
     save(root, 'review/START_HERE.md', start)
     request = '''请审阅公开仓库 https://github.com/%s 。先读取 %sreview/START_HERE.md
 和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
@@ -232,6 +237,11 @@ def export(root=ROOT):
 def git(root, *args, capture=True):
     return subprocess.check_output(['git','-C',str(root)]+list(args),text=True).strip() if capture else subprocess.check_call(['git','-C',str(root)]+list(args))
 
+def git_names(root, *args):
+    # NUL output avoids quoted Unicode paths and newline splitting in safety guards.
+    raw = subprocess.check_output(['git', '-C', str(root)] + list(args) + ['-z'])
+    return set(raw.decode('utf-8').rstrip('\0').split('\0')) if raw else set()
+
 def sync(root=ROOT, message=None):
     if not message:raise ValueError('--message is required for explicit publication')
     prepare(root);manifest=read(root/'review/MANIFEST.json');policy=read(root/'docs/repository-artifacts.json')
@@ -241,11 +251,11 @@ def sync(root=ROOT, message=None):
     if remote not in ['https://github.com/'+expected+'.git','https://github.com/'+expected,'git@github.com:'+expected+'.git']:
         raise ValueError('origin differs from registered repository')
     if git(root,'branch','--show-current')!=policy['branch']:raise ValueError('Not on registered branch')
-    tracked=set(git(root,'ls-files').splitlines())
+    tracked=git_names(root,'ls-files')
     if tracked-set(names):raise ValueError('Tracked files outside publication policy; inspect manually')
-    staged=set(git(root,'diff','--cached','--name-only').splitlines())
+    staged=git_names(root,'diff','--cached','--name-only')
     if staged-set(names):raise ValueError('Unrelated staged files; refusing to include them')
-    git(root,'add','-f','--pathspec-from-file='+str(root/'.bridge/paths.txt'),capture=False)
+    git(root,'--literal-pathspecs','add','-f','--pathspec-from-file='+str(root/'.bridge/paths.txt'),capture=False)
     git(root,'diff','--cached','--check',capture=False)
     if git(root,'diff','--cached','--name-only'):
         git(root,'commit','-m',message,capture=False)

@@ -1,0 +1,458 @@
+{
+  "case_id": "148738",
+  "answers": [
+    {
+      "task_id": "9c74983b08ed3850",
+      "run_status": "OK",
+      "answer_status": "MATCH",
+      "trace": {
+        "status": "MATCH",
+        "witnesses": [
+          {
+            "binding": {
+              "e0": "e2",
+              "e1": "e1"
+            },
+            "evidence_refs": [
+              {
+                "case_id": "148738",
+                "event_id": "e2"
+              },
+              {
+                "case_id": "148738",
+                "event_id": "e1"
+              }
+            ],
+            "relation_edge_refs": [
+              "07b633088963f78995ba"
+            ]
+          }
+        ],
+        "uncertain_bindings": [],
+        "rejected_bindings": [],
+        "candidate_decisions": [
+          {
+            "var": "e0",
+            "event_id": "e1",
+            "field": "type",
+            "required": "SUBLET_PROPERTY",
+            "known": "OWN_PROPERTY",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e0",
+            "event_id": "e2",
+            "field": "type",
+            "required": "SUBLET_PROPERTY",
+            "known": "SUBLET_PROPERTY",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e1",
+            "field": "type",
+            "required": "OWN_PROPERTY",
+            "known": "OWN_PROPERTY",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e2",
+            "field": "type",
+            "required": "OWN_PROPERTY",
+            "known": "SUBLET_PROPERTY",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          }
+        ],
+        "closed_world": false,
+        "version": "declared-fields-v2"
+      },
+      "cooccurrence": {
+        "status": "MATCH",
+        "witnesses": [
+          {
+            "binding": {
+              "e0": "e2",
+              "e1": "e1"
+            },
+            "evidence_refs": [
+              {
+                "case_id": "148738",
+                "event_id": "e2"
+              },
+              {
+                "case_id": "148738",
+                "event_id": "e1"
+              }
+            ],
+            "relation_edge_refs": []
+          }
+        ],
+        "uncertain_bindings": [],
+        "rejected_bindings": [],
+        "candidate_decisions": [
+          {
+            "var": "e0",
+            "event_id": "e1",
+            "field": "type",
+            "required": "SUBLET_PROPERTY",
+            "known": "OWN_PROPERTY",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e0",
+            "event_id": "e2",
+            "field": "type",
+            "required": "SUBLET_PROPERTY",
+            "known": "SUBLET_PROPERTY",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e1",
+            "field": "type",
+            "required": "OWN_PROPERTY",
+            "known": "OWN_PROPERTY",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e2",
+            "field": "type",
+            "required": "OWN_PROPERTY",
+            "known": "SUBLET_PROPERTY",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          }
+        ],
+        "closed_world": false,
+        "version": "declared-fields-v2"
+      }
+    },
+    {
+      "task_id": "24d45ac35ac7f114",
+      "run_status": "OK",
+      "answer_status": "NOT_FOUND",
+      "trace": {
+        "status": "NOT_FOUND",
+        "witnesses": [],
+        "uncertain_bindings": [],
+        "rejected_bindings": [
+          {
+            "binding": {
+              "e0": "e1",
+              "e1": "e2"
+            },
+            "evidence_refs": [
+              {
+                "case_id": "148738",
+                "event_id": "e1"
+              },
+              {
+                "case_id": "148738",
+                "event_id": "e2"
+              }
+            ],
+            "relation_edge_refs": [],
+            "failed_conditions": [
+              {
+                "constraint": {
+                  "left": "e1.roles.filer",
+                  "op": "member_of",
+                  "right": "e0.roles.respondent"
+                },
+                "left": "o12",
+                "right": "o1",
+                "reason": "WRONG_OBJECT_KINDS",
+                "edge_ids": []
+              }
+            ],
+            "uncertainty": []
+          }
+        ],
+        "candidate_decisions": [
+          {
+            "var": "e0",
+            "event_id": "e1",
+            "field": "type",
+            "required": "FILE_EVICTION",
+            "known": "FILE_EVICTION",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e0",
+            "event_id": "e2",
+            "field": "type",
+            "required": "FILE_EVICTION",
+            "known": "FILE_OTHER_PROCEEDING",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e1",
+            "field": "type",
+            "required": "FILE_OTHER_PROCEEDING",
+            "known": "FILE_EVICTION",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e2",
+            "field": "type",
+            "required": "FILE_OTHER_PROCEEDING",
+            "known": "FILE_OTHER_PROCEEDING",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          }
+        ],
+        "closed_world": false,
+        "version": "declared-fields-v2"
+      },
+      "cooccurrence": {
+        "status": "MATCH",
+        "witnesses": [
+          {
+            "binding": {
+              "e0": "e1",
+              "e1": "e2"
+            },
+            "evidence_refs": [
+              {
+                "case_id": "148738",
+                "event_id": "e1"
+              },
+              {
+                "case_id": "148738",
+                "event_id": "e2"
+              }
+            ],
+            "relation_edge_refs": []
+          }
+        ],
+        "uncertain_bindings": [],
+        "rejected_bindings": [],
+        "candidate_decisions": [
+          {
+            "var": "e0",
+            "event_id": "e1",
+            "field": "type",
+            "required": "FILE_EVICTION",
+            "known": "FILE_EVICTION",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e0",
+            "event_id": "e2",
+            "field": "type",
+            "required": "FILE_EVICTION",
+            "known": "FILE_OTHER_PROCEEDING",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e1",
+            "field": "type",
+            "required": "FILE_OTHER_PROCEEDING",
+            "known": "FILE_EVICTION",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e2",
+            "field": "type",
+            "required": "FILE_OTHER_PROCEEDING",
+            "known": "FILE_OTHER_PROCEEDING",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          }
+        ],
+        "closed_world": false,
+        "version": "declared-fields-v2"
+      }
+    },
+    {
+      "task_id": "52a7d11461a492d0",
+      "run_status": "OK",
+      "answer_status": "NOT_FOUND",
+      "trace": {
+        "status": "NOT_FOUND",
+        "witnesses": [],
+        "uncertain_bindings": [],
+        "rejected_bindings": [
+          {
+            "binding": {
+              "e0": "e2",
+              "e1": "e1"
+            },
+            "evidence_refs": [
+              {
+                "case_id": "148738",
+                "event_id": "e2"
+              },
+              {
+                "case_id": "148738",
+                "event_id": "e1"
+              }
+            ],
+            "relation_edge_refs": [],
+            "failed_conditions": [
+              {
+                "constraint": {
+                  "left": "e1.roles.tenant",
+                  "op": "member_of",
+                  "right": "e0.roles.respondent"
+                },
+                "left": "o1",
+                "right": "o1",
+                "reason": "PROPER_EDGE_NOT_IDENTITY",
+                "edge_ids": []
+              }
+            ],
+            "uncertainty": []
+          }
+        ],
+        "candidate_decisions": [
+          {
+            "var": "e0",
+            "event_id": "e1",
+            "field": "type",
+            "required": "FILE_EVICTION",
+            "known": "LEASE_PROPERTY",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e0",
+            "event_id": "e2",
+            "field": "type",
+            "required": "FILE_EVICTION",
+            "known": "FILE_EVICTION",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e1",
+            "field": "type",
+            "required": "LEASE_PROPERTY",
+            "known": "LEASE_PROPERTY",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e2",
+            "field": "type",
+            "required": "LEASE_PROPERTY",
+            "known": "FILE_EVICTION",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          }
+        ],
+        "closed_world": false,
+        "version": "declared-fields-v2"
+      },
+      "cooccurrence": {
+        "status": "MATCH",
+        "witnesses": [
+          {
+            "binding": {
+              "e0": "e2",
+              "e1": "e1"
+            },
+            "evidence_refs": [
+              {
+                "case_id": "148738",
+                "event_id": "e2"
+              },
+              {
+                "case_id": "148738",
+                "event_id": "e1"
+              }
+            ],
+            "relation_edge_refs": []
+          }
+        ],
+        "uncertain_bindings": [],
+        "rejected_bindings": [],
+        "candidate_decisions": [
+          {
+            "var": "e0",
+            "event_id": "e1",
+            "field": "type",
+            "required": "FILE_EVICTION",
+            "known": "LEASE_PROPERTY",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e0",
+            "event_id": "e2",
+            "field": "type",
+            "required": "FILE_EVICTION",
+            "known": "FILE_EVICTION",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e1",
+            "field": "type",
+            "required": "LEASE_PROPERTY",
+            "known": "LEASE_PROPERTY",
+            "decision": "KEEP",
+            "reason": "KNOWN_REQUIRED_TYPE",
+            "dependencies": []
+          },
+          {
+            "var": "e1",
+            "event_id": "e2",
+            "field": "type",
+            "required": "LEASE_PROPERTY",
+            "known": "FILE_EVICTION",
+            "decision": "EXCLUDE",
+            "reason": "KNOWN_DIFFERENT_TYPE",
+            "dependencies": []
+          }
+        ],
+        "closed_world": false,
+        "version": "declared-fields-v2"
+      }
+    }
+  ]
+}

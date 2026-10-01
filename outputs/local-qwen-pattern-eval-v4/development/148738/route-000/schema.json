@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "relevant": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "p0001.s001",
+          "p0001.s002",
+          "p0001.s003",
+          "p0002.s001",
+          "p0002.s002",
+          "p0002.s003",
+          "p0002.s004",
+          "p0002.s005",
+          "p0003.s001",
+          "p0003.s002"
+        ]
+      },
+      "maxItems": 10
+    },
+    "uncertain": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "p0001.s001",
+          "p0001.s002",
+          "p0001.s003",
+          "p0002.s001",
+          "p0002.s002",
+          "p0002.s003",
+          "p0002.s004",
+          "p0002.s005",
+          "p0003.s001",
+          "p0003.s002"
+        ]
+      },
+      "maxItems": 10
+    },
+    "complete": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "relevant",
+    "uncertain",
+    "complete"
+  ],
+  "additionalProperties": false
+}

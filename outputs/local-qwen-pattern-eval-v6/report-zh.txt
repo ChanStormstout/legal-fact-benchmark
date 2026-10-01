@@ -1,0 +1,13 @@
+v6：对象数组与受限引用，开发诊断
+两案全部任务完成。148738三题为MATCH/NOT_FOUND/NOT_FOUND；123036为UNKNOWN/NOT_FOUND/MATCH。状态中的两个MATCH均不能计为已证实成功。
+148738的e1将租户Pulin列为整栋建筑的owner，原文p0003.s002明确购买者为respondents。房间part_of建筑及转租法院认定有来源支持，但所有权断言主体错误。
+123036的FILE_EVICTION把房东家族同时列为filer和respondent；LEASE_PROPERTY列已去世的Dr.Ramachandra为tenant；member_of将Dr连接到房东家族。原文p0002.s002、p0003.s004、p0003.s006明确妻子和儿子是腾退被请求人，妻子被认可为后续租户。登记阶段遗漏妻子/儿子的个人对象，后续关系错误连接。
+错误在抽取的对象身份与行为绑定，执行器只忠实执行错误记录。两个MATCH不是正向证据；其余状态也未经整体准确率核验。本版是已暴露案例上的开发诊断，不能称为独立测试。
+
+生成成本（保存的任务记录）
+{
+  "new_jobs_with_saved_run": 12,
+  "elapsed_seconds_sum": 380.17,
+  "known_output_tokens_sum": 5907,
+  "note": "Only saved new jobs; reused routing is not charged again. Failed-job token counts may be unavailable."
+}

@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "148738"
+      ]
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "kind": {
+            "enum": [
+              "PERSON",
+              "ORGANIZATION",
+              "GROUP",
+              "PROPERTY"
+            ]
+          },
+          "resolved": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s001",
+                "p0001.s002",
+                "p0001.s003",
+                "p0003.s003",
+                "p0003.s004",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "p0005.s003",
+                "p0005.s004",
+                "p0005.s005",
+                "p0005.s006",
+                "p0005.s007",
+                "p0006.s001",
+                "p0006.s002",
+                "p0006.s003",
+                "p0006.s005",
+                "p0006.s006",
+                "p0006.s007"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "label",
+          "kind",
+          "resolved",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 12
+    },
+    "overflow": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "case_id",
+    "objects",
+    "overflow"
+  ],
+  "additionalProperties": false
+}

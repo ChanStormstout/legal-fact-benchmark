@@ -21,7 +21,17 @@
     "outputs/algorithm-design-v2",
     "outputs/algorithm-design-v3",
     "outputs/algorithm-design-v4",
-    "outputs/project-wide-research"
+    "outputs/project-wide-research",
+    "outputs/local-qwen-pattern-eval-v4",
+    "outputs/local-qwen-pattern-eval-v5",
+    "outputs/local-qwen-pattern-eval-v6",
+    "outputs/local-qwen-pattern-eval-v7",
+    "outputs/local-qwen-pattern-eval-v8",
+    "outputs/local-qwen-pattern-eval-v9",
+    "outputs/local-qwen-pattern-eval-v10",
+    "outputs/local-qwen-semantic-probe-v1",
+    "outputs/local-qwen-split-assembly-v1",
+    "outputs/local-qwen-type-gate-probe-v1"
   ],
   "exclude_globs": [
     "*/__pycache__/*",
@@ -73,6 +83,25 @@
     "scripts/score_local_qwen_v3.py",
     "tests/test_field_pipeline_v2.py",
     "tests/test_compact_output_v3.py",
-    "tests/test_model_output.py"
-  ]
+    "tests/test_model_output.py",
+    "legal_bench/atomic_extraction_v8.py",
+    "legal_bench/pair_extraction_v9.py",
+    "legal_bench/split_assembly_v1.py",
+    "scripts/local_qwen_pairs_v10.py",
+    "scripts/local_qwen_type_gate_probe_v1.py",
+    "tests/test_split_assembly_v1.py"
+  ],
+  "development_follow_up": {
+    "latest_run": "outputs/local-qwen-pattern-eval-v10",
+    "role": "EXPOSED_DEVELOPMENT_DIAGNOSIS_NOT_INDEPENDENT_TEST",
+    "cases": 2,
+    "questions": 6,
+    "claimed_match": 2,
+    "source_supported_selected_witness": 1,
+    "unsupported_selected_witness": 1,
+    "unknown": 4,
+    "whole_pipeline_validation_complete": false,
+    "report": "outputs/local-qwen-pattern-eval-v10/report-zh.txt",
+    "note": "v3 remains latest complete same-configuration A/B comparison; v10 B diagnosis uses extra calls and reused v8 stages."
+  }
 }

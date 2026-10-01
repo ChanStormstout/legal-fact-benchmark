@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.repository_bridge import publication_paths, scan, prepare, verify, export
+from scripts.repository_bridge import publication_paths, scan, prepare, verify, export, git, git_names
 
 
 class RepositoryBridgeTests(unittest.TestCase):
@@ -70,6 +70,16 @@ class RepositoryBridgeTests(unittest.TestCase):
         (self.root/'outputs/run/link.json').symlink_to(self.root/'README.md')
         paths, _ = publication_paths(self.root, self.policy)
         self.assertNotIn('outputs/run/link.json', paths)
+
+    def test_literal_unicode_filename_is_not_a_glob_or_quoted_guard_entry(self):
+        git(self.root, 'init', '-q')
+        name='docs/记录[1].md'
+        (self.root/name).write_text('selected')
+        (self.root/'docs/记录1.md').write_text('unselected')
+        pathspec=self.root/'paths.txt';pathspec.write_text(name+'\n')
+        git(self.root,'--literal-pathspecs','add','--pathspec-from-file='+str(pathspec),capture=False)
+        self.assertEqual(git_names(self.root,'diff','--cached','--name-only'),{name})
+        self.assertEqual(git_names(self.root,'ls-files'),{name})
 
 
 if __name__ == '__main__':

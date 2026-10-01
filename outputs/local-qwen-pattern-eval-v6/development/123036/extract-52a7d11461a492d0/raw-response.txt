@@ -1,0 +1,92 @@
+{
+"case_id": "123036",
+"unit_evidence": [
+"p0003.s001",
+"p0003.s002",
+"p0003.s003",
+"p0003.s004",
+"p0003.s005",
+"p0004.s003"
+],
+"events": [
+{
+"id": "e1",
+"type": "FILE_EVICTION",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"roles": [
+{
+"name": "filer",
+"object": "o6"
+},
+{
+"name": "respondent",
+"object": "o6"
+}
+],
+"evidence": [
+"p0003.s002",
+"p0003.s006"
+],
+"known": [
+"type",
+"status",
+"polarity",
+"roles.filer",
+"roles.respondent"
+],
+"unknown": [],
+"speaker": "judgment narration",
+"stage": "underlying eviction request"
+},
+{
+"id": "e2",
+"type": "LEASE_PROPERTY",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"roles": [
+{
+"name": "landlord",
+"object": "o6"
+},
+{
+"name": "tenant",
+"object": "o3"
+},
+{
+"name": "property",
+"object": "o8"
+}
+],
+"evidence": [
+"p0003.s003",
+"p0003.s004"
+],
+"known": [
+"type",
+"status",
+"polarity",
+"roles.landlord",
+"roles.tenant",
+"roles.property"
+],
+"unknown": [],
+"speaker": "judgment narration",
+"stage": "underlying tenancy history"
+}
+],
+"edges": [
+{
+"op": "member_of",
+"left": "o3",
+"right": "o6",
+"decision": "SUPPORTED",
+"reason": "Dr. Ramachandra (o3) was a member of the Joint Hindu Family (o6) as stated in the judgment; the respondent (o6) became Karta upon Babu Lal's death, establishing",
+"evidence": [
+"p0003.s002",
+"p0003.s005"
+]
+}
+],
+"overflow": false
+}

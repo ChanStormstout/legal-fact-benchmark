@@ -1,0 +1,135 @@
+{
+  "case_id": "148738",
+  "unit_evidence": [
+    "p0003.s002",
+    "p0003.s003"
+  ],
+  "objects": [
+    {
+      "id": "e0",
+      "label": "Room in Shop (Sublet Property Instance 1970-1975, Subtenant: Sujoy Kumar Das Gupta, Landlord: Respondents (Mahadeb Dutte))",
+      "kind": "PROPERTY",
+      "resolved": true,
+      "evidence": [
+        "p0003.s002",
+        "p0003.s003",
+        "p0006.s005",
+        "p0006.s006"
+      ]
+    },
+    {
+      "id": "e1",
+      "label": "Premises No. 75, Surendra Nath Banerjee Road, Calcutta (Owned Property Instance 1973, Owner: Respondents (Mahadeb Dutte))",
+      "kind": "PROPERTY",
+      "resolved": true,
+      "evidence": [
+        "p0003.s002",
+        "p0003.s003"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "ev0",
+      "type": "SUBLET_PROPERTY",
+      "status": "COURT_FOUND",
+      "polarity": "POSITIVE",
+      "roles": [
+        {
+          "name": "property",
+          "object": "e0"
+        },
+        {
+          "name": "subtenant",
+          "object": "Sujoy Kumar Das Gupta"
+        },
+        {
+          "name": "transferor",
+          "object": "Pulin Behari Lal"
+        }
+      ],
+      "evidence": [
+        "p0006.s005",
+        "p0006.s006"
+      ],
+      "known": [
+        "type",
+        "status",
+        "polarity",
+        "roles.subtenant",
+        "roles.transferor",
+        "roles.property"
+      ],
+      "unknown": [
+        {
+          "affects": [
+            "time",
+            "*"
+          ],
+          "reason": "Exact date of subletting creation (1970) and specific room boundaries are not explicitly detailed in the text, though the existence of the subletting is confirmed. The specific room ID is not provided, only described as part of the premises",
+          "evidence": [
+            "p0006.s005",
+            "p0006.s006"
+          ]
+        }
+      ],
+      "speaker": "Supreme Court of India (Kasliwal, Kuldip Singh, Banerjee JJ.)",
+      "stage": "Final Judgment (Appeal)"
+    },
+    {
+      "id": "ev1",
+      "type": "OWN_PROPERTY",
+      "status": "NARRATED",
+      "polarity": "POSITIVE",
+      "roles": [
+        {
+          "name": "owner",
+          "object": "e1"
+        },
+        {
+          "name": "property",
+          "object": "e1"
+        }
+      ],
+      "evidence": [
+        "p0003.s002",
+        "p0003.s003"
+      ],
+      "known": [
+        "type",
+        "status",
+        "polarity",
+        "roles.owner",
+        "roles.property"
+      ],
+      "unknown": [
+        {
+          "affects": [
+            "time"
+          ],
+          "reason": "The ownership transfer date (27th September, 1973) is explicitly stated, but the initial owner (Commissioner of Partition) is a state entity, not a private individual named in the object list. The object 'e1' represents the property as held",
+          "evidence": [
+            "p0003.s002",
+            "p0003.s003"
+          ]
+        }
+      ],
+      "speaker": "Supreme Court of India (Kasliwal, Kuldip Singh, Banerjee JJ.)",
+      "stage": "Final Judgment (Appeal)"
+    }
+  ],
+  "edges": [
+    {
+      "op": "part_of",
+      "left": "e0",
+      "right": "e1",
+      "decision": "SUPPORTED",
+      "reason": "The text explicitly states that the subletting was created in 1970 within the premises purchased by the respondents in 1973. The premises are described as 'No. 75, Surendra Nath Banerjee Road'. The subletting was of a 'shop room' within the",
+      "evidence": [
+        "p0003.s002",
+        "p0003.s003",
+        "p0006.s005"
+      ]
+    }
+  ]
+}

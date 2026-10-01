@@ -1,0 +1,219 @@
+{
+  "type": "object",
+  "properties": {
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "explanation": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "status": {
+            "enum": [
+              "ALLEGED",
+              "COURT_FOUND",
+              "DISPUTED",
+              "NARRATED",
+              "REJECTED",
+              "UNKNOWN"
+            ]
+          },
+          "polarity": {
+            "enum": [
+              "POSITIVE",
+              "NEGATIVE",
+              "UNKNOWN"
+            ]
+          },
+          "roles": {
+            "type": "object",
+            "properties": {
+              "owner": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "Dr. Ramachandra",
+                      "First appellant (widow of Dr. Ramachandra/Budhwanti And Anr.)",
+                      "Second appellant (Son of Dr. Ramachandra/And Anr.)",
+                      "Babu Lal",
+                      "Respondent (Gulab Chand Prasad/Karta of family after Babu Lal's death) - Note: Not the original landlord",
+                      "Joint Hindu Family (Original owners of building, now represented by Respondent as Karta post-death of Babu Lal, and deceased Babu Lal as former Karta) - Note: D",
+                      "Trial Court",
+                      "Appellate Court",
+                      "Patna High Court (Full Bench) - Note: Current adjudicating body for this appeal",
+                      "Supreme Court of India - Note: Current adjudicating body for this appeal"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "property": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "Medical shop (Punjab Dental and Opticals Works) - Note: Leased portion",
+                      "Non-residential building (G.B. Road, Gaya) - Note: Whole property containing the shop"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "owner",
+              "property"
+            ],
+            "additionalProperties": false
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s001",
+                "p0001.s002",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "p0004.s004",
+                "p0004.s005",
+                "p0004.s006",
+                "p0004.s007",
+                "p0004.s008",
+                "p0005.s001",
+                "p0005.s002",
+                "p0005.s003",
+                "p0005.s004",
+                "p0005.s005",
+                "p0005.s006",
+                "p0005.s007",
+                "p0006.s001",
+                "p0006.s002",
+                "p0006.s003",
+                "p0006.s004",
+                "p0006.s005",
+                "p0006.s006",
+                "p0006.s007",
+                "p0006.s008",
+                "p0007.s001"
+              ]
+            },
+            "maxItems": 6
+          },
+          "unknown": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "affects": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "type",
+                      "status",
+                      "polarity",
+                      "roles.owner",
+                      "roles.property",
+                      "*"
+                    ]
+                  },
+                  "maxItems": 8
+                },
+                "reason": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "p0001.s001",
+                      "p0001.s002",
+                      "p0002.s001",
+                      "p0002.s002",
+                      "p0002.s003",
+                      "p0002.s004",
+                      "p0002.s005",
+                      "p0003.s001",
+                      "p0003.s002",
+                      "p0003.s003",
+                      "p0003.s004",
+                      "p0003.s005",
+                      "p0003.s006",
+                      "p0004.s001",
+                      "p0004.s002",
+                      "p0004.s003",
+                      "p0004.s004",
+                      "p0004.s005",
+                      "p0004.s006",
+                      "p0004.s007",
+                      "p0004.s008",
+                      "p0005.s001",
+                      "p0005.s002",
+                      "p0005.s003",
+                      "p0005.s004",
+                      "p0005.s005",
+                      "p0005.s006",
+                      "p0005.s007",
+                      "p0006.s001",
+                      "p0006.s002",
+                      "p0006.s003",
+                      "p0006.s004",
+                      "p0006.s005",
+                      "p0006.s006",
+                      "p0006.s007",
+                      "p0006.s008",
+                      "p0007.s001"
+                    ]
+                  },
+                  "maxItems": 6
+                }
+              },
+              "required": [
+                "affects",
+                "reason",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "explanation",
+          "status",
+          "polarity",
+          "roles",
+          "evidence",
+          "unknown"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 8
+    },
+    "overflow": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "facts",
+    "overflow"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,89 @@
+{
+"case_id": "148738",
+"unit_evidence": [
+"p0003.s002",
+"p0003.s003",
+"p0004.s002",
+"p0004.s003",
+"p0006.s005",
+"p0006.s006"
+],
+"events": [
+{
+"id": "e1",
+"type": "OWN_PROPERTY",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"roles": [
+{
+"name": "owner",
+"object": "o1"
+},
+{
+"name": "property",
+"object": "o4"
+}
+],
+"evidence": [
+"p0003.s002",
+"p0003.s003"
+],
+"known": [
+"type",
+"status",
+"polarity",
+"roles.owner",
+"roles.property"
+],
+"unknown": [],
+"speaker": "judgment narration",
+"stage": "underlying property history"
+},
+{
+"id": "e2",
+"type": "SUBLET_PROPERTY",
+"status": "COURT_FOUND",
+"polarity": "POSITIVE",
+"roles": [
+{
+"name": "tenant",
+"object": "o1"
+},
+{
+"name": "property",
+"object": "o5"
+}
+],
+"evidence": [
+"p0003.s002",
+"p0004.s002",
+"p0004.s003",
+"p0006.s005",
+"p0006.s006"
+],
+"known": [
+"type",
+"status",
+"polarity",
+"roles.tenant",
+"roles.property"
+],
+"unknown": [],
+"speaker": "judgment narration",
+"stage": "current appeal findings"
+}
+],
+"edges": [
+{
+"op": "part_of",
+"left": "o5",
+"right": "o4",
+"decision": "SUPPORTED",
+"reason": "The text explicitly describes o5 as a 'road side shop room in the ground floor of premises No. 75' (o4), establishing a physical part-whole relationship within ",
+"evidence": [
+"p0003.s002"
+]
+}
+],
+"overflow": false
+}

@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "properties": {
+    "source_event": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "type_support": {
+      "enum": [
+        "SUPPORTED",
+        "NOT_SUPPORTED",
+        "UNCLEAR"
+      ]
+    },
+    "state_support": {
+      "enum": [
+        "SUPPORTED",
+        "NOT_SUPPORTED",
+        "UNCLEAR"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "p0002.s001",
+          "p0003.s002",
+          "p0003.s003",
+          "p0003.s004",
+          "p0003.s005",
+          "p0004.s004",
+          "p0005.s003",
+          "p0006.s008"
+        ]
+      },
+      "maxItems": 6
+    }
+  },
+  "required": [
+    "source_event",
+    "type_support",
+    "state_support",
+    "reason",
+    "evidence"
+  ],
+  "additionalProperties": false
+}

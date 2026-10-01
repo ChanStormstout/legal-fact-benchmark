@@ -1,0 +1,137 @@
+{
+"case_id": "148738",
+"unit_evidence": [
+"p0002.s001",
+"p0002.s002",
+"p0002.s003",
+"p0003.s001",
+"p0003.s002",
+"p0003.s003"
+],
+"events": [
+{
+"id": "e1",
+"type": "OWN_PROPERTY",
+"status": "NARRATED",
+"polarity": "POSITIVE",
+"roles": [
+{
+"name": "owner",
+"object": null
+},
+{
+"name": "property",
+"object": null
+}
+],
+"evidence": [
+"p0002.s003"
+],
+"known": [
+"type",
+"status",
+"polarity",
+"roles.owner",
+"roles.property"
+],
+"unknown": [
+{
+"affects": [
+"roles.owner",
+"roles.property"
+],
+"reason": "Specific names/identifiers for the owner and the property are not explicitly stated in the narrated text; only 'respondents' and 'premises' are used. The text '"
+,
+"evidence": [
+"p0002.s003"
+]
+},
+{
+"affects": [
+"roles.property"
+],
+"reason": "The text describes the property as 'premises in question' or 'said premises' without a specific identifier like 'Building B' or 'Room R' that would allow unique",
+"evidence": [
+"p0002.s003"
+]
+}
+],
+"speaker": "judgment narration",
+"stage": "underlying property history"
+},
+{
+"id": "e2",
+"type": "SUBLET_PROPERTY",
+"status": "COURT_FOUND",
+"polarity": "POSITIVE",
+"roles": [
+{
+"name": "tenant",
+"object": null
+},
+{
+"name": "subtenant",
+"object": null
+},
+{
+"name": "property",
+"object": null
+}
+],
+"evidence": [
+"p0002.s001",
+"p0002.s002",
+"p0003.s003",
+"p0003.s004",
+"p0003.s005",
+"p0004.s002"
+],
+"known": [
+"type",
+"status",
+"polarity",
+"roles.tenant",
+"roles.subtenant",
+"roles.property"
+],
+"unknown": [
+{
+"affects": [
+"roles.tenant",
+"roles.subtenant",
+"roles.property"
+],
+"reason": "Specific names/identifiers for the tenant, subtenant, and the specific sublet property are not explicitly stated in the court finding text; only 'appellant', 'G",
+"evidence": [
+"p0002.s001",
+"p0002.s002",
+"p0003.s003",
+"p0003.s004",
+"p0003.s005",
+"p0004.s002"
+]
+}
+],
+"speaker": "judgment narration",
+"stage": "trial court finding"
+}
+],
+"edges": [
+{
+"op": "part_of",
+"left": "NO_VALID_LEFT",
+"right": "NO_VALID_RIGHT",
+"decision": "UNRESOLVED",
+"reason": "The query requires a directed relation where the sublet property (e0) is a physical part of the owned property (e1). While the text mentions the subletting was ",
+"evidence": [
+"p0002.s001",
+"p0002.s002",
+"p0003.s003",
+"p0003.s004",
+"p0003.s005",
+"p0004.s002"
+]
+}
+],
+"overflow": false
+}

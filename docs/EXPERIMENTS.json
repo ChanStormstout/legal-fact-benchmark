@@ -1,11 +1,106 @@
 {
   "experiments": [
-    {"id": "development-20-single-pass-v1", "role": "development", "report": "outputs/development-20-single-pass-v1/runs/first-run/report-zh.txt", "note": "保留来源、事实视图、汇总和抽查选择；3.7GB展开轨迹及123MB压缩轨迹只在本地保存。"},
-    {"id": "development-20-typed-relations-v2", "role": "development", "report": "outputs/development-20-typed-relations-v2/runs/first-run/report-zh.txt", "note": "20案277条记录；增加有来源的part_of/member_of，不能据此声称整体准确率提高。"},
-    {"id": "new-10-pattern-matching-v1", "role": "exploratory", "report": "outputs/new-10-pattern-matching-v1/runs/first-run/report-zh.txt", "note": "10案30题，原版本执行器21 UNKNOWN/9 NOT_FOUND，无完整匹配。"},
-    {"id": "unknown-two-case-study-v1", "role": "diagnostic", "report": "outputs/unknown-two-case-study-v1/report-zh.txt", "note": "仅研究两个案例；来源复核介入不能当作自动方法优势。"},
-    {"id": "local-qwen-pattern-eval-v1", "role": "interrupted_development", "report": "outputs/local-qwen-pattern-eval-v1/scoring/results-partial-v1.json", "note": "保存原格式失败与截断；因用户要求暂停，不是完整成功运行。"},
-    {"id": "local-qwen-pattern-eval-v2", "role": "format_development", "report": "outputs/local-qwen-pattern-eval-v2/development/444449/B/run.json", "note": "首次约束生成开发检查；B仍在无界字符串中截断。"},
-    {"id": "local-qwen-pattern-eval-v3", "role": "development_validation_after_observed_failures", "report": "outputs/local-qwen-pattern-eval-v3/report-zh.txt", "note": "同8案13题统一重跑；非独立新测试。相对模型参考正例，A0/5，B0/5并含一技术失败。"}
+    {
+      "id": "development-20-single-pass-v1",
+      "role": "development",
+      "report": "outputs/development-20-single-pass-v1/runs/first-run/report-zh.txt",
+      "note": "保留来源、事实视图、汇总和抽查选择；3.7GB展开轨迹及123MB压缩轨迹只在本地保存。"
+    },
+    {
+      "id": "development-20-typed-relations-v2",
+      "role": "development",
+      "report": "outputs/development-20-typed-relations-v2/runs/first-run/report-zh.txt",
+      "note": "20案277条记录；增加有来源的part_of/member_of，不能据此声称整体准确率提高。"
+    },
+    {
+      "id": "new-10-pattern-matching-v1",
+      "role": "exploratory",
+      "report": "outputs/new-10-pattern-matching-v1/runs/first-run/report-zh.txt",
+      "note": "10案30题，原版本执行器21 UNKNOWN/9 NOT_FOUND，无完整匹配。"
+    },
+    {
+      "id": "unknown-two-case-study-v1",
+      "role": "diagnostic",
+      "report": "outputs/unknown-two-case-study-v1/report-zh.txt",
+      "note": "仅研究两个案例；来源复核介入不能当作自动方法优势。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v1",
+      "role": "interrupted_development",
+      "report": "outputs/local-qwen-pattern-eval-v1/scoring/results-partial-v1.json",
+      "note": "保存原格式失败与截断；因用户要求暂停，不是完整成功运行。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v2",
+      "role": "format_development",
+      "report": "outputs/local-qwen-pattern-eval-v2/development/444449/B/run.json",
+      "note": "首次约束生成开发检查；B仍在无界字符串中截断。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v3",
+      "role": "development_validation_after_observed_failures",
+      "report": "outputs/local-qwen-pattern-eval-v3/report-zh.txt",
+      "note": "同8案13题统一重跑；非独立新测试。相对模型参考正例，A0/5，B0/5并含一技术失败。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v4",
+      "role": "exposed_development_diagnosis",
+      "report": "outputs/local-qwen-pattern-eval-v4/report-zh.txt",
+      "note": "三题UNKNOWN；引用命名混淆。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v5",
+      "role": "exposed_development_diagnosis",
+      "report": "outputs/local-qwen-pattern-eval-v5/report-zh.txt",
+      "note": "对象全null；零上限不被生成器可靠执行，停止于格式失败。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v6",
+      "role": "exposed_development_diagnosis",
+      "report": "outputs/local-qwen-pattern-eval-v6/report-zh.txt",
+      "note": "两个MATCH的所有权主体或群体绑定不正确，均未计成功。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v7",
+      "role": "exposed_development_diagnosis",
+      "report": "outputs/local-qwen-pattern-eval-v7/report-zh.txt",
+      "note": "路由漏掉关键段落；法律关系被错当房产。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v8",
+      "role": "exposed_development_diagnosis",
+      "report": "outputs/local-qwen-pattern-eval-v8/report-zh.txt",
+      "note": "关键购买/转租抽取改善，但没有关系边；发现示例污染。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v9",
+      "role": "exposed_development_diagnosis",
+      "report": "outputs/local-qwen-pattern-eval-v9/report-zh.txt",
+      "note": "目标类型强制重述其他事件；合并超20条失败，保留原结果。"
+    },
+    {
+      "id": "local-qwen-pattern-eval-v10",
+      "role": "exposed_development_diagnosis",
+      "report": "outputs/local-qwen-pattern-eval-v10/report-zh.txt",
+      "note": "2案6题；2个MATCH中1个有来源支持、1个转租类型错误；4 UNKNOWN。"
+    },
+    {
+      "id": "local-qwen-semantic-probe-v1",
+      "role": "diagnostic",
+      "report": "outputs/local-qwen-semantic-probe-v1/report-zh.txt",
+      "note": "两个原文短段有/无约束对照；非完整pipeline评分。"
+    },
+    {
+      "id": "local-qwen-split-assembly-v1",
+      "role": "diagnostic",
+      "report": "outputs/local-qwen-split-assembly-v1/report-zh.txt",
+      "note": "同一v9输出的结构合并修复，无新生成；26记录进入导入/执行。"
+    },
+    {
+      "id": "local-qwen-type-gate-probe-v1",
+      "role": "diagnostic",
+      "report": "outputs/local-qwen-type-gate-probe-v1/report-zh.txt",
+      "note": "类型核验分出转租/自用需要，状态核验误拒正例；未自动应用到事实。"
+    }
   ]
 }

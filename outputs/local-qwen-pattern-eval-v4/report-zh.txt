@@ -1,0 +1,11 @@
+v4：路由后逐题抽取，开发诊断
+148738案完成7个生成任务，三题全部UNKNOWN。路由选择32/34段，加相邻上下文后等于全文，未有效减少语义负担。q1部分事实的类型与状态有所改善，但角色中出现未登记对象ID；q2/q3重复使用原文段落ID作为对象ID，并将实际人物名称写入引用字段。导入器隔离重复或无效对象引用，未静默修复。格式解析成功不等于引用可计算。
+没有确认的端到端正例。123036尚未运行此版；观察到结构性引用错误后转入v5，未重复执行整批。
+
+生成成本（保存的任务记录）
+{
+  "new_jobs_with_saved_run": 7,
+  "elapsed_seconds_sum": 217.51,
+  "known_output_tokens_sum": 3600,
+  "note": "Only saved new jobs; reused routing is not charged again. Failed-job token counts may be unavailable."
+}

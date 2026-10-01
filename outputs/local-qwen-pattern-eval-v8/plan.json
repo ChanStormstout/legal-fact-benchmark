@@ -1,0 +1,18 @@
+{
+  "role": "EXPOSED_CASE_DEVELOPMENT",
+  "cases": [
+    "148738",
+    "123036"
+  ],
+  "selection": "Same two previously source-reviewed failures; fixed before v4 generation. All three questions evaluated per case, no answer-based replacement.",
+  "reference_use": "Not sent to model; reused only after outputs for analysis.",
+  "stage_order": [
+    "Full-source object registry, no semantic passage routing",
+    "One full-source generation per assertion type, without queries or expected answers",
+    "Separate direct relation extraction",
+    "Exact-label structural wrapping then unchanged field/edge executor"
+  ],
+  "positive_gate": "A claimed match needs assertions, correct state, two distinct objects, direction and exact original-source support. More matches alone does not pass.",
+  "limits": "One generation per job; failures retained; no model switch. Every source segment routed, no silent truncation.",
+  "next_check": "Only after development evidence, freeze and use unused cases in the same existing 20-source queue; report all categories and failure costs."
+}

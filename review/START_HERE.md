@@ -1,6 +1,6 @@
 # ChatGPT 审阅入口
 
-内容快照：`beb8a2eade0ee91d72281104234684ba3a4d035ffd36df9c5fb25880faa0da4a`
+内容快照：`1e9be833e2a71ba8ae184852123d6b520085cbbc2544d78fa49b1c59974c828b`
 
 仓库：https://github.com/ChanStormstout/legal-fact-benchmark
 当前实验：outputs/local-qwen-pattern-eval-v3（开发验证；已观察过格式问题，非独立新测试）。
@@ -26,3 +26,5 @@
 
 每次更新：prepare生成文件，verify核验，sync明确提交并推送。不是后台自动同步。
 不要只读取本入口就声称已经阅读全部代码或全文判决。
+
+后续开发诊断：[报告](../outputs/local-qwen-pattern-eval-v10/report-zh.txt)。当前2案6题：2个MATCH中1个来源支持、1个不支持；4 UNKNOWN。整体pipeline可靠性尚未验证。上方v3结果保留为完整A/B基线；后续诊断使用额外调用，不是独立测试。详见PROJECT_STATE与实验索引，务必检查事实类型和对象群体，而不只看关系边。

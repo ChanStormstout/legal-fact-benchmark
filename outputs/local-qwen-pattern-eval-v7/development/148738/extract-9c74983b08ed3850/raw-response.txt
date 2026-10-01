@@ -1,0 +1,153 @@
+{
+  "case_id": "148738",
+  "unit_evidence": [
+    "p0001.s001",
+    "p0001.s003",
+    "p0003.s003",
+    "p0004.s002",
+    "p0006.s006",
+    "p0006.s007"
+  ],
+  "events": [
+    {
+      "id": "e1",
+      "type": "OWN_PROPERTY",
+      "status": "COURT_FOUND",
+      "polarity": "POSITIVE",
+      "roles": [
+        {
+          "name": "owner",
+          "object": "Mahadeb Dutte"
+        },
+        {
+          "name": "property",
+          "object": "Premises in question"
+        }
+      ],
+      "evidence": [
+        "p0001.s003"
+      ],
+      "known": [
+        "type",
+        "status",
+        "polarity",
+        "roles.owner",
+        "roles.property"
+      ],
+      "unknown": [],
+      "speaker": "Court (SC Bench: Kasliwal, Kuldip Singh, Banerjee J.)",
+      "stage": "underlying dispute"
+    },
+    {
+      "id": "e2",
+      "type": "OWN_PROPERTY",
+      "status": "NARRATED",
+      "polarity": "POSITIVE",
+      "roles": [
+        {
+          "name": "owner",
+          "object": "Pulin Behari Lal"
+        },
+        {
+          "name": "property",
+          "object": "Premises in question"
+        }
+      ],
+      "evidence": [
+        "p0001.s001"
+      ],
+      "known": [
+        "type",
+        "status",
+        "polarity",
+        "roles.owner",
+        "roles.property"
+      ],
+      "unknown": [],
+      "speaker": "Petition details",
+      "stage": "underlying dispute"
+    },
+    {
+      "id": "e3",
+      "type": "SUBLET_PROPERTY",
+      "status": "COURT_FOUND",
+      "polarity": "POSITIVE",
+      "roles": [
+        {
+          "name": "tenant",
+          "object": "Pulin Behari Lal"
+        },
+        {
+          "name": "subtenant",
+          "object": "Sujoy Kumar Das Gupta"
+        },
+        {
+          "name": "property",
+          "object": "Sub-tenancy"
+        }
+      ],
+      "evidence": [
+        "p0006.s006"
+      ],
+      "known": [
+        "type",
+        "status",
+        "polarity",
+        "roles.tenant",
+        "roles.subtenant",
+        "roles.property"
+      ],
+      "unknown": [],
+      "speaker": "Court (SC Bench: Kasliwal, Kuldip Singh, Banerjee J.)",
+      "stage": "underlying dispute"
+    },
+    {
+      "id": "e4",
+      "type": "SUBLET_PROPERTY",
+      "status": "NARRATED",
+      "polarity": "POSITIVE",
+      "roles": [
+        {
+          "name": "tenant",
+          "object": "Pulin Behari Lal"
+        },
+        {
+          "name": "subtenant",
+          "object": "Sujoy Kumar Das Gupta"
+        },
+        {
+          "name": "property",
+          "object": "Sub-tenancy"
+        }
+      ],
+      "evidence": [
+        "p0006.s005",
+        "p0006.s006"
+      ],
+      "known": [
+        "type",
+        "status",
+        "polarity",
+        "roles.tenant",
+        "roles.subtenant",
+        "roles.property"
+      ],
+      "unknown": [],
+      "speaker": "Judgment narration",
+      "stage": "underlying dispute"
+    }
+  ],
+  "edges": [
+    {
+      "op": "part_of",
+      "left": "Sub-tenancy",
+      "right": "Premises in question",
+      "decision": "SUPPORTED",
+      "reason": "The sub-tenancy was created in 1970 on the premises in question without written consent of the previous landlord (p0006.s001).",
+      "evidence": [
+        "p0006.s001"
+      ]
+    }
+  ],
+  "overflow": false
+}
