@@ -1,6 +1,6 @@
 # ChatGPT 审阅入口
 
-内容快照：`1e9be833e2a71ba8ae184852123d6b520085cbbc2544d78fa49b1c59974c828b`
+内容快照：`03e7626c2f3c0cff1ce65b05c60cc7eaf216ae5950c542dc8f65de5472b0a69c`
 
 仓库：https://github.com/ChanStormstout/legal-fact-benchmark
 当前实验：outputs/local-qwen-pattern-eval-v3（开发验证；已观察过格式问题，非独立新测试）。

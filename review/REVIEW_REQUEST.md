@@ -1,5 +1,5 @@
 请审阅公开仓库 https://github.com/ChanStormstout/legal-fact-benchmark 。先读取 https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/main/review/START_HERE.md
-和MANIFEST.json，复述内容快照 1e9be833e2a71ba8ae184852123d6b520085cbbc2544d78fa49b1c59974c828b 及实际读取的文件。若GitHub访问不可用或只读取部分
+和MANIFEST.json，复述内容快照 03e7626c2f3c0cff1ce65b05c60cc7eaf216ae5950c542dc8f65de5472b0a69c 及实际读取的文件。若GitHub访问不可用或只读取部分
 文件，请说明访问限制，改读用户上传的同版本Markdown分卷，不能假装已读取。
 
 我们的目标是法律事实抽象与跨案件匹配benchmark，目前只完成开发验证。固定三题的
