@@ -14,9 +14,9 @@
 据此制定的[完整pipeline设计](docs/plans/rules-and-verdict-v1/PIPELINE.md)说明历史案例到规则库、
 新案到法源与请求结论的全部处理步骤；[实施与实验计划](docs/plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md)
 列出组件接口、模型与预算、最多5个开发案及10个新案的推进顺序、同信息对照和停止条件。
-最新[V6三案完整流程实验](outputs/rules-verdict-v6-end-to-end/report-zh.txt)已完成共同法源检索、规则包准备及六次固定9B的A/B调用。B三案没有可用事实断言进入条件组合；A存在结论矛盾或来源不足的规则适用。程序路径已完成，整体方法有效性未建立；本轮全部属于回顾性开发演示，不能作为独立预测成绩。[三案结果表](outputs/rules-verdict-v6-end-to-end/table.csv)与[范围审计](outputs/rules-verdict-v6-end-to-end/scope-audit.json)保留全部结果和限制。全套239项程序测试通过。
+最新[V7两阶段中间分析实验](outputs/rules-verdict-v7-intermediate/report-zh.txt)已按固定范围结束：三旧案、9次本地调用，A2文本笔记与B2部分事实加程序检查均由相同最终模型回答。仅2份最终回答完成，4个方法结果截断，没有同案完整配对，**本批无法判断结构化是否改善完整法律回答**。来源审阅另确认B2漏掉69305的下级认定并将遗漏传播到最终理由；A2仍混淆部分事实与法律缺口。[六个方法结果](outputs/rules-verdict-v7-intermediate/comparison-table.csv)与[原始答案入口](outputs/rules-verdict-v7-intermediate/final-answer-slots.md)保留失败，不以未知减少或JSON完成认领法律正确性。全套248项程序测试通过，网页0次、重试0次。完成轮次按[同步约定](docs/DEVELOPMENT_BRANCH.md)提交到开发分支。
 
-此前[V2法源诊断](outputs/rules-verdict-v2/report-zh.txt)、[V3条件实验](outputs/rules-verdict-v3/report-zh.txt)、[V4归属诊断](outputs/rules-verdict-v4-attribution/report-zh.txt)与[V5身份绑定](outputs/rules-verdict-v5-attribution-binding/report-zh.txt)均保留。V6停止局部归属修订，优先检验完整任务；没有跨案规则归纳、完整法律引擎或扩大样本。
+此前[V2法源诊断](outputs/rules-verdict-v2/report-zh.txt)、[V3条件实验](outputs/rules-verdict-v3/report-zh.txt)、[V4归属诊断](outputs/rules-verdict-v4-attribution/report-zh.txt)、[V5身份绑定](outputs/rules-verdict-v5-attribution-binding/report-zh.txt)及[V6完整流程](outputs/rules-verdict-v6-end-to-end/report-zh.txt)均保留。V7继承V6的回顾性范围限制，未新增案件、法源、规则归纳或完整法律引擎。
 
 当前开发分支为 [`research/rules-and-verdict`](https://github.com/ChanStormstout/legal-fact-benchmark/tree/research/rules-and-verdict)。
 规则与判决方向的代码、文档及新实验在该分支更新；`main`保留已有发布版本。
@@ -25,7 +25,7 @@
 **当前状态：开发验证，整体可靠性尚未验证。** 此前关系任务的完整A/B比较使用固定的 Qwen3.5-9B-4bit，在8案、13道预定题上
 比较直接回答与“抽取后执行”。A全部完成，B一案输出截断；相对模型参考答案，5道正例
 均未识别。格式约束已让大部分输出可执行，但事实抽取仍有遗漏、状态与对象混淆。
-现已完成上述V6有限流程演示，仍没有独立测试准确率或可靠法律预测结论。
+现已完成上述V7限定运行，仍没有完整配对的法律质量比较、独立测试准确率或可靠预测结论。
 
 后续[v10开发诊断](outputs/local-qwen-pattern-eval-v10/report-zh.txt)把完整来源按事实类型拆开抽取，再逐对象对判断关系：
 2案6题，两个MATCH经原文检查有1个得到支持、1个转租类型错误，另4题UNKNOWN。
@@ -34,7 +34,7 @@
 
 从 [ChatGPT审阅入口](review/START_HERE.md) 开始；
 [当前状态](docs/PROJECT_STATE.json)、[实验索引](docs/EXPERIMENT_INDEX.md)、
-[最新中文报告](outputs/local-qwen-pattern-eval-v3/report-zh.txt)、
+[早期关系任务中文报告](outputs/local-qwen-pattern-eval-v3/report-zh.txt)、
 [全部13题结果](outputs/local-qwen-pattern-eval-v3/scoring/results-table.csv)
 提供可追踪的当前信息。旧README保存在 [archive](docs/archive/workspace-readme-pre-github.md)。
 

@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "properties": {
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "SUPPORT",
+              "OPPOSITION",
+              "RULE_SCOPE",
+              "LINK",
+              "UNCERTAINTY"
+            ]
+          },
+          "point": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "LAW:69305:p0005.s003",
+                "LAW:69305:p0005.s004",
+                "LAW:661475:p0002.s003",
+                "LAW:661475:p0002.s004",
+                "LAW:69305:p0005.s001",
+                "LAW:69305:p0005.s002"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "point",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "coverage_limits": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "notes",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

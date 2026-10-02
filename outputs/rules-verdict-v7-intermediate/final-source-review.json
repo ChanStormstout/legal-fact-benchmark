@@ -1,0 +1,129 @@
+{
+  "review_status": "ONE_CONCENTRATED_CODEX_MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "review_scope": "Decisive grounds of two complete answers; four technical failures not scored. No full intermediate annotation audit, no additional web/local calls.",
+  "completed_final_answers": 2,
+  "complete_paired_cases": 0,
+  "decision": "BATCH_INDETERMINATE",
+  "decision_reason": "No case has both complete answers. Output truncation primarily prevents the requested comparison; two completed answers also contain factual/coverage errors. Do not misreport technical failures as shared source insufficiency.",
+  "rows": [
+    {
+      "case_id": "661475",
+      "method": "A2",
+      "decisive_basis": "无完整最终回答；截断文本不评分",
+      "critical_gaps": "技术输出截断，不是来源信息不足",
+      "assessment": "TECHNICAL_FAILURE_NOT_SCORED",
+      "comparison": "没有完整同案配对，不能认定新增或消除法律错误",
+      "failed_stage": 1,
+      "evidence": []
+    },
+    {
+      "case_id": "661475",
+      "method": "B2",
+      "decisive_basis": "无完整最终回答；截断文本不评分",
+      "critical_gaps": "技术输出截断，不是来源信息不足",
+      "assessment": "TECHNICAL_FAILURE_NOT_SCORED",
+      "comparison": "没有完整同案配对，不能认定新增或消除法律错误",
+      "failed_stage": 2,
+      "evidence": []
+    },
+    {
+      "case_id": "69305",
+      "method": "A2",
+      "decisive_basis": "无完整最终回答；截断文本不评分",
+      "critical_gaps": "技术输出截断，不是来源信息不足",
+      "assessment": "TECHNICAL_FAILURE_NOT_SCORED",
+      "comparison": "没有完整同案配对，不能认定新增或消除法律错误",
+      "failed_stage": 1,
+      "evidence": []
+    },
+    {
+      "case_id": "69305",
+      "method": "B2",
+      "decisive_basis": "模型以转租性质及同意条款仍未有法院认定为关键理由，给出UNDETERMINED",
+      "critical_gaps": "共享法源未充分覆盖本案一般许可条款与文书可采性；但下级认定已经提供，不能说材料仅有主张",
+      "assessment": "决定性事实遗漏：p0004.s002已记载下级法院认定sub-lessee并允许依赖条款；最终回答否认存在这些认定。未知标签本身不据此判错，但整份理由不能认可。",
+      "comparison": "A2该案失败，无法建立B2相对A2新增/消除错误；确认B2自身将抽取遗漏传播到最终答案",
+      "trace": [
+        "stage1 x1: mode=UNKNOWN, status=PARTY_CLAIMED; coverage_limits ignores lower findings",
+        "program record_checks x1: UNRESOLVED faithfully follows proposal, not a source-semantic finding",
+        "final gaps.case_facts and reason repeat no judicial finding; final intermediate_use does not identify a checked binding"
+      ],
+      "supported_parts": [
+        "RC-02公司合并事实范围与本案不兼容，最终回答未强套该卡",
+        "给定包缺少完整的本案同意条款/可采性解释，保留法律不确定有根据"
+      ],
+      "limitations": [
+        "单靠下级认定不能要求模型猜回被排除的目标判决",
+        "租赁年份不等于转移日期；后续发生于租赁之后的推论需要明确连接，本轮不据此直接判时间阈值错误",
+        "程序的未知不是原文缺失证明；没有产生完整候选，也未给出法律结论"
+      ],
+      "evidence": [
+        {
+          "source": "CASE",
+          "id": "p0004.s002",
+          "quote": "The Rent Controller, as well as, the appellate authority held that the afore-mentioned term of the lease was not inadmissible and the appellant was enti- tled to rely upon the same, but ordered eviction on the ground that M/s. United Automobiles was inducted in the premises as a sub-lessee.",
+          "exact_source_check": true
+        },
+        {
+          "source": "CASE",
+          "id": "p0003.s003",
+          "quote": "let it out to the appellant in 1961 as a monthly tenant.",
+          "exact_source_check": true
+        }
+      ]
+    },
+    {
+      "case_id": "1134266",
+      "method": "A2",
+      "decisive_basis": "A2区分房东主张与租户公司合并抗辩，指出RC-03不能直接解决法定合并是否构成转移",
+      "critical_gaps": "公司合并的法律解释覆盖不足；并非必须先获得目标最终判决才能作分析",
+      "assessment": "保留法律不确定有可核查依据；但称输入只有双方主张不准确，忽略p0002.s003的合并沿革与p0002.s004的下级处置。把法律解释缺口放入case_facts，A2又把法源不足写成program_coverage，混淆层次。",
+      "comparison": "B2该案第一阶段失败，无法证明文本优于结构化；最终对NOTE-01的确定口吻有所减弱，但不是方法间改善",
+      "trace": [
+        "stage1 NOTE-01 says the record satisfies parting-with-possession; NOTE-03 and NOTE-05 state merger-law gap",
+        "final decisive_facts labels the landlord allegation PARTY_CLAIMED; intermediate_use names NOTE-01/02/03/05",
+        "final reason still says only party arguments, despite lower-court history in input"
+      ],
+      "supported_parts": [
+        "RC-03原文涉及对具体转租取得书面同意，不能自动决定公司合并法律性质",
+        "最终没有像V6那样直接断言RC-03已解决合并问题；不同调用设计，不能据此给结构化流程记功"
+      ],
+      "limitations": [
+        "输出关于房东须证明具体同意的举证责任说法没有所引法源支持",
+        "RC-04不适用已登记租约的方向有事实基础，但注册依据实际在p0002.s001，非输出所指p0001.s003；仅记录，不追加字段审核",
+        "没有适用法源的决定性解释与没有目标最终判决是不同问题"
+      ],
+      "evidence": [
+        {
+          "source": "CASE",
+          "id": "p0002.s003",
+          "quote": "Under the scheme of amalgamation the whole of the business, property, undertaking, assets, including leases, rights of tenancy, occupancy etc stood transferred to and vested in the Indian Sewing Machine Company, namely, the Indian Company.",
+          "exact_source_check": true
+        },
+        {
+          "source": "CASE",
+          "id": "p0002.s004",
+          "quote": "The Additional Rent Controller, Delhi dismissed the eviction petition by the judgment and order dated 6.2.1995, but this was reversed by the Rent Control Tribunal in the appeal preferred by the landlord and eviction petition was allowed.",
+          "exact_source_check": true
+        },
+        {
+          "source": "LAW",
+          "id": "LAW:69305:p0005.s004",
+          "quote": "enjoin the tenant to obtain consent of the landlord in writing to the specific sub-letting",
+          "exact_source_check": true
+        }
+      ]
+    },
+    {
+      "case_id": "1134266",
+      "method": "B2",
+      "decisive_basis": "无完整最终回答；截断文本不评分",
+      "critical_gaps": "技术输出截断，不是来源信息不足",
+      "assessment": "TECHNICAL_FAILURE_NOT_SCORED",
+      "comparison": "没有完整同案配对，不能认定新增或消除法律错误",
+      "failed_stage": 1,
+      "evidence": []
+    }
+  ],
+  "reference_policy": "Historical decisions are not required output labels under restricted input; final source review does not establish batch legal accuracy."
+}

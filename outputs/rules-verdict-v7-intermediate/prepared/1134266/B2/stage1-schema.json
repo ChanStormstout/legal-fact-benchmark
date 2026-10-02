@@ -1,0 +1,955 @@
+{
+  "type": "object",
+  "properties": {
+    "tenancies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenant": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "landlord": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "premises": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "value": {
+            "enum": [
+              "YES",
+              "NO",
+              "UNKNOWN"
+            ]
+          },
+          "status": {
+            "enum": [
+              "NARRATED",
+              "COURT_FOUND",
+              "PARTY_CLAIMED",
+              "UNKNOWN"
+            ]
+          },
+          "uncertain": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "id",
+          "tenant",
+          "landlord",
+          "premises",
+          "value",
+          "status",
+          "uncertain",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "transfers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "event": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "transferor": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recipient": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "premises": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mode": {
+            "enum": [
+              "SUBLET",
+              "ASSIGN",
+              "PART_WITH_POSSESSION",
+              "NONE",
+              "UNKNOWN"
+            ]
+          },
+          "status": {
+            "enum": [
+              "NARRATED",
+              "COURT_FOUND",
+              "PARTY_CLAIMED",
+              "UNKNOWN"
+            ]
+          },
+          "uncertain": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "id",
+          "event",
+          "transferor",
+          "recipient",
+          "premises",
+          "mode",
+          "status",
+          "uncertain",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "times": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "event": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "event_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "after_threshold": {
+            "enum": [
+              "YES",
+              "NO",
+              "UNKNOWN"
+            ]
+          },
+          "status": {
+            "enum": [
+              "NARRATED",
+              "COURT_FOUND",
+              "PARTY_CLAIMED",
+              "UNKNOWN"
+            ]
+          },
+          "uncertain": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "id",
+          "event",
+          "event_date",
+          "after_threshold",
+          "status",
+          "uncertain",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "consents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "grantor": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "target": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recipient": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "premises": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "text",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "form": {
+            "enum": [
+              "WRITTEN",
+              "ORAL",
+              "UNKNOWN"
+            ]
+          },
+          "polarity": {
+            "enum": [
+              "YES",
+              "NO",
+              "UNKNOWN"
+            ]
+          },
+          "status": {
+            "enum": [
+              "NARRATED",
+              "COURT_FOUND",
+              "PARTY_CLAIMED",
+              "UNKNOWN"
+            ]
+          },
+          "uncertain": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "id",
+          "grantor",
+          "target",
+          "recipient",
+          "premises",
+          "form",
+          "polarity",
+          "status",
+          "uncertain",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "left": {
+            "type": "string"
+          },
+          "right": {
+            "type": "string"
+          },
+          "relation": {
+            "enum": [
+              "SAME",
+              "DIFFERENT",
+              "UNKNOWN"
+            ]
+          },
+          "status": {
+            "enum": [
+              "NARRATED",
+              "COURT_FOUND",
+              "PARTY_CLAIMED",
+              "UNKNOWN"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "left",
+          "right",
+          "relation",
+          "status",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "coverage_limits": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenancies",
+    "transfers",
+    "times",
+    "consents",
+    "links",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

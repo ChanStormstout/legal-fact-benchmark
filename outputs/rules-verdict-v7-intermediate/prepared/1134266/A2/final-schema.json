@@ -1,0 +1,283 @@
+{
+  "type": "object",
+  "properties": {
+    "outcome": {
+      "enum": [
+        "SUPPORT_GROUND",
+        "OPPOSE_GROUND",
+        "UNDETERMINED",
+        "UNSUPPORTED"
+      ]
+    },
+    "decisive_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "objects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4
+          },
+          "status": {
+            "enum": [
+              "NARRATED",
+              "COURT_FOUND",
+              "PARTY_CLAIMED",
+              "UNKNOWN"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "LAW:69305:p0005.s003",
+                "LAW:69305:p0005.s004",
+                "LAW:661475:p0002.s003",
+                "LAW:661475:p0002.s004",
+                "LAW:69305:p0005.s001",
+                "LAW:69305:p0005.s002"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "statement",
+          "objects",
+          "status",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 4
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "type": "string"
+          },
+          "scope_and_application": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "LAW:69305:p0005.s003",
+                "LAW:69305:p0005.s004",
+                "LAW:661475:p0002.s003",
+                "LAW:661475:p0002.s004",
+                "LAW:69305:p0005.s001",
+                "LAW:69305:p0005.s002"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "rule_id",
+          "scope_and_application",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "support": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "LAW:69305:p0005.s003",
+                "LAW:69305:p0005.s004",
+                "LAW:661475:p0002.s003",
+                "LAW:661475:p0002.s004",
+                "LAW:69305:p0005.s001",
+                "LAW:69305:p0005.s002"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "statement",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "opposition": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "LAW:69305:p0005.s003",
+                "LAW:69305:p0005.s004",
+                "LAW:661475:p0002.s003",
+                "LAW:661475:p0002.s004",
+                "LAW:69305:p0005.s001",
+                "LAW:69305:p0005.s002"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "statement",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "gaps": {
+      "type": "object",
+      "properties": {
+        "case_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 4
+        },
+        "law_coverage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 4
+        },
+        "program_coverage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "case_facts",
+        "law_coverage",
+        "program_coverage"
+      ],
+      "additionalProperties": false
+    },
+    "reason": {
+      "type": "string"
+    },
+    "intermediate_use": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "outcome",
+    "decisive_facts",
+    "rules",
+    "support",
+    "opposition",
+    "gaps",
+    "reason",
+    "intermediate_use"
+  ],
+  "additionalProperties": false
+}

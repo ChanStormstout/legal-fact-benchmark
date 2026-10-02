@@ -1,0 +1,76 @@
+{
+  "cases": [
+    "661475",
+    "69305",
+    "1134266"
+  ],
+  "methods": {
+    "A2": "full input -> substantive sourced text notes -> full input plus notes -> shared final model",
+    "B2": "same full input -> partial model facts -> local checks -> same full input plus proposals and checks -> shared final model"
+  },
+  "calls_maximum": 12,
+  "web_calls": 0,
+  "retries": 0,
+  "max_output_each": 2048,
+  "final_intermediate_reserve_tokens": 14000,
+  "stage1_failure": "Method fails; skip its final stage; other methods continue",
+  "no_source_truncation": true,
+  "review": "One concentrated Codex source review of decisive grounds of every available final answer; not exhaustive intermediate gold; no additional inference calls",
+  "review_dimensions": [
+    "decisive factual support",
+    "statement status",
+    "object and event binding",
+    "law scope",
+    "label/reason consistency",
+    "critical versus irrelevant gaps",
+    "actual use or rejection of intermediate material"
+  ],
+  "decision_rules": {
+    "RETAIN_LIGHTWEIGHT_STRUCTURE": "Concrete source-checkable complete-answer improvement without an added equally serious error; development signal only",
+    "PREFER_TEXT": "No additional benefit or representation burden loses useful information",
+    "BATCH_INDETERMINATE": "Shared decisive fact/law gaps dominate"
+  },
+  "inherited_scope": "Exposed retrospective cases, lower-court information, some later authorities, target-derived generic researcher formula. No independent prediction, rule induction, accuracy estimate or retrieval comparison.",
+  "origins": {
+    "sources/661475.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/sources/661475.json",
+      "sha256": "96d1cce4fde95de8e5e7aee8ece0693a93b0b637c840ca3ceb969cb930edf886"
+    },
+    "prepared/661475/law-package.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/prepared/661475/law-package.json",
+      "sha256": "970388052a9b0d1c87a96f39df7e13a9fc4e8779e1951a1bdfbf4a47f1ac7c2f"
+    },
+    "retrieval/661475/result.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/retrieval/661475/result.json",
+      "sha256": "11b0410431387317331136ae7020d8a3675c6ae579b3355b7a8e5326ed1e88fb"
+    },
+    "sources/69305.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/sources/69305.json",
+      "sha256": "fca712b9f11c0e4fb70598950c52f35fa3aacdccc64deedf5590ec63f1c27978"
+    },
+    "prepared/69305/law-package.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/prepared/69305/law-package.json",
+      "sha256": "2828f9f7950e0218a0bdb02ff00ec04524fda9277b5945e9c15cd37d7843a97b"
+    },
+    "retrieval/69305/result.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/retrieval/69305/result.json",
+      "sha256": "8ec77edf6aab84296bfcacb56530b557c75f475cfb49f30b53ae6e4a2669daad"
+    },
+    "sources/1134266.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/sources/1134266.json",
+      "sha256": "b4cc82319fd07b4107db40ef326f8e2b9023ec99e1232885510f6af72b8d9125"
+    },
+    "prepared/1134266/law-package.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/prepared/1134266/law-package.json",
+      "sha256": "e6206b90c860539e9692682f43f9f4708b150b1d816ecd76185ae71c70572269"
+    },
+    "retrieval/1134266/result.json": {
+      "source": "outputs/rules-verdict-v6-end-to-end/retrieval/1134266/result.json",
+      "sha256": "8d4c7270611b548531c6545eba6f140fa723ea208549e52df43d36f838e2796a"
+    }
+  },
+  "base_commit": "59c691ea851acce29e6d608ac915bdd5989a850f",
+  "branch": "research/rules-and-verdict",
+  "earlier_outputs_not_reused": "Different two-stage roles; sources/laws/runtime only reused",
+  "no_character_caps": "Unlimited schema strings; 2048 global token limit. Closed JSON alone is not semantic completeness."
+}

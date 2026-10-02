@@ -27,3 +27,4 @@
 | rules-verdict-v4-attribution | targeted_old_case_diagnostic | [文件](../outputs/rules-verdict-v4-attribution/report-zh.txt) | 三旧案六目标，3次固定9B生成；分类6/6、采纳层级5/6一致，仍有法院和双方律师归属错误。未接入执行器，不是端到端能力证据。 |
 | rules-verdict-v5-attribution-binding | exposed_development_diagnostic | [文件](../outputs/rules-verdict-v5-attribution-binding/report-zh.txt) | 六处分类/法院层级一致；结构准入4、隔离2，仍有身份语义错误通过。不能据此确认端到端改进。 |
 | rules-verdict-v6-end-to-end | retrospective_exposed_development_full_path | [文件](../outputs/rules-verdict-v6-end-to-end/report-zh.txt) | 三案六次固定9B调用完成；B三案均无可用断言，A存在结论矛盾与不受来源支持的适用。共同提示含基础公式，全部按回顾性开发演示解释，不是预测验证。 |
+| rules-verdict-v7-intermediate | retrospective_development_comparison | [文件](../outputs/rules-verdict-v7-intermediate/report-zh.txt) | 三旧案两阶段对照，9次本地调用、2份完整最终回答、4个方法截断失败，无同案完整配对，结果无法判断优劣。部分事实可进入下游，但遗漏下级认定仍传播；模型辅助来源审阅，不是金标准。网页0、重试0，旧轮保留。 |

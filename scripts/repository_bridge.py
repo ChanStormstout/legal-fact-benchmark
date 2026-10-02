@@ -113,6 +113,9 @@ def prepare(root=ROOT):
         state['development_follow_up'] = policy['development_follow_up']
     if policy.get('research_objective'):
         state['research_objective'] = policy['research_objective']
+    if policy.get('current_review'):
+        state['current_review'] = policy['current_review']
+        state['latest_run_field_role'] = 'LEGACY_RELATION_BASELINE_NOT_CURRENT_LEGAL_EXPERIMENT'
     state['publication_target'] = {'repository': policy['repository'], 'branch': policy['branch']}
     if policy.get('development_base_commit'):
         state['publication_target']['development_base_commit'] = policy['development_base_commit']
@@ -184,6 +187,19 @@ def prepare(root=ROOT):
     if policy.get('development_follow_up'):
         follow = policy['development_follow_up']
         start += '\n后续开发诊断：[报告](../' + follow['report'] + ')。当前2案6题：2个MATCH中1个来源支持、1个不支持；4 UNKNOWN。整体pipeline可靠性尚未验证。上方v3结果保留为完整A/B基线；后续诊断使用额外调用，不是独立测试。详见PROJECT_STATE与实验索引，务必检查事实类型和对象群体，而不只看关系边。\n'
+    if policy.get('current_review'):
+        cur = policy['current_review']; current_root = str(Path(cur['report']).parent)
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`' + snapshot + '`\n\n'
+                 + '仓库分支：https://github.com/' + repo + '/tree/' + branch + '\n\n'
+                 + '当前实验：' + cur['title'] + '\n\n' + cur['summary'] + '\n\n'
+                 + '先读[项目说明](../README.md)、[V7报告](../' + cur['report'] + ')、'
+                 + '[逐案表](../' + current_root + '/comparison-table.csv)、[六个方法位置](../' + current_root + '/final-answer-slots.md)。\n\n'
+                 + '原始输出、最终prompt及程序轨迹位于 `'+current_root+'/runs/`；允许来源在 `sources/`，共同法律包在 `prepared/<case>/law-package.json`。'
+                 + '冻结协议与逐次元数据均在同目录。[当前状态](../docs/PROJECT_STATE.json)和[实验索引](../docs/EXPERIMENT_INDEX.md)保留历次边界。\n\n'
+                 + '[代码全文](CODE.md)、[文件清单与raw链接](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)。'
+                 + '本地prepare/verify不会推送；GitHub是否包含本快照须核对实际提交，不能因这里生成了链接就认为已经发布。\n\n'
+                 + '历史关系基线：[13题结果](RESULTS.md)、[报告](../' + latest + '/report-zh.txt)。SOURCES_01–04仍属于该历史基线，不是V7三案来源；不得混用。\n\n'
+                 + 'raw入口：' + prefix + 'review/START_HERE.md\n')
     save(root, 'review/START_HERE.md', start)
     request = '''请审阅公开仓库的指定分支 https://github.com/%s/tree/%s 。先读取 %sreview/START_HERE.md
 和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
@@ -212,6 +228,14 @@ def prepare(root=ROOT):
 可以按review/feedback/schema.json输出JSON反馈，snapshot_id使用上述内容快照。
 本次只是review，不授权新实验、模型更换、重标注或冻结方法后的同题择优重算。
 ''' % (repo, branch, prefix, snapshot, latest)
+    if policy.get('current_review'):
+        cur = policy['current_review']; current_root = str(Path(cur['report']).parent)
+        request = ('请审阅 https://github.com/' + repo + '/tree/' + branch + ' 的指定快照 ' + snapshot + '。先读 ' + prefix + 'review/START_HERE.md 与 MANIFEST.json；若远端还没有该快照，请说明并使用用户上传的本地文件，不能声称已读取。\n\n'
+                   + '本轮是 ' + cur['title'] + '。' + cur['summary'] + '\n\n'
+                   + '读取 '+cur['report']+'、'+current_root+'/comparison-table.json、final-source-review.json及runs中的原始输出，回到同目录sources和prepared中的允许输入与法律包。不要将历史SOURCES分卷当作本轮来源。\n\n'
+                   + '重点审查：局部缺失是否只影响相应事实或连接；来源地址是否被误当语义认证；两阶段最终模板是否相同；技术失败是否与实质未知分开；原文已有下级认定是否被漏掉；法律覆盖不足与程序未实现是否混淆。\n\n'
+                   + '没有同案两份完整答案，不能比较优胜者，也不能将不同案件上的两个UNDETERMINED当准确率。来源审阅是模型辅助开发评价，不是人工金标准。请对重要意见提供具体原文、文件和机制。\n\n'
+                   + '本次仅审阅，不授权新模型调用、重标注、增加字段或择优重跑。保留失败和全部历史结果。\n')
     save(root, 'review/REVIEW_REQUEST.md', request)
     save(root, 'review/PUBLICATION.json', {'included_count':len(paths),'included_bytes':sum(x['bytes'] for x in base),'excluded':excluded,'unregistered_local_only':['.runtime/','work/','other outputs not registered in docs/repository-artifacts.json'],'policy':'Explicit artifact roots, file limits, no UI captures or third-party paper copies; originals unchanged.'})
     derived = records(root, [p for p in GENERATED if p != 'review/MANIFEST.json'])
