@@ -1,0 +1,83 @@
+{
+  "cases": [
+    "661475",
+    "69305",
+    "1134266"
+  ],
+  "settings": {
+    "model": "mlx-community/Qwen3.5-9B-4bit",
+    "revision": "8b2b98c00a6b4d291155e4890773ca8f769aee53",
+    "mlx_vlm": "0.7.4",
+    "schema_enforcer": "0.11.2",
+    "total_budget": 32768,
+    "extract_max_tokens": 8192,
+    "direct_max_tokens": 4096,
+    "merge_max_tokens": 4096,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "min_p": 0.0,
+    "repetition_penalty": 1.0,
+    "seed": 20261001,
+    "enable_thinking": false,
+    "prefill_step_size": 256,
+    "timeout_seconds": 1200,
+    "window_tokens": 4000,
+    "overlap_tokens": 400,
+    "media_input": false
+  },
+  "calls": {
+    "A": 3,
+    "B": 3,
+    "repair": 0,
+    "maximum": 6
+  },
+  "max_output_tokens": {
+    "A": 2048,
+    "B": 4096
+  },
+  "reuse_decision": "V3 conditions and V4/V5 selected spans do not extract complete ground conditions or use same law inputs; reuse sources/cards/runtime, not incompatible answers.",
+  "missing_components_implemented": [
+    "shared retrieval/input package",
+    "narrow source-grounded conjunction and outcome interface",
+    "full three-case A/B report"
+  ],
+  "no_cross_case_induction": true,
+  "deep_review_maximum": 3,
+  "files": {
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/legal_bench/mlx_json_constraint.py": "2430ae4d281fa9a9203333f65941c06101810b96cd8469bef58f8933a03660da",
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/legal_bench/model_output.py": "a2a74dd1ea51b81c503119a3f83452a28f73d1cb3ae5415316ddb93f8fec4703",
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/legal_bench/rules_verdict_v1/conditions_v3.py": "502ef83758867c60ec3c83a8961694224320e7bed9ddfa5373be843dbe330faf",
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/legal_bench/rules_verdict_v1/authority_index.py": "361f1b500bfc77d84453d74d89585b02fee06ef703bdfc8a3764f7efc9df9dab",
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/legal_bench/rules_verdict_v1/runtime.py": "e195a9ae8a421d5e5e67bc12c556c0584cc4f2e045b592ab00868cd81bb6889d",
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/legal_bench/rules_verdict_v1/pipeline_v6.py": "c47ddfd159aa13170eed2fdd189cb7db5001edd1fe436c3e0cf3a87edf709d76",
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/legal_bench/rules_verdict_v1/contracts.py": "1a60ce0843f73e3bdb8bfb7bcd2a642bcfd3377f338c10267629de83dbe3212a",
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/tests/test_pipeline_v6.py": "8dcd1d2707eb5b70c4ef17d7a8bb4214d99e6839bc592cc987414c82d606e7e8",
+    "outputs/rules-verdict-v6-end-to-end/freeze/code/scripts/pipeline_v6.py": "1144294e6a2c5dd2772b5f21893ec027c9f4374b9315a22be4c148101a67bd6e",
+    "outputs/rules-verdict-v6-end-to-end/prepared/661475/law-package.json": "970388052a9b0d1c87a96f39df7e13a9fc4e8779e1951a1bdfbf4a47f1ac7c2f",
+    "outputs/rules-verdict-v6-end-to-end/prepared/661475/A/prompt.txt": "12203eb1ce7dc6b752dcd146beaf4a6c8e3bce32d358fd87738173367528f1b1",
+    "outputs/rules-verdict-v6-end-to-end/prepared/661475/A/schema.json": "9729baaf9a695672a2319860d1b1565ccde2f2595e4269814f55b964750055bc",
+    "outputs/rules-verdict-v6-end-to-end/prepared/661475/B/prompt.txt": "773198068cdb8d80ad717ca8f59453ad12e7e502f28798ad6456c947493356a8",
+    "outputs/rules-verdict-v6-end-to-end/prepared/661475/B/schema.json": "d844b8c3b0c228cd29d8013de5c0bef7e031d6f2c0aa8bf1553986a3fa67f330",
+    "outputs/rules-verdict-v6-end-to-end/prepared/69305/law-package.json": "2828f9f7950e0218a0bdb02ff00ec04524fda9277b5945e9c15cd37d7843a97b",
+    "outputs/rules-verdict-v6-end-to-end/prepared/69305/A/prompt.txt": "607c48a47cf20dc0725239d8cb803d6b7f94a87fb396026d9f6786e9e0b7324a",
+    "outputs/rules-verdict-v6-end-to-end/prepared/69305/A/schema.json": "a529fcd81cdf38082a59d516a5fae9d2d179c5d4d8030a7f262573b0bbf560c1",
+    "outputs/rules-verdict-v6-end-to-end/prepared/69305/B/prompt.txt": "5a252241116a0e638647cae04a0c86073cf147b7003474ccb42d02c851b8eb39",
+    "outputs/rules-verdict-v6-end-to-end/prepared/69305/B/schema.json": "cae9ecb09d5e5def7f53fdae042b5cfa87cab56c6130aacf069054851742330e",
+    "outputs/rules-verdict-v6-end-to-end/prepared/1134266/law-package.json": "e6206b90c860539e9692682f43f9f4708b150b1d816ecd76185ae71c70572269",
+    "outputs/rules-verdict-v6-end-to-end/prepared/1134266/A/prompt.txt": "cc8f99eaf7d0eb59a18c0a0c3c12dcc289de59038de568dbc6deeff9ca0b4071",
+    "outputs/rules-verdict-v6-end-to-end/prepared/1134266/A/schema.json": "19d9288b693e8e5f463cdac494467aa226748b1fd3ac50efa9109dad1cb0e133",
+    "outputs/rules-verdict-v6-end-to-end/prepared/1134266/B/prompt.txt": "c7e33a59930396254de1baa36d9c3a42e80e4c9da8051f5697c6db23532e26c5",
+    "outputs/rules-verdict-v6-end-to-end/prepared/1134266/B/schema.json": "c3db727341306838eede3c71667ec29ce8ded114c59ecb69082352a71039c7a2",
+    "outputs/rules-verdict-v6-end-to-end/references/evaluation-only.json": "1d056adda17f9b6cc66b546ac83b8191bc415bb02cab2be8d0494417b0d2f69c",
+    "outputs/rules-verdict-v6-end-to-end/retrieval/661475/result.json": "11b0410431387317331136ae7020d8a3675c6ae579b3355b7a8e5326ed1e88fb",
+    "outputs/rules-verdict-v6-end-to-end/retrieval/661475/index.manifest.json": "434f6c9cd66d90064dcdfcb93636b5289621f0ac8bcbeab6af453403a1b71d95",
+    "outputs/rules-verdict-v6-end-to-end/retrieval/69305/result.json": "8ec77edf6aab84296bfcacb56530b557c75f475cfb49f30b53ae6e4a2669daad",
+    "outputs/rules-verdict-v6-end-to-end/retrieval/69305/index.manifest.json": "a810e27d08263b0eb12c333bb22f0d87cca6d68d010548c5b7b49b9021ded4e2",
+    "outputs/rules-verdict-v6-end-to-end/retrieval/1134266/result.json": "8d4c7270611b548531c6545eba6f140fa723ea208549e52df43d36f838e2796a",
+    "outputs/rules-verdict-v6-end-to-end/retrieval/1134266/index.manifest.json": "c99a8faf42a19dceed53f7f28556709618151fdb13c1ccb18792fffdfbde0fe9",
+    "outputs/rules-verdict-v6-end-to-end/sources/69305.json": "fca712b9f11c0e4fb70598950c52f35fa3aacdccc64deedf5590ec63f1c27978",
+    "outputs/rules-verdict-v6-end-to-end/sources/661475.json": "96d1cce4fde95de8e5e7aee8ece0693a93b0b637c840ca3ceb969cb930edf886",
+    "outputs/rules-verdict-v6-end-to-end/sources/1134266.json": "b4cc82319fd07b4107db40ef326f8e2b9023ec99e1232885510f6af72b8d9125"
+  }
+}

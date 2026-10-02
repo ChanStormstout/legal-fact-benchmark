@@ -14,16 +14,18 @@
 据此制定的[完整pipeline设计](docs/plans/rules-and-verdict-v1/PIPELINE.md)说明历史案例到规则库、
 新案到法源与请求结论的全部处理步骤；[实施与实验计划](docs/plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md)
 列出组件接口、模型与预算、最多5个开发案及10个新案的推进顺序、同信息对照和停止条件。
-[V2](outputs/rules-verdict-v2/report-zh.txt)已完成历史法源与规则应用开发诊断；最新[V3条件级实验](outputs/rules-verdict-v3/report-zh.txt)实现对象属性、同一许可／事件连接和陈述状态检查，运行3个旧案、9道固定条件题。A/B各5/9题与网页模型参考状态一致，但B漏检和状态误标仍明显，不能据此声称准确率或结构化优势。三次布尔格式失败统一本地恢复、原始失败保留。227项程序测试通过；完整法律条件组合和裁判链尚未完成。 最新[V4归属诊断](outputs/rules-verdict-v4-attribution/report-zh.txt)在六处旧案语句上得到6/6分类一致，但仍混淆法院和双方律师，尚未接入执行器；该轮未新增全套测试。 后续[V5身份绑定](outputs/rules-verdict-v5-attribution-binding/report-zh.txt)实现了证据绑定检查：六处中4条结构准入、2条隔离，但身份语义错误仍能通过，尚不支持自动接入；全套232项程序测试通过。
+最新[V6三案完整流程实验](outputs/rules-verdict-v6-end-to-end/report-zh.txt)已完成共同法源检索、规则包准备及六次固定9B的A/B调用。B三案没有可用事实断言进入条件组合；A存在结论矛盾或来源不足的规则适用。程序路径已完成，整体方法有效性未建立；本轮全部属于回顾性开发演示，不能作为独立预测成绩。[三案结果表](outputs/rules-verdict-v6-end-to-end/table.csv)与[范围审计](outputs/rules-verdict-v6-end-to-end/scope-audit.json)保留全部结果和限制。全套239项程序测试通过。
+
+此前[V2法源诊断](outputs/rules-verdict-v2/report-zh.txt)、[V3条件实验](outputs/rules-verdict-v3/report-zh.txt)、[V4归属诊断](outputs/rules-verdict-v4-attribution/report-zh.txt)与[V5身份绑定](outputs/rules-verdict-v5-attribution-binding/report-zh.txt)均保留。V6停止局部归属修订，优先检验完整任务；没有跨案规则归纳、完整法律引擎或扩大样本。
 
 当前开发分支为 [`research/rules-and-verdict`](https://github.com/ChanStormstout/legal-fact-benchmark/tree/research/rules-and-verdict)。
 规则与判决方向的代码、文档及新实验在该分支更新；`main`保留已有发布版本。
 [分支与同步说明](docs/DEVELOPMENT_BRANCH.md)记录开发起点及审阅方式。
 
-**当前状态：开发验证，整体可靠性尚未验证。** 最新完成的完整A/B比较使用固定的 Qwen3.5-9B-4bit，在8案、13道预定题上
+**当前状态：开发验证，整体可靠性尚未验证。** 此前关系任务的完整A/B比较使用固定的 Qwen3.5-9B-4bit，在8案、13道预定题上
 比较直接回答与“抽取后执行”。A全部完成，B一案输出截断；相对模型参考答案，5道正例
 均未识别。格式约束已让大部分输出可执行，但事实抽取仍有遗漏、状态与对象混淆。
-尚未完成法源检索与判决预测的端到端实验，也没有独立测试准确率结论。
+现已完成上述V6有限流程演示，仍没有独立测试准确率或可靠法律预测结论。
 
 后续[v10开发诊断](outputs/local-qwen-pattern-eval-v10/report-zh.txt)把完整来源按事实类型拆开抽取，再逐对象对判断关系：
 2案6题，两个MATCH经原文检查有1个得到支持、1个转租类型错误，另4题UNKNOWN。

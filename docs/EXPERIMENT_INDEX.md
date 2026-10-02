@@ -26,3 +26,4 @@
 | rules-verdict-v3-conditions | exposed_development_condition_diagnosis | [文件](../outputs/rules-verdict-v3/report-zh.txt) | 3案9条件，6次本地生成及1次High参考。A/B状态各5/9一致，不能称准确率；B漏一支持条件并过度否定两未知。三次原布尔格式失败统一本地恢复，原输出保留。完整法律规则执行未完成。 |
 | rules-verdict-v4-attribution | targeted_old_case_diagnostic | [文件](../outputs/rules-verdict-v4-attribution/report-zh.txt) | 三旧案六目标，3次固定9B生成；分类6/6、采纳层级5/6一致，仍有法院和双方律师归属错误。未接入执行器，不是端到端能力证据。 |
 | rules-verdict-v5-attribution-binding | exposed_development_diagnostic | [文件](../outputs/rules-verdict-v5-attribution-binding/report-zh.txt) | 六处分类/法院层级一致；结构准入4、隔离2，仍有身份语义错误通过。不能据此确认端到端改进。 |
+| rules-verdict-v6-end-to-end | retrospective_exposed_development_full_path | [文件](../outputs/rules-verdict-v6-end-to-end/report-zh.txt) | 三案六次固定9B调用完成；B三案均无可用断言，A存在结论矛盾与不受来源支持的适用。共同提示含基础公式，全部按回顾性开发演示解释，不是预测验证。 |

@@ -1,0 +1,823 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "1134266"
+      ]
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "enum": [
+              "e1",
+              "e2",
+              "e3",
+              "e4",
+              "e5",
+              "e6",
+              "e7",
+              "e8",
+              "e9",
+              "e10",
+              "e11",
+              "e12"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "EVENT",
+              "ACTOR",
+              "PREMISES"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "segment_id": {
+                  "enum": [
+                    "p0001.s003",
+                    "p0002.s001",
+                    "p0002.s002",
+                    "p0002.s003",
+                    "p0002.s004",
+                    "p0002.s005",
+                    "p0002.s006",
+                    "p0002.s007",
+                    "p0003.s001",
+                    "p0003.s002",
+                    "p0003.s003",
+                    "p0003.s004",
+                    "p0003.s005",
+                    "p0003.s006",
+                    "p0003.s007",
+                    "p0003.s008",
+                    "p0004.s001",
+                    "p0004.s002",
+                    "p0004.s003"
+                  ]
+                },
+                "quote": {
+                  "type": "string",
+                  "maxLength": 650
+                }
+              },
+              "required": [
+                "segment_id",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 2
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "label",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 12
+    },
+    "assertions": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 20
+              },
+              "event": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "tenant": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "landlord": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "recipient": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "premises": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "TENANCY"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "YES",
+                  "NO",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "uncertain_fields": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "value",
+                    "binding",
+                    "status",
+                    "proposition"
+                  ]
+                },
+                "maxItems": 4
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "id",
+              "event",
+              "tenant",
+              "landlord",
+              "recipient",
+              "premises",
+              "property",
+              "value",
+              "status",
+              "uncertain_fields",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 20
+              },
+              "event": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "tenant": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "landlord": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "recipient": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "premises": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "TRANSFER_MODE"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "SUBLET",
+                  "ASSIGN",
+                  "PART_WITH_POSSESSION",
+                  "NONE",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "uncertain_fields": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "value",
+                    "binding",
+                    "status",
+                    "proposition"
+                  ]
+                },
+                "maxItems": 4
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "id",
+              "event",
+              "tenant",
+              "landlord",
+              "recipient",
+              "premises",
+              "property",
+              "value",
+              "status",
+              "uncertain_fields",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 20
+              },
+              "event": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "tenant": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "landlord": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "recipient": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "premises": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "AFTER_1952_06_09"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "YES",
+                  "NO",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "uncertain_fields": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "value",
+                    "binding",
+                    "status",
+                    "proposition"
+                  ]
+                },
+                "maxItems": 4
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "id",
+              "event",
+              "tenant",
+              "landlord",
+              "recipient",
+              "premises",
+              "property",
+              "value",
+              "status",
+              "uncertain_fields",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 20
+              },
+              "event": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "tenant": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "landlord": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "recipient": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "premises": {
+                "enum": [
+                  "e1",
+                  "e2",
+                  "e3",
+                  "e4",
+                  "e5",
+                  "e6",
+                  "e7",
+                  "e8",
+                  "e9",
+                  "e10",
+                  "e11",
+                  "e12"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "LANDLORD_WRITTEN_CONSENT"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "YES",
+                  "NO",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "uncertain_fields": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "value",
+                    "binding",
+                    "status",
+                    "proposition"
+                  ]
+                },
+                "maxItems": 4
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "id",
+              "event",
+              "tenant",
+              "landlord",
+              "recipient",
+              "premises",
+              "property",
+              "value",
+              "status",
+              "uncertain_fields",
+              "evidence"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "maxItems": 16
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 180
+      },
+      "maxItems": 5
+    }
+  },
+  "required": [
+    "case_id",
+    "objects",
+    "assertions",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

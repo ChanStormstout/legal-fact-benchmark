@@ -1,0 +1,65 @@
+{
+  "conditions": [
+    {
+      "condition": "AFTER_1952_06_09",
+      "reason": "Lease deed dated 11.7.1966 (p0002.s001) falls after 1952-06-09.",
+      "state": "SUPPORTED"
+    },
+    {
+      "condition": "TENANCY",
+      "reason": "Landlord let premises to American Company via registered lease (p0002.s001), establishing tenancy.",
+      "state": "SUPPORTED"
+    },
+    {
+      "condition": "TRANSFER_MODE",
+      "reason": "Lease rights vested in Indian Company via amalgamation scheme (p0002.s003), constituting assignment/parting with possession.",
+      "state": "SUPPORTED"
+    },
+    {
+      "condition": "LANDLORD_WRITTEN_CONSENT",
+      "reason": "Respondent (landlord) explicitly denied consent; no written consent obtained (p0002.s002, p0003.s007, p0004.001).",
+      "state": "SUPPORTED"
+    },
+    {
+      "condition": "RULE_SCOPE",
+      "reason": "Target facts (American Company -> Indian Company transfer) match RC-03 variables (Tenant -> Subtenant) and premises; RC-03 requires specific consent which is absent.",
+      "state": "SUPPORTED"
+    }
+  ],
+  "reason": "The record establishes a tenancy under a post-1952 lease. The tenant (American Company) parted with possession to a new entity (Indian Company) via statutory amalgamation. The landlord explicitly denied consent, and no written consent was obtained. While the tenant argues the transfer was involuntary (p0003.s007), the landlord's denial of consent (p0003.s007) and the statutory requirement for written consent (RC-03) are not satisfied. The involuntary nature of the transfer does not negate the requirement for written consent under s14(1)(b) as per RC-03's strict interpretation of 'consent'.",
+  "rule_ids": [
+    "RC-03"
+  ],
+  "evidence": [
+    {
+      "segment_id": "p0002.s001",
+      "quote": "Shri Atma Ram Chadha... let out Shop No. 13/14... to Singer India Limited vs Chander Mohan Chadha & Ors on 13 August, 2004"
+    },
+    {
+      "segment_id": "p0002.s001",
+      "quote": "vide a registered lease deed dated 11.7.1966."
+    },
+    {
+      "segment_id": "p0002.s002",
+      "quote": "landlord filed an eviction petition on the ground... that the American Company, without obtaining any written consent from the landlord, had parted with the possession..."
+    },
+    {
+      "segment_id": "p0002.s003",
+      "quote": "scheme of amalgamation was sanctioned whereby the undertaking in India of the American Company was amalgamated with the Indian Company."
+    },
+    {
+      "segment_id": "p0003.s007",
+      "quote": "The American Company voluntarily submitted to a scheme of amalgamation... whereunder its 'lease, right of tenancy or occupancy' got vested with the Indian Company."
+    }
+  ],
+  "outcome": "SUPPORT_GROUND",
+  "missing": [
+    "Verification of the exact historical version of s14(1)(b) text (retrospective scope retained as per instructions)."
+  ],
+  "objects": [
+    "American Company (Tenant)",
+    "Indian Company (Subtenant/Assignee)",
+    "Chander Mohan Chadha (Landlord)",
+    "Shop No. 13/14 (Premises)"
+  ]
+}

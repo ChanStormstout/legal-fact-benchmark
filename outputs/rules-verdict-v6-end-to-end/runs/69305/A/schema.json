@@ -1,0 +1,125 @@
+{
+  "type": "object",
+  "properties": {
+    "outcome": {
+      "enum": [
+        "SUPPORT_GROUND",
+        "OPPOSE_GROUND",
+        "UNDETERMINED",
+        "UNSUPPORTED"
+      ]
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 120
+      },
+      "maxItems": 5
+    },
+    "rule_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 30
+      },
+      "maxItems": 5
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "enum": [
+              "TENANCY",
+              "TRANSFER_MODE",
+              "AFTER_1952_06_09",
+              "LANDLORD_WRITTEN_CONSENT",
+              "RULE_SCOPE",
+              "EXCEPTION_OR_INTERPRETATION"
+            ]
+          },
+          "state": {
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNKNOWN",
+              "UNSUPPORTED"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 240
+          }
+        },
+        "required": [
+          "condition",
+          "state",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "segment_id": {
+            "enum": [
+              "p0003.s003",
+              "p0003.s004",
+              "p0004.s001",
+              "p0004.s002",
+              "p0004.s003",
+              "p0004.s004",
+              "LAW:1134266:p0004.s004",
+              "LAW:1134266:p0004.s005",
+              "LAW:1134266:p0004.s006",
+              "LAW:1134266:p0005.s006",
+              "LAW:1134266:p0006.s003",
+              "LAW:1134266:p0008.s001",
+              "LAW:1134266:p0010.s002",
+              "LAW:661475:p0002.s003",
+              "LAW:661475:p0002.s004"
+            ]
+          },
+          "quote": {
+            "type": "string",
+            "maxLength": 650
+          }
+        },
+        "required": [
+          "segment_id",
+          "quote"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 5
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 650
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 180
+      },
+      "maxItems": 5
+    }
+  },
+  "required": [
+    "outcome",
+    "objects",
+    "rule_ids",
+    "conditions",
+    "evidence",
+    "reason",
+    "missing"
+  ],
+  "additionalProperties": false
+}
