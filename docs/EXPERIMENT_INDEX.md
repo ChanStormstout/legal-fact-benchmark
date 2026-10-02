@@ -21,3 +21,8 @@
 | local-qwen-semantic-probe-v1 | diagnostic | [文件](../outputs/local-qwen-semantic-probe-v1/report-zh.txt) | 两个原文短段有/无约束对照；非完整pipeline评分。 |
 | local-qwen-split-assembly-v1 | diagnostic | [文件](../outputs/local-qwen-split-assembly-v1/report-zh.txt) | 同一v9输出的结构合并修复，无新生成；26记录进入导入/执行。 |
 | local-qwen-type-gate-probe-v1 | diagnostic | [文件](../outputs/local-qwen-type-gate-probe-v1/report-zh.txt) | 类型核验分出转租/自用需要，状态核验误拒正例；未自动应用到事实。 |
+| rules-verdict-v1-resource-format | development_resource_format_failed | [文件](../outputs/rules-verdict-v1/report-zh.txt) | 两旧案4次本地生成；JSON可解析，但多人角色／关系端点导致0可用断言，A理由触及字段上限；按计划停止P1，尚无法律端到端成绩。 |
+| rules-verdict-v2-development | exposed_development_diagnosis | [文件](../outputs/rules-verdict-v2/report-zh.txt) | 两旧案格式通过；历史判决BM25、本地规则提取及一旧案三方法诊断。原A3错误编译保留，统一翻译门槛后仅重跑A3；仍UNDETERMINED。完整法律条件执行未完成，非独立测试。 |
+| rules-verdict-v3-conditions | exposed_development_condition_diagnosis | [文件](../outputs/rules-verdict-v3/report-zh.txt) | 3案9条件，6次本地生成及1次High参考。A/B状态各5/9一致，不能称准确率；B漏一支持条件并过度否定两未知。三次原布尔格式失败统一本地恢复，原输出保留。完整法律规则执行未完成。 |
+| rules-verdict-v4-attribution | targeted_old_case_diagnostic | [文件](../outputs/rules-verdict-v4-attribution/report-zh.txt) | 三旧案六目标，3次固定9B生成；分类6/6、采纳层级5/6一致，仍有法院和双方律师归属错误。未接入执行器，不是端到端能力证据。 |
+| rules-verdict-v5-attribution-binding | exposed_development_diagnostic | [文件](../outputs/rules-verdict-v5-attribution-binding/report-zh.txt) | 六处分类/法院层级一致；结构准入4、隔离2，仍有身份语义错误通过。不能据此确认端到端改进。 |

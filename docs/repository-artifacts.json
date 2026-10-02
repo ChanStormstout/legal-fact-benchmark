@@ -4,6 +4,9 @@
   "latest_run": "outputs/local-qwen-pattern-eval-v3",
   "max_artifact_bytes": 10485760,
   "artifact_roots": [
+    "outputs/rules-verdict-v3",
+    "outputs/rules-verdict-v2",
+    "outputs/rules-verdict-v1",
     "outputs/local-qwen-pattern-eval-v1",
     "outputs/local-qwen-pattern-eval-v2",
     "outputs/local-qwen-pattern-eval-v3",
@@ -31,7 +34,10 @@
     "outputs/local-qwen-pattern-eval-v10",
     "outputs/local-qwen-semantic-probe-v1",
     "outputs/local-qwen-split-assembly-v1",
-    "outputs/local-qwen-type-gate-probe-v1"
+    "outputs/local-qwen-type-gate-probe-v1",
+    "outputs/rules-verdict-v4-attribution",
+    "outputs/rules-verdict-v5-attribution-binding",
+    "outputs/rules-verdict-v6-end-to-end"
   ],
   "exclude_globs": [
     "*/__pycache__/*",
@@ -51,7 +57,8 @@
     "*/artifact-index.json",
     "*/delivery-integrity.json",
     "*/environment/.gitattributes",
-    "legal_bench/local_chunk_v11.py"
+    "legal_bench/local_chunk_v11.py",
+    "outputs/rules-verdict-v6-end-to-end/*"
   ],
   "artifact_suffixes": [
     ".py",
@@ -90,7 +97,49 @@
     "legal_bench/split_assembly_v1.py",
     "scripts/local_qwen_pairs_v10.py",
     "scripts/local_qwen_type_gate_probe_v1.py",
-    "tests/test_split_assembly_v1.py"
+    "tests/test_split_assembly_v1.py",
+    "legal_bench/rules_verdict_v1/__init__.py",
+    "legal_bench/rules_verdict_v1/apply_rules.py",
+    "legal_bench/rules_verdict_v1/authority_index.py",
+    "legal_bench/rules_verdict_v1/contracts.py",
+    "legal_bench/rules_verdict_v1/extract.py",
+    "legal_bench/rules_verdict_v1/retrieve.py",
+    "legal_bench/rules_verdict_v1/runtime.py",
+    "legal_bench/rules_verdict_v1/source_views.py",
+    "scripts/prepare_rules_verdict_v1.py",
+    "scripts/rules_verdict_v1.py",
+    "tests/test_rules_verdict_v1.py",
+    "tests/test_rules_verdict_retrieval_v1.py",
+    "scripts/report_rules_verdict_v1.py",
+    "legal_bench/rules_verdict_v1/extract_v2.py",
+    "legal_bench/rules_verdict_v1/law_materials_v2.py",
+    "legal_bench/rules_verdict_v1/compile_rules_v2.py",
+    "legal_bench/rules_verdict_v1/translation_gate_v2.py",
+    "legal_bench/rules_verdict_v1/rule_extract_v2.py",
+    "scripts/rules_verdict_v2.py",
+    "scripts/build_law_materials_v2.py",
+    "scripts/extract_historical_rules_v2.py",
+    "scripts/compare_legal_development_v2.py",
+    "scripts/replay_condition_fix_v2.py",
+    "tests/test_rules_verdict_v2.py",
+    "tests/test_law_materials_v2.py",
+    "tests/test_compile_rules_v2.py",
+    "tests/test_translation_gate_v2.py",
+    "legal_bench/rules_verdict_v1/conditions_v3.py",
+    "legal_bench/rules_verdict_v1/boolean_format_v3.py",
+    "scripts/conditions_v3.py",
+    "scripts/recover_conditions_v3.py",
+    "scripts/report_conditions_v3.py",
+    "tests/test_conditions_v3.py",
+    "tests/test_boolean_format_v3.py",
+    "scripts/attribution_v4.py",
+    "scripts/attribution_v5.py",
+    "legal_bench/rules_verdict_v1/attribution_v5.py",
+    "tests/test_attribution_v5.py",
+    "scripts/pipeline_v6.py",
+    "legal_bench/rules_verdict_v1/pipeline_v6.py",
+    "tests/test_pipeline_v6.py",
+    "scripts/report_pipeline_v6.py"
   ],
   "development_follow_up": {
     "latest_run": "outputs/local-qwen-pattern-eval-v10",
@@ -115,7 +164,50 @@
     "benchmark_decision": "NOT_COMMITTED_AS_PRIMARY_OUTPUT",
     "current_three_relation_tasks": "INTERMEDIATE_REPRESENTATION_AND_MATCHING_DIAGNOSTICS",
     "design_proposal": "docs/RESEARCH_DIRECTION.md",
-    "legal_end_to_end_experiment_completed": false
+    "pipeline_design": "docs/plans/rules-and-verdict-v1/PIPELINE.md",
+    "implementation_plan": "docs/plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md",
+    "plan_status": "CONDITION_V3_DEVELOPMENT_COMPLETE_EXTRACTION_UNRELIABLE_FULL_LEGAL_ENGINE_INCOMPLETE",
+    "legal_end_to_end_experiment_completed": false,
+    "implementation_status": {
+      "report": "outputs/rules-verdict-v3/report-zh.txt",
+      "development_cases_run": 3,
+      "condition_questions": 9,
+      "local_model_calls": 6,
+      "web_reference_calls": 1,
+      "new_cases_run": 0,
+      "stage": "CONDITION_MATCHING_DEVELOPMENT_DIAGNOSIS",
+      "whole_pipeline_complete": false,
+      "full_rule_execution": "UNSUPPORTED",
+      "status_agreement_not_accuracy": {
+        "A": 5,
+        "B": 5,
+        "denominator": 9
+      },
+      "original_B_format_failures": 3,
+      "format_only_recovery_completed": 3
+    },
+    "attribution_follow_up": {
+      "report": "outputs/rules-verdict-v4-attribution/report-zh.txt",
+      "cases": 3,
+      "targets": 6,
+      "calls": 3,
+      "status_agreement": 6,
+      "adoption_agreement": 5,
+      "complete_attribution_reliable": false,
+      "integrated_into_execution": false
+    },
+    "attribution_binding_follow_up": {
+      "report": "outputs/rules-verdict-v5-attribution-binding/report-zh.txt",
+      "cases": 3,
+      "targets": 6,
+      "local_calls": 3,
+      "status_agreement": 6,
+      "finding_level_agreement": 6,
+      "structurally_admissible": 4,
+      "quarantined": 2,
+      "semantic_error_passed_structural_check": true,
+      "integrated_into_execution": false
+    }
   },
   "development_base_commit": "9ddc35d0a3b4b60fde11b3f669139ed38469aac3"
 }

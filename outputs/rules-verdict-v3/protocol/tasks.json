@@ -1,0 +1,54 @@
+{
+  "version": "condition-v3",
+  "role": "EXPOSED_DEVELOPMENT_CONDITION_DIAGNOSIS",
+  "cases": [
+    "661475",
+    "69305",
+    "1134266"
+  ],
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "For the lease deed underlying the primary disputed tenancy, does the supplied record establish that the deed was UNREGISTERED? Registered is contrary evidence; a tenancy existing is not proof that a deed exists or is registered.",
+      "type": "DOCUMENT_REGISTRATION",
+      "accepted_status": [
+        "NARRATED",
+        "COURT_FOUND"
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "Does the supplied record establish a written permission by the landlord, specific to the primary disputed transfer/occupation and its recipient? All conditions must concern the same permission and disputed event. General associate-concern wording and permission by a tenant to family do not satisfy this condition.",
+      "type": "SPECIFIC_WRITTEN_CONSENT",
+      "accepted_status": [
+        "NARRATED",
+        "COURT_FOUND"
+      ]
+    },
+    {
+      "id": "Q3",
+      "text": "Does the supplied record explicitly report a court finding that the tenant parted with possession in the primary disputed transfer? A named lower-court finding counts. A party allegation, eviction order alone, finding of subletting alone, or a precedent finding does not substitute for this precise finding.",
+      "type": "COURT_PARTED_POSSESSION",
+      "accepted_status": [
+        "COURT_FOUND"
+      ]
+    }
+  ],
+  "answer_semantics": {
+    "SUPPORTED": "Complete witness meeting every required field and accepted source status.",
+    "REFUTED": "Explicit accepted contrary evidence resolving the primary target condition, not mere absence of a witness or failure of one candidate.",
+    "UNKNOWN": "No complete witness or decisive contrary evidence; include omitted/extraction-unknown fields and unadopted allegations.",
+    "CONFLICT": "Both accepted support and contrary evidence for the same object/event and compatible stage; statements from different cases are not a conflict."
+  },
+  "limits": {
+    "local_calls": 6,
+    "web_reference_calls": 1,
+    "new_cases": 0,
+    "attempts_per_case_method": 1,
+    "semantic_reruns": 0,
+    "model": "mlx-community/Qwen3.5-9B-4bit"
+  },
+  "source_scope": "Complete unchanged V2 allowed appeal-input view, not full judgment. Current appeal reasoning/disposition stays excluded. Same scope for reference and A/B.",
+  "created_at": 1790922048.6748538,
+  "selection": "All three existing development cases in preserved sample order; no selection by new reference results."
+}

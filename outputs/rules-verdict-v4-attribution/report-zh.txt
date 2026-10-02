@@ -1,0 +1,19 @@
+V4：六处旧案语句的陈述归属诊断
+
+结论：把“谁提出命题、哪一级法院是否明确采纳”独立出来后，固定9B模型在六处预选语句上均正确区分了法院认定、背景叙述和当事人主张。但法院层级和说话者仍有错误，不能直接把这个组件当成可靠的事实准入器，也没有证明原文到裁判的整体能力提高。
+
+范围与执行：沿用V3三个旧案的全部allowed输入片段，未截断，亦不是完整判决。每案一次调用，共3次；无网页任务、无重试、无新案、无整案重抽取。目标六处在运行前固定，参考是开发者从既有网页模型参考中转录并对照来源的分类，不是新独立标注或人工金标准。T6另依赖V2 RC-02的当事人主张记录；本轮“未显示采纳”只适用于V3限定来源，不能推及完整判决。模型与框架沿用固定Qwen3.5-9B-4bit/MLX-VLM；1600输出上限、总32768、关闭thinking、原有greedy设置。运行均OK，无格式修复；生成合计74.84秒。完整配置、哈希、代码副本和原始响应已保存。
+
+逐项结果（T为固定目标编号）
+T1，661475，p0001.s004：原文“the Rent Controller has held ... Hence he has come to the conclusion ... parted with possession”。模型正确分类COURT_FOUND，但speaker填J. S.N. Dwivedi，adoption填NOT_SHOWN。原文明确报告Rent Controller的下级法院认定；说话者和采纳层级错误。不能把当前判决作者替换为命题的原认定者。
+T2，661475，p0002.s002@0:412：“Counsel for the appellants has urged ... permitted them to occupy ...”。模型正确识别上诉方律师主张，未显示法院采纳，并引用引导语。这里依然不是房东书面同意。
+T3，69305，p0003.s003：“An unregis- tered deed of lease was executed on that occasion”。模型正确识别NARRATED，不再标成Rent Controller的认定；speaker为Unknown。未确定具名说话者不应伪造名字，但叙述者角色尚未结构化保存。
+T4，69305，p0004.s004：“it merely amounts to a written permission ...”。模型正确识别上诉方论证、未显示法院采纳，但保存的引文只摘了命题本身，没有“it was urged”或“The argument is”等归属线索。完整输入能支持分类，单独导出这条证据却不够解释归属。
+T5，1134266，p0002.s001：“the landlord filed an eviction petition on the ground ... without obtaining any written consent ...”。模型正确识别房东诉状主张，并保留归属线索，未将腾退结果当成该命题已被法院采纳。
+T6，1134266，p0003.s003：“Learned counsel has thus submitted ... consequently there was no sub-letting or parting with possession”。模型正确识别当事人主张并保留引导语，但speaker把Anil Divan与Dushyant Dave混写，且字段语句未完成。p0002.s005明确Divan代表上诉方；p0003.s007明确Dave代表被上诉方。结构有效不意味着姓名归属正确。
+
+状态分类与参考一致6/6；采纳层级一致5/6；六条归属引文均可在输入定位。以上是经过选择的旧案诊断，不能估计总体准确率。逐项来源检查发现T1法院/说话者错误、T6混淆双方律师，T4证据包缺归属引导语，T3说话者角色未明确保存。因此不报告“完整记录6/6正确”。姓名错误和缺失归属线索分别保留，未修改模型响应。
+
+对方案的影响：局部分类任务比之前混在大量事实与对象输出中更可行，但本轮额外提供了目标语句，未测试自动发现所有命题，也不能与V3整案抽取直接作公平性能比较。暂不自动覆盖V3事实、不重跑九条件、更不输出verdict。下一步应在新的版本中让说话者绑定至来源明确的角色/实体，并要求独立的归属线索与法院采纳见证；无法绑定就保留未知。通过这道检查后，才适合研究接入事实抽取。不能只因为标签改成PARTY_CLAIMED就宣称误判已减少。
+
+工程与保存：未修改旧执行器和运行结果。此次新增的是有限诊断入口，完成三次实际结构校验、引文定位和冻结哈希检查；没有声称运行新的全套程序测试。原始失败、旧标注和历史冻结配置保留。完整数据见targets、references.json、runs、results.json及source-review.json。此轮结束，不自动扩样或反复重跑。

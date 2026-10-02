@@ -1,0 +1,96 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "661475"
+      ]
+    },
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "enum": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ]
+          },
+          "answer_status": {
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNKNOWN",
+              "CONFLICT"
+            ]
+          },
+          "objects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "maxItems": 5
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "segment_id": {
+                  "enum": [
+                    "p0001.s001",
+                    "p0001.s002",
+                    "p0001.s003",
+                    "p0001.s004",
+                    "p0001.s005",
+                    "p0002.s002@0:412"
+                  ]
+                },
+                "quote": {
+                  "type": "string",
+                  "maxLength": 650
+                }
+              },
+              "required": [
+                "segment_id",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 3
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 650
+          },
+          "missing": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 150
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "question_id",
+          "answer_status",
+          "objects",
+          "evidence",
+          "reason",
+          "missing"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    }
+  },
+  "required": [
+    "case_id",
+    "answers"
+  ],
+  "additionalProperties": false
+}

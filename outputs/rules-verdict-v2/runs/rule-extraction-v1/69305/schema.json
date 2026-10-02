@@ -1,0 +1,199 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "69305"
+      ]
+    },
+    "rule_cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "proposition": {
+            "type": "string",
+            "maxLength": 1500
+          },
+          "source_kind": {
+            "enum": [
+              "COURT_ADOPTED_INTERPRETATION",
+              "QUOTED_STATUTE",
+              "CASE_SPECIFIC_APPLICATION"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "maxLength": 30
+                },
+                "text": {
+                  "type": "string",
+                  "maxLength": 800
+                },
+                "kind": {
+                  "enum": [
+                    "NECESSARY",
+                    "SUFFICIENT",
+                    "FACTOR",
+                    "INTERPRETIVE",
+                    "UNKNOWN"
+                  ]
+                },
+                "factual_predicate": {
+                  "enum": [
+                    "LEASE",
+                    "SUBLET",
+                    "ASSIGN",
+                    "PART_WITH_POSSESSION",
+                    "CONSENT",
+                    "OTHER",
+                    "NONE"
+                  ]
+                },
+                "polarity": {
+                  "enum": [
+                    "POSITIVE",
+                    "NEGATIVE",
+                    "UNSPECIFIED"
+                  ]
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "p0001.s001",
+                      "p0001.s002",
+                      "p0002.s001",
+                      "p0002.s002",
+                      "p0002.s003",
+                      "p0002.s004",
+                      "p0002.s005",
+                      "p0003.s001",
+                      "p0003.s002",
+                      "p0003.s003",
+                      "p0003.s004",
+                      "p0004.s001",
+                      "p0004.s002",
+                      "p0004.s003",
+                      "p0004.s004",
+                      "p0004.s005",
+                      "p0004.s006",
+                      "p0004.s007",
+                      "p0005.s001",
+                      "p0005.s002",
+                      "p0005.s003",
+                      "p0005.s004",
+                      "p0005.s005"
+                    ]
+                  },
+                  "maxItems": 8
+                }
+              },
+              "required": [
+                "id",
+                "text",
+                "kind",
+                "factual_predicate",
+                "polarity",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          },
+          "effect": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "exceptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "maxItems": 5
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s001",
+                "p0001.s002",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "p0004.s004",
+                "p0004.s005",
+                "p0004.s006",
+                "p0004.s007",
+                "p0005.s001",
+                "p0005.s002",
+                "p0005.s003",
+                "p0005.s004",
+                "p0005.s005"
+              ]
+            },
+            "maxItems": 8
+          },
+          "formalization_limits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "id",
+          "proposition",
+          "source_kind",
+          "scope",
+          "conditions",
+          "effect",
+          "exceptions",
+          "evidence",
+          "formalization_limits"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 500
+      },
+      "maxItems": 6
+    }
+  },
+  "required": [
+    "case_id",
+    "rule_cards",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

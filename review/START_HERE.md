@@ -1,6 +1,6 @@
 # ChatGPT 审阅入口
 
-内容快照：`91f6a127fe0dcd3813016d1fe49088d9e7c2ce99a5e267aee6edcb66284322e7`
+内容快照：`1c520c22bb65abee2d346bdaab6738396758a5b770d2f4526159613938f66f92`
 
 仓库：https://github.com/ChanStormstout/legal-fact-benchmark
 审阅分支：`research/rules-and-verdict`

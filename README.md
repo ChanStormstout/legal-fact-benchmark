@@ -5,7 +5,16 @@
 产出尚未确定；评测材料首先服务于验证方法。仓库URL沿用原名称。
 
 [研究方向与实验影响](docs/RESEARCH_DIRECTION.md)记录2026-10-01的用户更正。
-现有三个对象关系问题属于中间表示和匹配的诊断，尚未检验适用法源检索、法律规则归纳或判决预测。
+现有三个对象关系问题属于中间表示和匹配的诊断，早期结果不构成适用法源检索、法律规则归纳或判决预测的证据；新方向的开发进度见下文。
+
+[GPT Pro双R-GCN方案评审R2](docs/reviews/2026-10-01-pro-rgcn-v1-review.md)逐项讨论组件、
+近期方法依据、现有代码缺口及实施／实验顺序，并根据反馈区分规则提取与归纳、完整绑定与独立条件、
+从零训练与预训练图模型迁移。初版原样保留；这些是待实施建议，没有更换模型或启动新实验。
+
+据此制定的[完整pipeline设计](docs/plans/rules-and-verdict-v1/PIPELINE.md)说明历史案例到规则库、
+新案到法源与请求结论的全部处理步骤；[实施与实验计划](docs/plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md)
+列出组件接口、模型与预算、最多5个开发案及10个新案的推进顺序、同信息对照和停止条件。
+[V2](outputs/rules-verdict-v2/report-zh.txt)已完成历史法源与规则应用开发诊断；最新[V3条件级实验](outputs/rules-verdict-v3/report-zh.txt)实现对象属性、同一许可／事件连接和陈述状态检查，运行3个旧案、9道固定条件题。A/B各5/9题与网页模型参考状态一致，但B漏检和状态误标仍明显，不能据此声称准确率或结构化优势。三次布尔格式失败统一本地恢复、原始失败保留。227项程序测试通过；完整法律条件组合和裁判链尚未完成。 最新[V4归属诊断](outputs/rules-verdict-v4-attribution/report-zh.txt)在六处旧案语句上得到6/6分类一致，但仍混淆法院和双方律师，尚未接入执行器；该轮未新增全套测试。 后续[V5身份绑定](outputs/rules-verdict-v5-attribution-binding/report-zh.txt)实现了证据绑定检查：六处中4条结构准入、2条隔离，但身份语义错误仍能通过，尚不支持自动接入；全套232项程序测试通过。
 
 当前开发分支为 [`research/rules-and-verdict`](https://github.com/ChanStormstout/legal-fact-benchmark/tree/research/rules-and-verdict)。
 规则与判决方向的代码、文档及新实验在该分支更新；`main`保留已有发布版本。

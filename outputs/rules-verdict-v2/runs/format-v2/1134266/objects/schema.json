@@ -1,0 +1,78 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "1134266"
+      ]
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 48
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "kind": {
+            "enum": [
+              "PERSON",
+              "ORGANIZATION",
+              "GROUP",
+              "PROPERTY",
+              "CONTRACT",
+              "NOTICE",
+              "OTHER",
+              "UNKNOWN"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003"
+              ]
+            },
+            "maxItems": 12
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "kind",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 64
+    }
+  },
+  "required": [
+    "case_id",
+    "objects"
+  ],
+  "additionalProperties": false
+}

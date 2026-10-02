@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "1134266"
+      ]
+    },
+    "outcome": {
+      "enum": [
+        "ALLOW_APPEAL",
+        "DISMISS_APPEAL",
+        "PARTIAL_OR_REMAND",
+        "UNDETERMINED"
+      ]
+    },
+    "assessment_status": {
+      "enum": [
+        "SUPPORTED",
+        "UNRESOLVED",
+        "DISPUTED",
+        "UNSUPPORTED"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 700
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "p0001.s003",
+          "p0002.s001",
+          "p0002.s002",
+          "p0002.s003",
+          "p0002.s004",
+          "p0002.s005",
+          "p0002.s006",
+          "p0002.s007",
+          "p0003.s001",
+          "p0003.s002",
+          "p0003.s003",
+          "p0003.s004",
+          "p0003.s005",
+          "p0003.s006",
+          "p0003.s007",
+          "p0003.s008",
+          "p0004.s001",
+          "p0004.s002",
+          "p0004.s003"
+        ]
+      },
+      "maxItems": 16
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 240
+      },
+      "maxItems": 12
+    },
+    "other_combinations": {
+      "type": "string",
+      "maxLength": 320
+    }
+  },
+  "required": [
+    "case_id",
+    "outcome",
+    "assessment_status",
+    "reason",
+    "evidence",
+    "missing",
+    "other_combinations"
+  ],
+  "additionalProperties": false
+}

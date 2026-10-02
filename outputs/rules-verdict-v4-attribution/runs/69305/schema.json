@@ -1,0 +1,200 @@
+{
+  "type": "object",
+  "properties": {
+    "T3": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "NARRATED",
+            "PARTY_CLAIMED",
+            "COURT_FOUND",
+            "UNKNOWN"
+          ]
+        },
+        "speaker": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "adoption": {
+          "enum": [
+            "LOWER_COURT",
+            "CURRENT_COURT",
+            "BOTH",
+            "NOT_SHOWN",
+            "UNCLEAR"
+          ]
+        },
+        "attribution_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_id": {
+                "enum": [
+                  "p0003.s003",
+                  "p0003.s004",
+                  "p0004.s001",
+                  "p0004.s002",
+                  "p0004.s003",
+                  "p0004.s004"
+                ]
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 700
+              }
+            },
+            "required": [
+              "segment_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 2
+        },
+        "adoption_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_id": {
+                "enum": [
+                  "p0003.s003",
+                  "p0003.s004",
+                  "p0004.s001",
+                  "p0004.s002",
+                  "p0004.s003",
+                  "p0004.s004"
+                ]
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 700
+              }
+            },
+            "required": [
+              "segment_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 2
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "status",
+        "speaker",
+        "adoption",
+        "attribution_evidence",
+        "adoption_evidence",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "T4": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "NARRATED",
+            "PARTY_CLAIMED",
+            "COURT_FOUND",
+            "UNKNOWN"
+          ]
+        },
+        "speaker": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "adoption": {
+          "enum": [
+            "LOWER_COURT",
+            "CURRENT_COURT",
+            "BOTH",
+            "NOT_SHOWN",
+            "UNCLEAR"
+          ]
+        },
+        "attribution_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_id": {
+                "enum": [
+                  "p0003.s003",
+                  "p0003.s004",
+                  "p0004.s001",
+                  "p0004.s002",
+                  "p0004.s003",
+                  "p0004.s004"
+                ]
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 700
+              }
+            },
+            "required": [
+              "segment_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 2
+        },
+        "adoption_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_id": {
+                "enum": [
+                  "p0003.s003",
+                  "p0003.s004",
+                  "p0004.s001",
+                  "p0004.s002",
+                  "p0004.s003",
+                  "p0004.s004"
+                ]
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 700
+              }
+            },
+            "required": [
+              "segment_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 2
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "status",
+        "speaker",
+        "adoption",
+        "attribution_evidence",
+        "adoption_evidence",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "T3",
+    "T4"
+  ],
+  "additionalProperties": false
+}

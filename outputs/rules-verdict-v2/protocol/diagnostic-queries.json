@@ -1,0 +1,32 @@
+{
+  "queries": [
+    {
+      "id": "D1_LEASE_AND_POSSESSION_SAME_PROPERTY",
+      "origin": "PREDEFINED_ENGINE_FUNCTION_CHECK_NOT_DISCOVERED_LEGAL_RULE",
+      "query": {
+        "op": "all",
+        "children": [
+          {
+            "op": "atom",
+            "id": "lease",
+            "predicate": "LEASE",
+            "roles": {
+              "premises": "$p"
+            },
+            "polarity": "POSITIVE"
+          },
+          {
+            "op": "atom",
+            "id": "possession",
+            "predicate": "POSSESSION",
+            "roles": {
+              "premises": "$p"
+            },
+            "polarity": "POSITIVE"
+          }
+        ]
+      }
+    }
+  ],
+  "not_a_verdict_test": true
+}

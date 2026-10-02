@@ -1,0 +1,547 @@
+{
+  "case_id": "661475",
+  "objects": [
+    {
+      "id": "o1",
+      "label": "Dr. Vijay Kumar",
+      "kind": "PERSON",
+      "evidence": [
+        "p0001.s001",
+        "p0001.s002",
+        "p0001.s003",
+        "p0001.s004",
+        "p0001.s005",
+        "p0002.s002@0:412"
+      ]
+    },
+    {
+      "id": "o2",
+      "label": "Ajay Kumar",
+      "kind": "PERSON",
+      "evidence": [
+        "p0001.s001",
+        "p0001.s002",
+        "p0001.s003",
+        "p0001.s004",
+        "p0001.s005",
+        "p0002.s002@0:412"
+      ]
+    },
+    {
+      "id": "o3",
+      "label": "Ashok Kumar",
+      "kind": "PERSON",
+      "evidence": [
+        "p0001.s001",
+        "p0001.s002",
+        "p0001.s003",
+        "p0001.s004",
+        "p0001.s005",
+        "p0002.s002@0:412"
+      ]
+    },
+    {
+      "id": "o4",
+      "label": "Raghbir Singh Anokh Singh",
+      "kind": "PERSON",
+      "evidence": [
+        "p0001.s001",
+        "p0001.s002",
+        "p0001.s003",
+        "p0001.s004",
+        "p0001.s005",
+        "p0002.s002@0:412"
+      ]
+    },
+    {
+      "id": "o5",
+      "label": "Shop No. 2855",
+      "kind": "PROPERTY",
+      "evidence": [
+        "p0001.s001",
+        "p0001.s002",
+        "p0001.s003",
+        "p0001.s004",
+        "p0001.s005",
+        "p0002.s002@0:412"
+      ]
+    },
+    {
+      "id": "o6",
+      "label": "Rent Controller",
+      "kind": "ORGANIZATION",
+      "evidence": [
+        "p0001.s001",
+        "p0001.s002",
+        "p0001.s003",
+        "p0001.s004",
+        "p0001.s005",
+        "p0002.s002@0:412"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": "f1",
+      "predicate": "POSSESSION",
+      "text": "Rent Controller found appellants partitioned the shop and second/third appellants are in exclusive possession of their portion via a wooden wall dividing the single door into two separate doors with separate locks, preventing direct access between portions. First appellant locks his portion separately. This constitutes",
+      "roles": [
+        {
+          "name": "holder",
+          "object": "o2"
+        },
+        {
+          "name": "holder",
+          "object": "o3"
+        },
+        {
+          "name": "premises",
+          "object": "o5"
+        }
+      ],
+      "status": "COURT_FOUND",
+      "polarity": "POSITIVE",
+      "speaker": "Rent Controller",
+      "stage": "Rent Controller",
+      "context": "MAIN_CASE",
+      "time": "1966-12-06",
+      "attributes": [
+        {
+          "name": "partition",
+          "value": "wooden wall dividing single door into two parts"
+        },
+        {
+          "name": "access",
+          "value": "no direct access between portions"
+        },
+        {
+          "name": "locks",
+          "value": "separate locks for each portion"
+        }
+      ],
+      "known": [
+        "predicate",
+        "status",
+        "polarity",
+        "context",
+        "stage",
+        "time",
+        "attributes",
+        "roles.holder",
+        "roles.premises"
+      ],
+      "unknown": [
+        {
+          "affects": [
+            "roles.assignor"
+          ],
+          "reason": "First appellant's role as assignor/partner not explicitly confirmed as a formal legal act of assignment or subletting, but established by father's permission for business purposes.",
+          "evidence": [
+            "p0001.s004",
+            "p0002.s002@0:412"
+          ]
+        }
+      ],
+      "evidence": [
+        "p0001.s003",
+        "p0001.s004"
+      ]
+    },
+    {
+      "id": "f2",
+      "predicate": "PART_WITH_POSSESSION",
+      "text": "Rent Controller concluded first appellant parted with possession of the portion occupied by second and third appellants to them, rejecting the plea of joint business as income from motor business was not shown in tax returns and account books were not produced.",
+      "roles": [
+        {
+          "name": "transferor",
+          "object": "o1"
+        },
+        {
+          "name": "recipient",
+          "object": "o2"
+        },
+        {
+          "name": "recipient",
+          "object": "o3"
+        },
+        {
+          "name": "premises",
+          "object": "o5"
+        }
+      ],
+      "status": "COURT_FOUND",
+      "polarity": "POSITIVE",
+      "speaker": "Rent Controller",
+      "stage": "Rent Controller",
+      "context": "MAIN_CASE",
+      "time": "1966-12-06",
+      "attributes": [
+        {
+          "name": "reason",
+          "value": "exclusive possession established; joint business plea rejected due to lack of tax return disclosure and missing account"
+        }
+      ],
+      "known": [
+        "predicate",
+        "status",
+        "polarity",
+        "context",
+        "stage",
+        "time",
+        "attributes",
+        "roles.transferor",
+        "roles.recipient",
+        "roles.premises"
+      ],
+      "unknown": [
+        {
+          "affects": [
+            "predicate"
+          ],
+          "reason": "Whether the transfer was voluntary (father establishing sons in business) or involuntary (subletting/assignment) is not definitively resolved as a formal legal act of subletting/assignment/parting with possession under the Act, though the *",
+          "evidence": [
+            "p0002.s002@0:412"
+          ]
+        }
+      ],
+      "evidence": [
+        "p0001.s004",
+        "p0001.s005"
+      ]
+    },
+    {
+      "id": "f3",
+      "predicate": "SUBLET",
+      "text": "Appellants alleged first appellant sub-let, assigned or parted with possession of shop to other appellants. Rent Controller did not find evidence of subletting as no third party was involved; it was internal family arrangement.",
+      "roles": [
+        {
+          "name": "tenant",
+          "object": "o1"
+        },
+        {
+          "name": "subtenant",
+          "object": "o2"
+        },
+        {
+          "name": "subtenant",
+          "object": "o3"
+        },
+        {
+          "name": "premises",
+          "object": "o5"
+        }
+      ],
+      "status": "PARTY_CLAIMED",
+      "polarity": "NEGATIVE",
+      "speaker": "Appellants",
+      "stage": "Rent Controller",
+      "context": "MAIN_CASE",
+      "time": "1965-01-12",
+      "attributes": [
+        {
+          "name": "nature",
+          "value": "alleged subletting to family members"
+        }
+      ],
+      "known": [
+        "predicate",
+        "status",
+        "polarity",
+        "context",
+        "stage",
+        "time",
+        "attributes",
+        "roles.tenant",
+        "roles.subtenant",
+        "roles.premises"
+      ],
+      "unknown": [
+        {
+          "affects": [
+            "predicate",
+            "status"
+          ],
+          "reason": "Rent Controller rejected subletting claim as it was an internal family arrangement, not a sublet to a third party. Predicate status is PARTY_CLAIMED but effectively denied by court finding.",
+          "evidence": [
+            "p0001.s002",
+            "p0001.s004"
+          ]
+        }
+      ],
+      "evidence": [
+        "p0001.s002"
+      ]
+    },
+    {
+      "id": "f4",
+      "predicate": "ASSIGN",
+      "text": "Appellants alleged first appellant assigned shop to other appellants. Rent Controller did not find evidence of assignment as no formal assignment deed was produced and business was carried on jointly by family.",
+      "roles": [
+        {
+          "name": "assignor",
+          "object": "o1"
+        },
+        {
+          "name": "assignee",
+          "object": "o2"
+        },
+        {
+          "name": "assignee",
+          "object": "o3"
+        },
+        {
+          "name": "contract",
+          "object": null
+        }
+      ],
+      "status": "PARTY_CLAIMED",
+      "polarity": "NEGATIVE",
+      "speaker": "Appellants",
+      "stage": "Rent Controller",
+      "context": "MAIN_CASE",
+      "time": "1965-01-12",
+      "attributes": [
+        {
+          "name": "nature",
+          "value": "alleged assignment to family members"
+        }
+      ],
+      "known": [
+        "predicate",
+        "status",
+        "polarity",
+        "context",
+        "stage",
+        "time",
+        "attributes",
+        "roles.assignor",
+        "roles.assignee"
+      ],
+      "unknown": [
+        {
+          "affects": [
+            "predicate",
+            "status",
+            "roles.contract"
+          ],
+          "reason": "No formal assignment contract or deed was produced. Rent Controller found it was a family arrangement, not a legal assignment. Predicate status is PARTY_CLAIMED but effectively denied by court finding.",
+          "evidence": [
+            "p0001.s002",
+            "p0001.s004"
+          ]
+        }
+      ],
+      "evidence": [
+        "p0001.s002"
+      ]
+    },
+    {
+      "id": "f5",
+      "predicate": "CONSENT",
+      "text": "Counsel for appellants argued first appellant permitted second and third appellants to occupy half portion of shop for business purposes as a father establishing sons in life. This implies consent for possession.",
+      "roles": [
+        {
+          "name": "landlord",
+          "object": "o1"
+        },
+        {
+          "name": "tenant",
+          "object": "o2"
+        },
+        {
+          "name": "tenant",
+          "object": "o3"
+        },
+        {
+          "name": "premises",
+          "object": "o5"
+        }
+      ],
+      "status": "PARTY_CLAIMED",
+      "polarity": "POSITIVE",
+      "speaker": "Appellants",
+      "stage": "Supreme Court",
+      "context": "MAIN_CASE",
+      "time": null,
+      "attributes": [
+        {
+          "name": "basis",
+          "value": "natural father-son relationship"
+        }
+      ],
+      "known": [
+        "predicate",
+        "status",
+        "polarity",
+        "context",
+        "stage",
+        "time",
+        "attributes",
+        "roles.landlord",
+        "roles.tenant",
+        "roles.premises"
+      ],
+      "unknown": [
+        {
+          "affects": [
+            "status"
+          ],
+          "reason": "Rent Controller found exclusive possession and parting with possession, which may override the need for formal consent for eviction under the Act. Consent is claimed but not confirmed as a valid defense against eviction for parting with",
+          "evidence": [
+            "p0002.s002@0:412"
+          ]
+        }
+      ],
+      "evidence": [
+        "p0002.s002@0:412"
+      ]
+    },
+    {
+      "id": "f6",
+      "predicate": "FILE_PROCEEDING",
+      "text": "Respondent applied for ejectment of appellants from shop on January 12, 1965 under Delhi Rent Control Act, 1958. Rent Controller allowed application and directed ejectment. Appellants appealed to Rent Control Tribunal (dismissed) and High Court (dismissed). Present appeal preferred by special leave.",
+      "roles": [
+        {
+          "name": "filer",
+          "object": "o4"
+        },
+        {
+          "name": "respondent",
+          "object": "o1"
+        },
+        {
+          "name": "respondent",
+          "object": "o2"
+        },
+        {
+          "name": "respondent",
+          "object": "o3"
+        },
+        {
+          "name": "premises",
+          "object": "o5"
+        }
+      ],
+      "status": "COURT_FOUND",
+      "polarity": "POSITIVE",
+      "speaker": "Rent Controller",
+      "stage": "Rent Controller",
+      "context": "MAIN_CASE",
+      "time": "1965-01-12",
+      "attributes": [
+        {
+          "name": "ground",
+          "value": "subletting, assignment or parting with possession"
+        }
+      ],
+      "known": [
+        "predicate",
+        "status",
+        "polarity",
+        "context",
+        "stage",
+        "time",
+        "attributes",
+        "roles.filer",
+        "roles.respondent",
+        "roles.premises"
+      ],
+      "unknown": [
+        {
+          "affects": [
+            "status"
+          ],
+          "reason": "Current appeal status is unknown as Supreme Court judgment is withheld. Prior proceedings (Rent Controller, Tribunal, High Court) are known.",
+          "evidence": [
+            "p0001.s001",
+            "p0001.s002"
+          ]
+        }
+      ],
+      "evidence": [
+        "p0001.s001",
+        "p0001.s002"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "r1",
+      "op": "part_of",
+      "left": "f1",
+      "right": "f2",
+      "decision": "SUPPORTED",
+      "status": "COURT_FOUND",
+      "stage": "Rent Controller",
+      "context": "MAIN_CASE",
+      "reason": "Wooden partition wall dividing single door into two separate portions with separate locks establishes exclusive possession for second and third appellants, supporting the finding of parting with possession.",
+      "evidence": [
+        "p0001.s003",
+        "p0001.s004"
+      ]
+    },
+    {
+      "id": "r2",
+      "op": "part_of",
+      "left": "f3",
+      "right": "f2",
+      "decision": "DENIED",
+      "status": "COURT_FOUND",
+      "stage": "Rent Controller",
+      "reason": "Rent Controller found no evidence of subletting as it was an internal family arrangement, not involving a third party. Subletting claim is denied.",
+      "evidence": [
+        "p0001.s002",
+        "p0001.s004"
+      ],
+      "context": "MAIN_CASE"
+    },
+    {
+      "id": "r3",
+      "op": "part_of",
+      "left": "f4",
+      "right": "f2",
+      "decision": "SUPPORTED",
+      "status": "COURT_FOUND",
+      "stage": "Rent Controller",
+      "reason": "Rent Controller found first appellant parted with possession of portion to second and third appellants, rejecting joint business plea. This supports the finding of parting with possession.",
+      "evidence": [
+        "p0001.s004",
+        "p0001.s005"
+      ],
+      "context": "MAIN_CASE"
+    },
+    {
+      "id": "r4",
+      "op": "part_of",
+      "left": "f5",
+      "right": "f2",
+      "decision": "UNRESOLVED",
+      "status": "PARTY_CLAIMED",
+      "stage": "Supreme Court",
+      "reason": "Appellants claim father's consent for sons to occupy portion, but Rent Controller found parting with possession which may override consent defense. Supreme Court has not yet ruled on whether consent is valid defense against parting with",
+      "evidence": [
+        "p0002.s002@0:412"
+      ],
+      "context": "MAIN_CASE"
+    },
+    {
+      "id": "r5",
+      "op": "part_of",
+      "left": "f6",
+      "right": "f2",
+      "decision": "SUPPORTED",
+      "status": "COURT_FOUND",
+      "stage": "Rent Controller",
+      "reason": "Rent Controller allowed ejectment application based on parting with possession finding. This supports the filing of ejectment proceeding.",
+      "evidence": [
+        "p0001.s001",
+        "p0001.s002"
+      ],
+      "context": "MAIN_CASE"
+    }
+  ],
+  "coverage": "COMPLETE_FOR_TASK",
+  "limitations": [
+    "Supreme Court judgment is withheld; final decision on appeal not available."
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "type": "object",
+  "properties": {
+    "T1": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "NARRATED",
+            "PARTY_CLAIMED",
+            "COURT_FOUND",
+            "UNKNOWN"
+          ]
+        },
+        "origin": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "enum": [
+                "NARRATOR",
+                "PARTY",
+                "COUNSEL",
+                "COURT",
+                "UNKNOWN"
+              ]
+            },
+            "side": {
+              "enum": [
+                "APPELLANT",
+                "RESPONDENT",
+                "NOT_APPLICABLE",
+                "UNKNOWN"
+              ]
+            },
+            "mention": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "identity_evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "segment_id": {
+                    "enum": [
+                      "p0001.s001",
+                      "p0001.s002",
+                      "p0001.s003",
+                      "p0001.s004",
+                      "p0001.s005",
+                      "p0002.s002@0:412"
+                    ]
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 900
+                  }
+                },
+                "required": [
+                  "segment_id",
+                  "quote"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "role",
+            "side",
+            "mention",
+            "identity_evidence"
+          ],
+          "additionalProperties": false
+        },
+        "attribution_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_id": {
+                "enum": [
+                  "p0001.s001",
+                  "p0001.s002",
+                  "p0001.s003",
+                  "p0001.s004",
+                  "p0001.s005",
+                  "p0002.s002@0:412"
+                ]
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 900
+              }
+            },
+            "required": [
+              "segment_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 2
+        },
+        "finding_level": {
+          "enum": [
+            "LOWER_COURT",
+            "CURRENT_COURT",
+            "BOTH",
+            "NOT_SHOWN",
+            "UNKNOWN"
+          ]
+        },
+        "finding_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_id": {
+                "enum": [
+                  "p0001.s001",
+                  "p0001.s002",
+                  "p0001.s003",
+                  "p0001.s004",
+                  "p0001.s005",
+                  "p0002.s002@0:412"
+                ]
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 900
+              }
+            },
+            "required": [
+              "segment_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "status",
+        "origin",
+        "attribution_evidence",
+        "finding_level",
+        "finding_evidence"
+      ],
+      "additionalProperties": false
+    },
+    "T2": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "NARRATED",
+            "PARTY_CLAIMED",
+            "COURT_FOUND",
+            "UNKNOWN"
+          ]
+        },
+        "origin": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "enum": [
+                "NARRATOR",
+                "PARTY",
+                "COUNSEL",
+                "COURT",
+                "UNKNOWN"
+              ]
+            },
+            "side": {
+              "enum": [
+                "APPELLANT",
+                "RESPONDENT",
+                "NOT_APPLICABLE",
+                "UNKNOWN"
+              ]
+            },
+            "mention": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "identity_evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "segment_id": {
+                    "enum": [
+                      "p0001.s001",
+                      "p0001.s002",
+                      "p0001.s003",
+                      "p0001.s004",
+                      "p0001.s005",
+                      "p0002.s002@0:412"
+                    ]
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 900
+                  }
+                },
+                "required": [
+                  "segment_id",
+                  "quote"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "role",
+            "side",
+            "mention",
+            "identity_evidence"
+          ],
+          "additionalProperties": false
+        },
+        "attribution_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_id": {
+                "enum": [
+                  "p0001.s001",
+                  "p0001.s002",
+                  "p0001.s003",
+                  "p0001.s004",
+                  "p0001.s005",
+                  "p0002.s002@0:412"
+                ]
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 900
+              }
+            },
+            "required": [
+              "segment_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 2
+        },
+        "finding_level": {
+          "enum": [
+            "LOWER_COURT",
+            "CURRENT_COURT",
+            "BOTH",
+            "NOT_SHOWN",
+            "UNKNOWN"
+          ]
+        },
+        "finding_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "segment_id": {
+                "enum": [
+                  "p0001.s001",
+                  "p0001.s002",
+                  "p0001.s003",
+                  "p0001.s004",
+                  "p0001.s005",
+                  "p0002.s002@0:412"
+                ]
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 900
+              }
+            },
+            "required": [
+              "segment_id",
+              "quote"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "status",
+        "origin",
+        "attribution_evidence",
+        "finding_level",
+        "finding_evidence"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "T1",
+    "T2"
+  ],
+  "additionalProperties": false
+}

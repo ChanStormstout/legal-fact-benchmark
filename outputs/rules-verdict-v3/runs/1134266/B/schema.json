@@ -1,0 +1,1477 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "1134266"
+      ]
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "enum": [
+              "o1",
+              "o2",
+              "o3",
+              "o4",
+              "o5",
+              "o6",
+              "o7",
+              "o8",
+              "o9",
+              "o10",
+              "o11",
+              "o12",
+              "o13",
+              "o14",
+              "o15",
+              "o16"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "DOCUMENT",
+              "TRANSFER",
+              "PERMISSION",
+              "ACTOR",
+              "PROPERTY"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 140
+          },
+          "primary": {
+            "enum": [
+              true,
+              false
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "segment_id": {
+                  "enum": [
+                    "p0001.s003",
+                    "p0002.s001",
+                    "p0002.s002",
+                    "p0002.s003",
+                    "p0002.s004",
+                    "p0002.s005",
+                    "p0002.s006",
+                    "p0002.s007",
+                    "p0003.s001",
+                    "p0003.s002",
+                    "p0003.s003",
+                    "p0003.s004",
+                    "p0003.s005",
+                    "p0003.s006",
+                    "p0003.s007",
+                    "p0003.s008",
+                    "p0004.s001",
+                    "p0004.s002",
+                    "p0004.s003"
+                  ]
+                },
+                "quote": {
+                  "type": "string",
+                  "maxLength": 650
+                }
+              },
+              "required": [
+                "segment_id",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "label",
+          "primary",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 16
+    },
+    "atoms": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "registration"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "REGISTERED",
+                  "UNREGISTERED",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "form"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "WRITTEN",
+                  "ORAL",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "specificity"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "SPECIFIC",
+                  "GENERAL",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "role"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "LANDLORD",
+                  "TENANT",
+                  "OCCUPANT",
+                  "OTHER",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "parted_possession"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "YES",
+                  "NO",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "specific_written_landlord_consent_absent"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "YES",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "grantor"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "target"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "recipient"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "maxLength": 32
+              },
+              "subject": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16"
+                ]
+              },
+              "property": {
+                "enum": [
+                  "premises"
+                ]
+              },
+              "value": {
+                "enum": [
+                  "o1",
+                  "o2",
+                  "o3",
+                  "o4",
+                  "o5",
+                  "o6",
+                  "o7",
+                  "o8",
+                  "o9",
+                  "o10",
+                  "o11",
+                  "o12",
+                  "o13",
+                  "o14",
+                  "o15",
+                  "o16",
+                  "UNKNOWN"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NARRATED",
+                  "COURT_FOUND",
+                  "PARTY_CLAIMED",
+                  "UNKNOWN"
+                ]
+              },
+              "speaker": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "stage": {
+                "type": "string",
+                "maxLength": 90
+              },
+              "context": {
+                "enum": [
+                  "MAIN_CASE",
+                  "PRECEDENT"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "NONE",
+                  "VALUE",
+                  "PROPOSITION"
+                ]
+              },
+              "uncertainty_reason": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "segment_id": {
+                      "enum": [
+                        "p0001.s003",
+                        "p0002.s001",
+                        "p0002.s002",
+                        "p0002.s003",
+                        "p0002.s004",
+                        "p0002.s005",
+                        "p0002.s006",
+                        "p0002.s007",
+                        "p0003.s001",
+                        "p0003.s002",
+                        "p0003.s003",
+                        "p0003.s004",
+                        "p0003.s005",
+                        "p0003.s006",
+                        "p0003.s007",
+                        "p0003.s008",
+                        "p0004.s001",
+                        "p0004.s002",
+                        "p0004.s003"
+                      ]
+                    },
+                    "quote": {
+                      "type": "string",
+                      "maxLength": 650
+                    }
+                  },
+                  "required": [
+                    "segment_id",
+                    "quote"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "id",
+              "subject",
+              "property",
+              "value",
+              "status",
+              "speaker",
+              "stage",
+              "context",
+              "uncertainty",
+              "uncertainty_reason",
+              "evidence"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "maxItems": 24
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 220
+      },
+      "maxItems": 5
+    }
+  },
+  "required": [
+    "case_id",
+    "objects",
+    "atoms",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,109 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "1134266"
+      ]
+    },
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "enum": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ]
+          },
+          "answer_status": {
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNKNOWN",
+              "CONFLICT"
+            ]
+          },
+          "objects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "maxItems": 5
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "segment_id": {
+                  "enum": [
+                    "p0001.s003",
+                    "p0002.s001",
+                    "p0002.s002",
+                    "p0002.s003",
+                    "p0002.s004",
+                    "p0002.s005",
+                    "p0002.s006",
+                    "p0002.s007",
+                    "p0003.s001",
+                    "p0003.s002",
+                    "p0003.s003",
+                    "p0003.s004",
+                    "p0003.s005",
+                    "p0003.s006",
+                    "p0003.s007",
+                    "p0003.s008",
+                    "p0004.s001",
+                    "p0004.s002",
+                    "p0004.s003"
+                  ]
+                },
+                "quote": {
+                  "type": "string",
+                  "maxLength": 650
+                }
+              },
+              "required": [
+                "segment_id",
+                "quote"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 3
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 650
+          },
+          "missing": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 150
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "question_id",
+          "answer_status",
+          "objects",
+          "evidence",
+          "reason",
+          "missing"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    }
+  },
+  "required": [
+    "case_id",
+    "answers"
+  ],
+  "additionalProperties": false
+}
