@@ -38,7 +38,11 @@
     "outputs/rules-verdict-v4-attribution",
     "outputs/rules-verdict-v5-attribution-binding",
     "outputs/rules-verdict-v6-end-to-end",
-    "outputs/rules-verdict-v7-intermediate"
+    "outputs/rules-verdict-v7-intermediate",
+    "outputs/rules-verdict-v8-paired",
+    "outputs/rules-verdict-v9-final-examples",
+    "outputs/json-constraint-diagnosis-v1",
+    "outputs/rules-verdict-v10-constraint-recovery"
   ],
   "exclude_globs": [
     "*/__pycache__/*",
@@ -143,7 +147,30 @@
     "scripts/pipeline_v7.py",
     "legal_bench/rules_verdict_v1/intermediate_v7.py",
     "tests/test_intermediate_v7.py",
-    "scripts/report_pipeline_v7.py"
+    "scripts/report_pipeline_v7.py",
+    "scripts/pipeline_v8.py",
+    "legal_bench/rules_verdict_v1/checks_v8.py",
+    "legal_bench/rules_verdict_v1/intermediate_v8.py",
+    "legal_bench/rules_verdict_v1/repetition_v8.py",
+    "legal_bench/rules_verdict_v1/runtime_v8.py",
+    "tests/test_intermediate_v8.py",
+    "scripts/report_pipeline_v8.py",
+    "scripts/pipeline_v9.py",
+    "legal_bench/rules_verdict_v1/final_v9.py",
+    "legal_bench/rules_verdict_v1/runtime_v9.py",
+    "legal_bench/rules_verdict_v1/repetition_v9.py",
+    "tests/test_final_v9.py",
+    "scripts/report_pipeline_v9.py",
+    "legal_bench/mlx_json_constraint_v2.py",
+    "legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py",
+    "scripts/constraint_diagnosis_v1.py",
+    "scripts/audit_constraint_v1.py",
+    "scripts/audit_constraint_fix_v1.py",
+    "scripts/replay_constraint_result_v1.py",
+    "scripts/report_constraint_diagnosis_v1.py",
+    "tests/test_mlx_constraint_v2.py",
+    "scripts/pipeline_v10_recovery.py",
+    "scripts/report_pipeline_v10_recovery.py"
   ],
   "development_follow_up": {
     "latest_run": "outputs/local-qwen-pattern-eval-v10",
@@ -170,36 +197,25 @@
     "design_proposal": "docs/RESEARCH_DIRECTION.md",
     "pipeline_design": "docs/plans/rules-and-verdict-v1/PIPELINE.md",
     "implementation_plan": "docs/plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md",
-    "plan_status": "V7_BOUNDED_COMPARISON_FINISHED_NO_COMPLETE_PAIRS_INCONCLUSIVE",
+    "plan_status": "RECOVERED_PAIR_NO_SOURCE_VERIFIED_STRUCTURED_GAIN",
     "legal_end_to_end_experiment_completed": true,
     "implementation_status": {
-      "report": "outputs/rules-verdict-v7-intermediate/report-zh.txt",
-      "development_cases_run": 3,
-      "local_model_calls": 9,
+      "report": "outputs/rules-verdict-v10-constraint-recovery/report-zh.txt",
+      "development_cases_run": 1,
+      "new_intermediate_extractions": 0,
+      "local_model_calls": 1,
+      "reused_compatible_final_calls": 1,
       "web_reference_calls": 0,
       "retries": 0,
-      "new_cases_run": 0,
-      "stage": "RETROSPECTIVE_TWO_STAGE_INTERMEDIATE_ANALYSIS_COMPARISON",
       "complete_final_answers": 2,
-      "complete_paired_cases": 0,
-      "technical_failures": 4,
-      "decision": "BATCH_INDETERMINATE",
-      "primary_blocker": "OUTPUT_TRUNCATION_NO_COMPLETE_WITHIN_CASE_COMPARISONS",
-      "execution_path_completed": false,
+      "complete_paired_cases": 1,
+      "technical_failures": 0,
+      "decision": "PRIORITIZE_TEXT_FOR_CURRENT_DEVELOPMENT_PAIR",
+      "execution_path_completed": true,
       "bounded_run_completed": true,
       "whole_pipeline_capability_validated": false,
-      "full_legal_engine_complete": false,
-      "A2_outcomes": [
-        null,
-        null,
-        "UNDETERMINED"
-      ],
-      "B2_outcomes": [
-        null,
-        "UNDETERMINED",
-        null
-      ],
-      "scope_audit": "outputs/rules-verdict-v7-intermediate/inherited-scope-audit.json"
+      "scope_audit": "outputs/rules-verdict-v10-constraint-recovery/inherited-scope-audit.json",
+      "pair_scope": "Recovered final comparison using two old V8 intermediates; no new full two-stage run under corrected mask."
     },
     "attribution_follow_up": {
       "report": "outputs/rules-verdict-v4-attribution/report-zh.txt",
@@ -247,18 +263,109 @@
       ],
       "technical_failures": 0,
       "scope_audit": "outputs/rules-verdict-v6-end-to-end/scope-audit.json"
+    },
+    "previous_intermediate_status_v7": {
+      "report": "outputs/rules-verdict-v7-intermediate/report-zh.txt",
+      "development_cases_run": 3,
+      "local_model_calls": 9,
+      "web_reference_calls": 0,
+      "retries": 0,
+      "new_cases_run": 0,
+      "stage": "RETROSPECTIVE_TWO_STAGE_INTERMEDIATE_ANALYSIS_COMPARISON",
+      "complete_final_answers": 2,
+      "complete_paired_cases": 0,
+      "technical_failures": 4,
+      "decision": "BATCH_INDETERMINATE",
+      "primary_blocker": "OUTPUT_TRUNCATION_NO_COMPLETE_WITHIN_CASE_COMPARISONS",
+      "execution_path_completed": false,
+      "bounded_run_completed": true,
+      "whole_pipeline_capability_validated": false,
+      "full_legal_engine_complete": false,
+      "A2_outcomes": [
+        null,
+        null,
+        "UNDETERMINED"
+      ],
+      "B2_outcomes": [
+        null,
+        "UNDETERMINED",
+        null
+      ],
+      "scope_audit": "outputs/rules-verdict-v7-intermediate/inherited-scope-audit.json"
+    },
+    "previous_recovery_status_v8": {
+      "report": "outputs/rules-verdict-v8-paired/report-zh.txt",
+      "development_cases_run": 1,
+      "local_model_calls": 3,
+      "web_reference_calls": 0,
+      "retries": 0,
+      "complete_final_answers": 0,
+      "complete_paired_cases": 0,
+      "technical_failures": 1,
+      "skipped_calls": 1,
+      "decision": "FROZEN_CONFIG_69305_PAIR_INCOMPLETE_NO_GENERAL_MODEL_CLAIM",
+      "execution_path_completed": false,
+      "bounded_run_completed": true,
+      "whole_pipeline_capability_validated": false,
+      "scope_audit": "outputs/rules-verdict-v8-paired/inherited-scope-audit.json"
+    },
+    "constraint_diagnosis": {
+      "report": "outputs/json-constraint-diagnosis-v1/report-zh.txt",
+      "case": "69305",
+      "role": "SAME_B_INPUT_TECHNICAL_DIAGNOSIS",
+      "local_model_calls": 2,
+      "web_calls": 0,
+      "retries": 0,
+      "completed_outputs": 2,
+      "raw_identical": true,
+      "confirmed_bug": "LMFE_0_11_2_FREETEXT_COMPOSITE_QUOTE_TOKEN_OMISSION",
+      "default_adapter_fixed": true,
+      "legal_correctness_scored": false,
+      "new_A_B_comparison_completed": false,
+      "next_round_started": false
+    },
+    "previous_final_only_status_v9": {
+      "report": "outputs/rules-verdict-v9-final-examples/report-zh.txt",
+      "development_cases_run": 1,
+      "new_intermediate_extractions": 0,
+      "local_model_calls": 2,
+      "web_reference_calls": 0,
+      "retries": 0,
+      "complete_final_answers": 0,
+      "complete_paired_cases": 0,
+      "technical_failures": 2,
+      "skipped_calls": 0,
+      "decision": "COMBINED_FINAL_DUTIES_AND_EXAMPLES_DID_NOT_COMPLETE_69305",
+      "execution_path_completed": false,
+      "bounded_run_completed": true,
+      "whole_pipeline_capability_validated": false,
+      "scope_audit": "outputs/rules-verdict-v9-final-examples/inherited-scope-audit.json"
     }
   },
   "development_base_commit": "9ddc35d0a3b4b60fde11b3f669139ed38469aac3",
   "current_review": {
-    "title": "V7：结构化中间分析是否改善完整法律回答",
-    "report": "outputs/rules-verdict-v7-intermediate/report-zh.txt",
-    "summary": "三旧案回顾性开发比较：9次本地调用、2份完整最终回答、4个方法截断失败，没有同案完整配对。决定本批无法判断；B2漏掉下级法院认定并传播到最终理由，A2仍混淆部分法律与事实缺口。网页0、重试0。用户已追加本轮及后续完成轮次的推送授权；远端状态须核对提交。"
+    "title": "V10：约束修复后的69305完整同案比较",
+    "report": "outputs/rules-verdict-v10-constraint-recovery/report-zh.txt",
+    "summary": "仅补跑A一次，B复用相同配置的FIXED结果，V8两份中间结果不重抽。A/B均完整生成、均UNDETERMINED；A丢失可见下级可采性认定，B转移方式与原文及自身解释冲突。未见完整答案的可靠结构化增益，本案暂优先文本流程，但A也未验证正确；867个旧输出保持原字节。新调用1、复用最终1、网页0、重试0，本次按用户明确要求发布，原报告保留实验结束时的未推送状态。"
   },
   "publication_authorization": {
     "source": "Direct user request: 每次运行完要推送上去",
     "date": "2026-10-02",
     "scope": "After each completed run, update reports and review pack, inspect manifest, verify, commit allowlisted files and push registered development branch. Later explicit hold instructions override.",
-    "includes_current_v7": true
+    "includes_current_v7": true,
+    "current_v8_hold": "Explicit V8 instruction: local review pack only; no automatic push.",
+    "current_v9_hold": "Direct instruction: no GitHub push for final-only example development round.",
+    "current_constraint_diagnosis_hold": "Preserved explicit local-only hold; no automatic GitHub push in this debugging round.",
+    "current_v10_hold": "Local-only continuation after explicit no-push round; no automatic push.",
+    "latest_explicit_request": {
+      "source": "Direct user request: 你先 push 一次",
+      "date": "2026-10-02",
+      "scope": "Publish the current allowlisted completed code, documents, V8-V10 results and constraint diagnosis to the registered development branch. Overrides prior local-only holds for this one publication; does not authorize new experiments."
+    }
+  },
+  "frozen_method_snapshots": {
+    "outputs/local-qwen-pattern-eval-v3": {
+      "legal_bench/mlx_json_constraint.py": "outputs/local-qwen-pattern-eval-v3/method-snapshot/legal_bench/mlx_json_constraint.py"
+    }
   }
 }

@@ -28,3 +28,7 @@
 | rules-verdict-v5-attribution-binding | exposed_development_diagnostic | [文件](../outputs/rules-verdict-v5-attribution-binding/report-zh.txt) | 六处分类/法院层级一致；结构准入4、隔离2，仍有身份语义错误通过。不能据此确认端到端改进。 |
 | rules-verdict-v6-end-to-end | retrospective_exposed_development_full_path | [文件](../outputs/rules-verdict-v6-end-to-end/report-zh.txt) | 三案六次固定9B调用完成；B三案均无可用断言，A存在结论矛盾与不受来源支持的适用。共同提示含基础公式，全部按回顾性开发演示解释，不是预测验证。 |
 | rules-verdict-v7-intermediate | retrospective_development_comparison | [文件](../outputs/rules-verdict-v7-intermediate/report-zh.txt) | 三旧案两阶段对照，9次本地调用、2份完整最终回答、4个方法截断失败，无同案完整配对，结果无法判断优劣。部分事实可进入下游，但遗漏下级认定仍传播；模型辅助来源审阅，不是金标准。网页0、重试0，旧轮保留。 |
+| rules-verdict-v8-paired | bounded_same_case_recovery | [文件](../outputs/rules-verdict-v8-paired/report-zh.txt) | 69305；A/B第一阶段OK，A最终REPETITION_ABORT，B最终SKIPPED。3调用、无完整配对；只说明本冻结配置未完成。本轮不推送。 |
+| rules-verdict-v9-final-examples | final_only_exposed_development_validation | [文件](../outputs/rules-verdict-v9-final-examples/report-zh.txt) | 69305复用V8中间结果；两个完整示例与短字段职责一起改；A/B各一次最终生成均point重复中止，2调用、无完整答案；不推送。 |
+| json-constraint-diagnosis-v1 | same_input_constraint_debugging | [文件](../outputs/json-constraint-diagnosis-v1/report-zh.txt) | 69305 V9 B同输入：无约束/修复约束各一次，均OK、641 tokens且raw相同；第42个合法结束token被旧快速路径遗漏。默认入口已修复，5相关测试通过；不是法律正确性或A/B收益成绩，旧输出保留、本地不推送。 |
+| rules-verdict-v10-constraint-recovery | retrospective_recovered_final_pair | [文件](../outputs/rules-verdict-v10-constraint-recovery/report-zh.txt) | 69305修复后完整配对：A新调用一次/B复用兼容FIXED输出；均UNDETERMINED，A遗漏已有下级认定、B模式定性及assessment矛盾。未发现整体结构化收益，本案暂优先文本；不是独立测试或全新两阶段运行。本地不推送。 |

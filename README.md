@@ -14,7 +14,15 @@
 据此制定的[完整pipeline设计](docs/plans/rules-and-verdict-v1/PIPELINE.md)说明历史案例到规则库、
 新案到法源与请求结论的全部处理步骤；[实施与实验计划](docs/plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md)
 列出组件接口、模型与预算、最多5个开发案及10个新案的推进顺序、同信息对照和停止条件。
-最新[V7两阶段中间分析实验](outputs/rules-verdict-v7-intermediate/report-zh.txt)已按固定范围结束：三旧案、9次本地调用，A2文本笔记与B2部分事实加程序检查均由相同最终模型回答。仅2份最终回答完成，4个方法结果截断，没有同案完整配对，**本批无法判断结构化是否改善完整法律回答**。来源审阅另确认B2漏掉69305的下级认定并将遗漏传播到最终理由；A2仍混淆部分事实与法律缺口。[六个方法结果](outputs/rules-verdict-v7-intermediate/comparison-table.csv)与[原始答案入口](outputs/rules-verdict-v7-intermediate/final-answer-slots.md)保留失败，不以未知减少或JSON完成认领法律正确性。全套248项程序测试通过，网页0次、重试0次。完成轮次按[同步约定](docs/DEVELOPMENT_BRANCH.md)提交到开发分支。
+最新[V10恢复后的同案完整比较](outputs/rules-verdict-v10-constraint-recovery/report-zh.txt)仅补跑69305的A一次，B复用兼容的修复约束输出；两边均完整生成并回答`UNDETERMINED`。[比较表](outputs/rules-verdict-v10-constraint-recovery/comparison-table.csv)与[来源审阅](outputs/rules-verdict-v10-constraint-recovery/final-source-review.json)确认A遗漏可见下级认定，B转移方式定性与原文及自身解释冲突。**本案未显示可靠的整体结构化增益，暂优先文本流程继续开发，但A也未验证正确。** 两份旧中间结果没有重抽，这不是整套方法以新约束重新运行；仅是旧案最终阶段的开发配对。本轮新调用1、网页0、重试0。本次按用户明确要求发布，历史报告的未推送描述保留为实验结束时状态。
+
+此前[JSON约束层诊断与修复](outputs/json-constraint-diagnosis-v1/report-zh.txt)已定位一个可复现错误：自由文本快速路径屏蔽合法的字符串结束token `.",`。固定V9 B同一输入，去掉自定义约束及使用修复约束均正常生成641 tokens，输出逐字相同；旧输出在第42个token处分叉后重复。默认入口已修复，5项相关测试通过，V1–V9原文件未改。这是同一B输入的技术诊断，**没有新增A/B法律质量比较，也不证明生成的结论正确**；本轮仅更新本地审阅包，不推送。
+
+此前[V9最终生成开发验证](outputs/rules-verdict-v9-final-examples/report-zh.txt)复用69305的V8中间结果，加入两个完整虚构示例并合并重复字段职责。A、B各运行一次最终生成，均在首个`point`中重复止损，分别输出409和99 tokens；**没有完整法律答案，这组调整在本配置下仍未解决可用性问题**。[逐方法结果](outputs/rules-verdict-v9-final-examples/comparison-table.csv)保留两项技术失败，原始输出没有补写。2次本地调用、网页0、重试0；7项直接相关工程检查通过。有限来源对照不能代替未生成的完整判断，本轮未提交、未推送。
+
+此前[V8同案恢复比较](outputs/rules-verdict-v8-paired/report-zh.txt)已按停止规则结束：仅69305，A/B第一阶段完整，A最终回答触发同字段重复止损，B最终未运行。3次本地调用、网页0、重试0；**这份冻结配置仍未完成同案配对，无法判断方法收益**，不能推论9B或结构化方法普遍不适用。[结果表](outputs/rules-verdict-v8-paired/comparison-table.csv)保留技术失败和跳过；raw、token IDs、完整／紧凑检查及停止证据均已保存。13项相关程序测试及8项桥接测试通过。**本轮按明确要求只更新本地文件，不提交、不推送。**
+
+此前[V7两阶段中间分析实验](outputs/rules-verdict-v7-intermediate/report-zh.txt)已按固定范围结束：三旧案、9次本地调用，A2文本笔记与B2部分事实加程序检查均由相同最终模型回答。仅2份最终回答完成，4个方法结果截断，没有同案完整配对，**本批无法判断结构化是否改善完整法律回答**。来源审阅另确认B2漏掉69305的下级认定并将遗漏传播到最终理由；A2仍混淆部分事实与法律缺口。[六个方法结果](outputs/rules-verdict-v7-intermediate/comparison-table.csv)与[原始答案入口](outputs/rules-verdict-v7-intermediate/final-answer-slots.md)保留失败，不以未知减少或JSON完成认领法律正确性。全套248项程序测试通过，网页0次、重试0次。完成轮次按[同步约定](docs/DEVELOPMENT_BRANCH.md)提交到开发分支。
 
 此前[V2法源诊断](outputs/rules-verdict-v2/report-zh.txt)、[V3条件实验](outputs/rules-verdict-v3/report-zh.txt)、[V4归属诊断](outputs/rules-verdict-v4-attribution/report-zh.txt)、[V5身份绑定](outputs/rules-verdict-v5-attribution-binding/report-zh.txt)及[V6完整流程](outputs/rules-verdict-v6-end-to-end/report-zh.txt)均保留。V7继承V6的回顾性范围限制，未新增案件、法源、规则归纳或完整法律引擎。
 
@@ -25,7 +33,7 @@
 **当前状态：开发验证，整体可靠性尚未验证。** 此前关系任务的完整A/B比较使用固定的 Qwen3.5-9B-4bit，在8案、13道预定题上
 比较直接回答与“抽取后执行”。A全部完成，B一案输出截断；相对模型参考答案，5道正例
 均未识别。格式约束已让大部分输出可执行，但事实抽取仍有遗漏、状态与对象混淆。
-现已完成上述V7限定运行，仍没有完整配对的法律质量比较、独立测试准确率或可靠预测结论。
+现已完成上述V10同案最终阶段比较：完整生成已恢复，决定性语义错误仍存在；没有独立测试准确率或可靠预测结论。
 
 后续[v10开发诊断](outputs/local-qwen-pattern-eval-v10/report-zh.txt)把完整来源按事实类型拆开抽取，再逐对象对判断关系：
 2案6题，两个MATCH经原文检查有1个得到支持、1个转租类型错误，另4题UNKNOWN。

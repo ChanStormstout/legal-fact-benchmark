@@ -811,7 +811,10 @@ def prompt(source,method,tasks,semantics):
 ## legal_bench/mlx_json_constraint.py
 
 ```python
-"""MLX token-mask adapter for pinned LM Format Enforcer; no PyTorch needed."""
+"""MLX adapter with the versioned composite-quote correction; no PyTorch needed.
+
+Historical experiments must use their frozen adapter bytes, not this live entry.
+"""
 def tokenizer_data(tokenizer,eos_ids):
     from lmformatenforcer import TokenEnforcerTokenizerData
     zero=tokenizer.encode('0',add_special_tokens=False)[-1];special=set(tokenizer.all_special_ids);regular=[]
@@ -825,8 +828,9 @@ def tokenizer_data(tokenizer,eos_ids):
 
 class SchemaMask:
     def __init__(self,data,schema):
-        from lmformatenforcer import TokenEnforcer,JsonSchemaParser
-        self.enforcer=TokenEnforcer(data,JsonSchemaParser(schema));self.calls=0;self.prefix_length=None
+        from lmformatenforcer import JsonSchemaParser
+        from legal_bench.mlx_json_constraint_v2 import CompositeQuoteEnforcer
+        self.enforcer=CompositeQuoteEnforcer(data,JsonSchemaParser(schema));self.calls=0;self.prefix_length=None
     def __call__(self,tokens,logits):
         import mlx.core as mx
         ids=tokens.tolist()
@@ -834,7 +838,7 @@ class SchemaMask:
         generated=ids[self.prefix_length:]
         allowed=self.enforcer.get_allowed_tokens(generated).allowed_tokens
         if not allowed:raise ValueError('No valid constrained tokens; do not silently disable mask')
-        if any(i>=logits.shape[-1] for i in allowed):raise ValueError('Tokenizer/model vocabulary mismatch')
+        if any(i>=logits.shape[-1] or i<0 for i in allowed):raise ValueError('Tokenizer/model vocabulary mismatch')
         mask=mx.full((logits.shape[-1],),float('-inf'),dtype=logits.dtype)
         mask[mx.array(allowed)]=0
         self.calls+=1
@@ -4978,3 +4982,1741 @@ def main():
 if __name__=='__main__':main()
 
 ````
+
+## scripts/pipeline_v8.py
+
+```python
+"""Bounded V8: four sequential calls or immediate whole-round stop. Never retry."""
+import json,sys,time,subprocess
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.source_views import write_new,digest
+from legal_bench.rules_verdict_v1.runtime_v8 import SETTINGS
+from legal_bench.rules_verdict_v1.intermediate_v8 import *
+R=Path('outputs/rules-verdict-v8-paired');OLD=Path('outputs/rules-verdict-v7-intermediate');OUT=3072
+ORDER=[('A','stage1'),('B','stage1'),('A','final'),('B','final')]
+CODE=['scripts/pipeline_v8.py']+['legal_bench/rules_verdict_v1/'+x+'.py' for x in ['checks_v8','intermediate_v8','runtime_v8','repetition_v8','intermediate_v7','contracts','source_views']]+['legal_bench/mlx_json_constraint.py','tests/test_intermediate_v8.py','tests/test_intermediate_v7.py']
+def read(p):return json.loads(Path(p).read_text())
+def copy(a,b):
+ b.parent.mkdir(parents=True,exist_ok=True)
+ if b.exists():assert a.read_bytes()==b.read_bytes(),str(b)
+ else:b.write_bytes(a.read_bytes())
+def inputs():return read(R/'sources/69305.json'),read(R/'prepared/69305/law-package.json')
+def prepare():
+ for rel in ['sources/69305.json','prepared/69305/law-package.json','retrieval/69305/result.json','inherited-scope-audit.json']:copy(OLD/rel,R/rel)
+ s,p=inputs();case=[x['id'] for x in s['segments']];law=[x['id'] for x in p['law_segments']]
+ for arm in ['A','B']:
+  d=R/'prepared'/arm;d.mkdir(parents=True,exist_ok=True)
+  (d/'stage1-prompt.txt').write_text(first_prompt(s,p,arm));write_new(d/'stage1-schema.json',notes_schema(case+law) if arm=='A' else fact_schema(case));write_new(d/'final-schema.json',final_schema(case,law))
+ write_new(R/'freeze/templates.json',{'common':COMMON,'notes':NOTES,'facts':FACTS8,'final':FINAL,'final_order':['law package','intermediate','complete allowed source','shared final instructions']})
+ write_new(R/'protocol.json',{'review_parent':'a6550471a962775f366598c773f8ea7d3a3ba0ab','case':'69305','call_order':ORDER,'calls_max':4,'web_calls':0,'retries':0,'max_tokens':OUT,'total_budget':32768,'inference_wall_limit_seconds':1800,'failure':'Stop entire round on any non-OK; all remaining slots SKIPPED; no semantic repair or partial answer','repetition':'Four nonoverlapping identical contiguous 64-character substrings within one free-text JSON string; state across chunks, reset per string; intervening text permitted; enums and refs excluded','review':'Only if all four calls OK: one concentrated source review of decisive final grounds; model-assisted development review, no gold; assess proposition polarity independently of eviction direction','decision':'On technical failure only: frozen configuration did not complete paired 69305; no general model/framework conclusion. Otherwise retain lightweight structure / prefer text / common model or material limits leave benefit uncertain.','scope':'V7 retrospective exposed development material and limitations retained; no independent prediction','auto_push':False})
+ for name in CODE:copy(Path(name),R/'freeze/code'/name)
+ write_new(R/'freeze/config.json',{'settings':{**SETTINGS,'extract_max_tokens':OUT,'direct_max_tokens':OUT,'merge_max_tokens':OUT},'max_tokens':OUT,'actual_generation_parameters':{**{k:SETTINGS[k] for k in ['temperature','top_p','top_k','min_p','repetition_penalty','enable_thinking','prefill_step_size']},'max_tokens':OUT,'logits_processors':'SchemaMask'},'files':{str(x):digest(x.read_bytes()) for x in R.rglob('*') if x.is_file() and x.name!='config.json'},'live_code':{x:digest(Path(x).read_bytes()) for x in CODE},'frozen_epoch':time.time()})
+def verify():
+ f=read(R/'freeze/config.json')
+ for p,h in {**f['files'],**f['live_code']}.items():assert digest(Path(p).read_bytes())==h,p
+ return f
+
+def run():
+ from legal_bench.rules_verdict_v1.runtime_v8 import Runner
+ f=verify();runner=Runner(Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),f['settings']);s,p=inputs()
+ pre={a:len(runner.tokenizer.encode(runner.render((R/'prepared'/a/'stage1-prompt.txt').read_text()))) for a in ['A','B']}
+ base=len(runner.tokenizer.encode(runner.render(final_prompt(s,p,{}))))
+ from mlx_vlm.generate.types import GenerateKwargs
+ unsupported=set(f['actual_generation_parameters'])-set(GenerateKwargs.__annotations__)
+ write_new(R/'freeze/token-preflight.json',{'stage1_input_tokens':pre,'final_without_dynamic_intermediate':base,'final_dynamic_checked_before_each_call':True,'max_tokens':OUT,'total_budget':32768,'versions':runner.versions,'model_config_hash':runner.model_config_hash,'unsupported_parameters':sorted(unsupported),'thinking_off':all('<think>\n\n</think>' in runner.render((R/'prepared'/a/'stage1-prompt.txt').read_text())[-150:] for a in ['A','B'])})
+ if unsupported or max(pre.values())+OUT>32768 or base+OUT>32768:raise ValueError('Preflight failed without generation')
+ started=time.monotonic();rows=[];materials={};stop=None
+ for arm,stage in ORDER:
+  verify();out=R/'runs'/arm/stage
+  if stop:
+   row={'method':arm,'stage':stage,'run_status':'SKIPPED','answer_status':None,'reason':stop};write_new(out/'run.json',row);rows.append(row);continue
+  if stage=='stage1':prompt=(R/'prepared'/arm/'stage1-prompt.txt').read_text();schema=read(R/'prepared'/arm/'stage1-schema.json')
+  else:prompt=final_prompt(s,p,materials[arm]);schema=read(R/'prepared'/arm/'final-schema.json')
+  remaining=1800-(time.monotonic()-started)
+  if remaining<=0:
+   row={'run_status':'TIMEOUT','answer_status':None,'reason':'ROUND_BUDGET_BEFORE_CALL'};write_new(out/'run.json',row)
+  else:row=runner.run(prompt,schema,out,OUT,remaining)
+  rows.append({'method':arm,'stage':stage,**row})
+  if row['run_status']!='OK':stop=arm+'/'+stage+':'+row['run_status'];continue
+  data=read(out/'parsed.json')
+  if stage=='stage1':
+   material={'proposal':data}
+   if arm=='B':
+    full,restored=check_facts(data,s);compact,mapping=compact_checks(full)
+    write_new(R/'runs/B/program-checks-full.json',full);write_new(R/'runs/B/restored-sources.json',restored);write_new(R/'runs/B/program-checks-compact.json',compact);write_new(R/'runs/B/compact-trace-map.json',mapping)
+    material['program_checks']=compact
+   materials[arm]=material;write_new(R/'runs'/arm/'intermediate.json',material)
+   text=json.dumps(material,ensure_ascii=False,separators=(',',':'));checks=json.dumps(material.get('program_checks',{}),ensure_ascii=False,separators=(',',':'))
+   write_new(R/'runs'/arm/'intermediate-size.json',{'chars':len(text),'tokens':runner.count(text),'program_chars':len(checks) if arm=='B' else 0,'program_tokens':runner.count(checks) if arm=='B' else 0})
+ write_new(R/'results.json',{'rows':rows,'calls':sum('identity' in x for x in rows),'web_calls':0,'retries':0,'stop_reason':stop,'round_wall_seconds':time.monotonic()-started,'inference_seconds':sum(x.get('elapsed_seconds',0) for x in rows),'review_allowed':stop is None})
+ write_new(R/'stop.json',{'reason':stop or 'FOUR_CALLS_COMPLETED','no_further_calls':True,'remaining_slots_skipped':sum(x['run_status']=='SKIPPED' for x in rows)})
+if __name__=='__main__':
+ if sys.argv[1]=='prepare':prepare()
+ elif sys.argv[1]=='run':run()
+ else:verify()
+
+```
+
+## legal_bench/rules_verdict_v1/checks_v8.py
+
+```python
+"""Partial model-proposed facts and provenance-carrying candidate joins, never verdicts."""
+import itertools,json,collections
+from .contracts import obj,array,enum,nullable,validate
+S=lambda:{'type':'string'}
+STATUS=['NARRATED','COURT_FOUND','PARTY_CLAIMED','UNKNOWN']
+ROLE_FIELDS={'tenancies':['tenant','landlord','premises'],'transfers':['event','transferor','recipient','premises'],'times':['event'],'consents':['grantor','target','recipient','premises']}
+CATEGORIES=list(ROLE_FIELDS)
+
+def refs_schema(ids):return array(enum(ids),4)
+def notes_schema(ids):
+ return obj({'notes':array(obj({'id':S(),'kind':enum(['SUPPORT','OPPOSITION','RULE_SCOPE','LINK','UNCERTAINTY']),'point':S(),'refs':refs_schema(ids)}),6),'coverage_limits':S()})
+def fact_schema(ids):
+ refs=refs_schema(ids);mention=nullable(obj({'text':S(),'refs':refs}))
+ def row(fields):return obj({'id':S(),**fields,'status':enum(STATUS),'uncertain':array(S(),6),'refs':refs})
+ roles=lambda cat:{k:mention for k in ROLE_FIELDS[cat]}
+ return obj({'tenancies':array(row({**roles('tenancies'),'value':enum(['YES','NO','UNKNOWN'])}),3),
+  'transfers':array(row({**roles('transfers'),'mode':enum(['SUBLET','ASSIGN','PART_WITH_POSSESSION','NONE','UNKNOWN'])}),3),
+  'times':array(row({**roles('times'),'event_date':nullable(S()),'after_threshold':enum(['YES','NO','UNKNOWN'])}),3),
+  'consents':array(row({**roles('consents'),'form':enum(['WRITTEN','ORAL','UNKNOWN']),'polarity':enum(['YES','NO','UNKNOWN'])}),3),
+  'links':array(obj({'left':S(),'right':S(),'relation':enum(['SAME','DIFFERENT','UNKNOWN']),'status':enum(STATUS),'refs':refs}),6),
+  'coverage_limits':S()})
+def final_schema(ids):
+ evidence=obj({'statement':S(),'refs':refs_schema(ids)})
+ return obj({'outcome':enum(['SUPPORT_GROUND','OPPOSE_GROUND','UNDETERMINED','UNSUPPORTED']),
+  'decisive_facts':array(obj({'statement':S(),'objects':array(S(),4),'status':enum(STATUS),'refs':refs_schema(ids)}),4),
+  'rules':array(obj({'rule_id':S(),'scope_and_application':S(),'refs':refs_schema(ids)}),3),
+  'support':array(evidence,3),'opposition':array(evidence,3),
+  'gaps':obj({'case_facts':array(S(),4),'law_coverage':array(S(),4),'program_coverage':array(S(),4)}),
+  'reason':S(),'intermediate_use':S()})
+
+def check_facts(data,source):
+ """Source-address recovery, local fields and proposed joins. No semantic certification."""
+ validate(data,fact_schema([s['id'] for s in source['segments']]))
+ source_map={s['id']:s['text'] for s in source['segments']};restored={};records={};roles={};checks=[]
+ counts=collections.Counter(f['id'] for cat in CATEGORIES for f in data[cat])
+ def refs_ok(refs):
+  for sid in refs:
+   if sid in source_map:restored[sid]=source_map[sid]
+  return bool(refs) and all(s in source_map for s in refs)
+ for cat in CATEGORIES:
+  for f in data[cat]:
+   known=refs_ok(f['refs']);issue=[]
+   if counts[f['id']]!=1:issue.append('DUPLICATE_FACT_ID')
+   if not known:issue.append('MISSING_OR_INVALID_SOURCE_ADDRESS')
+   rs={}
+   for k in ROLE_FIELDS[cat]:
+    m=f[k];address=bool(m and refs_ok(m['refs']));anchor=bool(address and m['text'] and any(m['text'] in source_map[s] for s in m['refs']))
+    rs[k]={'state':'CANDIDATE_SOURCE_MENTION' if anchor else 'UNRESOLVED','proposal':m}
+    if counts[f['id']]==1:roles[f['id']+'.'+k]=rs[k]
+   prop='value' if cat=='tenancies' else 'mode' if cat=='transfers' else 'after_threshold' if cat=='times' else 'polarity'
+   blockers=list(issue)
+   allowed_uncertainty=set(ROLE_FIELDS[cat])|{'proposition','status','binding',prop,'event_date','form'}
+   if set(f['uncertain'])-allowed_uncertainty:blockers.append('UNKNOWN_UNCERTAINTY_SCOPE')
+   if f['status'] not in ['NARRATED','COURT_FOUND']:blockers.append('UNACCEPTED_OR_UNKNOWN_STATEMENT_STATUS')
+   if any(x in f['uncertain'] for x in ['proposition','status',prop]):blockers.append('PROPOSITION_OR_VALUE_UNCERTAIN')
+   if f[prop]=='UNKNOWN':blockers.append('VALUE_UNKNOWN')
+   if cat=='consents' and (f['form']!='WRITTEN' or 'form' in f['uncertain']):blockers.append('WRITTEN_SCOPE_NOT_ESTABLISHED')
+   for k in ROLE_FIELDS[cat]:
+    if k in f['uncertain'] or 'binding' in f['uncertain']:rs[k]['state']='UNRESOLVED'
+   # This signal is what the proposed statement says, not that it is true.
+   positive=f[prop]=='NO' if cat=='consents' else f[prop] in (['SUBLET','ASSIGN','PART_WITH_POSSESSION'] if cat=='transfers' else ['YES'])
+   signal='UNRESOLVED' if blockers else 'PROPOSED_SUPPORT' if positive else 'PROPOSED_OPPOSITION'
+   row={'id':f['id'],'category':cat,'signal':signal,'blockers':blockers,'roles':rs,'source_refs':f['refs'],'epistemic_status':'MODEL_PROPOSED_NOT_VERIFIED'}
+   checks.append(row)
+   if counts[f['id']]==1:records[f['id']]=row
+ link_checks=[]
+ for l in data['links']:
+  located=refs_ok(l['refs']);valid=l['left'] in roles and l['right'] in roles and located
+  link_checks.append({**l,'structural_state':'ADDRESSED_MODEL_PROPOSAL' if valid else 'UNRESOLVED_REFERENCE','semantic_verification':False})
+ join_trace=[]
+ def original_join(left,right):
+  a,b=roles.get(left),roles.get(right)
+  if not a or not b or a['state']=='UNRESOLVED' or b['state']=='UNRESOLVED':return {'state':'UNRESOLVED','basis':'MISSING_OR_UNCERTAIN_MENTION'}
+  relevant=[l for l in link_checks if {l['left'],l['right']}=={left,right} and l['structural_state']=='ADDRESSED_MODEL_PROPOSAL' and l['status'] in ['NARRATED','COURT_FOUND']]
+  values={l['relation'] for l in relevant}
+  if 'SAME' in values and 'DIFFERENT' in values:return {'state':'UNRESOLVED','basis':'CONFLICTING_MODEL_LINKS','links':relevant}
+  if 'DIFFERENT' in values:return {'state':'PROPOSED_DIFFERENT','basis':'SOURCE_ADDRESSED_MODEL_LINK','links':relevant}
+  if 'SAME' in values:return {'state':'PROPOSED_SAME','basis':'SOURCE_ADDRESSED_MODEL_LINK','links':relevant}
+  if 'UNKNOWN' in values:return {'state':'UNRESOLVED','basis':'MODEL_LINK_UNRESOLVED'}
+  ma,mb=a['proposal'],b['proposal'];shared=set(ma['refs'])&set(mb['refs'])
+  # Same paragraph or ID alone never licenses a join. A unique exact mention is only a candidate.
+  anchors=[s for s in sorted(shared) if ma['text']==mb['text'] and ma['text'] and source_map[s].count(ma['text'])==1]
+  if anchors:return {'state':'PROPOSED_SAME','basis':'SAME_UNIQUE_SOURCE_MENTION_CANDIDATE','refs':anchors}
+  return {'state':'UNRESOLVED','basis':'NO_SOURCE_ADDRESSED_COREFERENCE'}
+ def join(left,right):
+  result=original_join(left,right)
+  join_trace.append({'left':left,'right':right,'result':result})
+  return result
+ pair_checks=[]
+ for t in data['tenancies']:
+  for x in data['transfers']:
+   joins=[join(t['id']+'.tenant',x['id']+'.transferor'),join(t['id']+'.premises',x['id']+'.premises')]
+   pair_checks.append({'facts':[t['id'],x['id']],'kind':'TENANCY_TRANSFER','joins':joins})
+ # Candidate full combinations only, not legal effects; missing values never match.
+ combination_trace=[];complete=[];complete_count=0;combination_count=0;unresolved_count=0;opposed_count=0
+ for t,x,d,c in itertools.product(*(data[k] for k in CATEGORIES)):
+  combination_count+=1
+  pairs=[(t['id']+'.tenant',x['id']+'.transferor'),(t['id']+'.premises',x['id']+'.premises'),(d['id']+'.event',x['id']+'.event'),(c['id']+'.target',x['id']+'.event'),(c['id']+'.grantor',t['id']+'.landlord'),(c['id']+'.recipient',x['id']+'.recipient'),(c['id']+'.premises',x['id']+'.premises')]
+  js=[join(a,b) for a,b in pairs];rs=[records.get(f['id'],{}) for f in [t,x,d,c]]
+  trace={'facts':[f['id'] for f in [t,x,d,c]],'joins':js,'condition_signals':[r.get('signal') for r in rs]}
+  if any(j['state']=='PROPOSED_DIFFERENT' for j in js) or any(r.get('signal')=='PROPOSED_OPPOSITION' for r in rs):
+   opposed_count+=1;trace['state']='OPPOSED_PROPOSED_COMBINATION'
+  elif all(j['state']=='PROPOSED_SAME' for j in js) and all(r.get('signal')=='PROPOSED_SUPPORT' for r in rs):
+   trace['state']='COMPLETE_MODEL_PROPOSED_COMBINATION_NOT_LEGAL_CONCLUSION'
+   complete_count+=1
+   if len(complete)<4:complete.append({'facts':[f['id'] for f in [t,x,d,c]],'joins':js,'status':'COMPLETE_MODEL_PROPOSED_COMBINATION_NOT_LEGAL_CONCLUSION'})
+  else:
+   unresolved_count+=1;trace['state']='UNRESOLVED_PROPOSED_COMBINATION'
+  combination_trace.append(trace)
+ result={'all_join_trace':join_trace,'all_combination_trace':combination_trace,'record_checks':checks,'link_checks':link_checks,'tenancy_transfer_checks':pair_checks,
+   'combination_counts':{'enumerated':combination_count,'complete_model_proposed':complete_count,'unresolved':unresolved_count,'opposed_candidates_not_whole_case_negatives':opposed_count},
+   'complete_proposed_combinations':complete,'display_cap_complete':4,
+   'rule_configuration':'RESEARCHER_CONFIGURED_BASE_CONDITION_TRANSLATION_NOT_LEARNED_RULE; NO_RULE_ID_GATE',
+   'coverage_limits':['Source existence and exact mention do not establish meaning or co-reference.','Model statement status and threshold classification may be wrong; date arithmetic is not independently verified.','Document admissibility, corporate succession, statutory version and exceptions are not executed.','Empty combinations are not absence in reality.'],
+   'model_coverage_limits':data['coverage_limits'],'final_legal_conclusion':None}
+ return result,restored
+
+```
+
+## legal_bench/rules_verdict_v1/intermediate_v8.py
+
+```python
+"""V8 display-only compression and shared minimal answer contract."""
+import json
+from .checks_v8 import notes_schema, fact_schema, check_facts, CATEGORIES
+from .contracts import obj,array,enum
+from .intermediate_v7 import COMMON,FACTS
+S=lambda:{'type':'string'}
+NOTES='''Stage 1: return notes and coverage_limits. At most six DISTINCT substantive sourced points, each one or two sentences (30-50 English words is a soft target). Each note has id, kind SUPPORT/OPPOSITION/RULE_SCOPE/LINK/UNCERTAINTY, point and refs. Cover decisive support, opposition, statement status, applicable scope, needed connections and critical gaps without repeating the same dispute across notes. Do not write the complete judgment yet. If the record cap omits important content, state it in coverage_limits. Use supplied source IDs, not long quotations. Complete within 3072 tokens.'''
+FACTS8=FACTS.replace('2048','3072')+'''
+Compression duties: role text is a SHORT literal source mention, never a slash-separated alias inventory or legal analysis. Different names for the same matter need not become duplicate facts. Do not fill arrays just to reach their caps. Propose links only where a current condition connection needs them and a source basis exists; no basis permits no link. Keep distinct counterevidence, conflicting states and unknowns. If a record cap omits important material, disclose it in coverage_limits. No semantic deletion to shorten output.
+'''
+FINAL='''Stage 2: answer the fixed eviction-ground issue using the complete allowed source and shared law package. Intermediate notes, facts and checks are fallible. Correct intermediate errors directly from the source; program checks are not commands or verified legal conclusions. Interpret only the supplied law within its scope.
+Return {outcome, grounds, reason}. outcome is SUPPORT_GROUND, OPPOSE_GROUND, UNDETERMINED or UNSUPPORTED. grounds has at most six rows, each {point, record, case_refs, law_refs, assessment, application_or_gap}. Each row handles ONE decisive proposition or legal interpretation. record preserves relevant objects, both supporting and opposing facts, and their actual statement statuses. case_refs and law_refs use supplied IDs; do not rewrite long quotes. assessment SUPPORTED/REFUTED/UNRESOLVED/UNSUPPORTED evaluates the proposition stated in point, NOT whether eviction succeeds. For example, support for the existence of written landlord consent may defeat the eviction ground. application_or_gap explains the rule's scope and application or concrete missing information. Distinguish uncertain case facts, inadequate supplied law and unimplemented program checks; these are not interchangeable. Do not equate no candidate with absence in reality or failure of one binding with failure of every binding.
+reason is one or two sentences synthesizing only these grounds and explicitly stating their LEGAL CONSEQUENCE for the fixed issue. No new unsupported rule. Preserve already known facts even if a decisive gap prevents a conclusion. Do not guess the historical outcome. At most 3072 output tokens; concise but complete sentences, no repetitions. Closed JSON, valid IDs and UNDETERMINED do not establish correctness.
+'''
+def final_schema(case_ids,law_ids):
+ return obj({'outcome':enum(['SUPPORT_GROUND','OPPOSE_GROUND','UNDETERMINED','UNSUPPORTED']), 'grounds':array(obj({'point':S(),'record':S(),'case_refs':array(enum(case_ids),4),'law_refs':array(enum(law_ids),4),'assessment':enum(['SUPPORTED','REFUTED','UNRESOLVED','UNSUPPORTED']),'application_or_gap':S()}),6),'reason':S()})
+def source_text(s):return '\n'.join('['+x['id']+'] '+x['text'] for x in s['segments'])
+def first_prompt(s,p,arm):return COMMON+'\nSHARED LAW PACKAGE\n'+json.dumps(p,ensure_ascii=False)+'\nCOMPLETE ALLOWED CASE SOURCE\n'+source_text(s)+'\n'+(NOTES if arm=='A' else FACTS8)
+def final_prompt(s,p,material):return COMMON+'\nSHARED LAW PACKAGE\n'+json.dumps(p,ensure_ascii=False)+'\nINTERMEDIATE UNVERIFIED\n'+json.dumps(material,ensure_ascii=False,separators=(',',':'))+'\nCOMPLETE ALLOWED CASE SOURCE\n'+source_text(s)+'\n'+FINAL
+
+def compact_checks(full):
+ """Lossless distinct checks; proposals live once in separate material. No relevance selection."""
+ links=full['link_checks']; lookup={json.dumps(x,sort_keys=True):'L'+str(i+1) for i,x in enumerate(links)}
+ def result(r):
+  return {k:([lookup[json.dumps(x,sort_keys=True)] for x in v] if k=='links' else v) for k,v in r.items()}
+ joins=[];seen={};trace=[]
+ for i,x in enumerate(full['all_join_trace']):
+  key=json.dumps(x,sort_keys=True)
+  if key not in seen:
+   seen[key]='J'+str(len(joins)+1);joins.append({'id':seen[key],'left':x['left'],'right':x['right'],'result':result(x['result'])})
+  trace.append(seen[key])
+ # Call order: two joins per tenancy-transfer pair, then seven per combination.
+ offset=2*len(full['tenancy_transfer_checks'])
+ pairs=[{'facts':x['facts'],'joins':trace[2*i:2*i+2]} for i,x in enumerate(full['tenancy_transfer_checks'])]
+ combos=[{**{k:v for k,v in x.items() if k!='joins'},'joins':trace[offset+7*i:offset+7*i+7]} for i,x in enumerate(full['all_combination_trace'])]
+ view={'meaning':'Checks only assess what can be confirmed FROM MODEL PROPOSALS. They do not certify source meaning, whole-case absence or legal outcome. Consent PROPOSED_SUPPORT means proposed absence of written consent in the base formula, not support for consent existence.',
+ 'record_checks':[{**{k:v for k,v in x.items() if k not in ['roles','source_refs']},'roles':{k:v['state'] for k,v in x['roles'].items()},'full_path':'record_checks/'+str(i)} for i,x in enumerate(full['record_checks'])],
+ 'link_checks':[{'id':'L'+str(i+1),'proposal_path':'links/'+str(i),'structural_state':x['structural_state'],'semantic_verification':x['semantic_verification']} for i,x in enumerate(links)],
+ 'joins':joins,'tenancy_transfer_checks':pairs,'combinations':combos,'combination_counts':full['combination_counts'],'rule_configuration':full['rule_configuration'],'coverage_limits':full['coverage_limits'],'final_legal_conclusion':None}
+ return view,{'join_occurrences':trace,'omissions':'roles.proposal/source_refs and model_coverage_limits are in unchanged proposal; capped complete display superseded by ALL combinations; link content is in proposal.links; full checks preserved','full_join_count':len(trace)}
+
+```
+
+## legal_bench/rules_verdict_v1/repetition_v8.py
+
+```python
+"""Incremental JSON-string guard. Four nonoverlapping exact 64-character windows."""
+import json
+class RepetitionAbort(Exception):pass
+class StringGuard:
+ def __init__(self):
+  self.inside=False;self.escape=False;self.raw='';self.is_key=False;self.stack=[];self.last_key=None;self.windows={};self.decoded='';self.hit=None
+ def feed(self,chunk):
+  for ch in chunk:
+   if not self.inside:
+    if ch=='{':self.stack.append({'kind':'object','key':True,'name':None})
+    elif ch=='[':self.stack.append({'kind':'array','name':self.last_key})
+    elif ch in '}]':
+     if self.stack:self.stack.pop()
+    elif ch==',' and self.stack and self.stack[-1]['kind']=='object':self.stack[-1]['key']=True
+    elif ch==':' and self.stack:self.stack[-1]['key']=False
+    elif ch=='"':
+     self.inside=True;self.raw='';self.escape=False;self.windows={};self.decoded=''
+     self.is_key=bool(self.stack and self.stack[-1]['kind']=='object' and self.stack[-1]['key'])
+     self.field=(self.stack[-1].get('name') if self.stack and self.stack[-1]['kind']=='array' else self.last_key)
+    continue
+   if ch=='"' and not self.escape:
+    if self.is_key:
+     self.last_key=json.loads('"'+self.raw+'"')
+     if self.stack:self.stack[-1]['name']=self.last_key
+    self.inside=False;continue
+   self.raw+=ch
+   if ch=='\\' and not self.escape:self.escape=True
+   else:self.escape=False
+   if self.is_key or self.field not in {'point','coverage_limits','text','event_date','record','application_or_gap','reason'}:continue
+   try:value=json.loads('"'+self.raw+'"')
+   except (ValueError,json.JSONDecodeError):continue
+   for end in range(len(self.decoded)+1,len(value)+1):
+    if end<64:continue
+    window=value[end-64:end];pos=end-64;occ=self.windows.setdefault(window,[])
+    if not occ or pos>=occ[-1]+64:occ.append(pos)
+    if len(occ)>=4:
+     self.hit={'field':self.field,'fragment':window,'positions':occ[:4],'characters':64,'same_string_only':True}
+     raise RepetitionAbort('Four exact nonoverlapping fragments in one free-text string')
+   self.decoded=value
+
+```
+
+## legal_bench/rules_verdict_v1/runtime_v8.py
+
+```python
+"""Pinned MLX text-only runner; immutable attempts and hash-checked reuse."""
+import importlib.metadata
+import json
+import resource
+import signal
+import time
+import traceback
+from pathlib import Path
+from .source_views import digest, write_new
+from .contracts import validate
+from .repetition_v8 import StringGuard, RepetitionAbort
+
+SETTINGS = {
+    'model': 'mlx-community/Qwen3.5-9B-4bit',
+    'revision': '8b2b98c00a6b4d291155e4890773ca8f769aee53',
+    'mlx_vlm': '0.7.4', 'schema_enforcer': '0.11.2', 'total_budget': 32768,
+    'extract_max_tokens': 8192, 'direct_max_tokens': 4096, 'merge_max_tokens': 4096,
+    'temperature': 0.0, 'top_p': 1.0, 'top_k': 0, 'min_p': 0.0,
+    'repetition_penalty': 1.0, 'seed': 20261001, 'enable_thinking': False,
+    'prefill_step_size': 256, 'timeout_seconds': 1200,
+    'window_tokens': 4000, 'overlap_tokens': 400, 'media_input': False,
+}
+
+
+class Runner:
+    def __init__(self, model_path, settings=None):
+        self.settings = dict(SETTINGS if settings is None else settings)
+        for key in ['model', 'revision', 'mlx_vlm', 'schema_enforcer', 'enable_thinking']:
+            if self.settings[key] != SETTINGS[key]:
+                raise ValueError('Pinned runtime setting changed: ' + key)
+        path = Path(model_path).resolve()
+        if self.settings['revision'] not in path.parts:
+            raise ValueError('Local snapshot revision not verified')
+        self.versions = {name: importlib.metadata.version(name) for name in
+                         ['mlx-vlm', 'mlx', 'mlx-metal', 'transformers', 'lm-format-enforcer']}
+        if self.versions['mlx-vlm'] != self.settings['mlx_vlm'] or self.versions['lm-format-enforcer'] != self.settings['schema_enforcer']:
+            raise ValueError('Runtime version mismatch')
+        from mlx_vlm import load
+        from legal_bench.mlx_json_constraint import tokenizer_data
+        start = time.perf_counter()
+        self.model, self.processor = load(str(path))
+        self.tokenizer = self.processor.tokenizer if hasattr(self.processor, 'tokenizer') else self.processor
+        self.constraint_data = tokenizer_data(self.tokenizer, getattr(self.tokenizer, 'eos_token_ids', self.tokenizer.eos_token_id))
+        self.loaded_seconds = time.perf_counter() - start
+        self.model_config_hash = digest((path / 'config.json').read_bytes())
+
+    def count(self, text):
+        return len(self.tokenizer.encode(text, add_special_tokens=False))
+
+    def render(self, prompt):
+        from mlx_vlm.prompt_utils import apply_chat_template
+        return apply_chat_template(self.processor, self.model.config, prompt, enable_thinking=False, num_images=0, num_audios=0)
+
+    def run(self, prompt, schema, out, max_tokens, remaining_seconds=1800):
+        out = Path(out)
+        rendered = self.render(prompt)
+        identity = {'prompt_hash': digest(prompt.encode()), 'schema_hash': digest(schema),
+                    'settings_hash': digest(self.settings), 'max_tokens': max_tokens,
+                    'versions': self.versions, 'model_config_hash': self.model_config_hash}
+        if (out / 'run.json').exists():
+            previous = json.loads((out / 'run.json').read_text())
+            if previous['identity'] != identity:
+                raise ValueError('Refusing incompatible reuse')
+            return previous
+        if (out / 'start.json').exists():
+            raise ValueError('Incomplete attempt retained; explicit new attempt required, no silent retry')
+        out.mkdir(parents=True, exist_ok=True)
+        write_new(out / 'start.json', {'identity': identity, 'started_at_epoch': time.time()})
+        (out / 'prompt.txt').write_text(prompt)
+        (out / 'rendered.txt').write_text(rendered)
+        write_new(out / 'schema.json', schema)
+        prompt_tokens = len(self.tokenizer.encode(rendered))
+        empty_think = '<think>\n\n</think>' in rendered[-150:]
+        meta = {'identity': identity, 'settings': self.settings, 'run_status': None, 'answer_status': None,
+                'prompt_tokens': prompt_tokens, 'source_input_truncated': False,
+                'thinking_disabled_template_verified': empty_think, 'loaded_seconds': self.loaded_seconds}
+        if prompt_tokens + max_tokens > self.settings['total_budget'] or not empty_think:
+            meta.update(run_status='INPUT_TOO_LONG' if empty_think else 'UNSUPPORTED',
+                        reason='FULL_INPUT_EXCEEDS_BUDGET' if empty_think else 'THINKING_DISABLE_UNVERIFIED')
+            write_new(out / 'run.json', meta)
+            return meta
+        import mlx.core as mx
+        from mlx_vlm.generate import stream_generate
+        from mlx_vlm.generate.types import GenerateKwargs
+        from legal_bench.mlx_json_constraint import SchemaMask
+        mx.random.seed(self.settings['seed'])
+        mx.clear_cache()
+        mx.reset_peak_memory()
+        kwargs = {k: self.settings[k] for k in ['temperature', 'top_p', 'top_k', 'min_p',
+                  'repetition_penalty', 'enable_thinking', 'prefill_step_size']}
+        mask = SchemaMask(self.constraint_data, schema)
+        kwargs.update(max_tokens=max_tokens, logits_processors=[mask])
+        unsupported = set(kwargs) - set(GenerateKwargs.__annotations__)
+        if unsupported:
+            meta.update(run_status='UNSUPPORTED', reason='UNSUPPORTED_PARAMETERS:' + repr(sorted(unsupported)))
+            write_new(out / 'run.json', meta)
+            return meta
+        raw, last, start = '', None, time.perf_counter()
+        guard=StringGuard(); token_ids=[]
+        write_new(out / 'effective-parameters.json', {k:v for k,v in kwargs.items() if k!='logits_processors'})
+        def timeout(signum, frame):
+            raise TimeoutError('Single generation exceeded frozen timeout')
+        prior_handler = signal.signal(signal.SIGALRM, timeout)
+        signal.setitimer(signal.ITIMER_REAL, max(0.001,remaining_seconds))
+        print('START', out.name, 'input', prompt_tokens, flush=True)
+        try:
+            with (out / 'raw-response.txt').open('x') as handle:
+                for last in stream_generate(self.model, self.processor, rendered, image=None, audio=None, video=None, **kwargs):
+                    raw += last.text
+                    handle.write(last.text)
+                    handle.flush()
+                    if last.token_ids is not None:
+                        token_ids=list(last.token_ids)
+                    elif last.token is not None: token_ids.append(int(last.token))
+                    (out / 'token-ids-in-progress.json').write_text(json.dumps(token_ids))
+                    guard.feed(last.text)
+                    if last.generation_tokens % 256 == 0:
+                        print('PROGRESS', out.name, last.generation_tokens, round(time.perf_counter() - start, 1), flush=True)
+            if last is None:
+                raise ValueError('No generation result')
+            meta.update(output_tokens=last.generation_tokens, prompt_tokens_actual=last.prompt_tokens,
+                        finish_reason=last.finish_reason, thinking_output_present=('<think>' in raw or '</think>' in raw))
+            if last.finish_reason != 'stop':
+                meta['run_status'] = 'OUTPUT_TRUNCATED'
+            elif meta['thinking_output_present']:
+                meta.update(run_status='UNSUPPORTED', reason='THINKING_OUTPUT_DETECTED')
+            else:
+                parsed = json.loads(raw)
+                repairs=[]
+                validate(parsed, schema)
+                write_new(out / 'parsed.json', parsed)
+                meta.update(run_status='OK', format_repairs=repairs)
+        except Exception as exc:
+            status = 'REPETITION_ABORT' if isinstance(exc, RepetitionAbort) else 'TIMEOUT' if isinstance(exc, TimeoutError) else 'OUT_OF_MEMORY' if isinstance(exc, MemoryError) or 'out of memory' in str(exc).lower() else 'FORMAT_ERROR' if isinstance(exc, (ValueError, TypeError, KeyError)) else 'UNSUPPORTED'
+            meta.update(run_status=status, error=type(exc).__name__ + ': ' + str(exc), traceback=traceback.format_exc())
+        finally:
+            signal.setitimer(signal.ITIMER_REAL, 0)
+            signal.signal(signal.SIGALRM, prior_handler)
+        write_new(out / 'token-ids.json', token_ids)
+        meta.update(output_tokens=len(token_ids), effective_max_tokens=max_tokens, repetition_guard=guard.hit, framework_finish_reason=getattr(last,'finish_reason',None), finish_reason=(getattr(last,'finish_reason',None) or meta['run_status'].lower()), format_repairs=meta.get('format_repairs',[]))
+        meta.update(elapsed_seconds=time.perf_counter() - start, peak_mlx_memory_gb=mx.get_peak_memory() / 1e9,
+                    peak_rss_gb=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e9,
+                    raw_hash=digest(raw.encode()), schema_mask_calls=mask.calls,
+                    actual_parameters={k: v for k, v in kwargs.items() if k != 'logits_processors'})
+        write_new(out / 'run.json', meta)
+        print('END', out.name, meta['run_status'], round(meta['elapsed_seconds'], 1), flush=True)
+        return meta
+
+```
+
+## tests/test_intermediate_v8.py
+
+```python
+import unittest,json,copy,importlib.util
+from legal_bench.rules_verdict_v1.repetition_v8 import StringGuard,RepetitionAbort
+from legal_bench.rules_verdict_v1.intermediate_v8 import compact_checks,check_facts
+from legal_bench.rules_verdict_v1.intermediate_v7 import check_facts as oldcheck
+class V8Tests(unittest.TestCase):
+ def test_stream_guard(self):
+  fragment='abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!!'
+  raw=json.dumps({'notes':[{'point':fragment*4}]})
+  g=StringGuard()
+  with self.assertRaises(RepetitionAbort):
+   for ch in raw:g.feed(ch)
+  self.assertEqual(g.hit['field'],'point')
+ def test_separate_strings_not_repetition(self):
+  f='x'*64;g=StringGuard();g.feed(json.dumps({'point':f*3,'record':f*3,'case_refs':[f]*6}));self.assertIsNone(g.hit)
+ def test_escaped_chunks(self):
+  f='"\\\n'+('z'*61);raw=json.dumps({'reason':f*4});g=StringGuard()
+  with self.assertRaises(RepetitionAbort):
+   for i in range(0,len(raw),7):g.feed(raw[i:i+7])
+ def test_preserve_all_checks(self):
+  source={'segments':[{'id':'s','text':'T L P E R'}]};m=lambda t:{'text':t,'refs':['s']}
+  base={'status':'NARRATED','uncertain':[],'refs':['s']}
+  d={'tenancies':[dict(base,id='t'+str(i),tenant=m('T'),landlord=m('L'),premises=m('P'),value='YES') for i in range(3)],'transfers':[dict(base,id='x'+str(i),event=m('E'),transferor=m('T'),recipient=m('R'),premises=m('P'),mode='SUBLET') for i in range(3)],'times':[dict(base,id='d',event=m('E'),event_date=None,after_threshold='YES')],'consents':[dict(base,id='c',grantor=m('L'),target=m('E'),recipient=m('R'),premises=m('P'),form='WRITTEN',polarity='NO')],'links':[],'coverage_limits':'unresolved law'}
+  before=copy.deepcopy(d);full,_=check_facts(d,source);old,_=oldcheck(d,source)
+  self.assertEqual({k:full[k] for k in old},old)
+  compact,trace=compact_checks(full);self.assertEqual(len(compact['combinations']),9);self.assertEqual(full['combination_counts']['complete_model_proposed'],9)
+  self.assertEqual(d,before);self.assertEqual(len(compact['record_checks']),8)
+  self.assertNotIn('proposal',json.dumps(compact['record_checks']))
+  byid={j['id']:j for j in compact['joins']}
+  for orig,jid in zip(full['all_join_trace'],trace['join_occurrences']):
+   self.assertEqual({k:byid[jid][k] for k in ['left','right','result']},orig)
+  d['links']=[{'left':'t0.tenant','right':'x0.transferor','relation':r,'status':'NARRATED','refs':['s']} for r in ['SAME','DIFFERENT']]
+  full,_=check_facts(d,source);compact,_=compact_checks(full)
+  conflicts=[j for j in compact['joins'] if j['result']['basis']=='CONFLICTING_MODEL_LINKS'];self.assertTrue(conflicts);self.assertEqual(len(conflicts[0]['result']['links']),2)
+  self.assertEqual(len(compact['combinations']),9)
+if __name__=='__main__':unittest.main()
+
+```
+
+## scripts/report_pipeline_v8.py
+
+````python
+"""Post-run artifact collection only; no inference or semantic repair."""
+import csv,json,sys,hashlib
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.source_views import write_new,digest
+R=Path('outputs/rules-verdict-v8-paired')
+def read(p):return json.loads(p.read_text())
+def main():
+ data=read(R/'results.json');review=read(R/'final-source-review.json');table=[];answers=[]
+ for arm in ['A','B']:
+  runs=[x for x in data['rows'] if x['method']==arm];final=runs[-1];p=R/'runs'/arm/'final/parsed.json';answer=read(p) if p.exists() else None
+  rev=next((x for x in review.get('rows',[]) if x['method']==arm),{})
+  table.append({'case_id':'69305','method':arm,'outcome':answer['outcome'] if answer else None,'technical_status':final['run_status'],'failed_or_skipped_reason':final.get('reason',data['stop_reason']),'calls':sum('identity' in x for x in runs),'input_tokens':sum(x.get('prompt_tokens_actual',x.get('prompt_tokens',0)) for x in runs),'output_tokens':sum(x.get('output_tokens',0) for x in runs),'seconds':round(sum(x.get('elapsed_seconds',0) for x in runs),3),**rev})
+  answers.append('## '+arm+'\n\n'+final['run_status']+'\n\n```json\n'+json.dumps(answer,ensure_ascii=False,indent=2)+'\n```\n')
+ write_new(R/'comparison-table.json',table)
+ fields=list(dict.fromkeys(k for row in table for k in row))
+ with (R/'comparison-table.csv').open('x',newline='') as h:w=csv.DictWriter(h,fields);w.writeheader();w.writerows(table)
+ (R/'final-answer-slots.md').write_text('# V8 69305 final answers\n\nTechnical failure and SKIPPED have null answers, never reconstructed from partial output.\n\n'+'\n'.join(answers))
+ write_new(R/'costs.json',{'calls':data['calls'],'web_calls':0,'retries':0,'inference_seconds':data['inference_seconds'],'round_wall_seconds':data['round_wall_seconds'],'input_tokens':sum(x['input_tokens'] for x in table),'output_tokens':sum(x['output_tokens'] for x in table),'peak_mlx_memory_gb':max(x.get('peak_mlx_memory_gb',0) for x in data['rows']),'intermediate_sizes':{a:read(R/'runs'/a/'intermediate-size.json') for a in ['A','B'] if (R/'runs'/a/'intermediate-size.json').exists()},'equal_calls_not_equal_cost':True})
+ # Recover every final source address, without certifying support.
+ s=read(R/'sources/69305.json');law=read(R/'prepared/69305/law-package.json');source={x['id']:x['text'] for x in s['segments']+law['law_segments']}
+ recovered={}
+ for a in ['A','B']:
+  p=R/'runs'/a/'final/parsed.json'
+  if p.exists():recovered[a]=[{ 'ground_index':i,'references':{sid:source[sid] for sid in g['case_refs']+g['law_refs']}} for i,g in enumerate(read(p)['grounds'])]
+ write_new(R/'final-restored-sources.json',recovered)
+ audit=read(R/'start-audit.json');bad=[p for p,h in audit['prior_V1_V7_files'].items() if not Path(p).exists() or digest(Path(p).read_bytes())!=h]
+ draft='legal_bench/local_chunk_v11.py'
+ write_new(R/'preservation-check.json',{'prior_files_checked':len(audit['prior_V1_V7_files']),'changed_prior_files':bad,'existing_untracked_draft_unchanged':digest(Path(draft).read_bytes())==audit['code_hashes_before'][draft],'historical_outputs_byte_preserved':not bad})
+ assert not bad
+if __name__=='__main__':main()
+
+````
+
+## scripts/pipeline_v9.py
+
+```python
+"""Two final-only development calls; V8 completed intermediates are immutable inputs."""
+import json,sys,time,subprocess
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.source_views import write_new,digest
+from legal_bench.rules_verdict_v1.final_v9 import prompt,final_schema,compact_display,expand_display,EXAMPLES,FINAL
+R=Path('outputs/rules-verdict-v9-final-examples');OLD=Path('outputs/rules-verdict-v8-paired');OUT=3072
+CODE=['scripts/pipeline_v9.py','legal_bench/rules_verdict_v1/final_v9.py','legal_bench/rules_verdict_v1/runtime_v9.py','legal_bench/rules_verdict_v1/repetition_v9.py','legal_bench/rules_verdict_v1/intermediate_v7.py','legal_bench/rules_verdict_v1/intermediate_v8.py','legal_bench/rules_verdict_v1/checks_v8.py','legal_bench/rules_verdict_v1/source_views.py','legal_bench/rules_verdict_v1/contracts.py','legal_bench/mlx_json_constraint.py','tests/test_final_v9.py']
+def read(p):return json.loads(Path(p).read_text())
+def copy(src,dst):
+ dst.parent.mkdir(parents=True,exist_ok=True)
+ if dst.exists():assert src.read_bytes()==dst.read_bytes(),str(dst)
+ else:dst.write_bytes(src.read_bytes())
+def prepare():
+ for rel in ['sources/69305.json','prepared/69305/law-package.json','retrieval/69305/result.json','inherited-scope-audit.json']:copy(OLD/rel,R/rel)
+ for arm in ['A','B']:copy(OLD/'runs'/arm/'intermediate.json',R/'inherited'/arm/'intermediate-original.json')
+ for name in ['program-checks-full.json','program-checks-compact.json','compact-trace-map.json','restored-sources.json']:copy(OLD/'runs/B'/name,R/'inherited/B'/name)
+ source=read(R/'sources/69305.json');package=read(R/'prepared/69305/law-package.json');cids=[x['id'] for x in source['segments']];lids=[x['id'] for x in package['law_segments']]
+ sizes={}
+ for arm in ['A','B']:
+  material=read(R/'inherited'/arm/'intermediate-original.json')
+  if arm=='B':
+   previous=material['program_checks'];material['program_checks']=compact_display(previous)
+   assert expand_display(material['program_checks'])==previous
+   write_new(R/'prepared/B/display-integrity.json',{'exact_roundtrip':True,'all_combinations_retained':len(material['program_checks']['combinations']),'all_joins_retained':len(material['program_checks']['joins']),'compression':'Intern EXACT repeated result, condition_signals and state values; keep each distinct object binding and all source indices. No semantic modification or selection.'})
+  write_new(R/'prepared'/arm/'intermediate.json',material)
+  f=R/'prepared'/arm/'prompt.txt';f.parent.mkdir(parents=True,exist_ok=True);f.write_text(prompt(source,package,material));write_new(R/'prepared'/arm/'schema.json',final_schema(cids,lids))
+ write_new(R/'freeze/templates.json',{'final':FINAL,'examples':EXAMPLES,'input_order':['inherited common issue','two complete fictional examples','full target law package','unverified intermediate','full allowed target source','final output instructions']})
+ settings=read(OLD/'freeze/config.json')['settings']
+ protocol={'case':'69305','hypothesis':'Combined complete fictional examples and shorter nonoverlapping final field duties may permit complete source-grounded legal outputs; root cause unconfirmed, not isolated few-shot ablation.','calls':['A_FINAL','B_FINAL'],'max_calls':2,'web_calls':0,'retries':0,'max_tokens':OUT,'total_budget':32768,'round_wall_limit_seconds':1800,'per_call_limit_seconds':1200,'stop':'A FORMAT_ERROR/OUTPUT_TRUNCATED/REPETITION_ABORT does not cancel B. OOM or unsupported framework aborts remaining call; no retry or after-output changes. Stop after two attempts and one concentrated final-result source review.','repetition':'Unchanged V8 rule: within one free-text string, four nonoverlapping occurrences of an identical contiguous 64-character substring; occurrences need NOT be adjacent. Never combine fields. Add merged explanation field to same guard.','outcome_failure':None,'scope':'Exposed old-case retrospective development validation; no new sources, extraction or gold.','publication':'NO_COMMIT_OR_PUSH','base_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()}
+ write_new(R/'protocol.json',protocol)
+ for name in CODE:copy(Path(name),R/'freeze/code'/name)
+ write_new(R/'freeze/config.json',{'settings':settings,'max_tokens':OUT,'actual_parameters':{**{k:settings[k] for k in ['temperature','top_p','top_k','min_p','repetition_penalty','enable_thinking','prefill_step_size']},'max_tokens':OUT,'logits_processors':'SchemaMask'},'files':{str(p):digest(p.read_bytes()) for p in R.rglob('*') if p.is_file() and p.name!='config.json'},'live_code':{p:digest(Path(p).read_bytes()) for p in CODE},'frozen_epoch':time.time()})
+def verify():
+ f=read(R/'freeze/config.json')
+ for path,h in {**f['files'],**f['live_code']}.items():assert digest(Path(path).read_bytes())==h,path
+ return f
+def run():
+ from legal_bench.rules_verdict_v1.runtime_v9 import Runner
+ from mlx_vlm.generate.types import GenerateKwargs
+ f=verify();runner=Runner(Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),f['settings'])
+ unsupported=set(f['actual_parameters'])-set(GenerateKwargs.__annotations__)
+ pre=[]
+ for a in ['A','B']:
+  text=(R/'prepared'/a/'prompt.txt').read_text();rendered=runner.render(text);original=read(R/'inherited'/a/'intermediate-original.json');material=read(R/'prepared'/a/'intermediate.json');serial=lambda x:json.dumps(x,ensure_ascii=False,separators=(',',':'))
+  pre.append({'method':a,'input_tokens':len(runner.tokenizer.encode(rendered)),'max_output_tokens':OUT,'total_tokens':len(runner.tokenizer.encode(rendered))+OUT,'thinking_off_verified':'<think>\n\n</think>' in rendered[-150:],'intermediate_original_tokens':runner.count(serial(original)),'intermediate_display_tokens':runner.count(serial(material)),'program_original_tokens':runner.count(serial(original['program_checks'])) if a=='B' else 0,'program_display_tokens':runner.count(serial(material['program_checks'])) if a=='B' else 0})
+ write_new(R/'freeze/token-preflight.json',{'rows':pre,'versions':runner.versions,'model_config_hash':runner.model_config_hash,'unsupported_parameters':sorted(unsupported),'no_generation_yet':True,'source_truncated':False})
+ print('PREFLIGHT',json.dumps(pre),flush=True);start=time.monotonic();rows=[];environment_failure=None
+ for a in ['A','B']:
+  verify();out=R/'runs'/a
+  if environment_failure:
+   row={'run_status':'SKIPPED','answer_status':None,'reason':environment_failure};write_new(out/'run.json',row)
+  elif unsupported:
+   row={'run_status':'UNSUPPORTED','answer_status':None,'reason':'UNSUPPORTED_GENERATION_PARAMETERS'};write_new(out/'run.json',row);environment_failure=row['reason']
+  elif 1800-(time.monotonic()-start)<=0:
+   row={'run_status':'TIMEOUT','answer_status':None,'reason':'ROUND_TIME_BUDGET_EXHAUSTED'};write_new(out/'run.json',row)
+  else:
+   row=runner.run((R/'prepared'/a/'prompt.txt').read_text(),read(R/'prepared'/a/'schema.json'),out,OUT,min(1200,1800-(time.monotonic()-start)))
+   if row['run_status'] in ['OUT_OF_MEMORY','UNSUPPORTED']:environment_failure='Environment failure in '+a+':'+row['run_status']
+  rows.append({'method':a,**row})
+ write_new(R/'results.json',{'rows':rows,'local_generation_calls':sum('output_tokens' in x for x in rows),'attempts_with_saved_identity':sum('identity' in x for x in rows),'web_calls':0,'retries':0,'round_wall_seconds':time.monotonic()-start,'inference_seconds':sum(x.get('elapsed_seconds',0) for x in rows),'environment_failure':environment_failure,'concentrated_source_review_required':True,'development_only':True})
+ write_new(R/'stop.json',{'reason':environment_failure or 'TWO_FINAL_SLOTS_FINISHED','additional_calls_authorized':0,'no_auto_next_round':True})
+if __name__=='__main__':
+ {'prepare':prepare,'verify':verify,'run':run}[sys.argv[1]]()
+
+```
+
+## legal_bench/rules_verdict_v1/final_v9.py
+
+```python
+"""Complete fictional examples, nonoverlapping field duties, reversible display interning."""
+import copy,json
+from .contracts import obj,array,enum
+from .intermediate_v7 import COMMON
+from .intermediate_v8 import source_text
+S=lambda:{'type':'string'}
+
+def final_schema(case_ids,law_ids):
+ return obj({'outcome':enum(['SUPPORT_GROUND','OPPOSE_GROUND','UNDETERMINED','UNSUPPORTED']),
+ 'grounds':array(obj({'point':S(),'case_refs':array(enum(case_ids),4),'law_refs':array(enum(law_ids),4),'assessment':enum(['SUPPORTED','REFUTED','UNRESOLVED','UNSUPPORTED']),'explanation':S()}),6),'reason':S()})
+
+EXAMPLES=[{
+ 'label':'Fictional teaching example 1: fee claim (NOT target law or facts)',
+ 'question':'Does the supplied record establish the storage operator\'s fee-recovery ground?',
+ 'case_segments':[{'id':'EX1-C1','text':'The trial court found that keeper Olwen held crate C7 for owner Remi. It also found that waiver W4 applied to the storage charge for C7.'},{'id':'EX1-C2','text':'Olwen alleged that waiver W4 was ineffective, but the court rejected that allegation.'}],
+ 'law_segments':[{'id':'EX1-L1','text':'FICTIONAL TEACHING RULE ONLY: a keeper may recover this storage fee only if the keeper held the owner\'s crate and no court-approved waiver covers that same storage fee.'}],
+ 'answer':{'outcome':'OPPOSE_GROUND','grounds':[
+ {'point':'Olwen held Remi\'s crate C7.','case_refs':['EX1-C1'],'law_refs':['EX1-L1'],'assessment':'SUPPORTED','explanation':'The trial court expressly found Olwen\'s custody of Remi\'s C7, satisfying the custody condition for this fee.'},
+ {'point':'A court-approved waiver covers C7\'s storage fee.','case_refs':['EX1-C1','EX1-C2'],'law_refs':['EX1-L1'],'assessment':'SUPPORTED','explanation':'The court applied W4 to this same fee and rejected Olwen\'s contrary allegation. A supported waiver defeats the fictional rule\'s no-waiver requirement.'}
+ ],'reason':'Although custody is established, the court-approved waiver defeats a necessary condition for recovery. The supplied record therefore opposes this fee-recovery ground.'}
+},{
+ 'label':'Fictional teaching example 2: refund claim (NOT target law or facts)',
+ 'question':'Does the supplied record establish the purchaser\'s refund ground?',
+ 'case_segments':[{'id':'EX2-C1','text':'The trial court found that purchaser Iona cancelled order O8 from supplier Vale on 6 June.'},{'id':'EX2-C2','text':'Vale alleged that O8 had already been dispatched. The supplied record gives no dispatch date or court finding on dispatch, and contains no other evidence resolving that sequence.'}],
+ 'law_segments':[{'id':'EX2-L1','text':'FICTIONAL TEACHING RULE ONLY: a purchaser is entitled to this refund when cancellation of the same order occurred before its dispatch.'}],
+ 'answer':{'outcome':'UNDETERMINED','grounds':[
+ {'point':'Iona cancelled order O8 on 6 June.','case_refs':['EX2-C1'],'law_refs':['EX2-L1'],'assessment':'SUPPORTED','explanation':'The court expressly found the purchaser, order and cancellation date; the unknown dispatch sequence does not erase that finding.'},
+ {'point':'Cancellation of O8 preceded its dispatch.','case_refs':['EX2-C1','EX2-C2'],'law_refs':['EX2-L1'],'assessment':'UNRESOLVED','explanation':'Vale\'s prior-dispatch allegation is not a court finding. No dispatch date or other resolving evidence establishes which event occurred first for O8; this missing sequence is required by the fictional rule.'}
+ ],'reason':'Cancellation is established, but the required cancellation-before-dispatch condition remains unresolved. The supplied material cannot establish or refute the refund ground.'}
+}]
+
+FINAL='''FINAL TASK: Answer the fixed eviction-ground question using only the TARGET allowed source and TARGET law package supplied below. The fictional examples teach output organization only; their rules, objects and IDs cannot supply target evidence. Intermediate notes/proposals/checks are fallible. Re-read complete case text and correct intermediate errors; a source address or program check is not semantic certification or a verdict.
+Output one complete JSON object with outcome, grounds and reason, then END the answer. outcome is SUPPORT_GROUND, OPPOSE_GROUND, UNDETERMINED or UNSUPPORTED. Use at most six grounds, normally three to five where useful. Each ground has:
+point: only ONE short declarative proposition to assess, usually 8-20 words and one sentence. End this field after naming the proposition. No reasoning, rule application or whole verdict in point.
+case_refs: target case source IDs supporting this ground; law_refs: target LAW source IDs for its rule/scope. Empty arrays are allowed for a genuine absence of support, which must be explained. Do not cite teaching IDs, intermediate IDs or card IDs as source IDs.
+assessment: SUPPORTED, REFUTED, UNRESOLVED or UNSUPPORTED describes the truth/support of THIS point, not the eviction direction. A supported defense may defeat the ground. An uncertain condition is not disproved.
+explanation: usually one to three sentences (30-65 words is a soft target), stating relevant objects and events, who asserted what and whether a court adopted it, decisive supporting AND contrary evidence, and application of the supplied rule or the specific gap. Combine these duties here ONCE. Do not repeat another ground or give the full conclusion here. Preserve decisive limits even when short.
+reason: one or two sentences explaining what the grounds imply for the eviction issue; do not retell the case or add new rules.
+Keep case-fact uncertainty, supplied-law gaps and unimplemented program interpretation distinct. Missing names or dates matter only when decisive. A failed combination is not whole-case absence; no program witness is not contrary source evidence. Already established facts remain established when another condition is unresolved. Do not infer the withheld historical outcome. Concision is a writing goal, not permission to omit decisive evidence, cut strings or invent missing facts. Complete within the unchanged 3072-token budget.
+'''
+
+def prompt(source,package,material):
+ return (COMMON+'\nTWO COMPLETE FICTIONAL INPUT-OUTPUT EXAMPLES (output duties appear in final instructions)\n'+json.dumps(EXAMPLES,ensure_ascii=False,separators=(',',':'))+'\nEND OF TEACHING EXAMPLES. ONLY FOLLOWING TARGET MATERIAL MAY BE CITED.\nTARGET SHARED LAW PACKAGE\n'+json.dumps(package,ensure_ascii=False)+'\nTARGET INTERMEDIATE MATERIAL (UNVERIFIED)\n'+json.dumps(material,ensure_ascii=False,separators=(',',':'))+'\nTARGET COMPLETE ALLOWED CASE SOURCE\n'+source_text(source)+'\nFINAL TASK REMINDER\n'+FINAL)
+
+def compact_display(view):
+ """Intern exact repeated result/state values. No removal of any binding or source."""
+ out=copy.deepcopy(view);results={};signals={};states={}
+ def intern(table,value,prefix):
+  key=json.dumps(value,sort_keys=True,ensure_ascii=False)
+  if key not in table:table[key]=(prefix+str(len(table)+1),copy.deepcopy(value))
+  return table[key][0]
+ for j in out['joins']:j['result_ref']=intern(results,j.pop('result'),'R')
+ for c in out['combinations']:
+  c['condition_signals_ref']=intern(signals,c.pop('condition_signals'),'S')
+  c['state_ref']=intern(states,c.pop('state'),'C')
+ out['result_definitions']={k:v for k,v in results.values()};out['signal_definitions']={k:v for k,v in signals.values()};out['state_definitions']={k:v for k,v in states.values()}
+ return out
+
+def expand_display(view):
+ out=copy.deepcopy(view);rd=out.pop('result_definitions');sd=out.pop('signal_definitions');cd=out.pop('state_definitions')
+ for j in out['joins']:j['result']=rd[j.pop('result_ref')]
+ for c in out['combinations']:
+  c['condition_signals']=sd[c.pop('condition_signals_ref')];c['state']=cd[c.pop('state_ref')]
+ return out
+
+```
+
+## legal_bench/rules_verdict_v1/runtime_v9.py
+
+```python
+"""Pinned MLX text-only runner; immutable attempts and hash-checked reuse."""
+import importlib.metadata
+import json
+import resource
+import signal
+import time
+import traceback
+from pathlib import Path
+from .source_views import digest, write_new
+from .contracts import validate
+from .repetition_v9 import StringGuard, RepetitionAbort
+
+SETTINGS = {
+    'model': 'mlx-community/Qwen3.5-9B-4bit',
+    'revision': '8b2b98c00a6b4d291155e4890773ca8f769aee53',
+    'mlx_vlm': '0.7.4', 'schema_enforcer': '0.11.2', 'total_budget': 32768,
+    'extract_max_tokens': 8192, 'direct_max_tokens': 4096, 'merge_max_tokens': 4096,
+    'temperature': 0.0, 'top_p': 1.0, 'top_k': 0, 'min_p': 0.0,
+    'repetition_penalty': 1.0, 'seed': 20261001, 'enable_thinking': False,
+    'prefill_step_size': 256, 'timeout_seconds': 1200,
+    'window_tokens': 4000, 'overlap_tokens': 400, 'media_input': False,
+}
+
+
+class Runner:
+    def __init__(self, model_path, settings=None):
+        self.settings = dict(SETTINGS if settings is None else settings)
+        for key in ['model', 'revision', 'mlx_vlm', 'schema_enforcer', 'enable_thinking']:
+            if self.settings[key] != SETTINGS[key]:
+                raise ValueError('Pinned runtime setting changed: ' + key)
+        path = Path(model_path).resolve()
+        if self.settings['revision'] not in path.parts:
+            raise ValueError('Local snapshot revision not verified')
+        self.versions = {name: importlib.metadata.version(name) for name in
+                         ['mlx-vlm', 'mlx', 'mlx-metal', 'transformers', 'lm-format-enforcer']}
+        if self.versions['mlx-vlm'] != self.settings['mlx_vlm'] or self.versions['lm-format-enforcer'] != self.settings['schema_enforcer']:
+            raise ValueError('Runtime version mismatch')
+        from mlx_vlm import load
+        from legal_bench.mlx_json_constraint import tokenizer_data
+        start = time.perf_counter()
+        self.model, self.processor = load(str(path))
+        self.tokenizer = self.processor.tokenizer if hasattr(self.processor, 'tokenizer') else self.processor
+        self.constraint_data = tokenizer_data(self.tokenizer, getattr(self.tokenizer, 'eos_token_ids', self.tokenizer.eos_token_id))
+        self.loaded_seconds = time.perf_counter() - start
+        self.model_config_hash = digest((path / 'config.json').read_bytes())
+
+    def count(self, text):
+        return len(self.tokenizer.encode(text, add_special_tokens=False))
+
+    def render(self, prompt):
+        from mlx_vlm.prompt_utils import apply_chat_template
+        return apply_chat_template(self.processor, self.model.config, prompt, enable_thinking=False, num_images=0, num_audios=0)
+
+    def run(self, prompt, schema, out, max_tokens, remaining_seconds=1800):
+        out = Path(out)
+        rendered = self.render(prompt)
+        identity = {'prompt_hash': digest(prompt.encode()), 'schema_hash': digest(schema),
+                    'settings_hash': digest(self.settings), 'max_tokens': max_tokens,
+                    'versions': self.versions, 'model_config_hash': self.model_config_hash}
+        if (out / 'run.json').exists():
+            previous = json.loads((out / 'run.json').read_text())
+            if previous['identity'] != identity:
+                raise ValueError('Refusing incompatible reuse')
+            return previous
+        if (out / 'start.json').exists():
+            raise ValueError('Incomplete attempt retained; explicit new attempt required, no silent retry')
+        out.mkdir(parents=True, exist_ok=True)
+        write_new(out / 'start.json', {'identity': identity, 'started_at_epoch': time.time()})
+        (out / 'prompt.txt').write_text(prompt)
+        (out / 'rendered.txt').write_text(rendered)
+        write_new(out / 'schema.json', schema)
+        prompt_tokens = len(self.tokenizer.encode(rendered))
+        empty_think = '<think>\n\n</think>' in rendered[-150:]
+        meta = {'identity': identity, 'settings': self.settings, 'run_status': None, 'answer_status': None,
+                'prompt_tokens': prompt_tokens, 'source_input_truncated': False,
+                'thinking_disabled_template_verified': empty_think, 'loaded_seconds': self.loaded_seconds}
+        if prompt_tokens + max_tokens > self.settings['total_budget'] or not empty_think:
+            meta.update(run_status='INPUT_TOO_LONG' if empty_think else 'UNSUPPORTED',
+                        reason='FULL_INPUT_EXCEEDS_BUDGET' if empty_think else 'THINKING_DISABLE_UNVERIFIED')
+            write_new(out / 'run.json', meta)
+            return meta
+        import mlx.core as mx
+        from mlx_vlm.generate import stream_generate
+        from mlx_vlm.generate.types import GenerateKwargs
+        from legal_bench.mlx_json_constraint import SchemaMask
+        mx.random.seed(self.settings['seed'])
+        mx.clear_cache()
+        mx.reset_peak_memory()
+        kwargs = {k: self.settings[k] for k in ['temperature', 'top_p', 'top_k', 'min_p',
+                  'repetition_penalty', 'enable_thinking', 'prefill_step_size']}
+        mask = SchemaMask(self.constraint_data, schema)
+        kwargs.update(max_tokens=max_tokens, logits_processors=[mask])
+        unsupported = set(kwargs) - set(GenerateKwargs.__annotations__)
+        if unsupported:
+            meta.update(run_status='UNSUPPORTED', reason='UNSUPPORTED_PARAMETERS:' + repr(sorted(unsupported)))
+            write_new(out / 'run.json', meta)
+            return meta
+        raw, last, start = '', None, time.perf_counter()
+        guard=StringGuard(); token_ids=[]
+        write_new(out / 'effective-parameters.json', {k:v for k,v in kwargs.items() if k!='logits_processors'})
+        def timeout(signum, frame):
+            raise TimeoutError('Single generation exceeded frozen timeout')
+        prior_handler = signal.signal(signal.SIGALRM, timeout)
+        signal.setitimer(signal.ITIMER_REAL, max(0.001,remaining_seconds))
+        print('START', out.name, 'input', prompt_tokens, flush=True)
+        try:
+            with (out / 'raw-response.txt').open('x') as handle:
+                for last in stream_generate(self.model, self.processor, rendered, image=None, audio=None, video=None, **kwargs):
+                    raw += last.text
+                    handle.write(last.text)
+                    handle.flush()
+                    if last.token_ids is not None:
+                        token_ids=list(last.token_ids)
+                    elif last.token is not None: token_ids.append(int(last.token))
+                    (out / 'token-ids-in-progress.json').write_text(json.dumps(token_ids))
+                    guard.feed(last.text)
+                    if last.generation_tokens % 256 == 0:
+                        print('PROGRESS', out.name, last.generation_tokens, round(time.perf_counter() - start, 1), flush=True)
+            if last is None:
+                raise ValueError('No generation result')
+            meta.update(output_tokens=last.generation_tokens, prompt_tokens_actual=last.prompt_tokens,
+                        finish_reason=last.finish_reason, thinking_output_present=('<think>' in raw or '</think>' in raw))
+            if last.finish_reason != 'stop':
+                meta['run_status'] = 'OUTPUT_TRUNCATED'
+            elif meta['thinking_output_present']:
+                meta.update(run_status='UNSUPPORTED', reason='THINKING_OUTPUT_DETECTED')
+            else:
+                parsed = json.loads(raw)
+                repairs=[]
+                validate(parsed, schema)
+                write_new(out / 'parsed.json', parsed)
+                meta.update(run_status='OK', format_repairs=repairs)
+        except Exception as exc:
+            status = 'REPETITION_ABORT' if isinstance(exc, RepetitionAbort) else 'TIMEOUT' if isinstance(exc, TimeoutError) else 'OUT_OF_MEMORY' if isinstance(exc, MemoryError) or 'out of memory' in str(exc).lower() else 'FORMAT_ERROR' if isinstance(exc, (ValueError, TypeError, KeyError)) else 'UNSUPPORTED'
+            meta.update(run_status=status, error=type(exc).__name__ + ': ' + str(exc), traceback=traceback.format_exc())
+        finally:
+            signal.setitimer(signal.ITIMER_REAL, 0)
+            signal.signal(signal.SIGALRM, prior_handler)
+        write_new(out / 'token-ids.json', token_ids)
+        meta.update(output_tokens=len(token_ids), effective_max_tokens=max_tokens, repetition_guard=guard.hit, framework_finish_reason=getattr(last,'finish_reason',None), finish_reason=(getattr(last,'finish_reason',None) or meta['run_status'].lower()), format_repairs=meta.get('format_repairs',[]))
+        meta.update(elapsed_seconds=time.perf_counter() - start, peak_mlx_memory_gb=mx.get_peak_memory() / 1e9,
+                    peak_rss_gb=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e9,
+                    raw_hash=digest(raw.encode()), schema_mask_calls=mask.calls,
+                    actual_parameters={k: v for k, v in kwargs.items() if k != 'logits_processors'})
+        write_new(out / 'run.json', meta)
+        print('END', out.name, meta['run_status'], round(meta['elapsed_seconds'], 1), flush=True)
+        return meta
+
+```
+
+## legal_bench/rules_verdict_v1/repetition_v9.py
+
+```python
+"""Incremental JSON-string guard. Four nonoverlapping exact 64-character windows."""
+import json
+class RepetitionAbort(Exception):pass
+class StringGuard:
+ def __init__(self):
+  self.inside=False;self.escape=False;self.raw='';self.is_key=False;self.stack=[];self.last_key=None;self.windows={};self.decoded='';self.hit=None
+ def feed(self,chunk):
+  for ch in chunk:
+   if not self.inside:
+    if ch=='{':self.stack.append({'kind':'object','key':True,'name':None})
+    elif ch=='[':self.stack.append({'kind':'array','name':self.last_key})
+    elif ch in '}]':
+     if self.stack:self.stack.pop()
+    elif ch==',' and self.stack and self.stack[-1]['kind']=='object':self.stack[-1]['key']=True
+    elif ch==':' and self.stack:self.stack[-1]['key']=False
+    elif ch=='"':
+     self.inside=True;self.raw='';self.escape=False;self.windows={};self.decoded=''
+     self.is_key=bool(self.stack and self.stack[-1]['kind']=='object' and self.stack[-1]['key'])
+     self.field=(self.stack[-1].get('name') if self.stack and self.stack[-1]['kind']=='array' else self.last_key)
+    continue
+   if ch=='"' and not self.escape:
+    if self.is_key:
+     self.last_key=json.loads('"'+self.raw+'"')
+     if self.stack:self.stack[-1]['name']=self.last_key
+    self.inside=False;continue
+   self.raw+=ch
+   if ch=='\\' and not self.escape:self.escape=True
+   else:self.escape=False
+   if self.is_key or self.field not in {'point','coverage_limits','text','event_date','record','application_or_gap','reason','explanation'}:continue
+   try:value=json.loads('"'+self.raw+'"')
+   except (ValueError,json.JSONDecodeError):continue
+   for end in range(len(self.decoded)+1,len(value)+1):
+    if end<64:continue
+    window=value[end-64:end];pos=end-64;occ=self.windows.setdefault(window,[])
+    if not occ or pos>=occ[-1]+64:occ.append(pos)
+    if len(occ)>=4:
+     self.hit={'field':self.field,'fragment':window,'positions':occ[:4],'characters':64,'same_string_only':True}
+     raise RepetitionAbort('Four exact nonoverlapping fragments in one free-text string')
+   self.decoded=value
+
+```
+
+## tests/test_final_v9.py
+
+```python
+import json,unittest,copy
+from legal_bench.rules_verdict_v1.final_v9 import EXAMPLES,final_schema,compact_display,expand_display
+from legal_bench.rules_verdict_v1.contracts import validate
+from legal_bench.rules_verdict_v1.repetition_v9 import StringGuard,RepetitionAbort
+class FinalV9Tests(unittest.TestCase):
+ def test_complete_examples_valid(self):
+  for e in EXAMPLES:
+   validate(e['answer'],final_schema([x['id'] for x in e['case_segments']],[x['id'] for x in e['law_segments']]))
+   self.assertTrue(e['answer']['reason']);self.assertNotIn('maxLength',json.dumps(final_schema(['c'],['l'])))
+ def test_display_roundtrip_all_states(self):
+  v={'joins':[{'id':'J1','left':'a.x','right':'b.y','result':{'state':'UNRESOLVED','basis':'CONFLICT','links':['L1','L2']}},{'id':'J2','left':'a.x','right':'c.z','result':{'state':'PROPOSED_DIFFERENT','basis':'EXPLICIT_DIFFERENCE'}},{'id':'J3','left':'d.x','right':'e.y','result':{'state':'UNRESOLVED','basis':'CONFLICT','links':['L1','L2']}}],'combinations':[{'facts':['a','b'],'condition_signals':['SUPPORT','OPPOSITION'],'state':'OPPOSED','joins':['J1']},{'facts':['a','c'],'condition_signals':['SUPPORT','OPPOSITION'],'state':'OPPOSED','joins':['J2']},{'facts':['d','e'],'condition_signals':['UNKNOWN','SUPPORT'],'state':'UNKNOWN','joins':['J3']}],'sources':['s1','s2'],'coverage_limits':['Keep every conflict']}
+  original=copy.deepcopy(v);c=compact_display(v)
+  self.assertEqual(expand_display(c),original);self.assertEqual(v,original)
+  self.assertEqual(len(c['combinations']),3);self.assertEqual(len(c['result_definitions']),2)
+ def test_merged_field_has_same_guard(self):
+  f='abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!!';g=StringGuard()
+  with self.assertRaises(RepetitionAbort):
+   for ch in json.dumps({'explanation':' separator '.join([f]*4)}):g.feed(ch)
+  self.assertEqual(g.hit['field'],'explanation')
+  g=StringGuard();g.feed(json.dumps({'point':f*3,'explanation':f*3,'reason':f*3}));self.assertIsNone(g.hit)
+if __name__=='__main__':unittest.main()
+
+```
+
+## scripts/report_pipeline_v9.py
+
+````python
+"""Save final-only results and costs; no inference or semantic completion."""
+import csv,json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.source_views import write_new,digest
+R=Path('outputs/rules-verdict-v9-final-examples')
+def read(p):return json.loads(p.read_text())
+def main():
+ result=read(R/'results.json');review=read(R/'final-source-review.json');rows=[];answers=[];restore={};lengths={}
+ source=read(R/'sources/69305.json');law=read(R/'prepared/69305/law-package.json');byid={x['id']:x['text'] for x in source['segments']+law['law_segments']}
+ for r in result['rows']:
+  arm=r['method'];p=R/'runs'/arm/'parsed.json';ans=read(p) if r['run_status']=='OK' and p.exists() else None
+  v=next((x for x in review['rows'] if x['method']==arm),{})
+  rows.append({'case_id':'69305','method':arm,'run_status':r['run_status'],'outcome':ans['outcome'] if ans else None,'input_tokens':r.get('prompt_tokens_actual',r.get('prompt_tokens',0)),'output_tokens':r.get('output_tokens',0),'seconds':round(r.get('elapsed_seconds',0),3),'finish_reason':r.get('finish_reason'),'repetition_field':(r.get('repetition_guard') or {}).get('field'),**v})
+  answers.append('## '+arm+'\n\nRun status: '+r['run_status']+'\n\n```json\n'+json.dumps(ans,ensure_ascii=False,indent=2)+'\n```\n')
+  if ans:
+   restore[arm]=[{'ground_index':i,'point':g['point'],'references':{sid:byid[sid] for sid in g['case_refs']+g['law_refs']}} for i,g in enumerate(ans['grounds'])]
+   lengths[arm]={'grounds':[{ 'index':i,'point_words':len(g['point'].split()),'point_chars':len(g['point']),'explanation_words':len(g['explanation'].split()),'explanation_chars':len(g['explanation'])} for i,g in enumerate(ans['grounds'])],'reason_words':len(ans['reason'].split()),'no_string_cutting':True,'writing_targets_not_pass_fail_thresholds':True}
+ write_new(R/'comparison-table.json',rows)
+ with (R/'comparison-table.csv').open('x',newline='') as f:
+  w=csv.DictWriter(f,list(dict.fromkeys(k for row in rows for k in row)));w.writeheader();w.writerows(rows)
+ (R/'final-answer-slots.md').write_text('# V9 complete final answers only\n\nFailed outputs retain null answers; raw is saved without repairs.\n\n'+'\n'.join(answers))
+ write_new(R/'final-restored-sources.json',restore);write_new(R/'output-lengths.json',lengths)
+ write_new(R/'costs.json',{'local_calls':result['local_generation_calls'],'web_calls':0,'retries':0,'input_tokens':sum(x['input_tokens'] for x in rows),'output_tokens':sum(x['output_tokens'] for x in rows),'inference_seconds':result['inference_seconds'],'round_wall_seconds':result['round_wall_seconds'],'peak_mlx_memory_gb':max([x.get('peak_mlx_memory_gb',0) for x in result['rows']] or [0]),'load_seconds':next((x.get('loaded_seconds',0) for x in result['rows'] if 'identity' in x),0),'preflight':read(R/'freeze/token-preflight.json'),'equal_max_output_not_equal_input_cost':True})
+ audit=read(R/'start-audit.json');changed=[p for p,h in audit['old_output_hashes'].items() if not Path(p).exists() or digest(Path(p).read_bytes())!=h]
+ oldcode=[p for p,h in audit['preexisting_changes'].items() if p.startswith('legal_bench/') or p in ['scripts/pipeline_v8.py','scripts/report_pipeline_v8.py','tests/test_intermediate_v8.py'] if not Path(p).exists() or digest(Path(p).read_bytes())!=h]
+ assert not changed and not oldcode
+ write_new(R/'preservation-check.json',{'prior_V1_V8_output_files':len(audit['old_output_hashes']),'changed_old_output_files':changed,'modified_preexisting_experiment_code':oldcode,'original_local_chunk_v11_unchanged':digest(Path('legal_bench/local_chunk_v11.py').read_bytes())==audit['preexisting_changes']['legal_bench/local_chunk_v11.py']})
+ write_new(R/'source-hashes.json',{str(p.relative_to(R)):{'sha256':digest(p.read_bytes()),'same_bytes_as_v8':p.read_bytes()==(Path('outputs/rules-verdict-v8-paired')/p.relative_to(R)).read_bytes()} for p in [R/'sources/69305.json',R/'prepared/69305/law-package.json',R/'retrieval/69305/result.json',R/'inherited-scope-audit.json']})
+if __name__=='__main__':main()
+
+````
+
+## legal_bench/mlx_json_constraint_v2.py
+
+```python
+"""Versioned correction for composite string-ending tokens in LMFE 0.11.2.
+
+Keep the original character parser and fast cache; add exact tree traversal ONLY
+for tokens containing a non-leading, non-trailing quote that the fast free-text
+cache omits. No schema relaxation, forced delimiter or generated-text rewriting.
+"""
+from lmformatenforcer import TokenEnforcer,JsonSchemaParser
+from lmformatenforcer.tokenizerprefixtree import TokenizerPrefixTreeNode
+
+class CompositeQuoteEnforcer(TokenEnforcer):
+ def __init__(self,data,parser):
+  self.composite_tree=TokenizerPrefixTreeNode();self.composite_count=0
+  for tid,text,_ in data.regular_tokens:
+   if text and not text.startswith('"') and '"' in text[:-1]:
+    node=self.composite_tree
+    for ch in text:node=node.children.setdefault(ch,TokenizerPrefixTreeNode())
+    node.tokens.append(tid);self.composite_count+=1
+  super().__init__(data,parser)
+ def _collect_allowed_tokens(self,parser,tree_node,allowed_tokens,shortcut_key):
+  super()._collect_allowed_tokens(parser,tree_node,allowed_tokens,shortcut_key)
+  if isinstance(shortcut_key,tuple) and shortcut_key[0]=='json_freetext':
+   # None disables the shortcut only on this small supplementary tree.
+   super()._collect_allowed_tokens(parser,self.composite_tree,allowed_tokens,None)
+
+class SchemaMask:
+ def __init__(self,data,schema):
+  self.enforcer=CompositeQuoteEnforcer(data,JsonSchemaParser(schema));self.calls=0;self.prefix_length=None;self.history=[]
+ def __call__(self,tokens,logits):
+  import mlx.core as mx
+  ids=tokens.tolist()
+  if self.prefix_length is None:self.prefix_length=len(ids)
+  generated=ids[self.prefix_length:]
+  allowed=self.enforcer.get_allowed_tokens(generated).allowed_tokens
+  self.history.append({'call':self.calls,'processor_tokens':len(ids),'prefix_length':self.prefix_length,'generated_count':len(generated),'last_generated_id':generated[-1] if generated else None,'allowed_count':len(allowed)})
+  if not allowed:raise ValueError('No valid constrained tokens; do not silently disable mask')
+  if any(i>=logits.shape[-1] or i<0 for i in allowed):raise ValueError('Tokenizer/model vocabulary mismatch')
+  mask=mx.full((logits.shape[-1],),float('-inf'),dtype=logits.dtype);mask[mx.array(allowed)]=0;self.calls+=1
+  return logits+mask
+
+```
+
+## legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py
+
+```python
+"""Pinned MLX text-only runner; immutable attempts and hash-checked reuse."""
+import importlib.metadata
+import json
+import resource
+import signal
+import time
+import traceback
+from pathlib import Path
+from .source_views import digest, write_new
+from .contracts import validate
+from .repetition_v9 import StringGuard, RepetitionAbort
+
+SETTINGS = {
+    'model': 'mlx-community/Qwen3.5-9B-4bit',
+    'revision': '8b2b98c00a6b4d291155e4890773ca8f769aee53',
+    'mlx_vlm': '0.7.4', 'schema_enforcer': '0.11.2', 'total_budget': 32768,
+    'extract_max_tokens': 8192, 'direct_max_tokens': 4096, 'merge_max_tokens': 4096,
+    'temperature': 0.0, 'top_p': 1.0, 'top_k': 0, 'min_p': 0.0,
+    'repetition_penalty': 1.0, 'seed': 20261001, 'enable_thinking': False,
+    'prefill_step_size': 256, 'timeout_seconds': 1200,
+    'window_tokens': 4000, 'overlap_tokens': 400, 'media_input': False,
+}
+
+
+class Runner:
+    def __init__(self, model_path, settings=None):
+        self.settings = dict(SETTINGS if settings is None else settings)
+        for key in ['model', 'revision', 'mlx_vlm', 'schema_enforcer', 'enable_thinking']:
+            if self.settings[key] != SETTINGS[key]:
+                raise ValueError('Pinned runtime setting changed: ' + key)
+        path = Path(model_path).resolve()
+        if self.settings['revision'] not in path.parts:
+            raise ValueError('Local snapshot revision not verified')
+        self.versions = {name: importlib.metadata.version(name) for name in
+                         ['mlx-vlm', 'mlx', 'mlx-metal', 'transformers', 'lm-format-enforcer']}
+        if self.versions['mlx-vlm'] != self.settings['mlx_vlm'] or self.versions['lm-format-enforcer'] != self.settings['schema_enforcer']:
+            raise ValueError('Runtime version mismatch')
+        from mlx_vlm import load
+        from legal_bench.mlx_json_constraint import tokenizer_data
+        start = time.perf_counter()
+        self.model, self.processor = load(str(path))
+        self.tokenizer = self.processor.tokenizer if hasattr(self.processor, 'tokenizer') else self.processor
+        self.constraint_data = tokenizer_data(self.tokenizer, getattr(self.tokenizer, 'eos_token_ids', self.tokenizer.eos_token_id))
+        self.loaded_seconds = time.perf_counter() - start
+        self.model_config_hash = digest((path / 'config.json').read_bytes())
+
+    def count(self, text):
+        return len(self.tokenizer.encode(text, add_special_tokens=False))
+
+    def render(self, prompt):
+        from mlx_vlm.prompt_utils import apply_chat_template
+        return apply_chat_template(self.processor, self.model.config, prompt, enable_thinking=False, num_images=0, num_audios=0)
+
+    def run(self, prompt, schema, out, max_tokens, remaining_seconds=1800, constraint_mode="NONE"):
+        out = Path(out)
+        rendered = self.render(prompt)
+        identity = {'constraint_mode':constraint_mode, 'prompt_hash': digest(prompt.encode()), 'schema_hash': digest(schema),
+                    'settings_hash': digest(self.settings), 'max_tokens': max_tokens,
+                    'versions': self.versions, 'model_config_hash': self.model_config_hash}
+        if (out / 'run.json').exists():
+            previous = json.loads((out / 'run.json').read_text())
+            if previous['identity'] != identity:
+                raise ValueError('Refusing incompatible reuse')
+            return previous
+        if (out / 'start.json').exists():
+            raise ValueError('Incomplete attempt retained; explicit new attempt required, no silent retry')
+        out.mkdir(parents=True, exist_ok=True)
+        write_new(out / 'start.json', {'identity': identity, 'started_at_epoch': time.time()})
+        (out / 'prompt.txt').write_text(prompt)
+        (out / 'rendered.txt').write_text(rendered)
+        write_new(out / 'schema.json', schema)
+        prompt_tokens = len(self.tokenizer.encode(rendered))
+        empty_think = '<think>\n\n</think>' in rendered[-150:]
+        meta = {'identity': identity, 'settings': self.settings, 'run_status': None, 'answer_status': None,
+                'prompt_tokens': prompt_tokens, 'source_input_truncated': False, 'constraint_mode':constraint_mode,
+                'thinking_disabled_template_verified': empty_think, 'loaded_seconds': self.loaded_seconds}
+        if prompt_tokens + max_tokens > self.settings['total_budget'] or not empty_think:
+            meta.update(run_status='INPUT_TOO_LONG' if empty_think else 'UNSUPPORTED',
+                        reason='FULL_INPUT_EXCEEDS_BUDGET' if empty_think else 'THINKING_DISABLE_UNVERIFIED')
+            write_new(out / 'run.json', meta)
+            return meta
+        import mlx.core as mx
+        from mlx_vlm.generate import stream_generate
+        from mlx_vlm.generate.types import GenerateKwargs
+        from legal_bench.mlx_json_constraint_v2 import SchemaMask
+        mx.random.seed(self.settings['seed'])
+        mx.clear_cache()
+        mx.reset_peak_memory()
+        kwargs = {k: self.settings[k] for k in ['temperature', 'top_p', 'top_k', 'min_p',
+                  'repetition_penalty', 'enable_thinking', 'prefill_step_size']}
+        if constraint_mode not in ['NONE','FIXED']:raise ValueError('Unknown diagnostic mode')
+        class NoMask:
+            calls=0
+        mask = SchemaMask(self.constraint_data, schema) if constraint_mode=='FIXED' else NoMask()
+        kwargs.update(max_tokens=max_tokens)
+        if constraint_mode=='FIXED':kwargs['logits_processors']=[mask]
+        unsupported = set(kwargs) - set(GenerateKwargs.__annotations__)
+        if unsupported:
+            meta.update(run_status='UNSUPPORTED', reason='UNSUPPORTED_PARAMETERS:' + repr(sorted(unsupported)))
+            write_new(out / 'run.json', meta)
+            return meta
+        raw, last, start = '', None, time.perf_counter()
+        guard=StringGuard(); token_ids=[]
+        write_new(out / 'effective-parameters.json', {k:v for k,v in kwargs.items() if k!='logits_processors'})
+        def timeout(signum, frame):
+            raise TimeoutError('Single generation exceeded frozen timeout')
+        prior_handler = signal.signal(signal.SIGALRM, timeout)
+        signal.setitimer(signal.ITIMER_REAL, max(0.001,remaining_seconds))
+        print('START', out.name, 'input', prompt_tokens, flush=True)
+        try:
+            with (out / 'raw-response.txt').open('x') as handle:
+                for last in stream_generate(self.model, self.processor, rendered, image=None, audio=None, video=None, **kwargs):
+                    raw += last.text
+                    handle.write(last.text)
+                    handle.flush()
+                    if last.token_ids is not None:
+                        token_ids=list(last.token_ids)
+                    elif last.token is not None: token_ids.append(int(last.token))
+                    (out / 'token-ids-in-progress.json').write_text(json.dumps(token_ids))
+                    guard.feed(last.text)
+                    if last.generation_tokens % 256 == 0:
+                        print('PROGRESS', out.name, last.generation_tokens, round(time.perf_counter() - start, 1), flush=True)
+            if last is None:
+                raise ValueError('No generation result')
+            meta.update(output_tokens=last.generation_tokens, prompt_tokens_actual=last.prompt_tokens,
+                        finish_reason=last.finish_reason, thinking_output_present=('<think>' in raw or '</think>' in raw))
+            if last.finish_reason != 'stop':
+                meta['run_status'] = 'OUTPUT_TRUNCATED'
+            elif meta['thinking_output_present']:
+                meta.update(run_status='UNSUPPORTED', reason='THINKING_OUTPUT_DETECTED')
+            else:
+                parsed = json.loads(raw)
+                repairs=[]
+                validate(parsed, schema)
+                write_new(out / 'parsed.json', parsed)
+                meta.update(run_status='OK', format_repairs=repairs)
+        except Exception as exc:
+            status = 'REPETITION_ABORT' if isinstance(exc, RepetitionAbort) else 'TIMEOUT' if isinstance(exc, TimeoutError) else 'OUT_OF_MEMORY' if isinstance(exc, MemoryError) or 'out of memory' in str(exc).lower() else 'FORMAT_ERROR' if isinstance(exc, (ValueError, TypeError, KeyError)) else 'UNSUPPORTED'
+            meta.update(run_status=status, error=type(exc).__name__ + ': ' + str(exc), traceback=traceback.format_exc())
+        finally:
+            signal.setitimer(signal.ITIMER_REAL, 0)
+            signal.signal(signal.SIGALRM, prior_handler)
+        write_new(out / 'token-ids.json', token_ids)
+        if hasattr(mask,'history'):write_new(out / 'mask-history.json',mask.history)
+        meta.update(output_tokens=len(token_ids), effective_max_tokens=max_tokens, repetition_guard=guard.hit, framework_finish_reason=getattr(last,'finish_reason',None), finish_reason=(getattr(last,'finish_reason',None) or meta['run_status'].lower()), format_repairs=meta.get('format_repairs',[]))
+        meta.update(elapsed_seconds=time.perf_counter() - start, peak_mlx_memory_gb=mx.get_peak_memory() / 1e9,
+                    peak_rss_gb=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e9,
+                    raw_hash=digest(raw.encode()), schema_mask_calls=mask.calls,
+                    actual_parameters={k: v for k, v in kwargs.items() if k != 'logits_processors'})
+        write_new(out / 'run.json', meta)
+        print('END', out.name, meta['run_status'], round(meta['elapsed_seconds'], 1), flush=True)
+        return meta
+
+```
+
+## scripts/constraint_diagnosis_v1.py
+
+```python
+"""Bounded same-B-input diagnosis: mask disabled once, corrected mask once. No prompt tuning."""
+import json,sys,time
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.source_views import digest,write_new
+R=Path('outputs/json-constraint-diagnosis-v1');OLD=Path('outputs/rules-verdict-v9-final-examples')
+CODE=['scripts/constraint_diagnosis_v1.py','scripts/audit_constraint_v1.py','scripts/audit_constraint_fix_v1.py','legal_bench/mlx_json_constraint.py','legal_bench/mlx_json_constraint_v2.py','legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py','legal_bench/rules_verdict_v1/repetition_v9.py','legal_bench/rules_verdict_v1/source_views.py','legal_bench/rules_verdict_v1/contracts.py','tests/test_mlx_constraint_v2.py']
+def read(p):return json.loads(p.read_text())
+def copy(a,b):
+ b.parent.mkdir(parents=True,exist_ok=True)
+ if b.exists():assert b.read_bytes()==a.read_bytes(),str(b)
+ else:b.write_bytes(a.read_bytes())
+def prepare():
+ for name in ['prompt.txt','schema.json']:copy(OLD/'runs/B'/name,R/'prepared'/name)
+ for rel in ['sources/69305.json','prepared/69305/law-package.json']:copy(OLD/rel,R/'materials'/rel)
+ for name in CODE:copy(Path(name),R/'freeze/code'/name)
+ write_new(R/'protocol.json',{'case':'69305','input':'EXACT V9 B final prompt and schema, no legal or text changes','hypothesis':'Composite quote-bearing tokens omitted by LMFE free-text shortcut may prevent favored field endings; not all quote tokens are blocked. Offline reproduction independent of model inference.','calls':['NONE','FIXED'],'maximum_new_generation_calls':2,'web_calls':0,'retries':0,'settings':'EXACT V9 settings; max_tokens3072, context32768, greedy, repetition1, thinking off','guard':'Same-field exact 64-character fragment at four nonoverlapping positions, not necessarily adjacent. Stop incomplete output; do not rewrite.','stop':'Maximum two calls; same prompt and model; no sampling/framework scan. Stop remaining on OOM or unsupported environment. Otherwise each gets one attempt. Round1800sec, each at most1200sec. No additional legal experiment or automatic push.','diagnostic_scope':'Execution/format only; completion does not establish legal correctness or A/B efficacy.'})
+ write_new(R/'freeze/config.json',{'settings':read(OLD/'freeze/config.json')['settings'],'max_tokens':3072,'files':{str(p):digest(p.read_bytes()) for p in R.rglob('*') if p.is_file() and p.name!='config.json'},'live_code':{p:digest(Path(p).read_bytes()) for p in CODE},'created_epoch':time.time()})
+def verify():
+ f=read(R/'freeze/config.json')
+ for p,h in {**f['files'],**f['live_code']}.items():assert digest(Path(p).read_bytes())==h,p
+ return f
+def run():
+ from legal_bench.rules_verdict_v1.runtime_constraint_diag_v1 import Runner
+ f=verify();runner=Runner(Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),f['settings']);prompt=(R/'prepared/prompt.txt').read_text();schema=read(R/'prepared/schema.json');rendered=runner.render(prompt);n=len(runner.tokenizer.encode(rendered))
+ assert rendered==(OLD/'runs/B/rendered.txt').read_text()
+ write_new(R/'freeze/token-preflight.json',{'input_tokens':n,'max_tokens':3072,'total_budget':32768,'exact_v9_rendered_input':True,'prompt_hash':digest(prompt.encode()),'schema_hash':digest(schema),'versions':runner.versions,'model_config_hash':runner.model_config_hash,'thinking_off':True,'only_mode_difference':'NONE omits logits_processors; FIXED uses versioned corrected SchemaMask'})
+ started=time.monotonic();rows=[];stop=None
+ for mode in ['NONE','FIXED']:
+  verify();d=R/'runs'/mode
+  if stop or time.monotonic()-started>=1800:
+   row={'run_status':'SKIPPED','answer_status':None,'reason':stop or 'ROUND_BUDGET'};write_new(d/'run.json',row)
+  else:
+   row=runner.run(prompt,schema,d,3072,min(1200,1800-(time.monotonic()-started)),constraint_mode=mode)
+   if row['run_status'] in ['OUT_OF_MEMORY','UNSUPPORTED']:stop=mode+':'+row['run_status']
+  rows.append({'mode':mode,**row})
+ write_new(R/'results.json',{'rows':rows,'new_calls':sum('output_tokens' in x for x in rows),'web_calls':0,'retries':0,'inference_seconds':sum(x.get('elapsed_seconds',0) for x in rows),'round_seconds':time.monotonic()-started,'remaining_environment_failure':stop,'no_additional_calls':True})
+if __name__=='__main__':{'prepare':prepare,'verify':verify,'run':run}[sys.argv[1]]()
+
+```
+
+## scripts/audit_constraint_v1.py
+
+```python
+"""No inference. Replay V9 token histories, inspect terminators, force known valid JSON."""
+import json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.mlx_json_constraint import tokenizer_data,SchemaMask
+from legal_bench.rules_verdict_v1.source_views import write_new
+from transformers import AutoTokenizer
+from lmformatenforcer import TokenEnforcer,JsonSchemaParser
+R=Path('outputs/json-constraint-diagnosis-v1');OLD=Path('outputs/rules-verdict-v9-final-examples')
+tok=AutoTokenizer.from_pretrained(Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),local_files_only=True)
+data=tokenizer_data(tok,tok.eos_token_id);quotes=tok.encode('"',add_special_tokens=False)
+rows=[]
+for a in ['A','B']:
+ ids=json.loads((OLD/'runs'/a/'token-ids.json').read_text());schema=json.loads((OLD/'runs'/a/'schema.json').read_text());e=TokenEnforcer(data,JsonSchemaParser(schema));steps=[];bad=[]
+ for i in range(len(ids)+1):
+  allowed=e.get_allowed_tokens(ids[:i]).allowed_tokens
+  if i<len(ids) and ids[i] not in allowed:bad.append(i)
+  if i in [0,1,10,20,40,60,80,len(ids)] or (i>0 and tok.decode(ids[:i]).endswith('.')):
+   steps.append({'generated_tokens':i,'tail':tok.decode(ids[:i])[-160:],'allowed_count':len(allowed),'standalone_quote_id':quotes,'standalone_quote_allowed':len(quotes)==1 and quotes[0] in allowed,'eos_allowed':tok.eos_token_id in allowed})
+ raw=(OLD/'runs'/a/'raw-response.txt').read_text()
+ rows.append({'method':a,'decoded_sampled_ids_equals_raw':tok.decode(ids)==raw,'invalid_generated_token_indices':bad,'checkpoints':steps})
+# Legal-looking complete fixture but no inference or new reference answer.
+schema={'type':'object','properties':{'point':{'type':'string'},'explanation':{'type':'string'}},'required':['point','explanation'],'additionalProperties':False}
+sample=json.dumps({'point':'A stated claim.','explanation':'The statement is alleged; its truth is not established.'});ids=tok.encode(sample,add_special_tokens=False);e=TokenEnforcer(data,JsonSchemaParser(schema));bad=[]
+for i,t in enumerate(ids):
+ if t not in e.get_allowed_tokens(ids[:i]).allowed_tokens:bad.append({'i':i,'token':t,'decoded':tok.decode([t])})
+end=e.get_allowed_tokens(ids).allowed_tokens
+write_new(R/'offline-audit.json',{'rows':rows,'fixture':{'json':sample,'bad':bad,'eos_after_complete':tok.eos_token_id in end},'quote_token':quotes,'inference_calls':0})
+print(json.dumps({'quote_token':quotes,'methods':[{ 'method':x['method'],'bad':x['invalid_generated_token_indices'],'last':x['checkpoints'][-1]} for x in rows],'fixture_bad':bad,'eos':tok.eos_token_id in end},indent=2))
+
+```
+
+## scripts/audit_constraint_fix_v1.py
+
+```python
+"""No model inference: verify real tokenizer transitions after versioned fix."""
+import json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from transformers import AutoTokenizer
+from lmformatenforcer import TokenEnforcer,JsonSchemaParser
+from legal_bench.mlx_json_constraint import tokenizer_data
+from legal_bench.mlx_json_constraint_v2 import CompositeQuoteEnforcer
+from legal_bench.rules_verdict_v1.source_views import write_new
+R=Path('outputs/json-constraint-diagnosis-v1')
+t=AutoTokenizer.from_pretrained(Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),local_files_only=True);data=tokenizer_data(t,t.eos_token_id)
+schema={'type':'object','properties':{'point':{'type':'string'},'explanation':{'type':'string'}},'required':['point','explanation'],'additionalProperties':False}
+sample=json.loads((R/'offline-audit.json').read_text())['fixture']['json'];ids=t.encode(sample,add_special_tokens=False);old=TokenEnforcer(data,JsonSchemaParser(schema));new=CompositeQuoteEnforcer(data,JsonSchemaParser(schema));recovered=[];invalid=[]
+for i,tid in enumerate(ids):
+ before=old.get_allowed_tokens(ids[:i]).allowed_tokens;after=new.get_allowed_tokens(ids[:i]).allowed_tokens
+ if tid not in before and tid in after:recovered.append({'position':i,'token_id':tid,'text':t.decode([tid])})
+ if tid not in after:invalid.append(i)
+result={'inference_calls':0,'fixture':sample,'composite_quote_candidates':new.composite_count,'restored_legal_tokens':recovered,'invalid_tokens_after_fix':invalid,'eos_allowed_after_complete':t.eos_token_id in new.get_allowed_tokens(ids).allowed_tokens}
+assert not invalid and result['eos_allowed_after_complete']
+write_new(R/'offline-fix-audit.json',result);print(json.dumps(result,indent=2))
+
+```
+
+## scripts/replay_constraint_result_v1.py
+
+```python
+"""Post-run token replay; no model generation or answer repair."""
+import json
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from transformers import AutoTokenizer
+from lmformatenforcer import TokenEnforcer, JsonSchemaParser
+from legal_bench.mlx_json_constraint import tokenizer_data
+from legal_bench.mlx_json_constraint_v2 import CompositeQuoteEnforcer
+from legal_bench.rules_verdict_v1.source_views import write_new
+
+ROOT = Path('outputs/json-constraint-diagnosis-v1')
+read = lambda path: json.loads(path.read_text())
+tokenizer = AutoTokenizer.from_pretrained(
+    Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),
+    local_files_only=True)
+data = tokenizer_data(tokenizer, tokenizer.eos_token_id)
+schema = read(ROOT / 'prepared/schema.json')
+ids = read(ROOT / 'runs/FIXED/token-ids.json')
+old = TokenEnforcer(data, JsonSchemaParser(schema))
+new = CompositeQuoteEnforcer(data, JsonSchemaParser(schema))
+first_divergence = None
+for index, token in enumerate(ids):
+    assert token in new.get_allowed_tokens(ids[:index]).allowed_tokens, index
+    if first_divergence is None and token not in old.get_allowed_tokens(ids[:index]).allowed_tokens:
+        first_divergence = {'position': index, 'token_id': token,
+                            'decoded': tokenizer.decode([token]),
+                            'prefix_tail': tokenizer.decode(ids[:index])[-150:],
+                            'legacy_allowed': False, 'corrected_allowed': True}
+    # After a legacy-disallowed transition its parser state is not a valid trace;
+    # do not use later legacy states to make further claims.
+history = read(ROOT / 'runs/FIXED/mask-history.json')
+for index, row in enumerate(history):
+    assert row['call'] == index and row['generated_count'] == index
+    assert row['processor_tokens'] == index + row['prefix_length']
+    assert row['last_generated_id'] == (ids[index-1] if index else None)
+raw = (ROOT / 'runs/FIXED/raw-response.txt').read_text()
+assert tokenizer.decode(ids, skip_special_tokens=True) == raw
+assert raw == (ROOT / 'runs/NONE/raw-response.txt').read_text()
+assert first_divergence is not None
+write_new(ROOT / 'post-run-token-replay.json', {
+    'model_calls': 0, 'first_legacy_disallowed_transition': first_divergence,
+    'all_generated_tokens_allowed_by_corrected_mask': True,
+    'callback_count': len(history), 'generated_token_ids_including_eos': len(ids),
+    'prefix_tracking_matches_actual_token_ids': True,
+    'streamed_raw_matches_decoded_token_ids': True,
+    'no_mask_and_fixed_raw_identical': True,
+    'eos_last': ids[-1] == tokenizer.eos_token_id})
+print(json.dumps(first_divergence, indent=2))
+
+```
+
+## scripts/report_constraint_diagnosis_v1.py
+
+```python
+"""Record bounded constraint diagnosis and repair release; never generate or push."""
+import csv
+import hashlib
+import json
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.source_views import write_new
+
+ROOT = Path('outputs/json-constraint-diagnosis-v1')
+OLD = Path('outputs/rules-verdict-v9-final-examples/runs/B')
+read = lambda path: json.loads(path.read_text())
+sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
+start = read(ROOT / 'start-audit.json')
+changed = [name for name, value in start['old_outputs'].items()
+           if not Path(name).is_file() or sha(Path(name)) != value]
+assert not changed, changed
+frozen = read(ROOT / 'freeze/config.json')
+for name, value in frozen['files'].items():
+    assert sha(Path(name)) == value, name
+live_changes = {name: {'frozen_hash': value, 'current_hash': sha(Path(name))}
+                for name, value in frozen['live_code'].items() if sha(Path(name)) != value}
+assert set(live_changes) == {'legal_bench/mlx_json_constraint.py',
+                             'legal_bench/mlx_json_constraint_v2.py',
+                             'tests/test_mlx_constraint_v2.py'}
+write_new(ROOT / 'preservation-check.json', {
+    'previous_output_files_checked': len(start['old_outputs']),
+    'changed_previous_outputs': changed, 'frozen_run_files_unchanged': True,
+    'intentional_post_run_public_integration': live_changes,
+    'historical_reproduction': 'Use historical frozen source bytes. Live defaults now use the correction; do not reinterpret prior runs.'})
+release_files = ['legal_bench/mlx_json_constraint.py', 'legal_bench/mlx_json_constraint_v2.py',
+                 'tests/test_mlx_constraint_v2.py', 'scripts/replay_constraint_result_v1.py',
+                 'scripts/report_constraint_diagnosis_v1.py']
+for name in release_files:
+    dest = ROOT / 'release/code' / name
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    assert not dest.exists()
+    dest.write_bytes(Path(name).read_bytes())
+write_new(ROOT / 'release/manifest.json', {
+    'files': {name: sha(Path(name)) for name in release_files},
+    'role': 'Public adapter integration after frozen validation, no additional inference',
+    'new_generation_calls_after_integration': 0,
+    'tests': 'public-fix-tests.txt: 5 relevant tests passed in project MLX environment'})
+results = read(ROOT / 'results.json')
+legacy = read(OLD / 'run.json')
+replay = read(ROOT / 'post-run-token-replay.json')
+legacy_ids = read(OLD / 'token-ids.json')
+fixed_ids = read(ROOT / 'runs/FIXED/token-ids.json')
+index = next(i for i, (a, b) in enumerate(zip(legacy_ids, fixed_ids)) if a != b)
+assert index == replay['first_legacy_disallowed_transition']['position']
+write_new(ROOT / 'same-input-comparison.json', {
+    'prior_legacy_call_reused': True, 'new_calls': 2,
+    'first_legacy_vs_fixed_token_difference': index,
+    'legacy_token_id': legacy_ids[index], 'fixed_token_id': fixed_ids[index],
+    'matching_token_prefix': legacy_ids[:index] == fixed_ids[:index],
+    'same_prompt_schema_rendered_input': all(
+        (ROOT / 'runs' / mode / name).read_bytes() == (OLD / name).read_bytes()
+        for mode in ['NONE', 'FIXED'] for name in ['prompt.txt', 'schema.json', 'rendered.txt']),
+    'different_library_or_sampling_settings': False,
+    'not_a_new_A_vs_B_legal_comparison': True})
+rows = []
+for mode, row in [('LEGACY_V9_B_REUSED', legacy)] + [(r['mode'], r) for r in results['rows']]:
+    rows.append({'mode': mode, 'case': '69305', 'run_status': row['run_status'],
+                 'input_tokens': row['prompt_tokens'], 'output_tokens': row['output_tokens'],
+                 'seconds': round(row['elapsed_seconds'], 2),
+                 'peak_mlx_memory_gb': row.get('peak_mlx_memory_gb'),
+                 'finish_reason': row['finish_reason'],
+                 'answer_status': None, 'legal_correctness': 'NOT_SCORED',
+                 'raw': str((OLD if mode.startswith('LEGACY') else ROOT / 'runs' / mode) / 'raw-response.txt')})
+write_new(ROOT / 'comparison-table.json', {'role': 'SAME_B_INPUT_TECHNICAL_DIAGNOSIS', 'rows': rows})
+with (ROOT / 'comparison-table.csv').open('x') as handle:
+    writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+    writer.writeheader()
+    writer.writerows(rows)
+write_new(ROOT / 'final-source-review.json', {
+    'role': 'TECHNICAL_SOURCE_REVIEW_NOT_NEW_LEGAL_GOLD',
+    'basis': ['Installed MLX-VLM 0.7.4 processor/streaming source',
+              'Installed LM Format Enforcer 0.11.2 free-text shortcut source',
+              'Real tokenizer fixture', 'Frozen input and emitted token replay'],
+    'confirmed': ['Fast shortcut omits a legal composite string-ending token.',
+                  'Closing standalone quote was allowed; not all quote endings blocked.',
+                  'First actual divergence at token42 is legacy-blocked token10152.',
+                  'Fixed processor prefix counts match emitted token IDs.',
+                  'Decoded actual IDs equal raw, no duplicate append found.',
+                  'No-mask and fixed outputs identical and schema-valid.'],
+    'limitations': ['Only V9 B on case69305 was rerun; A and earlier failures were not rerun.',
+                    'Formatting completion is not legal correctness or proof of structured analysis benefit.',
+                    'Generated ground3 says SUPPORTED but its own explanation says unverified. This remains an answer-content issue, untouched by format repair.',
+                    'Program tests cover specific delimiter/type/enum/reference-state behaviors, not all possible schema semantics.'],
+    'web_calls': 0, 'new_reference_annotations': 0})
+(ROOT / 'final-answer-slots.md').write_text(
+    '# 同输入约束诊断输出\n\n本轮不是A/B法律质量比较。两份文件均为V9 B同一输入的最终生成。\n\n'
+    '[无自定义约束完整输出](runs/NONE/parsed.json)；[修复约束完整输出](runs/FIXED/parsed.json)。'
+    '两份输出原字节相同，均正常结束，法律正确性未评分。旧失败保留在V9。\n', encoding='utf-8')
+report = '''JSON约束层诊断与最小修复（69305，开发诊断）
+
+结论：找到并修复了约束层对合法字符串结束token的误屏蔽。本案V9 B的有界对照支持它是此次重复的直接触发因素；没有证据表明MLX-VLM发生崩溃或流式文本被重复追加。保留模型、框架、提示、Schema及生成设置，未继续改法律提示词。
+
+错误发生在哪里
+SchemaMask通过LM Format Enforcer 0.11.2取得允许token。该库的JSON自由文本快速路径缓存普通文本与以引号结束的token，随后只动态检查以引号开头的token；遗漏了以普通文字或标点开头、内部含结束引号并继续带JSON标点的合法token。Qwen的token10152是 .", 。逐字符Schema解析允许它，但原快速路径不允许。
+独立合法JSON测试复现了该问题。单独引号token1仍允许，所以不能说模型根本无法关闭字符串；被排除的是更自然的一次性结束方式。
+
+实际轨迹与比较
+原V9 B与本轮两次成功输出的前42个token相同。第42个（零起算）位置，本轮使用10152关闭第一个point；旧约束不允许10152，原输出改为1973，随后不断延长该字符串并触发重复止损。修复版全部实际token都被修复解析器允许，642次处理器回调的前缀长度及上一token与实际生成一致。流式raw也与token解码一致。
+
+方法                         状态                 输入token   输出token   秒
+原V9 B（只复用历史结果）      REPETITION_ABORT       16983        99        33.90
+同输入、无自定义约束          OK                     16983       641        58.84
+同输入、修复版约束            OK                     16983       641        65.54
+
+两份成功输出逐字相同，均finish_reason=stop，未触发重复保护，严格JSON解析与原Schema检查通过，没有格式修补。每次max_tokens仍3072，总上下文32768，完整输入未截断，thinking关闭。新调用2次、网页0次、重试0次；推理合计124.37秒。MLX峰值分别7.316/7.319GB，这不是整机总内存峰值。实际token IDs、参数、raw和回调轨迹均保留。
+模型revision为8b2b98c00a6b4d291155e4890773ca8f769aee53，MLX-VLM0.7.4，LM Format Enforcer0.11.2。greedy、seed20261001、repetition_penalty1等保持不变。新对照没有跑A，因此不是恢复后的A/B方法收益比较。
+
+修复方法及验证边界
+新增版本化CompositeQuoteEnforcer：保留原Schema字符解析与快速缓存，仅对快速路径遗漏的复合引号token补做完整逐字符校验。实际tokenizer有471个此类候选，并非全部都准许；每个仍须通过当前解析状态。没有强制关闭字段、放宽Schema、删除重复文字或补齐答案。
+先冻结修复版进行上述调用，随后默认mlx_json_constraint.py接入同一修复enforcer。运行时源码和后续公共接入源码分开保存在freeze/code与release/code。5项相关程序测试通过，覆盖复合结束、必要字段/额外字段、类型/枚举、转义引号、EOS及公共入口前缀处理。未追加模型调用。旧实验只能用对应冻结版本解释或复现，不能静默按新默认重跑。
+
+不能推出什么
+这足以解释本案B的局部技术失败，但没有重测V9 A或其他历史失败，不能概括全部截断/重复。生成完整不代表法律正确：新答案第三项assessment为SUPPORTED，explanation却说关键关系尚未核实，内容仍不一致。本轮不修这些语义错误，不报告法律准确率，也不据此证明结构化优于文本笔记。没有新增参考答案、案件、法源或网页任务。
+
+交付与停止
+comparison-table、post-run-token-replay、same-input-comparison、offline-audit、offline-fix-audit和runs包含完整证据。preservation-check逐一验证V1–V9原文件未改，公共修复另外存档。首次生成前的冻结prompt/schema/参数与来源哈希保留不变；prepare/verify仅更新本地审阅包，不提交或推送。已完成两次限定调用，停止本轮，不自动开启新实验。
+'''
+(ROOT / 'report-zh.txt').write_text(report, encoding='utf-8')
+print(json.dumps({'preserved_previous_files': len(start['old_outputs']),
+                  'new_calls': results['new_calls'], 'report': str(ROOT / 'report-zh.txt')}, indent=2))
+
+```
+
+## tests/test_mlx_constraint_v2.py
+
+```python
+import unittest
+try:
+ from lmformatenforcer import TokenEnforcer,TokenEnforcerTokenizerData,JsonSchemaParser
+ from legal_bench.mlx_json_constraint_v2 import CompositeQuoteEnforcer
+ LMFE_AVAILABLE=True
+except ImportError:
+ LMFE_AVAILABLE=False
+TOKENS=['{','"point"',':','"','A','.\",','"assessment"','"SUPPORTED"','"REFUTED"','}',',','Z','\\"','.\"}','.\",\"bad\":','null','.\",\"assessment\":','[',']']
+def data():return TokenEnforcerTokenizerData([(i,t,False) for i,t in enumerate(TOKENS)],lambda ids:''.join(TOKENS[i] for i in ids),len(TOKENS),False,len(TOKENS)+1)
+SCHEMA={'type':'object','properties':{'point':{'type':'string'},'assessment':{'enum':['SUPPORTED','REFUTED']}},'required':['point','assessment'],'additionalProperties':False}
+PREFIX=[0,1,2,3,4]  # {"point":"A
+
+def walk(enforcer,ids):
+ for n in range(len(ids)+1):allowed=enforcer.get_allowed_tokens(ids[:n]).allowed_tokens
+ return set(allowed)
+@unittest.skipUnless(LMFE_AVAILABLE,'Constraint tests require the project-local LMFE environment')
+class ConstraintTests(unittest.TestCase):
+ def test_reproduces_and_repairs_composite_quote(self):
+  old=walk(TokenEnforcer(data(),JsonSchemaParser(SCHEMA)),PREFIX);new=walk(CompositeQuoteEnforcer(data(),JsonSchemaParser(SCHEMA)),PREFIX)
+  self.assertNotIn(5,old);self.assertIn(5,new);self.assertTrue(old<=new)
+  self.assertNotIn(13,new) # required assessment missing
+  self.assertNotIn(14,new) # extra key forbidden
+  self.assertIn(16,new) # supported combined ending + required key
+ def test_valid_complete_and_eos(self):
+  ids=PREFIX+[5,6,2,7,9];e=CompositeQuoteEnforcer(data(),JsonSchemaParser(SCHEMA))
+  for n,t in enumerate(ids):self.assertIn(t,walk(e,ids[:n]))
+  self.assertIn(len(TOKENS),walk(e,ids))
+ def test_invalid_value_still_blocked(self):
+  e=CompositeQuoteEnforcer(data(),JsonSchemaParser(SCHEMA));allowed=walk(e,PREFIX+[5,6,2])
+  self.assertNotIn(15,allowed);self.assertNotIn(11,allowed);self.assertIn(7,allowed)
+ def test_escaped_quote_does_not_end_field(self):
+  e=CompositeQuoteEnforcer(data(),JsonSchemaParser(SCHEMA));allowed=walk(e,PREFIX+[12])
+  self.assertIn(4,allowed);self.assertIn(5,allowed);self.assertNotIn(len(TOKENS),allowed)
+ def test_public_adapter_uses_corrected_enforcer_and_prefix(self):
+  try:import mlx.core as mx
+  except ImportError:self.skipTest('Public adapter integration requires project-local MLX')
+  from legal_bench.mlx_json_constraint import SchemaMask
+  mask=SchemaMask(data(),SCHEMA)
+  self.assertIsInstance(mask.enforcer,CompositeQuoteEnforcer)
+  logits=mx.zeros((len(TOKENS)+1,))
+  mask(mx.array([0]),logits) # one prompt token; not generated JSON
+  for n in range(1,len(PREFIX)+1):
+   mask(mx.array([0]+PREFIX[:n]),logits)
+  result=mask(mx.array([0]+PREFIX),logits)
+  self.assertEqual(mask.prefix_length,1)
+  self.assertEqual(float(result[5].item()),0)
+  self.assertEqual(float(result[13].item()),float('-inf'))
+if __name__=='__main__':unittest.main()
+
+```
+
+## scripts/pipeline_v10_recovery.py
+
+```python
+"""One final A call after constraint repair; compatible completed B reused unchanged."""
+import ast
+import json
+import subprocess
+import sys
+import time
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.source_views import digest, write_new
+
+ROOT = Path('outputs/rules-verdict-v10-constraint-recovery')
+V9 = Path('outputs/rules-verdict-v9-final-examples')
+DIAG = Path('outputs/json-constraint-diagnosis-v1')
+CODE = ['scripts/pipeline_v10_recovery.py', 'legal_bench/mlx_json_constraint.py',
+        'legal_bench/mlx_json_constraint_v2.py',
+        'legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py',
+        'legal_bench/rules_verdict_v1/contracts.py',
+        'legal_bench/rules_verdict_v1/source_views.py',
+        'legal_bench/rules_verdict_v1/repetition_v9.py']
+read = lambda path: json.loads(path.read_text())
+
+def copy(source, dest):
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if dest.exists():
+        assert dest.read_bytes() == source.read_bytes(), dest
+    else:
+        dest.write_bytes(source.read_bytes())
+
+def definitions(path, names):
+    return {node.name: ast.dump(node, include_attributes=False)
+            for node in ast.parse(path.read_text()).body
+            if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and node.name in names}
+
+def prepare():
+    assert not (ROOT / 'freeze/config.json').exists(), 'Prepared round already exists'
+    old_roots = [p for p in Path('outputs').iterdir() if p.is_dir() and
+                 (p.name.startswith('rules-verdict-') or p.name == DIAG.name)]
+    write_new(ROOT / 'start-audit.json', {
+        'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+        'branch': subprocess.check_output(['git', 'branch', '--show-current'], text=True).strip(),
+        'status': subprocess.check_output(['git', 'status', '--short'], text=True),
+        'old_outputs': {str(p): digest(p.read_bytes()) for d in old_roots for p in d.rglob('*')
+                        if p.is_file() and '__pycache__' not in p.parts and not str(p).startswith(str(ROOT))}})
+    for relative in ['sources/69305.json', 'prepared/69305/law-package.json',
+                     'retrieval/69305/result.json', 'inherited-scope-audit.json']:
+        copy(V9 / relative, ROOT / relative)
+    for method in ['A', 'B']:
+        for name in ['prompt.txt', 'schema.json', 'intermediate.json']:
+            copy(V9 / 'prepared' / method / name, ROOT / 'prepared' / method / name)
+    for p in (V9 / 'inherited').rglob('*'):
+        if p.is_file(): copy(p, ROOT / 'inherited' / p.relative_to(V9 / 'inherited'))
+    for p in (DIAG / 'runs/FIXED').iterdir():
+        if p.is_file(): copy(p, ROOT / 'runs/B' / p.name)
+    # The diagnostic fix and current correction have the same executable definitions.
+    for name, names in [('legal_bench/mlx_json_constraint_v2.py', ['CompositeQuoteEnforcer', 'SchemaMask']),
+                        ('legal_bench/mlx_json_constraint.py', ['tokenizer_data'])]:
+        assert definitions(Path(name), names) == definitions(DIAG / 'freeze/code' / name, names)
+    for name in ['prompt.txt', 'schema.json']:
+        assert (ROOT / 'runs/B' / name).read_bytes() == (ROOT / 'prepared/B' / name).read_bytes()
+    b = read(ROOT / 'runs/B/run.json')
+    settings = read(V9 / 'freeze/config.json')['settings']
+    assert b['settings'] == settings and b['constraint_mode'] == 'FIXED' and b['run_status'] == 'OK'
+    write_new(ROOT / 'reuse-audit.json', {
+        'B_origin': str(DIAG / 'runs/FIXED'), 'B_raw_unchanged': True,
+        'same_V9_prompt_and_schema': True, 'same_settings': True,
+        'fixed_mask_and_tokenizer_definitions_identical': True,
+        'current_module_change_since_B': 'Removal of unused import only in versioned mask module',
+        'old_intermediate_generation_constraint': 'V8 legacy mask; neither intermediate re-extracted',
+        'role': 'Recovered final-stage pairing of existing intermediate outputs, not a newly run full two-stage pipeline'})
+    write_new(ROOT / 'protocol.json', {
+        'case': '69305', 'methods': ['A: V8 text notes then final model',
+                                    'B: V8 proposed facts and checks then final model'],
+        'new_calls': ['A_FINAL_FIXED_MASK'], 'maximum_new_calls': 1, 'retries': 0, 'web_calls': 0,
+        'B': 'Reuse compatible completed FIXED diagnostic call; no generation',
+        'max_tokens': 3072, 'total_budget': 32768, 'timeout_seconds': 1200,
+        'stop': 'Stop after one A attempt and one concentrated source review. Failure retained; no rerun or prompt change.',
+        'evaluation': 'Decisive source facts, statement status, object binding, law scope, counterevidence, gap types and label consistency. Check shared errors, not historical outcome recovery.',
+        'scope': 'Exposed retrospective old-case development. Inherited later-law and lower-court-information limits retained.',
+        'publication': 'LOCAL_ONLY_NO_COMMIT_OR_PUSH'})
+    for name in CODE: copy(Path(name), ROOT / 'freeze/code' / name)
+    write_new(ROOT / 'freeze/config.json', {
+        'settings': settings, 'max_tokens': 3072,
+        'actual_parameters': b['actual_parameters'], 'constraint_mode': 'FIXED',
+        'files': {str(p): digest(p.read_bytes()) for p in ROOT.rglob('*') if p.is_file()},
+        'live_code': {p: digest(Path(p).read_bytes()) for p in CODE}, 'frozen_at_epoch': time.time()})
+
+def verify():
+    frozen = read(ROOT / 'freeze/config.json')
+    for name, value in {**frozen['files'], **frozen['live_code']}.items():
+        assert digest(Path(name).read_bytes()) == value, name
+    return frozen
+
+def run():
+    from legal_bench.rules_verdict_v1.runtime_constraint_diag_v1 import Runner
+    frozen = verify()
+    runner = Runner(Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),
+                    frozen['settings'])
+    text = (ROOT / 'prepared/A/prompt.txt').read_text()
+    rendered = runner.render(text)
+    assert rendered == (V9 / 'runs/A/rendered.txt').read_text()
+    write_new(ROOT / 'freeze/token-preflight.json', {
+        'A_input_tokens': len(runner.tokenizer.encode(rendered)), 'output_budget': 3072,
+        'total_budget': 32768, 'full_source_truncated': False, 'exact_V9_A_rendered_input': True,
+        'versions': runner.versions, 'model_config_hash': runner.model_config_hash})
+    a = runner.run(text, read(ROOT / 'prepared/A/schema.json'), ROOT / 'runs/A',
+                   3072, 1200, constraint_mode='FIXED')
+    b = read(ROOT / 'runs/B/run.json')
+    write_new(ROOT / 'results.json', {
+        'rows': [{'method': 'A', 'generation_role': 'NEW_CALL', **a},
+                 {'method': 'B', 'generation_role': 'REUSED_COMPATIBLE_CALL', **b}],
+        'new_model_calls': 1 if 'output_tokens' in a else 0,
+        'reused_final_calls': 1, 'web_calls': 0, 'retries': 0,
+        'new_inference_seconds': a.get('elapsed_seconds', 0),
+        'concentrated_source_review_required': True, 'not_independent_testing': True})
+    write_new(ROOT / 'stop.json', {'reason': 'ONE_A_ATTEMPT_FINISHED_NO_MORE_CALLS',
+                                 'additional_calls_authorized': 0})
+
+if __name__ == '__main__':
+    {'prepare': prepare, 'verify': verify, 'run': run}[sys.argv[1]]()
+
+```
+
+## scripts/report_pipeline_v10_recovery.py
+
+```python
+"""One concentrated decisive-source review of the recovered 69305 final pair."""
+import csv
+import json
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.source_views import digest, write_new
+
+ROOT = Path('outputs/rules-verdict-v10-constraint-recovery')
+read = lambda p: json.loads(p.read_text())
+results = read(ROOT / 'results.json')
+source = read(ROOT / 'sources/69305.json')
+law = read(ROOT / 'prepared/69305/law-package.json')
+case_map = {x['id']: x['text'] for x in source['segments']}
+law_map = {x['id']: x['text'] for x in law['law_segments']}
+answers = {}
+restored = {}
+rows = []
+for method in ['A', 'B']:
+    meta = read(ROOT / 'runs' / method / 'run.json')
+    intermediate_meta_path = Path('outputs/rules-verdict-v8-paired/runs') / method / 'stage1/run.json'
+    stage = read(intermediate_meta_path)
+    if meta['run_status'] == 'OK':
+        answer = answers[method] = read(ROOT / 'runs' / method / 'parsed.json')
+        restored[method] = []
+        for index, ground in enumerate(answer['grounds']):
+            restored[method].append({
+                'ground': index + 1, 'point': ground['point'],
+                'case_sources': [{'id': ref, 'text': case_map[ref]} for ref in ground['case_refs']],
+                'law_sources': [{'id': ref, 'text': law_map[ref]} for ref in ground['law_refs']],
+                'address_validity_not_semantic_support': True})
+    else:
+        answers[method] = None
+    rows.append({
+        'case': '69305', 'method': method, 'run_status': meta['run_status'],
+        'outcome': answers[method]['outcome'] if answers[method] else None,
+        'final_generation_role': 'NEW' if method == 'A' else 'REUSED_COMPATIBLE_FIXED_CALL',
+        'final_input_tokens': meta['prompt_tokens'], 'final_output_token_ids': meta['output_tokens'],
+        'final_seconds': round(meta['elapsed_seconds'], 3),
+        'intermediate_origin': str(intermediate_meta_path),
+        'intermediate_input_tokens': stage['prompt_tokens'],
+        'intermediate_output_tokens': stage['output_tokens'],
+        'intermediate_seconds': round(stage['elapsed_seconds'], 3),
+        'recorded_two_stage_seconds': round(stage['elapsed_seconds'] + meta['elapsed_seconds'], 3),
+        'cost_note': 'Historical intermediate plus recovered final ledger, not simultaneous benchmark',
+        'source_review': 'DECISIVE_ERRORS_REMAIN_NO_LEGAL_ACCURACY_SCORE'})
+write_new(ROOT / 'restored-final-sources.json', restored)
+write_new(ROOT / 'comparison-table.json', rows)
+with (ROOT / 'comparison-table.csv').open('x') as handle:
+    writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+    writer.writeheader()
+    writer.writerows(rows)
+assert all(answers.values()), 'No complete pairing: report failure instead of legal comparison'
+
+review = {
+    'review_type': 'ONE_CONCENTRATED_LOCAL_DECISIVE_SOURCE_REVIEW',
+    'label': 'MODEL_ASSISTED_DEVELOPMENT_REVIEW_NOT_HUMAN_GOLD',
+    'historical_final_judgment_not_used_as_expected_label': True,
+    'source_findings': [
+        {'id': 'S1', 'refs': ['p0003.s003', 'p0003.s004'],
+         'finding': 'Conditional lease proviso exists: assignment or parting with possession to associate concerns without further consent. Its statutory effect for this occupant is not settled just by quoting it.'},
+        {'id': 'S2', 'refs': ['p0004.s002'], 'quote': case_map['p0004.s002'],
+         'finding': 'Allowed input explicitly reports the Rent Controller and appellate authority accepting reliance on the clause and ordering eviction on induction as sub-lessee. These are lower-court findings, not a withheld Supreme Court final endorsement.'},
+        {'id': 'S3', 'refs': ['p0004.s001', 'p0004.s003', 'p0004.s004'],
+         'finding': 'Authorized-dealer/associate status and collateral admissibility arguments remain party submissions; detailed final resolution of associate qualification is absent in the allowed material.'},
+        {'id': 'S4', 'refs': ['LAW:1134266:p0004.s004', 'LAW:1134266:p0004.s005'],
+         'finding': 'Law package supplies historical Section14(1)(b) transfer alternatives and written-consent requirement. It does not supply a source rule resolving Section49 collateral use or associate-concern interpretation for this tenant.'}],
+    'decisive_checks': [
+        {'method': 'A', 'ground': 1, 'finding': 'Allegation attributed to landlord correctly; SUPPORTED is proper for existence of allegation, not truth of every eviction element.'},
+        {'method': 'A', 'ground': 2, 'reason_affected': True,
+         'classification': 'AVAILABLE_LOWER_COURT_FINDING_MISREPORTED_AS_ABSENT',
+         'source': 'p0004.s002',
+         'finding': 'Claim that no judicial determination on admissibility is provided conflicts with explicit lower-court treatment. Legal completeness at the appeal stage can still be uncertain; the lower-court determination must be retained.'},
+        {'method': 'A', 'ground': 3,
+         'classification': 'QUALIFICATION_UNRESOLVED_IS_PLAUSIBLE_LABEL_BUT_POINT_ROLE_IMPRECISE',
+         'finding': 'Absence of a supplied finding deciding associate qualification supports retaining this issue. However the proviso authorizes the original tenant to transfer to an associate, not United Automobiles to assign onward.'},
+        {'method': 'B', 'ground': 1, 'classification': 'TEXTUAL_PROVISO_SUPPORTED_STATUTORY_EFFECT_NOT_ESTABLISHED',
+         'finding': 'Proviso exists, but phrasing it as written consent for subletting imports a legal interpretation. No supplied rule conclusively resolves that interpretation; literal clause existence and statutory satisfaction should remain separate.'},
+        {'method': 'B', 'ground': 2, 'classification': 'KEY_ASSOCIATE_QUALIFICATION_UNRESOLVED',
+         'finding': 'Model retains actual dispute over associate qualification. This does not establish that every court-treated fact is missing.'},
+        {'method': 'B', 'ground': 3, 'reason_affected': True,
+         'classification': 'SOURCE_CONTRADICTED_POINT_AND_INTERNAL_INCONSISTENCY',
+         'source': 'p0004.s002',
+         'finding': 'Point asserts legally established parting with possession rather than subletting and marks SUPPORTED. Source reports induction as sub-lessee; explanation itself calls precise mode unverified. A general rule listing alternatives cannot establish which alternative happened.'}],
+    'intermediate_trace': {
+        'A': 'Final repeats the notes coverage claim that key court findings were omitted, despite full source being supplied.',
+        'B': 'Proposal x2 classified court-reported sub-lessee induction as PART_WITH_POSSESSION; program gave local PROPOSED_SUPPORT, not semantic validation. Final point3 resembles this misclassification. This is a plausible propagation path, not proof of model attention or causal attribution.',
+        'B_not_propagated': 'Corporate-amalgamation/US-versus-Indian identity contamination in old proposal did not appear in final answer; this is not evidence of B superiority because A did not make that error.',
+        'program_checks': 'All54 old combinations remain UNRESOLVED; this expresses limits of supplied proposals/bindings, not absence of source court findings.'},
+    'shared_limits': ['Both final outcomes UNDETERMINED can be defensible under restricted legal materials; same label is not proof of correctness.',
+                      'Both use a conditional proviso without a supplied interpretation closing its statutory scope.',
+                      'Missing target appellate reasoning differs from absent lower-court determination.',
+                      'Neither identifies program-derived facts as the decisive source of an improved final answer.'],
+    'decision': 'PRIORITIZE_TEXT_FOR_CURRENT_DEVELOPMENT_PAIR',
+    'decision_basis': 'No source-verified overall B improvement; B introduces categorical mode misclassification and label inconsistency while using much more final input. A is also materially flawed. This is a resource choice for this old-case development configuration, not proof text reasoning is accurate or structured methods generally inferior.',
+    'next_change_recommendation_only': 'Prioritize final judgement use of already supplied court findings and separation from unresolved legal scope. No new prompt or rerun in this round.',
+    'accuracy_or_generalization_claim': False, 'new_annotations': 0, 'web_calls': 0}
+write_new(ROOT / 'final-source-review.json', review)
+write_new(ROOT / 'decision.json', {k: review[k] for k in ['decision', 'decision_basis', 'next_change_recommendation_only']})
+
+start = read(ROOT / 'start-audit.json')
+changed = [name for name, value in start['old_outputs'].items() if digest(Path(name).read_bytes()) != value]
+assert not changed, changed
+write_new(ROOT / 'preservation-check.json', {'old_files_checked': len(start['old_outputs']), 'changed_files': changed})
+frozen = read(ROOT / 'freeze/config.json')
+assert all(digest(Path(name).read_bytes()) == value for name, value in {**frozen['files'], **frozen['live_code']}.items())
+(ROOT / 'final-answer-slots.md').write_text(
+    '# 69305恢复后的完整回答\n\n[A文本笔记后的完整回答](runs/A/parsed.json)；'
+    '[B部分事实与程序检查后的完整回答](runs/B/parsed.json)。\n\n'
+    'A为本轮唯一新调用，B复用约束诊断FIXED结果，两份V8中间结果未重新生成。'
+    '完整原始输出、来源恢复、成本与一次集中审阅均保留；开发审阅不是人工金标准。\n', encoding='utf-8')
+a, b = rows
+report = f'''V10：修复约束后的69305同案最终回答比较
+
+结论：同案配对已恢复，A和B都完整生成并回答UNDETERMINED，但决定性依据均有错误。本案暂优先文本流程继续开发：未发现B完整答案的可核查整体改善，B新增了转移方式的确定判断与解释矛盾，并增加输入负担。A也不能作为可靠法律方法。本结论是一个旧案例下的投入决定，不是泛化能力或准确率排名。
+
+实际运行
+A复用V8文本笔记，使用原V9最终prompt与修复约束，只新调用一次。B复用JSON约束诊断中已完成的FIXED结果；逐字核对prompt、Schema、共同来源、法源包、生成设置及修复mask定义，兼容后直接采用，没有补跑B。两份中间材料均来自旧约束下已完成的V8提议，因此这是恢复后的最终阶段比较，不是把整套两阶段方法都用新约束重新跑一遍。
+Qwen3.5-9B-4bit revision8b2b98c00a6b4d291155e4890773ca8f769aee53、MLX-VLM0.7.4、greedy、repetition_penalty1、thinking off、Schema约束不变；每次最终上限3072，总预算32768，没有截断原文。A输入{a['final_input_tokens']}、输出token IDs{a['final_output_token_ids']}、{a['final_seconds']}秒；B输入{b['final_input_tokens']}、输出token IDs{b['final_output_token_ids']}、{b['final_seconds']}秒。两边均stop，无重复保护触发、格式修补或重试。输出计数沿用保存的token IDs口径，包含结束token。新调用1、复用最终调用1、网页0、重试0。
+历史第一阶段耗时A{a['intermediate_seconds']}秒、B{b['intermediate_seconds']}秒。连同恢复最终阶段账本为A{a['recorded_two_stage_seconds']}、B{b['recorded_two_stage_seconds']}秒，未包含历史失败尝试或额外诊断调用；这些运行发生于不同时间，不能当作严格同步性能测试。
+
+两份答案具体哪里成立，哪里有问题
+1. A正确区分房东提出“未经同意转租”的主张与主张本身是否成立。但A第二项与总理由说材料没有可采性的法院判断。原文p0004.s002明确写Rent Controller及上诉机构认定租约条款“was not inadmissible”，允许租户依赖，并以United Automobiles被引入为sub-lessee为由命令腾退。A把可见的下级认定丢失了；不能用目标最高法院理由被排除来解释下级认定不存在。
+2. B第二项保留associate concern身份尚未明确的争点，这与允许材料一致。B第三项却断言“转移方式已依法确定为parting with possession而非subletting”，标SUPPORTED，解释又说具体方式尚未核实。原文记载的是下级法院认定sub-lessee。旧提议x2同样把该记录填成PART_WITH_POSSESSION，程序局部PROPOSED_SUPPORT仅基于提议。错误可能沿这条链传播；最终文字与提议相似不能证明模型必然依赖程序。
+3. 双方仍须区分租约中存在有条件的associate例外，与该例外在Section14(1)(b)下是否等同本次交易的书面同意。共同法源提供转移行为、书面同意及日期的基本条件，没有提供解决Section49 collateral purpose和本案associate定义的完整解释。B把条款称为written consent for subletting，不能仅以来源编号有效就认为法定效果已核验。A第三项还把应由原租户向associate转移的权限写得像由United Automobiles继续assign，角色表达不够准确。
+
+结构化材料的作用与限制
+B保留了一部分下级裁判信息，并未在最终答案照抄旧提议中混入的American/Indian公司合并身份。然而A没有该身份错误，不能把B的自我纠错算成胜过A。B未纠正转移方式，程序54个组合UNRESOLVED也没有带来明确、可靠的最终判断增益。两边最终UNDETERMINED可以是合理的谨慎标签，但标签相同不代表理由正确。本轮没有用历史案件胜败要求模型猜回被排除的最终判决。
+
+三种缺口
+材料明确提供了下级法院的可采性和sub-lessee认定，这不是事实缺失。允许输入未给出完整associate资格裁判细节，需保留范围限定。法源包没有解决关键合同/登记法解释，这是法律覆盖缺口。程序没有实现这些开放法律解释，是程序覆盖缺口，不能改说原文没记载。两个最终判断器有完整原文，因此可见认定被遗漏也不能全部归责于抽取字段。
+
+范围、交付与停止
+仅69305一个已反复参与开发的旧案，复用已有检索、允许来源、法律包和中间结果；含下级裁判信息及后于目标年份的法源，仍是回顾性开发材料。原V1–V9及约束诊断结果未覆盖，首次A生成前冻结当前源码、prompt、Schema、设置、来源哈希、调用和审阅规则。只对两份最终答案做一次集中决定性来源审阅，没有全量中间标注、网页复核、新gold或额外模型调用。完整答案、raw、逐案表、引用恢复、B检查轨迹与兼容审计均保存。
+下一轮最值得修改的是最终判断如何保留已经给出的法院认定，并把事实未决与法律解释未决分开；本轮只提出建议，未改prompt或重新生成。本轮结束，不扩案、不自动启动下一轮、不提交或推送。
+'''
+(ROOT / 'report-zh.txt').write_text(report, encoding='utf-8')
+print(json.dumps({'new_calls': results['new_model_calls'], 'complete_final_answers': 2,
+                  'decision': review['decision'], 'preserved_files': len(start['old_outputs'])}, indent=2))
+
+```

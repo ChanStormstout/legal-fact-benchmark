@@ -1,0 +1,36 @@
+V8：69305 同案恢复比较——按重复止损结束，未完成配对
+
+结论：这份冻结配置在69305上仍未完成同案配对，无法判断文本笔记或部分事实＋程序检查哪种方法改善完整法律回答。失败发生在A最终回答，不能归因于B的结构化检查，也不能推论9B、MLX框架或所有结构化方法不适用。本轮结束，不开启V9，不推送。
+
+实际运行顺序与结果
+A第一阶段：OK，892输出tokens，62.70秒。
+B第一阶段：OK，2101输出tokens，127.12秒；完成来源恢复及确定性检查。
+A最终回答：REPETITION_ABORT，1134已生成tokens，84.42秒；答案为null。
+B最终回答：SKIPPED，未调用，答案为null。
+本地共3次调用，网页0次，重试0次。推理274.24秒，整轮275.16秒；实际输入合计25338、输出合计4127 tokens，峰值MLX分配内存6.95GB。模型加载约4.03秒另列，不计入推理。没有截断原文或用V7成功输出补填。
+
+停止原因
+A最终回答的一个point字符串内，64字符片段“. The legal consequence is that the outcome is UNDETERMINED beca”在字符位置2986、3278、3600、3934出现四次。检测跨流式块保留状态，未跨JSON字段合并计数；离线回放同一raw得到相同止损位置。这些重复出现在单个尚未结束的命题文字中，不能当作四条独立法律依据。原始不完整输出原样保存，没有删除、补JSON或提取半份答案。框架原生finish_reason为null，因为生成被保护器中止；运行finish_reason单独记为repetition_abort。生成token IDs直接来自MLX流，而非重新编码文本。
+
+本轮实现及冻结
+沿用指定父提交a6550471a962775f366598c773f8ea7d3a3ba0ab和research/rules-and-verdict分支；原有未提交local_chunk_v11.py未改。冻结目录记录源码、提示、schema、采样参数、来源哈希、运行顺序及停止规则。原Qwen3.5-9B-4bit revision、MLX-VLM0.7.4、greedy、repetition_penalty=1、thinking off和Schema约束均保留。每次实际max_tokens=3072、上下文32768；未改变事实类别、陈述状态、身份连接或法律规则逻辑。
+
+A笔记去除重复职责；B要求短原文角色提及与必要连接。共同最终合同采用outcome/grounds/reason，明确assessment评价本行point，reason再说明对腾退的法律后果。没有紧字符串maxLength。四类B事实schema与V7一致。
+
+程序保留V7判断逻辑，只增加完整连接／组合轨迹。最终中间材料包含一次原proposal和确定性去重检查视图；不嵌入roles.proposal，不重复model_coverage_limits。全部事实局部检查、不同连接结果、冲突、未知原因及组合保留，可按ID回到完整记录。合成测试包含九个完整组合，确认不会受旧版“只展示前四组”的限制，也检查重复止损跨块和不跨字段。13项相关测试及8项桥接测试通过，只说明工程行为，不证明事实或法律正确。
+
+A中间材料746 tokens；B中间材料9896 tokens，其中程序检查7798 tokens。B的最终输入未运行，不能据此计算实际B最终耗时。该材料长度是实际成本记录，不把相同调用预算描述为相同成本。紧凑视图仍保留所有组合，没有为减少长度筛选有利实例。
+
+评价边界
+两份最终答案均不存在，因此没有进行集中法律来源审阅，也没有把A的未完成UNDETERMINED文字记为有效结论。两次第一阶段完成只说明中间接口可读取；不表示语义正确或结构化更好。既有69305核查线索没有加入受测prompt，未新增法源、RuleCard、参考事实或网页任务。保留V7的回顾性开发范围、下级法院信息、部分较晚法源及研究者配置基础公式，不是独立预测。
+
+文件入口
+comparison-table.csv/json：两方法最终位置、技术状态、成本。
+final-answer-slots.md：最终答案位置，失败／跳过均为null。
+runs/A/stage1、runs/B/stage1、runs/A/final：实际prompt、rendered、schema、raw、token IDs、有效参数和run。
+runs/B/final：SKIPPED及prepared-not-executed-prompt，不是一次调用。
+runs/B/program-checks-full.json、program-checks-compact.json、compact-trace-map.json、restored-sources.json：完整和紧凑程序视图。
+freeze、source-hashes.json、execution-integrity.json、costs.json、stop.json：冻结、来源、运行证据、成本和停止记录。
+preservation-check.json：648个V1–V7历史输出文件逐字节不变；原有未提交草稿不变。
+
+本轮唯一可支持的决定：当前冻结配置在69305上未完成配对，方法收益仍无法判断。没有进行运行后修prompt、调参数或追加调用。

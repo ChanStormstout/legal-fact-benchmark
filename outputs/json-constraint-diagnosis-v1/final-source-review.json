@@ -1,0 +1,25 @@
+{
+  "role": "TECHNICAL_SOURCE_REVIEW_NOT_NEW_LEGAL_GOLD",
+  "basis": [
+    "Installed MLX-VLM 0.7.4 processor/streaming source",
+    "Installed LM Format Enforcer 0.11.2 free-text shortcut source",
+    "Real tokenizer fixture",
+    "Frozen input and emitted token replay"
+  ],
+  "confirmed": [
+    "Fast shortcut omits a legal composite string-ending token.",
+    "Closing standalone quote was allowed; not all quote endings blocked.",
+    "First actual divergence at token42 is legacy-blocked token10152.",
+    "Fixed processor prefix counts match emitted token IDs.",
+    "Decoded actual IDs equal raw, no duplicate append found.",
+    "No-mask and fixed outputs identical and schema-valid."
+  ],
+  "limitations": [
+    "Only V9 B on case69305 was rerun; A and earlier failures were not rerun.",
+    "Formatting completion is not legal correctness or proof of structured analysis benefit.",
+    "Generated ground3 says SUPPORTED but its own explanation says unverified. This remains an answer-content issue, untouched by format repair.",
+    "Program tests cover specific delimiter/type/enum/reference-state behaviors, not all possible schema semantics."
+  ],
+  "web_calls": 0,
+  "new_reference_annotations": 0
+}
