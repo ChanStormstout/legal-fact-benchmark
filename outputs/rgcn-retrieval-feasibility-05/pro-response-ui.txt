@@ -1,0 +1,477 @@
+  - heading "ChatGPT 说：" [level=4]
+  - paragraph:
+    - strong: 建议：本轮停止 C 的训练与性能比较，停在输入图、监督和装配接口的可行性检查。保留 A，以及共同的范围、版本、依赖控制；事实路径 B 也暂不作为已经具备运行条件的方法。
+  - paragraph:
+    - text: 决定依据是两个实质缺口：现有标签不能确定需要学习的法源排序关系，六案也缺少合规的事实—条件连接图。增加几层网络或换损失函数都不能补齐这两项。这个结论表示
+    - strong: 当前无法有意义地检验 R-GCN 排序价值
+    - text: ，不表示 R-GCN 已被证明无效。
+  - paragraph: 以下本地事实均以你本消息为依据；你报告的 HEAD 和未推送材料没有经过我独立核验。公开文献仅用于核对方法与假设。
+  - heading "1. 监督：存在有原则的 PU 学习，但当前资料不满足直接采用的条件" [level=2]
+  - heading "现有标签能够约束什么？" [level=3]
+  - paragraph: 16 个 VERIFIED bundle 和展开后的 23 个案件—单元线索，可以约束“已知有来源的参考材料是否被送达”。它们没有确定：
+  - list:
+    - listitem: 两个候选法源谁应当优先；
+    - listitem: 未标记法源究竟无关、遗漏，还是存在尚未记录的用途；
+    - listitem: bundle 内各单元的独立价值、必要性和替代关系。
+  - paragraph: 三个对象关系查询的 MATCH/NOT_FOUND/UNKNOWN，也不能直接转成法源排序标签。277 条断言、17 条对象关系与九张规则卡，不能按数量累加为检索监督。
+  - paragraph:
+    - text: "**反例：**已标记法源为"
+    - math:
+      - generic: a
+      - generic: ","
+      - generic: b
+    - generic: a, b
+    - text: ，未标记为
+    - math:
+      - generic: c
+      - generic: ","
+      - generic: d
+    - generic: c, d
+    - text: 。一种真实情况是
+    - math:
+      - generic: c
+    - generic: c
+    - text: 提供重要限制、
+    - math:
+      - generic: d
+    - generic: d
+    - text: 无用；另一种情况正好相反。两种情况都符合现有记录，却要求不同排序。因此，缺口涉及任务的可辨识性，单纯增加同类记录未必解决。
+  - paragraph: 只对正例优化
+  - math:
+    - generic: L
+    - generic: +
+    - generic: =
+    - generic: −
+    - generic: ∑
+    - generic: (
+    - generic: q
+    - generic: ","
+    - generic: u
+    - generic: )
+    - generic: ∈
+    - generic: P
+    - generic: log
+    - generic: ⁡
+    - generic: σ
+    - generic: (
+    - generic: s
+    - generic: (
+    - generic: q
+    - generic: ","
+    - generic: u
+    - generic: )
+    - generic: )
+  - text: L
+  - generic: +
+  - text: =
+  - text: −
+  - generic: (q,u)∈P
+  - generic: ∑
+  - generic: log
+  - text: σ(s(q, u))
+  - paragraph:
+    - text: 允许“所有候选都打高分”的退化解。把其余候选放进对比损失分母、批内负例或负采样池，则引入了“它们应当低于正例”的额外假设。R-GCN 原论文的链接预测实验确实通过破坏头／尾实体产生负例；这一训练办法不能直接移植到这里的未标法源。
+    - 'link "arXiv: Modeling Relational Data with Graph Convolutional Networks, https://arxiv.org/html/1703.06103"':
+      - /url: https://arxiv.org/html/1703.06103
+      - generic: arXiv
+  - heading "PU 为什么理论上可用，这里又为何不能直接用？" [level=3]
+  - paragraph:
+    - text: 令
+    - math:
+      - generic: "Y"
+    - generic: "Y"
+    - text: 表示真正相关，
+    - math:
+      - generic: S
+    - generic: S
+    - text: 表示被参考记录标为正向。暂且宽松地把现有正向线索视作真正相关正例，则：
+  - math:
+    - generic: P
+    - generic: (
+    - generic: S
+    - generic: =
+    - generic: "1"
+    - generic: ∣
+    - generic: q
+    - generic: ","
+    - generic: u
+    - generic: )
+    - generic: =
+    - generic: P
+    - generic: (
+    - generic: S
+    - generic: =
+    - generic: "1"
+    - generic: ∣
+    - generic: "Y"
+    - generic: =
+    - generic: "1"
+    - generic: ","
+    - generic: q
+    - generic: ","
+    - generic: u
+    - generic: )
+    - generic: P
+    - generic: (
+    - generic: "Y"
+    - generic: =
+    - generic: "1"
+    - generic: ∣
+    - generic: q
+    - generic: ","
+    - generic: u
+    - generic: )
+    - generic: .
+  - generic: P(S =
+  - generic: 1 ∣
+  - generic: q, u) =
+  - generic: P(S =
+  - generic: 1 ∣
+  - generic: Y =
+  - generic: 1, q, u) P(Y =
+  - generic: 1 ∣
+  - generic: q, u).
+  - paragraph:
+    - text: 若同一查询下所有真正相关法源都有相同的被标记概率
+    - math:
+      - generic: c
+      - generic: q
+      - generic: ">"
+      - generic: "0"
+    - text: c
+    - generic: q
+    - text: ">"
+    - generic: "0"
+    - text: ，被标记概率与真实相关概率保持相同排序；用于查询内排序时，甚至未必需要知道
+    - math:
+      - generic: c
+      - generic: q
+    - text: c
+    - generic: q
+    - text: 。这是随机选择正例假设能够提供的依据。
+    - link "计算机科学, https://cseweb.ucsd.edu/~elkan/posonly.pdf":
+      - /url: https://cseweb.ucsd.edu/~elkan/posonly.pdf
+      - generic: 计算机科学
+  - paragraph:
+    - text: 但你的参考按命题与 bundle 组织，
+    - strong: 没有证据支持这种等概率选择机制
+    - text: 。共同核心法条、配套条款和特殊限制观点可能具有不同的被记录倾向。模型可能学到“参考通常会列什么”，而非“此案需要优先取什么”。
+  - paragraph:
+    - text: nnPU 可以通过总体风险校正使用未标记数据，无须逐个宣告它们为负例；其原始设定仍要求有代表性的正类样本、候选总体样本及已知或可估计的正类比例。
+    - strong: 23/84 是已有标记的比例，不能直接充当真实相关比例
+    - text: ；删去正例后的剩余集合也不能未经处理就当成论文中的总体分布样本。
+    - 'link "arXiv: Positive-Unlabeled Learning withNon-Negative Risk Estimator, https://arxiv.org/html/1703.00593, 另外 1 个来源"':
+      - /url: https://arxiv.org/html/1703.00593
+      - generic: arXiv
+      - generic: "+1"
+  - paragraph: 所以，本轮可以把正向参考用于覆盖审计；unknown 与 disputed 保持未决。现有资料不足以支持一个有明确解释的相关性训练目标，更不足以同时训练“相关性／范围兼容／最终有用”三个头。
+  - heading "2. 公平的最小图、B 与 C：先锁定可见信息，再讨论编码器" [level=2]
+  - heading "最小图应保留断言，避免把断言压成事实" [level=3]
+  - paragraph:
+    - text: 建议接口限定为五类节点：
+    - strong: 查询需求、来源断言、对象、法源条件、法源单元
+    - text: 。出处作为可追溯字段保存；极性、陈述状态、法院／阶段、未知状态作为断言特征，避免通过一个全局“争议”节点把无关内容连起来。
+  - paragraph: part_of/member_of 也应保留其断言记录及两端角色。尤其在有争议、否认或阶段差异时，不能额外生成一条无状态的对象关系边，让后续传播绕过这些限定。反向边表示计算方向，不自动产生新的法律命题。
+  - paragraph:
+    - text: 事实—条件边只能表达
+    - strong: 候选对齐
+    - text: ，附生成依据和出处；不能标成 SATISFIES。原文出现某个词、某方提出某个主张、某条件已经成立，必须保持区别。
+  - paragraph: 此外，14 项法源都要经过同一建图规程。不能只给已有审核描述的 10 项增加条件节点，让另外 4 项天然少一条信息通路。
+  - heading "B：固定的候选路径覆盖，缺失不作负证据" [level=3]
+  - paragraph: 一个足够简单的 B 是：
+  - math:
+    - generic: B
+    - generic: (
+    - generic: q
+    - generic: ","
+    - generic: u
+    - generic: )
+    - generic: =
+    - generic: ∑
+    - generic: d
+    - generic: ∈
+    - generic: D
+    - generic: (
+    - generic: q
+    - generic: )
+    - generic: "1"
+    - generic: "{"
+    - generic: 存在连接需求
+    - generic: d
+    - generic: 与法源
+    - generic: u
+    - generic: 的合规候选路径
+    - generic: "}"
+    - generic: .
+  - generic: B(q, u) =
+  - generic: d∈D(q)
+  - generic: ∑
+  - text: "1{"
+  - generic: 存在连接需求
+  - text: d
+  - generic: 与法源
+  - text: u
+  - generic: 的合规候选路径
+  - text: "}."
+  - paragraph:
+    - text: 其中
+    - math:
+      - generic: D
+      - generic: (
+      - generic: q
+      - generic: )
+    - generic: D(q)
+    - text: 来自允许问题／文本中的冻结需求槽，不能从参考答案反推。每个需求槽最多记一次，权重全为 1，同分按原 BM25 排序。重复句子、多条重复路径和高频 pattern 不额外加分。
+  - paragraph:
+    - text: “合规路径”只表示出处、角色、对象绑定、状态与阶段没有被偷换，且存在候选条件对齐；
+    - strong: 它不宣告条件成立，也不宣告法源足以解决问题
+    - text: 。零分表示没有发现这种路径，不能解释成法源无关。
+  - paragraph: 范围应区分直接适用、类比及未知用途。不同法名不能自动成为不相关标签；已有范围信息若只能排除某种直接适用方式，也不能据此删除所有类比用途。
+  - heading "C：两层 16 维可以保留为候选规格，但还缺两个审计" [level=3]
+  - paragraph:
+    - text: 输入可以使用冻结词项哈希、类型／状态／阶段编码和缺失掩码，不设可训练案件或法源 ID 嵌入。关系方向分开；关系矩阵可采用共享基矩阵参数化。
+    - strong: 16 维不自动意味着参数很少
+    - text: ，关系数、输入投影和 decoder 都要计入；R-GCN 原文也专门讨论了关系矩阵随关系数增长的问题。
+    - 'link "arXiv: Modeling Relational Data with Graph Convolutional Networks, https://arxiv.org/html/1703.06103"':
+      - /url: https://arxiv.org/html/1703.06103
+      - generic: arXiv
+  - paragraph:
+    - text: 首先检查
+    - strong: 消息可达性
+    - text: 。R-GCN 每层传播一跳；若 decoder 只读取查询根节点和法源根节点，两层只能利用各自两跳内的输入。
+    - 'link "arXiv: Modeling Relational Data with Graph Convolutional Networks, https://arxiv.org/html/1703.06103"':
+      - /url: https://arxiv.org/html/1703.06103
+      - generic: arXiv
+    - text: 例如：
+  - paragraph: 查询—断言—对象A—member_of—对象B—断言—条件—法源
+  - paragraph: 中间关系可能不在任何一个根节点的两跳感受范围内。改变它，根节点输出仍可完全相同。此时不能声称模型检验了该关系贡献。接口应让 pair decoder 读取其候选对齐子图中的关系／断言表示，并检查关键绑定是否可见；不能靠“图里有这条边”代替检查。
+  - paragraph:
+    - text: 其次锁定
+    - strong: 输入—标签隔离
+    - text: ：
+  - table:
+    - rowgroup:
+      - row "环节 必须保持的边界":
+        - columnheader "环节"
+        - columnheader "必须保持的边界"
+    - rowgroup:
+      - row "建图 先裁出允许文本，再抽取；从完整判决抽完后删除结论字段不足以排除泄漏。":
+        - cell "建图"
+        - cell "先裁出允许文本，再抽取；从完整判决抽完后删除结论字段不足以排除泄漏。"
+      - row "标签 正向参考、争议标签、参考 bundle 及由它们推导的“正确对齐”都不进入输入图。":
+        - cell "标签"
+        - cell "正向参考、争议标签、参考 bundle 及由它们推导的“正确对齐”都不进入输入图。"
+      - row "跨案传播 每案使用独立法源节点副本；共享静态文本和模型参数，不共享已经聚合案件信息的隐藏状态。":
+        - cell "跨案传播"
+        - cell "每案使用独立法源节点副本；共享静态文本和模型参数，不共享已经聚合案件信息的隐藏状态。"
+      - row "划分与评价 按案件／诉讼家族隔离，不能随机拆案件—法源行；六案仍须标为已暴露开发材料。":
+        - cell "划分与评价"
+        - cell "按案件／诉讼家族隔离，不能随机拆案件—法源行；六案仍须标为已暴露开发材料。"
+  - button "复制表格":
+  - button "展开表格":
+  - paragraph: A 与 B/C 比较的是结构化系统的整体差异；B/C 共享冻结图，才有学习式与固定式排序的可比性。即便 C 优于 B，也尚不能单独归因于关系消息传递，文本拟合与 decoder 学习同样可能贡献。一次训练的限制下，应收窄结论，不额外扩展对照工程。
+  - paragraph: "**目前只有元数据图时，答案是停止。**接口可记为 NOT_EVALUATED；无须为了填一列 C 分数而训练元数据分类器。事实路径 B 同样不能用缺失图伪装成已经完成的评分器。"
+  - heading "3. Pattern：本轮禁用排序加权和监督用途，保留结构检查用途" [level=2]
+  - paragraph: 三个重复模式目前提供的是对象结构信息。缺少的连接是：
+  - math:
+    - generic: 结构出现
+    - generic: ⟶
+    - generic: 当前法律需求
+    - generic: ⟶
+    - generic: 有来源的条件／限制
+    - generic: ⟶
+    - generic: 法源选择价值
+    - generic: .
+  - generic: 结构出现
+  - text: ⟶
+  - generic: 当前法律需求
+  - text: ⟶
+  - generic: 有来源的条件／限制
+  - text: ⟶
+  - generic: 法源选择价值
+  - text: .
+  - paragraph: 没有这层任务映射，重复次数不能决定加分方向。
+  - paragraph:
+    - strong: 反例：
+    - text: “某人属于某群体”既可能帮助确认一个程序对象，也可能与当前实体法争点无关；相同的 member_of 形状不能决定应优先取哪条法源。把集合成员关系改读为物理部分关系，问题更严重。
+  - paragraph: 本轮可保留的用途仅限于结构不变量检查：对象 ID 重命名不改变匹配；角色交换、member_of/part_of 混用、跨阶段拼接应被识别；路径必须返回完整出处与绑定见证。这些检查验证表示合同，不产生法源相关性标签。早期模型参考关系也只能按其实际证据地位使用。
+  - heading "4. 明确停止决定，以及真正缺少的最小资料" [level=2]
+  - paragraph: "**本轮不训练 C，不发布 C 排序性能，不把元数据重排改称 R-GCN 收益。**可运行接口是工程检查的上限，无须为达到这个上限补造缺失图。"
+  - paragraph: 重开训练所需的最小资料类型如下；它们是缺口说明，不构成本轮新增标注任务：
+  - table:
+    - rowgroup:
+      - row "缺失资料 最低需要说明什么":
+        - columnheader "缺失资料"
+        - columnheader "最低需要说明什么"
+    - rowgroup:
+      - row "合规的输入—法源对齐记录 从允许文本生成的状态化断言，及其与现有法源条件的候选连接；有出处、绑定和统一生成程序。":
+        - cell "合规的输入—法源对齐记录"
+        - cell "从允许文本生成的状态化断言，及其与现有法源条件的候选连接；有出处、绑定和统一生成程序。"
+      - row "能区分排序的监督 针对同一查询／法律需求，明确支持某法源优先于另一法源的比较记录；较低者可以仍然相关，无须把它标为绝对负例。":
+        - cell "能区分排序的监督"
+        - cell "针对同一查询／法律需求，明确支持某法源优先于另一法源的比较记录；较低者可以仍然相关，无须把它标为绝对负例。"
+      - row "可解释的评价区分 存在能够区分“仅利用法名／共同法源”与“利用事实关系”的评价项，并能与训练监督按案件关系隔离。":
+        - cell "可解释的评价区分"
+        - cell "存在能够区分“仅利用法名／共同法源”与“利用事实关系”的评价项，并能与训练监督按案件关系隔离。"
+  - button "复制表格":
+  - button "展开表格":
+  - paragraph: 这里没有“必须 N 个”的门槛。关键是已有信息能否排除相互矛盾的排序解释，以及评价能否观察到所声称的关系贡献。
+  - paragraph: 你已明确指出，目前没有相对偏好标签，也没有六案合规对齐图。在禁止重新标注和扩案的条件下，应据此结束训练可行性检查。六案的开发暴露不会使所有内部比较失去意义，但也不能恢复为盲测，更不能补齐上述缺口。
+  - paragraph:
+    - text: 保留范围、版本和依赖控制仍有工程价值；其价值应分别归属于
+    - strong: 元数据约束和材料装配
+    - text: 。
+  - heading "5. 单元打分能改变优先级，不能消除 bundle 的预算与语义约束" [level=2]
+  - paragraph: 需要分开三个对象：
+  - math:
+    - generic: s
+    - generic: (
+    - generic: q
+    - generic: ","
+    - generic: u
+    - generic: )
+    - generic: ":"
+    - generic: 单元优先级
+    - generic: ","
+    - generic: U
+    - generic: (
+    - generic: T
+    - generic: )
+    - generic: =
+    - generic: ⋃
+    - generic: u
+    - generic: ∈
+    - generic: T
+    - generic: C
+    - generic: l
+    - generic: o
+    - generic: s
+    - generic: u
+    - generic: r
+    - generic: e
+    - generic: (
+    - generic: u
+    - generic: )
+    - generic: ":"
+    - generic: 实际送达集合
+    - generic: ","
+  - generic: "s(q, u) :"
+  - generic: 单元优先级
+  - text: ", U(T) ="
+  - generic: u∈T
+  - generic: ⋃
+  - generic: Closure
+  - text: "(u) :"
+  - generic: 实际送达集合
+  - text: ","
+  - math:
+    - generic: c
+    - generic: (
+    - generic: T
+    - generic: )
+    - generic: =
+    - generic: C
+    - generic: h
+    - generic: a
+    - generic: r
+    - generic: s
+    - generic: (
+    - generic: R
+    - generic: e
+    - generic: "n"
+    - generic: d
+    - generic: e
+    - generic: r
+    - generic: (
+    - generic: U
+    - generic: (
+    - generic: T
+    - generic: )
+    - generic: )
+    - generic: )
+    - generic: ":"
+    - generic: 实际预算成本
+    - generic: .
+  - generic: c(T) =
+  - generic: Chars
+  - text: (
+  - generic: Render
+  - text: "(U(T))) :"
+  - generic: 实际预算成本
+  - text: .
+  - paragraph:
+    - text: 最终约束是
+    - math:
+      - generic: c
+      - generic: (
+      - generic: T
+      - generic: )
+      - generic: ≤
+      - generic: 20,000
+    - generic: c(T) ≤
+    - text: "20"
+    - generic: ","
+    - text: "000"
+    - text: ，包括去重后正文和固定渲染开销。单元得分不能直接当成 bundle 的独立、可加价值。
+  - paragraph: "**单元打分能够做的：**调整哪些单元先被考虑；避免某个粗粒度文档的高分掩盖其中差异；结合依赖闭包的增量成本，更准确地识别可行替换。"
+  - paragraph:
+    - strong: 它不能做到的：
+  - list:
+    - listitem: 两组互不重叠、分别需要 13,000 和 11,000 字符的重要材料，无法同时装进 20,000 字符；任何排序都会发生取舍。
+    - listitem: 主命题高分、限定条件低分，不构成删除限定条件的理由。打分粒度变化不赋予拆封权。
+    - listitem: 两个单元各自有用，不说明一起选有双倍价值；它们可能重复，也可能必须合用才有价值。
+    - listitem: 缺失于法源库的依据，以及已经送达却被模型误读的案件片段，都不由排序补救。
+  - paragraph: 因此，真正有关的是边际集合价值：
+  - math:
+    - generic: Δ
+    - generic: V
+    - generic: (
+    - generic: u
+    - generic: ∣
+    - generic: T
+    - generic: )
+    - generic: =
+    - generic: V
+    - generic: ⁣
+    - generic: (
+    - generic: U
+    - generic: (
+    - generic: T
+    - generic: ∪
+    - generic: "{"
+    - generic: u
+    - generic: "}"
+    - generic: )
+    - generic: )
+    - generic: −
+    - generic: V
+    - generic: ⁣
+    - generic: (
+    - generic: U
+    - generic: (
+    - generic: T
+    - generic: )
+    - generic: )
+    - generic: ","
+  - generic: ΔV(u ∣
+  - generic: T) =
+  - text: V
+  - generic: "(U(T ∪ {u}))"
+  - text: −
+  - text: V
+  - generic: (U(T))
+  - text: ","
+  - paragraph:
+    - text: 以及对应的增量字符成本。当前没有完整效用标签，不能把
+    - math:
+      - generic: V
+    - generic: V
+    - text: 伪装成已经可学习的目标。采用固定路径覆盖作为代理时，也只能声称优化该代理。
+  - paragraph: 14 个候选根单元至多对应 16,384 个子集，足以在设计上枚举检查依赖闭包和预算可达性，无须神经模型。**装配器若已冻结，应保持不变；可达性审计与修改选择器须分开。**将来任何装配改动都应共同作用于 A/B/C，避免把装配收益记到 C 名下。
+  - paragraph:
+    - text: 最后，
+    - strong: 参考 bundle 与装配依赖不能混同
+    - text: ：前者记录某次有来源的支持组合，后者规定哪些内容必须共同交付。不能把参考 bundle 自动编成输入依赖边，也不能根据参考标签选择最终包。
+  - paragraph: 现有参考适合报告“已知锚点单元送达覆盖”和“完整参考 bundle 送达情况”，disputed 单列；不能把未标项记零后报告完整相关性意义上的精度或 nDCG。若分数变化后最终材料仍逐字相同，则尚未形成材料选择层面的干预，也不能把回答波动归为排序收益。
+  - paragraph:
+    - strong: 本轮应留下的结论是：R-GCN 法源排序尚未被评估；训练所需的排序监督与合规事实—条件输入尚未成立。现阶段可确认的工作边界是元数据约束、依赖闭包和预算可达性。

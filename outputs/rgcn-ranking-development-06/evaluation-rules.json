@@ -1,0 +1,27 @@
+{
+  "reference": "model-assisted source review, not human gold",
+  "blind_display": "hash-neutral answer IDs; method key opened after source notes; content can disclose condition, not fully blind",
+  "criteria": [
+    "decisive target facts, claims versus findings, court/stage",
+    "precedent facts not imported",
+    "rule scope and conditions, exceptions and counterarguments",
+    "missing evidence versus omitted supplied material",
+    "outcome and reasons consistent",
+    "added delivered source actually used; new material errors"
+  ],
+  "unit": "case, not individual graph edge",
+  "ranking_metrics": [
+    "directional reviewed preference agreement count/denominator",
+    "confirmed DIRECT/EXCEPTION_COUNTER selected count/known denominator",
+    "exact final task hash versus law-set identity",
+    "two fixed seed disagreement; no best seed selection"
+  ],
+  "stop": "one batch, one source review, no tuning or semantic repair reruns",
+  "limits": [
+    "six exposed development cases",
+    "14 fixed candidate units",
+    "references incomplete and model-generated",
+    "D/A keyword versus added relation information and supervised training are separate comparisons",
+    "C0 no neighbor messages but still explicit relation summary features"
+  ]
+}

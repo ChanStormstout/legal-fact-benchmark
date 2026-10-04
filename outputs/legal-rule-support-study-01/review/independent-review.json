@@ -1,0 +1,26 @@
+{
+  "reviewed_commit": "be0ec42b802c0ff701635e3421ff185699d94656",
+  "role": "supervisor_read_only_review_not_new_experiment",
+  "confirmed": [
+    {"file": "legal_bench/rules_verdict_v1/rule_retrieval_v21.py", "lines": [177, 198], "finding": "retrieve_pair logs CONFIG but does not pass selection budgets to select_units. Defaults currently match; a future non-default config is at risk. No historical deviation established."},
+    {"file": "legal_bench/rules_verdict_v1/rule_retrieval_v21.py", "lines": [121, 127], "finding": "legal_payload omits coverage_limit; it retains source, version_status, scope and dependencies. This is incomplete warning transfer, not wholesale loss of legal metadata."},
+    {"file": "legal_bench/rules_verdict_v1/rule_retrieval_v21.py", "lines": [130, 164], "finding": "Dependency selection deduplicates IDs; repeated dependency-ID delivery is not supported as the cause."},
+    {"file": "outputs/rules-verdict-v22-scope-preparation/engineering/summary.json", "finding": "Both B target selections consist of five old GR/HP units and 18790 displayed characters; A selects different units. This confirms material selection differences, not answer improvement."},
+    {"file": "outputs/rules-verdict-v23-uniform-retrieval/library/original-units.json", "finding": "NBI scheme plus declared s9 dependency raw texts total 22850 characters, already over 20000 before metadata. Relevance to both V23 target disputes is not thereby established."},
+    {"file": "outputs/rules-verdict-v23-uniform-retrieval/description-runs/S01/proposal.json", "finding": "Of 12 evidence quotes, 3 exact-match raw text, 7 additional quotes match after whitespace normalization, 2 remain unmatched under whitespace normalization. This is addressability, not semantic validation."}
+  ],
+  "corrections_to_pro": [
+    "V21 FINAL already says point denotes the underlying proposition, not missing coverage. Do not implement an unnecessary new prompt change for this historical problem.",
+    "V21 already deterministically replayed the two count-limit failures with a soft parser. A replay of all 12 can be one uniform import check, but no new model calls or retrospective semantic scoring are warranted by that replay alone."
+  ],
+  "design_followup_submitted": "followup-prompt.txt",
+  "independently_opened_primary_literature": [
+    {"url": "https://journals.sagepub.com/doi/10.3233/FAIA251614", "scope": "Published short paper methods/results: generated problem representations retrieve original passages; query rewriting and hybrid comparisons. Supports a representation control, not novelty certification."},
+    {"url": "https://arxiv.org/html/2505.14104v2", "scope": "Task and dataset introduction, not full independent paper audit."},
+    {"url": "https://arxiv.org/html/2604.02276v1", "scope": "Opened primary paper; detailed claims remain Pro's review unless separately verified."},
+    {"url": "https://aclanthology.org/2025.ijcnlp-long.92.pdf", "scope": "Opened primary PDF; detailed experimental claims remain Pro's review unless separately verified."}
+  ],
+  "pro_reading_scope": "READING_LOG.md",
+  "no_test_or_inference_runs_by_supervisor": true,
+  "no_source_code_changes_by_supervisor": true
+}

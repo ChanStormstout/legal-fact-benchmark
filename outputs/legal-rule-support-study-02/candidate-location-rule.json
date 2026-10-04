@@ -1,0 +1,12 @@
+{
+  "act": "Delhi\\s+Rent\\s+Control|\\bDRC\\s+Act",
+  "section": "14\\s*\\(?\\s*1\\s*\\)?\\s*\\(?\\s*b\\s*\\)?",
+  "issue": "sub[\\s-]*let|assign(?:ed|ment)?|part(?:ed|ing)?\\s+with\\s+possession|consent",
+  "mode": "AND all three, anywhere in existing record; candidate signal only, including possible cited precedent. No outcome selection.",
+  "metadata": "outputs/benchmark-pilot/data/cases.sqlite raw_json",
+  "local_source_roots": [
+    "outputs/benchmark-pilot-v04/sampling-v1/sources",
+    "outputs/rules-verdict-v19-historical-pairs/sources"
+  ],
+  "ordering": "Existing qualification-only relevant candidates first, saved primary_read_order; then saved broad rank or numeric ID."
+}

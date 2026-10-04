@@ -216,6 +216,32 @@ def prepare(root=ROOT):
                      + '本地审阅包尚未提交或推送；远端不能假设包含本快照。\n\n'
                      + '历史RESULTS与SOURCES_01–04仍是旧关系基线，不能充当本轮答案或来源。\n\n'
                      + 'raw入口：' + prefix + 'review/START_HERE.md\n')
+    if policy.get('current_review', {}).get('review_kind') == 'SOURCE_RETRIEVAL':
+        start = start.replace('原始输出、最终prompt及程序轨迹位于 `'+current_root+'/runs/`；允许来源在 `sources/`，共同法律包在 `prepared/<case>/law-package.json`。',
+                              '原始回答位于 `'+current_root+'/runs/`，实际任务在 `tasks/`；允许来源在 `sources/*-allowed.json`，完整共同法源在 `library/original-units.json`，各方法实际送达在 `retrieval/<case>/result.json`。')
+    if policy.get('current_review', {}).get('review_kind') == 'LOCAL_RETRIEVAL_DIAGNOSTIC':
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`'+snapshot+'`\n\n'+cur['summary']+'\n\n'
+                 + '先读[本轮报告](../'+cur['report']+')、[检索阶段对照](../'+current_root+'/stage-comparison.csv)、'
+                 + '[有限错误定位](../'+current_root+'/error-attribution.json)、[一次重排结果](../'+current_root+'/trial-results.csv)。\n\n'
+                 + '本轮没有新模型回答。trial-tasks是未提交的本地装配，不能当作模型结果；原六案答案仍在study02。'
+                 + 'trial-config-execution.json固定唯一重排，traces保存旧排名/选择重放，trial保存新选择及损失。\n\n'
+                 + '[文件清单](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)、[项目状态](../docs/PROJECT_STATE.json)。本地未提交或推送。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'ANALYSIS_PROMPT_COMPARISON':
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`'+snapshot+'`\n\n'+cur['summary']+'\n\n'
+                 + '先读[报告](../'+cur['report']+')、[任务顺序](../'+current_root+'/run-order.json)、[输入差异](../'+current_root+'/task-checks.json)、[恢复说明](../'+current_root+'/resume.md)。\n\n'
+                 + 'tasks为受测输入，evaluation仅供运行后评价，不得一起上传。当前0提交、0答案，不能把未运行当成UNKNOWN或无收益。完整冻结见freeze.json，访问记录见access-block.json。\n\n'
+                 + '[文件清单](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)。本地未提交或推送。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_FEASIBILITY':
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`'+snapshot+'`\n\n'+cur['summary']+'\n\n'
+                 + '先读[报告](../'+cur['report']+')、[数据清单](../'+current_root+'/availability.json)、[图与方法接口](../'+current_root+'/graph-and-method-contract.md)、[启动门禁](../'+current_root+'/launch-gate.json)。\n\n'
+                 + 'comparison-table记录A重放和B/C未运行，不是三法效能比较。labels-audit-only为监督盘点，禁止进入图。旧案103193047仅表示演示，不作Delhi检索输入。pro-discussion/pro-response为设计讨论，不能当实验成绩。\n\n'
+                 + '[文件清单](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)。本地未提交或推送。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_DEVELOPMENT':
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`'+snapshot+'`\n\n'+cur['summary']+'\n\n'
+                 + '先读[报告](../'+cur['report']+')、[逐案表](../'+current_root+'/comparison-table.csv)、[答案入口](../'+current_root+'/final-answer-slots.md)、[集中来源审阅](../'+current_root+'/final-source-review.json)。\n\n'
+                 + 'tasks/保存完整提交，raw/保存原始回复，parsed/保存解析；sources/保存允许案情和laws.json。graphs/与labels/隔离输入及监督；folds/保存真实训练及本地权重；selections/保存材料选择。training-freeze.json与freeze/code/固定实际方法。网页记录见web-ledger.json。\n\n'
+                 + '本轮36次训练、20份最终回答已完成。C与C0材料相同不证明消息传播有效；45/64有效条件及引文过滤损失须同时审阅。权重npz仅本地保存，哈希见local-weight-manifest.json。\n\n'
+                 + '[代码](CODE.md)、[文件清单](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)、[项目状态](../docs/PROJECT_STATE.json)。本地包未提交或推送，GitHub不保证含当前版本；旧RESULTS及SOURCES不是本轮材料。\n')
     save(root, 'review/START_HERE.md', start)
     request = '''请审阅公开仓库的指定分支 https://github.com/%s/tree/%s 。先读取 %sreview/START_HERE.md
 和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
@@ -252,6 +278,11 @@ def prepare(root=ROOT):
                    + '重点审查：局部缺失是否只影响相应事实或连接；来源地址是否被误当语义认证；两阶段最终模板是否相同；技术失败是否与实质未知分开；原文已有下级认定是否被漏掉；法律覆盖不足与程序未实现是否混淆。\n\n'
                    + '只有同案两份完整答案才能进行配对内容比较；技术完成不等于法律正确，具体是否完成以本轮报告为准。来源审阅是模型辅助开发评价，不是人工金标准。请对重要意见提供具体原文、文件和机制。\n\n'
                    + '本次仅审阅，不授权新模型调用、重标注、增加字段或择优重跑。保留失败和全部历史结果。\n')
+        if cur.get('review_kind') == 'SOURCE_RETRIEVAL':
+            request = ('请审阅本地快照 ' + snapshot + '。先读review/START_HERE.md、MANIFEST.json与' + cur['report'] + '。本轮没有提交或推送，远端缺少快照时使用用户上传的同版本审阅包，不能声称已读远端。\n\n'
+                       + cur['summary'] + '\n\n读取同目录comparison-table.json、final-source-review.json、source/reference/representation/run冻结文件、tasks与runs原始回答、sources允许范围、library原文和retrieval送达记录。\n\n'
+                       + '重点检查响应边界和文书身份、实际提交完整性、候选范围与暴露、参考先于排名、G/L对称准入、依赖和预算、相同输入共享、有限参考送达率与原文使用是否分开、重复稳定性与模型评价争议。不要把同输入当独立判断，不把未列参考的法源自动当无关，不把模型参考当人工金标准。\n\n'
+                       + '本次审阅不授权新调用、改方法重跑或发布；保留历史字节、失败和冻结材料。\n')
         if cur.get('review_kind') == 'SAMPLE_AVAILABILITY':
             request = ('请审阅指定快照 ' + snapshot + '。先读review/START_HERE.md与MANIFEST.json；'
                        + '本地尚未推送，远端缺少快照时使用用户上传的同版本审阅包，不声称已读远端。\n\n'
@@ -263,6 +294,24 @@ def prepare(root=ROOT):
                        + '不要假定缺少的A/B答案存在；无比较结果不等于技术失败、UNKNOWN或方法无效。'
                        + '来源盘点为模型辅助评价，不是人工金标准。指出具体出处与证据不足。\n\n'
                        + '本次只审阅，不授权扩大样本、更换争点、模型调用、修改旧实验或提交推送。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'LOCAL_RETRIEVAL_DIAGNOSTIC':
+        request = ('请审阅本地检索诊断，不启动新实验。先读'+cur['report']+'及同目录stage-comparison、error-attribution、trial-config-execution、trial-results。'
+                   + '确认候选集合、排名、原文集合、展示顺序和完整输入字节分别比较；检查字段优先排序是否只使用原有scope与explicit_act_names，'
+                   + '预算和依赖是否不变，参考是否只用于选择后评价。尤其保留58386394找回DRC16却挤出Telesound的代价。'
+                   + 'trial-tasks未提交；0模型调用，不存在新法律回答质量结论。检查已送达但遗漏的反论，不把有限参考覆盖当完整召回或法律准确率。'
+                   + '原study02字节保持；不修改旧参考、答案或冻结方法。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'ANALYSIS_PROMPT_COMPARISON':
+        request = ('请审阅准备材料，不假定已存在模型结果。读取'+cur['report']+'及task-checks、run-order、freeze、evaluation-rules。'
+                   + '检查对照是否逐字复用study02的A任务，处理组是否仅插入统一组织说明，参考错误线索是否与受测任务隔离。'
+                   + '检查12项固定顺序、失败null、导入不改内容及访问恢复后的防重复安排。0次提交不支持质量结论。此审阅不授权启动新实验或提交推送。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_FEASIBILITY':
+        request = ('请只审阅R-GCN可行性结果，不启动新训练。先读'+cur['report']+'及availability、label-mask-matrix、case-pools、graph-and-method-contract、launch-gate。'
+                   + '检查23正向线索不等于23独立充分依据，争议/未标注没有负采样，参考不进图，旧20案不能因记录多而冒充与六案对齐训练。'
+                   + '检查A材料重放、B/C空结果、MLX合成测试与真实能力边界；Pro建议须与本地证据区分。不要把随机模型接口或回顾性图演示解释成效能。无提交推送授权。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_DEVELOPMENT':
+        request = ('请只审阅本轮完成的关系图排序实验，不开启新训练或模型调用。先读'+cur['report']+'、training-freeze、implementation-notes、ranking-comparison、seed-and-message-comparison、final-source-review与comparison-table。'
+                   + '核对输入图和监督隔离、折内标准化、未知不作负例、条件计数去重、真实梯度及权重更新。重点检查严格引文过滤造成的覆盖不均，以及C/C0最终材料相同的解释边界。'
+                   + '同时审阅完整法律回答的新增错误、覆盖取舍和重复变化，不以偏好一致或损失下降代替法律效能。模型参考不是人工gold。npz权重仅本地保存；未推送材料应从本地同版审阅包读取，不能假装GitHub已有。无修改或提交推送授权。\n')
     save(root, 'review/REVIEW_REQUEST.md', request)
     save(root, 'review/PUBLICATION.json', {'included_count':len(paths),'included_bytes':sum(x['bytes'] for x in base),'excluded':excluded,'unregistered_local_only':['.runtime/','work/','other outputs not registered in docs/repository-artifacts.json'],'policy':'Explicit artifact roots, file limits, no UI captures or third-party paper copies; originals unchanged.'})
     derived = records(root, [p for p in GENERATED if p != 'review/MANIFEST.json'])

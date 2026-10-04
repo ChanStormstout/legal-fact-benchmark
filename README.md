@@ -14,7 +14,15 @@
 据此制定的[完整pipeline设计](docs/plans/rules-and-verdict-v1/PIPELINE.md)说明历史案例到规则库、
 新案到法源与请求结论的全部处理步骤；[实施与实验计划](docs/plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md)
 列出组件接口、模型与预算、最多5个开发案及10个新案的推进顺序、同信息对照和停止条件。
-当前发布包括[V22范围核对](outputs/rules-verdict-v22-scope-preparation/report-zh.txt)及V23准备检查点：两份普通租约已决定另设开发组，不并入原第14(1)(b)条实验。V23第一批S01的六项描述及原始回复已保存，结构可读、语义未复核，统一索引未生成，最终A/B回答均未运行。用户要求先发布当前代码及记录供整体科研审阅，详见[完整Pro审阅prompt](docs/reviews/2026-10-03-pro-research-design-review.md)。旧轮报告的“待范围选择”与“未推送”保留为历史状态；它们不代表此发布后的执行状态。
+当前[关系图辅助法源排序开发实验06](outputs/rgcn-ranking-development-06/report-zh.txt)已完成。六案完成38次准备、36次真实训练、20份法律回答。C/C0两种子材料均相同，未显示图传播额外收益；B有限依据覆盖较好但完整回答有得有失。保留简单关系候选，暂不扩大R-GCN。 完整[逐案比较表](outputs/rgcn-ranking-development-06/comparison-table.csv)、[集中来源审阅](outputs/rgcn-ranking-development-06/final-source-review.json)和训练权重/日志均已保存。旧[可行性检查](outputs/rgcn-retrieval-feasibility-05/report-zh.txt)作为历史记录保留；本次另行补齐数据后完成真实训练。仅本地交付，未提交或推送。
+
+此前[六案同材料分析提示对照](outputs/legal-analysis-study-04/report-zh.txt)已冻结12项任务，尚未提交模型任务；浏览器连接现已恢复，但按本次优先级暂缓。新增说明仍可在单独任务按冻结顺序比较，本地未提交或推送。
+
+此前[六案本地诊断](outputs/legal-rule-support-diagnostic-03/report-zh.txt)：六案本地诊断确认：原文已找回全部14项，G/L改变排名但受描述覆盖、依赖恢复与预算影响，固定展示顺序消除多数剩余差异。一次范围优先重排找回四案DRC16，三案有限覆盖提高、一案交换重要依据、两案无确认覆盖增益；不能直接替换A。主要主张归属及反论遗漏发生在已送达内容的使用阶段。0模型调用，旧文件不改；后续同材料比较已获授权并完成准备，当前访问受阻。
+
+上一轮已完成[来源修复与六案A/G/L比较](outputs/legal-rule-support-study-02/report-zh.txt)。来源边界修复后，按Delhi14(1)(b)定位详审8份、纳入6案，完成28次普通High调用（参考6、描述4、最终10、集中审阅6、独立复核2），重试0。5案A/G/L最终输入相同，6案G/L相同；1908519唯一不同材料配对接近，重复存在覆盖变化。暂优先原文检索，G/L收益未建立；非人工gold、非独立预测。本轮仅本地交付，不提交或推送。完整[逐案表](outputs/legal-rule-support-study-02/comparison-table.csv)、[答案及对话入口](outputs/legal-rule-support-study-02/final-answer-slots.md)、[来源修复证据](outputs/legal-rule-support-study-02/audit/source-trace.json)和[集中审阅](outputs/legal-rule-support-study-02/final-source-review.json)均已保存。上一轮零合格反映候选定位不足，不再据此推断数据里没有适用案件；旧报告与失败原样保留。
+
+最近已发布的状态仍是[V22范围核对](outputs/rules-verdict-v22-scope-preparation/report-zh.txt)及V23的S01准备检查点。其[完整Pro审阅prompt](docs/reviews/2026-10-03-pro-research-design-review.md)与后续完整审阅档案保存在新研究目录review/。旧报告“待范围选择”“未推送”和原冻结源码按当时状态保留，不倒改为本轮状态。
 
 此前[V21检索实现与样本盘点](outputs/rules-verdict-v21-rule-retrieval/report-zh.txt)完成双路线检索、原文依赖恢复与软限制导入。7项相关测试通过，但限定盘点未确认合格未暴露新目标，**新案比较未运行，不能评价检索或完整回答收益**。当前已实现的数据流程见[实际pipeline](docs/plans/rule-retrieval-v21/PIPELINE.md)；它与前述历史设计建议分开。银行规则卡覆盖、历史版本与完整上下文预算仍有限制；本轮只在本地交付，不提交或推送。
 

@@ -1,0 +1,112 @@
+{
+  "protocol_version": "LEGAL_RULE_SUPPORT_STUDY_01",
+  "project_goal": "Source-grounded rules to support law finding and legal analysis; A/G/L is an information supply sub-study, not rule induction.",
+  "fixed_commit": "be0ec42b802c0ff701635e3421ff185699d94656",
+  "snapshot_id_not_commit": "6d08d45186566376bb2a7ff2ac4ab123fbace635bcd7d782fea12bdc38a3979d",
+  "primary_scope": "Delhi Rent Control Act s14(1)(b): subletting, assignment, parting with possession or consent; other rent laws and ordinary leases separate.",
+  "candidate_order_rule": "Saved sampling-v1 candidate rank first; screened-but-not-answered V19/V21 candidates then saved locator order; limited supplementary sources only if necessary; never select by predicted answer or gain.",
+  "candidate_cap": 40,
+  "active_preparation_seconds_cap": 28800,
+  "max_new_dispute_groups": 8,
+  "stop_preparation_when_material_sufficient": true,
+  "exposure_rule": "Exclude prior tested answers/method-adjustment disputes; qualification-only screening is recorded and not automatic exclusion. Known related documents grouped; unknown relation marked.",
+  "corpus_rule": "Existing development law sources plus explicit basic statutory law and adjacent sources; no target final reasons, same-dispute conclusions or target-answer-derived material. No mandatory library size.",
+  "slicing_rule": "One source-boundary pass at complete statutory subsections/judicial paragraphs; exact offsets/maps retained. One minimal dependency determination and reachability check; no iterative budget-driven splitting.",
+  "query_rule": "Issue, explicit allowed-record Act names and neutral facts only; freeze before reference.",
+  "freezes": [
+    "source-freeze",
+    "reference-freeze",
+    "representation-freeze",
+    "run-freeze"
+  ],
+  "reference_rule": {
+    "max_calls_per_case": 1,
+    "full_common_corpus": true,
+    "max_reference_items": 6,
+    "analysis_points": [
+      3,
+      5
+    ],
+    "no_descriptions_rankings_answers_or_target_final_reason": true,
+    "states": [
+      "VERIFIED_SOURCE_ANCHORED",
+      "DISPUTED",
+      "UNVERIFIABLE"
+    ],
+    "one_model_source_anchor_review": true,
+    "not_human_gold": true
+  },
+  "representation_rule": {
+    "max_source_package_pairs": 4,
+    "G": "Faithful general summary, including important legal conditions naturally",
+    "L": "Legal conditions, effects, scope, authority status and exceptions",
+    "same_shell": [
+      "legal_unit_id",
+      "description",
+      "evidence",
+      "limitations"
+    ],
+    "word_target": [
+      90,
+      140
+    ],
+    "soft_length": true,
+    "paired_disable_if_either_unusable": true,
+    "index_only_description": true,
+    "no_semantic_repairs_or_regeneration": true
+  },
+  "primary_retrieval": {
+    "raw_candidates": 20,
+    "description_candidates": 20,
+    "fused_candidates": 40,
+    "rrf_k": 60,
+    "max_units": null,
+    "max_legal_characters": 20000,
+    "mandatory_base_counted": true,
+    "seed": 20261003,
+    "final_order": "frozen document/source offset"
+  },
+  "v23_retrieval": {
+    "A_raw_candidates": 40,
+    "L_raw_candidates": 20,
+    "L_description_candidates": 20,
+    "fused_candidates": 40,
+    "rrf_k": 60,
+    "max_units": 8,
+    "max_legal_characters": 20000
+  },
+  "generation": {
+    "provider": "ChatGPT Web",
+    "mode": "ordinary High",
+    "exact_model": "record visible; unavailable remains null",
+    "paid_API": false,
+    "new_fresh_dialog_per_call": true,
+    "external_search": false,
+    "no_local_model_runs": true,
+    "shared_key": [
+      "case_id",
+      "replicate_id",
+      "complete_submission_hash",
+      "visible_generation_profile"
+    ]
+  },
+  "new_call_cap": 64,
+  "call_caps": {
+    "main": 58,
+    "references": 8,
+    "paired_descriptions": 8,
+    "primary_first_answers": 24,
+    "repeated_answers": 6,
+    "case_evaluations": 8,
+    "independent_review": 2,
+    "transport_retries": 2,
+    "v23_S02_S03": 2,
+    "v23_answers": 4
+  },
+  "retries": "Only identifiable transport/upload failure, same content once, main total <=2; JSON/semantic failures no retry; V23 no retries.",
+  "preselect_repeats": "seed 20261003, min(2,n), before ranking and answers; new calls within each repeat.",
+  "evaluation": "Finite source-anchored reference delivery rate, shared mandatory statute excluded from incremental denominator; macro defined cases; inaccessible items stay denominator; disputed sensitivity symmetric. Four paired net-effect classes plus SAME_TREATMENT; no accuracy/rule-learning claim.",
+  "failure_rule": "Technical failure null; UNKNOWN substantive only. Failure retains case, does not trigger replacement or invented reference. Dependency stages blocked only; source/assembly error stops affected batch.",
+  "completion_rule": "Finish predetermined batch or concrete stop; concentrated Chinese report, traces, ledger, freezes, history byte check, local bridge prepare/manifest/verify. No automatic commit/push/next research round.",
+  "legacy_costs": "Old S01, historic experiments and two Pro reviews separately recorded; not included in 64 new call allowance."
+}

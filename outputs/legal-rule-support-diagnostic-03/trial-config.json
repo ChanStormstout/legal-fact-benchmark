@@ -1,0 +1,51 @@
+{
+  "frozen_at_utc": "2026-10-04T06:31:50.135776+00:00",
+  "one_trial_only": true,
+  "baseline": "saved A raw14 candidates",
+  "change": "stable lexicographic reorder by existing scope-prefix match to query explicit Act names; then original BM25 rank",
+  "normalization": "lowercase, whitespace/punctuation normalization, trailing Act year stripped; exact phrase prefix; no unit IDs or case-specific words",
+  "motivation": "All14 sources already candidates; reviewed DRC16 dependency bundle excluded at budget; scope field not indexed in original BM25; descriptions missing for16/17/18. Rank rather than recall is actionable.",
+  "not_changed": [
+    "query",
+    "library",
+    "source texts",
+    "scope metadata",
+    "dependency rules",
+    "20000 character budget",
+    "mandatory14b",
+    "final prompt template",
+    "case range"
+  ],
+  "input_to_ranker": [
+    "saved original candidate ranking",
+    "existing library scope strings",
+    "saved explicit_act_names"
+  ],
+  "forbidden_ranker_inputs": [
+    "reference",
+    "old answers",
+    "target final reasons",
+    "per-case target authority list"
+  ],
+  "no_model_calls": true,
+  "dependencies": "Python standard library + existing select/prompt; no install",
+  "related_work": {
+    "url": "https://www.microsoft.com/en-us/research/publication/microsoft-cambridge-at-trec-2004-web-and-hard-track/",
+    "idea": "Use distinct document fields as ranking signals rather than body text only.",
+    "not_claimed": "Not BM25F replication, not recent state of art, not learned relevance. This is a transparent scope-prior diagnostic."
+  },
+  "evaluation": "existing verified finite source anchors; disputed sensitivity symmetric; removed sources reviewed for compatibility; no legal-answer rerun",
+  "frozen_hashes": {
+    "scripts/study03_rerank.py": "e8a1412f39c022c00f5dccfaf14ca265d41e41843d70247a8143f5a05fb5d763",
+    "legal_bench/rules_verdict_v1/scope_rerank_diagnostic_v1.py": "0f8062efcd71441d0c9d5c12b6884481d11f7dde850bfda44256111b1793dbb0",
+    "legal_bench/rules_verdict_v1/legal_rule_support_study.py": "0ee148073e56efb4094845849cf63ba9a80540bafc39c1949f9312e42e23534e",
+    "outputs/legal-rule-support-study-02/library/original-units.json": "90b974bf7bb189eaf8f40ad9e3190bb785dd9716d7dff95fcb82a91a2d267fec",
+    "outputs/legal-rule-support-study-02/samples.json": "6a76f021b3144e79e23727532b0384d6b0eb0ad83dc0ee2b2fec6a8af8651397",
+    "outputs/legal-rule-support-study-02/retrieval/890045/result.json": "b4a4ae726ee8f75a1a948bf59f11406d46bb6f51d63d934f7aeb4794b3a28794",
+    "outputs/legal-rule-support-study-02/retrieval/110204406/result.json": "9764ed0d67867141ce12d2d8ae3f0eca5075fa0f0e4f19f07808b9002e21d519",
+    "outputs/legal-rule-support-study-02/retrieval/58386394/result.json": "71b3226f95ca55c22db168d7da5248d25bd0351e94669a03b72023fbd7c2dbc8",
+    "outputs/legal-rule-support-study-02/retrieval/869439/result.json": "d791e03a1e1d36ddf3627cd948aadc72c9505e98957d44c935ec05c73ac9de6a",
+    "outputs/legal-rule-support-study-02/retrieval/172908545/result.json": "bfcde0dfce085a2f3dc1db6c6513637ab35b4feefff5ef28bfc536c04fbff96d",
+    "outputs/legal-rule-support-study-02/retrieval/1908519/result.json": "224079cc01e0af8caed440fb122cfeca8458eda4353682784b89618171bba2be"
+  }
+}

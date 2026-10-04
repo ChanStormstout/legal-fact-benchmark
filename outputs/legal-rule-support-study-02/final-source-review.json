@@ -1,0 +1,169 @@
+{
+  "role": "MODEL_ASSISTED_NOT_HUMAN_GOLD",
+  "evaluations": [
+    {
+      "id": "EVAL01",
+      "case_id": "110204406",
+      "path": "tasks/EVAL01.txt",
+      "sha256": "b869cd2e02d2786f56051eb263efedc6ddd4bfa8e5b9012fffa0c5a14d337374"
+    },
+    {
+      "id": "EVAL02",
+      "case_id": "172908545",
+      "path": "tasks/EVAL02.txt",
+      "sha256": "5c4d279c5f8c286a963170d5d7c2c45eade99a0f05d06b08b7e15ee9dd72c60b"
+    },
+    {
+      "id": "EVAL03",
+      "case_id": "58386394",
+      "path": "tasks/EVAL03.txt",
+      "sha256": "1d4cc344ac582184306804ec839f9d7657507dfc96f8fcb5320196eab992a2ae"
+    },
+    {
+      "id": "EVAL04",
+      "case_id": "890045",
+      "path": "tasks/EVAL04.txt",
+      "sha256": "b3617c377152d00b03634b290c077dc515243ea6678148f6ca7c962b751537b6"
+    },
+    {
+      "id": "EVAL05",
+      "case_id": "1908519",
+      "path": "tasks/EVAL05.txt",
+      "sha256": "d41d580392d3b0b85a30bf0172801db4ec494ad8b6697aad61868ff2ce60c62e"
+    },
+    {
+      "id": "EVAL06",
+      "case_id": "869439",
+      "path": "tasks/EVAL06.txt",
+      "sha256": "f898077a6c3c211b192dc42c97adbfe26f168dbf8d9e4229329a64c973c05f9e"
+    }
+  ],
+  "independent_audits": [
+    {
+      "id": "AUD01",
+      "case_id": "110204406",
+      "path": "tasks/AUD01.txt",
+      "sha256": "da7a7f97b25672eea986d3d45aaf723c2a427e761d9631c92a60cc7c393571f7",
+      "preselected": true
+    },
+    {
+      "id": "AUD02",
+      "case_id": "58386394",
+      "path": "tasks/AUD02.txt",
+      "sha256": "0a8998cd9dc0b8ce8ea55caf6e94fd19da46ddfb7ef0dc02c66ccc72e2972f8b",
+      "preselected": true
+    }
+  ],
+  "root_source_checks": {
+    "label": "MODEL_ASSISTED_DEVELOPMENT_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+    "phase": "one batch review after all final generations",
+    "checks": [
+      {
+        "case_id": "110204406",
+        "source_ids": [
+          "IK-110204406:L103",
+          "IK-110204406:L136"
+        ],
+        "observation": "Company nationalization/vesting is stated. The exact tenancy-interest vesting instrument is not reproduced; first answer is stronger on that link than supplied text."
+      },
+      {
+        "case_id": "172908545",
+        "source_ids": [
+          "IK-172908545:L122",
+          "IK-172908545:L128",
+          "IK-172908545:L130",
+          "IK-172908545:L131"
+        ],
+        "observation": "Will/testamentary-disposition theory is a separate pleaded route under fixed ground, with opposing landlord-permission contention. Shared answer does not analyze it."
+      },
+      {
+        "case_id": "1908519",
+        "source_ids": [
+          "IK-1908519:L143",
+          "IK-1908519:L148",
+          "IK-1908519:L149",
+          "IK-1908519:L161",
+          "IK-1908519:L162@165:418",
+          "IK-1908519:L163"
+        ],
+        "observation": "Preserved Tribunal/HC findings support possession component. Original Controller differed; adoption/family argument and post1952 allegation should not disappear. A first uses nonexistent allowed L12 citation, with relevant L148 also cited."
+      },
+      {
+        "case_id": "869439",
+        "source_ids": [
+          "IK-869439:L169",
+          "IK-869439:L171",
+          "IK-869439:L176",
+          "IK-869439:L177@0:232"
+        ],
+        "observation": "Adverse lower findings and express sharing clause both provided. Distinguish lower findings from final appeal correctness; answer uses prior findings but should address directory-writing contention and concrete temporal premise."
+      }
+    ],
+    "no_answer_or_reference_mutation": true
+  },
+  "root_qualifications": [
+    {
+      "case_id": "869439",
+      "review": "EVAL06",
+      "position": "QUALIFIED_NOT_SILENTLY_ACCEPTED",
+      "reason": "Prior-court findings are allowed evidence and may support a conditional conclusion. Their use alone is not factual error, nor must every admitted finding be independently re-proved. The defensible criticism is unresolved scope of written sharing permission, omitted concrete opposition and timing, and over-definitive synthesis. Do not count three overlapping reviewer allegations as three independent failures.",
+      "source_ids": [
+        "IK-869439:L163",
+        "IK-869439:L166",
+        "IK-869439:L168",
+        "IK-869439:L169",
+        "IK-869439:L171",
+        "IK-869439:L176",
+        "IK-869439:L177@0:232"
+      ],
+      "effect_on_comparison": "None; shared A/G/L final input and answer."
+    },
+    {
+      "case_id": "1908519",
+      "review": "EVAL05",
+      "position": "SUPPORT_LABEL_NOT_AUTOMATIC_ERROR",
+      "reason": "L161 expressly supplies accepted exclusive-possession and no-control findings. SUPPORT_GROUND can express evidential support without claiming withheld final outcome. Missing family counterargument and prior opposing finding remain substantive coverage weaknesses.",
+      "effect_on_comparison": "First treatments CLOSE; repeat coverage movement reported."
+    },
+    {
+      "case_id": "110204406",
+      "review": "EVAL01",
+      "position": "MAPPING_AUTHORITATIVE",
+      "reason": "N1 is ANS08 repeat and N2 is ANS01 first. One review sentence has ambiguous repeat wording; immutable mapping and actual answers govern."
+    }
+  ],
+  "reference_corrections_applied": false,
+  "reference_disputes_retained": true,
+  "comparison_counts": {
+    "A_vs_G": {
+      "same_treatment": 5,
+      "close": 1,
+      "net_improvement": 0,
+      "worse": 0,
+      "undetermined": 0
+    },
+    "A_vs_L": {
+      "same_treatment": 5,
+      "close": 1,
+      "net_improvement": 0,
+      "worse": 0,
+      "undetermined": 0
+    },
+    "G_vs_L": {
+      "same_treatment": 6
+    }
+  },
+  "note": "SAME_TREATMENT is an identical-input shared run, not independently measured equality. Counts describe observed treatment effects, not answer correctness. Independent reviews may disagree; preserve their original reports and root qualifications.",
+  "independent_review_resolution": [
+    {
+      "case_id": "110204406",
+      "accepted": "Reference r2 wrong line IDs preserved as separate correction; already excluded legal denominator. L125 addresses original tenancy documentation not later consent. HP remains limited opposing analogy; no comparison direction change.",
+      "reference_bytes_changed": false
+    },
+    {
+      "case_id": "58386394",
+      "accepted": "Licence/subtenant attribution error confirmed. Generic banking and unrelated1993scheme nondelivery downgraded to secondary coverage limitation; applicability not established. Target facts typed UNVERIFIABLE only in legal-unit reference interface, not ordinary source fidelity.",
+      "reference_bytes_changed": false
+    }
+  ]
+}

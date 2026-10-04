@@ -1,0 +1,42 @@
+{
+  "version": "06",
+  "cases": [
+    "110204406",
+    "172908545",
+    "58386394",
+    "890045",
+    "1908519",
+    "869439"
+  ],
+  "preparation_cap": 48,
+  "answer_cap": 22,
+  "seeds": [
+    20261004,
+    20261005
+  ],
+  "downstream_primary_seed": 20261004,
+  "steps": 200,
+  "width": 16,
+  "layers": 2,
+  "optimizer": "Adam",
+  "lr": 0.003,
+  "l2": 0.001,
+  "split": "leave-one-case; no known shared dispute; broader links unknown",
+  "text": "fixed signed SHA256 term hash; no identity embeddings",
+  "review": "one independent review; disagreement masked; no semantic repair loops",
+  "pair_selection": "after uses: cyclic adjacent IDs in each nonempty use category; cross-category first and last lexicographic IDs; deduplicate; max 16 pairs by SHA256(seed,case,sorted IDs). Unknown allowed. Includes direct/exception/background where available. No directed labels inferred from categories.",
+  "web_schedule": [
+    "4 law batches",
+    "6 case graphs (all14 laws)",
+    "6 all14 usefulness tasks",
+    "6 deterministic preference tasks",
+    "4 source-only law reviews",
+    "6 independent input-graph reviews NEVER see uses or preferences",
+    "6 reference-only reviews NEVER see model ranks/results"
+  ],
+  "maximum_planned_preparation_calls": 38,
+  "no_new_cases_laws_models": true,
+  "final_prompt": "reuse study02 exact final contract; material only changes",
+  "repeats": "at most2 cases with differing final inputs seeded selection; A/C once extra; no post-answer choice",
+  "review_isolation": "Graph review sees no relevance labels; label review cannot edit graph. Frozen before submissions of reviews."
+}

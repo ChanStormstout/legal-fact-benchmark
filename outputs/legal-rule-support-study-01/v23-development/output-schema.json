@@ -1,0 +1,66 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "outcome",
+    "grounds",
+    "reason"
+  ],
+  "properties": {
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "SUPPORT_GROUND",
+        "OPPOSE_GROUND",
+        "UNDETERMINED",
+        "UNSUPPORTED"
+      ]
+    },
+    "grounds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "point",
+          "case_refs",
+          "law_refs",
+          "assessment",
+          "explanation"
+        ],
+        "properties": {
+          "point": {
+            "type": "string"
+          },
+          "case_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "law_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "assessment": {
+            "type": "string",
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNRESOLVED",
+              "UNSUPPORTED"
+            ]
+          },
+          "explanation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "reason": {
+      "type": "string"
+    }
+  }
+}

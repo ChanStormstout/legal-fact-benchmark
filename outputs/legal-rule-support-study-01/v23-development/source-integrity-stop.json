@@ -1,0 +1,36 @@
+{
+  "status": "STOP_AFFECTED_CASE_BEFORE_GENERATION",
+  "discovered_at": "2026-10-04T02:58:29.086044+00:00",
+  "case_id": "34625760",
+  "affected_slots": [
+    "R03",
+    "R04"
+  ],
+  "kind": "CACHED_MULTI_SOURCE_WEB_RENDERING_MISATTRIBUTED_AS_ONE_DOCUMENT",
+  "evidence": [
+    {
+      "id": "IK-34625760:L191",
+      "text": "30. The letter Ex.P-1, dated October 18, 2000, contents whereof have been noted by us in paragraph 23 above, has been opined, in paragraph 27 of the impugned decision dated April 29, 2013, by the learned Single Judge to be indicative of; and we quote:-\n--------------------------------------------------------------------------------\nIcici Bank Ltd. vs Late Smt. Shakuntla Gupta (Since ... on 12 August, 2015 (https://indiankanoon.org/doc/157278563/)\nciteturn87view2 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({\"ref_id\":\"turn86view0\",\"lineno\":178}); Total lines: 250",
+      "original_line": 191,
+      "source_document": "34625760",
+      "raw_rendering_path": "outputs/rules-verdict-v22-scope-preparation/search/v22_moreviews.txt"
+    },
+    {
+      "id": "IK-34625760:L192",
+      "text": "27. The appeal is accordingly dismissed with cost against the appellant and in favour of the respondents.",
+      "original_line": 192,
+      "source_document": "34625760",
+      "raw_rendering_path": "outputs/rules-verdict-v22-scope-preparation/search/v22_moreviews.txt"
+    }
+  ],
+  "present_in_frozen_tasks": true,
+  "source_path": "sources/34625760-allowed.json",
+  "source_sha256": "66c0458b95f164e86ecc4ad3103784076064194911de7a5795a346357ffedee1",
+  "mechanism": "缓存v22_moreviews.txt合并了多个web.open输出；保存段落时未在来源标题边界停止，后一个案件正文被沿用前案ID。reading_view只清理引用包装，未检查文书归属。",
+  "effect": "另一案件157278563被排除的最终裁判结论进入34625760拟定案情；不能作为合法同案配对输入。",
+  "historical_scope_audit_claim_invalid_for_this_case": true,
+  "pre_generation_audit_claim_superseded": true,
+  "no_claim_that_157278563_actual_inputs_contain_this_contamination": true,
+  "repair": "NOT_AUTHORIZED_AFTER_FREEZE; no trimming or resubmission",
+  "original_bytes_preserved": true
+}
