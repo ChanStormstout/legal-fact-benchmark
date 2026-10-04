@@ -1,0 +1,63 @@
+--- outputs/rules-verdict-v8-paired/freeze/code/legal_bench/rules_verdict_v1/runtime_v8.py
++++ legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py
+@@ -8,7 +8,7 @@
+ from pathlib import Path
+ from .source_views import digest, write_new
+ from .contracts import validate
+-from .repetition_v8 import StringGuard, RepetitionAbort
++from .repetition_v9 import StringGuard, RepetitionAbort
+ 
+ SETTINGS = {
+     'model': 'mlx-community/Qwen3.5-9B-4bit',
+@@ -51,10 +51,10 @@
+         from mlx_vlm.prompt_utils import apply_chat_template
+         return apply_chat_template(self.processor, self.model.config, prompt, enable_thinking=False, num_images=0, num_audios=0)
+ 
+-    def run(self, prompt, schema, out, max_tokens, remaining_seconds=1800):
++    def run(self, prompt, schema, out, max_tokens, remaining_seconds=1800, constraint_mode="NONE"):
+         out = Path(out)
+         rendered = self.render(prompt)
+-        identity = {'prompt_hash': digest(prompt.encode()), 'schema_hash': digest(schema),
++        identity = {'constraint_mode':constraint_mode, 'prompt_hash': digest(prompt.encode()), 'schema_hash': digest(schema),
+                     'settings_hash': digest(self.settings), 'max_tokens': max_tokens,
+                     'versions': self.versions, 'model_config_hash': self.model_config_hash}
+         if (out / 'run.json').exists():
+@@ -72,7 +72,7 @@
+         prompt_tokens = len(self.tokenizer.encode(rendered))
+         empty_think = '<think>\n\n</think>' in rendered[-150:]
+         meta = {'identity': identity, 'settings': self.settings, 'run_status': None, 'answer_status': None,
+-                'prompt_tokens': prompt_tokens, 'source_input_truncated': False,
++                'prompt_tokens': prompt_tokens, 'source_input_truncated': False, 'constraint_mode':constraint_mode,
+                 'thinking_disabled_template_verified': empty_think, 'loaded_seconds': self.loaded_seconds}
+         if prompt_tokens + max_tokens > self.settings['total_budget'] or not empty_think:
+             meta.update(run_status='INPUT_TOO_LONG' if empty_think else 'UNSUPPORTED',
+@@ -82,14 +82,18 @@
+         import mlx.core as mx
+         from mlx_vlm.generate import stream_generate
+         from mlx_vlm.generate.types import GenerateKwargs
+-        from legal_bench.mlx_json_constraint import SchemaMask
++        from legal_bench.mlx_json_constraint_v2 import SchemaMask
+         mx.random.seed(self.settings['seed'])
+         mx.clear_cache()
+         mx.reset_peak_memory()
+         kwargs = {k: self.settings[k] for k in ['temperature', 'top_p', 'top_k', 'min_p',
+                   'repetition_penalty', 'enable_thinking', 'prefill_step_size']}
+-        mask = SchemaMask(self.constraint_data, schema)
+-        kwargs.update(max_tokens=max_tokens, logits_processors=[mask])
++        if constraint_mode not in ['NONE','FIXED']:raise ValueError('Unknown diagnostic mode')
++        class NoMask:
++            calls=0
++        mask = SchemaMask(self.constraint_data, schema) if constraint_mode=='FIXED' else NoMask()
++        kwargs.update(max_tokens=max_tokens)
++        if constraint_mode=='FIXED':kwargs['logits_processors']=[mask]
+         unsupported = set(kwargs) - set(GenerateKwargs.__annotations__)
+         if unsupported:
+             meta.update(run_status='UNSUPPORTED', reason='UNSUPPORTED_PARAMETERS:' + repr(sorted(unsupported)))
+@@ -137,6 +141,7 @@
+             signal.setitimer(signal.ITIMER_REAL, 0)
+             signal.signal(signal.SIGALRM, prior_handler)
+         write_new(out / 'token-ids.json', token_ids)
++        if hasattr(mask,'history'):write_new(out / 'mask-history.json',mask.history)
+         meta.update(output_tokens=len(token_ids), effective_max_tokens=max_tokens, repetition_guard=guard.hit, framework_finish_reason=getattr(last,'finish_reason',None), finish_reason=(getattr(last,'finish_reason',None) or meta['run_status'].lower()), format_repairs=meta.get('format_repairs',[]))
+         meta.update(elapsed_seconds=time.perf_counter() - start, peak_mlx_memory_gb=mx.get_peak_memory() / 1e9,
+                     peak_rss_gb=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e9,

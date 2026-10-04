@@ -1,0 +1,39 @@
+{
+  "version": "v19-availability-before-pair-freeze",
+  "seed": 20261003,
+  "primary_issue": "Company amalgamation or statutory corporate succession transferring tenancy; eviction under Delhi Rent Control Act s14(1)(b)",
+  "compatibility": "Delhi s14(1)(b) at rent-controller or appellate/revisional stages. Other rent statutes and civil suits outside this protection are not pooled. Banking/insurance-specific succession recorded as a subgroup if otherwise within this statutory issue.",
+  "existing_queue": "outputs/rules-verdict-v16-rule-transfer/sample-availability.json#fixed_order_existing_complete_candidates",
+  "existing_review_limit": 16,
+  "new_source_limit": 8,
+  "total_candidate_review_limit": 24,
+  "new_search_method": "Ordered bounded primary-judgment search. Saved query/result order; duplicates and source/developed cases excluded before new acquisition. Search snippets locate documents only.",
+  "search_queries": [
+    "site.indiankanoon.org \"amalgamation\" \"14(1)(b)\" \"tenant\"",
+    "site.delhihighcourt.nic.in \"amalgamation\" \"tenant\" \"14\""
+  ],
+  "exclude_developed": [
+    "69305",
+    "661475",
+    "1134266"
+  ],
+  "rule_source_exclusion": "All cases actually present in the historical rule package, including General Radio, Hindustan Petroleum, Telesound and reported Parasram, and prior target rule-source cases.",
+  "selection_not_based_on": [
+    "target outcome",
+    "anticipated model performance",
+    "anticipated supplement benefit"
+  ],
+  "quantity_gate": {
+    "at_least_8": "sample8 with fixed seed",
+    "6_or_7": "all eligible",
+    "below6": "no model comparisons; availability report only"
+  },
+  "model_answer_limit": 20,
+  "pro": false,
+  "api": false,
+  "retry_limit": 0,
+  "new_rule_or_issue_expansion": false,
+  "stop_after_delivery": true,
+  "review_reference": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "relatedness": "Exclude known same dispute, retain unresolved flags, no independence certification"
+}

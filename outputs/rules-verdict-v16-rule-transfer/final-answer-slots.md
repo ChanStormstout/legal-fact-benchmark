@@ -1,0 +1,483 @@
+# V16 完整规则提取结果
+
+本轮没有新案最终回答；应用比较因样本不足未运行，答案为null。规则卡是模型提议，非人工金标准。
+
+## GENERAL_RADIO
+
+https://chatgpt.com/c/6ac09b25-3468-83e8-9168-4af1956d29b9
+
+```json
+{
+  "case_id": "GENERAL_RADIO",
+  "rule_cards": [
+    {
+      "id": "GR-R1",
+      "proposition": "Under section 10(ii)(a) of the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, the statutory eviction ground covers a tenant who, without the landlord's written consent, transfers the tenant's right under the lease or sublets the whole or part of the building when the lease confers no right to do so.",
+      "source_kind": "QUOTED_STATUTE",
+      "scope": "Section 10(ii)(a) of the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, as quoted by the Supreme Court of India; Andhra-area rent-control eviction proceeding before the Controller; subject to the temporal and territorial wording reproduced in the quoted provision.",
+      "conditions": [
+        {
+          "id": "GR-C1",
+          "text": "The tenant transfers the tenant's right under the lease or sublets the entire building or a portion of it.",
+          "kind": "NECESSARY",
+          "factual_predicate": "ASSIGN",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P6"
+          ]
+        },
+        {
+          "id": "GR-C2",
+          "text": "The landlord has not given written consent to the transfer or subletting covered by the provision.",
+          "kind": "NECESSARY",
+          "factual_predicate": "CONSENT",
+          "polarity": "NEGATIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P6"
+          ]
+        },
+        {
+          "id": "GR-C3",
+          "text": "The lease does not confer on the tenant a right to make the transfer or subletting.",
+          "kind": "NECESSARY",
+          "factual_predicate": "LEASE",
+          "polarity": "NEGATIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P6"
+          ]
+        }
+      ],
+      "effect": "If the Controller, after giving the tenant a reasonable opportunity to show cause, is satisfied that the statutory ground is established, section 10(ii)(a) supplies a ground for eviction.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:GENERAL_RADIO:P6"
+      ],
+      "formalization_limits": [
+        "The quoted provision contains territorial and temporal wording whose precise operation is not further explained in the supplied authority.",
+        "The quoted text states transfer and subletting as alternatives; this card does not implement executable disjunctive logic.",
+        "The source does not define the full range of conduct constituting a transfer, assignment, or subletting."
+      ]
+    },
+    {
+      "id": "GR-R2",
+      "proposition": "A transfer of leasehold or tenancy rights through a court-sanctioned amalgamation is not treated as involuntary merely because the court sanctioned the scheme when the transferor tenant itself petitioned for the amalgamation and the scheme transferred those rights to the transferee company.",
+      "source_kind": "COURT_ADOPTED_INTERPRETATION",
+      "scope": "Supreme Court of India interpretation in an appeal under the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, concerning a scheme sanctioned under sections 391 and 394 of the Companies Act, 1956; relevant to whether the resulting tenancy transfer falls within section 10(ii)(a).",
+      "conditions": [
+        {
+          "id": "GR-C4",
+          "text": "The transferor tenant itself petitions for or voluntarily sponsors the amalgamation scheme.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P5",
+            "LAW:V16:GENERAL_RADIO:P6",
+            "LAW:V16:GENERAL_RADIO:P9"
+          ]
+        },
+        {
+          "id": "GR-C5",
+          "text": "The sanctioned scheme transfers and vests the transferor company's leases or tenancy rights in the transferee company.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "ASSIGN",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P5",
+            "LAW:V16:GENERAL_RADIO:P6",
+            "LAW:V16:GENERAL_RADIO:P8"
+          ]
+        },
+        {
+          "id": "GR-C6",
+          "text": "A court sanctions the amalgamation under sections 391 and 394 of the Companies Act, 1956.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P5",
+            "LAW:V16:GENERAL_RADIO:P6"
+          ]
+        }
+      ],
+      "effect": "The court-sanctioned vesting may be treated as a transfer of the tenant's interest for section 10(ii)(a), and court sanction alone does not create immunity from that rent-control provision. Application of the eviction ground still depends on the statute's other requirements, including the relevant consent and lease restrictions.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:GENERAL_RADIO:P6",
+        "LAW:V16:GENERAL_RADIO:P7",
+        "LAW:V16:GENERAL_RADIO:P9",
+        "LAW:V16:GENERAL_RADIO:P10"
+      ],
+      "formalization_limits": [
+        "The authority does not establish that every corporate amalgamation necessarily constitutes a prohibited tenancy transfer; the reasoning depends on the scheme, the transferor's role, and the statutory setting.",
+        "The judgment discusses dissolution of the transferor and transfer of possession, but it does not clearly state that either fact is universally necessary to the interpretation.",
+        "The extracted text on P7 contains an apparent internal OCR or transcription inconsistency stating that such a transfer 'will be immune' immediately after stating that the Act contains no exemption; this card relies on the court's surrounding reasoning and final holding rather than that phrase in isolation.",
+        "The treatment of transfers under other company statutes or other rent-control statutes requires separate interpretation."
+      ]
+    },
+    {
+      "id": "GR-R3",
+      "proposition": "Under section 2(ix) of the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, a person placed in occupation of a building by its tenant is excluded from the statutory definition of tenant.",
+      "source_kind": "COURT_ADOPTED_INTERPRETATION",
+      "scope": "Section 2(ix) of the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, as interpreted by the Supreme Court of India in the context of possession following a corporate amalgamation.",
+      "conditions": [
+        {
+          "id": "GR-C7",
+          "text": "The person claiming tenant status was placed in occupation of the building by the tenant.",
+          "kind": "SUFFICIENT",
+          "factual_predicate": "PART_WITH_POSSESSION",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P6",
+            "LAW:V16:GENERAL_RADIO:P7"
+          ]
+        }
+      ],
+      "effect": "That person cannot be deemed or considered a tenant under section 2(ix) merely on the basis of being placed in occupation by the tenant; in the amalgamation setting addressed here, transfer and vesting of leasehold interests under the court order did not by themselves establish statutory tenant status for the transferee.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:GENERAL_RADIO:P6",
+        "LAW:V16:GENERAL_RADIO:P7"
+      ],
+      "formalization_limits": [
+        "The phrase 'placed in occupation' remains a legal characterization and is not reduced here to an executable factual test.",
+        "The authority does not determine every possible form of successor or derivative tenancy status under other statutes.",
+        "The amalgamation-specific application should not be migrated automatically to a different statutory definition of tenant."
+      ]
+    }
+  ],
+  "limitations": [
+    "This extraction is confined to the supplied GENERAL_RADIO authority and the RuleCard instructions in the attached task. 粘贴的文本 (1)",
+    "Headnote statements, party arguments, and lower-court conclusions were not treated as Supreme Court adopted rules unless supported by the judgment's own reasoning.",
+    "Reported precedents discussed in the judgment were not converted into independent governing rules because only three source-anchored cards were requested and the supplied authority itself provides the more direct rules relevant to amalgamation, tenancy transfer, consent, and rent-control consequences.",
+    "No proposition here determines the outcome of any other case, and no facts from GENERAL_RADIO are transferred to another matter."
+  ]
+}
+```
+
+## HINDUSTAN_PETROLEUM
+
+https://chatgpt.com/c/6ac09b95-72ac-83e8-acef-fb5d7b012925
+
+```json
+{
+  "case_id": "HINDUSTAN_PETROLEUM",
+  "rule_cards": [
+    {
+      "id": "HP-R1",
+      "proposition": "Under section 15A(1) of the Bombay Rent Act, a person who was in occupation of qualifying premises as a licensee on February 1, 1973 is deemed on that date, for purposes of the Act, to have become the tenant of the landlord in respect of those premises.",
+      "source_kind": "QUOTED_STATUTE",
+      "scope": "Section 15A(1) of the Bombay Rents, Hotel and Lodging House Rates Control Act, 1947, as introduced by Maharashtra Act No. 17 of 1973. The supplied authority concerns premises in Maharashtra and a transferred Article 226 proceeding. The rule concerns rent-control tenant status and operates with the statutory definition of licensee in section 5(4A).",
+      "conditions": [
+        {
+          "id": "HP-C1",
+          "text": "The person was in occupation of the premises or qualifying part of the premises on February 1, 1973.",
+          "kind": "NECESSARY",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P8"
+          ]
+        },
+        {
+          "id": "HP-C2",
+          "text": "The occupation on February 1, 1973 was as a licensee within the statutory definition.",
+          "kind": "NECESSARY",
+          "factual_predicate": "LEASE",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P8"
+          ]
+        },
+        {
+          "id": "HP-C3",
+          "text": "The occupied premises or part was not less than a room.",
+          "kind": "NECESSARY",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P8"
+          ]
+        }
+      ],
+      "effect": "The person is deemed, from February 1, 1973 and for purposes of the Bombay Rent Act, to have become the tenant of the landlord in respect of the occupied premises or part.",
+      "exceptions": [
+        "The quoted section 5(4A) definition excludes, among others, a paying guest, a member of a family residing together, and a person in the service or employment of the licensor. The supplied quotation truncates additional exclusions."
+      ],
+      "evidence": [
+        "LAW:V16:HINDUSTAN_PETROLEUM:P8"
+      ],
+      "formalization_limits": [
+        "The supplied definition of licensee is quoted only insofar as material and is incomplete.",
+        "Whether particular occupation satisfies the statutory concept of licensee may require legal interpretation beyond the retrieval predicates.",
+        "This rule does not itself determine later transfer of a deemed tenancy through acquisition or corporate succession."
+      ]
+    },
+    {
+      "id": "HP-R2",
+      "proposition": "Although a licence as such is personal and incapable of transfer, statutory acquisition did not extinguish a licence that had already produced deemed-tenancy status under section 15A before the acquisition; the resulting tenancy rights could vest in the Central Government under the Esso Acquisition Act.",
+      "source_kind": "COURT_ADOPTED_INTERPRETATION",
+      "scope": "Supreme Court interpretation of section 15A of the Bombay Rent Act together with sections 3 and 5(1) of the Esso (Acquisition of Undertakings in India) Act, 1974. The relevant chronology is acquisition on the statutory appointed day after the original licensee had already become a deemed tenant. The proceeding was a transferred Article 226 petition challenging the Maharashtra State Co-operative Appellate Court.",
+      "conditions": [
+        {
+          "id": "HP-C4",
+          "text": "Before the statutory acquisition, the original licensee had already acquired deemed-tenant status under section 15A because a qualifying licence subsisted on February 1, 1973.",
+          "kind": "NECESSARY",
+          "factual_predicate": "LEASE",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P15"
+          ]
+        },
+        {
+          "id": "HP-C5",
+          "text": "The statutory acquisition and vesting provisions applied to Esso's right, title and interest and to property held under a lease or right of tenancy.",
+          "kind": "NECESSARY",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P9",
+            "LAW:V16:HINDUSTAN_PETROLEUM:P10",
+            "LAW:V16:HINDUSTAN_PETROLEUM:P15"
+          ]
+        },
+        {
+          "id": "HP-C6",
+          "text": "The relevant tenancy status existed by the appointed day for statutory vesting.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P11",
+            "LAW:V16:HINDUSTAN_PETROLEUM:P15"
+          ]
+        }
+      ],
+      "effect": "The prior deemed tenancy was not extinguished merely because the underlying licence was personal. The tenancy rights stood transferred to and vested in the Central Government under the statutory acquisition scheme.",
+      "exceptions": [
+        "The Court expressly acknowledged that a licence, considered as a licence, is personal and incapable of transfer. Its conclusion depended on deemed-tenancy status having arisen before the statutory acquisition."
+      ],
+      "evidence": [
+        "LAW:V16:HINDUSTAN_PETROLEUM:P10",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P11",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P15",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P16"
+      ],
+      "formalization_limits": [
+        "The holding depends on the interaction of two specific statutes and their chronology and does not establish a general rule that personal licences transfer in ordinary corporate succession.",
+        "The source does not establish a standalone general rule governing landlord consent to statutory vesting.",
+        "No landlord-consent condition appears in the quoted section 5(1) text, but that absence does not establish that consent can never matter under other provisions or factual settings.",
+        "The extraction contains apparent OCR inconsistencies in statutory section references, so the card relies on the clearer repeated section 5(1) passages without external correction."
+      ]
+    },
+    {
+      "id": "HP-R3",
+      "proposition": "In this case, tenancy rights that had vested in the Central Government were subsequently vested by notification in Esso Standard Refining Company of India Limited, and the later amalgamation and corporate name change left Hindustan Petroleum Corporation Limited as successor-in-interest entitled to the section 15A protection.",
+      "source_kind": "CASE_SPECIFIC_APPLICATION",
+      "scope": "Application confined to the corporate and statutory succession described in this Supreme Court proceeding: the Esso Acquisition Act, the March 14, 1974 notification under section 7(1), the 1974 amalgamation order made under section 396 of the Companies Act, and section 15A of the Bombay Rent Act.",
+      "conditions": [
+        {
+          "id": "HP-C7",
+          "text": "The relevant tenancy rights had first vested in the Central Government under the Esso Acquisition Act.",
+          "kind": "NECESSARY",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P11",
+            "LAW:V16:HINDUSTAN_PETROLEUM:P15"
+          ]
+        },
+        {
+          "id": "HP-C8",
+          "text": "A notification under section 7(1) directed the relevant Esso rights, title, interest and liabilities to vest in Esso Standard Refining Company of India Limited with effect from March 15, 1974.",
+          "kind": "NECESSARY",
+          "factual_predicate": "ASSIGN",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P10",
+            "LAW:V16:HINDUSTAN_PETROLEUM:P11",
+            "LAW:V16:HINDUSTAN_PETROLEUM:P16"
+          ]
+        },
+        {
+          "id": "HP-C9",
+          "text": "The Company Law Board's 1974 amalgamation order transferred the specified undertaking to Esso Standard Refining Company of India Limited and the resulting corporate name became Hindustan Petroleum Corporation Limited.",
+          "kind": "NECESSARY",
+          "factual_predicate": "ASSIGN",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:HINDUSTAN_PETROLEUM:P11",
+            "LAW:V16:HINDUSTAN_PETROLEUM:P16"
+          ]
+        }
+      ],
+      "effect": "Hindustan Petroleum Corporation Limited was treated as successor-in-interest to the protected tenancy and was held protected under section 15A of the Bombay Rent Act.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:HINDUSTAN_PETROLEUM:P11",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P16"
+      ],
+      "formalization_limits": [
+        "This is an application to the particular statutory transfers, notification, amalgamation order and corporate identity chain established in this authority.",
+        "It does not establish that every merger, amalgamation, acquisition or name change transfers every tenancy or licence.",
+        "The source does not supply a general test for when landlord consent is required in ordinary assignments or amalgamations.",
+        "The Court did not decide the separate section 91 jurisdiction issue because its resolution of the first two questions made that unnecessary."
+      ]
+    }
+  ],
+  "limitations": [
+    "Only the supplied authority was used, and no external judgment, project history or target-case facts were considered. 粘贴的文本 (1)",
+    "Headnote statements, party contentions and lower-court propositions were not treated as Supreme Court rules unless adopted in the Court's reasoning.",
+    "The supplied text contains OCR and transcription irregularities, including inconsistent names, dates and section references. They were not corrected from external sources.",
+    "No independently supported general rule on landlord consent appears in the supplied authority, so no rule card asserts that consent is categorically required or categorically unnecessary.",
+    "The cards preserve the distinction between the original personal licence, deemed-tenancy status under rent-control legislation, statutory vesting, and the later corporate succession."
+  ]
+}
+```
+
+## TELESOUND
+
+https://chatgpt.com/c/6ac09c1a-bf88-83e8-9b54-87fe2744d89b
+
+```json
+{
+  "case_id": "TELESOUND",
+  "rule_cards": [
+    {
+      "id": "TELESOUND-R1",
+      "proposition": "For an amalgamation governed by section 394, transferable property is broad enough to include contractual rights, including rights under a tenancy.",
+      "source_kind": "COURT_ADOPTED_INTERPRETATION",
+      "scope": "Interpretation of sections 394(1) and 394(4)(a) in the supplied Indian amalgamation authority. It concerns property capable of vesting when a court sanctions a scheme of amalgamation. The excerpt does not supply the full statute title or the complete judgment.",
+      "conditions": [
+        {
+          "id": "TELESOUND-C1",
+          "text": "The asserted interest is a right held by the transferor company, including a contractual tenancy right.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "LEASE",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:TELESOUND:PAR12"
+          ]
+        },
+        {
+          "id": "TELESOUND-C2",
+          "text": "The right falls within the broad statutory expression of property that may be transferred on amalgamation.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:TELESOUND:PAR12"
+          ]
+        }
+      ],
+      "effect": "The tenancy right is capable of falling within the property transferred through the amalgamation vesting process, subject to the extent of the transferor company's own rights.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:TELESOUND:PAR12"
+      ],
+      "formalization_limits": [
+        "The excerpt does not define every class of contractual or statutory tenancy right.",
+        "The transferee cannot obtain rights wider than those enjoyed by the transferor company.",
+        "The exact title and surrounding provisions of the section 394 statute are not supplied.",
+        "This card does not resolve consequences under a separate rent-control statute."
+      ]
+    },
+    {
+      "id": "TELESOUND-R2",
+      "proposition": "On court-ordered vesting consequent on amalgamation, the transferor company's rights, property and liabilities become those of the transferee company, and the authority characterizes that vesting as neither an assignment of the right or property nor an assignment by the company.",
+      "source_kind": "COURT_ADOPTED_INTERPRETATION",
+      "scope": "Court-sanctioned corporate amalgamation under section 394 in the supplied Indian authority. The rule addresses the legal character of vesting between transferor and transferee companies. It does not finally determine whether another statute may nevertheless treat the resulting tenancy transfer as an assignment for its own purposes.",
+      "conditions": [
+        {
+          "id": "TELESOUND-C3",
+          "text": "A court makes a vesting order consequent on the amalgamation.",
+          "kind": "NECESSARY",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:TELESOUND:PAR12"
+          ]
+        },
+        {
+          "id": "TELESOUND-C4",
+          "text": "The right, property or liability was held by the transferor company and is within the scope of the vesting order.",
+          "kind": "NECESSARY",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:TELESOUND:PAR12"
+          ]
+        }
+      ],
+      "effect": "The covered rights, property and liabilities vest in the transferee company by force of the court's vesting order, with the vesting characterized in this amalgamation context as distinct from an assignment by the company.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:TELESOUND:PAR12"
+      ],
+      "formalization_limits": [
+        "The authority separately reserves whether a tenancy transfer produced by amalgamation may count as an assignment under the Delhi Rent Control Act.",
+        "The vesting characterization should not be migrated automatically into another statute with different language or purposes.",
+        "The excerpt does not provide the full terms of the vesting order or scheme.",
+        "The transfer remains limited to rights actually enjoyed by the transferor company."
+      ]
+    },
+    {
+      "id": "TELESOUND-R3",
+      "proposition": "Prima facie, tenancy rights of the transferor company pass on amalgamation through the court's vesting order without requiring landlord consent and fall outside section 14(1)(b) at that stage, while the final question whether the resulting transfer nevertheless constitutes an actionable assignment is expressly reserved.",
+      "source_kind": "PRIMA_FACIE_RESERVED",
+      "scope": "Delhi Rent Control Act section 14(1)(b), considered in connection with a court-sanctioned corporate amalgamation and consequential vesting. The court addresses the matter only prima facie at the present procedural stage and leaves any final eviction or civil-action consequence to the special rent-control jurisdiction or a maintainable regular civil action after amalgamation and vesting.",
+      "conditions": [
+        {
+          "id": "TELESOUND-C5",
+          "text": "The transferor company has contractual or statutory tenancy rights that pass by virtue of a court vesting order made while sanctioning the amalgamation or thereafter.",
+          "kind": "NECESSARY",
+          "factual_predicate": "LEASE",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:TELESOUND:PAR16"
+          ]
+        },
+        {
+          "id": "TELESOUND-C6",
+          "text": "The asserted need for consent concerns the landlord's consent to the tenancy transfer produced by the amalgamation vesting order.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "CONSENT",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:TELESOUND:PAR16"
+          ]
+        },
+        {
+          "id": "TELESOUND-C7",
+          "text": "Whether the transfer is legally an assignment attracting section 14(1)(b) remains to be determined in the appropriate later proceeding.",
+          "kind": "UNKNOWN",
+          "factual_predicate": "ASSIGN",
+          "polarity": "UNSPECIFIED",
+          "evidence": [
+            "LAW:V16:TELESOUND:PAR16"
+          ]
+        }
+      ],
+      "effect": "At this stage, the court's prima facie view is that landlord consent is not required for the vesting transfer and that the transfer is outside section 14(1)(b). No pre-amalgamation cause of action accrues to the landlord. After amalgamation and vesting, any legally available assignment-based plea may be pursued and decided by the appropriate authority or court.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:TELESOUND:PAR16"
+      ],
+      "formalization_limits": [
+        "The court expressly reserves the final question whether the amalgamation-related tenancy transfer amounts to an assignment under section 14(1)(b).",
+        "The excerpt does not establish that landlord-consent requirements can never apply to an amalgamation-related tenancy transfer.",
+        "Any later rent-control or civil consequence depends on legal issues to be decided in the jurisdiction competent to hear them.",
+        "No unstated exception to the prima facie view should be inferred.",
+        "The supplied material is only selected sentences from paragraph 12 and complete paragraph 16, not the full judgment."
+      ]
+    }
+  ],
+  "limitations": [
+    "Only the supplied selected sentences of paragraph 12 and complete paragraph 16 were available.",
+    "Paragraph 12 is expressly noncontiguous, so omitted surrounding text may affect context.",
+    "The full judgment and full statutory texts were not supplied.",
+    "The exact title of the statute containing section 394 is not stated in the supplied passages.",
+    "No rule here should be transferred automatically to another case, statute or jurisdiction."
+  ]
+}
+```

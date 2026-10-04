@@ -1,0 +1,41 @@
+{
+  "version": "V14",
+  "order": [
+    "661475",
+    "1134266"
+  ],
+  "method": "WEB_DIRECT_SAME_INFORMATION_AS_V13_D",
+  "max_web_answers": 2,
+  "max_answers_per_case": 1,
+  "retries": 0,
+  "local_model_calls": 0,
+  "paid_api_calls": 0,
+  "new_sources_or_intermediates": false,
+  "requested_mode": "ordinary High, not Pro",
+  "model_identity": "record actual UI; unavailable if not exposed",
+  "schema_constraint": "Schema supplied as text; no local token mask on web",
+  "execution_wrapper": "请完整读取附件任务文件，其中V13 D实际提示词原字节保留，随后附同一输出Schema。网页端没有复用本地逐token的Schema约束。只依据本任务提供的材料回答，不进行外部搜索，不查找该案件的其他版本，不依赖其他对话。请一次性按给定格式提供完整最终答案。可使用文件工具生成可下载JSON，但不要额外补充法律资料。",
+  "material_hashes": {
+    "661475": {
+      "prompt.txt": "9d63d5325b476b3d40c09d680947e27b22be2e1b8c0a741cbde8514680189a5c",
+      "schema.json": "74504b4cb0cc3630782c8b943b9d638e689138505080109b33e36b62edaa4b12",
+      "source.json": "96d1cce4fde95de8e5e7aee8ece0693a93b0b637c840ca3ceb969cb930edf886",
+      "law-package.json": "970388052a9b0d1c87a96f39df7e13a9fc4e8779e1951a1bdfbf4a47f1ac7c2f",
+      "retrieval.json": "11b0410431387317331136ae7020d8a3675c6ae579b3355b7a8e5326ed1e88fb",
+      "task_file": "9052e5923197edbbb1a4b7fb1aff8a9b9ab4edcd147bc507529f295320a36cb0",
+      "prompt_bytes": 38949
+    },
+    "1134266": {
+      "prompt.txt": "bae0350fa7164a6439cd90e38f5a5fff956dd3ed7ec63426e8bf145336e4af24",
+      "schema.json": "d9d536555614d66fcbd442a6a5f59894a54d099bd8fc43e1eda086ad28bf4b1d",
+      "source.json": "b4cc82319fd07b4107db40ef326f8e2b9023ec99e1232885510f6af72b8d9125",
+      "law-package.json": "e6206b90c860539e9692682f43f9f4708b150b1d816ecd76185ae71c70572269",
+      "retrieval.json": "8d4c7270611b548531c6545eba6f140fa723ea208549e52df43d36f838e2796a",
+      "task_file": "9572ef9601d1e0973d32a723659e728b7159d058b2f0df879abb2e0cce6bf567",
+      "prompt_bytes": 37596
+    }
+  },
+  "review": "one final concentrated source review, not human gold",
+  "no_commit_push_or_next_round": true,
+  "comparison_limit": "cross-model/runtime diagnosis, not parameter-size-only controlled experiment"
+}

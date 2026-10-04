@@ -1,0 +1,262 @@
+{
+  "review_type": "ONE_CONCENTRATED_FINAL_DECISIVE_SOURCE_AND_OMISSION_REVIEW",
+  "reference_status": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "scope": "Two historically exposed development cases, not independent testing. No demand to recover withheld final dispositions.",
+  "full_intermediate_reannotation": false,
+  "new_gold": false,
+  "review_agent_or_web_calls": 0,
+  "cases": {
+    "661475": {
+      "source_anchors": [
+        {
+          "refs": [
+            "p0001.s001",
+            "p0001.s002"
+          ],
+          "finding": "Dr.Vijay Kumar为租户，Raghbir为房东；1965-01-12是申请腾退日期，1966-12-06是Rent Controller裁定日期。允许来源未给分隔/交出占有的具体日期，起诉发生在1952之后不能证明此前转移也在1952之后。下级命令及两次上诉被驳回可见，最高法院最终理由不在本轮输入。"
+        },
+        {
+          "refs": [
+            "p0001.s003",
+            "p0001.s004",
+            "p0001.s005"
+          ],
+          "quote": "On these findings the Rent Controller has held that the second and third appellants are in exclusive possession of their portion. Hence he has come to the conclusion that the first appellant has parted with possession of their portion to them. The Rent Controller did not accept the plea of the appellants that the business which was being carried on in their portion was the joint business of all the appellants. The first appellant is assessed to Income-tax. He has never shown the income from the motor business in his Income-tax returns. The appellants did not produce the account books of the motor business. ",
+          "finding": "分隔墙、独立门和锁是依据；Rent Controller明确认定两儿子独占其部分、父亲交出占有，并未接受共同经营抗辩。这些不是仅待定的家庭安排或未裁定叙述。"
+        },
+        {
+          "refs": [
+            "p0002.s002@0:412"
+          ],
+          "finding": "父亲许可两儿子占用是租户律师论点，许可主体为租户父亲，不是房东；未显示房东书面同意或其不存在的独立认定。"
+        },
+        {
+          "refs": [
+            "LAW:1134266:p0004.s005",
+            "LAW:1134266:p0004.s006",
+            "LAW:69305:p0005.s004"
+          ],
+          "finding": "法源写明SUBLET/ASSIGN/PART_WITH_POSSESSION为择一方式，动机无关；specific written consent讨论必须保持房东与租户许可区别。后出法源历史适用未验证。"
+        }
+      ],
+      "D": {
+        "supported": [
+          "g1准确保留Rent Controller交出占有认定及具体部分；没有升级成最高法院终审认可。",
+          "g3把父亲许可当律师主张，并没有直接据未展示文书推断确定无同意。"
+        ],
+        "confirmed_errors": [
+          {
+            "grounds": [
+              2
+            ],
+            "type": "PROCEDURAL_DATE_AS_TRANSFER_DATE",
+            "finding": "以1965起诉日期证明转移满足1952下界，不成立。起诉时间至多约束转移在其之前，不能提供所需下界。"
+          },
+          {
+            "grounds": [
+              4
+            ],
+            "type": "WRONG_PERMISSION_SUBJECT",
+            "finding": "point称房东所称一般许可，但来源是租户父亲许可；解释虽提到father，未修正point主体。"
+          },
+          {
+            "grounds": [
+              "reason"
+            ],
+            "type": "CONSENT_CONDITION_POLARITY",
+            "finding": "将written landlord consent写成成立腾退所需的necessary条件，给定基础条件实际是缺乏这种同意。正确缺口是同意/无同意均未可靠确定，而不是没有证明同意导致请求失败。"
+          }
+        ],
+        "omissions": [
+          "没有保留下级否定共同经营抗辩的理由及法院结论；主要反对理由只转为笼统家庭许可。"
+        ],
+        "internal_consistency": "g1与转移认定基本一致，但日期SUPPORTED无依据，reason对同意条件极性含混/反向。",
+        "real_gaps": [
+          "转移是否在1952之后未由允许来源确定；起诉日期不能补足。",
+          "房东具体书面同意或缺乏同意未明确给出；父亲许可不能填补。",
+          "完整历史法条版本及父亲许可抗辩在目标终审的处理未提供。"
+        ],
+        "conclusion": "UNDETERMINED可能符合当前信息边界，但现有理由含错误，不能视为完整正确答案。"
+      },
+      "B-P": {
+        "supported": [
+          "g1保留Rent Controller独占部分及分隔事实，承认交出占有；没有恢复目标最高法院最终处理。"
+        ],
+        "confirmed_errors": [
+          {
+            "grounds": [
+              2
+            ],
+            "type": "INVENTED_TRANSFER_DATE",
+            "finding": "把分隔事件明确写成1965-01-12同日发生，来源没有这项日期。"
+          },
+          {
+            "grounds": [
+              3,
+              4
+            ],
+            "type": "PARTY_ROLE_AND_PERMISSION_CONFUSION",
+            "finding": "g3把父亲许可当未定形式的同意，引用的p0001.s002/s003没有许可陈述；g4称房东主张许可，实际律师为租户提出父亲许可。"
+          },
+          {
+            "grounds": [
+              4,
+              "reason"
+            ],
+            "type": "DISJUNCTION_AND_AVAILABLE_FINDING_IGNORED",
+            "finding": "已在g1承认交出占有，却要求必须另行确定SUBLET或ASSIGN才能判断，忽略法源三方式择一；以“法律模式缺失”为决定性缺口错误。g4还引用说明动机无关的法源，却以家庭安排制造模式缺口。"
+          },
+          {
+            "grounds": [
+              3,
+              "reason"
+            ],
+            "type": "CONSENT_CONDITION_POLARITY",
+            "finding": "仍把正面的房东书面同意说成成立腾退的必要条件，未正确表达未知如何影响without-consent判断。"
+          }
+        ],
+        "omissions": [
+          "g4保留共同经营抗辩未成立，但没有正确结合交出占有认定与择一法条；人物角色仍混淆，未展开否定共同经营的具体证据。"
+        ],
+        "internal_consistency": "g1及reason承认parting with possession，g4又认为不能确定法定转移方式；未知标签没有消除条件组合矛盾。",
+        "real_gaps": "与D同一时间/房东同意及历史法源边界，不包括交出占有是否已有下级认定。",
+        "limited_intermediate_trace": {
+          "records": [
+            "t2",
+            "x1",
+            "x2",
+            "d2",
+            "c1",
+            "c2",
+            "coverage_limits"
+          ],
+          "finding": "t2把房东写成租户，x1/x2把房东写成受让人；d2给分隔虚构1965-01-12；coverage称交出占有和共同经营未裁定。B-P重复虚构日期及模式缺失，与这些提议一致，属于传播线索，不证明单一因果机制。最终没有明确照抄错误人名，不能说所有提议错误都进入最终答案。"
+        },
+        "conclusion": "比D新增明确日期和择一条件组合错误，未有净收益。"
+      },
+      "comparison": "661475上D保留下级认定较直接，B-P新增同等或更严重错误；二者都有许可主体/极性及时间错误，不把D认证为正确。"
+    },
+    "1134266": {
+      "source_anchors": [
+        {
+          "refs": [
+            "p0001.s003",
+            "p0002.s001",
+            "p0002.s004"
+          ],
+          "finding": "原租戶是American Company，Indian Company后更名Singer India Limited；租约原文明确registered lease deed dated11.7.1966。ARC曾驳回，Tribunal反转并命令腾退，Delhi High Court维持；目标最高法院最终处理被排除。"
+        },
+        {
+          "refs": [
+            "p0002.s001",
+            "p0002.s002"
+          ],
+          "finding": "1982年房东申请中的“without obtaining any written consent”是指控，未展示完整租约或法院对于同意的具体认定；不能用无人展示反证升为事实已成立。"
+        },
+        {
+          "refs": [
+            "p0002.s003"
+          ],
+          "quote": "66 of 1981 was filed by the Indian Company before the Bombay High Court under Sections 391 and 394 of the Companies Act which was allowed on 31.12.1981, and a scheme of amalgamation was sanctioned whereby the undertaking in India of the American Company was amalgamated with the Indian Company. Under the scheme of amalgamation the whole of the business, property, undertaking, assets, including leases, rights of tenancy, occupancy etc stood transferred to and vested in the Indian Sewing Machine Company, namely, the Indian Company. It was submitted that the Indian Company is no other entity except the legal substitute of the American Company and in substance there is no case of sub-tenancy. ",
+          "finding": "明确记载Bombay High Court于31.12.1981允许申请、批准合并，租赁/占有等权利转归Indian Company；“原公司仍是法律替代/无subtenancy”是抗辩。法定转移效果可争议不使已给出的批准事件消失。"
+        },
+        {
+          "refs": [
+            "p0002.s007",
+            "p0003.s003",
+            "p0003.s006",
+            "p0003.s007",
+            "p0003.s008",
+            "p0004.s001"
+          ],
+          "finding": "租户主张FERA迫使合并、原公司仍在更大整体存续；房东反驳仅要求降低股本、合并可选择，并主张原公司失去身份。这些是相反律师论点，不能作目标最高法院采纳。租户未主张“法院批准等于房东默示同意”。"
+        },
+        {
+          "refs": [
+            "LAW:69305:p0005.s002",
+            "LAW:69305:p0005.s004",
+            "LAW:661475:p0002.s004"
+          ],
+          "finding": "包内规则涉及未登记租约条款、特定转租书面同意、家庭许可与迟提出抗辩；没有提供目标自己的合并法律定性规则。不能据RC-04把已登记租约定为未登记，家庭许可规则也不能证明合并不获法院批准。"
+        }
+      ],
+      "D": {
+        "supported": [
+          "将法律替代/法定强制作为租户论点，与房东自愿合并反驳区分；没有凭目标历史最终方向强行下确定结论。"
+        ],
+        "confirmed_errors": [
+          {
+            "grounds": [
+              1,
+              "reason"
+            ],
+            "type": "ALLEGATION_AND_SILENCE_AS_ESTABLISHED_ABSENCE",
+            "finding": "把房东无同意指控及未展示相反记录，变成absence established；叙述没有重现完整租约，不能说lease deed contains no consent。"
+          },
+          {
+            "grounds": [
+              2,
+              "reason"
+            ],
+            "type": "EXPLICIT_COURT_SANCTION_OMITTED_AS_MISSING",
+            "finding": "声称没有法院认定或证据证明Bombay High Court批准合并，直接反于p0002.s003已给事实；法律效果争议不使批准缺失。"
+          },
+          {
+            "grounds": [
+              3
+            ],
+            "type": "REGISTERED_AS_UNREGISTERED_AND_WRONG_RULE_SCOPE",
+            "finding": "把registered租约读成unregistered，套用69305非登记条款不可采规则，并隐含目标有许可条款。这是明确来源误读及法源条件不匹配。"
+          }
+        ],
+        "omissions": [
+          "未保留ARC驳回/Tribunal反转/High Court维持的层级变化；遗漏实际批准及权利归属事实，只留下争议说法。"
+        ],
+        "internal_consistency": "UNDETERMINED标签与其自称缺少批准一致，但这个决定性缺口是虚构的；书面同意无反证被定为不存在。",
+        "real_gaps": [
+          "目标合并如何满足S14具体转移方式、法定强制/法律替代抗辩的范围，包内未完整解决。",
+          "房东书面同意是否存在没有独立明确处理；不推断不存在。"
+        ],
+        "conclusion": "无法判断可能有真实法律覆盖原因，但D具体缺失判断不忠实。"
+      },
+      "B-P": {
+        "supported": [
+          "g1明确将无同意/交出占有归为房东指控，未当作法院成立事实。",
+          "g3保留法院批准合并及权利转归Indian Company；不再说缺少批准。",
+          "reason具体指出RC-05是程序性规则，不能证明合并例外；没有套用RC-04宣布目标租约不可采。"
+        ],
+        "confirmed_errors": [
+          {
+            "grounds": [
+              4
+            ],
+            "type": "INVENTED_CONSENT_THEORY",
+            "finding": "增加“租户认为法院批准合并构成房东默示同意”，原文只主张法定强制使S14不适用；将反对法律适用的主张改写成同意主张。"
+          }
+        ],
+        "omissions": [
+          "仍未保存ARC/Tribunal/High Court相反程序结果；没有明确保留registered这一足以排除RC-04误用的事实。",
+          "只概括statutory compulsion，未具体处理房东“降低股本可有多种途径、合并是自愿选择”的主要反驳。"
+        ],
+        "internal_consistency": "比D少明显相反的来源断言；g3承认权利转归，reason又强调没有法院确认parting，需明确区别已知归属事实与未决法定定性，否则再次让法律效果未定掩盖已有事实。不把vesting与S14定性直接等同，也不强判该行矛盾。",
+        "real_gaps": "对公司合并与法定强制的S14意义，现有包缺完整规则；没有目标最终结论不单独构成无法分析理由。保留这一解释争议，不要求猜回历史裁判。",
+        "limited_intermediate_trace": {
+          "records": [
+            "x1",
+            "c3",
+            "coverage_limits"
+          ],
+          "finding": "x1保留American→Indian合并，c3又把Bombay High Court批准列入consents并标grantor/target未定。最终g3恢复批准，g4出现合并批准作为同意的说法；有内容对应，不能确定收益或错误全由表示形式引起。未全量核查其他提议字段。"
+        },
+        "conclusion": "比D有明确的局部来源收益，仍有新增主张和遗漏；不能称为完整验证正确。"
+      },
+      "comparison": "1134266上B-P纠正D的明确批准遗漏、主张定性及注册状态误用，额外成本同时增加；这与661475方向不同。"
+    }
+  },
+  "cross_case_answer": "来源归属混淆、已有事实被说成缺失、条件极性和内部不一致在另外两案仍出现，但并非每个方法/案件都复现全部错误。661475两种最终答案都保留下级交出占有认定；1134266 B-P保留合并批准，不能说一概遗漏全部法院认定。",
+  "decision": "MIXED_CASE_DIRECTIONS_NO_WINNER",
+  "decision_zh": "两案收益方向不同，暂不选赢家，也不把结构化前置设为强制步骤",
+  "decision_basis": "661475提议及B-P新增日期/对象/择一条件错误，没有收益；1134266 B-P恢复法院批准并减少D的确定误读，但仍改写租户抗辩和遗漏主要反证。额外两阶段成本约2.83/3.48倍，尚没有一致净收益。两边还有共同理解及整合问题，本轮停止增加字段/检查；保留已有组件作为可复现候选，不启动修复。",
+  "scope_not_accuracy_ranking": true,
+  "no_auto_next_round": true
+}

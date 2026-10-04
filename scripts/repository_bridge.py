@@ -200,6 +200,22 @@ def prepare(root=ROOT):
                  + '本地prepare/verify不会推送；GitHub是否包含本快照须核对实际提交，不能因这里生成了链接就认为已经发布。\n\n'
                  + '历史关系基线：[13题结果](RESULTS.md)、[报告](../' + latest + '/report-zh.txt)。SOURCES_01–04仍属于该历史基线，不是当前实验来源；不得混用。\n\n'
                  + 'raw入口：' + prefix + 'review/START_HERE.md\n')
+        if cur.get('review_kind') == 'SAMPLE_AVAILABILITY':
+            start = ('# ChatGPT 审阅入口\n\n内容快照：`' + snapshot + '`\n\n'
+                     + '仓库分支：https://github.com/' + repo + '/tree/' + branch + '\n\n'
+                     + '当前工作：' + cur['title'] + '\n\n' + cur['summary'] + '\n\n'
+                     + '先读[项目说明](../README.md)、[样本报告](../' + cur['report'] + ')、'
+                     + '[候选清单](../' + current_root + '/candidate-list.csv)、'
+                     + '[逐案排除与限制](../' + current_root + '/candidate-decisions.json)、'
+                     + '[启动门槛](../' + current_root + '/availability.json)。\n\n'
+                     + '本轮没有模型答案、A/B比较或重复运行；不得将未运行解释为UNKNOWN或零收益。'
+                     + 'screening/保存顺序与原始来源读取；sources/保存出处和定位记录；preparation/保存起点与有限盘点协议。'
+                     + '它们是样本可用性材料，不是预测输入或参考答案。\n\n'
+                     + '[当前状态](../docs/PROJECT_STATE.json)、[实验索引](../docs/EXPERIMENT_INDEX.md)、'
+                     + '[文件哈希](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)。'
+                     + '本地审阅包尚未提交或推送；远端不能假设包含本快照。\n\n'
+                     + '历史RESULTS与SOURCES_01–04仍是旧关系基线，不能充当本轮答案或来源。\n\n'
+                     + 'raw入口：' + prefix + 'review/START_HERE.md\n')
     save(root, 'review/START_HERE.md', start)
     request = '''请审阅公开仓库的指定分支 https://github.com/%s/tree/%s 。先读取 %sreview/START_HERE.md
 和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
@@ -236,6 +252,17 @@ def prepare(root=ROOT):
                    + '重点审查：局部缺失是否只影响相应事实或连接；来源地址是否被误当语义认证；两阶段最终模板是否相同；技术失败是否与实质未知分开；原文已有下级认定是否被漏掉；法律覆盖不足与程序未实现是否混淆。\n\n'
                    + '只有同案两份完整答案才能进行配对内容比较；技术完成不等于法律正确，具体是否完成以本轮报告为准。来源审阅是模型辅助开发评价，不是人工金标准。请对重要意见提供具体原文、文件和机制。\n\n'
                    + '本次仅审阅，不授权新模型调用、重标注、增加字段或择优重跑。保留失败和全部历史结果。\n')
+        if cur.get('review_kind') == 'SAMPLE_AVAILABILITY':
+            request = ('请审阅指定快照 ' + snapshot + '。先读review/START_HERE.md与MANIFEST.json；'
+                       + '本地尚未推送，远端缺少快照时使用用户上传的同版本审阅包，不声称已读远端。\n\n'
+                       + cur['title'] + '。' + cur['summary'] + '\n\n'
+                       + '读取' + cur['report'] + '、同目录candidate-decisions.json、availability.json、'
+                       + 'screening中的顺序及原始读取、sources中的定位证据、preparation/screening-protocol.json。\n\n'
+                       + '只审查有限候选顺序、法条与程序范围、已知关联、来源完整性限制、'
+                       + '相容候选与冻结任务是否区分，以及少于六案时是否按预定规则停止。'
+                       + '不要假定缺少的A/B答案存在；无比较结果不等于技术失败、UNKNOWN或方法无效。'
+                       + '来源盘点为模型辅助评价，不是人工金标准。指出具体出处与证据不足。\n\n'
+                       + '本次只审阅，不授权扩大样本、更换争点、模型调用、修改旧实验或提交推送。\n')
     save(root, 'review/REVIEW_REQUEST.md', request)
     save(root, 'review/PUBLICATION.json', {'included_count':len(paths),'included_bytes':sum(x['bytes'] for x in base),'excluded':excluded,'unregistered_local_only':['.runtime/','work/','other outputs not registered in docs/repository-artifacts.json'],'policy':'Explicit artifact roots, file limits, no UI captures or third-party paper copies; originals unchanged.'})
     derived = records(root, [p for p in GENERATED if p != 'review/MANIFEST.json'])

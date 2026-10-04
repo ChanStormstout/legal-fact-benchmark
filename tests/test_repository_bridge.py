@@ -70,6 +70,24 @@ class RepositoryBridgeTests(unittest.TestCase):
         self.assertEqual(result_path.read_bytes(), original)
         self.assertEqual(prepare(self.root), first)
 
+    def test_availability_review_has_no_nonexistent_answer_links(self):
+        root = 'outputs/availability'
+        self.policy['artifact_roots'].append(root)
+        self.policy['current_review'] = dict(title='Availability only', report=root+'/report-zh.txt',
+                                           summary='Below the fixed minimum; no model answers.',
+                                           review_kind='SAMPLE_AVAILABILITY')
+        self.write('docs/repository-artifacts.json', self.policy)
+        for name in ['report-zh.txt', 'candidate-list.csv', 'candidate-decisions.json', 'availability.json']:
+            self.write(root+'/'+name, {})
+        first = prepare(self.root)
+        for name in ['review/START_HERE.md', 'review/REVIEW_REQUEST.md']:
+            text = (self.root/name).read_text()
+            self.assertIn('candidate-decisions.json', text)
+            self.assertNotIn('comparison-table', text)
+            self.assertNotIn('final-answer-slots', text)
+            self.assertNotIn('final-source-review.json', text)
+        self.assertEqual(first, prepare(self.root))
+
     def test_live_fix_preserves_exact_explicit_frozen_snapshot(self):
         import hashlib
         self.write('scripts/method.py', {'version': 'old'})

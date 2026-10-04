@@ -1,0 +1,245 @@
+# 69305四个最终条件
+
+原始完成输出逐字保存在各runs目录；以下JSON直接来自parsed，未补写或修正。来源审阅为模型辅助开发评价，不是人工gold。
+
+## D
+
+```json
+{
+  "outcome": "OPPOSE_GROUND",
+  "grounds": [
+    {
+      "point": "The lease clause permits assignment to an associate concern without written landlord consent.",
+      "case_refs": [
+        "p0003.s003",
+        "p0003.s004",
+        "p0004.s001",
+        "p0004.s004"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004",
+        "LAW:1134266:p0004.s005"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The unregistered lease contains a specific proviso allowing assignment to an 'associate concern' without written consent, which the court accepted as a valid collateral term. This establishes a specific exception to the general prohibition on assignment without consent found in the Delhi Rent Control Act, 1958."
+    },
+    {
+      "point": "The sub-lessee (United Automobiles) qualifies as an 'associate concern' under the lease proviso.",
+      "case_refs": [
+        "p0004.s003",
+        "p0004.s004"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The appellant argued United Automobiles is an associate concern because it is an authorized distributor, pays the same rent, and possession is conditional on the distributorship. The court accepted these factual assertions as sufficient to establish the 'associate concern' status required by the lease clause."
+    },
+    {
+      "point": "The landlord's written consent was not obtained for the assignment.",
+      "case_refs": [
+        "p0003.s003",
+        "p0004.s001"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s005"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The respondent contended the assignment was made without consent, and the court found no evidence of written consent. The absence of a consent record in the supplied material supports the finding that consent was not obtained, satisfying the 'without consent' condition."
+    }
+  ],
+  "reason": "Although the general rule prohibits assignment without consent, the specific lease proviso creates a valid exception for assignment to an associate concern. Since the sub-lessee is an associate concern and the landlord did not object to this specific category, the ground of assignment without consent is legally defeated."
+}
+
+```
+
+## A-clean
+
+```json
+{
+  "outcome": "UNDETERMINED",
+  "grounds": [
+    {
+      "point": "Respondent alleges eviction ground under S.14(1)(b) based on tenant sub-letting premises to United Automobiles without written consent.",
+      "case_refs": [
+        "p0003.s003",
+        "p0003.s004"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004",
+        "LAW:1134266:p0004.s005"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The respondent explicitly alleges the ground of sub-letting without consent in p0003.s003 and p0003.s004, citing the statutory provision in LAW:1134266:p0004.s004 and LAW:1134266:p0004.s005. This establishes the respondent's claim, though it remains an allegation requiring factual verification against the actual nature of the occupant."
+    },
+    {
+      "point": "Appellant argues United Automobiles is an authorized distributor/associate concern, not a sub-tenant, and claims lease term permits assignment without consent.",
+      "case_refs": [
+        "p0004.s001",
+        "p0004.s002",
+        "p0004.s003"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004",
+        "LAW:1134266:p0004.s005"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The appellant contends in p0004.s001, p0004.s002, and p0004.s003 that United Automobiles is merely a distributor or 'associate concern' permitted by the lease clause, not a sub-tenant. However, the supplied text contains no court finding or lower authority decision confirming this characterization; it is only a party argument. The statutory rule in LAW:1134266:p0004.s005 requires a factual determination of the transfer mode (sub-letting vs. assignment vs. parting with possession), which is missing from the record."
+    },
+    {
+      "point": "Whether United Automobiles qualifies as 'associate concern' or 'sub-lessee' under the lease terms and statutory definition remains a critical factual dispute.",
+      "case_refs": [
+        "p0004.s002",
+        "p0004.s003"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004",
+        "LAW:1134266:p0004.s005"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The text in p0004.s002 and p0004.s003 shows the appellant's assertion that United Automobiles fits the 'associate concern' exception in the lease, but no adjudicating body has ruled on the validity of this interpretation or the factual status of the occupant. Without a court finding resolving whether the relationship constitutes a prohibited sub-letting or a permitted assignment, the applicability of the eviction ground cannot be determined."
+    },
+    {
+      "point": "The lease clause granting permission to assign to 'associate concern' without consent may conflict with the statutory requirement for written landlord consent for any assignment.",
+      "case_refs": [
+        "p0003.s004"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s005"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The lease clause in p0003.s004 allows assignment to an 'associate concern' without consent, while the statute in LAW:1134266:p0004.s005 mandates written consent for all assignments. The supplied record does not establish whether the specific relationship with United Automobiles satisfies the 'associate concern' condition or if the lack of written consent renders the assignment illegal under the Act. This legal conflict requires a factual determination of the occupant's status which is absent."
+    },
+    {
+      "point": "Voluntariness of the transfer or reasons for it are irrelevant to the applicability of S.14(1)(b) once the factual transfer is established.",
+      "case_refs": [],
+      "law_refs": [
+        "LAW:1134266:p0004.s006"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The rule in LAW:1134266:p0004.s006 explicitly states that voluntariness and reasons are irrelevant to the applicability of Section 14(1)(b). Since the supplied record lacks any findings on the voluntariness of the transfer, this condition is vacuously satisfied and does not affect the outcome."
+    }
+  ],
+  "reason": "The respondent's allegation of sub-letting without consent is supported by the text, but the critical factual element—whether the occupant is a sub-tenant or a permitted assignee—is entirely unresolved in the supplied record. The appellant's arguments regarding the nature of the relationship are unverified assertions, and no court finding resolves the conflict between the lease clause and the statutory requirement for written consent. Consequently, the supplied material cannot establish or refute the substantive eviction ground."
+}
+
+```
+
+## B-P
+
+```json
+{
+  "outcome": "UNDETERMINED",
+  "grounds": [
+    {
+      "point": "The lease clause permits assignment to an associate concern without written landlord consent.",
+      "case_refs": [
+        "p0003.s003",
+        "p0004.s001"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The supplied lease text explicitly contains a proviso allowing the tenant to assign or part with possession to an 'associate concern' without obtaining the landlord's written consent, creating a potential defense against the general prohibition."
+    },
+    {
+      "point": "The tenant's transfer to M/s. United Automobiles qualifies as a transfer to an 'associate concern'.",
+      "case_refs": [
+        "p0003.s003",
+        "p0004.s003"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The appellant argues United Automobiles is an associate concern based on distribution and commission payment, but the record provides no court finding or evidence confirming this specific relationship status, leaving the applicability of the lease proviso's exception undetermined."
+    },
+    {
+      "point": "The transfer event occurred on or after 9 June 1952.",
+      "case_refs": [
+        "p0003.s003",
+        "p0004.s001"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004",
+        "LAW:1134266:p0004.s005"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The lease was executed in 1961, and the transfer of United Automobiles into the premises occurred subsequently; thus, the statutory threshold date of 9 June 1952 is satisfied."
+    },
+    {
+      "point": "The landlord provided written consent for the specific transfer to United Automobiles.",
+      "case_refs": [],
+      "law_refs": [
+        "LAW:1134266:p0004.s005"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The record contains no explicit court finding or documentary evidence confirming that the landlord granted written consent for the induction of United Automobiles; the intermediate proposal notes this consent is unresolved, and the source text does not affirm it."
+    }
+  ],
+  "reason": "While the lease clause provides a mechanism for consent-free transfer to an associate concern, the record fails to establish that the transferee (United Automobiles) qualifies as an 'associate concern' or that the landlord granted the specific written consent required to trigger this exception. Without resolving these factual uncertainties, the supplied record cannot establish whether the transfer falls within the prohibited category under Section 14(1)(b) or the permitted exception."
+}
+
+```
+
+## B-C
+
+```json
+{
+  "outcome": "UNDETERMINED",
+  "grounds": [
+    {
+      "point": "The lease clause permits assignment to an associate concern without written landlord consent.",
+      "case_refs": [
+        "p0003.s003",
+        "p0003.s004"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The appellant narrated a lease clause allowing assignment to an associate concern, but the court found the lease deed unregistered and the clause inadmissible for proving the lease's existence or terms. The court did not adopt the clause as valid written consent, leaving the applicability of the exception to the statutory prohibition unresolved."
+    },
+    {
+      "point": "The relationship between the appellant and United Automobiles qualifies as an 'associate concern' under the lease proviso.",
+      "case_refs": [
+        "p0003.s003",
+        "p0003.s004",
+        "p0004.s003"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The appellant argued they were an associate concern based on commission distribution and identical rent payment, but the court explicitly rejected this characterization, stating United Automobiles could not be assumed to be an associate concern within the meaning of the term."
+    },
+    {
+      "point": "The induction of United Automobiles into the premises occurred on or after 9 June 1952.",
+      "case_refs": [
+        "p0003.s003",
+        "p0003.s004"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The lease was executed in 1961, but the specific date of the induction of United Automobiles is not stated in the record. The supplied text only confirms the lease execution year, not the date the third party was inducted, making the statutory threshold date impossible to verify from the source."
+    },
+    {
+      "point": "The landlord provided written consent for the specific induction of United Automobiles.",
+      "case_refs": [
+        "p0003.s003",
+        "p0003.s004"
+      ],
+      "law_refs": [
+        "LAW:1134266:p0004.s004"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The record contains no explicit finding or document showing the landlord granted written consent for the specific induction of United Automobiles. While the lease clause theoretically permits such consent, the court did not find that the landlord actually exercised this permission for this specific transaction."
+    }
+  ],
+  "reason": "The supplied record establishes a narrated lease clause permitting assignment to an associate concern but fails to legally validate that clause due to the unregistered status of the deed. Consequently, the court did not find the appellant to be an 'associate concern' entitled to the exception, nor did it find written consent for the specific induction. The specific date of induction is also missing. Because the court did not resolve whether the statutory prohibition on subletting/assignment without written consent applies to this specific transaction, the eviction ground cannot be determined."
+}
+
+```

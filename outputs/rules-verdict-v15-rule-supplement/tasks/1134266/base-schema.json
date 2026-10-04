@@ -1,0 +1,94 @@
+{
+  "type": "object",
+  "properties": {
+    "outcome": {
+      "enum": [
+        "SUPPORT_GROUND",
+        "OPPOSE_GROUND",
+        "UNDETERMINED",
+        "UNSUPPORTED"
+      ]
+    },
+    "grounds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "point": {
+            "type": "string"
+          },
+          "case_refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0001.s003",
+                "p0002.s001",
+                "p0002.s002",
+                "p0002.s003",
+                "p0002.s004",
+                "p0002.s005",
+                "p0002.s006",
+                "p0002.s007",
+                "p0003.s001",
+                "p0003.s002",
+                "p0003.s003",
+                "p0003.s004",
+                "p0003.s005",
+                "p0003.s006",
+                "p0003.s007",
+                "p0003.s008",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003"
+              ]
+            },
+            "maxItems": 4
+          },
+          "law_refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "LAW:69305:p0005.s003",
+                "LAW:69305:p0005.s004",
+                "LAW:661475:p0002.s003",
+                "LAW:661475:p0002.s004",
+                "LAW:69305:p0005.s001",
+                "LAW:69305:p0005.s002"
+              ]
+            },
+            "maxItems": 4
+          },
+          "assessment": {
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNRESOLVED",
+              "UNSUPPORTED"
+            ]
+          },
+          "explanation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "point",
+          "case_refs",
+          "law_refs",
+          "assessment",
+          "explanation"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "outcome",
+    "grounds",
+    "reason"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,44 @@
+{
+  "review_parent": "c59cdaf1fda485a75d31a494d6cc6e01abb799b6",
+  "case": "69305",
+  "order": [
+    "D",
+    "A-notes",
+    "A-clean",
+    "B-proposal",
+    "B-P",
+    "B-C"
+  ],
+  "max_new_calls": 6,
+  "max_tokens_each": 3072,
+  "total_context_budget": 32768,
+  "round_wall_budget_seconds": 1800,
+  "conditions": {
+    "D": {},
+    "A-clean": {
+      "proposal": "NEW_A_NOTES"
+    },
+    "B-P": {
+      "proposal": "NEW_B_PROPOSAL"
+    },
+    "B-C": {
+      "proposal": "EXACT_SAME_NEW_B_PROPOSAL",
+      "program_checks": "check_facts -> compact_checks -> final_v9.compact_display unchanged"
+    }
+  },
+  "final_inputs": "Same final_v9 template, examples, full source and law package; only intermediate material differs",
+  "failure_stop": "Any run_status other than OK, context preflight failure or deterministic check failure stops remaining slots as SKIPPED; no retries, old answers, partial fills or runtime changes",
+  "repetition_rule": "Four nonoverlapping identical contiguous64-character fragments in one JSON string, not necessarily adjacent; reset across fields",
+  "web_calls": 0,
+  "extra_model_diagnostics": 0,
+  "retries": 0,
+  "review": "One concentrated decisive-source review of final answers after stop/completion; skipped/failed slots have no legal answer or score",
+  "comparison_limits": [
+    "D has one call, others two: not same-call-budget baseline",
+    "B-P/B-C difference is net effect of entire check block, not isolated length/authority/attention effect",
+    "Old-new intermediates are diagnostics, not human gold",
+    "Single retrospective exposed case with later legal materials and lower-court information"
+  ],
+  "publication": "NO_AUTO_COMMIT_OR_PUSH",
+  "no_auto_next_round": true
+}

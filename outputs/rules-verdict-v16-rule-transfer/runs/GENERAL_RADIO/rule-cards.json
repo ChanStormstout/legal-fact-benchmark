@@ -1,0 +1,146 @@
+{
+  "case_id": "GENERAL_RADIO",
+  "rule_cards": [
+    {
+      "id": "GR-R1",
+      "proposition": "Under section 10(ii)(a) of the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, the statutory eviction ground covers a tenant who, without the landlord's written consent, transfers the tenant's right under the lease or sublets the whole or part of the building when the lease confers no right to do so.",
+      "source_kind": "QUOTED_STATUTE",
+      "scope": "Section 10(ii)(a) of the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, as quoted by the Supreme Court of India; Andhra-area rent-control eviction proceeding before the Controller; subject to the temporal and territorial wording reproduced in the quoted provision.",
+      "conditions": [
+        {
+          "id": "GR-C1",
+          "text": "The tenant transfers the tenant's right under the lease or sublets the entire building or a portion of it.",
+          "kind": "NECESSARY",
+          "factual_predicate": "ASSIGN",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P6"
+          ]
+        },
+        {
+          "id": "GR-C2",
+          "text": "The landlord has not given written consent to the transfer or subletting covered by the provision.",
+          "kind": "NECESSARY",
+          "factual_predicate": "CONSENT",
+          "polarity": "NEGATIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P6"
+          ]
+        },
+        {
+          "id": "GR-C3",
+          "text": "The lease does not confer on the tenant a right to make the transfer or subletting.",
+          "kind": "NECESSARY",
+          "factual_predicate": "LEASE",
+          "polarity": "NEGATIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P6"
+          ]
+        }
+      ],
+      "effect": "If the Controller, after giving the tenant a reasonable opportunity to show cause, is satisfied that the statutory ground is established, section 10(ii)(a) supplies a ground for eviction.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:GENERAL_RADIO:P6"
+      ],
+      "formalization_limits": [
+        "The quoted provision contains territorial and temporal wording whose precise operation is not further explained in the supplied authority.",
+        "The quoted text states transfer and subletting as alternatives; this card does not implement executable disjunctive logic.",
+        "The source does not define the full range of conduct constituting a transfer, assignment, or subletting."
+      ]
+    },
+    {
+      "id": "GR-R2",
+      "proposition": "A transfer of leasehold or tenancy rights through a court-sanctioned amalgamation is not treated as involuntary merely because the court sanctioned the scheme when the transferor tenant itself petitioned for the amalgamation and the scheme transferred those rights to the transferee company.",
+      "source_kind": "COURT_ADOPTED_INTERPRETATION",
+      "scope": "Supreme Court of India interpretation in an appeal under the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, concerning a scheme sanctioned under sections 391 and 394 of the Companies Act, 1956; relevant to whether the resulting tenancy transfer falls within section 10(ii)(a).",
+      "conditions": [
+        {
+          "id": "GR-C4",
+          "text": "The transferor tenant itself petitions for or voluntarily sponsors the amalgamation scheme.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P5",
+            "LAW:V16:GENERAL_RADIO:P6",
+            "LAW:V16:GENERAL_RADIO:P9"
+          ]
+        },
+        {
+          "id": "GR-C5",
+          "text": "The sanctioned scheme transfers and vests the transferor company's leases or tenancy rights in the transferee company.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "ASSIGN",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P5",
+            "LAW:V16:GENERAL_RADIO:P6",
+            "LAW:V16:GENERAL_RADIO:P8"
+          ]
+        },
+        {
+          "id": "GR-C6",
+          "text": "A court sanctions the amalgamation under sections 391 and 394 of the Companies Act, 1956.",
+          "kind": "INTERPRETIVE",
+          "factual_predicate": "OTHER",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P5",
+            "LAW:V16:GENERAL_RADIO:P6"
+          ]
+        }
+      ],
+      "effect": "The court-sanctioned vesting may be treated as a transfer of the tenant's interest for section 10(ii)(a), and court sanction alone does not create immunity from that rent-control provision. Application of the eviction ground still depends on the statute's other requirements, including the relevant consent and lease restrictions.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:GENERAL_RADIO:P6",
+        "LAW:V16:GENERAL_RADIO:P7",
+        "LAW:V16:GENERAL_RADIO:P9",
+        "LAW:V16:GENERAL_RADIO:P10"
+      ],
+      "formalization_limits": [
+        "The authority does not establish that every corporate amalgamation necessarily constitutes a prohibited tenancy transfer; the reasoning depends on the scheme, the transferor's role, and the statutory setting.",
+        "The judgment discusses dissolution of the transferor and transfer of possession, but it does not clearly state that either fact is universally necessary to the interpretation.",
+        "The extracted text on P7 contains an apparent internal OCR or transcription inconsistency stating that such a transfer 'will be immune' immediately after stating that the Act contains no exemption; this card relies on the court's surrounding reasoning and final holding rather than that phrase in isolation.",
+        "The treatment of transfers under other company statutes or other rent-control statutes requires separate interpretation."
+      ]
+    },
+    {
+      "id": "GR-R3",
+      "proposition": "Under section 2(ix) of the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, a person placed in occupation of a building by its tenant is excluded from the statutory definition of tenant.",
+      "source_kind": "COURT_ADOPTED_INTERPRETATION",
+      "scope": "Section 2(ix) of the Andhra Pradesh Buildings (Lease, Rent and Eviction) Control Act, 1960, as interpreted by the Supreme Court of India in the context of possession following a corporate amalgamation.",
+      "conditions": [
+        {
+          "id": "GR-C7",
+          "text": "The person claiming tenant status was placed in occupation of the building by the tenant.",
+          "kind": "SUFFICIENT",
+          "factual_predicate": "PART_WITH_POSSESSION",
+          "polarity": "POSITIVE",
+          "evidence": [
+            "LAW:V16:GENERAL_RADIO:P6",
+            "LAW:V16:GENERAL_RADIO:P7"
+          ]
+        }
+      ],
+      "effect": "That person cannot be deemed or considered a tenant under section 2(ix) merely on the basis of being placed in occupation by the tenant; in the amalgamation setting addressed here, transfer and vesting of leasehold interests under the court order did not by themselves establish statutory tenant status for the transferee.",
+      "exceptions": [],
+      "evidence": [
+        "LAW:V16:GENERAL_RADIO:P6",
+        "LAW:V16:GENERAL_RADIO:P7"
+      ],
+      "formalization_limits": [
+        "The phrase 'placed in occupation' remains a legal characterization and is not reduced here to an executable factual test.",
+        "The authority does not determine every possible form of successor or derivative tenancy status under other statutes.",
+        "The amalgamation-specific application should not be migrated automatically to a different statutory definition of tenant."
+      ]
+    }
+  ],
+  "limitations": [
+    "This extraction is confined to the supplied GENERAL_RADIO authority and the RuleCard instructions in the attached task. 粘贴的文本 (1)",
+    "Headnote statements, party arguments, and lower-court conclusions were not treated as Supreme Court adopted rules unless supported by the judgment's own reasoning.",
+    "Reported precedents discussed in the judgment were not converted into independent governing rules because only three source-anchored cards were requested and the supplied authority itself provides the more direct rules relevant to amalgamation, tenancy transfer, consent, and rent-control consequences.",
+    "No proposition here determines the outcome of any other case, and no facts from GENERAL_RADIO are transferred to another matter."
+  ]
+}

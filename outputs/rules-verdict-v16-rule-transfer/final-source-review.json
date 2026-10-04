@@ -1,0 +1,101 @@
+{
+  "reference_status": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "one_concentrated_review": true,
+  "no_web_review_calls": true,
+  "no_semantic_changes_to_model_cards": true,
+  "reviewed_cards": [
+    {
+      "id": "GR-R1",
+      "finding": "Main quoted statutory conditions supported; transfer OR subletting preserved in text. Territorial/temporal OCR wording is deferred rather than fully represented. ASSIGN is a retrieval tag, not an executable replacement for the disjunction.",
+      "sources": [
+        "LAW:V16:GENERAL_RADIO:P6"
+      ]
+    },
+    {
+      "id": "GR-R2",
+      "finding": "Source supports tenant-sponsored amalgamation not involuntary merely because court-sanctioned, and no automatic immunity. AP/lease scope retained. Apparent contradictory immune sentence flagged instead of isolated into reversed holding. No universal rule for all mergers asserted.",
+      "sources": [
+        "LAW:V16:GENERAL_RADIO:P6",
+        "LAW:V16:GENERAL_RADIO:P7",
+        "LAW:V16:GENERAL_RADIO:P9",
+        "LAW:V16:GENERAL_RADIO:P10"
+      ]
+    },
+    {
+      "id": "GR-R3",
+      "finding": "Source supports exclusion of a person placed in occupation by tenant under this statutory definition. It is not a general bar on every successor tenancy under other statutes.",
+      "sources": [
+        "LAW:V16:GENERAL_RADIO:P6",
+        "LAW:V16:GENERAL_RADIO:P7"
+      ]
+    },
+    {
+      "id": "HP-R1",
+      "finding": "Deemed-tenancy date, qualifying license and room-size conditions supported; truncated definition acknowledged. The license definition spans pages 7 and 8; card citation to page 8 alone is less complete than the full input.",
+      "sources": [
+        "LAW:V16:HINDUSTAN_PETROLEUM:P7",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P8"
+      ]
+    },
+    {
+      "id": "HP-R2",
+      "finding": "Specific acquisition provisions, prior deemed tenancy and chronology retained. No general transferable personal-license or all-merger immunity asserted. Necessary labels must remain relative to this stated statutory setting.",
+      "sources": [
+        "LAW:V16:HINDUSTAN_PETROLEUM:P9",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P10",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P11",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P15",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P16"
+      ]
+    },
+    {
+      "id": "HP-R3",
+      "finding": "Specific government/notification/amalgamation chain and protected successor supported. Correctly CASE_SPECIFIC_APPLICATION; cannot promote its particular steps to universally necessary merger conditions.",
+      "sources": [
+        "LAW:V16:HINDUSTAN_PETROLEUM:P10",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P11",
+        "LAW:V16:HINDUSTAN_PETROLEUM:P16"
+      ]
+    },
+    {
+      "id": "TELESOUND-R1",
+      "finding": "Broad property includes tenancy contractual rights; transferee rights limited to transferor rights. No final rent-law immunity in this card. Court/date/statute title absent from supplied metadata/excerpts; this is an input provenance gap, not evidence model ignored supplied titles.",
+      "sources": [
+        "LAW:V16:TELESOUND:PAR12"
+      ]
+    },
+    {
+      "id": "TELESOUND-R2",
+      "finding": "Company-law characterization of vesting retained separately from rent-law assignment question; final question reserved. Scope remains limited by excerpt availability.",
+      "sources": [
+        "LAW:V16:TELESOUND:PAR12",
+        "LAW:V16:TELESOUND:PAR16"
+      ]
+    },
+    {
+      "id": "TELESOUND-R3",
+      "finding": "Prima facie consent/section14 view and explicit jurisdiction reservation retained. Condition C7 is a reserved legal issue, not a factual antecedent; cannot execute it as a boolean factual condition.",
+      "sources": [
+        "LAW:V16:TELESOUND:PAR16"
+      ]
+    }
+  ],
+  "important_unrepresented_source": {
+    "authority": "GENERAL_RADIO",
+    "source": "LAW:V16:GENERAL_RADIO:P10",
+    "finding": "The court reports Parasaram: Delhi section14 breadth does not exclude involuntary sale. No extracted card expressly preserves this reported rule; P10 is cited in GR-R2 but the proposition/conditions/effect do not state it. Model explicitly chose other direct rules within the three-card budget. This is consequential candidate-coverage loss, not citation failure."
+  },
+  "retrieval_observation": {
+    "query": "delhi-transfer",
+    "rank1": "TELESOUND:TELESOUND-R3",
+    "finding": "BM25 places provisional opinion first. Lexical rank does not implement court hierarchy, statutory compatibility or reserved-question semantics. Every candidate and rank remains saved; none is certified as controlling."
+  },
+  "confirmed_core_source_reversals": [],
+  "limits": [
+    "Nine cards are not nine independently scored gold rules.",
+    "No new case application pair completed.",
+    "No automatic legal rule induction or legal applicability verification.",
+    "Two saved retrieval queries are offline diagnostics, not target-case retrieval scores."
+  ],
+  "decision": "RETAIN_SOURCE_EXTRACTION_CANDIDATES_APPLICATION_UNTESTED_SAMPLE_SHORTAGE"
+}

@@ -1,0 +1,67 @@
+{
+  "type": "object",
+  "properties": {
+    "outcome": {
+      "enum": [
+        "SUPPORT_GROUND",
+        "OPPOSE_GROUND",
+        "UNDETERMINED",
+        "UNSUPPORTED"
+      ]
+    },
+    "grounds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "point": {
+            "type": "string"
+          },
+          "case_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4
+          },
+          "law_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4
+          },
+          "assessment": {
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNRESOLVED",
+              "UNSUPPORTED"
+            ]
+          },
+          "explanation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "point",
+          "case_refs",
+          "law_refs",
+          "assessment",
+          "explanation"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "outcome",
+    "grounds",
+    "reason"
+  ],
+  "additionalProperties": false
+}

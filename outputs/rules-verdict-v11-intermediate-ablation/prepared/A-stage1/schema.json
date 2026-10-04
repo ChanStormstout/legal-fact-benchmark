@@ -1,0 +1,67 @@
+{
+  "type": "object",
+  "properties": {
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "SUPPORT",
+              "OPPOSITION",
+              "RULE_SCOPE",
+              "LINK",
+              "UNCERTAINTY"
+            ]
+          },
+          "point": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "p0003.s003",
+                "p0003.s004",
+                "p0004.s001",
+                "p0004.s002",
+                "p0004.s003",
+                "p0004.s004",
+                "LAW:1134266:p0004.s004",
+                "LAW:1134266:p0004.s005",
+                "LAW:1134266:p0004.s006",
+                "LAW:1134266:p0005.s006",
+                "LAW:1134266:p0006.s003",
+                "LAW:1134266:p0008.s001",
+                "LAW:1134266:p0010.s002",
+                "LAW:661475:p0002.s003",
+                "LAW:661475:p0002.s004"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "point",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "coverage_limits": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "notes",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

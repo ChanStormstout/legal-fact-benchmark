@@ -1,0 +1,44 @@
+{
+  "version": "V21",
+  "research_question": "Do sourced rule descriptions improve authority retrieval and subsequent legal analysis, when final models see only selected originals?",
+  "scope": "Delhi Rent Control s14(1)(b) and company/banking amalgamation or statutory tenancy succession as the actual disputed ground; no general third-party subletting substitutions.",
+  "role": "BOUNDED_PREPARATION_WITH_ZERO_CONFIRMED_NEW_TARGETS",
+  "retrieval": {
+    "A": "BM25 original law max40",
+    "B": "BM25 original20 + rule20, dedup underlying legal units before RRF k60",
+    "max_units": 8,
+    "max_exact_rendered_legal_characters": 20000,
+    "atomic_dependencies": true,
+    "condition_failure_is_not_irrelevance": true,
+    "unknown_scope_or_version": "retain flagged; no inferred legal compatibility",
+    "definite_exclusions": "predeclared same for A/B"
+  },
+  "source_views": "Exact stable IDs; only balanced unambiguous citation wrappers removed; cross-line requires contiguous original provenance; character maps retained.",
+  "final_contract": "outcome/grounds/reason; point/case_refs/law_refs/assessment/explanation; complete JSON and required field types are hard, length/count suggestions only warnings. assessment concerns point, not eviction polarity.",
+  "examples": "Same two complete fictional final_v9 examples; not target evidence.",
+  "sample_limits": {
+    "targets": 8,
+    "primary_candidate_reads": 20,
+    "new_target_documents": 10,
+    "new_legal_documents": 8,
+    "seed": 20261003
+  },
+  "web_limits": {
+    "ordinary_mode": "High",
+    "Pro": false,
+    "paid_API": false,
+    "local_9B_calls": 0,
+    "final_answers_max": 16,
+    "new_rule_extractions_max": 4,
+    "optional_concentrated_review_max": 1,
+    "total_max": 21,
+    "retries": 0,
+    "fresh_chat_per_final_answer": true,
+    "identical_final_input": "one shared A/B answer"
+  },
+  "answer_isolation": "No target final reasoning/result, reference, earlier output, checks or RuleCards in final input; whole necessary allowed narrative plus prior-court status kept.",
+  "evaluation": "3-5 decisive source points per eligible case before generation; once concentrated model-assisted source review, at most3 decisive discrepancies, omissions inspected; no human gold or accuracy ranking.",
+  "failure": "Single technical failure null, independent tasks continue; substantive material error stops batch; no answer repair or hindsight retrieval tuning.",
+  "freeze": "Sources, library, prompts, schema, ordering, code, actual protocol frozen before any generation.",
+  "stop": "No confirmed new target after bounded availability work: deliver preparation and obstacle report, no old-answer reruns. No automatic next round, commit or push."
+}

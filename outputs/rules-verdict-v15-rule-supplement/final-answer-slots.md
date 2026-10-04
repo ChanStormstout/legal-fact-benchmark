@@ -1,0 +1,70 @@
+# V15 完整网页回答
+
+对话：https://chatgpt.com/c/6ac08f50-c608-83e8-8d9c-8131d0af8c44
+
+仅移除闭合JSON后的独立END。所有JSON字段及附件引用显示文本保留；不是人工gold。
+
+```json
+{
+  "outcome": "UNDETERMINED",
+  "grounds": [
+    {
+      "point": "The American Company became tenant under the 11 July 1966 registered lease.",
+      "case_refs": [
+        "p0001.s003",
+        "p0002.s001"
+      ],
+      "law_refs": [],
+      "assessment": "SUPPORTED",
+      "explanation": "The supplied case narration states that the landlord let the disputed shop to the American Company at Rs. 1,200 per month by a registered lease dated 11 July 1966. Nothing in the allowed source disputes that original tenancy."
+    },
+    {
+      "point": "The 31 December 1981 amalgamation vested tenancy and occupancy rights in the Indian Company.",
+      "case_refs": [
+        "p0002.s003",
+        "p0003.s008"
+      ],
+      "law_refs": [
+        "LAW:V15:GENERAL_RADIO:P6",
+        "LAW:V15:TELESOUND:PAR12"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The allowed source states that the sanctioned scheme transferred and vested the American Company's business, leases, tenancy rights and occupancy in the Indian Company. The supplied authorities likewise recognize that an amalgamation order can vest tenancy interests in the transferee, while leaving the resulting rent-control consequence as a separate question."
+    },
+    {
+      "point": "That amalgamation constitutes a qualifying transfer under the supplied Section 14(1)(b) authorities.",
+      "case_refs": [
+        "p0002.s006",
+        "p0002.s007",
+        "p0003.s006",
+        "p0003.s008"
+      ],
+      "law_refs": [
+        "LAW:V15:GENERAL_RADIO:P6",
+        "LAW:V15:GENERAL_RADIO:P10",
+        "LAW:V15:HINDUSTAN_PETROLEUM:P16",
+        "LAW:V15:TELESOUND:PAR16"
+      ],
+      "assessment": "SUPPORTED",
+      "explanation": "The target narration states that the RBI directed equity reduction, while the claim that amalgamation itself was compelled is the appellant's submission. General Radio treats a company-proposed court-sanctioned amalgamation as a transfer and describes Delhi Section 14(b) broadly; Telesound expressly reserves the Delhi eviction issue, while Hindustan Petroleum depends on a distinct special statutory acquisition and vesting regime."
+    },
+    {
+      "point": "The landlord gave no written consent to the same 1981 transfer.",
+      "case_refs": [
+        "p0002.s001",
+        "p0002.s004",
+        "p0004.s002"
+      ],
+      "law_refs": [
+        "LAW:69305:p0005.s003",
+        "LAW:69305:p0005.s004"
+      ],
+      "assessment": "UNRESOLVED",
+      "explanation": "The landlord alleged that the transfer occurred without written consent, and the respondent later repeated that position. The supplied source reports that the Tribunal ordered eviction and the High Court affirmed, but exposes no explicit finding that written consent was absent for this transaction. The supplied specific-consent authority does not permit filling that factual gap by silence."
+    }
+  ],
+  "reason": "The record establishes the original tenancy, the post-1952 transfer and vesting of tenancy rights, and sufficient supplied authority to treat that amalgamation as a qualifying transfer, but it does not establish through an adopted finding that the landlord lacked written consent for the same transaction. Because that necessary factual condition remains unresolved, the substantive eviction ground is neither established nor refuted. 粘贴的文本 (1)"
+}
+```
+
+基线：../rules-verdict-v14-web-direct/runs/1134266/answer.json

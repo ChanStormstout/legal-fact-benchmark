@@ -1,8 +1,8 @@
-请审阅 https://github.com/ChanStormstout/legal-fact-benchmark/tree/research/rules-and-verdict 的指定快照 a91e48f92a338837b8e2bd3cb929d0cf49555f964d44809d0191e6d7722eae59。先读 https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/research/rules-and-verdict/review/START_HERE.md 与 MANIFEST.json；若远端还没有该快照，请说明并使用用户上传的本地文件，不能声称已读取。
+请审阅 https://github.com/ChanStormstout/legal-fact-benchmark/tree/research/rules-and-verdict 的指定快照 6d08d45186566376bb2a7ff2ac4ab123fbace635bcd7d782fea12bdc38a3979d。先读 https://raw.githubusercontent.com/ChanStormstout/legal-fact-benchmark/research/rules-and-verdict/review/START_HERE.md 与 MANIFEST.json；若远端还没有该快照，请说明并使用用户上传的本地文件，不能声称已读取。
 
-本轮是 V10：约束修复后的69305完整同案比较。仅补跑A一次，B复用相同配置的FIXED结果，V8两份中间结果不重抽。A/B均完整生成、均UNDETERMINED；A丢失可见下级可采性认定，B转移方式与原文及自身解释冲突。未见完整答案的可靠结构化增益，本案暂优先文本流程，但A也未验证正确；867个旧输出保持原字节。新调用1、复用最终1、网页0、重试0，本次按用户明确要求发布，原报告保留实验结束时的未推送状态。
+本轮是 V22 已完成，V23 普通租约开发准备检查点。V22完成候选与检索诊断，未运行法律答案。随后已决定将两份普通租约另设开发组；V23第一批S01六项描述结构可读但语义未复核，统一索引未生成，S02/S03及两案最终回答未启动。本次按用户要求发布当前代码、V11至V22历史结果和V23准备快照，供整体科研审阅。详见[完整审阅prompt](../docs/reviews/2026-10-03-pro-research-design-review.md)。旧报告的待选择/未推送表述保留为当轮结束状态。
 
-读取 outputs/rules-verdict-v10-constraint-recovery/report-zh.txt、outputs/rules-verdict-v10-constraint-recovery/comparison-table.json、final-source-review.json及runs中的原始输出，回到同目录sources和prepared中的允许输入与法律包。不要将历史SOURCES分卷当作本轮来源。
+读取 outputs/rules-verdict-v22-scope-preparation/report-zh.txt、outputs/rules-verdict-v22-scope-preparation/comparison-table.json、final-source-review.json及runs中的原始输出，回到同目录sources和prepared中的允许输入与法律包。不要将历史SOURCES分卷当作本轮来源。
 
 重点审查：局部缺失是否只影响相应事实或连接；来源地址是否被误当语义认证；两阶段最终模板是否相同；技术失败是否与实质未知分开；原文已有下级认定是否被漏掉；法律覆盖不足与程序未实现是否混淆。
 

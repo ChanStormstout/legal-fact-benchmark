@@ -1,0 +1,166 @@
+{
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "enum": [
+        "GENERAL_RADIO"
+      ]
+    },
+    "rule_cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "proposition": {
+            "type": "string"
+          },
+          "source_kind": {
+            "enum": [
+              "COURT_ADOPTED_INTERPRETATION",
+              "QUOTED_STATUTE",
+              "CASE_SPECIFIC_APPLICATION",
+              "PRIMA_FACIE_RESERVED",
+              "REPORTED_PRECEDENT"
+            ]
+          },
+          "scope": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "kind": {
+                  "enum": [
+                    "NECESSARY",
+                    "SUFFICIENT",
+                    "FACTOR",
+                    "INTERPRETIVE",
+                    "UNKNOWN"
+                  ]
+                },
+                "factual_predicate": {
+                  "enum": [
+                    "LEASE",
+                    "SUBLET",
+                    "ASSIGN",
+                    "PART_WITH_POSSESSION",
+                    "CONSENT",
+                    "OTHER",
+                    "NONE"
+                  ]
+                },
+                "polarity": {
+                  "enum": [
+                    "POSITIVE",
+                    "NEGATIVE",
+                    "UNSPECIFIED"
+                  ]
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "LAW:V16:GENERAL_RADIO:P1",
+                      "LAW:V16:GENERAL_RADIO:P2",
+                      "LAW:V16:GENERAL_RADIO:P3",
+                      "LAW:V16:GENERAL_RADIO:P4",
+                      "LAW:V16:GENERAL_RADIO:P5",
+                      "LAW:V16:GENERAL_RADIO:P6",
+                      "LAW:V16:GENERAL_RADIO:P7",
+                      "LAW:V16:GENERAL_RADIO:P8",
+                      "LAW:V16:GENERAL_RADIO:P9",
+                      "LAW:V16:GENERAL_RADIO:P10"
+                    ]
+                  },
+                  "maxItems": 8
+                }
+              },
+              "required": [
+                "id",
+                "text",
+                "kind",
+                "factual_predicate",
+                "polarity",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          },
+          "effect": {
+            "type": "string"
+          },
+          "exceptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 5
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "LAW:V16:GENERAL_RADIO:P1",
+                "LAW:V16:GENERAL_RADIO:P2",
+                "LAW:V16:GENERAL_RADIO:P3",
+                "LAW:V16:GENERAL_RADIO:P4",
+                "LAW:V16:GENERAL_RADIO:P5",
+                "LAW:V16:GENERAL_RADIO:P6",
+                "LAW:V16:GENERAL_RADIO:P7",
+                "LAW:V16:GENERAL_RADIO:P8",
+                "LAW:V16:GENERAL_RADIO:P9",
+                "LAW:V16:GENERAL_RADIO:P10"
+              ]
+            },
+            "maxItems": 8
+          },
+          "formalization_limits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "id",
+          "proposition",
+          "source_kind",
+          "scope",
+          "conditions",
+          "effect",
+          "exceptions",
+          "evidence",
+          "formalization_limits"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 3
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 6
+    }
+  },
+  "required": [
+    "case_id",
+    "rule_cards",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

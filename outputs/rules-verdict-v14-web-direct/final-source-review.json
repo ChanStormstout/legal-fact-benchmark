@@ -1,0 +1,130 @@
+{
+  "type": "ONE_CONCENTRATED_FINAL_SOURCE_AND_OMISSION_REVIEW",
+  "reference_status": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "previous_source_review_preserved": "outputs/rules-verdict-v13-crosscase/final-source-review.json",
+  "old_reference_revision_required": false,
+  "review_agent_or_web_review_calls": 0,
+  "full_reannotation": false,
+  "cases": {
+    "661475": {
+      "decisive_source_refs": [
+        "p0001.s001",
+        "p0001.s002",
+        "p0001.s003",
+        "p0001.s004",
+        "p0001.s005",
+        "p0002.s002@0:412"
+      ],
+      "local_D_errors_avoided": [
+        {
+          "local": "g2/reason用1965起诉日期证明转移在1952之后",
+          "web": "g3明确区分程序日期与转移事件，保留时间未定",
+          "sources": [
+            "p0001.s001",
+            "p0001.s002",
+            "p0001.s004"
+          ]
+        },
+        {
+          "local": "g4 point把租户父亲许可误写为房东一般许可",
+          "web": "g4明确许可来自租户，不能证明房东书面同意或不存在同意",
+          "sources": [
+            "p0002.s002@0:412"
+          ]
+        },
+        {
+          "local": "reason把written consent写为成立腾退所需必要条件",
+          "web": "g4/reason正确把absence of written consent列为未定条件",
+          "sources": [
+            "LAW:1134266:p0004.s004",
+            "LAW:1134266:p0004.s005"
+          ]
+        }
+      ],
+      "omission_reduced": "web g2保留下级法院否定共同经营抗辩及缺少财务证据；本地D遗漏此项。",
+      "court_and_identity": "租户为父亲，受占有人为两儿子，房东另为respondent。g2明确Rent Controller认定，reason称prior-court finding，没有升为目标终审认可。",
+      "condition_logic": "不要求先证明SUBLET/ASSIGN才承认PART_WITH_POSSESSION；已知转移认定与未定日期/同意分别保留。",
+      "confirmed_serious_new_errors": [],
+      "remaining_precision_and_omissions": [
+        "g3描述1965起诉日期，但case_refs未含准确记载此日期的p0001.s001；整份输入确有此事实，属于引用粒度不足。",
+        "未完整复述Tribunal和High Court两次驳回上诉；已保留决定性Rent Controller认定，未据这些程序结果推导目标最终结论。",
+        "未在最终回答展开后出法源/历史法条版本限制；报告继续保留该范围边界。"
+      ],
+      "true_gaps": [
+        "转移发生的日期未给；1965起诉不能提供1952时间下界。",
+        "房东具体书面同意或无同意均未在允许来源确立；父亲许可不能代替。"
+      ],
+      "internal_consistency": "SUPPORTED转移认定、UNRESOLVED时间与无同意、UNDETERMINED reason一致，未发现同等严重的新矛盾。",
+      "assessment": "比本地D更忠实、依据更完整；仍不是历史裁判恢复或完全可靠法律分析。"
+    },
+    "1134266": {
+      "decisive_source_refs": [
+        "p0001.s003",
+        "p0002.s001",
+        "p0002.s003",
+        "p0002.s004",
+        "p0002.s006",
+        "p0002.s007",
+        "p0003.s001",
+        "p0003.s003",
+        "p0003.s006",
+        "p0003.s007",
+        "p0003.s008",
+        "p0004.s001",
+        "p0004.s002"
+      ],
+      "local_D_errors_avoided": [
+        {
+          "local": "g3把registered读成unregistered，套用另一案不可采规则",
+          "web": "g1准确保留registered，不将另案associate-concern许可条款混入目标",
+          "sources": [
+            "p0002.s001",
+            "LAW:69305:p0005.s002"
+          ]
+        },
+        {
+          "local": "g2/reason声称没有证据证明Bombay High Court批准合并",
+          "web": "g2保存31.12.1981批准及权利转归；g3另列法定定性争议",
+          "sources": [
+            "p0002.s003",
+            "p0002.s006"
+          ]
+        },
+        {
+          "local": "g1/reason将无同意指控及未展示反证升级为absence established",
+          "web": "g4将房东指控与法院认定分开， absence仍未定",
+          "sources": [
+            "p0002.s001",
+            "p0004.s002"
+          ]
+        }
+      ],
+      "omission_reduced": "g5保留ARC驳回、Tribunal反转、Delhi High Court维持的层级变化；明确程序结果本身不能补出各实质条件认定。",
+      "court_and_identity": "原租户American Company，承受权利Indian Company；Bombay审批事件与Delhi腾退程序分别保存，没有升级为被排除的最高法院最终认可。",
+      "law_scope": "现有LAW片段涉及specific consent、未登记条款及家庭许可/迟提出抗辩，不完整解决公司合并的法定定性。未凭RC-04宣布目标租约不可采，未把RC-05家庭案事实移入公司案。",
+      "confirmed_serious_new_errors": [],
+      "remaining_precision_and_omissions": [
+        "未充分处理租户FERA法定强制/HP判例抗辩及房东降低股本可有多途径、合并自愿的具体反驳；g3主要保留corporate-shell争议，完整法律分析仍有重要遗漏。",
+        "g2把事件称1981 amalgamation，来源明确的是批准日期，未给单独生效日期；不能据此视为已经确认权利转归也在1981。此处可解释为给获批准方案命名，保留精度争议，不认定同等严重的虚构日期。",
+        "g4称respondent重复无同意，p0004.s002主要陈述法条与适用主张，不是新增独立证据；其UNRESOLVED状态未把它当反证缺失证明。"
+      ],
+      "true_gaps": [
+        "权利归属事实已给，是否构成S14(1)(b)特定转移及强制合并的法律影响仍未由本包充分解决。",
+        "无房东书面同意仍是指控，给定来源未单独说明其是否获认定；不能由没有展示文件推出无同意。"
+      ],
+      "internal_consistency": "已登记租赁/批准/归属SUPPORTED，合并法定定性与缺乏同意UNRESOLVED，reason与UNDETERMINED对应。未发现本地D的明显相反来源断言，但仍有主要抗辩遗漏。",
+      "assessment": "比本地D减少明确来源误读，正确保留事实并区分法律覆盖不足；完整性仍不够，不认证所有决定性依据均已处理。"
+    }
+  },
+  "B_P_background_only": "V13 B-P在661475新增日期/择一条件错误，在1134266减少D误读但增加默示同意抗辩；本轮未给网页提议或检查，也没有重新运行B-P。",
+  "common_limitations": [
+    "两案历史开发材料，非独立测试。",
+    "各案法律包、后出法源、下级裁判信息及研究者目标来源基础公式边界不变。",
+    "新独立聊天不含本项目历史；模型预训练知识、账户记忆和内部上下文处理不可完全审计。",
+    "没有观察到外部搜索；不据此证明所有隐藏处理均相同。",
+    "网页没有复用本地token mask、greedy、thinking off或确定预算，具体型号未在界面显示。"
+  ],
+  "decision": "CONSIDER_WEB_HIGH_RUNTIME_AND_PAUSE_9B_COMPONENT_COMPLEXITY",
+  "decision_zh": "网页High配置在两案明显减少基础来源错误，值得继续考虑；暂缓给9B流程增加复杂组件。",
+  "decision_boundary": "不能把改善全部归因模型大小，不能确认具体网页型号，不推断整体法律正确性或独立泛化。法源缺口与事实理解分别报告。"
+}

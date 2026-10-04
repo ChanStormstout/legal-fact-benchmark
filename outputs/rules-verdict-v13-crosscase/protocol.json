@@ -1,0 +1,46 @@
+{
+  "cases": [
+    "661475",
+    "1134266"
+  ],
+  "order": [
+    [
+      "661475",
+      "D"
+    ],
+    [
+      "661475",
+      "B-proposal"
+    ],
+    [
+      "661475",
+      "B-P"
+    ],
+    [
+      "1134266",
+      "D"
+    ],
+    [
+      "1134266",
+      "B-proposal"
+    ],
+    [
+      "1134266",
+      "B-P"
+    ]
+  ],
+  "max_calls": 6,
+  "max_tokens_each": 3072,
+  "context_budget": 32768,
+  "round_generation_time_limit_seconds": 1800,
+  "failure_policy": "Format/truncation/repetition/input failures affect only dependencies. B proposal failure skips same B-P; independent conditions continue. Resource/framework failure or shared deadline stops remainder.",
+  "B_P_intermediate": "Only unmodified current-case newly generated proposal; no check block or reference facts",
+  "offline_checks": "Existing check_facts only, saved independently; semantic or local-check failures do not replace proposal or gate legal answer",
+  "web_calls": 0,
+  "retries": 0,
+  "extra_model_pre_runs": 0,
+  "new_law_or_cases": 0,
+  "review": "One concentrated final decisive-source and omission review after generation; not a full intermediate reannotation",
+  "publication": "NO_COMMIT_NO_PUSH",
+  "next_round": false
+}
