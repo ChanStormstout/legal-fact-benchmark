@@ -1,0 +1,38 @@
+{
+  "parts": [
+    "S-only on unchanged v06 labels and selector",
+    "whitespace-only deterministic source repair in separate version",
+    "same-method local rerun with repaired graphs and labels",
+    "bounded candidate sourcing for ten new training cases"
+  ],
+  "seeds": [
+    20261004,
+    20261005
+  ],
+  "updates": 200,
+  "lr": 0.003,
+  "l2": 0.001,
+  "S": "14 shared scores, zero initial values; case independent; train folds only; ties corpus order; seed duplicates retained for specified comparison",
+  "repaired_methods": [
+    "A",
+    "B-fixed",
+    "S",
+    "B",
+    "C",
+    "C0"
+  ],
+  "old_labels_preserved": true,
+  "reference_semantics": "Old budget-mixed preference labels retained only for diagnostic; cannot reinterpret as pure relevance",
+  "no_final_web_answers": true,
+  "source_repair": "EXACT or WHITESPACE_ONLY with raw mapping; multiple occurrences require explicit unique resolution; no fuzzy match or semantic edits",
+  "candidate_cap": 40,
+  "target_new_training_pilot": 10,
+  "no_new_law_pool": true,
+  "future_split_target": {
+    "train": 30,
+    "development": 10,
+    "sealed": 10
+  },
+  "scale_gate": "Confirm qualified source availability and pilot quality; never fill quota with wrong-scope cases",
+  "no_commit_push": true
+}

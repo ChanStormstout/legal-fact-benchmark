@@ -242,6 +242,12 @@ def prepare(root=ROOT):
                  + 'tasks/保存完整提交，raw/保存原始回复，parsed/保存解析；sources/保存允许案情和laws.json。graphs/与labels/隔离输入及监督；folds/保存真实训练及本地权重；selections/保存材料选择。training-freeze.json与freeze/code/固定实际方法。网页记录见web-ledger.json。\n\n'
                  + '本轮36次训练、20份最终回答已完成。C与C0材料相同不证明消息传播有效；45/64有效条件及引文过滤损失须同时审阅。权重npz仅本地保存，哈希见local-weight-manifest.json。\n\n'
                  + '[代码](CODE.md)、[文件清单](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)、[项目状态](../docs/PROJECT_STATE.json)。本地包未提交或推送，GitHub不保证含当前版本；旧RESULTS及SOURCES不是本轮材料。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_DIAGNOSTIC_PILOT':
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`'+snapshot+'`\n\n'+cur['summary']+'\n\n'
+                 + '先读[当前报告](../'+cur['report']+')、[本地诊断](../'+current_root+'/local-report-zh.txt)、[逐案基线表](../'+current_root+'/comparison-table.csv)。\n\n'
+                 + 'run1/保存60次训练、材料选择、同分母比较及源码冻结。pilot/保存新训练试做来源、独立图/标签任务、实际网页记录和解析结果。准备完成、模型返回和独立复核完成是不同状态，请读取web-ledger.json与transport-state.json。\n\n'
+                 + '没有新增完整法律回答；旧六案与新试做均不是独立检查集。模型参考不是人工金标准。浏览器截图、页面侧栏和模型权重不进入发布清单。\n\n'
+                 + '[文件清单](MANIFEST.json)、[项目状态](../docs/PROJECT_STATE.json)。本地包未提交或推送，GitHub未必包含本版本。\n')
     save(root, 'review/START_HERE.md', start)
     request = '''请审阅公开仓库的指定分支 https://github.com/%s/tree/%s 。先读取 %sreview/START_HERE.md
 和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
@@ -314,6 +320,8 @@ def prepare(root=ROOT):
                    + '同时审阅完整法律回答的新增错误、覆盖取舍和重复变化，不以偏好一致或损失下降代替法律效能。模型参考不是人工gold。npz权重仅本地保存；未推送材料应从本地同版审阅包读取，不能假装GitHub已有。无修改或提交推送授权。\n')
     save(root, 'review/REVIEW_REQUEST.md', request)
     save(root, 'review/PUBLICATION.json', {'included_count':len(paths),'included_bytes':sum(x['bytes'] for x in base),'excluded':excluded,'unregistered_local_only':['.runtime/','work/','other outputs not registered in docs/repository-artifacts.json'],'policy':'Explicit artifact roots, file limits, no UI captures or third-party paper copies; originals unchanged.'})
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_DIAGNOSTIC_PILOT':
+        save(root, 'review/REVIEW_REQUEST.md', '请审阅'+cur['report']+'与local-report-zh.txt、run1/comparison.json、same-denominator-analysis.json、pilot/web-ledger.json。区分已完成本地诊断和新训练数据复核状态。检查S无案件特征、训练折隔离、旧标签预算混杂、C/C0材料而非排名差异、原字节保留、空白修复边界与协议偏差。新标签不以篇幅决定偏好，图与标签任务隔离；未复核记录不能当可靠训练监督。不能把模型一致当准确率、把本地审阅包当已推送。此审阅不授权新模型调用或发布。\n')
     derived = records(root, [p for p in GENERATED if p != 'review/MANIFEST.json'])
     save(root, 'review/MANIFEST.json', {'snapshot_id':snapshot,'repository':repo,'branch':branch,'source_files':[dict(x, raw_url=prefix+quote(x['path'])) for x in base],'derived_files':[dict(x, raw_url=prefix+quote(x['path'])) for x in derived],'generated_by':'python3 scripts/repository_bridge.py prepare','manifest_self_hash_not_included':True})
     return verify(root)

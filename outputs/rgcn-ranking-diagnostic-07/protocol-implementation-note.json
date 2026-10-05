@@ -1,0 +1,7 @@
+{
+  "issue": "The protocol asked unique location resolution; implementation retained pre-existing multiply occurring exact quotes instead of quarantining them.",
+  "observed": "6 audit entries nonunique, all EXACT; no newly whitespace-restored ambiguous quote",
+  "consequence": "No arbitrary first offset or semantic disambiguation was selected. These 6 old exact records remain ambiguous and not semantically certified; this is an explicit deviation, not silently a fully compliant uniqueness check.",
+  "new_training_labels": "Pilot importer accepts uniquely located supervision quotes; does not alter old diagnostic results.",
+  "no_rerun": true
+}

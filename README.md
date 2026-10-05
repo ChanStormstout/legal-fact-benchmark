@@ -1,3 +1,5 @@
+当前第07轮见[完成报告](outputs/rgcn-ranking-diagnostic-07/report-zh.txt)与[逐案数据质量](outputs/rgcn-ranking-diagnostic-07/pilot/case-quality-summary.csv)。无案件输入S在旧六案偏好上不低于R-GCN，但送达较差；空白定位修复后仍无稳定图传播收益。完成60次本地训练与10案40次普通High任务，保留113项用途、80项方向偏好，争议隔离；参考非人工金标准，尚无独立泛化结论。 本轮未提交或推送。
+
 # Legal Facts, Rules and Decisions
 
 研究目标是从历史案件的事实、请求和争点中取得有来源的法律规则，检验这些规则能否帮助新案件

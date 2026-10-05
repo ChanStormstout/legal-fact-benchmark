@@ -1,13 +1,13 @@
 # ChatGPT 审阅入口
 
-内容快照：`426855ddcbf6bf98a735b08ecc2a6e25041dac207c4fa9ab8d6f00ef17fcfe51`
+内容快照：`4833c8ef5844fcb6f0e4869349ae0d8a38b7864b270934d14da67f63984a84b1`
 
-六案完成38次准备、36次真实训练、20份法律回答。C/C0两种子材料均相同，未显示图传播额外收益；B有限依据覆盖较好但完整回答有得有失。保留简单关系候选，暂不扩大R-GCN。
+无案件输入S在旧六案偏好上不低于R-GCN，但送达较差；空白定位修复后仍无稳定图传播收益。完成60次本地训练与10案40次普通High任务，保留113项用途、80项方向偏好，争议隔离；参考非人工金标准，尚无独立泛化结论。
 
-先读[报告](../outputs/rgcn-ranking-development-06/report-zh.txt)、[逐案表](../outputs/rgcn-ranking-development-06/comparison-table.csv)、[答案入口](../outputs/rgcn-ranking-development-06/final-answer-slots.md)、[集中来源审阅](../outputs/rgcn-ranking-development-06/final-source-review.json)。
+先读[当前报告](../outputs/rgcn-ranking-diagnostic-07/report-zh.txt)、[本地诊断](../outputs/rgcn-ranking-diagnostic-07/local-report-zh.txt)、[逐案基线表](../outputs/rgcn-ranking-diagnostic-07/comparison-table.csv)。
 
-tasks/保存完整提交，raw/保存原始回复，parsed/保存解析；sources/保存允许案情和laws.json。graphs/与labels/隔离输入及监督；folds/保存真实训练及本地权重；selections/保存材料选择。training-freeze.json与freeze/code/固定实际方法。网页记录见web-ledger.json。
+run1/保存60次训练、材料选择、同分母比较及源码冻结。pilot/保存新训练试做来源、独立图/标签任务、实际网页记录和解析结果。准备完成、模型返回和独立复核完成是不同状态，请读取web-ledger.json与transport-state.json。
 
-本轮36次训练、20份最终回答已完成。C与C0材料相同不证明消息传播有效；45/64有效条件及引文过滤损失须同时审阅。权重npz仅本地保存，哈希见local-weight-manifest.json。
+没有新增完整法律回答；旧六案与新试做均不是独立检查集。模型参考不是人工金标准。浏览器截图、页面侧栏和模型权重不进入发布清单。
 
-[代码](CODE.md)、[文件清单](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)、[项目状态](../docs/PROJECT_STATE.json)。本地包未提交或推送，GitHub不保证含当前版本；旧RESULTS及SOURCES不是本轮材料。
+[文件清单](MANIFEST.json)、[项目状态](../docs/PROJECT_STATE.json)。本地包未提交或推送，GitHub未必包含本版本。

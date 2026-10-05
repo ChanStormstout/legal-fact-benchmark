@@ -1,0 +1,36 @@
+{
+  "version": "07-pilot",
+  "scope": "Delhi DRC14(1)(b); within-library legal relevance, not verdict",
+  "cases": [
+    "38604742",
+    "308216",
+    "1106992",
+    "758831",
+    "1497837",
+    "1381386",
+    "115676081",
+    "1843439",
+    "1859043",
+    "111425525"
+  ],
+  "seeds": [
+    20261004,
+    20261005
+  ],
+  "case_target": 10,
+  "candidate_review_cap": 40,
+  "graph_contract": "V06 unchanged, whitespace-only source locator",
+  "law_conditions": "57 model-proposed and independently reviewed, not gold; fixed 14 original units",
+  "web_tasks": "One graph, one relevance-label task, one independent graph review, one independent label review per case",
+  "maximum_web_calls": 40,
+  "retries": 0,
+  "final_legal_answers": 0,
+  "no_graph_labels_shared": true,
+  "label_target": "Case-specific legal relevance; NOT length/budget priority",
+  "pairs": "16 fixed corpus pairs shared across cases; retain all abstentions; no desired direction",
+  "quality_gate": "All compute records valid source identity/refs; graph clear rejections isolated; supervised directional pairs require one source review supporting direction. Report all disagreements/omissions. No implicit negatives. At least 10 source-ready pilot groups and >=2 accepted directional comparisons per group to consider expansion; this is operational, not a statistical adequacy guarantee.",
+  "quality_assessment": "Model references and local source audits; agreement is not accuracy; cannot remove shared-model bias",
+  "future_scale": "30 train /10 development /10 sealed test conditional on availability and pilot quality; these 10 training pilot only; six old cases development",
+  "stop": "After pilot review, report quality and availability; no final legal answer generation, no automatic expanded dataset or tuning",
+  "publication": "LOCAL_ONLY_NO_COMMIT_NO_PUSH"
+}
