@@ -1,9 +1,13 @@
-# V09主训练审阅入口
+# ChatGPT 审阅入口
 
-27 TRAIN、730项暂定用途监督、30法源，两个种子共6次S/B/C训练完成。DEV核心送达S8/11、B7/11、C4/11与9/11；无稳定条件化收益，暂停扩大图。8 SEALED未用；未生成法律回答或推送。
+内容快照：`5f7e6f89a76a4922e46125c8d0efb5f30a5b0f01efa7dbfc40fd6fab51e6e9cb`
 
-[中文报告](../outputs/rgcn-data-expansion-09/main-training-01/report-zh.txt)、[逐案比较](../outputs/rgcn-data-expansion-09/main-training-01/case-comparison.md)、[汇总](../outputs/rgcn-data-expansion-09/main-training-01/aggregate.json)、[材料取舍](../outputs/rgcn-data-expansion-09/main-training-01/material-changes.json)、[冻结配置](../outputs/rgcn-data-expansion-09/main-training-01/training-freeze.json)、[实际参数](../outputs/rgcn-data-expansion-09/main-training-01/protocol.json)。
+V10集中修复完成：六案180个DEV位置均有状态（176可评价、4隔离），统一类别、可逆空白定位、材料视图和构图。TRAIN746项弱监督候选；抽查发现两案重复用途口径错配，按预定规则停止六次新拟合。旧36项排名已重评；8 SEALED未读取，未生成法律答案或提交推送。
 
-runs/保留六次拟合日志及全部开发排名、概率、原文选择；权重仅本地保存。8个封存案例没有运行。本轮参考为不完整模型标签，新增16项缺少开发对齐与用途，不能当完整30法源评价。先检查B是否超过S，再检查C是否稳定超过B，不挑选有利种子。没有新完整法律回答。
+先读[本轮报告](../outputs/rgcn-dev-contract-repair-10/report-zh.txt)、[就绪决定](../outputs/rgcn-dev-contract-repair-10/readiness-final.json)、[历史排名重评](../outputs/rgcn-dev-contract-repair-10/saved-ranking-reevaluation.json)、[实际数据清单](../outputs/rgcn-dev-contract-repair-10/cohort-status-final.json)。
 
-[源码](CODE.md)、[发布清单](PUBLICATION.json)、[项目状态](../docs/PROJECT_STATE.json)。仅本地更新，未提交推送。
+本轮22次普通High数据准备，重试0。已完成同一30项池的全部DEV对齐、粗用途参考与独立来源复核；未知和隔离不作负例。旧排名重评区分旧指标、历史参考修正和扩展参考，未重拟合或用新图声称新模型表现。有限TRAIN抽查出现重复“同一法体系即BACKGROUND”的用途边界问题，训练门槛关闭；不自动改写标签至通过。保留27 TRAIN／6 DEVELOPMENT／8 SEALED，封存正文、图与标签未读。参考不是人工金标准；仅本地交付。
+
+tasks/保存完整提交；web/保存原始回复与对话记录；sources/、labels/、graph-inputs/、graphs/保存允许来源、版本化参考及图。参考是模型生成并依据来源复核，不是人工金标准；SEALED正文与特征没有读取。
+
+[代码](CODE.md)、[文件哈希](MANIFEST.json)、[项目状态](../docs/PROJECT_STATE.json)。仅本地prepare/verify；未提交推送，远端不能假设含有本快照。

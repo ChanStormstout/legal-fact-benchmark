@@ -1,4 +1,6 @@
-最新[V09主训练报告](outputs/rgcn-data-expansion-09/main-training-01/report-zh.txt)：27 TRAIN、730项暂定用途监督、30法源，两个种子共6次S/B/C训练完成。DEV核心送达S8/11、B7/11、C4/11与9/11；无稳定条件化收益，暂停扩大图。8 SEALED未用；未生成法律回答或推送。
+最新[V10集中修复报告](outputs/rgcn-dev-contract-repair-10/report-zh.txt)：V10集中修复完成：六案180个DEV位置均有状态（176可评价、4隔离），统一类别、可逆空白定位、材料视图和构图。TRAIN746项弱监督候选；抽查发现两案重复用途口径错配，按预定规则停止六次新拟合。旧36项排名已重评；8 SEALED未读取，未生成法律答案或提交推送。
+
+历史[V09主训练报告](outputs/rgcn-data-expansion-09/main-training-01/report-zh.txt)：27 TRAIN、730项暂定用途监督、30法源，两个种子共6次S/B/C训练完成。DEV核心送达S8/11、B7/11、C4/11与9/11；无稳定条件化收益，暂停扩大图。8 SEALED未用；未生成法律回答或推送。
 
 准备阶段[V09剩余任务报告](outputs/rgcn-data-expansion-09/continuation-03/report-zh.txt)：27 TRAIN／6 DEV／8 SEALED；27图、26标签、26案接口配对。补2项，125596702标签保留隔离；未训练或推送。 旧结果保持；接口完成不等于语义验收。
 
