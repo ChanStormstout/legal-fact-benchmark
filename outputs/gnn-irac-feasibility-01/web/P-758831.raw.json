@@ -1,0 +1,276 @@
+{
+  "case_id": "758831",
+  "conditions": [
+    {
+      "id": "c1",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises",
+      "description": "The tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises.",
+      "logical_role": "ELEMENT",
+      "scope": "Section 14(1)(b) conduct element for the fixed Delhi eviction ground.",
+      "dependencies": [
+        {
+          "condition_id": "c2",
+          "operator": "AND"
+        },
+        {
+          "condition_id": "c3",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c2",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on or after the 9th day of June, 1952",
+      "description": "The relevant subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "logical_role": "TEMPORAL_ELEMENT",
+      "scope": "Statutory date limitation within section 14(1)(b).",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c3",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+      "description": "The relevant subletting, assignment, or parting with possession occurred without the landlord's written consent.",
+      "logical_role": "CONSENT_ELEMENT",
+      "scope": "Written-consent requirement within section 14(1)(b).",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c4",
+      "rule_id": "LAW:V09:KR_BURDEN",
+      "exact_rule_quote": "the onus to prove sub-letting is on the landlord",
+      "description": "The landlord bears the onus to prove subletting.",
+      "logical_role": "BURDEN",
+      "scope": "Supplied Supreme Court authority passage addressing the burden for a Delhi DRC section 14 subletting ground.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "QUALIFICATION"
+        }
+      ],
+      "law_refs": [
+        "LAW:V09:KR_BURDEN"
+      ]
+    },
+    {
+      "id": "c5",
+      "rule_id": "LAW:V09:KR_BURDEN",
+      "exact_rule_quote": "If the landlord prima-facie shows that the occupant who was in exclusive possession of the premises let out for valuable consideration, it would then be for the tenant to rebut the evidence.",
+      "description": "A prima-facie showing of an occupant in exclusive possession for valuable consideration shifts the evidentiary burden to the tenant to rebut.",
+      "logical_role": "EVIDENTIARY_TRIGGER",
+      "scope": "Supplied burden-shifting mechanism; the source itself cautions that mere presence is not equivalent to exclusive possession for consideration.",
+      "dependencies": [
+        {
+          "condition_id": "c4",
+          "operator": "QUALIFICATION"
+        }
+      ],
+      "law_refs": [
+        "LAW:V09:KR_BURDEN"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "b1",
+      "fact_id": "f2",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "TRIAL",
+      "stage": "Addl. Rent Controller merits decision, 29 August 1974",
+      "case_refs": [
+        "IK-758831:L73"
+      ],
+      "reason": "The preserved trial-level finding directly states that the petitioner had sublet the premises; it is supporting input evidence only and is not treated as target-court adoption.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b2",
+      "fact_id": "f5",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "Rent Control Tribunal rehearing after remand",
+      "case_refs": [
+        "IK-758831:L75"
+      ],
+      "reason": "The Tribunal on rehearing upheld the earlier finding that the premises had been sublet; this supports the conduct proposition while remaining a lower-court finding.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b3",
+      "fact_id": "f7",
+      "condition_id": "c1",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Special Leave Petition argument",
+      "case_refs": [
+        "IK-758831:L76"
+      ],
+      "reason": "The tenant's preserved challenge contests the correctness of the lower-court subletting finding. As a CLAIMED proposition it tends against c1 but does not establish that subletting was false.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b4",
+      "fact_id": "f8",
+      "condition_id": "c5",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Special Leave Petition argument",
+      "case_refs": [
+        "IK-758831:L76"
+      ],
+      "reason": "The tenant claimed that no positive finding of consideration had been recorded. That claim tends against treating the frozen input as expressly satisfying the valuable-consideration component of the supplied prima-facie trigger, without establishing that consideration was absent.",
+      "input_candidate": true,
+      "target_only": false
+    }
+  ],
+  "element_targets": [
+    {
+      "condition_id": "c1",
+      "status": "UNRESOLVED",
+      "basis_kind": "AMBIGUOUS_REASONING",
+      "target_refs": [
+        {
+          "id": "IK-758831:L96",
+          "quote": "have found it as a fact that the petitioner had sublet the premises"
+        },
+        {
+          "id": "IK-758831:L97",
+          "quote": "we find no merit in this special Leave petition which is dismissed"
+        }
+      ],
+      "reason": "The target opinion recounts the lower-court subletting finding and dismisses the petition after rejecting the sole challenge, but it does not separately state an express target-court factual finding in the form required to mark this element SATISFIED. Lower findings are therefore not promoted to target adoption."
+    },
+    {
+      "condition_id": "c2",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [],
+      "reason": "The supplied target reasoning does not expressly decide when the relevant subletting or transfer occurred. The frozen input also identifies the date of the alleged subletting as unknown."
+    },
+    {
+      "condition_id": "c3",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [
+        {
+          "id": "IK-758831:L79",
+          "quote": "nor had he allowed or consented to his entering into possession over the demised property"
+        }
+      ],
+      "reason": "The quoted target passage is a general explanation of clandestine subletting, not a case-specific finding that this landlord withheld written consent. No express target finding on the statutory written-consent element is supplied."
+    },
+    {
+      "condition_id": "c4",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [
+        {
+          "id": "IK-758831:L82",
+          "quote": "the law does not require such payment to be proved by affirmative evidence"
+        }
+      ],
+      "reason": "The target court addresses the mode of proving consideration and permits inference, but it does not expressly decide the supplied authority's broader proposition allocating the onus to prove subletting to the landlord."
+    },
+    {
+      "condition_id": "c5",
+      "status": "UNRESOLVED",
+      "basis_kind": "AMBIGUOUS_REASONING",
+      "target_refs": [
+        {
+          "id": "IK-758831:L83",
+          "quote": "if exclusive possession was established, it would not be impermissible for the Court to draw an inference"
+        },
+        {
+          "id": "IK-758831:L95",
+          "quote": "does not purport to lay down that in every case payment of consideration must be established by the landlord"
+        }
+      ],
+      "reason": "The target court expressly rejects a universal requirement of affirmative consideration proof and accepts that consideration may be inferred from exclusive possession, but it does not expressly apply the supplied KR_BURDEN formulation as a burden-shifting finding on this case's frozen facts."
+    }
+  ],
+  "issue_target": {
+    "status": "SUPPORTED",
+    "target_refs": [
+      {
+        "id": "IK-758831:L77",
+        "quote": "We are not impressed by the argument."
+      },
+      {
+        "id": "IK-758831:L97",
+        "quote": "we find no merit in this special Leave petition which is dismissed"
+      }
+    ],
+    "reason": "The only contention before the target court attacked the section 14(1)(b) subletting finding for lack of a positive consideration finding. The target court rejected that contention and dismissed the Special Leave Petition, so the fixed eviction ground is supported at the issue level while individual statutory elements not expressly adopted remain unresolved."
+  },
+  "gaps": [
+    {
+      "kind": "HISTORICAL_RULE_SCOPE",
+      "description": "LAW:S02:DRC14:1b is supplied as a current statutory reproduction with historical-version status expressly unverified, so the exact historical consolidation applicable to the litigation date is not established by the allowed material.",
+      "affected_ids": [
+        "c1",
+        "c2",
+        "c3"
+      ]
+    },
+    {
+      "kind": "INSUFFICIENT_RECORD",
+      "description": "The frozen input does not identify the date of the alleged subletting itself, preventing a case-specific application of the on-or-after 9 June 1952 requirement.",
+      "affected_ids": [
+        "c2",
+        "f1",
+        "f2",
+        "f5"
+      ]
+    },
+    {
+      "kind": "INSUFFICIENT_RECORD",
+      "description": "The frozen input marks whether written landlord consent existed as unknown and supplies no case-specific target finding resolving that element.",
+      "affected_ids": [
+        "c3",
+        "f1",
+        "f2",
+        "f5"
+      ]
+    },
+    {
+      "kind": "INSUFFICIENT_RECORD",
+      "description": "The frozen inventory contains no affirmative fact establishing exclusive possession together with valuable consideration; f8 is only the tenant's claim that no positive consideration finding was recorded.",
+      "affected_ids": [
+        "c5",
+        "f8"
+      ]
+    },
+    {
+      "kind": "TARGET_ADOPTION_AMBIGUITY",
+      "description": "The target court rejected the sole challenge and dismissed the petition, but the supplied reasoning does not separately state an express target-court factual adoption of each section 14(1)(b) element; lower-court findings cannot be treated as target adoption under the task instructions.",
+      "affected_ids": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ]
+    }
+  ],
+  "chain_status": "GAP"
+}

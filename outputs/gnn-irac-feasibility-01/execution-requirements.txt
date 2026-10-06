@@ -1,0 +1,714 @@
+请开始 Legal AI 项目的下一研究阶段，但本轮只做：
+
+【GNN-IRAC 数据可行性验证 + 与组内 canonical representation 的接口对齐】
+
+本轮不是训练轮。
+不要训练 GNN，不做 verdict prediction，不做 pattern mining，不启封 SEALED。
+目标是先证明我们能否构造一套没有 outcome leakage、来源可追踪、可以支持后续
+GNN-IRAC 实验的数据表示和监督。
+
+==================================================
+一、两个仓库与访问范围
+==================================================
+
+A. 我们当前研究仓库
+
+https://github.com/ChanStormstout/legal-fact-benchmark
+
+分支：
+research/rules-and-verdict
+
+当前已完成的 authority-ranking 阶段请以最新已发布结果为准。
+
+先确认当前 HEAD 和工作区状态，不覆盖历史实验。
+保留刚完成的 S/B/C authority-ranking 结论：
+- S 保留为当前法源排序 baseline；
+- 暂停扩大当前 authority-ranking R-GCN；
+- 不再继续调整该模型、标签、seed或参数。
+
+B. 组内仓库，只读
+
+https://github.com/LatentWeaver/legal-ai
+
+不要修改该仓库。
+
+重点读取实际当前 main，而不是根据我们过去的描述猜测：
+
+1. README.md
+2. land_dispute_pipeline/prompts/prompt_1a.txt
+3. land_dispute_pipeline/prompts/prompt_1b.txt
+4. prompt2_v2/README.md
+5. prompt2_v2/prompts/ 当前实际 production prompt
+6. prompt2_v2/schemas/canonical_schema.json
+7. prompt2_v2/src/ 中与：
+   - canonicalization
+   - source grounding
+   - claim viability
+   - semantic relations
+   - validation
+   直接有关的代码
+8. evaluation/prompt2-evaluator/docs/EVALUATOR_LOGIC.md
+
+如果 main 中 README、prompt、schema之间存在版本差异，
+明确记录实际运行路径，不自行选一份最符合我们设计的版本。
+
+==================================================
+二、本轮长期背景，但不要试图一次实现全部
+==================================================
+
+项目最终目标是可追踪的：
+
+Evidence
+→ Canonical Facts
+→ Fact Patterns
+→ Rules / Tests
+→ Elements
+→ Claims / Defenses
+→ Issues
+→ Conclusion
+
+当前刚结束的实验主要研究：
+
+Issue + case facts
+→ authority selection / ranking
+
+本轮转向另一个子问题：
+
+给定正确或经审阅确认的 Rule，
+案件中的事实关系能否支持可靠的 Rule Application？
+
+即：
+
+Issue
++
+Reviewed Rule
++
+Pre-outcome Facts / Evidence
+→
+Application
+→
+Element / Issue status
+
+后续才可能训练 GNN。
+
+本轮不要实现完整 end-to-end：
+Case → retrieve law → application → verdict。
+
+==================================================
+三、核心研究问题
+==================================================
+
+请回答：
+
+1. 组内 LatentWeaver canonical representation
+   是否已经包含构造 IRAC application 所需要的主要语义信息？
+
+2. 哪些信息可以直接复用：
+   - Fact
+   - Evidence
+   - Claim
+   - LegalIssue
+   - Precedent
+   - Party
+   - Court / record status
+   - source grounding
+
+3. 哪些 IRAC 信息组内 schema 当前没有直接表示，例如：
+   - explicit Rule
+   - Rule Condition
+   - Element
+   - fact-to-condition binding
+   - application status
+
+4. 缺失的信息应该：
+   A. 修改组内 canonical schema；
+   还是
+   B. 作为 downstream task-specific layer 添加？
+
+默认优先 B。
+不要为了本实验重设计组内 production schema，
+除非真实文件证明现有 schema 无法支持一个合理的 adapter。
+
+==================================================
+四、重要原则：不要宣称已经复现组内 upstream
+==================================================
+
+我们当前 authority-ranking graph 使用的类型包括：
+
+need
+fact
+object
+relation
+authority
+condition
+alignment
+
+组内 canonical representation 使用的实际类型请从代码确认。
+
+不要把两者描述成相同 schema。
+
+本轮请设计一个：
+
+LatentWeaver canonical JSON
+        ↓
+deterministic / traceable adapter
+        ↓
+IRAC task graph
+
+adapter 必须尽量复用组内已有语义，
+不得让 LLM重新从原文重抽一套平行的完整案件表示。
+
+允许增加的 task-specific 层仅限后续 IRAC 实验真正需要的：
+
+- reviewed Rule
+- Rule Condition / Element
+- Fact ↔ Condition candidate binding
+- Application target
+
+不要新增与当前任务无关的大型 ontology。
+
+==================================================
+五、先做 representation crosswalk
+==================================================
+
+首先生成一份明确的 mapping 表。
+
+至少包含：
+
+组内节点/字段
+→ IRAC角色
+→ 是否直接复用
+→ 是否需要adapter
+→ 是否存在信息损失
+→ source/provenance如何保留
+
+例如只作为示意，不要机械照抄：
+
+LegalIssue
+→ Issue
+
+Fact
+→ pre-outcome Fact candidate
+
+Evidence
+→ Evidence
+
+Precedent
+→ Authority source
+
+Claim
+→ Claim context
+
+record_status / court_status
+→ statement / adjudicative status
+
+如果组内当前 production schema 实际没有 Rule / Element，
+明确写出：
+“缺失，不假装已有”。
+
+然后提出最小 task-layer representation。
+
+==================================================
+六、数据可行性 pilot：只选 8 个非SEALED历史案件
+==================================================
+
+不要启封任何 SEALED。
+
+从现有 TRAIN 中预先、确定性选 8 案。
+不要根据 S/B/C 表现选择。
+
+要求尽量覆盖不同机制，例如：
+- family occupation
+- control / exclusive possession
+- partnership / company
+- statutory succession / amalgamation
+- written consent
+- temporal applicability
+
+如果现有标准化机制字段不足，
+可以使用已经保存的描述进行分层，
+但不要读取结果后为了制造多样性不断替换案件。
+
+首次选定8案后冻结 case IDs。
+
+保存 selection rationale。
+
+==================================================
+七、每个案件必须严格分成两个信息区
+==================================================
+
+这是本轮最重要的设计。
+
+A. MODEL INPUT / PRE-OUTCOME SIDE
+--------------------------------
+
+只能包含在目标裁判形成前可合理获得的材料，例如：
+
+- parties
+- claims / defenses
+- pleaded facts
+- evidence
+- contracts / instruments
+- prior procedural findings（若任务允许，必须保留层级）
+- factual statement status
+- issue
+- statutes / precedents available to the court
+- source provenance
+
+不得包含：
+
+- target court final conclusion
+- target court最终接受/拒绝哪个争点
+- winning / losing argument as target-court outcome
+- target court final element finding
+- target final disposition
+- 对目标结果的摘要字段
+
+B. TARGET-CONSTRUCTION / POST-OUTCOME SIDE
+------------------------------------------
+
+可以读取历史判决后半部分、法院最终reasoning和现有数据库中的：
+
+- courts_reasoning
+- analysis_of_the_law
+- conclusion
+- accepted / negatively viewed precedent information
+- target final findings
+
+但这些信息：
+
+【只能用于构造监督 target 和来源审计】
+
+绝对不能回流到模型input或input graph。
+
+请通过文件/字段级别的 lineage 保存这个隔离，
+不能只靠prompt口头说明。
+
+==================================================
+八、Rule先使用 reviewed/oracle rule，不做retrieval
+==================================================
+
+本轮不要重新研究 authority selection。
+
+每个 pilot 案只选择：
+
+1. governing statute / fixed ground；
+2. 必要的、已有来源支持的 legal test / precedent；
+3. 必须的 material limitation / counter-rule。
+
+Rule必须有来源。
+
+优先复用我们已经建立的30项authority pool和已有source material，
+不要重新网上搜一套全新的法律体系。
+
+如果现有法源不足以构造某个案件的 application target：
+明确记录 GAP，
+不要为了完成8案自行添加大量新法源。
+
+本轮研究问题必须保持：
+
+【如果Rule已经给对，图结构能否支持Application？】
+
+而不是再次混入 retrieval error。
+
+==================================================
+九、Rule decomposition：最小条件/element结构
+==================================================
+
+对于每个 reviewed Rule，
+只提取本案实际需要判断的条件。
+
+每个 Condition / Element 至少保存：
+
+- id
+- rule_id
+- exact rule text / source quote
+- description
+- logical role
+- applicable scope / limitation
+- dependency（如AND/OR/qualification）
+- source citation
+
+不要把一个复杂判例整篇当成一个element。
+
+也不要过度细分成几十个微型条件。
+
+标准是：
+该条件能否对应一个有意义的法律判断，例如：
+
+- third party obtained possession
+- tenant retained / lost legal control
+- written landlord consent exists
+- relevant conduct occurred after required date
+- legal identity / succession condition
+- burden-shift trigger
+
+==================================================
+十、Application target
+==================================================
+
+每个 element / condition 使用且只使用三个主要状态：
+
+SATISFIED
+DEFEATED
+UNRESOLVED
+
+含义：
+
+SATISFIED
+-----------
+历史目标法院明确把该条件视为成立，
+且有可定位的目标reasoning依据。
+
+DEFEATED
+--------
+历史目标法院明确认为该条件不成立，
+或有明确相反事实/法律判断击败该条件。
+
+UNRESOLVED
+----------
+目标材料没有可靠解决，
+或者来源不足以区分满足与不满足。
+
+不要把：
+“原告没有证明”
+机械等同于事实命题为FALSE。
+
+需要区分：
+- fact is false
+- burden not carried
+- not decided
+- insufficient record
+
+如果三类无法表达某个已发现的重要情况，
+先记录 limitation，
+不要立即新增第四、第五种训练类别。
+
+==================================================
+十一、Fact → Condition binding
+==================================================
+
+每个 element 同时构造候选 binding：
+
+Fact / Evidence
+→ SUPPORTS / DEFEATS / RELEVANT_TO
+→ Condition
+
+每条 binding 必须保留：
+
+- fact_id
+- condition_id
+- relation
+- statement status
+- court / procedural level
+- source refs
+- whether it belongs to model input
+- whether it was used only for target construction
+
+不得根据最终 target label
+反向发明一个输入fact。
+
+例如：
+
+如果 target says SATISFIED，
+不能为了让链条漂亮而新增：
+“tenant lost control”
+作为pre-outcome fact，
+除非输入材料本身真的这样说。
+
+==================================================
+十二、Issue-level conclusion
+==================================================
+
+本轮可以额外构造一个 issue-level target，
+但它必须与 element target 分开。
+
+建议仅使用：
+
+SUPPORTED
+NOT_SUPPORTED
+UNRESOLVED
+
+它表示：
+在历史目标裁判中，
+这个固定issue/ground最终如何处理。
+
+不要直接用WIN/LOSE替代全部element supervision。
+
+如果一个案子存在多个claim，
+本轮只处理已经固定的目标issue，
+不要扩成整案多请求预测。
+
+==================================================
+十三、需要做的source audit
+==================================================
+
+8案全部都要做逐链核对，但不是重标整份案件。
+
+每案至少核对：
+
+1. Issue是否真的来自固定研究问题/来源；
+2. Rule是否有正确来源；
+3. Condition是否忠实于Rule；
+4. input Fact是否真的在pre-outcome材料；
+5. Fact statement status是否正确；
+6. target Application是否有target court reasoning支持；
+7. target信息是否错误进入input；
+8. conclusion target是否和application target逻辑冲突。
+
+允许普通High辅助审阅。
+
+但：
+- 不把High输出称为人工gold；
+- 不用模型一致性当正确率；
+- 不因为一个案例困难就不断重试到一致。
+
+==================================================
+十四、调用预算
+==================================================
+
+本轮最多允许：
+
+- 8案 × 1次 application/target proposal = 8次High
+- 8案按两批做独立 source review = 2次High
+- 如确有必要，可增加最多2次针对性review
+
+总上限：
+12次普通High调用。
+
+semantic retry = 0。
+
+失败、分歧、无法判断直接保留。
+
+不要为了让8案全部“成功”无限补调用。
+
+==================================================
+十五、Pattern mining明确排除
+==================================================
+
+本轮不要实现：
+
+- FP-Growth
+- gSpan
+- AMIE
+- AnyBURL
+- supervised contrastive learning
+
+不要因为它们尚未完成而阻止 IRAC feasibility。
+
+本轮要验证的是：
+
+Reviewed Rule
++
+Case relational facts
+→
+Application target
+
+Pattern mining以后可以作为独立 explicit-pattern branch
+与GNN进行比较或结合。
+
+==================================================
+十六、GNN训练明确排除
+==================================================
+
+本轮不要：
+
+- 训练R-GCN；
+- 训练任何classification model；
+- 运行hyperparameter search；
+- 比较模型accuracy；
+- 生成新的法律答案；
+- 运行SEALED。
+
+本轮结束点是：
+
+【得到或不能得到一套可信的GNN-IRAC训练接口】
+
+而不是模型成绩。
+
+==================================================
+十七、必须回答的可行性问题
+==================================================
+
+最终报告逐项回答：
+
+A.
+组内 canonical JSON 中哪些信息可以直接作为 IRAC input？
+
+B.
+哪些信息必须通过 deterministic adapter 转换？
+
+C.
+哪些东西必须新增为 task-specific layer？
+
+D.
+组内 schema 是否已经足以提供：
+- Issue
+- Fact
+- Evidence
+- Claim context
+- Precedent context
+- statement/court status
+- provenance？
+
+E.
+它是否缺少：
+- explicit Rule
+- Condition / Element
+- Application target？
+如果缺少，是否可以不修改组内schema而在下游补？
+
+F.
+8案中多少案能够形成：
+
+Issue
++ Rule
++ pre-outcome Facts
++ Conditions
++ fact-condition bindings
++ element targets
+
+完整链？
+
+G.
+最常见失败点是什么：
+- missing rule
+- insufficient pre-outcome facts
+- target reasoning too implicit
+- attribution ambiguity
+- procedural-stage ambiguity
+- outcome leakage risk
+- canonical representation gap
+- other
+
+H.
+基于实际8案，
+下一轮是否值得训练一个 rule-given GNN-IRAC？
+
+==================================================
+十八、可行性最低标准
+==================================================
+
+不要要求8/8完美。
+
+预先使用以下判断：
+
+GO
+--
+如果至少6/8案件能够形成完整、可追踪、无明显outcome leakage的：
+Issue → Rule → Conditions → Facts/Bindings → Application target
+链，并且失败不是由同一个系统性schema缺口造成，
+建议进入下一轮训练设计。
+
+CONDITIONAL GO
+--------------
+如果4–5/8可用，
+但主要问题是一个有限、明确的adapter或target-construction缺口，
+报告最小修复，不自动执行。
+
+NO-GO
+-----
+如果少于4/8可构造，
+或多数target必须靠重写/推测target reasoning，
+或pre-outcome/post-outcome无法可靠隔离，
+则停止，不训练GNN。
+
+不要降低标准凑数量。
+
+==================================================
+十九、交付物
+==================================================
+
+建立独立输出目录，例如：
+
+outputs/gnn-irac-feasibility-01/
+
+至少交付：
+
+1. report-zh.txt
+   - 中文完整结论
+
+2. protocol.json
+   - 固定8案
+   - 访问范围
+   - 调用预算
+   - leakage policy
+   - GO/NO-GO规则
+
+3. group-schema-audit.md
+   - 实际读取的LatentWeaver文件
+   - 实际production schema
+   - 不一致版本
+   - 不可读取项
+
+4. canonical-to-irac-crosswalk.csv/json
+   - group field/node
+   - IRAC role
+   - reuse/adapter/task-layer
+   - limitations
+
+5. irac-task-schema.json
+   - 最小下游task schema
+   - 不修改组内repo
+
+6. case-manifest.json
+   - 固定8案
+   - selection rationale
+   - split
+   - mechanism
+   - source paths
+
+7. 每案：
+   inputs/<case>.json
+   targets/<case>.json
+   bindings/<case>.json
+   lineage/<case>.json
+
+8. source-review.json
+   - 所有被复核链
+   - supported / disputed / unresolved
+   - 不是human gold
+
+9. leakage-audit.json
+   - 哪些字段属于input
+   - 哪些只属于target construction
+   - 确认target information未回流input
+
+10. feasibility-table.csv
+    每案至少包含：
+    - issue_available
+    - reviewed_rule_available
+    - conditions_constructed
+    - pre_outcome_facts_available
+    - binding_available
+    - application_target_available
+    - conclusion_target_available
+    - leakage_check
+    - final_status
+
+11. readiness.json
+    最终只允许：
+    GO
+    CONDITIONAL_GO
+    NO_GO
+
+12. cost.json
+    实际High调用、失败和重试数
+
+==================================================
+二十、历史与仓库约束
+==================================================
+
+- 不改LatentWeaver/legal-ai。
+- 不覆盖现有S/B/C输出。
+- 不启封SEALED。
+- 不读取SEALED正文或任何派生内容。
+- 不训练。
+- 不提交或推送，除非用户另行授权。
+- 保存原始提议和review回复。
+- source locator成功不等于语义正确。
+- 所有模型生成reference明确标记model-assisted/not human gold。
+- 不把historical court outcome放入pre-outcome input。
+
+完成这些交付后停止。
+不要自动开始GNN-IRAC训练、pattern mining或下一轮数据扩展。

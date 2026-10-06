@@ -1,0 +1,857 @@
+Task: construct a minimal rule-given IRAC application training proposal, NOT a new legal answer or whole-case extraction. Use only the attached data; no external search. Input is permanently frozen independently below. Full historical judgment is POST-OUTCOME, only for target construction. Reuse existing_inventory facts and objects; do not add/rewrite facts, court status, identity or relationship. If facts are wrong or insufficient mark a GAP and identify IDs. Do not make final target conclusions appear in input. Rules are oracle candidates, not automatically correct for this stage/jurisdiction/date. Check necessary scope and exceptions; if insufficient, mark GAP rather than invent.
+Return complete JSON code block and downloadable JSON. Avoid long copied text except exact short rule and target quotes. At most 6 meaningful conditions and 12 bindings, no need to fill arrays. Conditions only from provided rules, exclude target's own final reasoning from rule definitions. Relations SUPPORTS/DEFEATS describe a candidate evidentiary proposition, not established truth of a party allegation. Each binding must cite existing fact's PRE source refs and retain original statement status, court and stage. Target reasoning belongs only in element_targets/issue_target, never in bindings. A target SATISFIED requires express TARGET court adoption; DEFEATED requires express nonfulfilment or express opposing judgment. Burden not carried is distinct from false fact. UNRESOLVED must explain NOT_DECIDED, INSUFFICIENT_RECORD, AMBIGUOUS_REASONING or scope limits, not be technical failure. Lower findings are not target adoption. Do not label every statutory condition from the overall disposition. Search full target reasoning for each condition and issue; unresolved when too implicit.
+Output fields exactly: {case_id, conditions:[{id,rule_id,exact_rule_quote,description,logical_role,scope,dependencies:[{condition_id,operator}],law_refs}], bindings:[{id,fact_id,condition_id,relation,statement_status,court,stage,case_refs,reason,input_candidate:true,target_only:false}], element_targets:[{condition_id,status,basis_kind,target_refs:[{id,quote}],reason}], issue_target:{status,target_refs:[{id,quote}],reason}, gaps:[{kind,description,affected_ids}], chain_status}. Use status SATISFIED/DEFEATED/UNRESOLVED; issue SUPPORTED/NOT_SUPPORTED/UNRESOLVED. basis_kind FACT_ACCEPTED/FACT_FALSE/BURDEN_NOT_CARRIED/NOT_DECIDED/INSUFFICIENT_RECORD/LEGAL_INTERPRETATION/AMBIGUOUS_REASONING. chain_status PROPOSED_COMPLETE/GAP. law_refs are provided rule IDs. dependencies operators AND/OR/QUALIFICATION; no invented IDs. No binding to a new fact.
+MATERIAL
+{
+  "PRE_OUTCOME_FROZEN_INPUT": {
+    "case_id": "1381386",
+    "fixed_issue": "Whether the landlord's section 14(1)(b) eviction ground is established against the tenant for subletting, assignment or other parting with possession without written landlord consent, preserving procedural posture.",
+    "stage": "SC appeal; lower findings and landlord argument; target rejection excluded",
+    "pre_outcome_source": {
+      "case_id": "1381386",
+      "segments": [
+        {
+          "id": "IK-1381386:L137",
+          "text": "> The appellant landlord had filed an application under cite15†Sec. 14(1)(b) of the Delhi Rent Control Act, 1958 (for short the 'Act') for ejectment of the respondents. All the three courts concurrently found that Gulzar Singh was the sole tenant. The Rent Controller and the Tribunal found that he sublet the demised premises to Avtar Singh, his brother and therefore ordered ejectment. The High Court found that the tenant was in exclusive possession of the premises bearing No. W.Z."
+        },
+        {
+          "id": "IK-1381386:L138",
+          "text": "258/4, Subash Bazar, Nangal 540 Raya, New Jail Road, New Delhi, and that he did not sublet the premises to Avtar Singh. On that premise the petition for ejectment was dismissed. Thus this appeal by special leave under cite17†Art. 136 of the Constitution."
+        },
+        {
+          "id": "IK-1381386:L139",
+          "text": "> Shri Nagaraja, learned counsel for the appellant has con- tended that the High Court has committed a gross error in interfering with the concurrent finding of fact recorded by the Addl. Rent Controller and the Rent control Tribunal that the tenant, Gulzar Singh has sublet the premises in question to his brother, Avtar Singh and that it is not open to the High court to interfere with the concurrent finding of fact. He placed reliance on cite16†Sec."
+        },
+        {
+          "id": "IK-1381386:L140",
+          "text": "18 of the Evidence Act and said that in an affidavit filed by Avtar singh before Income-Tax Authorities he claimed exclusive possession as a tenant and that, therefore, the admission made by him would be binding on Gulzar Singh. The Addl. Rent Controller and the Rent Control Tribunal relying upon this admission of Avtar Singh and other oral evidence concluded that Avtar Singh alone was in exclusive possession and that, therefore, subletting was proved as a fact."
+        }
+      ],
+      "input_scope": "SC appeal; lower findings and landlord argument; target rejection excluded",
+      "coverage": "Complete approved ranges, NOT full judgment; full original held outside all model inputs",
+      "relation_status": "No known shared dispute in chosen titles/dockets; broader links unconfirmed"
+    },
+    "existing_inventory": {
+      "case_id": "1381386",
+      "origin": "EXISTING_LOCAL_WEAK_INVENTORY_NOT_LATENTWEAVER_CANONICAL",
+      "facts": [
+        {
+          "id": "f1",
+          "text": "The appellant landlord filed an application under Delhi Rent Control Act section 14(1)(b) seeking ejectment of the respondents.",
+          "speaker": "COURT",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal procedural history",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the application satisfied every prescribed procedural requirement"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "for ejectment of the respondents."
+        },
+        {
+          "id": "f2",
+          "text": "The supplied opinion reports that all three lower courts concurrently found Gulzar Singh to be the sole tenant.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "UNKNOWN",
+          "stage": "Rent Controller, Tribunal and High Court findings",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o2"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "All the three courts concurrently found that Gulzar Singh was the sole tenant."
+        },
+        {
+          "id": "f3",
+          "text": "The Rent Controller found that Gulzar Singh sublet the demised premises to Avtar Singh and ordered ejectment.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "TRIAL",
+          "stage": "Rent Controller merits determination",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of this finding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "The Rent Controller and the Tribunal found that he sublet the demised premises to Avtar Singh, his brother and therefore ordered ejectment."
+        },
+        {
+          "id": "f4",
+          "text": "The Rent Control Tribunal found that Gulzar Singh sublet the demised premises to Avtar Singh and ordered ejectment.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "Rent Control Tribunal merits determination",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of this finding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "The Rent Controller and the Tribunal found that he sublet the demised premises to Avtar Singh, his brother and therefore ordered ejectment."
+        },
+        {
+          "id": "f5",
+          "text": "The High Court found that Gulzar Singh did not sublet the premises to Avtar Singh and dismissed the ejectment petition on that premise.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court appeal",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target court acceptance of this finding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L138"
+          ],
+          "quote": "and that he did not sublet the premises to Avtar Singh. On that premise the petition for ejectment was dismissed."
+        },
+        {
+          "id": "f6",
+          "text": "The appellant landlord argued that the High Court committed gross error by interfering with the concurrent Rent Controller and Tribunal finding that Gulzar Singh had sublet the premises to Avtar Singh.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal appellant argument",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of the argument"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L139"
+          ],
+          "quote": "the High Court has committed a gross error in interfering with the concurrent finding of fact"
+        },
+        {
+          "id": "f7",
+          "text": "Avtar Singh was reported to have claimed in an affidavit before the Income-Tax Authorities that he had exclusive possession as a tenant.",
+          "speaker": "THIRD_PARTY",
+          "status": "CLAIMED",
+          "court": "NONE",
+          "stage": "Income-Tax affidavit",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "truth of the affidavit assertion",
+            "full contents and context of the affidavit"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "quote": "in an affidavit filed by Avtar singh before Income-Tax Authorities he claimed exclusive possession as a tenant"
+        },
+        {
+          "id": "f8",
+          "text": "The appellant landlord argued, relying on section 18 of the Evidence Act, that Avtar Singh's asserted admission would bind Gulzar Singh.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal appellant argument",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the admission is legally binding on Gulzar Singh",
+            "target court acceptance of the evidentiary argument"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o2"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L139",
+            "IK-1381386:L140"
+          ],
+          "quote": "the admission made by him would be binding on Gulzar Singh."
+        },
+        {
+          "id": "f9",
+          "text": "The Rent Controller and Rent Control Tribunal relied on Avtar Singh's admission and other oral evidence and concluded that Avtar Singh alone was in exclusive possession and that subletting was proved.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "UNKNOWN",
+          "stage": "Rent Controller and Rent Control Tribunal evidentiary findings",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of these lower-court findings",
+            "contents and weight of the unspecified other oral evidence"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "quote": "Avtar Singh alone was in exclusive possession and that, therefore, subletting was proved as a fact."
+        }
+      ],
+      "objects": [
+        {
+          "id": "o1",
+          "text": "appellant landlord",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L139"
+          ],
+          "unknown": true
+        },
+        {
+          "id": "o2",
+          "text": "Gulzar Singh",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L139",
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o3",
+          "text": "Avtar Singh",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138",
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o4",
+          "text": "premises bearing No. W.Z. 258/4, Subash Bazar, Nangal 540 Raya, New Jail Road, New Delhi",
+          "kind": "PROPERTY",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o5",
+          "text": "Avtar Singh affidavit before Income-Tax Authorities",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o6",
+          "text": "Addl. Rent Controller",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L139",
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o7",
+          "text": "Rent Control Tribunal",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L139",
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o8",
+          "text": "High Court",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138",
+            "IK-1381386:L139"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o9",
+          "text": "Income-Tax Authorities",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        }
+      ],
+      "relations": [
+        {
+          "id": "r1",
+          "left": "o3",
+          "right": "o2",
+          "relation": "other",
+          "text": "Avtar Singh is identified as the brother of Gulzar Singh.",
+          "speaker": "COURT",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal factual background",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "Avtar Singh, his brother"
+        },
+        {
+          "id": "r2",
+          "left": "o2",
+          "right": "o4",
+          "relation": "controls",
+          "text": "The High Court found Gulzar Singh to be in exclusive possession of the premises.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of this finding"
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "the tenant was in exclusive possession of the premises bearing No. W.Z."
+        },
+        {
+          "id": "r3",
+          "left": "o3",
+          "right": "o4",
+          "relation": "controls",
+          "text": "The Rent Controller and Rent Control Tribunal found Avtar Singh alone to be in exclusive possession of the premises.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "UNKNOWN",
+          "stage": "Rent Controller and Rent Control Tribunal merits findings",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of these findings"
+          ],
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "quote": "Avtar Singh alone was in exclusive possession"
+        }
+      ],
+      "issue_needs_context_not_application_targets": [
+        {
+          "id": "n1",
+          "text": "Whether Gulzar Singh is the tenant whose conduct can engage the supplied Delhi Rent Control Act section 14(1)(b) ground.",
+          "refs": [
+            "IK-1381386:L137"
+          ]
+        },
+        {
+          "id": "n2",
+          "text": "Whether Gulzar Singh sublet, assigned, or otherwise parted with possession of all or part of the premises to Avtar Singh, preserving the conflicting lower-court findings.",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138",
+            "IK-1381386:L140"
+          ]
+        },
+        {
+          "id": "n3",
+          "text": "Whether any relevant subletting, assignment, or parting with possession occurred with or without the landlord's written consent.",
+          "refs": []
+        },
+        {
+          "id": "n4",
+          "text": "Whether any relevant transfer or subletting occurred within the statutory date scope, including on or after 9 June 1952 and, where applicable, after commencement of the Act.",
+          "refs": []
+        },
+        {
+          "id": "n5",
+          "text": "Whether the supplied record establishes any notice, lawful-subletting, or protected-subtenant facts needed for the supplied sections 17 and 18 mechanisms.",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138"
+          ]
+        }
+      ],
+      "quarantined": [],
+      "pre_source_ids": [
+        "IK-1381386:L137",
+        "IK-1381386:L138",
+        "IK-1381386:L139",
+        "IK-1381386:L140"
+      ]
+    },
+    "oracle_rule_material": [
+      {
+        "id": "LAW:S02:DRC14:1b",
+        "text": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+        "source": {
+          "document_id": "18143401",
+          "url": "https://indiankanoon.org/doc/18143401/"
+        },
+        "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+        "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+        "dependencies": [],
+        "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+        "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+      },
+      {
+        "id": "LAW:V09:KR_BURDEN",
+        "text": "The case of the respondent in his application under cite16†section 14 of of the Act was that the appellant had sub-let the whole premises to Sohan Singh who was running the business under the name of Royal Dispensing Chemists and Druggists and that the entire premises have been sub-let by the appellant and the appellant had completely parted with possession without the written consent of the respondent.\nIt was also alleged that the appellant was charging fabulous amount of rent from the sub-tenant Sohan Singh. Sub-letting was,' therefore, the principal ground on which eviction was sought. When eviction is sought on that ground it is now settled law that the onus to prove sub-letting is on the landlord. If the landlord prima-facie shows that the occupant who was in exclusive possession of the premises let out for valuable consideration, it would then be for the tenant to rebut the evidence.",
+        "source": {
+          "document_id": "114533",
+          "url": "https://indiankanoon.org/doc/114533/",
+          "date": "1973-11-29",
+          "court_or_publisher": "Supreme Court of India",
+          "passage_addresses": [
+            {
+              "id": "IK-114533:L165",
+              "start": 0,
+              "end": 409
+            },
+            {
+              "id": "IK-114533:L166",
+              "start": 0,
+              "end": 495
+            }
+          ]
+        },
+        "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+        "scope": "Delhi DRC14(1)(b)",
+        "mechanisms": [
+          "control_exclusive_possession"
+        ],
+        "legal_status": "COURT_ADOPTED",
+        "coverage_limit": "Initial burden and rebuttal depend on the proof stated; mere presence alone is not equivalent to exclusive possession for consideration.",
+        "dependencies": [],
+        "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+        "full_source_status": "INCOMPLETE",
+        "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+        "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+      }
+    ],
+    "unknown_is_not_false": true,
+    "target_info_included": false
+  },
+  "POST_OUTCOME_TARGET_CONSTRUCTION": {
+    "case_id": "1381386",
+    "title": [
+      "Sri Chand Gupta vs Gulzar Singh And Anr on 22 October, 1991"
+    ],
+    "usage": "TARGET_CONSTRUCTION_ONLY_NEVER_MODEL_INPUT",
+    "full_historical_source": [
+      {
+        "id": "IK-1381386:L137",
+        "text": "> The appellant landlord had filed an application under cite15†Sec. 14(1)(b) of the Delhi Rent Control Act, 1958 (for short the 'Act') for ejectment of the respondents. All the three courts concurrently found that Gulzar Singh was the sole tenant. The Rent Controller and the Tribunal found that he sublet the demised premises to Avtar Singh, his brother and therefore ordered ejectment. The High Court found that the tenant was in exclusive possession of the premises bearing No. W.Z."
+      },
+      {
+        "id": "IK-1381386:L138",
+        "text": "258/4, Subash Bazar, Nangal 540 Raya, New Jail Road, New Delhi, and that he did not sublet the premises to Avtar Singh. On that premise the petition for ejectment was dismissed. Thus this appeal by special leave under cite17†Art. 136 of the Constitution."
+      },
+      {
+        "id": "IK-1381386:L139",
+        "text": "> Shri Nagaraja, learned counsel for the appellant has con- tended that the High Court has committed a gross error in interfering with the concurrent finding of fact recorded by the Addl. Rent Controller and the Rent control Tribunal that the tenant, Gulzar Singh has sublet the premises in question to his brother, Avtar Singh and that it is not open to the High court to interfere with the concurrent finding of fact. He placed reliance on cite16†Sec."
+      },
+      {
+        "id": "IK-1381386:L140",
+        "text": "18 of the Evidence Act and said that in an affidavit filed by Avtar singh before Income-Tax Authorities he claimed exclusive possession as a tenant and that, therefore, the admission made by him would be binding on Gulzar Singh. The Addl. Rent Controller and the Rent Control Tribunal relying upon this admission of Avtar Singh and other oral evidence concluded that Avtar Singh alone was in exclusive possession and that, therefore, subletting was proved as a fact. We find no substance in the contention."
+      },
+      {
+        "id": "IK-1381386:L141",
+        "text": "cite16†Section 18 of the Evidence Act. reads as under:-"
+      },
+      {
+        "id": "IK-1381386:L142",
+        "text": "> \"18. Admission by party to proceeding or his agent; by suitor in representative character; by party interested in subject-matter by person from whom interest derived. - State- ments made by a party to the proceedings, or by an agent to any such party, whom the court regards, under the circumstances of the case, as expressly or impliedly authorised by him to made them, are admissions."
+      },
+      {
+        "id": "IK-1381386:L143",
+        "text": "> Statements made by parties to suits, suing or sued in a representative character, are not admissions, unless they were made while the party making them held that character. Statements made by -"
+      },
+      {
+        "id": "IK-1381386:L144",
+        "text": "> (1) persons whom have any proprietary or pecuniary interest in the subject matter of the proceeding and who make the statement in their character of persons so interested, or (2) persons from whom the parties to the suit have derived their interest in the subject matter of the suit, are admissions, if they are made during the continuance of the inter-"
+      },
+      {
+        "id": "IK-1381386:L145",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L146",
+        "text": "est of the persons making the statement.\""
+      },
+      {
+        "id": "IK-1381386:L147",
+        "text": "cite16†Section 18 postulates that statements made by a party to the 541 proceeding, or by an agent to any such party, whom the Court regards, under the circumstances of the. case, as expressly or impliedly authorised by him to make them, are admissions. Equally statement made by a person who has an proprietary or pecuniary interest in the subject matter of the proceedings or persons having derivative interest make statements during the continuance of the interest also are admissions."
+      },
+      {
+        "id": "IK-1381386:L148",
+        "text": "In this case, admittedly, Gulzar Singh was not a party to the .affidavit signed by Avtar Singh. Therefore, the admis- sion made by Avtar Singh that he is the tenant m exclusive possession of the demised premises does not bind Gulzar Singh. In view of the plea and stand of the appellant, Avtar Singh cannot claim to have any pecuniary interest or any joint interest alongwith Gulzar Singh in the demised prem- ises."
+      },
+      {
+        "id": "IK-1381386:L149",
+        "text": "Once it is found that Gulzar Singh alone is the ten- ant, as admittedly pleaded by the appellant, Avtar Singh cannot claim to have any pecuniary or derivative interest in the demised premises. He is not an agent of Gulzar Singh. Under those circumstances, as rightly found by the High Court, that the admission made by Avtar Singh in the affida- vit is inadmissible and does not bind Gulzar Singh."
+      },
+      {
+        "id": "IK-1381386:L150",
+        "text": "Once that admission is excluded from consideration, there is no other evidence worth accepting to conclude that Avtar Singh was in exclusive possession as a tenant. The High Court rightly held that the finding of subletting or parting with possession of the premises in dispute was vitiated in law as it was primarily based on inadmissible evidence. Having found the finding vitiated, it was open to the High Court to re-examine and reappreciate the evidence on record."
+      },
+      {
+        "id": "IK-1381386:L151",
+        "text": "On reappraisal it disbelieved-the oral evidence. We do not find any error in such reappraisal. It is then sought to be contended that Gulzar Singh had other business and it im- plies that he is not in exclusive possession of the demised premises. We find no force in the contention. It may be that Gulzar Singh had other business but that does not lead to the conclusion that Gulzar singh is not in exclusive posses- sion of the demised premises as tenant or that he sublet the premises to Avtar Singh."
+      },
+      {
+        "id": "IK-1381386:L152",
+        "text": "Accordingly, the appeal is dismissed, but in the circum- stances, without costs."
+      },
+      {
+        "id": "IK-1381386:L153",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L154",
+        "text": "    T.N.A.\t\t\t\t\t\t      Appeal"
+      },
+      {
+        "id": "IK-1381386:L155",
+        "text": "    dismissed."
+      },
+      {
+        "id": "IK-1381386:L156",
+        "text": "    542"
+      },
+      {
+        "id": "IK-1381386:L157",
+        "text": "### Related AI tags, queries and research notes"
+      },
+      {
+        "id": "IK-1381386:L158",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L159",
+        "text": "#### Translation"
+      },
+      {
+        "id": "IK-1381386:L160",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L161",
+        "text": "#### Top AI Tags"
+      },
+      {
+        "id": "IK-1381386:L162",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L163",
+        "text": "  * cite18†admission-by-interested-parties-to-proceeding"
+      },
+      {
+        "id": "IK-1381386:L164",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L165",
+        "text": "  * cite19†special-leave-appeal-by-supreme-court"
+      },
+      {
+        "id": "IK-1381386:L166",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L167",
+        "text": "  * cite20†delhi-rent-law"
+      },
+      {
+        "id": "IK-1381386:L168",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L169",
+        "text": "  * cite21†middleman-liability"
+      },
+      {
+        "id": "IK-1381386:L170",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L171",
+        "text": "  * cite22†law-governing-evidence"
+      },
+      {
+        "id": "IK-1381386:L172",
+        "text": "#### Related user Queries"
+      },
+      {
+        "id": "IK-1381386:L173",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L174",
+        "text": "  * cite23†rent control act"
+      },
+      {
+        "id": "IK-1381386:L175",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L176",
+        "text": "  * cite24†eviction petition"
+      },
+      {
+        "id": "IK-1381386:L177",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L178",
+        "text": "  * cite25†sub letting"
+      },
+      {
+        "id": "IK-1381386:L179",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L180",
+        "text": "  * cite26†inadmissible evidence"
+      },
+      {
+        "id": "IK-1381386:L181",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L182",
+        "text": "  * cite27†delhi rent control act"
+      },
+      {
+        "id": "IK-1381386:L183",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L184",
+        "text": "  * cite28†delhi rent control act 1958"
+      },
+      {
+        "id": "IK-1381386:L185",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L186",
+        "text": "  * cite29†\"exclusive possession\""
+      },
+      {
+        "id": "IK-1381386:L187",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L188",
+        "text": "  * cite30†ejectment"
+      },
+      {
+        "id": "IK-1381386:L189",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L190",
+        "text": "  * cite31†concurrent findings"
+      },
+      {
+        "id": "IK-1381386:L191",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L192",
+        "text": "  * cite32†\"pecuniary interest\""
+      },
+      {
+        "id": "IK-1381386:L193",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L194",
+        "text": "  * cite33†exclusive possession"
+      },
+      {
+        "id": "IK-1381386:L195",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L196",
+        "text": "  * cite34†avtar singh"
+      },
+      {
+        "id": "IK-1381386:L197",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L198",
+        "text": "  * cite35†sub-letting"
+      },
+      {
+        "id": "IK-1381386:L199",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L200",
+        "text": "  * cite36†section 14 filter: delhi rent control act"
+      },
+      {
+        "id": "IK-1381386:L201",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L202",
+        "text": "  * cite37†delhi rent control"
+      },
+      {
+        "id": "IK-1381386:L203",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L204",
+        "text": "  * cite38†123"
+      },
+      {
+        "id": "IK-1381386:L205",
+        "text": "cite39†About cite40†Disclaimer cite41†Privacy Policy cite42†Terms cite43†Case Removal cite44†Blog†blog.indiankanoon.org [Button: Share URL]"
+      },
+      {
+        "id": "IK-1381386:L206",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L207",
+        "text": "[Input] [Button: Mobile View]"
+      },
+      {
+        "id": "IK-1381386:L208",
+        "text": ""
+      },
+      {
+        "id": "IK-1381386:L209",
+        "text": "cite45†⚖ Case Recast AI "
+      }
+    ]
+  }
+}
+END_OF_INPUT 1381386

@@ -1,0 +1,218 @@
+{
+  "train": [
+    "38604742",
+    "308216",
+    "1106992",
+    "758831",
+    "1497837",
+    "1381386",
+    "115676081",
+    "1843439",
+    "1859043",
+    "111425525",
+    "68065690",
+    "50313565",
+    "186379114",
+    "188721101",
+    "190527224",
+    "69998629",
+    "133241208",
+    "68096693",
+    "52547606",
+    "191402169",
+    "183917167",
+    "489898",
+    "14884716",
+    "125596702",
+    "84524189",
+    "55384096",
+    "33810117"
+  ],
+  "dev": [
+    "110204406",
+    "172908545",
+    "58386394",
+    "890045",
+    "1908519",
+    "869439"
+  ],
+  "sealed_ids": [
+    "38084532",
+    "123883887",
+    "12668753",
+    "120018816",
+    "84124",
+    "131143878",
+    "199292513",
+    "57407111"
+  ],
+  "family": [
+    "LAW:S02:DRC:17",
+    "LAW:S02:DRC:18",
+    "LAW:V09:GL_WRITTEN_CONSENT",
+    "LAW:V09:GL_CONCURRING_LIMIT"
+  ],
+  "batches": [
+    [
+      "38604742",
+      "308216",
+      "1106992",
+      "758831",
+      "1497837",
+      "1381386"
+    ],
+    [
+      "115676081",
+      "1843439",
+      "1859043",
+      "111425525",
+      "68065690",
+      "50313565"
+    ],
+    [
+      "186379114",
+      "188721101",
+      "190527224",
+      "69998629",
+      "133241208",
+      "68096693"
+    ],
+    [
+      "52547606",
+      "191402169",
+      "183917167",
+      "489898",
+      "14884716",
+      "125596702"
+    ],
+    [
+      "84524189",
+      "55384096",
+      "33810117",
+      "110204406",
+      "172908545",
+      "58386394"
+    ],
+    [
+      "890045",
+      "1908519",
+      "869439"
+    ]
+  ],
+  "criteria": "Judge use for the fixed question, allowed source, stage and authority scope, not whether a condition is satisfied. CORE supplies a materially required governing rule, test, definition, burden, limitation, exception or counterargument. BACKGROUND must explain actual assistance to a current CORE context, actual analogy limitation, corroboration or existing branch. Same code/system/topic, or a hypothetical future issue, is insufficient. IRRELEVANT requires a sourced current-scope explanation of no such role and no relevant argument needing response; absent citation or unsatisfied conditions alone is insufficient. UNKNOWN means unresolved USE, not just condition uncertainty. Important counter-rules can be CORE. Equivalent providers may both be CORE; do not manufacture a unique winner. Quote/address checking is not semantic certification.",
+  "preparation_calls_max": 12,
+  "semantic_retry": 0,
+  "training": {
+    "seeds": [
+      20261004,
+      20261005
+    ],
+    "updates": 200,
+    "lr": 0.003,
+    "l2": 0.001,
+    "loss": "three-class cross entropy; mean within case then across training cases; no class weighting; L2 same original coefficient",
+    "score": "2*P(CORE)+P(BACKGROUND)",
+    "selection": {
+      "max_legal_characters": 20000,
+      "dependencies": "unchanged atomic closure",
+      "order": "unchanged corpus display order",
+      "max_units": null
+    },
+    "mandatory": [
+      "LAW:S02:DRC14:1b"
+    ],
+    "standardization": "training groups only; no held labels or all-case class priors",
+    "methods": [
+      "S",
+      "B",
+      "C"
+    ],
+    "train_ids": [
+      "38604742",
+      "308216",
+      "1106992",
+      "758831",
+      "1497837",
+      "1381386",
+      "115676081",
+      "1843439",
+      "1859043",
+      "111425525",
+      "68065690",
+      "50313565",
+      "186379114",
+      "188721101",
+      "190527224",
+      "69998629",
+      "133241208",
+      "68096693",
+      "52547606",
+      "191402169",
+      "183917167",
+      "489898",
+      "14884716",
+      "125596702",
+      "84524189",
+      "55384096",
+      "33810117"
+    ],
+    "dev_ids": [
+      "110204406",
+      "172908545",
+      "58386394",
+      "890045",
+      "1908519",
+      "869439"
+    ],
+    "sealed_ids": [
+      "38084532",
+      "123883887",
+      "12668753",
+      "120018816",
+      "84124",
+      "131143878",
+      "199292513",
+      "57407111"
+    ],
+    "units": 30,
+    "max_fits": 6,
+    "max_training_seconds": 1800,
+    "web_calls": 0
+  },
+  "fit_order": [
+    [
+      "S",
+      20261004
+    ],
+    [
+      "S",
+      20261005
+    ],
+    [
+      "B",
+      20261004
+    ],
+    [
+      "B",
+      20261005
+    ],
+    [
+      "C",
+      20261004
+    ],
+    [
+      "C",
+      20261005
+    ]
+  ],
+  "gate": "unique new readiness plus all pretraining file hashes; unknown/isolation excludes categorical loss; no zero-error requirement",
+  "graph_review_application": "Scope/state and existing link masks confined to four family alignments. Shared facts/needs remain unchanged; unsupported branches masked only for these alignments. No label-driven graph modifications.",
+  "decision": {
+    "B_over_S": "both seeds nonconflicting, meaningful gains in more than one DEV case, no material CORE/counter-rule loss; ambiguous swaps prefer S",
+    "C_over_B": "interpretable gains in multiple cases at both seeds, no equal-severity losses; opposed seeds unstable, pause GNN",
+    "scope": "specific systems not nested causal ablation; no legal answers, no independent test"
+  },
+  "training_failure": "stop remaining fits, no retry",
+  "weak_supervision": true,
+  "sealed_untouched": true
+}

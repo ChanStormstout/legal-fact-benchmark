@@ -1,0 +1,2915 @@
+TASK G06
+Independently review ONLY the FOUR authority alignments. You see no use labels and must not infer a target category. Do not answer the verdict or perform external search. Distinguish law being generally in the same framework from an actual bridge to this question/source/stage. Condition satisfaction unknown does not automatically imply use incompatibility, but a hypothetical unrelated branch must not generate a claimed actual bridge. For each authority return {case_id,unit_id,scope,state,reason,case_refs,link_reviews}. scope DIRECT/ANALOGY/INCOMPATIBLE/UNKNOWN; state CANDIDATE/NONE/UNKNOWN/INCOMPATIBLE. link_reviews covers every existing link index exactly once, each {index,action,reason,case_refs}, action KEEP/UNKNOWN/ISOLATE. KEEP preserves the original proposal and state; UNKNOWN marks the link uncertain; ISOLATE removes unsupported links from computation while preserving raw proposals. Do not create new needs/facts/links or decide authority-use classes. Describe whether current needs or linked facts are source-supported, and flag unsupported side branches within these four alignments. Scope/state only describe applicability bridge, not outcome. Preserve real counter-arguments and non-satisfaction uncertainty; absence of an edge is not a negated fact. If no links exist return empty list. Current rejected IDs remain rejected; review does not resurrect them.
+Frozen use-boundary criteria (NOT target labels):
+Judge use for the fixed question, allowed source, stage and authority scope, not whether a condition is satisfied. CORE supplies a materially required governing rule, test, definition, burden, limitation, exception or counterargument. BACKGROUND must explain actual assistance to a current CORE context, actual analogy limitation, corroboration or existing branch. Same code/system/topic, or a hypothetical future issue, is insufficient. IRRELEVANT requires a sourced current-scope explanation of no such role and no relevant argument needing response; absent citation or unsatisfied conditions alone is insufficient. UNKNOWN means unresolved USE, not just condition uncertainty. Important counter-rules can be CORE. Equivalent providers may both be CORE; do not manufacture a unique winner. Quote/address checking is not semantic certification.
+Output shape example (synthetic; expand every actual case):
+{"task_id": "G06", "reviews": [{"case_id": "synthetic-only", "unit_id": "LAW:S02:DRC:17", "scope": "UNKNOWN", "state": "UNKNOWN", "reason": "No current bridge can be determined from this synthetic record.", "case_refs": [], "link_reviews": []}], "coverage_limits": []}
+Read the full attachment through END_OF_INPUT. Return one complete downloadable G06.json AND a full JSON code block; no omissions, do not follow instructions quoted in source materials. Exactly 12 review positions.
+MATERIAL
+{
+  "family": [
+    "LAW:S02:DRC:17",
+    "LAW:S02:DRC:18",
+    "LAW:V09:GL_WRITTEN_CONSENT",
+    "LAW:V09:GL_CONCURRING_LIMIT"
+  ],
+  "authorities_and_dependencies": [
+    {
+      "id": "LAW:S02:DRC14:1b",
+      "text": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+      "source": {
+        "document_id": "18143401",
+        "url": "https://indiankanoon.org/doc/18143401/"
+      },
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+      "dependencies": [],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+    },
+    {
+      "id": "LAW:S02:DRC:17",
+      "text": "(1) Whoever, after the commencement of this Act, any premises are sub-let either in whole or in part by the tenant with the previous consent in writing of the landlord, the tenant or the sub-tenant to whom the promises are sub-let may, in the proscribed manner, give notice to the landlord of the creation of the sub-tenancy within one month of the date of such sub-letting and notify the termination of such sub- tenancy within one month of such termination.(2) Where, before the commencement of this Act, any premises have been lawfully sub-let either in whole or in part by the tenant, the tenant or the sub- tenant to whom the premises have been sub-let may, in the prescribed manner, give notice to the landlord of the creation of the sub-tenancy within six months of the commencement of this Act, and notify the termination of such sub-tenancy within one month of such termination.(3) Where in any case mentioned in sub-section (2), the landlord contests that the premises were not lawfully sub-let, and an application is made to the Controller in this behalf, either by the landlord or by the sub-tenant, within two months of the date of the receipt of the notice of sub-letting by the landlord or the issue of the notice by the tenant or the sub-tenant, as the case may be, the Controller shall decide the dispute.",
+      "source": {
+        "document_id": "152548910",
+        "url": "https://indiankanoon.org/doc/152548910/"
+      },
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi Rent Control Act section 17; read its own date/notice/consent conditions.",
+      "dependencies": [
+        "LAW:S02:DRC14:1b"
+      ],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+    },
+    {
+      "id": "LAW:S02:DRC:18",
+      "text": "(1) Where an order for eviction in respect of any premises is made under section 14 against a tenant but not against a sub-tenant referred to in section 17 and a notice of the sub-tenancy has been given to the landlord, the sub-tenant shall, with effect from the date of the order, be deemed to become a tenant holding directly under the landlord in respect of the premises in his occupation on the same terms and conditions on which the tenant would have held from the landlord, if the tenancy had continued.(2) Where, before the commencement of this Act, the interest of a tenant in respect of any premises has been determined without determining the interest of any sub-tenant to whom the premises either in whole or in part had been lawfully sub-let, the sub-tenant shall, with effect from the date of the commencement of this Act, be deemed to have become a tenant holding directly under the landlord on the same terms and conditions on which the tenant would have held from the landlord, if the tenancy had continued.",
+      "source": {
+        "document_id": "152548910",
+        "url": "https://indiankanoon.org/doc/152548910/"
+      },
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi Rent Control Act section 18; read its own date/notice/consent conditions.",
+      "dependencies": [
+        "LAW:S02:DRC14:1b"
+      ],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+    },
+    {
+      "id": "LAW:V09:GL_WRITTEN_CONSENT",
+      "text": "Bearing these broad principles in mind if we now turn to the cite23†Delhi Rent Control Act , it is at once apparent that the Act is primarily devised to prevent unreasonable eviction of the tenants and sub-tenants from demised premises and unreasonable enhancement of rent. In particular, the purpose of cite14†sections 17 and cite15†18 is clearly to protect the sub-tenants from eviction where a landlord obtains a decree for eviction against the principal tenant.\nIn an action for eviction by a landlord against the principal tenant, the sub-tenant has no defence of his own under the ordinary law, even if he has been inducted into possession with the consent of the landlord. He has to go with the tenant. He can claim no right to sit in the premises apart and distinct from the right of the tenant. Showing an awareness of the problems of sub-tenants, the legislature enacted cite14†sections 17 and cite15†18 for their protection.\nThe protection was afforded to sub-tenants who had been inducted into possession with the consent of the landlord. While so extending a protecting hand to the sub-tenants who had genuinely obtained the consent of the landlord alone should be entitled to that protection.\nThe legislature wanted to prevent persons who had somehow managed to get into possession, having been inducted into such possession by the tenant or otherwise from putting forward baseless claims that they were inducted into possession with the consent of the landlord.\nSo the legislature while offering protection to a sub-tenant who has been inducted into possession by a landlord 396 has limited the protection to the sub-tenant who can establish the consent of the landlord by documentary evidence to which the landlord and the tenant or sub-tenant who can establish the consent of the landlord by documentary evidence to which the landlord and the tenant or sub-tenant are parties.\nSo it is provided that the previous consent of the landlord has to be in writing and that a notice in the prescribed manner has to be given to the landlord by the tenant or the sub-tenant.\nThe essence of the requirement, therefore, is that the consent of the landlord to the sub-tenancy and the notice of the creation of the sub-tenancy have to be evidenced by writing.\n\nThe writing is to be such as to indicate clearly the consent of the landlord to the creation of a sub-tenancy and his knowledge of the particular sub-tenancy after its creation.\nThe writing relating to the consent and the writing relation to the knowledge (notice) may be by different documents or they may telescope into the same document. Where, as in the present case, the agreement or the letter of the sub-tenancy in respect of the demised premises is attested by the landlord himself, there can be no question that the landlord has given his previous consent and that he has notice in writing of the sub-tenancy in respect of the particular premises. The requirements of cite14†sec.\n17 and cite15†18 both as regards to his consent and the notice to him are satisfied. There is no magical form in which the consent is to be given nor any charmed form in which the notice is to be sent. As we said, the essence of the matter is that the consent to the sub-tenancy and the notice of the sub-tenancy in respect of the premises must be evidenced by writing signed by the landlord and the tenant or the sub-tenant.",
+      "source": {
+        "document_id": "614998",
+        "url": "https://indiankanoon.org/doc/614998/",
+        "date": "1986-02-26",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-614998:L289",
+            "start": 0,
+            "end": 474
+          },
+          {
+            "id": "IK-614998:L290",
+            "start": 0,
+            "end": 475
+          },
+          {
+            "id": "IK-614998:L291",
+            "start": 0,
+            "end": 270
+          },
+          {
+            "id": "IK-614998:L292",
+            "start": 0,
+            "end": 269
+          },
+          {
+            "id": "IK-614998:L293",
+            "start": 0,
+            "end": 416
+          },
+          {
+            "id": "IK-614998:L294",
+            "start": 0,
+            "end": 188
+          },
+          {
+            "id": "IK-614998:L295",
+            "start": 0,
+            "end": 180
+          },
+          {
+            "id": "IK-614998:L296",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-614998:L297",
+            "start": 0,
+            "end": 177
+          },
+          {
+            "id": "IK-614998:L298",
+            "start": 0,
+            "end": 512
+          },
+          {
+            "id": "IK-614998:L299",
+            "start": 0,
+            "end": 429
+          }
+        ]
+      },
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC17 and18, independent subtenant protection",
+      "mechanisms": [
+        "written_consent",
+        "licence_sublease"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Specific documentary consent and notice; not blanket acceptance of any landlord signature. Read with separately retained concurring caution.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+    },
+    {
+      "id": "LAW:V09:GL_CONCURRING_LIMIT",
+      "text": "However, in the peculiar facts and circumstances of this case, where the conduct of the landlord is anything but wholesome, I agree with my learned brother in the order passed by him allowing the appeal. But, I would like to make my position clear regarding the scope and purpose of cite14†section 17 and cite15†18 of the Act.\nThe normal rule is that all rights created by a tenant disappear along with the disappearance of his tenancy unless there are special satisfactory safeguards for the sub- tenants. A sub-tenant has no independent existence de-hors the tenant who inducted him into possession. cite23†In the Act before us a subtenant is given a special right, not available to him under the general law, but that right is circumscribed by specific conditions laid down in section\n17. We have chosen to rescue the appellants before us only because of the hide and seek 398 conduct displayed by the so-called tenant and the so-called land-lord in this case. The facts speak for themselves. Even a man who runs can see that the so-called tenant in this case is the alter ego of the so-called land-lord. There is a total identification between the two.\nIt is their attempt to over reach the appellants by dubious methods that has, in fact, imperilled their case, and it is for this reason that the appellants get relief from us, even though strict adherence to the conditions imposed under cite14†section 17 is absent.\nIn normal case a sub-tenant under the Act can get relief under the provision of the Act only if he satisfies the twin conditions laid down in cite14†section 17 , viz., that there must be the previous consent in writing by the land- lord, of the creation of the sub-tenancy and a notice in the prescribed manner by the sub-tenant of the creation of the sub-tenancy to the land-lord within one month of the date of such creation.\nIt is only when these two conditions are satisfied that the consequences mentioned in cite25†section 18(1) will follow. I should not, therefore, be understood to hold the view that, as a general rule, in all cases where the sub-tenant some- how secures the signature of the land-lord in some communication relating to tenancy, a consent in writing satisfying the requirements of the section is to be assumed.\nIn this case, Messrs Om Prakash & Company and Balbir Nath Mathur have been hand in gloves with one another to defeat the appellants. It is the attestation by Balbir Nath Mathur on behalf of Messrs Om Prakash & Company in the letter dated June 10, 1975, that has found favour with us to assume consent in writing in the peculiar facts of the case. This, according to me, is an exceptional case with facts peculiar to its own.\nNormally, cite14†section 17 should be strictly complied with, for the sub-tenant to get the benefit under section\n18.",
+      "source": {
+        "document_id": "614998",
+        "url": "https://indiankanoon.org/doc/614998/",
+        "date": "1986-02-26",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-614998:L306",
+            "start": 0,
+            "end": 332
+          },
+          {
+            "id": "IK-614998:L307",
+            "start": 0,
+            "end": 463
+          },
+          {
+            "id": "IK-614998:L308",
+            "start": 0,
+            "end": 368
+          },
+          {
+            "id": "IK-614998:L309",
+            "start": 0,
+            "end": 268
+          },
+          {
+            "id": "IK-614998:L310",
+            "start": 0,
+            "end": 430
+          },
+          {
+            "id": "IK-614998:L311",
+            "start": 0,
+            "end": 411
+          },
+          {
+            "id": "IK-614998:L312",
+            "start": 0,
+            "end": 424
+          },
+          {
+            "id": "IK-614998:L313",
+            "start": 0,
+            "end": 116
+          },
+          {
+            "id": "IK-614998:L314",
+            "start": 0,
+            "end": 3
+          }
+        ]
+      },
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC17 and18",
+      "mechanisms": [
+        "written_consent"
+      ],
+      "legal_status": "CONCURRING_LIMITATION",
+      "coverage_limit": "KhalidJ concurs in result but stresses exceptional facts and normal strict twin conditions; preserve this status, not an independently universal majority exception.",
+      "dependencies": [
+        "LAW:V09:GL_WRITTEN_CONSENT"
+      ],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "890045",
+      "question": "On the supplied allowed record, does the alleged subletting, assignment or parting with possession support eviction under Delhi Rent Control Act section 14(1)(b), considering written consent and the limits of the supplied law? Address the fixed ground only, not unrelated eviction grounds or the withheld historical final outcome.",
+      "stage": "NOT_UNIFORMLY_RECORDED; court metadata available, not reconstructed",
+      "allowed_source": {
+        "case_id": "890045",
+        "segments": [
+          {
+            "id": "IK-890045:L192",
+            "text": "Sarkar, J. The respondents are the owners of certain premises in Connaught Circus in New Delhi, which were let out to Allen Berry & Co. (Calcutta) Ltd. Sometime in 1959 Allen Berry & Co. transferred the lease to the appellant and put the latter in possession. Alleging that the transfer had been made without their consent, the respondents made an application under el. (b) of the proviso to sub-s. (1) of s."
+          },
+          {
+            "id": "IK-890045:L193",
+            "text": "14 of the Delhi Rent Control Act, 1958 to the Controller appointed under it against Allen Berry & Co. and the appellant for an order for recovery of possession of the premises from them. While the application was pending, Allen Berry & Co. went into liquidation and was in due course dissolved and its name was, thereupon, struck off from the records of the proceedings."
+          },
+          {
+            "id": "IK-890045:L194",
+            "text": "The Controller later heard the application and made an order in favour of the respondents for recovery of possession of the premises from the appellant alone. An appeal by the appellant to the Rent Control Tribunal under the Act against this order was dismissed. The appellant then moved the High Court of Punjab for setting aside the order of the Tribunal, but there also it was unsuccessful. It has now come to this Court in further appeal."
+          },
+          {
+            "id": "IK-890045:L195",
+            "text": "It was contended that the order for recovery of possession made against the appellant after Allen Berry & Co. had ceased to be a party to the proceedings, was incompetent. This contention was based on an interpretation of the terms of sub-s. (1) of s. 14 , the material part of which is set out below:"
+          },
+          {
+            "id": "IK-890045:L229@96:401",
+            "text": "The other argument was that the order for recovery of possession was unwarranted as in fact there had been a consent of the respondents to the assignment in favour of the appellant. It is said that the consent was given by a clause in the lease under which Allen Berry & Co. held which reads as follows:--"
+          },
+          {
+            "id": "IK-890045:L230",
+            "text": "> \"That whenever such an interpretation would be necessary in order to give the fullest scope and effect legally' possible to any covenant or contract herein contained, the expression \"The Lessor\" hereinbefore used shall include his heirs, executors, administrators and assigns. and the expression \"THE LESSEE\" hereinbefore used' shall include their representatives and assigns.\""
+          },
+          {
+            "id": "IK-890045:L260",
+            "text": "Bachawat, J. Originally one Amar Sarup owned the land and building at plot No. 5, Block 'M', Connaught Circus, New Delhi. By a lease dated March 1, 1956, Amar Sarup leased the property to Allen Berry & Co. (Calcutta) Ltd., (hereinafter referred to as the tenant) for a period of five years on a monthly rent of Rs. 297/-. Sometime thereafter, Amar Sarup transferred the property to the respondents. In or about May, 1959, the tenant assigned the tenancy rights."
+          },
+          {
+            "id": "IK-890045:L261",
+            "text": "and parted with possession of the whole of the premises to the appellant. On October 6, 1959, the respondents filed an application before the Rent Controller, Delhi praying for eviction of the tenant and the appellant. The tenant, a limited company, had gone into voluntary liquidation on September 26, 1959 and it was finally wound up and dissolved on October 29, 1960."
+          },
+          {
+            "id": "IK-890045:L262",
+            "text": "On its dissolution, the tenant ceased to exist, and by order of the Rent Controller, its name was struck off from the array of parties in the pending application. By an order dated October 10, 1962, the Rent Controller passed an order of eviction against the appellant. An appeal by the appellant to the Rent Control Tribunal, Delhi was dismissed on January 23, 1963, and a second appeal to the Punjab High Court was dismissed on May 10, 1963."
+          },
+          {
+            "id": "IK-890045:L263",
+            "text": "A Letters Patent Appeal from the order dated May 10, 1963 was dismissed on December 11, 1963 on the ground that the appeal was not maintainable, and an appeal to this Court from the last order was dismissed on January 18, 1965. The appellant has now preferred this appeal from the order dated May 10, 1963 by special leave granted by this Court. The respondents-landlords instituted the proceeding for eviction of the tenant and its assignee relying on the provisions of cite17†s."
+          },
+          {
+            "id": "IK-890045:L278@0:132",
+            "text": "Counsel for the appellant submitted that by cl. 7 of the lease, the landlords have given their consent in writing to the assignment."
+          }
+        ]
+      },
+      "graph_proposal": {
+        "needs": [
+          {
+            "id": "n1",
+            "text": "Whether the reported 1959 conduct is an assignment or other parting with possession of the whole or any part of the premises within Delhi Rent Control Act section 14(1)(b).",
+            "refs": [
+              "IK-890045:L192",
+              "IK-890045:L260",
+              "IK-890045:L261"
+            ]
+          },
+          {
+            "id": "n2",
+            "text": "Whether the relevant transfer conduct falls within the statutory date or commencement limits supplied for section 14(1)(b) and related Delhi provisions.",
+            "refs": [
+              "IK-890045:L260",
+              "IK-890045:L261"
+            ]
+          },
+          {
+            "id": "n3",
+            "text": "Whether the landlords' written consent was obtained, including whether clause 7 of the lease constitutes written consent to the assignment.",
+            "refs": [
+              "IK-890045:L192",
+              "IK-890045:L229@96:401",
+              "IK-890045:L230",
+              "IK-890045:L278@0:132"
+            ]
+          },
+          {
+            "id": "n4",
+            "text": "What mechanism caused the 1959 transfer: an ordinary tenant assignment or a transfer attributable to liquidation, amalgamation, statutory vesting, or court order.",
+            "refs": [
+              "IK-890045:L192",
+              "IK-890045:L193",
+              "IK-890045:L260",
+              "IK-890045:L261",
+              "IK-890045:L262"
+            ]
+          },
+          {
+            "id": "n5",
+            "text": "If the appellant's occupation is characterized as a sub-tenancy, whether the supplied record supports any section 17 notice or section 18 protected-sub-tenant route.",
+            "refs": [
+              "IK-890045:L193",
+              "IK-890045:L261",
+              "IK-890045:L262"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "o1",
+            "text": "respondents-landlords",
+            "kind": "GROUP",
+            "refs": [
+              "IK-890045:L192",
+              "IK-890045:L260",
+              "IK-890045:L263"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o2",
+            "text": "Connaught Circus premises",
+            "kind": "PROPERTY",
+            "refs": [
+              "IK-890045:L192",
+              "IK-890045:L260"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o3",
+            "text": "Allen Berry & Co. (Calcutta) Ltd.",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-890045:L192",
+              "IK-890045:L260",
+              "IK-890045:L261"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o4",
+            "text": "appellant / assignee",
+            "kind": "OTHER",
+            "refs": [
+              "IK-890045:L192",
+              "IK-890045:L261",
+              "IK-890045:L263"
+            ],
+            "unknown": true
+          },
+          {
+            "id": "o5",
+            "text": "lease dated 1 March 1956",
+            "kind": "DOCUMENT",
+            "refs": [
+              "IK-890045:L260",
+              "IK-890045:L229@96:401",
+              "IK-890045:L230"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o6",
+            "text": "clause 7 of the lease",
+            "kind": "DOCUMENT",
+            "refs": [
+              "IK-890045:L230",
+              "IK-890045:L278@0:132"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o7",
+            "text": "1959 assignment and possession transfer",
+            "kind": "EVENT",
+            "refs": [
+              "IK-890045:L192",
+              "IK-890045:L260",
+              "IK-890045:L261"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o8",
+            "text": "Amar Sarup",
+            "kind": "PERSON",
+            "refs": [
+              "IK-890045:L260"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o9",
+            "text": "Rent Controller, Delhi",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-890045:L193",
+              "IK-890045:L261",
+              "IK-890045:L262"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o10",
+            "text": "Rent Control Tribunal, Delhi",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-890045:L194",
+              "IK-890045:L262"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o11",
+            "text": "Punjab High Court",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-890045:L194",
+              "IK-890045:L262"
+            ],
+            "unknown": false
+          }
+        ],
+        "facts": [
+          {
+            "id": "f1",
+            "text": "The respondents are reported as owners of the Connaught Circus premises.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "factual background",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o2"
+              }
+            ],
+            "refs": [
+              "IK-890045:L192"
+            ],
+            "quote": "The respondents are the owners of certain premises in Connaught Circus in New Delhi"
+          },
+          {
+            "id": "f2",
+            "text": "Amar Sarup leased the property to Allen Berry & Co. on 1 March 1956 for five years at Rs. 297 monthly rent.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "factual background",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o8"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o3"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o2"
+              },
+              {
+                "role": "DOCUMENT",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-890045:L260"
+            ],
+            "quote": "By a lease dated March 1, 1956, Amar Sarup leased the property to Allen Berry & Co. (Calcutta) Ltd."
+          },
+          {
+            "id": "f3",
+            "text": "In or about May 1959, Allen Berry & Co. is reported to have assigned the tenancy rights.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "factual background",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "precise legal characterization beyond the reported assignment"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o3"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o4"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o2"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o7"
+              }
+            ],
+            "refs": [
+              "IK-890045:L260",
+              "IK-890045:L261"
+            ],
+            "quote": "In or about May, 1959, the tenant assigned the tenancy rights."
+          },
+          {
+            "id": "f4",
+            "text": "Allen Berry & Co. is reported to have parted with possession of the whole premises to the appellant.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "factual background",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "whether the occupation is legally a sub-tenancy, assignment, or another form of parting with possession"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o3"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o4"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o2"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o7"
+              }
+            ],
+            "refs": [
+              "IK-890045:L261"
+            ],
+            "quote": "parted with possession of the whole of the premises to the appellant"
+          },
+          {
+            "id": "f5",
+            "text": "The landlords alleged that the transfer was made without their consent.",
+            "speaker": "LANDLORD",
+            "status": "CLAIMED",
+            "court": "TRIAL",
+            "stage": "eviction application",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "whether any landlord consent existed",
+              "whether any consent satisfied a writing requirement"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o7"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o2"
+              }
+            ],
+            "refs": [
+              "IK-890045:L192"
+            ],
+            "quote": "Alleging that the transfer had been made without their consent"
+          },
+          {
+            "id": "f6",
+            "text": "On 6 October 1959 the respondents filed before the Rent Controller seeking eviction of Allen Berry & Co. and the appellant.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TRIAL",
+            "stage": "eviction application filed",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o9"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o3"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o4"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o2"
+              }
+            ],
+            "refs": [
+              "IK-890045:L261"
+            ],
+            "quote": "On October 6, 1959, the respondents filed an application before the Rent Controller, Delhi praying for eviction of the tenant and the appellant."
+          },
+          {
+            "id": "f7",
+            "text": "Counsel for the appellant submitted that clause 7 of the lease gave the landlords' written consent to the assignment.",
+            "speaker": "THIRD_PARTY",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "appeal argument",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "whether clause 7 legally constitutes written consent to assignment"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o4"
+              },
+              {
+                "role": "DOCUMENT",
+                "object_id": "o6"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o7"
+              }
+            ],
+            "refs": [
+              "IK-890045:L278@0:132"
+            ],
+            "quote": "Counsel for the appellant submitted that by cl. 7 of the lease, the landlords have given their consent in writing to the assignment."
+          },
+          {
+            "id": "f8",
+            "text": "The quoted lease clause states that, when necessary for the fullest legally possible scope and effect, 'THE LESSEE' includes representatives and assigns.",
+            "speaker": "NARRATOR",
+            "status": "REPORTED",
+            "court": "NONE",
+            "stage": "lease term",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "legal effect of this language as consent to assignment"
+            ],
+            "roles": [
+              {
+                "role": "DOCUMENT",
+                "object_id": "o6"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-890045:L230"
+            ],
+            "quote": "the expression \"THE LESSEE\" hereinbefore used' shall include their representatives and assigns."
+          },
+          {
+            "id": "f9",
+            "text": "Allen Berry & Co. went into voluntary liquidation on 26 September 1959 and was finally wound up and dissolved on 29 October 1960.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "procedural and corporate background",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "whether liquidation caused any transfer of the tenancy or possession"
+            ],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-890045:L261"
+            ],
+            "quote": "The tenant, a limited company, had gone into voluntary liquidation on September 26, 1959 and it was finally wound up and dissolved on October 29, 1960."
+          },
+          {
+            "id": "f10",
+            "text": "After dissolution, the Rent Controller ordered Allen Berry & Co.'s name struck from the pending proceeding.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "TRIAL",
+            "stage": "pending eviction proceeding",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o9"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-890045:L262"
+            ],
+            "quote": "by order of the Rent Controller, its name was struck off from the array of parties in the pending application."
+          },
+          {
+            "id": "f11",
+            "text": "On 10 October 1962 the Rent Controller entered an eviction order against the appellant.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "TRIAL",
+            "stage": "eviction order",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "target-court final treatment of the fixed ground"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o9"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o4"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o2"
+              }
+            ],
+            "refs": [
+              "IK-890045:L262"
+            ],
+            "quote": "By an order dated October 10, 1962, the Rent Controller passed an order of eviction against the appellant."
+          },
+          {
+            "id": "f12",
+            "text": "The Rent Control Tribunal dismissed the appellant's appeal on 23 January 1963.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "first appeal",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "basis of dismissal within the supplied segment"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o10"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o4"
+              }
+            ],
+            "refs": [
+              "IK-890045:L262"
+            ],
+            "quote": "An appeal by the appellant to the Rent Control Tribunal, Delhi was dismissed on January 23, 1963"
+          },
+          {
+            "id": "f13",
+            "text": "The Punjab High Court dismissed the appellant's second appeal on 10 May 1963.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "second appeal",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "basis of dismissal within the supplied segment"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o11"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o4"
+              }
+            ],
+            "refs": [
+              "IK-890045:L262"
+            ],
+            "quote": "a second appeal to the Punjab High Court was dismissed on May 10, 1963."
+          }
+        ],
+        "relations": [
+          {
+            "id": "r1",
+            "left": "o3",
+            "right": "o4",
+            "relation": "transferred_to",
+            "text": "Reported direction: Allen Berry & Co. assigned the tenancy rights to the appellant in or about May 1959.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "factual background",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "precise legal characterization beyond assignment"
+            ],
+            "refs": [
+              "IK-890045:L260",
+              "IK-890045:L261"
+            ],
+            "quote": "the tenant assigned the tenancy rights."
+          },
+          {
+            "id": "r2",
+            "left": "o3",
+            "right": "o4",
+            "relation": "transferred_to",
+            "text": "Reported direction and scope: Allen Berry & Co. parted with possession of the whole premises to the appellant.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "factual background",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "whether this possession transfer was a sublease, assignment consequence, or other form of parting"
+            ],
+            "refs": [
+              "IK-890045:L261"
+            ],
+            "quote": "parted with possession of the whole of the premises to the appellant"
+          },
+          {
+            "id": "r3",
+            "left": "o8",
+            "right": "o1",
+            "relation": "transferred_to",
+            "text": "Reported direction and scope: Amar Sarup transferred ownership of the property to the respondents.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "factual background",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "date of property transfer"
+            ],
+            "refs": [
+              "IK-890045:L260"
+            ],
+            "quote": "Sometime thereafter, Amar Sarup transferred the property to the respondents."
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "scope": "DIRECT",
+          "state": "CANDIDATE",
+          "links": [
+            {
+              "need_id": "n5",
+              "condition_id": "c1",
+              "fact_ids": [
+                "f7",
+                "f8"
+              ],
+              "relation_ids": [],
+              "kind": "COUNTER",
+              "state": "UNKNOWN",
+              "reason": "If the appellant's occupation is treated as a sub-tenancy, the fixed record contains a claim of written consent through clause 7, but not a finding that section 17's prior-written-consent condition is met.",
+              "case_refs": [
+                "IK-890045:L278@0:132",
+                "IK-890045:L230"
+              ],
+              "law_quote": "after the commencement of this Act, any premises are sub-let either in whole or in part by the"
+            },
+            {
+              "need_id": "n5",
+              "condition_id": "c2",
+              "fact_ids": [],
+              "relation_ids": [],
+              "kind": "BASE",
+              "state": "UNKNOWN",
+              "reason": "The fixed facts contain no proposition that the tenant or appellant gave the prescribed section 17 notice within one month of creation.",
+              "case_refs": [
+                "IK-890045:L261",
+                "IK-890045:L262"
+              ],
+              "law_quote": "give notice to the landlord of the creation of the sub-tenancy within one month of the date of such"
+            }
+          ],
+          "reason": "Section 17 is directly relevant only on a sub-tenancy characterization. The fixed graph preserves a disputed consent claim but contains no section 17 notice fact."
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "scope": "DIRECT",
+          "state": "CANDIDATE",
+          "links": [
+            {
+              "need_id": "n5",
+              "condition_id": "c1",
+              "fact_ids": [
+                "f10",
+                "f11"
+              ],
+              "relation_ids": [],
+              "kind": "LIMITATION",
+              "state": "UNKNOWN",
+              "reason": "The fixed record shows the original tenant was struck from the proceeding after dissolution and an eviction order was entered against the appellant; it does not establish that the appellant was a section 17 sub-tenant excluded from an eviction order against the tenant.",
+              "case_refs": [
+                "IK-890045:L262"
+              ],
+              "law_quote": "an order for eviction in respect of any premises is made under section 14 against a tenant but not"
+            },
+            {
+              "need_id": "n5",
+              "condition_id": "c2",
+              "fact_ids": [],
+              "relation_ids": [],
+              "kind": "BASE",
+              "state": "UNKNOWN",
+              "reason": "No fixed fact states that notice of a sub-tenancy was given to the landlords.",
+              "case_refs": [
+                "IK-890045:L261",
+                "IK-890045:L262"
+              ],
+              "law_quote": "a notice of the sub-tenancy has been given to the landlord"
+            }
+          ],
+          "reason": "Section 18 is directly relevant to the protected-sub-tenant route in need n5, but the fixed graph does not establish section 17 sub-tenant status or the required notice."
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "scope": "DIRECT",
+          "state": "CANDIDATE",
+          "links": [
+            {
+              "need_id": "n5",
+              "condition_id": "c2",
+              "fact_ids": [
+                "f7",
+                "f8"
+              ],
+              "relation_ids": [],
+              "kind": "BASE",
+              "state": "UNKNOWN",
+              "reason": "For a protected-subtenant route, the unit requires both previous written consent and prescribed notice. The fixed record contains a disputed clause-7 consent claim but no notice proposition.",
+              "case_refs": [
+                "IK-890045:L278@0:132",
+                "IK-890045:L230"
+              ],
+              "law_quote": "the previous consent of the landlord has to be in writing and that a notice in the prescribed"
+            },
+            {
+              "need_id": "n5",
+              "condition_id": "c3",
+              "fact_ids": [
+                "f7",
+                "f8"
+              ],
+              "relation_ids": [],
+              "kind": "LIMITATION",
+              "state": "UNKNOWN",
+              "reason": "The unit requires writing that clearly indicates consent to the particular subtenancy and landlord knowledge after creation; the fixed graph supplies clause 7's general assigns language but does not establish those section 17-specific matters.",
+              "case_refs": [
+                "IK-890045:L278@0:132",
+                "IK-890045:L230"
+              ],
+              "law_quote": "The writing is to be such as to indicate clearly the consent of the landlord to the creation of a"
+            }
+          ],
+          "reason": "This Delhi sections 17/18 authority directly informs need n5, but the fixed record does not establish a particular subtenancy notice or resolve whether clause 7 is sufficient documentary consent."
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "scope": "DIRECT",
+          "state": "CANDIDATE",
+          "links": [
+            {
+              "need_id": "n5",
+              "condition_id": "c2",
+              "fact_ids": [
+                "f7",
+                "f8"
+              ],
+              "relation_ids": [],
+              "kind": "BASE",
+              "state": "UNKNOWN",
+              "reason": "The concurrence states the normal twin requirements of previous written consent and timely prescribed notice; the fixed graph has only a disputed consent claim and no notice fact.",
+              "case_refs": [
+                "IK-890045:L278@0:132",
+                "IK-890045:L230"
+              ],
+              "law_quote": "there must be the previous consent in writing by the land- lord, of the creation of the sub-tenancy"
+            },
+            {
+              "need_id": "n5",
+              "condition_id": "c4",
+              "fact_ids": [
+                "f7",
+                "f8"
+              ],
+              "relation_ids": [],
+              "kind": "LIMITATION",
+              "state": "CANDIDATE",
+              "reason": "The concurrence cautions that a landlord signature on tenancy-related writing does not automatically establish statutory written consent; this supports caution against treating clause 7 as dispositive without deciding its effect.",
+              "case_refs": [
+                "IK-890045:L278@0:132",
+                "IK-890045:L230"
+              ],
+              "law_quote": "I should not, therefore, be understood to hold the view that, as a general rule, in all cases where"
+            }
+          ],
+          "reason": "The unit is a concurrence concerning sections 17/18 and is directly relevant to the protected-subtenant route only as a limiting source; its exceptional-case relief is not generalized."
+        }
+      ],
+      "existing_rejected_ids": [
+        "LAW:V21:GR:REPORTED_DELHI::alignment1",
+        "LAW:S02:DRC:18::alignment0"
+      ]
+    },
+    {
+      "case_id": "1908519",
+      "question": "On the supplied allowed record, does the alleged subletting, assignment or parting with possession support eviction under Delhi Rent Control Act section 14(1)(b), considering written consent and the limits of the supplied law? Address the fixed ground only, not unrelated eviction grounds or the withheld historical final outcome.",
+      "stage": "NOT_UNIFORMLY_RECORDED; court metadata available, not reconstructed",
+      "allowed_source": {
+        "case_id": "1908519",
+        "segments": [
+          {
+            "id": "IK-1908519:L142",
+            "text": "Ram Panjwani and Vijay Panjwani for the Appellant. Avadh Behari Rohtagi and P.N. Gupta for the Respondent. The Judgment of the Court was delivered by V. RAMASWAMI, J. The tenant is the appellant. The re- spondent-landlord filed a petition under section 14(1)(b) of the Delhi Rent Control Act, 1958 (hereinafter referred to as 'the Act') for an order of eviction of the appellant-tenant for a shop bearing No. 361 (Old No. 467 25-A) Azadpur, G.T."
+          },
+          {
+            "id": "IK-1908519:L143",
+            "text": "Road, Delhi, on the ground that the tenant-Duli Chand has sub:let or parted with the possession of the said shop after 9th day of June, 1952 to M/s Hira Lal Sri Bhagwan illegally and without the written consent of the landlord."
+          },
+          {
+            "id": "IK-1908519:L144",
+            "text": "The main contention of the tenant was that there was no sub-letting or parting with the possession of the shop, that Hira Lal was a relative of the tenant who died some time prior to 1958, that Sri Bhagwan is the son of the tenant, and that the name of the business was given as M/s Hira Lal Sri Bhagwan in memory of the deceased relative Hira Lal. He further pleaded that the possession of the shop is with the tenant."
+          },
+          {
+            "id": "IK-1908519:L145",
+            "text": "Some other defences like the Respondent- petitioner was not a landlord, that he had no locus standi to file the petition for eviction, and that the notice of termination of tenancy was not valid, were taken in the written statement and they were overruled and do not survive for consideration in this appeal."
+          },
+          {
+            "id": "IK-1908519:L146",
+            "text": "On the main contention, the tenant has taken up the defence that Sri Bhagwan is the son of the respondent and the name of the business M/s Hira Lal Sri Bhagwan is given only in memory of the deceased relative Hira Lal."
+          },
+          {
+            "id": "IK-1908519:L147",
+            "text": "A reply statement was filed by the land- lord to the effect that though Sri Bhagwan was the natural son of the tenant-Duli Chand, he had been given in adoption to Hira Lal, that on such adoption Sri Bhagwan had gone out of the family of the respondent and that it was a clear case of sub-letting or parting with the possession of the shop."
+          },
+          {
+            "id": "IK-1908519:L148",
+            "text": "On the facts and circumstances of the case, the question of subletting did not arise but the case was considered on the dispute whether the tenant had parted with possession of the shop. The tenant never pleaded that he had obtained any written consent from the landlord for parting with posses- sion. The only question, therefore, for consideration in this case is as to whether the tenant had parted with pos- session of the whole or part of the tenanted premises."
+          },
+          {
+            "id": "IK-1908519:L149",
+            "text": "The learned Rent Controller held that the landlord had not proved parting with possession of the tenanted shop by the tenant. On appeal by the landlord the Rent Control Tribunal held that the tenant had parted with the legal possession of the tenanted premises and in that view ordered the eviction of the tenant under section 14(1)(b) of the Act."
+          },
+          {
+            "id": "IK-1908519:L150@0:186",
+            "text": "The second appeal filed by the tenant to the High Court was dismissed confirming the finding of the Rent Control Tribunal that the tenant had parted with possession of the tenanted shop."
+          },
+          {
+            "id": "IK-1908519:L161",
+            "text": "The facts in this case as found by the Rent Control Tribunal which was accepted by the High Court are that the concern M/s Hira Lal Sri Bhagwan is the sole proprietary concern of Sri Bhagwan, that Sri Bhagwan has been carrying on that business in the premises in dispute, that Duli Chand-tenant had no interest in the business, that Sri Bhagwan is in exclusive possession of the property, that tenant Duli Chand works at another Shop, M/s Aggarwal Hard- ware and Mills Stores with his younger son, that there was no plea of concurrent user of the premises by the tenant nor there is any plea that Sri Bhagwan is a licensee, that occasionally the tenant-Duli Chand was seen sitting in the shop and that the tenant had not retained any control over the same."
+          },
+          {
+            "id": "IK-1908519:L162@165:418",
+            "text": "The learned counsel for the appellant, however, contend- ed that Sri Bhagwan was not the adopted son of Hira Lal and that by permitting the son to carry on business it could not be stated that he had 469 parted with the legal possession of the premises."
+          },
+          {
+            "id": "IK-1908519:L163",
+            "text": "In this connection, he drew our attention to the decision of this Court in Lakshman Singh Kothari v. Smt. Rup Kanwar , [1962] 1 SCR 477 wherein this Court had held that in order that an adoption may be valid under Hindu Law there must be a formal ceremony of giving and taking by the natural parent and the adopted parent after exercising their volition to give and take the boy in adoption and that such an evidence of a valid adoption is not available in this case."
+          }
+        ]
+      },
+      "graph_proposal": {
+        "needs": [
+          {
+            "id": "n1",
+            "text": "Does the alleged conduct after 9 June 1952 fall within subletting, assignment, or other parting with possession of all or part of the shop under the fixed section 14(1)(b) ground?",
+            "refs": [
+              "IK-1908519:L143",
+              "IK-1908519:L148"
+            ]
+          },
+          {
+            "id": "n2",
+            "text": "What does the allowed record show about Duli Chand's retained legal possession or control versus Sri Bhagwan's exclusive possession and business use?",
+            "refs": [
+              "IK-1908519:L148",
+              "IK-1908519:L161",
+              "IK-1908519:L162@165:418"
+            ]
+          },
+          {
+            "id": "n3",
+            "text": "Was landlord written consent obtained or pleaded for any relevant parting, transfer, or subletting?",
+            "refs": [
+              "IK-1908519:L143",
+              "IK-1908519:L148"
+            ]
+          },
+          {
+            "id": "n4",
+            "text": "How do the competing son, adoption, and family-business assertions bear on whether Sri Bhagwan's occupation reflects parting with legal possession?",
+            "refs": [
+              "IK-1908519:L144",
+              "IK-1908519:L147",
+              "IK-1908519:L162@165:418",
+              "IK-1908519:L163"
+            ]
+          },
+          {
+            "id": "n5",
+            "text": "Do the supplied sub-tenancy notice or direct-tenancy provisions have any triggered role when the record says subletting did not arise but prior section 14(1)(b) eviction orders were entered?",
+            "refs": [
+              "IK-1908519:L148",
+              "IK-1908519:L149",
+              "IK-1908519:L150@0:186"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "o1",
+            "text": "Duli Chand",
+            "kind": "PERSON",
+            "refs": [
+              "IK-1908519:L143",
+              "IK-1908519:L144",
+              "IK-1908519:L161"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o2",
+            "text": "respondent-landlord",
+            "kind": "PERSON",
+            "refs": [
+              "IK-1908519:L142",
+              "IK-1908519:L143"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o3",
+            "text": "shop No. 361 (Old No. 467 25-A), Azadpur, G.T. Road, Delhi",
+            "kind": "PROPERTY",
+            "refs": [
+              "IK-1908519:L142",
+              "IK-1908519:L143"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o4",
+            "text": "M/s Hira Lal Sri Bhagwan",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-1908519:L143",
+              "IK-1908519:L144",
+              "IK-1908519:L161"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o5",
+            "text": "Sri Bhagwan",
+            "kind": "PERSON",
+            "refs": [
+              "IK-1908519:L144",
+              "IK-1908519:L147",
+              "IK-1908519:L161"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o6",
+            "text": "Hira Lal",
+            "kind": "PERSON",
+            "refs": [
+              "IK-1908519:L144",
+              "IK-1908519:L147"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o7",
+            "text": "M/s Aggarwal Hardware and Mills Stores",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o8",
+            "text": "written landlord consent for parting with possession",
+            "kind": "DOCUMENT",
+            "refs": [
+              "IK-1908519:L143",
+              "IK-1908519:L148"
+            ],
+            "unknown": true
+          },
+          {
+            "id": "o9",
+            "text": "section 14(1)(b) eviction petition",
+            "kind": "DOCUMENT",
+            "refs": [
+              "IK-1908519:L142"
+            ],
+            "unknown": false
+          }
+        ],
+        "facts": [
+          {
+            "id": "f1",
+            "text": "The landlord filed a section 14(1)(b) eviction petition concerning the shop and alleged that Duli Chand sublet or parted with possession after 9 June 1952 to M/s Hira Lal Sri Bhagwan without written consent.",
+            "speaker": "LANDLORD",
+            "status": "CLAIMED",
+            "court": "TRIAL",
+            "stage": "eviction petition",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "whether subletting occurred",
+              "whether parting with possession occurred",
+              "court acceptance of alleged lack of written consent"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o2"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o4"
+              },
+              {
+                "role": "DOCUMENT",
+                "object_id": "o9"
+              },
+              {
+                "role": "DOCUMENT",
+                "object_id": "o8"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L142",
+              "IK-1908519:L143"
+            ],
+            "quote": "the tenant-Duli Chand has sub:let or parted with the possession of the said shop after 9th day of June, 1952 to M/s Hira Lal Sri Bhagwan illegally and without the written consent of the landlord"
+          },
+          {
+            "id": "f2",
+            "text": "The tenant denied subletting or parting with possession and pleaded that possession of the shop remained with him.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TRIAL",
+            "stage": "written-statement defence",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "court acceptance"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L144"
+            ],
+            "quote": "there was no sub-letting or parting with the possession of the shop"
+          },
+          {
+            "id": "f3",
+            "text": "The tenant asserted that Sri Bhagwan was his son and that the business name M/s Hira Lal Sri Bhagwan commemorated the deceased relative Hira Lal.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TRIAL",
+            "stage": "written-statement defence",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "adoption status",
+              "court acceptance"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o5"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o4"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o6"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L144"
+            ],
+            "quote": "Sri Bhagwan is the son of the tenant, and that the name of the business was given as M/s Hira Lal Sri Bhagwan in memory of the deceased relative Hira Lal"
+          },
+          {
+            "id": "f4",
+            "text": "The landlord replied that Sri Bhagwan, though Duli Chand's natural son, had been adopted by Hira Lal and had gone out of Duli Chand's family, and characterized the situation as subletting or parting with possession.",
+            "speaker": "LANDLORD",
+            "status": "CLAIMED",
+            "court": "TRIAL",
+            "stage": "reply pleading",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "validity of adoption",
+              "court acceptance"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o2"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o5"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o6"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L147"
+            ],
+            "quote": "though Sri Bhagwan was the natural son of the tenant-Duli Chand, he had been given in adoption to Hira Lal"
+          },
+          {
+            "id": "f5",
+            "text": "The target court states that the question of subletting did not arise on the facts and circumstances presented.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "TARGET",
+            "stage": "appeal issue framing",
+            "polarity": "NEGATIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L148"
+            ],
+            "quote": "the question of subletting did not arise"
+          },
+          {
+            "id": "f6",
+            "text": "The target court records that the tenant never pleaded that he had obtained written landlord consent for parting with possession.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "TARGET",
+            "stage": "appeal issue framing",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "whether any written consent existed outside the pleaded record"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "DOCUMENT",
+                "object_id": "o8"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L148"
+            ],
+            "quote": "The tenant never pleaded that he had obtained any written consent from the landlord for parting with posses- sion."
+          },
+          {
+            "id": "f7",
+            "text": "The target court frames the remaining consideration as whether the tenant parted with possession of the whole or part of the tenanted premises.",
+            "speaker": "COURT",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "appeal issue framing",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "target final resolution"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L148"
+            ],
+            "quote": "The only question, therefore, for consideration in this case is as to whether the tenant had parted with pos- session of the whole or part of the tenanted premises."
+          },
+          {
+            "id": "f8",
+            "text": "The Rent Controller held that the landlord had not proved that the tenant parted with possession of the shop.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "TRIAL",
+            "stage": "Rent Controller decision",
+            "polarity": "NEGATIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o2"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L149"
+            ],
+            "quote": "The learned Rent Controller held that the landlord had not proved parting with possession of the tenanted shop by the tenant."
+          },
+          {
+            "id": "f9",
+            "text": "On the landlord's appeal, the Rent Control Tribunal held that the tenant had parted with legal possession and ordered eviction under section 14(1)(b).",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Rent Control Tribunal appeal",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L149"
+            ],
+            "quote": "the Rent Control Tribunal held that the tenant had parted with the legal possession of the tenanted premises"
+          },
+          {
+            "id": "f10",
+            "text": "The High Court dismissed the tenant's second appeal and confirmed the Tribunal finding that the tenant had parted with possession of the shop.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "High Court second appeal",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L150@0:186"
+            ],
+            "quote": "The second appeal filed by the tenant to the High Court was dismissed confirming the finding of the Rent Control Tribunal that the tenant had parted with possession of the tenanted shop."
+          },
+          {
+            "id": "f11",
+            "text": "The Tribunal found, and the High Court accepted, that M/s Hira Lal Sri Bhagwan was Sri Bhagwan's sole proprietary concern.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Tribunal findings accepted by High Court",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o4"
+              },
+              {
+                "role": "ACTOR",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "quote": "the concern M/s Hira Lal Sri Bhagwan is the sole proprietary concern of Sri Bhagwan"
+          },
+          {
+            "id": "f12",
+            "text": "The Tribunal found, and the High Court accepted, that Duli Chand had no interest in Sri Bhagwan's business.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Tribunal findings accepted by High Court",
+            "polarity": "NEGATIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o4"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "quote": "Duli Chand-tenant had no interest in the business"
+          },
+          {
+            "id": "f13",
+            "text": "The Tribunal found, and the High Court accepted, that Sri Bhagwan was in exclusive possession of the property.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Tribunal findings accepted by High Court",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o5"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "quote": "Sri Bhagwan is in exclusive possession of the property"
+          },
+          {
+            "id": "f14",
+            "text": "The Tribunal/High Court findings recorded no plea of concurrent use by Duli Chand or licensee status for Sri Bhagwan, occasional presence of Duli Chand in the shop, and no retained control by Duli Chand.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Tribunal findings accepted by High Court",
+            "polarity": "NEGATIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o5"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "quote": "there was no plea of concurrent user of the premises by the tenant nor there is any plea that Sri Bhagwan is a licensee"
+          },
+          {
+            "id": "f15",
+            "text": "Counsel for the tenant-appellant contended that Sri Bhagwan was not Hira Lal's adopted son and that allowing a son to conduct business did not establish parting with legal possession.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "appellate submission",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "court acceptance",
+              "valid adoption"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o5"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o6"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o3"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L162@165:418"
+            ],
+            "quote": "Sri Bhagwan was not the adopted son of Hira Lal and that by permitting the son to carry on business it could not be stated that he had 469 parted with the legal possession of the premises."
+          },
+          {
+            "id": "f16",
+            "text": "Counsel for the tenant-appellant invoked a cited adoption rule requiring a formal giving-and-taking ceremony and asserted that evidence of a valid adoption was unavailable in this case.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "appellate submission",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "court acceptance",
+              "legal effect on the fixed possession issue"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o5"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o6"
+              }
+            ],
+            "refs": [
+              "IK-1908519:L163"
+            ],
+            "quote": "such an evidence of a valid adoption is not available in this case."
+          }
+        ],
+        "relations": [
+          {
+            "id": "r1",
+            "left": "o1",
+            "right": "o3",
+            "relation": "other",
+            "text": "Duli Chand is identified as the tenant of the disputed shop.",
+            "speaker": "NARRATOR",
+            "status": "REPORTED",
+            "court": "TARGET",
+            "stage": "appeal background",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "refs": [
+              "IK-1908519:L142",
+              "IK-1908519:L143"
+            ],
+            "quote": "the appellant-tenant for a shop bearing No. 361"
+          },
+          {
+            "id": "r2",
+            "left": "o5",
+            "right": "o4",
+            "relation": "controls",
+            "text": "Sri Bhagwan is the sole proprietor of M/s Hira Lal Sri Bhagwan.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Tribunal findings accepted by High Court",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "quote": "the concern M/s Hira Lal Sri Bhagwan is the sole proprietary concern of Sri Bhagwan"
+          },
+          {
+            "id": "r3",
+            "left": "o4",
+            "right": "o3",
+            "relation": "other",
+            "text": "The business of M/s Hira Lal Sri Bhagwan was carried on in the disputed premises by Sri Bhagwan.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Tribunal findings accepted by High Court",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "quote": "Sri Bhagwan has been carrying on that business in the premises in dispute"
+          },
+          {
+            "id": "r4",
+            "left": "o5",
+            "right": "o3",
+            "relation": "controls",
+            "text": "Sri Bhagwan was found to have exclusive possession of the property.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Tribunal findings accepted by High Court",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "quote": "Sri Bhagwan is in exclusive possession of the property"
+          },
+          {
+            "id": "r5",
+            "left": "o1",
+            "right": "o3",
+            "relation": "controls",
+            "text": "Duli Chand was found not to have retained control over the shop.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Tribunal findings accepted by High Court",
+            "polarity": "NEGATIVE",
+            "unknown": [],
+            "refs": [
+              "IK-1908519:L161"
+            ],
+            "quote": "the tenant had not retained any control over the same"
+          },
+          {
+            "id": "r6",
+            "left": "o5",
+            "right": "o1",
+            "relation": "other",
+            "text": "The tenant claimed a son-of relationship from Sri Bhagwan to Duli Chand.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TRIAL",
+            "stage": "written-statement defence",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "effect of alleged adoption"
+            ],
+            "refs": [
+              "IK-1908519:L144"
+            ],
+            "quote": "Sri Bhagwan is the son of the tenant"
+          },
+          {
+            "id": "r7",
+            "left": "o5",
+            "right": "o6",
+            "relation": "other",
+            "text": "The landlord claimed that Sri Bhagwan had been adopted by Hira Lal.",
+            "speaker": "LANDLORD",
+            "status": "CLAIMED",
+            "court": "TRIAL",
+            "stage": "reply pleading",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "validity of adoption",
+              "court acceptance"
+            ],
+            "refs": [
+              "IK-1908519:L147"
+            ],
+            "quote": "he had been given in adoption to Hira Lal"
+          },
+          {
+            "id": "r8",
+            "left": "o5",
+            "right": "o6",
+            "relation": "other",
+            "text": "The tenant-appellant disputed that Sri Bhagwan was Hira Lal's adopted son.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "appellate submission",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "court acceptance"
+            ],
+            "refs": [
+              "IK-1908519:L162@165:418"
+            ],
+            "quote": "Sri Bhagwan was not the adopted son of Hira Lal"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "scope": "DIRECT",
+          "state": "NONE",
+          "links": [],
+          "reason": "Section 17 addresses notice for a sub-tenancy. The target court states that the question of subletting did not arise, and the fixed graph contains no assertion of a section 17 creation or termination notice."
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "scope": "DIRECT",
+          "state": "NONE",
+          "links": [],
+          "reason": "Section 18 requires a qualifying sub-tenant and, for subsection (1), section 17 notice. The fixed record says subletting did not arise and supplies no sub-tenancy notice or direct-tenancy claim."
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "scope": "DIRECT",
+          "state": "NONE",
+          "links": [],
+          "reason": "This unit concerns independent subtenant protection under sections 17 and 18 through specific written consent and notice. The target court states that subletting did not arise, and the fixed graph contains no sub-tenancy notice or claim to section 18 protection."
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "scope": "DIRECT",
+          "state": "NONE",
+          "links": [],
+          "reason": "The concurrence limits section 17/18 subtenant relief and discusses exceptional compliance. The fixed target record supplies no section 17 notice, no protected-subtenant claim, and states that subletting did not arise."
+        }
+      ],
+      "existing_rejected_ids": [
+        "f4",
+        "f14"
+      ]
+    },
+    {
+      "case_id": "869439",
+      "question": "On the supplied allowed record, does the alleged subletting, assignment or parting with possession support eviction under Delhi Rent Control Act section 14(1)(b), considering written consent and the limits of the supplied law? Address the fixed ground only, not unrelated eviction grounds or the withheld historical final outcome.",
+      "stage": "NOT_UNIFORMLY_RECORDED; court metadata available, not reconstructed",
+      "allowed_source": {
+        "case_id": "869439",
+        "segments": [
+          {
+            "id": "IK-869439:L163",
+            "text": "The Judgment of the Court was delivered by SABYASACHI MUKHARJI J. This is an appeal by special leave directed against the judgment and order of the High Court of Delhi dated the 21st September, 1973 in Second Appeal No. 294/72. The High Court dismissed the Second Appeal of the appellant and confirmed the decision of the Rent Control Tribunal and ordered eviction. Before the High Court three contentions were urged namely:-"
+          },
+          {
+            "id": "IK-869439:L164",
+            "text": "> 1. The petition for eviction was not maintainable in the absence of a notice to quit while determining the tenancy,"
+          },
+          {
+            "id": "IK-869439:L165",
+            "text": ""
+          },
+          {
+            "id": "IK-869439:L166",
+            "text": "> 2. There was no sub-letting or parting of possession by the appellant-tenant in favour of R.C. Abrol & Company Pvt. Ltd., and"
+          },
+          {
+            "id": "IK-869439:L167",
+            "text": ""
+          },
+          {
+            "id": "IK-869439:L168",
+            "text": "> 3. If there was such sub-letting, it had been made with the written consent of the landlord so was not actionable."
+          },
+          {
+            "id": "IK-869439:L169",
+            "text": "The Rent Control Tribunal confirmed the findings against the appellant in all the three contentions and the High Court also affirmed the findings of the Rent Control Tribunal. We must note that no contention was raised before us as far as point No. 1, namely notice was not served. The only contention before us was that there was no sub-letting or parting of the possession by the appellant-tenant in favour of R.C. Abrol & Company Pvt. Ltd."
+          },
+          {
+            "id": "IK-869439:L170",
+            "text": "and secondly it was urged that if there was sub-letting that had been made with the written consent of the landlord. The Clause 14 of the lease deed in the instant case which provides, inter alia, the terms and conditions is as follows:-"
+          },
+          {
+            "id": "IK-869439:L171",
+            "text": "> \"Clause 14-That the lessee undertakes not to sub- let the premises to any other party without the written permission of the lessor, and that the lessee's contractors M/s R.C. Abrol & Co. will share the premises with the permission of the lessor.\""
+          },
+          {
+            "id": "IK-869439:L176",
+            "text": "Before us it was pointed out by Sree Shankar Ghosh, learned counsel for the appellant, that it was not necessary that the consent to sub-letting should be in writing and what he contended was that it was necessary to have the consent and the manner of proving consent was provided in writing."
+          },
+          {
+            "id": "IK-869439:L177@0:232",
+            "text": "In other words, he contended that the provision which required that the consent should be in writing meant it was mandatory so far as it enjoined consent but it was directory so far as it said that such consent should be in writing."
+          },
+          {
+            "id": "IK-869439:L225",
+            "text": "Dr. Shankar Ghosh drew our attention to the observations of the High Court of Delhi in the following three cases:"
+          },
+          {
+            "id": "IK-869439:L226",
+            "text": ""
+          },
+          {
+            "id": "IK-869439:L227",
+            "text": "> Vishwa Nath and Anr. v. Chaman Lal Khanna & Others , [1975] All India Rent Control Journal 514."
+          },
+          {
+            "id": "IK-869439:L228",
+            "text": ""
+          },
+          {
+            "id": "IK-869439:L229",
+            "text": "> Shri Gurdial Singh v. Shri Brij Kishore & Others, [1970] Delhi Law Times 592."
+          },
+          {
+            "id": "IK-869439:L230",
+            "text": ""
+          },
+          {
+            "id": "IK-869439:L231",
+            "text": "> M/s Reliable Finance Corporation (P) Ltd. v. M/s Clearing House and Agencies Private Ltd & Ors. [1984] 2 Rent Control Reporter 449."
+          },
+          {
+            "id": "IK-869439:L232",
+            "text": "> Madras Bangalore Transport Co. (West) v. Inder Singh and Others , [1986] 3 S.C.C. 62."
+          },
+          {
+            "id": "IK-869439:L233@0:144",
+            "text": "> He contended that in the light of the aforesaid authorities in this case, there was no parting of legal possession in favour of the sublessee."
+          }
+        ]
+      },
+      "graph_proposal": {
+        "needs": [
+          {
+            "id": "n1",
+            "text": "Whether the appellant-tenant sub-let, assigned, or otherwise parted with possession or legal possession of all or part of the premises in favour of R.C. Abrol & Company Pvt. Ltd.",
+            "refs": [
+              "IK-869439:L166",
+              "IK-869439:L169",
+              "IK-869439:L233@0:144"
+            ]
+          },
+          {
+            "id": "n2",
+            "text": "Whether any relevant subletting, assignment, or parting with possession occurred without the landlord's written consent, including the tenant's contention that consent existed and that written form was directory.",
+            "refs": [
+              "IK-869439:L168",
+              "IK-869439:L170",
+              "IK-869439:L176",
+              "IK-869439:L177@0:232"
+            ]
+          },
+          {
+            "id": "n3",
+            "text": "Whether Clause 14's written permission for M/s R.C. Abrol & Co. to share the premises connects to the alleged transaction involving R.C. Abrol & Company Pvt. Ltd., given unresolved identity and unresolved scope of sharing versus subletting or parting with legal possession.",
+            "refs": [
+              "IK-869439:L166",
+              "IK-869439:L170",
+              "IK-869439:L171"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "o1",
+            "text": "appellant-tenant",
+            "kind": "OTHER",
+            "refs": [
+              "IK-869439:L166",
+              "IK-869439:L169"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o2",
+            "text": "landlord/lessor",
+            "kind": "OTHER",
+            "refs": [
+              "IK-869439:L168",
+              "IK-869439:L171"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o3",
+            "text": "R.C. Abrol & Company Pvt. Ltd.",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-869439:L166",
+              "IK-869439:L169"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o4",
+            "text": "M/s R.C. Abrol & Co.",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-869439:L171"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o5",
+            "text": "leased premises",
+            "kind": "PROPERTY",
+            "refs": [
+              "IK-869439:L166",
+              "IK-869439:L171"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o6",
+            "text": "lease deed including Clause 14",
+            "kind": "DOCUMENT",
+            "refs": [
+              "IK-869439:L170",
+              "IK-869439:L171"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o7",
+            "text": "Rent Control Tribunal",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-869439:L163",
+              "IK-869439:L169"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o8",
+            "text": "High Court of Delhi",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-869439:L163",
+              "IK-869439:L169"
+            ],
+            "unknown": false
+          },
+          {
+            "id": "o9",
+            "text": "Supreme Court of India",
+            "kind": "ORGANIZATION",
+            "refs": [
+              "IK-869439:L163",
+              "IK-869439:L169"
+            ],
+            "unknown": false
+          }
+        ],
+        "facts": [
+          {
+            "id": "f1",
+            "text": "The High Court dismissed the tenant's second appeal, confirmed the Rent Control Tribunal decision, and ordered eviction.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "High Court second appeal",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "basis and detailed reasoning for the eviction order within the withheld material"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o8"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-869439:L163"
+            ],
+            "quote": "The High Court dismissed the Second Appeal of the appellant and confirmed the decision of the Rent Control Tribunal and ordered eviction."
+          },
+          {
+            "id": "f2",
+            "text": "Before the High Court, the tenant contended that there was no subletting or parting with possession in favour of R.C. Abrol & Company Pvt. Ltd.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "APPELLATE",
+            "stage": "High Court second appeal",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "court acceptance at this assertion level",
+              "precise possession arrangement"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o3"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-869439:L166"
+            ],
+            "quote": "There was no sub-letting or parting of possession by the appellant-tenant in favour of R.C. Abrol & Company Pvt. Ltd."
+          },
+          {
+            "id": "f3",
+            "text": "Before the High Court, the tenant alternatively contended that any subletting had the landlord's written consent and therefore was not actionable.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "APPELLATE",
+            "stage": "High Court second appeal",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "scope and legal effect of the asserted written consent"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o2"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-869439:L168"
+            ],
+            "quote": "If there was such sub-letting, it had been made with the written consent of the landlord so was not actionable."
+          },
+          {
+            "id": "f4",
+            "text": "The Rent Control Tribunal confirmed findings against the tenant on all three identified contentions, which included the no-subletting/no-parting contention and the written-consent contention.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Rent Control Tribunal",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "underlying evidentiary reasoning",
+              "precise characterization as subletting versus other parting with possession"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o7"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-869439:L169"
+            ],
+            "quote": "The Rent Control Tribunal confirmed the findings against the appellant in all the three contentions"
+          },
+          {
+            "id": "f5",
+            "text": "The High Court affirmed the Rent Control Tribunal's findings.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "High Court second appeal",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "detailed High Court reasoning within the excluded material"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o8"
+              },
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              }
+            ],
+            "refs": [
+              "IK-869439:L169"
+            ],
+            "quote": "the High Court also affirmed the findings of the Rent Control Tribunal."
+          },
+          {
+            "id": "f6",
+            "text": "At the Supreme Court stage, the tenant maintained that there was no subletting or parting with possession in favour of R.C. Abrol & Company Pvt. Ltd.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "special-leave appeal",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "target court acceptance",
+              "final legal characterization of possession"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o3"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-869439:L169"
+            ],
+            "quote": "The only contention before us was that there was no sub-letting or parting of the possession by the appellant-tenant in favour of R.C. Abrol & Company Pvt. Ltd."
+          },
+          {
+            "id": "f7",
+            "text": "At the Supreme Court stage, the tenant alternatively urged that any subletting had been made with the landlord's written consent.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "special-leave appeal",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "target court acceptance",
+              "scope of alleged written consent"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o2"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-869439:L170"
+            ],
+            "quote": "if there was sub-letting that had been made with the written consent of the landlord."
+          },
+          {
+            "id": "f8",
+            "text": "Clause 14 records the lessee's undertaking not to sublet the premises to another party without the lessor's written permission.",
+            "speaker": "NARRATOR",
+            "status": "REPORTED",
+            "court": "NONE",
+            "stage": "lease terms",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o2"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              },
+              {
+                "role": "DOCUMENT",
+                "object_id": "o6"
+              }
+            ],
+            "refs": [
+              "IK-869439:L171"
+            ],
+            "quote": "the lessee undertakes not to sub- let the premises to any other party without the written permission of the lessor"
+          },
+          {
+            "id": "f9",
+            "text": "Clause 14 states that the lessee's contractors M/s R.C. Abrol & Co. will share the premises with the lessor's permission.",
+            "speaker": "NARRATOR",
+            "status": "REPORTED",
+            "court": "NONE",
+            "stage": "lease terms",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "whether sharing amounts to subletting, assignment, or parting with legal possession",
+              "whether the permission covers the transaction alleged against the tenant"
+            ],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o4"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              },
+              {
+                "role": "DOCUMENT",
+                "object_id": "o6"
+              }
+            ],
+            "refs": [
+              "IK-869439:L171"
+            ],
+            "quote": "the lessee's contractors M/s R.C. Abrol & Co. will share the premises with the permission of the lessor."
+          },
+          {
+            "id": "f10",
+            "text": "The tenant argued that landlord consent was mandatory but that the requirement that consent be in writing was directory.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "special-leave appeal argument",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "target court acceptance of the mandatory-versus-directory distinction"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o2"
+              }
+            ],
+            "refs": [
+              "IK-869439:L177@0:232"
+            ],
+            "quote": "it was mandatory so far as it enjoined consent but it was directory so far as it said that such consent should be in writing."
+          },
+          {
+            "id": "f11",
+            "text": "After citing identified authorities, tenant's counsel contended that there had been no parting with legal possession in favour of the sublessee.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "special-leave appeal argument",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "target court acceptance",
+              "identity of the described sublessee with the differently named R.C. Abrol entities"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o1"
+              },
+              {
+                "role": "RECIPIENT",
+                "object_id": "o3"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-869439:L233@0:144"
+            ],
+            "quote": "there was no parting of legal possession in favour of the sublessee."
+          }
+        ],
+        "relations": [
+          {
+            "id": "r1",
+            "left": "o4",
+            "right": "o1",
+            "relation": "other",
+            "text": "Clause 14 describes M/s R.C. Abrol & Co. as the lessee's contractors.",
+            "speaker": "NARRATOR",
+            "status": "REPORTED",
+            "court": "NONE",
+            "stage": "lease terms",
+            "polarity": "POSITIVE",
+            "unknown": [],
+            "refs": [
+              "IK-869439:L171"
+            ],
+            "quote": "the lessee's contractors M/s R.C. Abrol & Co."
+          },
+          {
+            "id": "r2",
+            "left": "o4",
+            "right": "o5",
+            "relation": "other",
+            "text": "Clause 14 states that M/s R.C. Abrol & Co. will share the premises with the lessor's permission.",
+            "speaker": "NARRATOR",
+            "status": "REPORTED",
+            "court": "NONE",
+            "stage": "lease terms",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "whether sharing constituted subletting, assignment, or parting with legal possession"
+            ],
+            "refs": [
+              "IK-869439:L171"
+            ],
+            "quote": "will share the premises with the permission of the lessor."
+          },
+          {
+            "id": "r3",
+            "left": "o1",
+            "right": "o3",
+            "relation": "transferred_to",
+            "text": "The tenant denies that possession was transferred or parted with in favour of R.C. Abrol & Company Pvt. Ltd.",
+            "speaker": "TENANT",
+            "status": "CLAIMED",
+            "court": "TARGET",
+            "stage": "special-leave appeal",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "target court acceptance"
+            ],
+            "refs": [
+              "IK-869439:L169"
+            ],
+            "quote": "there was no sub-letting or parting of the possession by the appellant-tenant in favour of R.C. Abrol & Company Pvt. Ltd."
+          },
+          {
+            "id": "r4",
+            "left": "o1",
+            "right": "o3",
+            "relation": "transferred_to",
+            "text": "The prior appellate findings were against the tenant's contention that no subletting or parting with possession occurred in favour of R.C. Abrol & Company Pvt. Ltd.",
+            "speaker": "COURT",
+            "status": "FOUND",
+            "court": "APPELLATE",
+            "stage": "Rent Control Tribunal findings affirmed in High Court second appeal",
+            "polarity": "POSITIVE",
+            "unknown": [
+              "precise form and extent of the possession transfer",
+              "underlying evidentiary reasoning"
+            ],
+            "refs": [
+              "IK-869439:L169"
+            ],
+            "quote": "confirmed the findings against the appellant in all the three contentions"
+          },
+          {
+            "id": "r5",
+            "left": "o3",
+            "right": "o4",
+            "relation": "same_as",
+            "text": "Whether R.C. Abrol & Company Pvt. Ltd. and M/s R.C. Abrol & Co. denote the same legal entity is unresolved in the supplied record.",
+            "speaker": "NARRATOR",
+            "status": "UNKNOWN",
+            "court": "NONE",
+            "stage": "record comparison",
+            "polarity": "UNKNOWN",
+            "unknown": [
+              "entity identity"
+            ],
+            "refs": [
+              "IK-869439:L166",
+              "IK-869439:L171"
+            ],
+            "quote": "R.C. Abrol & Company Pvt. Ltd."
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "scope": "DIRECT",
+          "state": "CANDIDATE",
+          "links": [
+            {
+              "need_id": "n2",
+              "condition_id": "c1",
+              "fact_ids": [
+                "f3",
+                "f7",
+                "f8",
+                "f9"
+              ],
+              "relation_ids": [
+                "r5"
+              ],
+              "kind": "BASE",
+              "state": "CANDIDATE",
+              "reason": "The unit requires previous written consent for post-commencement subletting; the target record contains a written-consent contention and Clause 14 permission, without establishing that the permission covers the alleged subletting.",
+              "case_refs": [
+                "IK-869439:L168",
+                "IK-869439:L170",
+                "IK-869439:L171"
+              ],
+              "law_quote": "with the previous consent in writing of the landlord"
+            },
+            {
+              "need_id": "n3",
+              "condition_id": "c1",
+              "fact_ids": [
+                "f8",
+                "f9"
+              ],
+              "relation_ids": [
+                "r1",
+                "r2",
+                "r5"
+              ],
+              "kind": "LIMITATION",
+              "state": "UNKNOWN",
+              "reason": "Clause 14 is a possible consent document, but the record leaves unresolved both the identity of the two R.C. Abrol entities and whether permission to share equals consent to the alleged subtenancy.",
+              "case_refs": [
+                "IK-869439:L166",
+                "IK-869439:L171"
+              ],
+              "law_quote": "previous consent in writing of the landlord"
+            }
+          ],
+          "reason": "Section 17 is directly relevant only to the documentary-consent aspect; the fixed question does not supply the prescribed notice facts required for the section 17 protection procedure."
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "scope": "DIRECT",
+          "state": "NONE",
+          "links": [],
+          "reason": "Section 18 concerns when a section 17 subtenant becomes a direct tenant after an eviction order or under the pre-commencement route. The fixed record supplies no section 17 notice, no finding that the alleged subtenant was excluded from the eviction order, and no claim to direct-tenancy protection."
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "scope": "DIRECT",
+          "state": "CANDIDATE",
+          "links": [
+            {
+              "need_id": "n2",
+              "condition_id": "c3",
+              "fact_ids": [
+                "f3",
+                "f7",
+                "f8",
+                "f9"
+              ],
+              "relation_ids": [
+                "r5"
+              ],
+              "kind": "BASE",
+              "state": "CANDIDATE",
+              "reason": "This Delhi authority requires writing that clearly shows consent to the particular subtenancy. Clause 14 is written but the target record leaves the particular entity and transaction scope unresolved.",
+              "case_refs": [
+                "IK-869439:L168",
+                "IK-869439:L170",
+                "IK-869439:L171"
+              ],
+              "law_quote": "The writing is to be such as to indicate clearly the consent of the landlord to the creation of a sub-tenancy and his knowledge of the particular sub-tenancy after its creation."
+            },
+            {
+              "need_id": "n3",
+              "condition_id": "c3",
+              "fact_ids": [
+                "f8",
+                "f9"
+              ],
+              "relation_ids": [
+                "r1",
+                "r2",
+                "r5"
+              ],
+              "kind": "LIMITATION",
+              "state": "UNKNOWN",
+              "reason": "The particular-subtenancy requirement makes the unresolved identity between the two R.C. Abrol names material; permission to share cannot be assumed to cover the alleged private company.",
+              "case_refs": [
+                "IK-869439:L166",
+                "IK-869439:L171"
+              ],
+              "law_quote": "his knowledge of the particular sub-tenancy after its creation."
+            }
+          ],
+          "reason": "The documentary-specificity principle directly bears on the consent dispute, but this unit principally concerns sections 17 and 18 protection and does not itself decide s.14(1)(b)."
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "scope": "DIRECT",
+          "state": "CANDIDATE",
+          "links": [
+            {
+              "need_id": "n2",
+              "condition_id": "c4",
+              "fact_ids": [
+                "f8",
+                "f9"
+              ],
+              "relation_ids": [
+                "r5"
+              ],
+              "kind": "LIMITATION",
+              "state": "CANDIDATE",
+              "reason": "The concurrence cautions against inferring statutory written consent merely from a landlord signature or tenancy-related writing; this supports careful examination of Clause 14 rather than automatic consent attribution.",
+              "case_refs": [
+                "IK-869439:L171"
+              ],
+              "law_quote": "I should not, therefore, be understood to hold the view that, as a general rule"
+            },
+            {
+              "need_id": "n3",
+              "condition_id": "c4",
+              "fact_ids": [
+                "f8",
+                "f9"
+              ],
+              "relation_ids": [
+                "r1",
+                "r2",
+                "r5"
+              ],
+              "kind": "LIMITATION",
+              "state": "UNKNOWN",
+              "reason": "Because the target writing names M/s R.C. Abrol & Co. while the alleged recipient is R.C. Abrol & Company Pvt. Ltd., the concurrence reinforces that consent cannot be assumed from a writing without resolving its actual scope.",
+              "case_refs": [
+                "IK-869439:L166",
+                "IK-869439:L171"
+              ],
+              "law_quote": "I should not, therefore, be understood to hold the view that, as a general rule"
+            }
+          ],
+          "reason": "This is a reported concurrence concerning sections 17 and 18, not an independent majority exception. Its caution about assuming written consent is relevant, while its notice-within-one-month conditions are outside the supplied fixed-ground facts."
+        }
+      ],
+      "existing_rejected_ids": [
+        "LAW:S02:DRC:16::alignment2",
+        "LAW:V09:AH_LICENCE::use",
+        "LAW:V09:GL_CONCURRING_LIMIT::alignment1",
+        "LAW:S02:DRC:16::use",
+        "LAW:V09:KR_PERMISSIVE_FAMILY::alignment1",
+        "LAW:V09:AH_LICENCE::alignment0",
+        "LAW:S02:DRC14:1b::alignment2",
+        "LAW:V09:AH_CONSENT_SCOPE::alignment1",
+        "LAW:V09:GL_CONCURRING_LIMIT::use",
+        "LAW:V09:GL_WRITTEN_CONSENT::use",
+        "LAW:V09:GL_WRITTEN_CONSENT::alignment1",
+        "LAW:V09:HELP_GENUINENESS::alignment1",
+        "n3",
+        "LAW:V09:CEL_CONTROL::alignment1",
+        "LAW:S02:DRC:17::alignment1"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "unit_id": "LAW:S02:DRC:17",
+      "issue": "notice and dispute procedure for sub-tenancy",
+      "jurisdiction": "Delhi, India",
+      "act": "Delhi Rent Control Act, section 17",
+      "date_scope": "Distinguishes sub-letting after commencement of the Act from lawful sub-letting before commencement; creation and termination notices have specified one-month or six-month periods.",
+      "procedure_scope": "Tenant or sub-tenant may give prescribed notice to the landlord; for contested pre-Act lawful sub-letting, landlord or sub-tenant may apply to the Controller within the specified two-month period, and the Controller decides the dispute.",
+      "adoption": "ENACTED",
+      "conditions": [
+        {
+          "id": "c1",
+          "text": "For post-commencement sub-letting, the premises must have been sub-let in whole or part with the landlord's previous written consent.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": null,
+          "quote": "after the commencement of this Act, any premises are sub-let either in whole or in part by the tenant with the previous consent in writing of the landlord"
+        },
+        {
+          "id": "c2",
+          "text": "For post-commencement sub-letting, the tenant or sub-tenant may give prescribed notice of creation within one month of sub-letting and notify termination within one month of termination.",
+          "kind": "RULE",
+          "logic": "AND",
+          "parent": "c1",
+          "quote": "give notice to the landlord of the creation of the sub-tenancy within one month of the date of such sub-letting and notify the termination of such sub- tenancy within one month of such termination"
+        },
+        {
+          "id": "c3",
+          "text": "For pre-commencement lawful sub-letting, the tenant or sub-tenant may give prescribed notice of creation within six months of commencement and notify termination within one month of termination.",
+          "kind": "RULE",
+          "logic": "SINGLE",
+          "parent": null,
+          "quote": "before the commencement of this Act, any premises have been lawfully sub-let either in whole or in part by the tenant"
+        },
+        {
+          "id": "c4",
+          "text": "If the landlord contests lawful sub-letting in a case under subsection (2), an application by the landlord or sub-tenant must be made to the Controller within two months of the relevant notice event for the Controller to decide the dispute.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": "c3",
+          "quote": "the landlord contests that the premises were not lawfully sub-let, and an application is made to the Controller in this behalf, either by the landlord or by the sub-tenant, within two months of the date of the receipt of the notice of sub-letting by the landlord or the issue of the notice by the tenant or the sub-tenant"
+        }
+      ],
+      "limitations": [
+        "Statutory reproduction is not an authenticated historical consolidation.",
+        "Only the displayed provision is supplied; no target judicial interpretation is included.",
+        "The supplied text contains apparent transcription wording such as \"promises\" and \"proscribed\"; extraction does not correct the source."
+      ]
+    },
+    {
+      "unit_id": "LAW:S02:DRC:18",
+      "issue": "direct tenancy status of protected sub-tenants",
+      "jurisdiction": "Delhi, India",
+      "act": "Delhi Rent Control Act, section 18",
+      "date_scope": "Subsection (1) operates from the date of a section 14 eviction order; subsection (2) covers tenant interests determined before commencement of the Act and operates from the date of commencement.",
+      "procedure_scope": "Specifies when a qualifying sub-tenant is deemed to become a tenant holding directly under the landlord and the terms of that deemed tenancy.",
+      "adoption": "ENACTED",
+      "conditions": [
+        {
+          "id": "c1",
+          "text": "An eviction order under section 14 must be made against the tenant but not against the sub-tenant referred to in section 17.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": null,
+          "quote": "an order for eviction in respect of any premises is made under section 14 against a tenant but not against a sub-tenant referred to in section 17"
+        },
+        {
+          "id": "c2",
+          "text": "Notice of the sub-tenancy must have been given to the landlord.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": "c1",
+          "quote": "a notice of the sub-tenancy has been given to the landlord"
+        },
+        {
+          "id": "c3",
+          "text": "When the subsection (1) conditions are met, the sub-tenant becomes a direct tenant from the date of the eviction order for the premises occupied, on the same terms and conditions the tenant would have had if the tenancy continued.",
+          "kind": "RULE",
+          "logic": "AND",
+          "parent": "c2",
+          "quote": "the sub-tenant shall, with effect from the date of the order, be deemed to become a tenant holding directly under the landlord in respect of the premises in his occupation on the same terms and conditions on which the tenant would have held from the landlord, if the tenancy had continued"
+        },
+        {
+          "id": "c4",
+          "text": "For the pre-commencement route, the tenant's interest must have been determined before commencement without determining the interest of a sub-tenant to whom the premises had been lawfully sub-let.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": null,
+          "quote": "before the commencement of this Act, the interest of a tenant in respect of any premises has been determined without determining the interest of any sub-tenant to whom the premises either in whole or in part had been lawfully sub-let"
+        },
+        {
+          "id": "c5",
+          "text": "When the subsection (2) condition is met, the sub-tenant is deemed from commencement of the Act to hold directly under the landlord on the same terms and conditions the tenant would have had if the tenancy continued.",
+          "kind": "RULE",
+          "logic": "SINGLE",
+          "parent": "c4",
+          "quote": "the sub-tenant shall, with effect from the date of the commencement of this Act, be deemed to have become a tenant holding directly under the landlord on the same terms and conditions on which the tenant would have held from the landlord, if the tenancy had continued"
+        }
+      ],
+      "limitations": [
+        "Statutory reproduction is not an authenticated historical consolidation.",
+        "Only the displayed provision is supplied; no target judicial interpretation is included.",
+        "Section 18 refers to sections 14 and 17, but their external meaning is not expanded beyond the supplied material."
+      ]
+    },
+    {
+      "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+      "issue": "Documentary written consent and notice required for independent subtenant protection",
+      "jurisdiction": "Delhi, India",
+      "act": "Delhi Rent Control Act, sections 17 and 18",
+      "date_scope": "No general temporal threshold is stated in the supplied passage.",
+      "procedure_scope": "Supreme Court of India appeal concerning protection of a subtenant when the landlord obtains an eviction decree against the principal tenant.",
+      "adoption": "ADOPTED",
+      "conditions": [
+        {
+          "id": "c1",
+          "text": "The statutory protection is directed to subtenants genuinely inducted with the landlord's consent.",
+          "kind": "RULE",
+          "logic": "SINGLE",
+          "parent": null,
+          "quote": "The protection was afforded to sub-tenants who had been inducted into possession with the consent of the landlord."
+        },
+        {
+          "id": "c2",
+          "text": "Previous landlord consent must be in writing, and prescribed notice must be given to the landlord by the tenant or subtenant.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": "c1",
+          "quote": "the previous consent of the landlord has to be in writing and that a notice in the prescribed manner has to be given to the landlord by the tenant or the sub-tenant."
+        },
+        {
+          "id": "c3",
+          "text": "The writing must clearly show consent to creation of the subtenancy and the landlord's knowledge of that particular subtenancy after creation.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": "c2",
+          "quote": "The writing is to be such as to indicate clearly the consent of the landlord to the creation of a sub-tenancy and his knowledge of the particular sub-tenancy after its creation."
+        },
+        {
+          "id": "c4",
+          "text": "Consent and notice may appear in different documents or the same document; no special form is required, but the required matters must be evidenced by writing signed by the landlord and the tenant or subtenant.",
+          "kind": "RULE",
+          "logic": "QUALIFIES",
+          "parent": "c2",
+          "quote": "the essence of the matter is that the consent to the sub-tenancy and the notice of the sub-tenancy in respect of the premises must be evidenced by writing signed by the landlord and the tenant or the sub-tenant."
+        }
+      ],
+      "limitations": [
+        "The passage requires specific documentary consent and notice concerning the particular subtenancy, not blanket acceptance of any landlord signature.",
+        "This unit should be read with the separately supplied concurring caution."
+      ]
+    },
+    {
+      "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+      "issue": "Concurring caution on strict compliance with section 17 and the exceptional facts of the case",
+      "jurisdiction": "Delhi, India",
+      "act": "Delhi Rent Control Act, sections 17 and 18",
+      "date_scope": "The concurrence refers to notice within one month of creation of the subtenancy and to a letter dated 10 June 1975 in the exceptional case.",
+      "procedure_scope": "Supreme Court of India concurring opinion agreeing in the result while separately limiting the scope of section 17 relief.",
+      "adoption": "REPORTED",
+      "conditions": [
+        {
+          "id": "c1",
+          "text": "In the concurrence, a subtenant's special statutory right is circumscribed by the specific conditions in section 17.",
+          "kind": "RULE",
+          "logic": "SINGLE",
+          "parent": null,
+          "quote": "a subtenant is given a special right, not available to him under the general law, but that right is circumscribed by specific conditions laid down in section\n17."
+        },
+        {
+          "id": "c2",
+          "text": "In a normal case, relief requires both previous written landlord consent to creation of the subtenancy and prescribed notice by the subtenant within one month of creation.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": "c1",
+          "quote": "there must be the previous consent in writing by the land- lord, of the creation of the sub-tenancy and a notice in the prescribed manner by the sub-tenant of the creation of the sub-tenancy to the land-lord within one month of the date of such creation."
+        },
+        {
+          "id": "c3",
+          "text": "The concurrence states that section 18(1) consequences follow only when both section 17 conditions are satisfied.",
+          "kind": "CONDITION",
+          "logic": "AND",
+          "parent": "c2",
+          "quote": "It is only when these two conditions are satisfied that the consequences mentioned in cite25†section 18(1) will follow."
+        },
+        {
+          "id": "c4",
+          "text": "A landlord's signature on some tenancy-related communication does not, as a general rule, automatically establish the written consent required by section 17.",
+          "kind": "LIMITATION",
+          "logic": "QUALIFIES",
+          "parent": "c2",
+          "quote": "I should not, therefore, be understood to hold the view that, as a general rule, in all cases where the sub-tenant some- how secures the signature of the land-lord in some communication relating to tenancy, a consent in writing satisfying the requirements of the section is to be assumed."
+        },
+        {
+          "id": "c5",
+          "text": "The concurrence treated the actual case as exceptional and accepted relief despite absent strict compliance because of its peculiar facts and conduct.",
+          "kind": "EXCEPTION",
+          "logic": "QUALIFIES",
+          "parent": "c2",
+          "quote": "the appellants get relief from us, even though strict adherence to the conditions imposed under cite14†section 17 is absent."
+        }
+      ],
+      "limitations": [
+        "This is a concurring limitation that agrees in the result; it is reported separately and should not be treated as an independently universal majority exception.",
+        "The concurrence itself says the case is exceptional and that section 17 should normally be strictly complied with."
+      ]
+    }
+  ]
+}
+END_OF_INPUT G06

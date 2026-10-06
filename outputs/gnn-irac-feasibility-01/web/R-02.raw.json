@@ -1,0 +1,333 @@
+{
+  "batch_id": "R-02",
+  "reference_status": "MODEL_ASSISTED_NOT_HUMAN_GOLD",
+  "cases": [
+    {
+      "case_id": "1859043",
+      "chain_status": "USABLE",
+      "review_status": "SUPPORTED",
+      "dimensions": {
+        "issue": "SUPPORTED",
+        "rule": "SUPPORTED",
+        "conditions": "SUPPORTED",
+        "input_fact": "SUPPORTED",
+        "statement_status": "SUPPORTED",
+        "application_target": "SUPPORTED",
+        "leakage": "UNRESOLVED",
+        "conclusion_consistency": "SUPPORTED"
+      },
+      "findings": [
+        {
+          "dimension": "rule",
+          "object_ids": [
+            "LAW:S02:DRC14:1b",
+            "LAW:S02:DRC:16"
+          ],
+          "source_refs": [
+            "LAW:S02:DRC14:1b",
+            "LAW:S02:DRC:16"
+          ],
+          "quote": "without obtaining the consent in writing of the landlord",
+          "reason": "The supplied statutory text is sufficient for the fixed chain, although its own metadata says the historical consolidation is unverified. That provenance limitation does not, by itself, make the statutory condition unavailable.",
+          "severity": "LIMITATION"
+        },
+        {
+          "dimension": "leakage",
+          "object_ids": [
+            "b1",
+            "b2",
+            "b3",
+            "b4",
+            "b5",
+            "b6",
+            "b7",
+            "b8"
+          ],
+          "source_refs": [
+            "REVIEW_INSTRUCTION"
+          ],
+          "quote": "All candidate bindings were proposed with post-outcome access",
+          "reason": "No binding expressly imports the target disposition or the target court's final legal conclusion into an input fact, but the attachment states that the candidate bindings were constructed with post-outcome access. The chain is usable as a retrospective audited reference, not certified as independently blinded pre-outcome generation.",
+          "severity": "LIMITATION"
+        }
+      ],
+      "usable_condition_ids": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "reason": "The statutory elements are faithfully represented, the input side contains direct admissions and competing consent positions, and the target court expressly applies the written-consent requirement to the admitted 1963-1964 sublettings. The remaining provenance and historical-version concerns are limitations rather than chain-breaking gaps."
+    },
+    {
+      "case_id": "111425525",
+      "chain_status": "GAP",
+      "review_status": "DISPUTED",
+      "dimensions": {
+        "issue": "SUPPORTED",
+        "rule": "DISPUTED",
+        "conditions": "DISPUTED",
+        "input_fact": "DISPUTED",
+        "statement_status": "SUPPORTED",
+        "application_target": "SUPPORTED",
+        "leakage": "UNRESOLVED",
+        "conclusion_consistency": "SUPPORTED"
+      },
+      "findings": [
+        {
+          "dimension": "rule",
+          "object_ids": [
+            "c1_parting_with_possession"
+          ],
+          "source_refs": [
+            "IK-111425525:L193",
+            "IK-111425525:L194",
+            "IK-111425525:L195"
+          ],
+          "quote": "So long as the tenant keeps the control with him",
+          "reason": "The target court states a decisive legal-possession and retained-control test: mere use by others is insufficient while the tenant retains legal possession, and exclusive possession requires divestment of physical and legal possession. The proposal's sourced rule set does not carry that test into the rule layer.",
+          "severity": "BLOCKING"
+        },
+        {
+          "dimension": "conditions",
+          "object_ids": [
+            "c1_parting_with_possession",
+            "b5"
+          ],
+          "source_refs": [
+            "IK-111425525:L195",
+            "IK-111425525:L125",
+            "IK-111425525:L129"
+          ],
+          "quote": "he has been a partner in both the shops",
+          "reason": "The conduct condition preserves the statutory OR wording but does not operationalize the target court's retained-control distinction. The respondent's claimed partnership participation is therefore only weak evidence of retained control and cannot substitute for a condition expressly testing legal possession or control.",
+          "severity": "BLOCKING"
+        },
+        {
+          "dimension": "input_fact",
+          "object_ids": [
+            "f14",
+            "f15",
+            "c1_parting_with_possession",
+            "c2_post_1952_timing"
+          ],
+          "source_refs": [
+            "IK-111425525:L147",
+            "IK-111425525:L155",
+            "IK-111425525:L293"
+          ],
+          "quote": "Sh. Ramji Lal Goel was never authorised to operate the bank account",
+          "reason": "The frozen input only reports that partnership and bank records were produced; it does not contain their substantive contents. The target court materially relied on later-described 1992 retirement and bank-authority facts, so the first-ingredient application cannot be reconstructed from the existing input bindings without importing target-only material.",
+          "severity": "BLOCKING"
+        },
+        {
+          "dimension": "leakage",
+          "object_ids": [
+            "b1",
+            "b2",
+            "b3",
+            "b4",
+            "b5",
+            "b6",
+            "b7",
+            "b8",
+            "b9",
+            "b10"
+          ],
+          "source_refs": [
+            "REVIEW_INSTRUCTION"
+          ],
+          "quote": "All candidate bindings were proposed with post-outcome access",
+          "reason": "The bindings themselves retain pleading and source status rather than importing the final eviction result, but their post-outcome construction prevents certification as an independently blinded pre-outcome input set.",
+          "severity": "LIMITATION"
+        }
+      ],
+      "usable_condition_ids": [
+        "c2_post_1952_timing",
+        "c3_no_written_landlord_consent"
+      ],
+      "reason": "The issue and target result are correctly sourced, and the no-written-consent treatment preserves burden status. The chain remains unusable because the decisive exclusive-possession and retained-control test is absent from the rule/condition structure and because the target's parting-with-possession finding materially depends on substantive partnership and bank evidence omitted from the frozen input."
+    },
+    {
+      "case_id": "758831",
+      "chain_status": "GAP",
+      "review_status": "DISPUTED",
+      "dimensions": {
+        "issue": "SUPPORTED",
+        "rule": "DISPUTED",
+        "conditions": "DISPUTED",
+        "input_fact": "UNRESOLVED",
+        "statement_status": "SUPPORTED",
+        "application_target": "SUPPORTED",
+        "leakage": "UNRESOLVED",
+        "conclusion_consistency": "SUPPORTED"
+      },
+      "findings": [
+        {
+          "dimension": "rule",
+          "object_ids": [
+            "c5",
+            "LAW:V09:KR_BURDEN"
+          ],
+          "source_refs": [
+            "IK-758831:L82",
+            "IK-758831:L83",
+            "IK-758831:L95"
+          ],
+          "quote": "the law does not require such payment to be proved by affirmative evidence",
+          "reason": "The target court's decisive rule is that consideration need not be affirmatively proved and may be inferred from established exclusive possession. The proposed KR_BURDEN trigger instead requires a prima-facie showing of exclusive possession for valuable consideration before burden shift, so it does not faithfully capture the legal proposition actually used to reject the sole contention.",
+          "severity": "BLOCKING"
+        },
+        {
+          "dimension": "conditions",
+          "object_ids": [
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ],
+          "quote": "on or after the 9th day of June, 1952",
+          "reason": "The substantive statutory conditions are recognizable, but c1 is modeled as depending on c2 and c3 even though the conduct fact can exist independently of timing and consent. The overall ground is conjunctive; making the conduct element itself depend on the other elements is not a faithful logical decomposition.",
+          "severity": "BLOCKING"
+        },
+        {
+          "dimension": "input_fact",
+          "object_ids": [
+            "c2",
+            "c3",
+            "c5",
+            "f8"
+          ],
+          "source_refs": [
+            "IK-758831:L72",
+            "IK-758831:L76"
+          ],
+          "quote": "they have not recorded a positive finding that there was payment of consideration",
+          "reason": "The frozen input supplies lower-court subletting findings and the tenant's challenge, but it does not identify the subletting date, written-consent status, or an affirmative exclusive-possession/consideration fact. Those absences are concrete unresolved record gaps, not negative facts.",
+          "severity": "BLOCKING"
+        },
+        {
+          "dimension": "application_target",
+          "object_ids": [
+            "c1",
+            "ISSUE"
+          ],
+          "source_refs": [
+            "IK-758831:L96",
+            "IK-758831:L97"
+          ],
+          "quote": "we find no merit in this special Leave petition which is dismissed",
+          "reason": "The proposal appropriately does not promote the lower courts' subletting finding into a separate target factual finding merely because the Special Leave Petition was dismissed. The issue-level rejection is supported, while individual statutory elements may remain unresolved.",
+          "severity": "LIMITATION"
+        },
+        {
+          "dimension": "leakage",
+          "object_ids": [
+            "b1",
+            "b2",
+            "b3",
+            "b4"
+          ],
+          "source_refs": [
+            "REVIEW_INSTRUCTION"
+          ],
+          "quote": "All candidate bindings were proposed with post-outcome access",
+          "reason": "No direct target disposition is bound as an input fact, but the attachment expressly disclaims independent pre-outcome blinding of the candidate bindings.",
+          "severity": "LIMITATION"
+        }
+      ],
+      "usable_condition_ids": [
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "reason": "The proposal correctly preserves lower-court findings, the tenant's challenge, and the target court's issue-level rejection without converting dismissal into findings on every statutory element. It nevertheless has a blocking rule/logic defect: the decisive consideration-by-inference doctrine is not represented faithfully, and the conduct condition's dependencies are semantically inverted. The missing date and written-consent facts also prevent a complete auditable chain."
+    },
+    {
+      "case_id": "1381386",
+      "chain_status": "GAP",
+      "review_status": "DISPUTED",
+      "dimensions": {
+        "issue": "SUPPORTED",
+        "rule": "DISPUTED",
+        "conditions": "DISPUTED",
+        "input_fact": "SUPPORTED",
+        "statement_status": "SUPPORTED",
+        "application_target": "DISPUTED",
+        "leakage": "UNRESOLVED",
+        "conclusion_consistency": "SUPPORTED"
+      },
+      "findings": [
+        {
+          "dimension": "rule",
+          "object_ids": [
+            "c3",
+            "c5",
+            "c6"
+          ],
+          "source_refs": [
+            "IK-1381386:L148",
+            "IK-1381386:L149",
+            "IK-1381386:L150"
+          ],
+          "quote": "the admission made by Avtar Singh in the affidavit is inadmissible",
+          "reason": "The target disposition turns first on Evidence Act section 18: Avtar Singh's affidavit did not bind Gulzar Singh, was excluded, and the remaining evidence was insufficient. The proposal contains no sourced Evidence Act admissibility rule or corresponding condition, while its KR_BURDEN conditions are not the decisive legal test used by the target court.",
+          "severity": "BLOCKING"
+        },
+        {
+          "dimension": "conditions",
+          "object_ids": [
+            "c3",
+            "c6"
+          ],
+          "source_refs": [
+            "IK-1381386:L149",
+            "IK-1381386:L150"
+          ],
+          "quote": "Once that admission is excluded from consideration",
+          "reason": "The conduct and evidentiary-threshold conditions do not encode the admissibility dependency that determines whether the exclusive-possession evidence may be used at all. Without that dependency, the target path from affidavit to exclusion to failure of proof is only described in prose after the fact, not represented in the condition chain.",
+          "severity": "BLOCKING"
+        },
+        {
+          "dimension": "application_target",
+          "object_ids": [
+            "c3"
+          ],
+          "source_refs": [
+            "IK-1381386:L151"
+          ],
+          "quote": "It may be that Gulzar Singh had other business but that does not lead to the conclusion",
+          "reason": "The cited target passage supports the proposed reasoning, but the automatic audit marks the longer c3 quote from L151 as UNLOCATED because the source contains line-break hyphenation. The substantive attribution is to the target court, but the quote is not exact as stored.",
+          "severity": "LIMITATION"
+        },
+        {
+          "dimension": "leakage",
+          "object_ids": [
+            "b1",
+            "b2",
+            "b3",
+            "b4",
+            "b5",
+            "b6",
+            "b7",
+            "b8"
+          ],
+          "source_refs": [
+            "REVIEW_INSTRUCTION"
+          ],
+          "quote": "All candidate bindings were proposed with post-outcome access",
+          "reason": "The bindings preserve the conflicting lower findings and party argument rather than importing the Supreme Court's rejection, but the retrospective construction method precludes certification as independently blinded pre-outcome generation.",
+          "severity": "LIMITATION"
+        }
+      ],
+      "usable_condition_ids": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "reason": "The issue outcome and the target court's failure-of-proof treatment are substantively consistent, and the input preserves the conflicting lower findings plus the affidavit argument. The chain is still incomplete because it omits the decisive Evidence Act section 18 admissibility rule and dependency, substitutes a non-decisive burden formulation, and contains one non-exact target quote."
+    }
+  ]
+}

@@ -1,0 +1,1465 @@
+TASK L04
+Independently review only four authority USE proposals for EACH case. No external search. Do not answer the verdict. Use frozen criteria. Return exactly four reviews per case. Output each: {case_id,unit_id,action,category,reason,case_refs,law_quote}. action KEEP/CHANGE/UNKNOWN/ISOLATE. KEEP may reuse a valid prior quote/category but independently assess its actual bridge. CHANGE chooses CORE/BACKGROUND/IRRELEVANT; UNKNOWN category UNKNOWN. ISOLATE for technical/source-address uncertainty, not a negative label. law_quote must be an exact short substring of authority text (whitespace variations allowed); no ellipses. case_refs use current case addresses. A prior isolated record is not automatically restored: explicitly establish new category and valid evidence with CHANGE or retain ISOLATE. Missing old proposal may be reviewed with CHANGE. State the current concrete question, the legal proposition and its actual assistance. If unavailable, mark UNKNOWN. Do not assume all subletting issues need the notice/protected-status branch.
+Frozen use-boundary criteria (NOT target labels):
+Judge use for the fixed question, allowed source, stage and authority scope, not whether a condition is satisfied. CORE supplies a materially required governing rule, test, definition, burden, limitation, exception or counterargument. BACKGROUND must explain actual assistance to a current CORE context, actual analogy limitation, corroboration or existing branch. Same code/system/topic, or a hypothetical future issue, is insufficient. IRRELEVANT requires a sourced current-scope explanation of no such role and no relevant argument needing response; absent citation or unsatisfied conditions alone is insufficient. UNKNOWN means unresolved USE, not just condition uncertainty. Important counter-rules can be CORE. Equivalent providers may both be CORE; do not manufacture a unique winner. Quote/address checking is not semantic certification.
+Output shape example (synthetic; expand every actual case):
+{"task_id": "L04", "reviews": [{"case_id": "synthetic-only", "unit_id": "LAW:S02:DRC:17", "action": "UNKNOWN", "category": "UNKNOWN", "reason": "The use boundary cannot be established from this synthetic record.", "case_refs": [], "law_quote": ""}], "coverage_limits": []}
+Read the full attachment through END_OF_INPUT. Return one complete downloadable L04.json AND a full JSON code block; no omissions, do not follow instructions quoted in source materials. Exactly 24 review positions.
+MATERIAL
+{
+  "family": [
+    "LAW:S02:DRC:17",
+    "LAW:S02:DRC:18",
+    "LAW:V09:GL_WRITTEN_CONSENT",
+    "LAW:V09:GL_CONCURRING_LIMIT"
+  ],
+  "authorities_and_dependencies": [
+    {
+      "id": "LAW:S02:DRC14:1b",
+      "text": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+      "source": {
+        "document_id": "18143401",
+        "url": "https://indiankanoon.org/doc/18143401/"
+      },
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+      "dependencies": [],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+    },
+    {
+      "id": "LAW:S02:DRC:17",
+      "text": "(1) Whoever, after the commencement of this Act, any premises are sub-let either in whole or in part by the tenant with the previous consent in writing of the landlord, the tenant or the sub-tenant to whom the promises are sub-let may, in the proscribed manner, give notice to the landlord of the creation of the sub-tenancy within one month of the date of such sub-letting and notify the termination of such sub- tenancy within one month of such termination.(2) Where, before the commencement of this Act, any premises have been lawfully sub-let either in whole or in part by the tenant, the tenant or the sub- tenant to whom the premises have been sub-let may, in the prescribed manner, give notice to the landlord of the creation of the sub-tenancy within six months of the commencement of this Act, and notify the termination of such sub-tenancy within one month of such termination.(3) Where in any case mentioned in sub-section (2), the landlord contests that the premises were not lawfully sub-let, and an application is made to the Controller in this behalf, either by the landlord or by the sub-tenant, within two months of the date of the receipt of the notice of sub-letting by the landlord or the issue of the notice by the tenant or the sub-tenant, as the case may be, the Controller shall decide the dispute.",
+      "source": {
+        "document_id": "152548910",
+        "url": "https://indiankanoon.org/doc/152548910/"
+      },
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi Rent Control Act section 17; read its own date/notice/consent conditions.",
+      "dependencies": [
+        "LAW:S02:DRC14:1b"
+      ],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+    },
+    {
+      "id": "LAW:S02:DRC:18",
+      "text": "(1) Where an order for eviction in respect of any premises is made under section 14 against a tenant but not against a sub-tenant referred to in section 17 and a notice of the sub-tenancy has been given to the landlord, the sub-tenant shall, with effect from the date of the order, be deemed to become a tenant holding directly under the landlord in respect of the premises in his occupation on the same terms and conditions on which the tenant would have held from the landlord, if the tenancy had continued.(2) Where, before the commencement of this Act, the interest of a tenant in respect of any premises has been determined without determining the interest of any sub-tenant to whom the premises either in whole or in part had been lawfully sub-let, the sub-tenant shall, with effect from the date of the commencement of this Act, be deemed to have become a tenant holding directly under the landlord on the same terms and conditions on which the tenant would have held from the landlord, if the tenancy had continued.",
+      "source": {
+        "document_id": "152548910",
+        "url": "https://indiankanoon.org/doc/152548910/"
+      },
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi Rent Control Act section 18; read its own date/notice/consent conditions.",
+      "dependencies": [
+        "LAW:S02:DRC14:1b"
+      ],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+    },
+    {
+      "id": "LAW:V09:GL_WRITTEN_CONSENT",
+      "text": "Bearing these broad principles in mind if we now turn to the cite23†Delhi Rent Control Act , it is at once apparent that the Act is primarily devised to prevent unreasonable eviction of the tenants and sub-tenants from demised premises and unreasonable enhancement of rent. In particular, the purpose of cite14†sections 17 and cite15†18 is clearly to protect the sub-tenants from eviction where a landlord obtains a decree for eviction against the principal tenant.\nIn an action for eviction by a landlord against the principal tenant, the sub-tenant has no defence of his own under the ordinary law, even if he has been inducted into possession with the consent of the landlord. He has to go with the tenant. He can claim no right to sit in the premises apart and distinct from the right of the tenant. Showing an awareness of the problems of sub-tenants, the legislature enacted cite14†sections 17 and cite15†18 for their protection.\nThe protection was afforded to sub-tenants who had been inducted into possession with the consent of the landlord. While so extending a protecting hand to the sub-tenants who had genuinely obtained the consent of the landlord alone should be entitled to that protection.\nThe legislature wanted to prevent persons who had somehow managed to get into possession, having been inducted into such possession by the tenant or otherwise from putting forward baseless claims that they were inducted into possession with the consent of the landlord.\nSo the legislature while offering protection to a sub-tenant who has been inducted into possession by a landlord 396 has limited the protection to the sub-tenant who can establish the consent of the landlord by documentary evidence to which the landlord and the tenant or sub-tenant who can establish the consent of the landlord by documentary evidence to which the landlord and the tenant or sub-tenant are parties.\nSo it is provided that the previous consent of the landlord has to be in writing and that a notice in the prescribed manner has to be given to the landlord by the tenant or the sub-tenant.\nThe essence of the requirement, therefore, is that the consent of the landlord to the sub-tenancy and the notice of the creation of the sub-tenancy have to be evidenced by writing.\n\nThe writing is to be such as to indicate clearly the consent of the landlord to the creation of a sub-tenancy and his knowledge of the particular sub-tenancy after its creation.\nThe writing relating to the consent and the writing relation to the knowledge (notice) may be by different documents or they may telescope into the same document. Where, as in the present case, the agreement or the letter of the sub-tenancy in respect of the demised premises is attested by the landlord himself, there can be no question that the landlord has given his previous consent and that he has notice in writing of the sub-tenancy in respect of the particular premises. The requirements of cite14†sec.\n17 and cite15†18 both as regards to his consent and the notice to him are satisfied. There is no magical form in which the consent is to be given nor any charmed form in which the notice is to be sent. As we said, the essence of the matter is that the consent to the sub-tenancy and the notice of the sub-tenancy in respect of the premises must be evidenced by writing signed by the landlord and the tenant or the sub-tenant.",
+      "source": {
+        "document_id": "614998",
+        "url": "https://indiankanoon.org/doc/614998/",
+        "date": "1986-02-26",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-614998:L289",
+            "start": 0,
+            "end": 474
+          },
+          {
+            "id": "IK-614998:L290",
+            "start": 0,
+            "end": 475
+          },
+          {
+            "id": "IK-614998:L291",
+            "start": 0,
+            "end": 270
+          },
+          {
+            "id": "IK-614998:L292",
+            "start": 0,
+            "end": 269
+          },
+          {
+            "id": "IK-614998:L293",
+            "start": 0,
+            "end": 416
+          },
+          {
+            "id": "IK-614998:L294",
+            "start": 0,
+            "end": 188
+          },
+          {
+            "id": "IK-614998:L295",
+            "start": 0,
+            "end": 180
+          },
+          {
+            "id": "IK-614998:L296",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-614998:L297",
+            "start": 0,
+            "end": 177
+          },
+          {
+            "id": "IK-614998:L298",
+            "start": 0,
+            "end": 512
+          },
+          {
+            "id": "IK-614998:L299",
+            "start": 0,
+            "end": 429
+          }
+        ]
+      },
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC17 and18, independent subtenant protection",
+      "mechanisms": [
+        "written_consent",
+        "licence_sublease"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Specific documentary consent and notice; not blanket acceptance of any landlord signature. Read with separately retained concurring caution.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+    },
+    {
+      "id": "LAW:V09:GL_CONCURRING_LIMIT",
+      "text": "However, in the peculiar facts and circumstances of this case, where the conduct of the landlord is anything but wholesome, I agree with my learned brother in the order passed by him allowing the appeal. But, I would like to make my position clear regarding the scope and purpose of cite14†section 17 and cite15†18 of the Act.\nThe normal rule is that all rights created by a tenant disappear along with the disappearance of his tenancy unless there are special satisfactory safeguards for the sub- tenants. A sub-tenant has no independent existence de-hors the tenant who inducted him into possession. cite23†In the Act before us a subtenant is given a special right, not available to him under the general law, but that right is circumscribed by specific conditions laid down in section\n17. We have chosen to rescue the appellants before us only because of the hide and seek 398 conduct displayed by the so-called tenant and the so-called land-lord in this case. The facts speak for themselves. Even a man who runs can see that the so-called tenant in this case is the alter ego of the so-called land-lord. There is a total identification between the two.\nIt is their attempt to over reach the appellants by dubious methods that has, in fact, imperilled their case, and it is for this reason that the appellants get relief from us, even though strict adherence to the conditions imposed under cite14†section 17 is absent.\nIn normal case a sub-tenant under the Act can get relief under the provision of the Act only if he satisfies the twin conditions laid down in cite14†section 17 , viz., that there must be the previous consent in writing by the land- lord, of the creation of the sub-tenancy and a notice in the prescribed manner by the sub-tenant of the creation of the sub-tenancy to the land-lord within one month of the date of such creation.\nIt is only when these two conditions are satisfied that the consequences mentioned in cite25†section 18(1) will follow. I should not, therefore, be understood to hold the view that, as a general rule, in all cases where the sub-tenant some- how secures the signature of the land-lord in some communication relating to tenancy, a consent in writing satisfying the requirements of the section is to be assumed.\nIn this case, Messrs Om Prakash & Company and Balbir Nath Mathur have been hand in gloves with one another to defeat the appellants. It is the attestation by Balbir Nath Mathur on behalf of Messrs Om Prakash & Company in the letter dated June 10, 1975, that has found favour with us to assume consent in writing in the peculiar facts of the case. This, according to me, is an exceptional case with facts peculiar to its own.\nNormally, cite14†section 17 should be strictly complied with, for the sub-tenant to get the benefit under section\n18.",
+      "source": {
+        "document_id": "614998",
+        "url": "https://indiankanoon.org/doc/614998/",
+        "date": "1986-02-26",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-614998:L306",
+            "start": 0,
+            "end": 332
+          },
+          {
+            "id": "IK-614998:L307",
+            "start": 0,
+            "end": 463
+          },
+          {
+            "id": "IK-614998:L308",
+            "start": 0,
+            "end": 368
+          },
+          {
+            "id": "IK-614998:L309",
+            "start": 0,
+            "end": 268
+          },
+          {
+            "id": "IK-614998:L310",
+            "start": 0,
+            "end": 430
+          },
+          {
+            "id": "IK-614998:L311",
+            "start": 0,
+            "end": 411
+          },
+          {
+            "id": "IK-614998:L312",
+            "start": 0,
+            "end": 424
+          },
+          {
+            "id": "IK-614998:L313",
+            "start": 0,
+            "end": 116
+          },
+          {
+            "id": "IK-614998:L314",
+            "start": 0,
+            "end": 3
+          }
+        ]
+      },
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC17 and18",
+      "mechanisms": [
+        "written_consent"
+      ],
+      "legal_status": "CONCURRING_LIMITATION",
+      "coverage_limit": "KhalidJ concurs in result but stresses exceptional facts and normal strict twin conditions; preserve this status, not an independently universal majority exception.",
+      "dependencies": [
+        "LAW:V09:GL_WRITTEN_CONSENT"
+      ],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "52547606",
+      "question": "Which supplied authorities help analyze the live Delhi DRC1958s14(1)(b) issue shown by this allowed record, respecting the target procedural stage, rival assertions and scope limits? Do not predict the withheld target verdict.",
+      "stage": "HC_SUPERVISION",
+      "allowed_source": {
+        "case_id": "52547606",
+        "segments": [
+          {
+            "id": "IK-52547606:L67",
+            "text": "1 The order impugned before this Court is the judgment and decree dated 31.05.1989 passed by the Additional Rent Control Tribunal (ARCT) endorsing the finding of the Additional Rent Controller (ARC) dated 15.02.1986 whereby the eviction petition filed by the landlord Maheshwar Dayal (through legal representatives) seeking eviction of the tenant Shanti Devi (legal heirs of the original tenant) under cite10†Section 14 (1)(b) of the Delhi Rent Control Act (DRCA) had been dismissed. The CM (M) No."
+          },
+          {
+            "id": "IK-52547606:L68",
+            "text": "642/2010 Page 1 of 21 reasoning of the ARCT was however a reasoning different from that adopted by the ARC. Both the two Courts below had dismissed the eviction petition filed by the landlord."
+          },
+          {
+            "id": "IK-52547606:L69",
+            "text": "2 The aggrieved party is the landlord. He has filed this petition under cite11†Article 227 of the Constitution of India."
+          },
+          {
+            "id": "IK-52547606:L70",
+            "text": "At the outset, learned counsel for the respondent has pointed out that the right of second appeal as contained in cite12†Section 39 of the DRCA has since been abrogated and the powers of superintendence as contained under cite11†Article 227 of the Constitution are not the powers of an appellate forum; fact findings cannot be interfered with; unless and until there is a patent illegality or a manifest injustice which has been caused to one party qua the other, interference under the powers of superintendence are not called for."
+          },
+          {
+            "id": "IK-52547606:L71",
+            "text": "This legal position is undisputed."
+          },
+          {
+            "id": "IK-52547606:L72",
+            "text": "3 It is in this background that this petition shall be viewed. 4 Record shows that the landlord had filed an earlier eviction petition on 20.06.1963 (Suit No. 560/1963); this was on the ground of subletting; it was directed against Mohan Lal; contention was that Mohan Lal had sublet these premises to Anand Parkash; this petition was dismissed on 11.06.1966 by the ARC primarily on the ground that CM (M) No."
+          },
+          {
+            "id": "IK-52547606:L73",
+            "text": "642/2010 Page 2 of 21 notice prior to the filing of the eviction petition had not been sent to the tenant. Appeal preferred against this order was dismissed on 19.07.1970 by the ARCT. The view of the ARC that requirement of notice not having been complied with was endorsed; eviction petition of the landlord stood dismissed."
+          },
+          {
+            "id": "IK-52547606:L74",
+            "text": "5 On 01.02.1971, legal notice under cite10†Section 14 (1)(b) of the DRCA was served by the landlord upon the tenant (Ex.PW-7/2); contention was that the tenant Mohan Lal has sublet these premises to Anand Parkash and others including 'Parkash Trading Corporation' through Ram Parkash; eviction was accordingly prayed for."
+          },
+          {
+            "id": "IK-52547606:L75",
+            "text": "Reply to this legal notice was sent by the tenant on 25.02.1971 (Ex.PW-7/5); this contention was denied; stand of the tenant was that the premises in question had been taken on rent by Mohan Lal only for his son Anand Parkash and this was with the consent of the landlord who was living in the same premises and who was fully aware of the fact that Anand Parkash is carrying on the business from the said premises; there was no subletting. 6 Present eviction petition was thereafter filed on 03.04.1973."
+          },
+          {
+            "id": "IK-52547606:L76",
+            "text": "Premises in dispute is one Baithak in property bearing No. 1876, Haveli, Jugal Kishore, Gali Ghantewali, Chandni Chowk, Delhi which had been CM (M) No. 642/2010 Page 3 of 21 rented out to the tenant at a rent of `75/- per month excluding house-tax and other charges."
+          },
+          {
+            "id": "IK-52547606:L77",
+            "text": "Averments made in the legal notice were reiterated in the eviction petition; it was contended that Mohan Lal has sublet these premises to Anand Parkash and others including 'Parkash Trading Corporation' through Ram Parkash and also to 'Mohan Lal Anand Parkash' without the knowledge and consent of the petitioner. Needless to state that these averments were disputed."
+          },
+          {
+            "id": "IK-52547606:L78",
+            "text": "7 Oral and documentary evidence was led by the respective parties which included five witnesses examined on behalf of the landlord and six witnesses examined on behalf of the tenant. AW-4 had proved the electricity connection in the name of Mohan Lal; rent receipt was also in favour of Mohan Lal."
+          },
+          {
+            "id": "IK-52547606:L79",
+            "text": "AW-5 had proved the telephone record to show that M/s Parkash Trading Corporation had a telephone installed in the disputed premises up to 21.05.1963 whereafter the firm was dissolved and the telephone was thereafter shifted from the said premises. Attention has been drawn to that part of the testimony of AW-5 wherein he has stated that the premises had been taken on rent by Mohan Lal for the business of his son. The tenant had produced six witnesses. Anand Parkash, the son of Mohan Lal was examined RW-5."
+          },
+          {
+            "id": "IK-52547606:L80",
+            "text": "He was a partner CM (M) No. 642/2010 Page 4 of 21 in the firm M/s Anand Parkash Ganga Prasad; prior thereto he was the sole proprietor of 'Mohan Lal Anand Parkash' which business was closed in 1952; further deposition being to the effect that the landlord was living in the same premises and he very well knew that Anand Praksh was carrying on his business from the disputed premises; counter-foils of rent receipts Ex. AW-7/11 to Ex."
+          },
+          {
+            "id": "IK-52547606:L81",
+            "text": "AW-7/19 were proved showing the same to be either in the name of Mohan Lal or by Anand Parkash on behalf of Mohan Lal. Partnership deed of M/s Parkash Trading Corporation Ex. RW-5/X13 was proved substantiating the averment that Anand Parkash was a partner in the said firm; thereafter this firm was dissolved and another partnership deed was executed Ex.RW-5/X15."
+          },
+          {
+            "id": "IK-52547606:L82",
+            "text": "8 The ARC on the basis of the oral and documentary evidence had returned a finding that it was the deceased Mohan Lal who was the tenant in the premises but since Anand Parkash was carrying on business in these premises from the very beginning which was also admitted by the landlord, no inference of parting with possession/subletting/assignment by Mohan Lal in favour of Anand Parkash could be made; the landlord was well aware of the fact that CM (M) No."
+          },
+          {
+            "id": "IK-52547606:L83",
+            "text": "642/2010 Page 5 of 21 Anand Parkash was carrying on his business from the disputed premises as he used to see Anand Parkash in the premises as he himself was living in the same premises; the ground of subletting was not made out in favour of the landlord. This eviction petition was dismissed. 9 An appeal was preferred before the ARCT."
+          },
+          {
+            "id": "IK-52547606:L84",
+            "text": "The ARCT had examined oral and documentary evidence and drew a conclusion that the tenant was Mohan Lal; he had parted with possession of the premises in favour of his son Anand Parkash who was carrying on business in the same premises; ground of subletting under cite10†Section 14 (1)(b) stood confirmed in favour of the landlord."
+          },
+          {
+            "id": "IK-52547606:L85",
+            "text": "Mohan Lal had died during the pendency of the eviction proceedings and the premises being commercial premises and Anand Parkash being the son and legal heir of deceased Mohan Lal had inherited this tenancy from his father; the judgment of Gian Devi Vs. Jiwan Kaur, AIR 1985 SC 796 was relied upon to return a finding that such a tenant i.e. Anand Parkash being in possession of the premises in the capacity as legal representative of deceased father Mohan Lal, he could not be evicted from the suit premises."
+          },
+          {
+            "id": "IK-52547606:L86",
+            "text": "Petition of the landlord accordingly stood dismissed. 10 This judgment is the subject matter of present proceedings before CM (M) No. 642/2010 Page 6 of 21 this Court."
+          },
+          {
+            "id": "IK-52547606:L87",
+            "text": "On behalf of the petitioner, vehement arguments had been addressed; his contention is that ARCT has returned a finding in favour of the landlord holding that a ground of subletting is made out; once that stood established the protective umbrella of inheritable tenancy could not be granted to the tenant as the tenant at best could only step into the shoes of his deceased father; once the father has been found guilty of having contravened the provisions of cite10†Section 14 (1)(b) of the DRCA and a right had accrued in favour of the landlord, no better right could accrue in favour of the legal representative/son of tenant and as such Anand Parkash is liable to be evicted forthwith."
+          },
+          {
+            "id": "IK-52547606:L88",
+            "text": "Reliance has been placed upon a judgment of the Apex Court reported as AIR 2003 Supreme Court 1863 cite13†Imdad Ali Vs Keshav Chand and Others to support this argument; contention being that the heirs of deceased tenant could only step into the shoes of deceased tenant and all rights and obligations of the deceased tenant devolved upon such a tenant; the original tenant admittedly having been contravened the provisions of cite10†Section 14 (1)(b) of the DRCA, no better right could accrue in favour of his legal representative."
+          },
+          {
+            "id": "IK-52547606:L89",
+            "text": "Learned counsel for the petitioner has pointed out that the judgment relied upon by the RCT in Civil Revision No. CM (M) No. 642/2010 Page 7 of 21 1877/1987 Ram Sarup (deceased) represented by Harish Kumar & Another VS. Lal Chand & Others is a half page judgment which judgment was at best per-incuriam; it is not a ratio which can per-se be made applicable to the present case."
+          },
+          {
+            "id": "IK-52547606:L90",
+            "text": "11 Per contra, the respondent submits that the evidence recorded in the court below both oral and documentary has in fact established that a case of sub-letting was not made out and the findings of the ARC on this ground which was the first fact finding returned on reasoned grounds could not be interfered with by the RCT which has to hear an appeal under cite14†Section 38 of the DRCA only on a substantial question of law."
+          },
+          {
+            "id": "IK-52547606:L91",
+            "text": "The submission of the respondent being that ground under cite10†Section 14 (1)(b) was not established; further submission being that the present petition has even otherwise been filed in the year 1973 when admittedly even as per the case of the petitioner, the sub-tenancy was created in the year 1950; bar of limitation is also applicable. To support this submission reliance has been placed upon cite15†AIR 1987 SC 2016 Ganpat Ram Sharma and Others VS. Smt. Gayatri Devi , AIR 1987 SC 2230 Kashi Ram Vs."
+          },
+          {
+            "id": "IK-52547606:L92",
+            "text": "Rakesh Arora and cite16†JT 1995 (5) S.C. 296 Mukri Gopalan Vs. Cheppilat Puthanpurayil Aboobacker ; submission being that cite17†Article CM (M) No. 642/2010 Page 8 of 21 66 of the cite18†Limitation Act, 1963 contemplates a period of 12 years for filing of a suit for possession by a landlord against his tenant which period has long since expired; subletting as per the case of the landlord is of the year 1950 and the present petition having been filed on 03.04.1973 i.e."
+          }
+        ]
+      },
+      "old_proposals": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:17",
+            "reason": "Delhi DRC Act §17 supplies meaningful context for lawful sub-tenancy by requiring prescribed notice and addressing contested pre-Act subletting, but the allowed record does not identify a §17 notice by the tenant or alleged sub-tenant.",
+            "law_quote": "give notice to the landlord of the creation of the sub-tenancy",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-52547606:L75",
+              "IK-52547606:L91",
+              "IK-52547606:L92"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:18",
+            "reason": "Delhi DRC Act §18 explains when a qualifying sub-tenant may become a direct tenant after an eviction order, but the record frames Anand Parkash's later status as inheritance from Mohan Lal and supplies no §17-notice basis for §18 protection.",
+            "law_quote": "be deemed to become a tenant holding directly under the landlord",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-52547606:L84",
+              "IK-52547606:L85"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+            "reason": "The Supreme Court's 1986 Delhi §§17-18 passage explains documentary written consent and notice for independent subtenant protection; that is meaningful context for the tenant's claim of landlord consent, but it addresses §§17-18 rather than directly deciding the §14(1)(b) father-son possession issue.",
+            "law_quote": "The essence of the requirement, therefore, is that the consent of the landlord to the sub-tenancy and the notice of the creation of the sub-tenancy have to be evidenced by writing.",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-52547606:L75",
+              "IK-52547606:L82",
+              "IK-52547606:L85"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "state": "ISOLATED",
+          "record": {
+            "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+            "reason": "The concurring Supreme Court passage limits the unusual relief in that §§17-18 case and stresses normal compliance with the statutory consent-and-notice conditions; it is useful cautionary context, but the exceptional collusion facts and §17 posture are absent here.",
+            "law_quote": "Normally, section 17 should be strictly complied with",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-52547606:L75",
+              "IK-52547606:L85"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "191402169",
+      "question": "Which supplied authorities help analyze the live Delhi DRC1958s14(1)(b) issue shown by this allowed record, respecting the target procedural stage, rival assertions and scope limits? Do not predict the withheld target verdict.",
+      "stage": "ARC_TRIAL",
+      "allowed_source": {
+        "case_id": "191402169",
+        "segments": [
+          {
+            "id": "IK-191402169:L73",
+            "text": " This is an application under clause (a) and (b) of the proviso to sub-section (1) of cite10†section 14 of the Delhi Rent Control Act, 1958 (hereinafter referred to as 'the Act 59 of 1958') made by applicant against respondents for recovery of possession of premises i.e. shop bearing No. 1897, Main Bazar, Chandni Chowk, Delhi-110006 more specifically shown red in the site plan annexed with the application."
+          },
+          {
+            "id": "IK-191402169:L74",
+            "text": "2. It is stated in the application that that the petitioner is the landlord of the premises No. 1897, Main Bazar, Chandni Chowk, Delhi which was that out for commercial purposes to the respondent at the monthly rent of Rs. 550/- per month. That the respondents have failed to pay or tender the rent w.e.f. 1.8.2002 at the rate of Rs."
+          },
+          {
+            "id": "IK-191402169:L75",
+            "text": "500/- per month within two months of the services of the notice of demand dated 4.8.2007 alongwith interest and after the expiry of 3 days from the service of the notice under cite11†Section 6-A of the DRC Act at the rate of Rs.550/- per month w.e.f. 1.7.2007 onwards. The respondent has sub-let, assigned or otherwise parted with the possession of the premises under the tenancy of the respondent to a Wine merchant and wine and bear shop is being run in the premises in dispute."
+          },
+          {
+            "id": "IK-191402169:L76",
+            "text": "The said sub-letting, assigning or parting with the possession of the suit premises has been done by the respondents without obtaining the consent in writing of the petitioner after 9th day of June, 1952. Notice dated 4.6.2007 was served upon the respondents. A reply to the notice dated 11.6.2007 was received. The copy of the original notice, and original reply is enclosed herewith."
+          },
+          {
+            "id": "IK-191402169:L77",
+            "text": "The premises in dispute is situated E-559/14/11 2/14 in an area declared to be slum area and necessary permission from the Competent Authority, Slum has been obtained vide order dated 10.3.2010. Bank A/c No of petitioner is SB A/C No. 26657, Bank Of India, Hamdard Branch Lal Kuan, Delhi. It is, therefore, prayed that an eviction order in respect of the premises in dispute i.e. shop bearing No."
+          },
+          {
+            "id": "IK-191402169:L78",
+            "text": "1897, Main Bazar, Chandni Chowk, Delhi-110006 more specifically shown red in the annexed plan, may be passed in favour of the petitioner and against the respondents with cost of the present petition."
+          },
+          {
+            "id": "IK-191402169:L79",
+            "text": "3. The application of eviction is contested by the respondents by way of a written statement of defence. That the petition as filed by the petitioner is without any cause of action and hence the same is liable to be dismissed under order VII Rule 11 of the code of Civil Procedure. That the present petition has been filed without any just cause and reasons and the same is a gross mis-use of the legal process of law and hence the same is not maintainable in the eyes of the law."
+          },
+          {
+            "id": "IK-191402169:L80",
+            "text": "It is mis-conceived and has been filed just to humiliate and harass the answering respondents. The allegations made in the petition are vexatious and meritless and dies not disclose the clear right to sue and hence, the same is liable to be dismissed. That the petition has been filed just to harass he answering respondents as the answering respondents are in legal possession of the suit property for the last more than 50 years."
+          },
+          {
+            "id": "IK-191402169:L81",
+            "text": "That the petition is not maintainable at all which is totally based on wrong, false and incorrect information. That the present petition is not maintainable in view of the fact that the respondents have not sub-letted the suit property to the DTDC and the respondent is E-559/14/11 3/14 gaining commission from the sale and purchase of the liquor from the suit property and the relationship of the respondent and the DTDC is merely a lessor and lessee."
+          },
+          {
+            "id": "IK-191402169:L82",
+            "text": "It is specifically denied that the respondents have failed to pay or tender the rent w.e.f. 1.8.2002 at the rate of Rs. 500/- per month within two months of the services of notice of demand dt. 4.8.2007 alongwith interest as alleged. It is submitted that earlier Smt."
+          },
+          {
+            "id": "IK-191402169:L83",
+            "text": "Zubida Khatoon was owner and landlady of the tenanted premises and the rent was paid by the respondents to her and thereafter the father of the petitioner claimed himself owner of the tenanted premises and started accepting the rent from the respondents, which was regularly paid to him through cheques. After his death, the petitioner started claiming to be the only owner of the tenanted premises."
+          },
+          {
+            "id": "IK-191402169:L84",
+            "text": "The respondents requested to the petitioner to give the details and particulars of all the legal heirs of the deceased Shikh Mohd. Yusuf but the petitioner avoided to give the same to the respondents despite repeated requests made by the respondents with the petitioner. The respondents sent a cheque of rent amounting to Rs."
+          },
+          {
+            "id": "IK-191402169:L85",
+            "text": "8000/- (Rupees eight thousand only) upto July, 2002 with the condition for encashing the said cheque only after the necessary information alongwith the documents regarding the legal heirs of the deceased Sheikh Mohd. Yusuf were furnished by the petitioner to the respondent but with malafide intention, the petitioners encashed the said cheque. However, till date, no particulars and details of the legal heirs of deceased Sheikh Mohd. Yusuf have been furnished by the petitioners to the respondent."
+          },
+          {
+            "id": "IK-191402169:L86",
+            "text": "Therefore the intention of the petitioner is malafide. It is further submitted that till the E-559/14/11 4/14 petitioner provides the complete information regarding the other legal heirs of the deceased Sheikh Mohd. Yusuf alongwith other documentary proof, the petitioner is not entitled to claim the rent from the respondent."
+          },
+          {
+            "id": "IK-191402169:L87",
+            "text": "It is denied that the respondent has sub-let, assigned or otherwise parted with the possession of the premises under the tenancy of the respondent to a Wine Merchant or Wine or bear shop is being run in the premises in dispute as alleged. It is denied that the said sub-letting, assigning or parting with the possession of the suit premises has been done by the respondents without obtaining the consent in writing of the petitioner after 9th of June, 1952 as alleged."
+          },
+          {
+            "id": "IK-191402169:L88",
+            "text": "It is submitted that the wine or bear shop is being run in the tenanted shop since 1985 on license basis given by the respondents without paying of rent with the permission of deceased landlord Sheikh Mohd. Yusuf , who was duly informed by the respondents in this regard and that is why during the life-time, he never protested or initiated any legal action against the respondents in this regard. Hence, all the allegations made in the para under reply regarding the alleged sub- letting etc."
+          },
+          {
+            "id": "IK-191402169:L89",
+            "text": "are not only false but the allegations made are motivated and have been leveled with malafide intention and ulterior motives by the petitioner in order to create false eviction ground against the respondents. Even otherwise, it is submitted that the legal possession of the tenanted premises is with the respondents."
+          },
+          {
+            "id": "IK-191402169:L90",
+            "text": "It is submitted that the shop in question is under the possession of wine shop by virtue of License Deed executed between DTTDC and the respondents and it has been agreed by the DTTDC to pay the monthly commission on the sale of liquor in the shop E-559/14/11 5/14 and not rent as fixed or either paid by DTTDC. The agreement is license and not a lease."
+          },
+          {
+            "id": "IK-191402169:L91",
+            "text": "The legal possession of the shop is with the respondent and DTTDC is only a licensee and is being permitted to use the shop for selling the wine as stated above, and hence, therefore, there is no question of Sub-letting, assigning or parting with the possession of the shop by the respondents to the wine shop as alleged by the petitioner. The allegations made in this regard are mis-conceived and not sustainable in the eyes of law."
+          },
+          {
+            "id": "IK-191402169:L92",
+            "text": "It is therefore most respectfully prayed that this Hon'ble Court may be pleased to dismiss the petition of the petitioner with costs and special compensatory costs as provided under cite12†section 35-A of the CPC."
+          },
+          {
+            "id": "IK-191402169:L93",
+            "text": "4. A replication has been filed by the applicant to the written statement of the respondents wherein the averments made in the application for eviction have been reiterated whereas the defence taken by the respondents in their written statement are traversed."
+          },
+          {
+            "id": "IK-191402169:L94",
+            "text": "5. After completion of pleadings and hearing counsel for the parties concerned an order under cite13†section 15(1) of Act 59 of 1958 was passed whereby the respondents were directed to clear the arrears of rent and further directed to pay or deposit the monthly rent month by month."
+          },
+          {
+            "id": "IK-191402169:L95",
+            "text": "6. In support of his case, the applicant got examined himself as PW-1 Sheikh Mohd. Iqbal and during his examination in chief tendered his affidavit Ex.PW1/A alongwith documents Ex.PW-1 to Ex.PW-1 and Ex.PW-7 and he was duly cross-examined by counsel for the respondents and thereafter, evidence on behalf of the applicant was closed."
+          },
+          {
+            "id": "IK-191402169:L96",
+            "text": "7. In support of their case the respondents got examined RW1 E-559/14/11 6/14 Mr. Anil Kalra who during his examination in chief tendered his affidavit Ex.RW1/A alongwith document Ex.RW1/1 and he was cross-examined by counsel for the applicant. The respondents also got examined RW-2 summoned witness from DTTDC and this witness was also cross- examined by the counsel for the petitioner. Thereafter, evidence on behalf of the respondents was closed."
+          }
+        ]
+      },
+      "old_proposals": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:17",
+            "reason": "The supplied Delhi Rent Control Act s17 reproduction is meaningful context because it regulates notice for a subtenancy created with prior written consent. Respondents claim landlord permission, but the allowed record shows no s17 notice or independent subtenant-protection claim.",
+            "law_quote": "with the previous consent in writing of the landlord",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-191402169:L88",
+              "IK-191402169:L90"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:18",
+            "reason": "The supplied Delhi Rent Control Act s18 reproduction concerns consequences after an eviction order for a qualifying notified subtenant. At the allowed procedural stage evidence has closed, and no eviction order or s17 notice is supplied.",
+            "law_quote": "Where an order for eviction in respect of any premises is made under section 14",
+            "category": "IRRELEVANT",
+            "case_refs": [
+              "IK-191402169:L94",
+              "IK-191402169:L95",
+              "IK-191402169:L96"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+            "reason": "This as-reported Supreme Court Delhi s17/s18 passage is meaningful background on what qualifies as written consent to a particular subtenancy. The live s14(1)(b) record includes asserted landlord permission, but it supplies no s17 notice or independent subtenant-protection issue.",
+            "law_quote": "the previous consent of the landlord has to be in writing",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-191402169:L76",
+              "IK-191402169:L88"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+            "reason": "This supplied Supreme Court concurrence limits the s17/s18 consent discussion and stresses normal strict compliance with its conditions. It is useful only as a qualification to that background because the allowed record does not present an independent s17/s18 subtenant-protection claim.",
+            "law_quote": "previous consent in writing by the land- lord",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-191402169:L76",
+              "IK-191402169:L88"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "183917167",
+      "question": "Which supplied authorities help analyze the live Delhi DRC1958s14(1)(b) issue shown by this allowed record, respecting the target procedural stage, rival assertions and scope limits? Do not predict the withheld target verdict.",
+      "stage": "ARC_TRIAL",
+      "allowed_source": {
+        "case_id": "183917167",
+        "segments": [
+          {
+            "id": "IK-183917167:L70",
+            "text": "1. By this judgment, I will dispose off the present eviction petition filed on behalf of M/s Chandra Associates Pvt Ltd, through its Director Sh Vinod Singhal against the respondents under cite9†section 14 (1) (b) of Delhi Rent Control Act 1958, thereby praying that an order of eviction be passed in their favour and against the respondents in respect of premises no.A­15A, Hauz Khas, N. Delhi, specifically shown in red color in the site plan Evi. Ptn No."
+          },
+          {
+            "id": "IK-183917167:L71",
+            "text": "6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 1/15 (hereinafter referred to as the \"suit shop/premises\") on the ground of unauthorized and illegal occupation."
+          },
+          {
+            "id": "IK-183917167:L72",
+            "text": "2. Brief case of the petitioner as per eviction petition is that suit premises was previously owned by Dr. Ramesh Kumar Gupta and he sold the same to petitioner vide registered sale deed and thereafter, petitioner became the absolute owner and said facts were brought to the notice of respondents by the petitioner after the purchase of the suit property."
+          },
+          {
+            "id": "IK-183917167:L73",
+            "text": "As per petitioner, he approached respondent no.1 to handover the vacant and peaceful possession of premises but respondent failed to do so despite repeated requests and demands. As per petitioner, respondent no.1 had illegally, unauthorizedly and without the written consent of previous owner landlord Dr."
+          },
+          {
+            "id": "IK-183917167:L74",
+            "text": "Ramesh Kumar Gupta sublet/assigned/parted with possession of premises comprising of two bedroom, drawing/dining, bathroom, English style WC, kitchen and open verandah on the front side of first floor attached to respondent no.2 and thus respondent no.2 is unauthorizedly and illegally occupying the premises. As per petitioner, respondent no.1 had no right to sublet the premises to respondent no.2 and is thus, legally liable to handover the vacant and peaceful possession of premises to the petitioner."
+          },
+          {
+            "id": "IK-183917167:L75",
+            "text": "3. It is averred that respondent no.1 Mrs Krishna Gupta was the tenant earlier in the suit premises under Dr. Ramesh Kumar Gupta at monthly rent of Rs.1500/­ exclusive of water and electricity charges and she subsequently unauthorizedly and illegally sublet the premises to respondent no.2 in the year 1981 without the consent of previous owner landlord. As per petitioner, notice was served upon respondents to handover the vacant and peaceful possession of the suit premises but to no avail."
+          },
+          {
+            "id": "IK-183917167:L76",
+            "text": "Hence, the present eviction petition under cite9†section 14 (1) (b) of the DRC Act against the respondents inter alia praying that eviction order be passed against the respondents in respect of suit premises i.e. A­15A, Hauz Khas, N. Delhi."
+          },
+          {
+            "id": "IK-183917167:L77",
+            "text": "Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 2/15"
+          },
+          {
+            "id": "IK-183917167:L79",
+            "text": "4. No Written Statement was ever filed on behalf of respondent no.1 and she was proceeded exparte."
+          },
+          {
+            "id": "IK-183917167:L80",
+            "text": "5. Written Statement was filed on behalf of respondent no.2 alleging that petition is not maintainable in view of the fact that respondent no.2 was inducted as a tenant in the suit premises by Ramesh Gupta through Smt Krishna Gupta and Tarsem Parkash Gupta but he was not being issued a proper rent receipt nor any rent agreement was executed by the parties on the pretext that Ramesh Gupta is not in India and the same will be executed on his arrival."
+          },
+          {
+            "id": "IK-183917167:L81",
+            "text": "It is stated that Tarsem Gupta was duly authorized vide registered general power of attorney dated 26.08.1976 and on the basis of said power of attorney, respondent no.2 was inducted on 21.05.1981 as a tenant on monthly rent of Rs.1400/­ exclusive of electricity and water charges."
+          },
+          {
+            "id": "IK-183917167:L82",
+            "text": "It is stated that respondent no.2 is occupying two bed rooms, one toilet, one drawing­cum­dining room and a kitchen on first floor of premises with complete terrace of building and a separate passage on the ground floor leading to first floor and space for car parking on ground floor."
+          },
+          {
+            "id": "IK-183917167:L83",
+            "text": "It is stated that Ramesh Gupta visited India three­four times but written agreement could not be executed and instead of issuing proper written receipts, respondent no.1 Smt Krishna Gupta and Mr Tarsem Gupta used to issue receipts as paying guest and subsequently, respondent no.2 objected to and these objections were not acceded to, he was left with no option but to go to court of law for fixation of standard rent and for order for issuance of proper rent receipts etc."
+          },
+          {
+            "id": "IK-183917167:L84",
+            "text": "It is further stated that when notice of petition was served upon Ramesh Gupta, Krishna Gupta and Tarsem Gupta, they came to respondent no.2 and assured that an agreement will be entered into and proper rent receipts will be issued and in pursuance thereto, a lease agreement was executed between the parties on 05.08.1983 and thereafter, Krishna Gupta and Tarsem Gupta started issuing written receipts."
+          },
+          {
+            "id": "IK-183917167:L85",
+            "text": "Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 3/15"
+          },
+          {
+            "id": "IK-183917167:L86",
+            "text": "6. It is stated that respondent no.2 again filed a suit for fixation of standard rent as even in spite of agreement, Ramesh Gupta, Krishna Gupta and Tarsem Gupta started harassing the respondent no.2 and asked to increase the rent without any rhyme or reason."
+          },
+          {
+            "id": "IK-183917167:L87",
+            "text": "It is further averred that in the second petition filed under cite10†section 6 & cite11†9 of the DRC Act, respondents therein filed written statement and they accepted the execution of lease deed dated 05.08.1983 between parties, which confirms that respondent Arun Chopra is legal tenant of Ramesh Gupta through Krishna Gupta and Tarsem Gupta and as such, petition is liable to be rejected on this ground."
+          },
+          {
+            "id": "IK-183917167:L88",
+            "text": "7. As per respondent no.2, a notice was issued by Income Tax Department qua fraudulent deal between Ramesh Gupta and M/s Chandra Associates, which fact was covered in newspaper Statesman dated 10.05.1987 and endorsement was to respondent no.2 herein. It is stated that respondent no.2 submitted his reply on 22.05.1989 to said notice."
+          },
+          {
+            "id": "IK-183917167:L89",
+            "text": "It is stated that Krishna Gupta and Tarsem Gupta also submitted their statement in pursuance of aforesaid notice wherein they have admitted that the respondent no.2 is tenant of Sh Ramesh Gupta through them in the aforesaid premises. It is claimed that respondent no.2 was and is a tenant in premises in question since 1981. It is alleged that there is no cause of action for petitioner to file present petition."
+          },
+          {
+            "id": "IK-183917167:L90",
+            "text": "8. As per respondent, M/s Chandra Associates has no interest in property and are not the owner of property, however it is admitted that M/s Chandra Associates have written a letter to respondent no.2 that they have purchased the property from Ramesh Gupta and at present they are the owner and respondent no.2 should pay damages but they have failed to produce any title document."
+          },
+          {
+            "id": "IK-183917167:L91",
+            "text": "It is stated that tenancy of respondent no.2 was never terminated and as such, he is a legal tenant in suit property and Chandra Associates have no legal right to ask the respondent no.2 to vacate Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 4/15 the premises on any ground. It is alleged that petitioner is unauthorized occupant and a tresspasser in the property and as such, has no locus standi to file present petition."
+          },
+          {
+            "id": "IK-183917167:L92",
+            "text": "It is alleged that site plan as supplied, is not depicting the correct position as per site and lease deed."
+          },
+          {
+            "id": "IK-183917167:L93",
+            "text": "9. It is denied that M/s Chandra Associates are the landlord of suit property. It is further denied that name and address of tenant is Krishan Gupta, 446, Sainik Farm, New Delhi. It is alleged that Krishna Gupta was never a tenant in property rather she alongwith her husband who was power of attorney holder of said property, were / are the representatives of Ramesh Gupta."
+          },
+          {
+            "id": "IK-183917167:L94",
+            "text": "It is further denied that respondent no.1 unauthorizedly and without consent of previous landlord, Ramesh Gupta sublet the premises to respondent no.2. It is claimed that respondent no.2 is occupying the premises as a tenant with due knowledge and consent of Ramesh Gupta and rent is being taken by Smt Krishna Gupta or Tarsem Gupta on behalf of Ramesh Gupta which fact has already been admitted in Inquiry Report filed before Income Tax Officer."
+          },
+          {
+            "id": "IK-183917167:L95",
+            "text": "It is alleged that when respondent no.2 was out of station, the so called landlord also created unauthorized construction in the premises. It is further denied that premises were let out to respondent no.1 by Dr Ramesh Gupta and thereafter and respondent no.1 sublet it to respondent no.2 on monthly rent of Rs.1500/­ exclusive of water and electricity charges."
+          },
+          {
+            "id": "IK-183917167:L96",
+            "text": "It is stated that Ramesh Gupta while going abroad had given the keys of whole premises no.A­15A, Hauz Khas to his brother Tarsem Gupta and his sister­in­law Smt Krishna Gupta duly authorizing them with GPA. It is alleged that petitioner has suppressed material facts."
+          },
+          {
+            "id": "IK-183917167:L97",
+            "text": "10. It is further denied that premises in occupation were sold to petitioner by previous owner Ramesh Gupta. It is alleged that transaction of property was also questioned as being illegal and Income Tax Department was interested to occupy the premises as certain dues were to be cleared to Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 5/15 Income Tax Department and the deal between Ramesh Gupta and petitioner attracted FERA violations."
+          },
+          {
+            "id": "IK-183917167:L98",
+            "text": "It is reiterated that premises were let out to respondent no.2 by respondent no.1 and Tarsem Gupta under authority/instructions of Ramesh Gupta. It is alleged that petitioner raised unauthorized and illegal construction over the property and encroached upon terrace portion in possession of respondent no.2. It is alleged that the contents of petition are totally false and frivolous. All other averments are denied. It is prayed that the present petition may be dismissed."
+          },
+          {
+            "id": "IK-183917167:L99",
+            "text": "11. Replication was filed by the petitioner to the WS of respondent no.2, denying the objections raised by respondent no.2. It is alleged that averments raised by respondent no.2 are malafide, concocted and baseless. Averments of petition were reiterated."
+          },
+          {
+            "id": "IK-183917167:L100",
+            "text": "12. It is stated that Tarsem Gupta is stranger to present case. It is denied that Tarsem Gupta had any right to induct respondent no.2 as tenant in premises. It is stated that if at all, there is any power of attorney in favour of said Tarsem Gupta, the same is nothing but a forged document. It is admitted that rent receipts were issued by respondent no.1 who inducted the respondent no.2 into the premises unauthorizedly and illegally and without written consent of earlier owner of property."
+          },
+          {
+            "id": "IK-183917167:L101",
+            "text": "It is stated that neither Ramesh Gupta nor petitioner executed any agreement with respondent no.2 and any other agreement executed with respondent no.2 by any other person has no legal value. It is further denied that Ramesh Gupta started harassing the respondent no.2. It is further denied that Ramesh Gupta accepted the respondent as tenant in his written statement rather respondent no.1 accepted respondent no.2 as tenant."
+          },
+          {
+            "id": "IK-183917167:L102",
+            "text": "It is further denied that there was any fraudulent deal with Sh Ramesh Gupta and petitioner. It is stated that notice from Income Tax Department has nothing to do with present case and secondly, if any false statement is made by respondent no.2 before any Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 6/15 authority same does not bind petitioner to accept the same. It is further denied that petitioner has no interest in property or is not owners of same."
+          },
+          {
+            "id": "IK-183917167:L103",
+            "text": "It is further denied that petitioner is unauthorized occupant and tresspasser. It is further denied that respondent no.2 is in occupation of two bed room, one toilet, one drawing and dining room with a kitchen on first floor with complete terrace of building and a separate passage on the ground floor leading to first floor and space for car parking on the ground floor. It is reiterated that respondent no.2 is illegal and unauthorized occupant of premises."
+          },
+          {
+            "id": "IK-183917167:L104",
+            "text": "It is further denied that respondent no.2 has been occupying the premises since May 1981 as tenant of Ramesh Gupta. It is further denied that Ramesh Gupta executed any power of attorney in favour of Smt Krishna Gupta and Sh Tarsem Gupta on any alleged date. It is stated that said document is forged. It is stated that rent taken by Smt Krishna Gupta or Tarsem Gupta is illegal."
+          },
+          {
+            "id": "IK-183917167:L105",
+            "text": "It is stated that Ramesh Gupta never inducted or accepted respondent no.2 as tenant in the said property and in fact, respondent no.1 who was a tenant of Ramesh Gupta, illegally and unauthorizedly inducted respondent no.2 as tenant without the written consent of Ramesh Gupta. It is further denied that site plan filed is not correct. It is further denied that petitioner carried out any unauthorized construction in the premises."
+          },
+          {
+            "id": "IK-183917167:L106",
+            "text": "It is stated that petitioner being the rightful owner of property has every right to carry out the construction in the above property. It is further denied that Ramesh Gupta while going abroad gave keys of his premises to his brother and sister­in­law with alleged power of attorney. It is further denied that petitioner unauthorizedly locked the main gate of premises. All other objections have been denied and the averments of the petition has been reiterated."
+          },
+          {
+            "id": "IK-183917167:L107",
+            "text": "13. Thereafter, evidence by way of affidavit of Vinod Singhal, Director of Chandra Associates was filed on 25.09.2002 and documents were even Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 7/15 exhibited as per the affidavit. Following documents were exhibited vide said affidavit:­"
+          },
+          {
+            "id": "IK-183917167:L109",
+            "text": "a) copy of sale deed as registered document no.6883 and no.6884 in additional book no.1, volume no.5576, page 36­42 dated 11/12.08.1986 as Mark A and Mark A1"
+          },
+          {
+            "id": "IK-183917167:L111",
+            "text": "b) site plan as Ex.P1"
+          },
+          {
+            "id": "IK-183917167:L112",
+            "text": "c) receipts dated 08.03.1986 and 23.11.1983 as Mark C & Mark B"
+          },
+          {
+            "id": "IK-183917167:L114",
+            "text": "d) carbon copy of notice to provide documents dated 09.02.1999 as Ex.P2 and reply thereto as Ex.P3"
+          },
+          {
+            "id": "IK-183917167:L116",
+            "text": "e) photocopy of power of attorney dated 26.05.1976 executed by Dr Ramesh Gupta as Mark D and copy of agreement dated 05.08.1983 between respondent no.1 & 2 as Mark E."
+          },
+          {
+            "id": "IK-183917167:L117",
+            "text": "f) certified copy of petition no. SR­36/85 filed by Arun Chopra against Smt Krishna Gupta and other for fixation of standard rent alongwith memo of parties as Ex.P5 and certified copy of WS dated 11.02.1986 by respondent no.1 & 2 as Ex.P6."
+          },
+          {
+            "id": "IK-183917167:L119",
+            "text": "g) certified copy of WS dated 10.09.1995 by respondent no.3 to amended petition in above case as Ex.P7"
+          },
+          {
+            "id": "IK-183917167:L120",
+            "text": "h) certificate copy of order dated 04.03.1995 of Ld ARC disposing of two applications, one under Order I Rule 10 CPC and another under Order 22 Rule 10 CPC on behalf of Chandra Associates as Ex.P8"
+          },
+          {
+            "id": "IK-183917167:L122",
+            "text": "i) copy of WS dated July 1986 filed by Dr Ramesh Kumar Gupta already Ex.P5"
+          },
+          {
+            "id": "IK-183917167:L124",
+            "text": "j) Form no.32 of cite12†Companies Act dated 08.09.1987 as Mark F and copy of resolution of Company dated 09.11.1990 as Mark G"
+          },
+          {
+            "id": "IK-183917167:L125",
+            "text": "k) Form no.32 of Companies Act dated 08.09.1987 as Mark H and Form no.32 of the Companies Act dated 25.09.1987 as Mark I and Form no.32 of the Companies Act dated 08.09.1987 as Mark J."
+          },
+          {
+            "id": "IK-183917167:L128",
+            "text": "14. Thereafter, petitioner examined summoned witness Mr Surender Kumar, LDC, Sub Registrar­III, Asaf Ali Road as PW2 who brought the original sale deed (earlier Mark A) and exhibited the same as Ex.PW2/1. He also brought sale deed (earlier Mark A­1) and exhibited the same as Ex.PW2/2. This witness was duly cross examined."
+          },
+          {
+            "id": "IK-183917167:L129",
+            "text": "15. Thereafter, petitioner examined summoned witness Mr L S Dhik, Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 8/15 JTA, Registrar of Companies, Lodhi Road as PW3 (wrongly mentioned as AW3) who brought the summoned record. He deposed that as per records, Chandra Associates Pvt Ltd was incorporated on 26.05.1986. Photocopy thereof is Mark X."
+          },
+          {
+            "id": "IK-183917167:L130",
+            "text": "He further deposed that in 1986, as per their record, there were two Directors in the petitioner company namely Mrs Manju Rani Mital and Mr Mahender Kumar. He further deposed that Vinod Singhal was appointed as Director w.e.f. 01.09.1989."
+          },
+          {
+            "id": "IK-183917167:L131",
+            "text": "16. Thereafter, Mr. Manoj Singhal, Director M/s Chandra Associates Pvt Ltd was examined as PW1. He tendered his evidence by way of affidavit Ex.PW1/A and relied upon following documents :­"
+          },
+          {
+            "id": "IK-183917167:L133",
+            "text": "a) sale deed dated 11/12 August 1986 already Ex.PW2/2,"
+          },
+          {
+            "id": "IK-183917167:L135",
+            "text": "b) site plan as Ex.PW1/1,"
+          },
+          {
+            "id": "IK-183917167:L137",
+            "text": "c) copy of legal notice dated 09.02.1999 already Ex.P2,"
+          },
+          {
+            "id": "IK-183917167:L139",
+            "text": "d) reply to the said legal notice dated 16.02.1999 already Ex.P3,"
+          },
+          {
+            "id": "IK-183917167:L141",
+            "text": "e) certified copy of the earlier petition filed by respondent no.2 alongwith memo of parties already Ex.P6,"
+          },
+          {
+            "id": "IK-183917167:L142",
+            "text": "f) certified copy of WS already Ex.P7,"
+          },
+          {
+            "id": "IK-183917167:L144",
+            "text": "g) certified copy of amended WS already Ex.P8,"
+          },
+          {
+            "id": "IK-183917167:L146",
+            "text": "h) certified copy of order dated 04.03.1995 already Ex.P9,"
+          },
+          {
+            "id": "IK-183917167:L148",
+            "text": "i) certified copy of WS of respondent no.3 Ramesh Kumar as Ex.PW1/10,"
+          },
+          {
+            "id": "IK-183917167:L150",
+            "text": "j) resolution dated 09.11.1990 as Ex.PW1/12,"
+          },
+          {
+            "id": "IK-183917167:L152",
+            "text": "k) Form No. 32 of the cite12†Companies Act dated 10.08.1987, dated 18.08.1987, dated 20.08.1987 and 01.09.1989 as Ex. PW1/11, Ex.PW1/13, Ex.PW1/14 & Ex.PW1/15 (all OSR),"
+          },
+          {
+            "id": "IK-183917167:L154",
+            "text": "l) certified copy of resolution dated 06.07.2008 as Ex.PW1/16."
+          },
+          {
+            "id": "IK-183917167:L155",
+            "text": "17. This witness was cross examined by counsel for respondent no.2."
+          },
+          {
+            "id": "IK-183917167:L157",
+            "text": "During his cross­examination, he admitted the document Mark D & Mark E Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 9/15 which is mentioned in para 5 of his affidavit. Thereafter, PE was closed on 23.09.2017 and respondent no.2 was given opportunity to lead evidence."
+          },
+          {
+            "id": "IK-183917167:L158",
+            "text": "18. Respondent no.2 examined summoned witness Mr Rajinder Singh, Record Attendant, Department of Archives as R2W2 who brought the summoned record i.e. sale deed dated 31.10.1967 executed by Mr Krishnamachari K V in favour of Ramesh Kumar Gupta. Certified copy thereof is Ex.R2W2/1. He has also brought the record of sale deed dated 29.01.1987 executed by Ved Prakash Gupta HUF in favour of Vinod Singhal. Certified copy thereof is Ex.R2W2/2."
+          },
+          {
+            "id": "IK-183917167:L159",
+            "text": "He has also brought GPA dated 26.08.1976 executed by Dr Ramesh Kumar Gupta in favour of Tarsem Prakash. Copy of same is Ex.R2W2/3. Witness was cross examined and discharged."
+          },
+          {
+            "id": "IK-183917167:L160",
+            "text": "19. Thereafter, respondent no.2 examined summoned witness Mr L Baxla, Judicial Assistant, Ahlmad posted in the court of Dr Ajay Gulati, Ld. ADJ­02, South, Saket Courts who brought case file PC No.5917/2016 titled as cite13†Pawan Kumar Gupta Vs State Ors and exhibited the order dated 18.11.2015 as Ex.R2W3/A (OSR). He has also exhibited the above Probate Petition consisting of 1 to 20 pages as Ex.R2W3/B (OSR) (colly). Witness was cross examined and discharged."
+          },
+          {
+            "id": "IK-183917167:L161",
+            "text": "20. Thereafter, respondent no.2 examined summoned witness Mr Naresh Kaushik, Judicial Assistant, Record Room Criminal, South, Saket Courts who brought case file bearing FIR No.664/1999, PS Hauz Khas, u/s 342/147/149 cite14†IPC titled as cite15†State vs Manoj Kumar . He compared the certified copy of chargesheet and report under cite16†section 173 Cr.P.C. of SHO Hauz Khas dated 23.01.2001 with file and exhibited the same as Ex.R2W4/A (colly) (OSR)."
+          },
+          {
+            "id": "IK-183917167:L162",
+            "text": "He also compared the certified copies of statement of Sandeep Kumar, S/o Shiv Kumar, statement of Manoj Kumar, S/o Shiv Kumar, statement of Jai Mal Singhal, W/o Sh. Shiv Kumar, statement of Evi. Ptn No. 6087/16 M/s Chandra Associates Pvt Ltd Vs Smt Krishna Gupta & Anr Page 10/15 Poonam Singhal, W/o Sandeep Kumar, statement of Gopal Bansal, S/o Jwala Prasad, statement of Ashish Chankun, APP, statement of Captain Arun Chopra, S/o late Sh."
+          },
+          {
+            "id": "IK-183917167:L163",
+            "text": "Amolak Ram Chopra, statement of all accused persons, all dated 25.04.2011, which are found to be same. Same are Ex.R2W4/B (colly) (OSR). This witness was cross examined and discharged."
+          },
+          {
+            "id": "IK-183917167:L164",
+            "text": "21. Evidence affidavit of respondent no.2 Arun Chopra was filed on 25.10.2017, however he never tendered his evidence. On 15.02.2019, the counsel for respondent no.2 stated that respondent evidence may be closed. Same was closed accordingly."
+          }
+        ]
+      },
+      "old_proposals": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:17",
+            "reason": "Delhi Rent Control Act s17 gives meaningful context if respondent no.2's occupation were treated as a sub-tenancy, because it links written consent to prescribed notice and a Controller dispute mechanism; the record instead principally asserts direct tenancy, and the supplied reproduction's historical version is unverified.",
+            "law_quote": "give notice to the landlord of the creation of the sub-tenancy within one month",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-183917167:L80",
+              "IK-183917167:L84",
+              "IK-183917167:L87",
+              "IK-183917167:L94"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:18",
+            "reason": "Delhi Rent Control Act s18 supplies downstream context on when a qualifying sub-tenant can become a direct tenant after an eviction order, but it does not determine whether the alleged 1981 occupation was an unauthorized subletting in the first place; the statutory reproduction's historical version is unverified.",
+            "law_quote": "the sub-tenant shall, with effect from the date of the order, be deemed to become a tenant",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-183917167:L80",
+              "IK-183917167:L84",
+              "IK-183917167:L94"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+            "reason": "This Supreme Court Delhi authority on ss17-18 materially assists the disputed documentary-consent issue because respondent no.2 relies on a 1983 lease and prior written admissions while the petitioner denies owner authorization; it requires writing that clearly evidences consent to and knowledge of the particular sub-tenancy, though its immediate holding concerns subtenant protection under ss17-18.",
+            "law_quote": "the consent of the landlord to the sub-tenancy and the notice of the creation of the sub-tenancy have to be evidenced by writing",
+            "category": "CORE",
+            "case_refs": [
+              "IK-183917167:L84",
+              "IK-183917167:L87",
+              "IK-183917167:L89",
+              "IK-183917167:L94",
+              "IK-183917167:L100"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+            "reason": "Justice Khalid's concurrence supplies an important limitation on the companion Delhi ss17-18 authority by stressing that ordinary cases require prior written consent and prescribed notice and that the result there was exceptional; as a concurrence tied to unusual facts, it is contextual rather than independently decisive here.",
+            "law_quote": "In normal case a sub-tenant under the Act can get relief under the provision of the Act only if he satisfies the twin conditions",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-183917167:L84",
+              "IK-183917167:L87",
+              "IK-183917167:L94"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "489898",
+      "question": "Which supplied authorities help analyze the live Delhi DRC1958s14(1)(b) issue shown by this allowed record, respecting the target procedural stage, rival assertions and scope limits? Do not predict the withheld target verdict.",
+      "stage": "HC_SECOND_APPEAL",
+      "allowed_source": {
+        "case_id": "489898",
+        "segments": [
+          {
+            "id": "IK-489898:L43",
+            "text": "(1) The appellant had sought eviction against the respondent on the ground of sub-letting, 17 sub-tenants were imp leaded beside the tenant Onkar Nath. In this appeal the challenge is primarily any against the observations of the Tribunal whereby he declined to hold that there was sub-letting of the premises in favour of four persons, namely, S/Shri Dewan Chand Gupta, Kirori Mal, Babu Prasad and Madan Singh."
+          },
+          {
+            "id": "IK-489898:L44",
+            "text": "The grievance of the appellant is that no written consent was taken by the tenant to induct sub-tenants which is a pre-requirement under cite8†Section 14(1)(b) of Delhi Rent Control Act (in short the Act). That the Tribunal fell in error in presuming that there was an implied consent because of the rent note dated 12/03/1959. In the absence of any notice of creation of sub-tenancy by the sub-tenants petition of the appellant ought to have been allowed and eviction order passed."
+          },
+          {
+            "id": "IK-489898:L45",
+            "text": "(2) In order to appreciate the challenge, the brief facts of the case are that Shri Onkar Nath was inducted as tenant of the whole of the building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi on a monthly rent of Rs. 112.74 paise. The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952. The respondent took the plea that sub-tenants already occupying the premises as of right."
+          },
+          {
+            "id": "IK-489898:L46",
+            "text": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta were in occupation prior to the creation to tenancy in favour of Onkar Nath by the then owner/landlord Shri Inder Narain. This fact, according to the respondent, finds mention in the rent note executed between him, Inder Nath, Dewan Chand and Kirori Mal. The terms of the rent note were accepted by all of them."
+          },
+          {
+            "id": "IK-489898:L47",
+            "text": "The said rent note was executed on 12/03/1959, the learned Additional Rent Controller (in short the ARC) on the basis of the evidence on record concluded that there was no sub-letting in favour of Jyoti Prasad, Suresh Chand, Babu Prasad,Madan Lal, M/s. Mahalakshmi Saree Bhandar, Mahalakshmi Saree Kendra, Gupta Sales Corporation etc. He held that the occupation of the other sub-tenants wasunauthorised."
+          },
+          {
+            "id": "IK-489898:L48",
+            "text": "Further that these persons claimed their right through two subtenants who were admittedly in possession on the date of creation of tenancy and the same was with the consent of the landlord. Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b) of cite8†Section 14(1) of the Act, therefore, passed the order of eviction against them."
+          },
+          {
+            "id": "IK-489898:L49",
+            "text": "RentControl Tribunal in appeal upheld the contention of Additional Rent Controller with regard to alleged sub-letting in favour of Jyoti Parsad and Suresh Chand.Regarding Babu Parsad and Madan Lal it was held that they were not residing in the portion of the premises. Therefore, there was no question of sub-letting on theircount. Similarly, with regard to M/s. Mahalakshmi Saree Bhandar."
+          },
+          {
+            "id": "IK-489898:L50",
+            "text": "Tribunal held that since there was genuine partnership and the person occupying the premises was partner hence there was no question of sub-letting. After discussion the legal and factual position, the Tribunal reversed the judgment of the learned ARC. He dismissed the eviction petition, (3) The landlord has come up in second appeal thereby assailing the finding of the Tribunal on the ground that the evidence led with regard to the subletting had not been correctly appreciated by the Tribunal. Mr."
+          },
+          {
+            "id": "IK-489898:L51",
+            "text": "Ramesh Chandra,Senior Advocate appearing for the appellant contended that the rent note exhibit RW 4/7 could not treated an implied consent of the landlord to create sub-tenancy.According to him, cite9†Delhi Rent Control Act stipulates two things namely a written note by the tenant when he wanted to sub-let and consent of the landlord for subletting in writing. But in this case no such notice or creation of sub-tenancy was given to the landlord. In fact, according to Mr."
+          },
+          {
+            "id": "IK-489898:L52",
+            "text": "Ramesh Chandra, a specific consent to sublet in writing has to be shown by the sub-tenant. Having not shown and mere reliance on an unapproved document could not have been relied upon by theTribunal. Similarly, notice under cite10†Section 17 of the Act had also to be proved. To support his contention he placed reliance on the decision of this Court in the case of Daulat Singh v. RajenderKumar, 1993 Rlr page 591, and Girdhari Lal v. BalbirMathur, 1986 Rlr page 484."
+          },
+          {
+            "id": "IK-489898:L53",
+            "text": "In this case it was held that the essence of therequirement, therefore, is that the consent of the landlord to the sub-letting and notice of the creation of the Sub-letting have to be evidenced bywriting. The writing has to indicate clearly the consent of the landlord to the creation of a sub-tenancy and his knowledge of the particular sub-tenancy after its creation."
+          },
+          {
+            "id": "IK-489898:L54",
+            "text": "The writing relating to the consent and the writing relating to the knowledge (notice) may be different documents or they may telescope into the same document. But both are missing in this case. He, therefore, further contended that unregistered lease deed like Exhibit RW4/7permittingletting to the associate cannot be looked into. Putting another person in occupation of the premises amounts to parting with possession.Neither Mr. Dewan Chand nor Kirori Mal were associates of the tenant."
+          },
+          {
+            "id": "IK-489898:L55",
+            "text": "They were different entities. They were paying rent to the tenant for their occupation,therefore, it amounts to sub-letting which was not permissible under law. The unregistered rent note dated 12/03/1959 could not be relied upon by the Tribunal."
+          },
+          {
+            "id": "IK-489898:L56",
+            "text": "(4) To support his contentions Mr. Ramesh Chandra placed reliance on the decision of the Supreme Court in the case of cite11†Bajaj Auto Ltd. v. Behari Lal Kohli,1989 Rlr (SC ) page 386. In cite11†Bajaj Auto Ltd. 's case (supra) Supreme Court observed that before sub-letting tenant must obtain consent in writing to the specific subletting. Mr. Ramesh Chandra, therefore, contended that permission in general terms as is apparent from Exhibit Rw 4/7 cannot be treated as a requirement under cite8†Section 14(1)(b) ."
+          },
+          {
+            "id": "IK-489898:L57",
+            "text": "Similarly notice by a sub-tenant is a must in order to become a tenant of the landlord. In this regard he placed reliance on the decision of cite12†Murari Lal v. Abdul Ghaffur, Ilr (1974) 1 Delhi 45. In the case of JugalKishore v. Rajindra Prasad & Ors., , it was held that even if the landlord has knowledge of sub-tenancy it cannot protect the sub-tenant as the consent of the landlord in writing is a must."
+          },
+          {
+            "id": "IK-489898:L58",
+            "text": "The essence of the above discussion is that the consent of the landlord to the sub-letting and the notice of the creation of the sub-letting have to be evidenced by writing. In this regard reference was made to various judgments, namely, Duli Chand v. JagminderDass, cite13†South Asia Industries v. Sardar Sarup Singh , , and RajaRam v. Ashok Kumar, 1975 Rcj page 534."
+          }
+        ]
+      },
+      "old_proposals": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:17",
+            "reason": "Delhi DRC s17 directly addresses notice of a subtenancy created with previous written consent, which the appellant expressly says was missing. Its notice regime is distinct from the text of s14(1)(b), but materially bears on the live notice/protection contention; the supplied reproduction's historical version is unverified.",
+            "law_quote": "give notice to the landlord of the creation of the sub-tenancy within one month",
+            "category": "CORE",
+            "case_refs": [
+              "IK-489898:L44",
+              "IK-489898:L51",
+              "IK-489898:L52",
+              "IK-489898:L57"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:18",
+            "reason": "Delhi DRC s18 gives downstream protection when an eviction order is made against the tenant but a qualifying notified subtenant remains, so it explains why s17 notice matters. It does not itself establish the s14(1)(b) eviction ground on this record, and the supplied reproduction's historical version is unverified.",
+            "law_quote": "a notice of the sub-tenancy has been given to the landlord",
+            "category": "BACKGROUND",
+            "case_refs": [
+              "IK-489898:L52",
+              "IK-489898:L57"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+            "reason": "The Supreme Court's 1986 Delhi DRC ss17-18 passage directly addresses the appellant's cited proposition that both specific written consent and written notice/knowledge of the particular subtenancy may be evidenced by one or separate writings. It concerns subtenant protection rather than adding text to s14(1)(b), but materially bears on the live rent-note and notice dispute.",
+            "law_quote": "the consent of the landlord to the sub-tenancy and the notice of the creation of the sub-tenancy have to be evidenced by writing",
+            "category": "CORE",
+            "case_refs": [
+              "IK-489898:L52",
+              "IK-489898:L53",
+              "IK-489898:L54",
+              "IK-489898:L57",
+              "IK-489898:L58"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+            "reason": "The 1986 Supreme Court concurrence under Delhi DRC ss17-18 materially limits any broad reading of the companion holding by stressing the normal strict twin conditions of previous written consent and prescribed notice. Its status is a concurring limitation tied to exceptional facts, which is directly relevant to the appellant's reliance on those conditions.",
+            "law_quote": "should be strictly complied with",
+            "category": "CORE",
+            "case_refs": [
+              "IK-489898:L52",
+              "IK-489898:L53",
+              "IK-489898:L54",
+              "IK-489898:L57"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "14884716",
+      "question": "Which supplied authorities help analyze the live Delhi DRC1958s14(1)(b) issue shown by this allowed record, respecting the target procedural stage, rival assertions and scope limits? Do not predict the withheld target verdict.",
+      "stage": "HC_SUPERVISION",
+      "allowed_source": {
+        "case_id": "14884716",
+        "segments": [
+          {
+            "id": "IK-14884716:L63",
+            "text": ">  1. The present petition filed under cite12†Article 227 of the Constitution of India impugns the order dated 20.01.2023 passed by the Principal District and Session Judge, Saket Courts, New Delhi ('Rent Control Tribunal') in RCT No. 04/2022 titled as \"M/s Gobind Parshad Jagdish Parshad v."
+          },
+          {
+            "id": "IK-14884716:L65",
+            "text": " Canara Bank\" whereby, the Rent Control Tribunal allowed the eviction petition filed by Respondent No. 1 under cite13†Section 14(1)(b) of the Delhi Rent Control Act, 1958 ('cite14†DRC Act ')."
+          },
+          {
+            "id": "IK-14884716:L66",
+            "text": " 1.1. The Petitioner herein was arrayed as Respondent No. 5 in the appeal filed by Respondent No. 1 i.e., the landlord."
+          },
+          {
+            "id": "IK-14884716:L67",
+            "text": " 1.2. The eviction petition was filed by the Respondent No. 1 on the assertion that its tenant Canara Bank i.e., Respondent No. 2 has let out the Signature Not Verified Digitally Signed CM(M) 380/2023 Page 1 of 13 By:Rashmi Dabas Signing Date:20.10.2023 10:34:02 different portions of the property bearing No. H-61, H Block, Gobind Mansion, Connaught Circus, New Delhi ('subject property') to five (5) sub- tenants without the knowledge and authority of the landlords."
+          },
+          {
+            "id": "IK-14884716:L68",
+            "text": "It was stated that the sub-letting is unauthorized and in violation of the lease agreement dated 27.03.1944. Respondent Nos. 3 to 6 are the remaining four (4) sub- tenants."
+          },
+          {
+            "id": "IK-14884716:L69",
+            "text": " 1.3. The Rent Control Tribunal by its impugned order dated 20.01.2023 held that Respondent No. 2, Canara Bank has sub-let the subject property to the sub-tenants including the Petitioner herein unlawfully as no consent in writing of the landlord was obtained."
+          },
+          {
+            "id": "IK-14884716:L70",
+            "text": " 1.4. It would be pertinent to observe at the outset that in pursuance to the impugned order dated 20.01.2023; Respondent No. 2 i.e., Canara Bank (the original tenant) has accepted the order and vacated the premises. Similarly, the remaining 4 sub-tenants (i.e., Respondent Nos. 3 to 6) have also accepted the said order and vacated the portions of the subject property, which were under their control and possession."
+          },
+          {
+            "id": "IK-14884716:L71",
+            "text": " 1.5. In this regard, it would be relevant to note that the remaining sub- tenants i.e., Respondent Nos. 3 to 6 herein had filed an independent petition CM(M) 336/2023 against the impugned order dated 20.01.2023, which was dismissed by a Coordinate Bench of this Court by a judgement dated 12.04.2023 and in pursuance thereof the said sub-tenants have vacated their portion of the subject property."
+          },
+          {
+            "id": "IK-14884716:L72",
+            "text": "The Court in its judgment dated 12.04.2023 held that the sub-letting was in violation of the clause 4 of the lease agreement dated 27.03.1944 and the sub-tenants were liable to be evicted in pursuance to the impugned order dated 20.01.2023 passed by the Rent Controller."
+          },
+          {
+            "id": "IK-14884716:L73",
+            "text": "Signature Not Verified Digitally Signed CM(M) 380/2023 Page 2 of 13 By:Rashmi Dabas Signing Date:20.10.2023 10:34:02"
+          },
+          {
+            "id": "IK-14884716:L75",
+            "text": " 2. The Petitioner herein is thus, only remaining sub-tenant i.e., United India Insurance Co. Ltd., which is resisting its eviction."
+          },
+          {
+            "id": "IK-14884716:L76",
+            "text": " 3. The learned counsel for the Petitioner has sought to distinguish his case from the remaining sub-tenants by relying upon additional documents, which have been filed in this petition with CM APPL. 11364/2023. He states that due to these documents the findings of the Coordinate Bench in judgement dated 12.04.2023 are not applicable."
+          },
+          {
+            "id": "IK-14884716:L77",
+            "text": " 3.1. He states that with this application, he seeks leave to place reliance on the letters dated 14.02.2001, 26.02.2001 and 29.05.2001 to contend that Respondent No. 1, landlord had due notice of the fact that the subject property has been sub-let to the Petitioner herein by Respondent No. 2, the original tenant i.e., Canara Bank. He states that in view of this knowledge, the Petitioner herein is entitled to protection against eviction under cite15†Section 18 of the DRC Act."
+          },
+          {
+            "id": "IK-14884716:L78",
+            "text": " 3.2. He states that these documents were found just before the filing of the present petition and are relevant for evidencing the knowledge of the landlord, as regards, the sub-letting in favour of the Petitioner herein. He states that the sub-letting in the favour of Petitioner herein is in the year, 1944."
+          },
+          {
+            "id": "IK-14884716:L79",
+            "text": " 3.3. He states that the Petitioner herein is not required to give any statutory notice to the landlord with respect to the creation of the sub-tenancy in its favour within the meaning of cite16†Section 17 of the DRC Act."
+          },
+          {
+            "id": "IK-14884716:L80",
+            "text": " 4. In reply, the learned counsel for the Respondents states that in the first instance, all issues raised in this petition are covered by the judgement dated 12.04.2023 passed by a Coordinate Bench of this Court in CM(M) 336/2023 with respect to the other sub-tenants; and this Court should not differ from Signature Not Verified Digitally Signed CM(M) 380/2023 Page 3 of 13 By:Rashmi Dabas Signing Date:20.10.2023 10:34:02 the said judgement as the facts in these cases are identical. 4.1."
+          },
+          {
+            "id": "IK-14884716:L81",
+            "text": "He states that CM APPL. 11364/2023 filed by the Petitioner for bringing on record the additional documents is without any merits. He states that the Petitioner did not file any written statement in the eviction proceedings."
+          },
+          {
+            "id": "IK-14884716:L82",
+            "text": "He states that the stand, which is now sought to be urged in this petition that the landlord had knowledge of sub-tenancy and is therefore, entitled to protection under cite15†Section 18 of DRC Act was never raised in the Courts below and therefore deserved to be rejected on this ground alone. 4.2."
+          },
+          {
+            "id": "IK-14884716:L83",
+            "text": "He states that in fact in the written statement filed by Respondent No.2 i.e., Canara Bank and the other sub-tenants, the said parties had categorically denied that the premises had been sub-let by the original tenant. He refers to the written statement dated 29.03.2010 filed by Respondent No. 2, Canara Bank and the written statement dated 06.05.2010 filed by Respondent No.6 i.e., Canara Bank Employee Union before the Rent Controller."
+          },
+          {
+            "id": "IK-14884716:L84",
+            "text": "The relevant portion of the written statement dated 29.03.2010 filed by Respondent No.2, Canara Bank reads as under:-"
+          },
+          {
+            "id": "IK-14884716:L85",
+            "text": ">  \"5. Contents of para No.5 of the petition are wrong, are not admitted and are denied. It is denied that the premises has been sub-let by the respondent No.1· in favour of the respondents No. 2 to 6."
+          },
+          {
+            "id": "IK-14884716:L87",
+            "text": ">  xxx xxx xxx"
+          },
+          {
+            "id": "IK-14884716:L88",
+            "text": ">  16. Contents of para No.16 of the petition are wrong, are not admitted and are denied. In view of the facts stated in the foregoing paras and as stated herein after, it is denied that the premises in suit has been unauthorizedly sub-let, assigned or parted with by respondent No.1 in favour of respondents No.2 to 6."
+          },
+          {
+            "id": "IK-14884716:L89",
+            "text": ">  xxx xxx xxx \"18(a)(i) Contents of para No. 18 (a) (i) of the petition are wrong, are not admitted and are denied. It is denied that the respondent No. 1 has sub-let, assigned or parted with possession of the premises in suit in favour of Signature Not Verified Digitally Signed CM(M) 380/2023 Page 4 of 13 By:Rashmi Dabas Signing Date:20.10.2023 10:34:02 respondents No.2 to 6 or anyone else. The present petition is without any cause of action and is an abuse of the process of law."
+          },
+          {
+            "id": "IK-14884716:L90",
+            "text": "At the outset, it is submitted that the respondents No. 2 to 6 namely Shri Rajinder Dhawan. H.S. Ahuja & co., G.K. Arora & Co., United India Insurance Co. Ltd. and Canara Bank Employees Union are using different portions of the premises in suit well within the knowledge of the landlord. The said persons are using the premises for last over 12 years from today and as such the present petition on the ground of alleged sub-letting is barred by law of limitation."
+          },
+          {
+            "id": "IK-14884716:L91",
+            "text": "Without prejudice to the above objections relating to the present petition on the ground of sub-letting being barred by limitation, it is submitted that all the aforesaid persons have been using the different portions of the premises in suit for large numbers of years well within the knowledge of the landlord."
+          },
+          {
+            "id": "IK-14884716:L92",
+            "text": "The landlord has been unequivocally accepting the rent from the respondent without any demur and have never raised any objection with regard to the use of the premise by the aforesaid persons or any one of them. The petitioner is thus deemed to have waived his right, if any or at all to claim the user of the premises by the aforesaid persons amounts to an illegal sub- letting."
+          },
+          {
+            "id": "IK-14884716:L93",
+            "text": ">  Without admitting the allegations made in the petition, it is submitted that as per clause 4(a) of the lease deed dated 27.3.1944 the respondent has got the right to sub-let the whole or part of the premises in suit. Clause 4(a) of the lease deed dated 27.3.1944 reads as under :-"
+          },
+          {
+            "id": "IK-14884716:L95",
+            "text": ">  \"4."
+          },
+          {
+            "id": "IK-14884716:L96",
+            "text": ">  (a) sublet or part with possession of the said premise or any part therein and that any rent, premium or any like sum received from the sub-lessee in addition of the prescribed rent dues. shall belong to and paid to the owners;"
+          },
+          {
+            "id": "IK-14884716:L98",
+            "text": " ............\""
+          },
+          {
+            "id": "IK-14884716:L99",
+            "text": " Without prejudice to the above submissions and without in any manner admitting the allegations made by the- petitioner in the petition, it is submitted that there is no sub-letting, parting with or assignment of the premises in suit or any part thereof by respondent No. 1 in favour of respondents No. 2 to 6. In this behalf, it is submitted that the respondents No.2 to 6 named above have been using different portions of the premises in suit merely as a licensees."
+          },
+          {
+            "id": "IK-14884716:L100",
+            "text": "None of the said users have claimed any hostile title or right of possession of any portion of the property in suit being used by them as licensees, much less to the exclusion of respondent No.1/tenant. The legal possession of the entire premises in suit continues to vest with the respondent No.1. There does not exist any relationship of landlord and tenant between the respondent No.1 on the one hand and on the other hand the respondents No.2 to 6 or anyone of them."
+          },
+          {
+            "id": "IK-14884716:L101",
+            "text": "There is no subletting, assignment of tenancy rights or parting with of the tenanted premises or any part thereof by the respondent No.1 in favour of anyone, much less the Signature Not Verified Digitally Signed CM(M) 380/2023 Page 5 of 13 By:Rashmi Dabas Signing Date:20.10.2023 10:34:02 respondents No. 2 to 6. It is submitted that the respondents No."
+          },
+          {
+            "id": "IK-14884716:L102",
+            "text": "2 to 6 have been paying license fee by way compensation for using the portion of the property to the petitioner and mere description of such compensation as \"rent\" is of no consequence inasmuch as the said word \"rent\" has been used in generic terms and in fact the same implies the payment of the compensation/license fee by respondents No.2 to 6 for using the portion in their respective use."
+          },
+          {
+            "id": "IK-14884716:L103",
+            "text": "It is thus incorrect to allege that the respondent No.1 has sub-let, assigned or parted with possession of the premises in suit or any portion thereof in favour of the respondents No. 2 to 6 or anyone else. The present petition is without any merit. The present petition of the petitioner is malafide and the same is liable to be dismissed.\""
+          },
+          {
+            "id": "IK-14884716:L104",
+            "text": " (Emphasis Supplied) 4.3. He states that as is evident from the written statement, the original tenant ('Canara Bank') and the other Respondents had denied sub-letting to avoid eviction under cite13†Section 14 (1) (b) of the DRC Act. He states therefore, the plea of protected sub-tenancy under cite15†Section 18 of the DRC Act now sought to be raised by this Petitioner is a complete somersault. 4.4."
+          },
+          {
+            "id": "IK-14884716:L105",
+            "text": "He further states that it is a matter of record that the Petitioner herein failed to issue any statutory notice of the creation of sub-tenancy to Respondent No. 1 as per Rule 21 of the Delhi Rent Control Rules, 1959 ('DRC Rules') read with Form-E. He states that since the Respondent has failed to serve the said statutory notice, no reliance can be placed by Petitioner on letters dated 14.02.2001, 26.03.2001 and 29.05.2001 for claiming protection under cite15†Section 18 of DRC Act."
+          },
+          {
+            "id": "IK-14884716:L106",
+            "text": " 4.5. He states that to seek the benefit of cite16†Section 17 of the DRC Act, the Petitioner must satisfy the Court with respect to two tests; (i) consent in writing from the landlord; and (ii) notice of the creation of sub-tenancy in accordance with Rule 21 of DRC Rules. He states in the facts of this case, these two tests have not been satisfied."
+          },
+          {
+            "id": "IK-14884716:L107",
+            "text": " 4.6. He relies upon the judgement of the Supreme Court in M/s. cite17†Girdhari Signature Not Verified Digitally Signed CM(M) 380/2023 Page 6 of 13 By:Rashmi Dabas Signing Date:20.10.2023 10:34:02 Lal and Sons vs. Balbir Nath Mathur & Ors. 1986 (2) SCC 237 and the judgement of the Single Judge of this Court in Tara Chand vs. Mst."
+          },
+          {
+            "id": "IK-14884716:L108",
+            "text": "Marrium Bi and Anr., 1969 RCR 438 to support his contention that in the absence of service of a statutory notice issued as per Rule 21 of DRC Rules, the Petitioner herein cannot claim any protection under cite16†Section 17 of the DRC Act."
+          },
+          {
+            "id": "IK-14884716:L109",
+            "text": " 4.7. He states that, in any event, once the Respondent No. 2, original tenant i.e., Canara Bank itself has accepted the impugned order dated 20.01.2023 and vacated the subject property, the Petitioner herein is bound by the said action of the tenant and must vacate the portions of the subject property, which is under its control and possession. He states that Petitioner has no independent right to occupy the premises under any capacity. 4.8. He states that the Petitioner in CM APPL."
+          },
+          {
+            "id": "IK-14884716:L110",
+            "text": "11364/2023 has also placed on record documents pertaining to property bearing No. H-60, Connaught Circus, New Delhi. He states that the property bearing No. H-60, Connaught Circus, New Delhi, is a distinct property and is not the subject property which was let out to Canara Bank. He states the documents pertaining to said distinct property are therefore irrelevant to this litigation. 4.9."
+          },
+          {
+            "id": "IK-14884716:L111",
+            "text": "He states that the Respondent has, in any event, not disputed the finding of the Coordinate Bench of this Court in the judgement dated 12.04.2023; that as a matter of fact as per clause 4 of the lease agreement dated 27.03.1944 between the landlord and the tenant, Canara Bank that no sub-tenancy could have been created without the written consent of the landlord."
+          }
+        ]
+      },
+      "old_proposals": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:17",
+            "reason": "Section 17 directly governs notice for pre-Act and post-Act sub-tenancies, and the parties expressly dispute whether statutory notice was required or given. Its pre-commencement six-month notice route is particularly material to the petitioner's asserted 1944 sub-tenancy.",
+            "law_quote": "give notice to the landlord of the creation of the sub-tenancy within six months of the commencement of this Act",
+            "category": "CORE",
+            "case_refs": [
+              "IK-14884716:L78",
+              "IK-14884716:L79",
+              "IK-14884716:L105",
+              "IK-14884716:L106"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:S02:DRC:18",
+            "reason": "The petitioner expressly invokes section 18 protection, while the respondent argues that required statutory notice was not served and that the original tenant has vacated. Section 18 states the conditions for a sub-tenant to become a direct tenant, so it directly frames that live claim without deciding whether the conditions are met.",
+            "law_quote": "a notice of the sub-tenancy has been given to the landlord",
+            "category": "CORE",
+            "case_refs": [
+              "IK-14884716:L77",
+              "IK-14884716:L105",
+              "IK-14884716:L109"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+            "reason": "This Supreme Court authority directly interprets Delhi sections 17 and 18 and explains that landlord consent and notice of the particular sub-tenancy must be evidenced in writing, while allowing that the writings can take different forms. It squarely bears on the petitioner's 2001 letters and the respondent's Rule 21/notice objection.",
+            "law_quote": "The essence of the requirement, therefore, is that the consent of the landlord to the sub-tenancy and the notice of the creation of the sub-tenancy have to be evidenced by writing.",
+            "category": "CORE",
+            "case_refs": [
+              "IK-14884716:L77",
+              "IK-14884716:L79",
+              "IK-14884716:L105",
+              "IK-14884716:L107",
+              "IK-14884716:L108"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+            "reason": "The concurrence is a limiting authority on the same Delhi sections 17 and 18: it characterizes relief without strict compliance as exceptional and states that normal cases require the statutory conditions. That is a material counterargument to treating general landlord knowledge or later correspondence as sufficient, while its concurring and fact-specific status must be preserved.",
+            "law_quote": "Normally, cite14†section 17 should be strictly complied with",
+            "category": "CORE",
+            "case_refs": [
+              "IK-14884716:L77",
+              "IK-14884716:L79",
+              "IK-14884716:L105",
+              "IK-14884716:L108"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "125596702",
+      "question": "Which supplied authorities help analyze the live Delhi DRC1958s14(1)(b) issue shown by this allowed record, respecting the target procedural stage, rival assertions and scope limits? Do not predict the withheld target verdict.",
+      "stage": "HC_SUPERVISION",
+      "allowed_source": {
+        "case_id": "125596702",
+        "segments": [
+          {
+            "id": "IK-125596702:L64",
+            "text": "1. The petitioners claim to be landlords qua the respondent in respect of premises described as shop on ground floor in property no. 53, Old Rajinder Nagar Market, Delhi, the tenancy statedly having been created by Rent Agreement dated 15.07.1988. They had instituted a case for eviction (petition no. E-185/1998) in the Court of Additional Rent Controller on 21.12.1998 invoking grounds under Section 14 (1) (a), (b) and (j) of cite12†Delhi Rent Control Act, 1958 ."
+          },
+          {
+            "id": "IK-125596702:L65",
+            "text": "The case was contested by the respondent on all counts, evidence having been led by each side."
+          },
+          {
+            "id": "IK-125596702:L66",
+            "text": "It eventually resulted in judgment dated 02.06.2003 whereby the Additional Rent Controller having found the respondent guilty of being in default of payment of rent within the mischief of cite13†Section 14 (1) (a) , closed the proceedings by granting the benefit of protection under cite14†Section 14 (2) of Delhi Rent Control Act, CM (M) 1367/2011 Page 1 of 6 1958, the respondent (tenant) having complied with the order under cite15†Section 15 (1) ."
+          },
+          {
+            "id": "IK-125596702:L67",
+            "text": "There has been no challenge brought to the findings in that regard or the result on that score by either side, the judgment of the Additional Rent Controller to that extent having attained finality. The Additional Rent Controller held, by the said judgment dated 02.06.2003, that the petitioners had failed to prove their case on the ground under cite16†Section 14 (1) (j) of Delhi Rent Control Act, 1958."
+          },
+          {
+            "id": "IK-125596702:L68",
+            "text": "The said ground was not pressed by any appeal before the Rent Control Tribunal and, thus, also needs quietus. The ground of sub-letting under cite17†Section 14 (1) (b) of Delhi Rent Control Act, 1958, however, persists and has come up for fresh consideration before this Court through the petition at hand."
+          },
+          {
+            "id": "IK-125596702:L69",
+            "text": "2. The Additional Rent Controller had granted eviction order on the petition under cite17†Section 14 (1) (b) of Delhi Rent Control Act, 1958 holding the respondent-tenant to have sub-let the premises. The respondent-tenant had challenged the said finding and result. The appeal (RCT 82/2009 old no. RCA 504/2003) was allowed by the Additional Rent Control Tribunal by judgment dated 12.08.2011 and it was held that the petitioners had failed to prove sub-letting."
+          },
+          {
+            "id": "IK-125596702:L70",
+            "text": "Thus, the eviction order was set aside and the petition on that ground was dismissed."
+          },
+          {
+            "id": "IK-125596702:L75",
+            "text": " 4. The case for eviction on the ground under cite17†Section 14 (1) (b) , Delhi Rent Control Act, 1958 was set out in the eviction petition thus:-"
+          },
+          {
+            "id": "IK-125596702:L76",
+            "text": ">  \"That the respondent has already sub-letted, assigned and otherwise parted with the tenancy premises and the respondent tenant is not at all in possession thereof and sub tenant is in exclusive possession of tenancy shop. As per terms and conditions of the rent agreement the respondent has no right to sub-let, assign or otherwise part with the possession of the tenancy premises, hence the present petition on the ground of sub-letting\"."
+          },
+          {
+            "id": "IK-125596702:L77",
+            "text": "5. The above ground was contested with following averments in the written statement:-"
+          },
+          {
+            "id": "IK-125596702:L78",
+            "text": ">  \"14 (1) (b). Sub-Para-under-reply is absolutely wrong and false and is emphatically denied. The allegations in the Sub-Para-under-reply are merely repetition of the earlier allegations of the petition and a suitably reply/written statement to the same has already been give above, which, for the sake of brevity, is not being reproduced herein, and it is prayed that the same may please be read as part of the reply to the Sub-Para- under-reply."
+          },
+          {
+            "id": "IK-125596702:L79",
+            "text": "The petition, being false, frivolous and baseless, is liable to be dismissed, with punitive costs. It is wrong and is denied that the respondent has Sub- letted, assigned or otherwise parted with the tenancy premises or the respondent is not in possession thereof or that it is any alleged sub-tenant who is in possession of the tenancy shop. The terms of the agreement of rent are matters of record, however, the respondent has not violated any of the terms of said agreement date 18.7.88 of rent."
+          },
+          {
+            "id": "IK-125596702:L80",
+            "text": "The petitioner on the alleged ground of sub- letting is false, baseless ad malafide, and is having no substance or truth in the same. The respondent himself is in use, occupation and possession of the tenanted shop, wherein he in the company of his son, has been running CM (M) 1367/2011 Page 3 of 6 the business if stationer, books, etc. (including cold drinks)\"."
+          },
+          {
+            "id": "IK-125596702:L81",
+            "text": "6. The second petitioner appeared in evidence (as AW-2), reliance being placed additionally on the evidence of certain other witnesses, the prime effort of the petitioners to prove that the respondent had sub- let the shop to his son Arun Sood, and that he was in exclusive use of the premises, running his business in the name and style of M/s Sood Store. These facts were sought to be demonstrated, inter alia, by photographs (Ex."
+          },
+          {
+            "id": "IK-125596702:L82",
+            "text": "AW-2/22, 26 and 28), and the evidence of Chander Pal (AW-1), Section Officer from Mahanagar Telephone Nigam Ltd.(MTNL) and Rajesh Anand (AW-4), Clerk-cum-cashier, Oriental Bank of Commerce, old Rajinder Nagar, New Delhi. The respondent, on the other hand, examined himself (as RW-2), also examining Gulab Singh (RW-1), another official from the aforementioned bank in addition to other witnesses including his son Arun Sood (RW-4)."
+          },
+          {
+            "id": "IK-125596702:L83",
+            "text": "The photographs depict display of the sign board of Sood Stores across the subject premises."
+          },
+          {
+            "id": "IK-125596702:L84",
+            "text": "The respondent, in his evidence, did not deny the presence of his son Arun Sood in the premises, his argument being that he is assisted in the business run from the premises by his said son, it also being not disputed that the son was engaged in the business of Sood Store which was run simultaneously from the premises, it being the case of the respondent that he continues to be in possession and control of the tenanted shop."
+          },
+          {
+            "id": "IK-125596702:L85",
+            "text": "7. The evidence of the official witnesses from MTNL would show that a telephone connection in the name of Arun Sood, son of the respondent was installed in the premises. The evidence of the official CM (M) 1367/2011 Page 4 of 6 witnesses of the bank would show that Arun Sood, the son of the respondent had opened a bank account in the name of Sood Stores."
+          },
+          {
+            "id": "IK-125596702:L86",
+            "text": "8."
+          },
+          {
+            "id": "IK-125596702:L87",
+            "text": "The learned counsel for the petitioners read extensively from the evidence and the judgment of the Additional Rent Controller to argue that the petitioners had proved the presence of a stranger in the premises and, therefore, had discharged the burden of proof on the ground of sub-letting and further that there was no satisfactory explanation offered by the respondent and consequently the eviction order granted by the Additional Rent Controller should not have been disturbed by the Additional Rent Control Tribunal."
+          },
+          {
+            "id": "IK-125596702:L88",
+            "text": "Per contra, the counsel for respondent relied on the judgment of the Additional Rent Control Tribunal and argued that mere proof of existence of a telephone connection in the name of the son and use of the address of the suit shop by the son for opening a bank account in the name of M/s Sood Store does not bring home the case of sub-letting, the evidence of the respondent about he having continued to be in possession and control being credible and rightly accepted by the appellate forum."
+          }
+        ]
+      },
+      "old_proposals": [
+        {
+          "unit_id": "LAW:S02:DRC:17",
+          "state": "ISOLATED",
+          "record": {
+            "unit_id": "LAW:S02:DRC:17",
+            "reason": "Delhi Rent Control Act s17 regulates notice of a lawful sub-tenancy and the procedure for contesting such notice. The allowed record presents a dispute over whether any subletting to the son occurred at all, and supplies no s17 notice or protected-subtenant issue.",
+            "law_quote": "the tenant or the sub-tenant... may... give notice to the landlord of the creation of the sub-tenancy",
+            "category": "IRRELEVANT",
+            "case_refs": [
+              "IK-125596702:L76",
+              "IK-125596702:L79",
+              "IK-125596702:L84"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:S02:DRC:18",
+          "state": "ISOLATED",
+          "record": {
+            "unit_id": "LAW:S02:DRC:18",
+            "reason": "Delhi Rent Control Act s18 governs when a qualifying sub-tenant becomes a direct tenant after an eviction order. No claim to direct tenancy under s18, or s17 notice foundation for it, appears in the allowed record.",
+            "law_quote": "the sub-tenant shall... be deemed to become a tenant holding directly under the landlord",
+            "category": "IRRELEVANT",
+            "case_refs": [
+              "IK-125596702:L68",
+              "IK-125596702:L84"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+          "state": "KNOWN",
+          "record": {
+            "unit_id": "LAW:V09:GL_WRITTEN_CONSENT",
+            "reason": "This Supreme Court passage primarily interprets Delhi DRC ss17-18 protection for sub-tenants through documentary consent and notice. The allowed record does not present a s17 notice or a claim by the son to protected sub-tenant status, so the unit does not resolve the live s14(1)(b) possession dispute.",
+            "law_quote": "the consent of the landlord to the sub-tenancy and the notice of the creation of the sub-tenancy have to be evidenced by writing",
+            "category": "IRRELEVANT",
+            "case_refs": [
+              "IK-125596702:L68",
+              "IK-125596702:L84"
+            ]
+          }
+        },
+        {
+          "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+          "state": "ISOLATED",
+          "record": {
+            "unit_id": "LAW:V09:GL_CONCURRING_LIMIT",
+            "reason": "This concurrence limits relief under Delhi DRC ss17-18 and stresses their twin written-consent and notice conditions in the special posture of that case. No corresponding protected-subtenant or notice issue is supplied here.",
+            "law_quote": "there must be the previous consent in writing by the landlord... and a notice in the prescribed manner by the sub-tenant",
+            "category": "IRRELEVANT",
+            "case_refs": [
+              "IK-125596702:L68",
+              "IK-125596702:L84"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+END_OF_INPUT L04

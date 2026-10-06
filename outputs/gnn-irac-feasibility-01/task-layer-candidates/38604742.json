@@ -1,0 +1,402 @@
+{
+  "case_id": "38604742",
+  "conditions": [
+    {
+      "id": "c1",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises",
+      "description": "The tenant must have sub-let, assigned, or otherwise parted with possession of the whole or a part of the subject-premises.",
+      "logical_role": "CORE_ELEMENT",
+      "scope": "Section 14(1)(b) core transfer/possession element under the supplied Delhi Rent Control Act, 1958 reproduction; historical-version scope remains unverified.",
+      "dependencies": [
+        {
+          "condition_id": "c5",
+          "operator": "QUALIFICATION"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c2",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+      "description": "Any qualifying subletting, assignment, or parting with possession must have occurred without the landlord's written consent.",
+      "logical_role": "STATUTORY_QUALIFIER",
+      "scope": "Section 14(1)(b) written-consent requirement; the frozen inventory contains a landlord claim but no independently accepted fact establishing absence of written consent.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c3",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on or after the 9th day of June, 1952",
+      "description": "The qualifying transfer or parting with possession must have occurred on or after 9 June 1952.",
+      "logical_role": "TEMPORAL_SCOPE",
+      "scope": "Temporal gate in the supplied statutory reproduction; the frozen inventory gives the 1974 filing date but not an express date for the alleged induction or transfer conduct.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c4",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on an application made to him in the prescribed manner",
+      "description": "The recovery proceeding must be on an application to the Controller made in the prescribed manner.",
+      "logical_role": "PROCEDURAL_GATE",
+      "scope": "Section 14(1) procedural gate. The inventory establishes a 1974 section 14 eviction proceeding but expressly leaves compliance with every prescribed procedural requirement unknown.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c5",
+      "rule_id": "LAW:V09:AH_LICENCE",
+      "exact_rule_quote": "The test of exclusive possession, though not conclusive, is a very important indication in favour of tenancy",
+      "description": "For the supplied analogous licence-versus-tenancy inquiry, exclusive possession is an important but non-conclusive indication; retained control over the occupied part qualifies against treating occupation as tenancy or subletting.",
+      "logical_role": "EVIDENTIARY_QUALIFICATION",
+      "scope": "Analogous authority under the Delhi and Ajmer Rent Control Act, 1952. It may inform the control/exclusive-possession inquiry but does not replace section 14(1)(b) of the 1958 Act; the supplied source is incomplete.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:V09:AH_LICENCE"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "b1",
+      "fact_id": "f5",
+      "condition_id": "c1",
+      "relation": "DEFEATS",
+      "statement_status": "FOUND",
+      "court": "TRIAL",
+      "stage": "Additional Rent Controller decision dated 5 June 1997",
+      "case_refs": [
+        "IK-38604742:L69"
+      ],
+      "reason": "The Rent Controller found that the landlord had failed to show any subletting, assignment, or parting with possession; this is candidate contrary evidence for the core statutory transfer element.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b2",
+      "fact_id": "f7",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "Additional Rent Control Tribunal appeal",
+      "case_refs": [
+        "IK-38604742:L72"
+      ],
+      "reason": "The Appellate Tribunal found that the facts disclosed subletting to respondents 2 to 4; as a lower-forum finding it supports, but does not itself establish, the target element.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b3",
+      "fact_id": "f13",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "REPORTED",
+      "court": "TARGET",
+      "stage": "Supreme Court appeal",
+      "case_refs": [
+        "IK-38604742:L134"
+      ],
+      "reason": "Admitted occupation of a portion of the premises by the three doctors is a candidate factual predicate for a possible parting-with-possession inquiry, but does not alone establish the legal character of that occupation.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b4",
+      "fact_id": "f8",
+      "condition_id": "c2",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "APPELLATE",
+      "stage": "position described in judgment under Supreme Court appeal",
+      "case_refs": [
+        "IK-38604742:L73"
+      ],
+      "reason": "The landlord's stated position was that respondents 2 to 4 were inducted without written consent; because this remains a claim with the inventory expressly marking independent proof unknown, it is only candidate support.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b5",
+      "fact_id": "f1",
+      "condition_id": "c4",
+      "relation": "SUPPORTS",
+      "statement_status": "REPORTED",
+      "court": "NONE",
+      "stage": "case history describing Rent Controller proceeding",
+      "case_refs": [
+        "IK-38604742:L64"
+      ],
+      "reason": "The reported institution of a section 14 eviction proceeding in 1974 supports the existence of a Controller proceeding, while the inventory expressly leaves full prescribed-manner compliance unknown.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b6",
+      "fact_id": "f6",
+      "condition_id": "c5",
+      "relation": "DEFEATS",
+      "statement_status": "FOUND",
+      "court": "TRIAL",
+      "stage": "Additional Rent Controller decision",
+      "case_refs": [
+        "IK-38604742:L71"
+      ],
+      "reason": "The Rent Controller found respondents 2 to 4 were not in exclusive possession, which is candidate evidence against the exclusive-possession indicium.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b7",
+      "fact_id": "f9",
+      "condition_id": "c5",
+      "relation": "DEFEATS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "Delhi High Court Article 227 review",
+      "case_refs": [
+        "IK-38604742:L75"
+      ],
+      "reason": "The High Court found the Tribunal's exclusive-possession conclusion unsupported by evidence and based on surmises; this is candidate contrary evidence while preserving that it is a lower-court finding.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b8",
+      "fact_id": "f10",
+      "condition_id": "c5",
+      "relation": "DEFEATS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "Delhi High Court Article 227 review",
+      "case_refs": [
+        "IK-38604742:L76"
+      ],
+      "reason": "The High Court found that the tenant retained full physical and legal control and possession, which is candidate evidence against treating the doctors' occupation as exclusive possession.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b9",
+      "fact_id": "f11",
+      "condition_id": "c5",
+      "relation": "DEFEATS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "Delhi High Court Article 227 review",
+      "case_refs": [
+        "IK-38604742:L77"
+      ],
+      "reason": "The High Court characterized the doctors' presence as temporary and permissive while the tenant remained present, which is candidate evidence against exclusive possession.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b10",
+      "fact_id": "f14",
+      "condition_id": "c5",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Supreme Court appeal",
+      "case_refs": [
+        "IK-38604742:L135"
+      ],
+      "reason": "The tenant respondents claimed that full control was never ceded and entry and exit remained under their exclusive control; as a party claim it is candidate contrary evidence only.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b11",
+      "fact_id": "f15",
+      "condition_id": "c5",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "Appellate Tribunal reasons quoted in Supreme Court record",
+      "case_refs": [
+        "IK-38604742:L150"
+      ],
+      "reason": "The retained Tribunal reasons treated the doctors as having an exclusive mezzanine-floor portion without tenant interference, which is candidate support for the exclusive-possession indicium.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b12",
+      "fact_id": "f16",
+      "condition_id": "c5",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "Appellate Tribunal reasons quoted in Supreme Court record",
+      "case_refs": [
+        "IK-38604742:L158",
+        "IK-38604742:L160"
+      ],
+      "reason": "The retained Tribunal reasons treated the doctors' use as exclusive during permitted practice periods and as more than a mere licence; this is candidate support while remaining a lower-forum finding.",
+      "input_candidate": true,
+      "target_only": false
+    }
+  ],
+  "address_checks": {
+    "conditions": [
+      {
+        "id": "c1",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 502,
+              "raw_end": 600
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c2",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 601,
+              "raw_end": 657
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c3",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 463,
+              "raw_end": 500
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c4",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 265,
+              "raw_end": 319
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c5",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 951,
+              "raw_end": 1059
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "id": "b1",
+        "errors": []
+      },
+      {
+        "id": "b2",
+        "errors": []
+      },
+      {
+        "id": "b3",
+        "errors": []
+      },
+      {
+        "id": "b4",
+        "errors": []
+      },
+      {
+        "id": "b5",
+        "errors": []
+      },
+      {
+        "id": "b6",
+        "errors": []
+      },
+      {
+        "id": "b7",
+        "errors": []
+      },
+      {
+        "id": "b8",
+        "errors": []
+      },
+      {
+        "id": "b9",
+        "errors": []
+      },
+      {
+        "id": "b10",
+        "errors": []
+      },
+      {
+        "id": "b11",
+        "errors": []
+      },
+      {
+        "id": "b12",
+        "errors": []
+      }
+    ]
+  },
+  "origin": "HIGH_WITH_POST_OUTCOME_ACCESS",
+  "feature_admission": "NOT_ADMITTED",
+  "semantic_rule_source_review_required": true,
+  "conditions_need_pre_only_origin_for_future_test": "derive definitions from rule text only, with outcome-blind task-construction policy; do not regenerate in this round",
+  "signed_binding_need_pre_only_generation_for_future_test": "candidate evidence links must be obtainable from same allowed input at inference; current source checks alone cannot certify that procedure"
+}

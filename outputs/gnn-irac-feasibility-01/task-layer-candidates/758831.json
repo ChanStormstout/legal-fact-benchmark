@@ -1,0 +1,248 @@
+{
+  "case_id": "758831",
+  "conditions": [
+    {
+      "id": "c1",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises",
+      "description": "The tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises.",
+      "logical_role": "ELEMENT",
+      "scope": "Section 14(1)(b) conduct element for the fixed Delhi eviction ground.",
+      "dependencies": [
+        {
+          "condition_id": "c2",
+          "operator": "AND"
+        },
+        {
+          "condition_id": "c3",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c2",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on or after the 9th day of June, 1952",
+      "description": "The relevant subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "logical_role": "TEMPORAL_ELEMENT",
+      "scope": "Statutory date limitation within section 14(1)(b).",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c3",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+      "description": "The relevant subletting, assignment, or parting with possession occurred without the landlord's written consent.",
+      "logical_role": "CONSENT_ELEMENT",
+      "scope": "Written-consent requirement within section 14(1)(b).",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c4",
+      "rule_id": "LAW:V09:KR_BURDEN",
+      "exact_rule_quote": "the onus to prove sub-letting is on the landlord",
+      "description": "The landlord bears the onus to prove subletting.",
+      "logical_role": "BURDEN",
+      "scope": "Supplied Supreme Court authority passage addressing the burden for a Delhi DRC section 14 subletting ground.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "QUALIFICATION"
+        }
+      ],
+      "law_refs": [
+        "LAW:V09:KR_BURDEN"
+      ]
+    },
+    {
+      "id": "c5",
+      "rule_id": "LAW:V09:KR_BURDEN",
+      "exact_rule_quote": "If the landlord prima-facie shows that the occupant who was in exclusive possession of the premises let out for valuable consideration, it would then be for the tenant to rebut the evidence.",
+      "description": "A prima-facie showing of an occupant in exclusive possession for valuable consideration shifts the evidentiary burden to the tenant to rebut.",
+      "logical_role": "EVIDENTIARY_TRIGGER",
+      "scope": "Supplied burden-shifting mechanism; the source itself cautions that mere presence is not equivalent to exclusive possession for consideration.",
+      "dependencies": [
+        {
+          "condition_id": "c4",
+          "operator": "QUALIFICATION"
+        }
+      ],
+      "law_refs": [
+        "LAW:V09:KR_BURDEN"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "b1",
+      "fact_id": "f2",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "TRIAL",
+      "stage": "Addl. Rent Controller merits decision, 29 August 1974",
+      "case_refs": [
+        "IK-758831:L73"
+      ],
+      "reason": "The preserved trial-level finding directly states that the petitioner had sublet the premises; it is supporting input evidence only and is not treated as target-court adoption.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b2",
+      "fact_id": "f5",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "Rent Control Tribunal rehearing after remand",
+      "case_refs": [
+        "IK-758831:L75"
+      ],
+      "reason": "The Tribunal on rehearing upheld the earlier finding that the premises had been sublet; this supports the conduct proposition while remaining a lower-court finding.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b3",
+      "fact_id": "f7",
+      "condition_id": "c1",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Special Leave Petition argument",
+      "case_refs": [
+        "IK-758831:L76"
+      ],
+      "reason": "The tenant's preserved challenge contests the correctness of the lower-court subletting finding. As a CLAIMED proposition it tends against c1 but does not establish that subletting was false.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b4",
+      "fact_id": "f8",
+      "condition_id": "c5",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Special Leave Petition argument",
+      "case_refs": [
+        "IK-758831:L76"
+      ],
+      "reason": "The tenant claimed that no positive finding of consideration had been recorded. That claim tends against treating the frozen input as expressly satisfying the valuable-consideration component of the supplied prima-facie trigger, without establishing that consideration was absent.",
+      "input_candidate": true,
+      "target_only": false
+    }
+  ],
+  "address_checks": {
+    "conditions": [
+      {
+        "id": "c1",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 447,
+              "raw_end": 600
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c2",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 463,
+              "raw_end": 500
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c3",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 601,
+              "raw_end": 657
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c4",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 665,
+              "raw_end": 713
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c5",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 715,
+              "raw_end": 905
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "id": "b1",
+        "errors": []
+      },
+      {
+        "id": "b2",
+        "errors": []
+      },
+      {
+        "id": "b3",
+        "errors": []
+      },
+      {
+        "id": "b4",
+        "errors": []
+      }
+    ]
+  },
+  "origin": "HIGH_WITH_POST_OUTCOME_ACCESS",
+  "feature_admission": "NOT_ADMITTED",
+  "semantic_rule_source_review_required": true,
+  "conditions_need_pre_only_origin_for_future_test": "derive definitions from rule text only, with outcome-blind task-construction policy; do not regenerate in this round",
+  "signed_binding_need_pre_only_generation_for_future_test": "candidate evidence links must be obtainable from same allowed input at inference; current source checks alone cannot certify that procedure"
+}

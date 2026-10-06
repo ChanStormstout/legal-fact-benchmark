@@ -1,0 +1,18 @@
+group_field,IRAC_role,mode,limitations,provenance
+LegalIssue,Issue,DIRECT_REUSE,Separate pleaded issue from target-court resolution,node.source_refs; original node_id
+Fact,Pre-outcome fact candidate,ADAPTER,Full canonical may contain target-court findings; require source/field grants; never promote record support to proven truth,source_refs plus field-level grants; keep raw record_status/court_status
+Evidence,Evidence/record support,DIRECT_REUSE_WITH_ADAPTER,"Deterministic source-passage evidence is a record anchor, not independent corroboration or an actual exhibit",source_refs; preserve canonicalizer-generated origin
+Claim,Claim context,ADAPTER,Claim viability prunes orphan claims; absence is not false or rejected. Schema lacks typed claimant/element/burden,Party ASSERTS plus provenance; unknown claimant retained
+Party,Party/context actor,DIRECT_REUSE,Same role/string is not same person; object/property has no separate node type,"node_id, party_side, refs; no similarity merge"
+Court,Court/procedural context,ADAPTER,Court node plus description/refs required; no typed court-level/stage field,retain original refs; reviewed task sidecar supplies stage only when evidenced
+Precedent,Authority context,ADAPTER,"APPLIES_TO/target FOLLOWS is semantic treatment, not rule text; current-court treatment must not enter input",refs + normalized citation; reviewed rule stores own source separately
+record_status,Record status,DIRECT_REUSE,ALLEGED/ADMITTED/etc separate from truth or element label,retain unchanged and preserve field grant
+court_status,Target adjudicative treatment,EXCLUDE_OR_SIDECAR,ACCEPTED/REJECTED outcome-bearing. Lower-court report must retain level without target endorsement,"exclude current treatment from input, target-only lineage"
+source_refs/source_span_id,Source grounding,ADAPTER,Locator success does not prove semantics; group spans not same as our IK line IDs,"document_id, exact_quote, span/paragraph map, raw-response provenance"
+Evidence→Fact→Claim,Primitive proof route,ADAPTER,No direct Evidence→Claim; context-only merits gaps do not yield condition truth,preserve edge IDs/refs; rebuild chains after input filtering
+semantic relations / canonical_merge_key,Relations and identities,DIRECT_REUSE_WITH_ADAPTER,No new identity/part-of semantics invented; generic edges may not encode property/event binding directly,"keep explicit edge direction and original IDs, no label-similarity merging"
+Conclusion / court_conclusion_issue chains,Application/issue supervision candidates,TARGET_ONLY,Mixed full-judgment canonical is unsafe as model input; not one label for all elements,original conclusion refs + target-only files
+Rule,Reviewed rule,TASK_LAYER_MISSING,Not a canonical node; Prompt1 rule_and_authority does not imply canonical preservation,exact independent authority text/scope/date/stance
+Condition / Element,Rule condition,TASK_LAYER_MISSING,No typed canonical rule conditions or logical dependencies,"rule ID, exact quote, logical role, AND/OR/qualification, scope"
+Fact↔Condition binding,Candidate binding,TASK_LAYER_MISSING,Signed candidate ≠ established fact; unknown roles not wildcard; cannot invent input fact from label,"existing fact ID, source/status/court/stage + input/target flag"
+Application target,Element supervision,TASK_LAYER_MISSING,Three states plus nonclass cause distinguish fact false/burden/not-decided,target-court reasoning refs only; never features

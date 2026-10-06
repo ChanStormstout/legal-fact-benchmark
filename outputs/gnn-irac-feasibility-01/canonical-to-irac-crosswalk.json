@@ -1,0 +1,121 @@
+[
+  {
+    "group_field": "LegalIssue",
+    "IRAC_role": "Issue",
+    "mode": "DIRECT_REUSE",
+    "limitations": "Separate pleaded issue from target-court resolution",
+    "provenance": "node.source_refs; original node_id"
+  },
+  {
+    "group_field": "Fact",
+    "IRAC_role": "Pre-outcome fact candidate",
+    "mode": "ADAPTER",
+    "limitations": "Full canonical may contain target-court findings; require source/field grants; never promote record support to proven truth",
+    "provenance": "source_refs plus field-level grants; keep raw record_status/court_status"
+  },
+  {
+    "group_field": "Evidence",
+    "IRAC_role": "Evidence/record support",
+    "mode": "DIRECT_REUSE_WITH_ADAPTER",
+    "limitations": "Deterministic source-passage evidence is a record anchor, not independent corroboration or an actual exhibit",
+    "provenance": "source_refs; preserve canonicalizer-generated origin"
+  },
+  {
+    "group_field": "Claim",
+    "IRAC_role": "Claim context",
+    "mode": "ADAPTER",
+    "limitations": "Claim viability prunes orphan claims; absence is not false or rejected. Schema lacks typed claimant/element/burden",
+    "provenance": "Party ASSERTS plus provenance; unknown claimant retained"
+  },
+  {
+    "group_field": "Party",
+    "IRAC_role": "Party/context actor",
+    "mode": "DIRECT_REUSE",
+    "limitations": "Same role/string is not same person; object/property has no separate node type",
+    "provenance": "node_id, party_side, refs; no similarity merge"
+  },
+  {
+    "group_field": "Court",
+    "IRAC_role": "Court/procedural context",
+    "mode": "ADAPTER",
+    "limitations": "Court node plus description/refs required; no typed court-level/stage field",
+    "provenance": "retain original refs; reviewed task sidecar supplies stage only when evidenced"
+  },
+  {
+    "group_field": "Precedent",
+    "IRAC_role": "Authority context",
+    "mode": "ADAPTER",
+    "limitations": "APPLIES_TO/target FOLLOWS is semantic treatment, not rule text; current-court treatment must not enter input",
+    "provenance": "refs + normalized citation; reviewed rule stores own source separately"
+  },
+  {
+    "group_field": "record_status",
+    "IRAC_role": "Record status",
+    "mode": "DIRECT_REUSE",
+    "limitations": "ALLEGED/ADMITTED/etc separate from truth or element label",
+    "provenance": "retain unchanged and preserve field grant"
+  },
+  {
+    "group_field": "court_status",
+    "IRAC_role": "Target adjudicative treatment",
+    "mode": "EXCLUDE_OR_SIDECAR",
+    "limitations": "ACCEPTED/REJECTED outcome-bearing. Lower-court report must retain level without target endorsement",
+    "provenance": "exclude current treatment from input, target-only lineage"
+  },
+  {
+    "group_field": "source_refs/source_span_id",
+    "IRAC_role": "Source grounding",
+    "mode": "ADAPTER",
+    "limitations": "Locator success does not prove semantics; group spans not same as our IK line IDs",
+    "provenance": "document_id, exact_quote, span/paragraph map, raw-response provenance"
+  },
+  {
+    "group_field": "Evidence→Fact→Claim",
+    "IRAC_role": "Primitive proof route",
+    "mode": "ADAPTER",
+    "limitations": "No direct Evidence→Claim; context-only merits gaps do not yield condition truth",
+    "provenance": "preserve edge IDs/refs; rebuild chains after input filtering"
+  },
+  {
+    "group_field": "semantic relations / canonical_merge_key",
+    "IRAC_role": "Relations and identities",
+    "mode": "DIRECT_REUSE_WITH_ADAPTER",
+    "limitations": "No new identity/part-of semantics invented; generic edges may not encode property/event binding directly",
+    "provenance": "keep explicit edge direction and original IDs, no label-similarity merging"
+  },
+  {
+    "group_field": "Conclusion / court_conclusion_issue chains",
+    "IRAC_role": "Application/issue supervision candidates",
+    "mode": "TARGET_ONLY",
+    "limitations": "Mixed full-judgment canonical is unsafe as model input; not one label for all elements",
+    "provenance": "original conclusion refs + target-only files"
+  },
+  {
+    "group_field": "Rule",
+    "IRAC_role": "Reviewed rule",
+    "mode": "TASK_LAYER_MISSING",
+    "limitations": "Not a canonical node; Prompt1 rule_and_authority does not imply canonical preservation",
+    "provenance": "exact independent authority text/scope/date/stance"
+  },
+  {
+    "group_field": "Condition / Element",
+    "IRAC_role": "Rule condition",
+    "mode": "TASK_LAYER_MISSING",
+    "limitations": "No typed canonical rule conditions or logical dependencies",
+    "provenance": "rule ID, exact quote, logical role, AND/OR/qualification, scope"
+  },
+  {
+    "group_field": "Fact↔Condition binding",
+    "IRAC_role": "Candidate binding",
+    "mode": "TASK_LAYER_MISSING",
+    "limitations": "Signed candidate ≠ established fact; unknown roles not wildcard; cannot invent input fact from label",
+    "provenance": "existing fact ID, source/status/court/stage + input/target flag"
+  },
+  {
+    "group_field": "Application target",
+    "IRAC_role": "Element supervision",
+    "mode": "TASK_LAYER_MISSING",
+    "limitations": "Three states plus nonclass cause distinguish fact false/burden/not-decided",
+    "provenance": "target-court reasoning refs only; never features"
+  }
+]

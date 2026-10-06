@@ -1,0 +1,3010 @@
+Task: construct a minimal rule-given IRAC application training proposal, NOT a new legal answer or whole-case extraction. Use only the attached data; no external search. Input is permanently frozen independently below. Full historical judgment is POST-OUTCOME, only for target construction. Reuse existing_inventory facts and objects; do not add/rewrite facts, court status, identity or relationship. If facts are wrong or insufficient mark a GAP and identify IDs. Do not make final target conclusions appear in input. Rules are oracle candidates, not automatically correct for this stage/jurisdiction/date. Check necessary scope and exceptions; if insufficient, mark GAP rather than invent.
+Return complete JSON code block and downloadable JSON. Avoid long copied text except exact short rule and target quotes. At most 6 meaningful conditions and 12 bindings, no need to fill arrays. Conditions only from provided rules, exclude target's own final reasoning from rule definitions. Relations SUPPORTS/DEFEATS describe a candidate evidentiary proposition, not established truth of a party allegation. Each binding must cite existing fact's PRE source refs and retain original statement status, court and stage. Target reasoning belongs only in element_targets/issue_target, never in bindings. A target SATISFIED requires express TARGET court adoption; DEFEATED requires express nonfulfilment or express opposing judgment. Burden not carried is distinct from false fact. UNRESOLVED must explain NOT_DECIDED, INSUFFICIENT_RECORD, AMBIGUOUS_REASONING or scope limits, not be technical failure. Lower findings are not target adoption. Do not label every statutory condition from the overall disposition. Search full target reasoning for each condition and issue; unresolved when too implicit.
+Output fields exactly: {case_id, conditions:[{id,rule_id,exact_rule_quote,description,logical_role,scope,dependencies:[{condition_id,operator}],law_refs}], bindings:[{id,fact_id,condition_id,relation,statement_status,court,stage,case_refs,reason,input_candidate:true,target_only:false}], element_targets:[{condition_id,status,basis_kind,target_refs:[{id,quote}],reason}], issue_target:{status,target_refs:[{id,quote}],reason}, gaps:[{kind,description,affected_ids}], chain_status}. Use status SATISFIED/DEFEATED/UNRESOLVED; issue SUPPORTED/NOT_SUPPORTED/UNRESOLVED. basis_kind FACT_ACCEPTED/FACT_FALSE/BURDEN_NOT_CARRIED/NOT_DECIDED/INSUFFICIENT_RECORD/LEGAL_INTERPRETATION/AMBIGUOUS_REASONING. chain_status PROPOSED_COMPLETE/GAP. law_refs are provided rule IDs. dependencies operators AND/OR/QUALIFICATION; no invented IDs. No binding to a new fact.
+MATERIAL
+{
+  "PRE_OUTCOME_FROZEN_INPUT": {
+    "case_id": "111425525",
+    "fixed_issue": "Whether the landlord's section 14(1)(b) eviction ground is established against the tenant for subletting, assignment or other parting with possession without written landlord consent, preserving procedural posture.",
+    "stage": "ARC first instance; pleadings and evidence inventory only, no target findings",
+    "pre_outcome_source": {
+      "case_id": "111425525",
+      "segments": [
+        {
+          "id": "IK-111425525:L107",
+          "text": "1. Brief facts of the present case are that on 07.03.2012, the petitioners filed this petition Under Section 14 (1) (a),(b) and (j) of the cite8†Delhi Rent Control Act, 1958 (hereinafter referred to as \"cite9†DRC Act \") praying to this court to pass an eviction order in favour of the petitioners and against the respondent in respect of tenanted premises i.e. shop admeasuring 19 ft. x 37 ft. in property No."
+        },
+        {
+          "id": "IK-111425525:L108",
+          "text": "WZ-622/D-3, Shiv Nagar, Jail Road, New Delhi- 110058 more specifically shown in red colour in the annexed site plan (hereinafter referred to as \"tenanted premises\")."
+        },
+        {
+          "id": "IK-111425525:L109",
+          "text": "2. As per the claim of the petitioners, late S. Charanjit Singh S/o Sh. Tehal Ram had let out a portion of property No. WZ- 622/D-3, Shiv Nagar, Jail Road, New Delhi-58 admeasuring 19ft.X37ft. to the respondent on a rent payable on month to ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -3- month basis. That upon the death of S. Charanjit Singh, his sons Sh. Ravinder Pal Singh and Sh. Rajender Pal Singh became joint owners of the tenanted premises. That the entire property bearing No."
+        },
+        {
+          "id": "IK-111425525:L110",
+          "text": "WZ-622/D-3, Shiv Nagar, Jail Road, New Delhi-58 has sold by the owner i.e. Sh. Ravinder Pal Singh and Sh. Rajinder Pal Singh to the petitioners vide registered sale deed dated 04.05.2011. That the respondent was informed by the then owner-landlord about the sale of the tenanted premises to petitioners. However, till date, the respondent has not tendered any rent to petitioners and thus, is in arrears of rent since 01.05.2011 till date."
+        },
+        {
+          "id": "IK-111425525:L111",
+          "text": "That the notice dated 21.01.2012 was caused to be served upon the respondent by speed post. However, the same was returned with the remarks, \"Baar Baar jane par prapt Karta nahi milta, atah wapas jaye\". The notice was also caused to be served simultaneously by courier but the envelope has not been received back."
+        },
+        {
+          "id": "IK-111425525:L112",
+          "text": "That the respondent has sublet the tenanted premises to two separate business entities namely M/s Goel Handloom House and M/s Goel Foam and Furnishing, who are carrying on the business therein independently upon having created a wooden partition in the tenanted premises dividing the tenanted premises equally among themselves. That the respondent, while subletting the tenanted premises to the said two business entities, did not take any permission from the then owners- landlord in writing."
+        },
+        {
+          "id": "IK-111425525:L113",
+          "text": "That the respondent has caused the material alteration in the tenanted premises by dividing it into two equal parts for the ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -4- purpose of subletting."
+        },
+        {
+          "id": "IK-111425525:L115",
+          "text": "Lastly, it is prayed that an eviction order may be passed against the respondent."
+        },
+        {
+          "id": "IK-111425525:L116",
+          "text": "3. On the other hand, Written Statement was filed by the respondent inter-alia stating that there is no relationship of landlord and tenant between the parties. That there are two distinct tenanted properties in question consisting of two separate shops. Initially, both the shops were under the tenancy of M/s Goel Foam and Furnishing, a partnership firm under the management of father Sh. Ramji Lal Goel and his children."
+        },
+        {
+          "id": "IK-111425525:L117",
+          "text": "That the children wanted to separate so as to run their business along with their father Sh. Ramji Lal Goel. That this matter was discussed with the owner S. Charanjit Singh in March 2008 and it was agreed to have separate shops being run for two separate partnership firms namely M/s Goel Handloom House and M/s Goel Foam and Furnishing. That the then landlord S."
+        },
+        {
+          "id": "IK-111425525:L118",
+          "text": "Charanjit Singh had consented to the said fact and an understanding was reduced in writing on 10.03.2008 whereby two tenancies were created in respect of two different shops. That the said understanding had put an embargo on the tenants not to involve any person other than family members into the partnership. That since then the rent @ Rs. 800/- per month each has been paid by M/s Goel Handloom House and M/s Goel Foam and Furnishing respectively."
+        },
+        {
+          "id": "IK-111425525:L119",
+          "text": "That the said rent has been regularly paid and accepted by the landlord which apparently show that since 2008, two tenancies were acknowledged and accepted by the landlord and the tenants."
+        },
+        {
+          "id": "IK-111425525:L120",
+          "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -5- That even to the knowledge of the tenants, the landlord had got certain rent deed prepared and executed but somehow the photocopies of the same are not with the respondent. That the original of the said rent deeds have been with the landlord. That since the rent was regularly paid by cheques, no rent receipts were issued and as such, the rent receipts placed on record are forged and invalid."
+        },
+        {
+          "id": "IK-111425525:L121",
+          "text": "That the said fact is evident from the fact that the same do not bear any signatures of the tenants."
+        },
+        {
+          "id": "IK-111425525:L122",
+          "text": "That the tenanted premises was let out way back in the year 1979 at monthly rent of Rs. 1400/- per month to M/s Goel Handloom House, a partnership firm having two partners i.e Sh. Ramji Lal Goel and Sh. Bhajan Lal Goel. That in the year 1981, son of Sh. Ramji Lal Goel namely Sh. Naresh Goel joined the firm and thereafter in the year 1992 Sh. Surender Goel also joined the firm. That there are two shops since beginning and separate tenancies existed for the two shops. That there is one shop no."
+        },
+        {
+          "id": "IK-111425525:L123",
+          "text": "3 and other is numbered shop No. 4 situated in property No. WZ-622/D-3, Shiv Nagar, Jail Road, New Delhi-58. That the said two shops are distinct and they are in possession of two separate tenants. That the shop no. 3 is under the tenancy and possession of M/s Goel Handloom House whereas shop No. 4 is in tenancy of M/s Goel Foam and Furnishing."
+        },
+        {
+          "id": "IK-111425525:L124",
+          "text": "That the tenanted premises is since beginning of the tenancy, being identified as two separate shops and there has been no subletting and/or construction as alleged. That no notice has been served upon the tenants as per law."
+        },
+        {
+          "id": "IK-111425525:L125",
+          "text": "That the petitioners are not the landlord as per law and there is no relationship of landlord and tenant. That the shops ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -6- are under the tenancy of M/s Goel Foam and Furnishing and M/s Goel Handloom House. That the respondent has not divided the tenanted shop but he has been a partner in both the shops under the tenancy of M/s Goel Foam and Furnishing and M/s Goel Handloom House."
+        },
+        {
+          "id": "IK-111425525:L126",
+          "text": "That Rs. 800/- for rent was fixed between late S. Charanjit Singh and the tenants in respect of two separate shops under the tenancy of M/s Goel Foam and Furnishing and M/s Goel Handloom House."
+        },
+        {
+          "id": "IK-111425525:L127",
+          "text": "That M/s Goel Handloom House and M/s Goel Foam and Furnishing are not sub-tenants. That the two shops existed since beginning and initially the two shops were under the tenancy of M/s Goel Handloom House with Sh. Ramji Lal Goel and Sh. Bhajan Lal Goel being the partners and subsequently in the year 1981, Sh Naresh Goel joined and further in the year 1992 Sh. Surender Goel joined the firm. However, in the year 2008 Goel Handloom remained the partnership firm with Sh. Ramji Lal Goel, Sh."
+        },
+        {
+          "id": "IK-111425525:L128",
+          "text": "Surender Goel and his wife Smt. Jyoti and partners. Goel Foam and furnishing was constituted in the year 2008 with Sh. Ramji Lal Goel and Sh. Naresh Goel as partners."
+        },
+        {
+          "id": "IK-111425525:L129",
+          "text": "That the petitioner is trying to mislead the court by showing the tenants as sub-tenant and by showing two shops as one. On the other hand, massive unauthorised construction has been carried out by the petitioner in the building. That no damage or substantial damage has been caused by the tenants. That the respondent is an old person and he has been a partner in both the firms."
+        },
+        {
+          "id": "IK-111425525:L130",
+          "text": "That the rent was tendered lastly @ Rs. 800/- by each M/s ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -7- Goel Foam and Furnishing and M/s Goel Handloom House. That prior to 2008 the shops were under the tenancy of M/s Goel Handloom House at monthly rent of Rs. 1600/- and later on the same was divided in two tenancies in respect of two shops at monthly rent of Rs. 800/- which aggregated the same sum of Rs. 1600/- per month to the landlord."
+        },
+        {
+          "id": "IK-111425525:L131",
+          "text": "That the rent of each month was duly sent to Sh. Ravinder Pal Singh through the cheque."
+        },
+        {
+          "id": "IK-111425525:L132",
+          "text": "That no legal notice ever was served by the petitioner to the tenants to handover the vacant and peaceful possession of the tenanted premises on or before 01.03.2012. That the tenants had never received any such alleged notice."
+        },
+        {
+          "id": "IK-111425525:L134",
+          "text": "That the shop no. 3 is under the tenancy and possession of M/s Goel Handloom House whereas shop no. 4 is in tenancy of M/s Goel Foam and Furnishing. That both the tenants have been paying rent separately."
+        },
+        {
+          "id": "IK-111425525:L135",
+          "text": "Lastly, it is prayed that eviction petition may be dismissed with heavy cost."
+        },
+        {
+          "id": "IK-111425525:L137",
+          "text": "4. Record reveals that the replication was filed by the petitioners in which the petitioners have reiterated and reasserted their stand taken in the petition."
+        },
+        {
+          "id": "IK-111425525:L139",
+          "text": "5. Thereafter evidence was led by the petitioners as well as by the respondent."
+        },
+        {
+          "id": "IK-111425525:L140",
+          "text": "Sh. K.D. Sharma was examined as PW-1, who relied upon the site plan Ex. PW-1/1, Rent receipts upto April, 2011 Ex. PW-1/2 (Colly.), copy of sale deed Ex. PW-1/3, two ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -8- photographs Ex. PW-1/4 (colly.), copy of legal notice dated 21.01.2012 along with postal receipt are Ex. PW-1/5 (colly.) and returned envelope Ex. PW-1/6."
+        },
+        {
+          "id": "IK-111425525:L141",
+          "text": "Sh. Ram Sharan, AAO, Office of G.M. Finance, Postal Accounts Office, Shyam Nath Marg, New Delhi-110054 was examined as PW-2, who relied upon the certified copy of order Ex. PW-2/1 whereby the summoned record was weeded out."
+        },
+        {
+          "id": "IK-111425525:L143",
+          "text": "Sh. Rajesh Kumar, Public Relation Inspector, Department of Post, Post Office, Janak Puri, New Delhi was also examined as PW-3, who relied upon the certified copy of order Ex. PW-3/A whereby the summoned record was weeded out."
+        },
+        {
+          "id": "IK-111425525:L144",
+          "text": "Sh. Rajiv, Public Relation Officer, Post office, Naraina, Delhi was also examined as PW-4, who relied upon the documents Ex. PW-4/1 to PW-4/8."
+        },
+        {
+          "id": "IK-111425525:L146",
+          "text": "Sh. Ravinder Pal Singh was also examined as PW-5, who relied upon the documents i.e. copy of the sale deed by which he had sold the tenanted premises Ex. PW-1/3."
+        },
+        {
+          "id": "IK-111425525:L147",
+          "text": "PW-6 Sh. Lekh Raj Singh, LDC from the office of Assistant Value Added Tax Officer, Ward No. 60, Trade and Taxes Department, Govt. of NCT of Delhi, Vypar Bhawan, IP Estate, New Delhi produced the certified copy of Partnership Deed dated 06.03.1979, Ex. PW-6/1, partnership deed dated 10.04.1981 Ex. PW-6/2, Deed of Partnership dated 16.04.1992 Ex. PW-6/3, Deed of Dissolution dated 16.04.1992 Ex. PW-6/4, partnership dated 19.12.2008 Ex. PW-6/5, retirement-cum- partnership deed dated 31.01.2009 Ex. PW-6/6."
+        },
+        {
+          "id": "IK-111425525:L148",
+          "text": "All the witnesses were cross examined at length and petitioner's evidence was closed."
+        },
+        {
+          "id": "IK-111425525:L150",
+          "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -9- On the other hand, respondent examined Sh. Surender Goel as DW-1, who relied upon various documents."
+        },
+        {
+          "id": "IK-111425525:L152",
+          "text": "Sh. Naresh Goel as DW-2 also relied upon various documents."
+        },
+        {
+          "id": "IK-111425525:L153",
+          "text": "Sh. Pradeep Kumar Kapoor, VATI, Sales Tax Department, Vyapar Bhawan, Ward-60, 6th Floor, ITO, Delhi was examined as RW-3, who produced the attested copies of Certificate of Registration of M/s Goel Handloom House along with Form-B, Dealer Profile i.e. M/s Goel Handloom House, which are Ex. RW-3/A (Colly.)."
+        },
+        {
+          "id": "IK-111425525:L155",
+          "text": "Sh. Shashi Kumar, Chief Manager, Dena Bank, Hari Nagar, New Delhi was examined as RW-4, who produced the bank account details of M/s Goel Handloom House."
+        },
+        {
+          "id": "IK-111425525:L156",
+          "text": "ASI Rajendra Prasad, P.S. Hari Nagar, Delhi was summoned and examined as RW-5, who stated that the summoned record pertaining to the year 2013 has been weeded out, copy of which was marked as Mark-X. Ms. Uma Kumari, Sr. Associate, SBI, Shiv Nagar, Delhi was examined as RW-6, who produced the certified copies of statement of account and the documents of Goel Foam & Furnishing Form dated 02.02.2009 till 13.11.2018, Ex. RW-6/1 (Colly.)."
+        },
+        {
+          "id": "IK-111425525:L157",
+          "text": "Sh. Virender Goel was also examined as RW-7. All the witnesses were cross examined at length by Ld. Counsel for petitioners and thereafter Respondent's evidence was closed and the matter was fixed for final arguments."
+        },
+        {
+          "id": "IK-111425525:L159",
+          "text": "6. I have heard the arguments at length advanced by Ld. ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -10- Counsels for both the parties and also gone through the entire record, written submissions and case law relied upon."
+        }
+      ],
+      "input_scope": "ARC first instance; pleadings and evidence inventory only, no target findings",
+      "coverage": "Complete approved ranges, NOT full judgment; full original held outside all model inputs",
+      "relation_status": "No known shared dispute in chosen titles/dockets; broader links unconfirmed"
+    },
+    "existing_inventory": {
+      "case_id": "111425525",
+      "origin": "EXISTING_LOCAL_WEAK_INVENTORY_NOT_LATENTWEAVER_CANONICAL",
+      "facts": [
+        {
+          "id": "f1",
+          "text": "The record reports that the petitioners filed the eviction petition on 07.03.2012 under sections 14(1)(a), (b), and (j), seeking an eviction order concerning the supplied premises.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "petition filed",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the requirements of section 14(1)(b) are satisfied",
+            "withheld final outcome"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L107"
+          ],
+          "quote": "on 07.03.2012, the petitioners filed this petition Under Section 14 (1) (a),(b) and (j)"
+        },
+        {
+          "id": "f2",
+          "text": "The petitioners claim that S. Charanjit Singh had let the described 19 ft. x 37 ft. portion to the respondent on a month-to-month rent basis.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "petition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether this asserted single tenancy characterization is accepted"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o2"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L109"
+          ],
+          "quote": "had let out a portion of property No. WZ- 622/D-3, Shiv Nagar, Jail Road, New Delhi-58 admeasuring 19ft.X37ft. to the respondent"
+        },
+        {
+          "id": "f3",
+          "text": "The petitioners claim that Ravinder Pal Singh and Rajinder Pal Singh sold the property to the petitioners through a registered sale deed dated 04.05.2011 and that the respondent was informed of the sale.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "petition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "legal effect of the asserted sale on the disputed landlord-tenant relationship"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o4"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o11"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L110"
+          ],
+          "quote": "sold by the owner i.e. Sh. Ravinder Pal Singh and Sh. Rajinder Pal Singh to the petitioners vide registered sale deed dated 04.05.2011"
+        },
+        {
+          "id": "f4",
+          "text": "The petitioners allege that the respondent sublet the premises to M/s Goel Handloom House and M/s Goel Foam and Furnishing, which were carrying on business independently after a wooden partition divided the premises equally.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "petition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether subletting occurred",
+            "whether either firm had exclusive possession",
+            "whether the premises were originally one shop or two"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o6"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o7"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L112"
+          ],
+          "quote": "the respondent has sublet the tenanted premises to two separate business entities namely M/s Goel Handloom House and M/s Goel Foam and Furnishing"
+        },
+        {
+          "id": "f5",
+          "text": "The petitioners allege that the respondent did not obtain written permission from the then owners-landlord when allegedly subletting to the two firms.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "petition",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "whether any written consent existed",
+            "legal character of the alleged 10.03.2008 understanding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L112"
+          ],
+          "quote": "did not take any permission from the then owners- landlord in writing"
+        },
+        {
+          "id": "f7",
+          "text": "The respondent claims that there were two distinct tenanted properties consisting of two separate shops and that both shops had previously been under the tenancy of M/s Goel Foam and Furnishing or, in the later detailed account, M/s Goel Handloom House under family management.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "precise historical tenant identity because the supplied written-statement passages give differing descriptions",
+            "whether the two-shop characterization is accepted"
+          ],
+          "roles": [
+            {
+              "role": "PROPERTY",
+              "object_id": "o8"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o9"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o7"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L116",
+            "IK-111425525:L122"
+          ],
+          "quote": "there are two distinct tenanted properties in question consisting of two separate shops"
+        },
+        {
+          "id": "f8",
+          "text": "The respondent claims that the proposed separation into two businesses was discussed with S. Charanjit Singh in March 2008, that he consented, and that an understanding reduced to writing on 10.03.2008 created two tenancies for two different shops.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the writing exists in the evidentiary record",
+            "its authenticity",
+            "its legal effect",
+            "whether it constitutes the landlord's previous written consent for any legally relevant transfer or subletting"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o10"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o8"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o9"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L117",
+            "IK-111425525:L118"
+          ],
+          "quote": "an understanding was reduced in writing on 10.03.2008 whereby two tenancies were created in respect of two different shops"
+        },
+        {
+          "id": "f9",
+          "text": "The respondent claims that since 2008 each of the two firms paid rent of Rs. 800 per month and that the landlord regularly accepted the rent, which the respondent says acknowledged the two tenancies.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the alleged payments and acceptance are established",
+            "legal significance of any acceptance"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o6"
+            },
+            {
+              "role": "ACTOR",
+              "object_id": "o7"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L118",
+            "IK-111425525:L119"
+          ],
+          "quote": "since then the rent @ Rs. 800/- per month each has been paid by M/s Goel Handloom House and M/s Goel Foam and Furnishing respectively"
+        },
+        {
+          "id": "f10",
+          "text": "The respondent claims that shop no. 3 is in the tenancy and possession of M/s Goel Handloom House and shop no. 4 is in the tenancy and possession of M/s Goel Foam and Furnishing.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether these are legally distinct tenancies",
+            "extent of possession retained by the respondent"
+          ],
+          "roles": [
+            {
+              "role": "PROPERTY",
+              "object_id": "o8"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o9"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o7"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L123",
+            "IK-111425525:L134"
+          ],
+          "quote": "the shop no. 3 is under the tenancy and possession of M/s Goel Handloom House whereas shop No. 4 is in tenancy of M/s Goel Foam and Furnishing"
+        },
+        {
+          "id": "f12",
+          "text": "The respondent claims that he had been a partner in both firms, including the two shops described as being under their tenancies.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "precise partnership periods",
+            "legal effect of partnership participation on possession or tenant identity"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o7"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L125",
+            "IK-111425525:L129"
+          ],
+          "quote": "he has been a partner in both the shops under the tenancy of M/s Goel Foam and Furnishing and M/s Goel Handloom House"
+        },
+        {
+          "id": "f13",
+          "text": "The respondent claims that before 2008 the shops were under one tenancy at Rs. 1600 per month and were later divided into two tenancies at Rs. 800 each, preserving the aggregate monthly rent.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the asserted pre-2008 and post-2008 tenancy structure is established",
+            "whether the change legally constituted a transfer, assignment, subletting, or new tenancies"
+          ],
+          "roles": [
+            {
+              "role": "PROPERTY",
+              "object_id": "o8"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o9"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o7"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L130"
+          ],
+          "quote": "later on the same was divided in two tenancies in respect of two shops at monthly rent of Rs. 800/-"
+        },
+        {
+          "id": "f14",
+          "text": "The record reports that a Trade and Taxes Department witness produced certified partnership deeds dated 06.03.1979, 10.04.1981, 16.04.1992, 19.12.2008, and a retirement-cum-partnership deed dated 31.01.2009; the supplied material does not state their substantive contents.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "petitioners' evidence",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "substantive contents of the partnership deeds",
+            "what the deeds prove concerning possession or tenancy",
+            "court assessment of the deeds"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o7"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L147"
+          ],
+          "quote": "produced the certified copy of Partnership Deed dated 06.03.1979, Ex. PW-6/1, partnership deed dated 10.04.1981 Ex. PW-6/2"
+        },
+        {
+          "id": "f15",
+          "text": "The record reports that respondent-side witnesses produced registration materials and bank-account records concerning M/s Goel Handloom House and account documents concerning Goel Foam and Furnishing; the supplied material does not state what those records substantively establish.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "respondent's evidence",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "substantive contents of the produced registration and bank records",
+            "court assessment of those records"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o7"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L153",
+            "IK-111425525:L155",
+            "IK-111425525:L156"
+          ],
+          "quote": "produced the bank account details of M/s Goel Handloom House"
+        },
+        {
+          "id": "f16",
+          "text": "The record reports that both sides' witnesses were cross-examined, respondent's evidence was closed, the matter was fixed for final arguments, and the court heard arguments and reviewed the record; no target findings or final outcome are supplied.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "final arguments",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court findings",
+            "target court final outcome"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-111425525:L157",
+            "IK-111425525:L159"
+          ],
+          "quote": "Respondent's evidence was closed and the matter was fixed for final arguments"
+        }
+      ],
+      "objects": [
+        {
+          "id": "o1",
+          "text": "petitioners",
+          "kind": "GROUP",
+          "refs": [
+            "IK-111425525:L107",
+            "IK-111425525:L110"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o2",
+          "text": "respondent Ramji Lal Goel",
+          "kind": "PERSON",
+          "refs": [
+            "IK-111425525:L109",
+            "IK-111425525:L116",
+            "IK-111425525:L129"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o3",
+          "text": "S. Charanjit Singh",
+          "kind": "PERSON",
+          "refs": [
+            "IK-111425525:L109",
+            "IK-111425525:L117",
+            "IK-111425525:L118"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o4",
+          "text": "Ravinder Pal Singh and Rajender/Rajinder Pal Singh",
+          "kind": "GROUP",
+          "refs": [
+            "IK-111425525:L109",
+            "IK-111425525:L110",
+            "IK-111425525:L146"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o5",
+          "text": "19 ft. x 37 ft. tenanted premises at WZ-622/D-3, Shiv Nagar, Jail Road",
+          "kind": "PROPERTY",
+          "refs": [
+            "IK-111425525:L107",
+            "IK-111425525:L108"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o6",
+          "text": "M/s Goel Handloom House",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-111425525:L112",
+            "IK-111425525:L118",
+            "IK-111425525:L123"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o7",
+          "text": "M/s Goel Foam and Furnishing",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-111425525:L112",
+            "IK-111425525:L118",
+            "IK-111425525:L123"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o8",
+          "text": "shop no. 3",
+          "kind": "PROPERTY",
+          "refs": [
+            "IK-111425525:L123",
+            "IK-111425525:L134"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o9",
+          "text": "shop no. 4",
+          "kind": "PROPERTY",
+          "refs": [
+            "IK-111425525:L123",
+            "IK-111425525:L134"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o10",
+          "text": "10.03.2008 written understanding alleged by respondent",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-111425525:L118"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o11",
+          "text": "registered sale deed dated 04.05.2011",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-111425525:L110",
+            "IK-111425525:L140",
+            "IK-111425525:L146"
+          ],
+          "unknown": false
+        }
+      ],
+      "relations": [
+        {
+          "id": "r1",
+          "left": "o3",
+          "right": "o2",
+          "relation": "other",
+          "text": "Petitioners allege that S. Charanjit Singh was the landlord who let the supplied premises to the respondent.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "petition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the asserted tenancy characterization is accepted"
+          ],
+          "refs": [
+            "IK-111425525:L109"
+          ],
+          "quote": "late S. Charanjit Singh S/o Sh. Tehal Ram had let out a portion of property No. WZ- 622/D-3"
+        },
+        {
+          "id": "r2",
+          "left": "o4",
+          "right": "o1",
+          "relation": "transferred_to",
+          "text": "Petitioners claim that Ravinder Pal Singh and Rajinder Pal Singh transferred the property to the petitioners by the registered sale deed dated 04.05.2011.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "petition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "effect of the transfer on the disputed landlord-tenant relationship"
+          ],
+          "refs": [
+            "IK-111425525:L110"
+          ],
+          "quote": "sold by the owner i.e. Sh. Ravinder Pal Singh and Sh. Rajinder Pal Singh to the petitioners"
+        },
+        {
+          "id": "r3",
+          "left": "o2",
+          "right": "o6",
+          "relation": "member_of",
+          "text": "The respondent claims that he was a partner in M/s Goel Handloom House.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "precise period and legal effect of the partnership"
+          ],
+          "refs": [
+            "IK-111425525:L125",
+            "IK-111425525:L129"
+          ],
+          "quote": "he has been a partner in both the shops"
+        },
+        {
+          "id": "r4",
+          "left": "o2",
+          "right": "o7",
+          "relation": "member_of",
+          "text": "The respondent claims that he was a partner in M/s Goel Foam and Furnishing.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "precise period and legal effect of the partnership"
+          ],
+          "refs": [
+            "IK-111425525:L125",
+            "IK-111425525:L129"
+          ],
+          "quote": "he has been a partner in both the shops"
+        },
+        {
+          "id": "r5",
+          "left": "o8",
+          "right": "o5",
+          "relation": "part_of",
+          "text": "The respondent's version treats shop no. 3 as one of the two shops making up the premises in dispute.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the target court accepts the two-shop physical and tenancy characterization"
+          ],
+          "refs": [
+            "IK-111425525:L122",
+            "IK-111425525:L123"
+          ],
+          "quote": "There is one shop no. 3 and other is numbered shop No. 4"
+        },
+        {
+          "id": "r6",
+          "left": "o9",
+          "right": "o5",
+          "relation": "part_of",
+          "text": "The respondent's version treats shop no. 4 as one of the two shops making up the premises in dispute.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the target court accepts the two-shop physical and tenancy characterization"
+          ],
+          "refs": [
+            "IK-111425525:L122",
+            "IK-111425525:L123"
+          ],
+          "quote": "There is one shop no. 3 and other is numbered shop No. 4"
+        },
+        {
+          "id": "r7",
+          "left": "o8",
+          "right": "o6",
+          "relation": "other",
+          "text": "The respondent claims that shop no. 3 is under the tenancy and possession of M/s Goel Handloom House.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether this asserted tenancy and possession are established"
+          ],
+          "refs": [
+            "IK-111425525:L123",
+            "IK-111425525:L134"
+          ],
+          "quote": "shop no. 3 is under the tenancy and possession of M/s Goel Handloom House"
+        },
+        {
+          "id": "r8",
+          "left": "o9",
+          "right": "o7",
+          "relation": "other",
+          "text": "The respondent claims that shop no. 4 is under the tenancy and possession of M/s Goel Foam and Furnishing.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "written statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether this asserted tenancy and possession are established"
+          ],
+          "refs": [
+            "IK-111425525:L123",
+            "IK-111425525:L134"
+          ],
+          "quote": "shop No. 4 is in tenancy of M/s Goel Foam and Furnishing"
+        }
+      ],
+      "issue_needs_context_not_application_targets": [
+        {
+          "id": "n1",
+          "text": "Whether the alleged occupation and operation of the supplied premises by M/s Goel Handloom House and M/s Goel Foam and Furnishing can be characterized as subletting, assignment, or other parting with possession, given the competing claim that there were two separate tenancies rather than one tenancy later divided.",
+          "refs": [
+            "IK-111425525:L112",
+            "IK-111425525:L116",
+            "IK-111425525:L123",
+            "IK-111425525:L124",
+            "IK-111425525:L125"
+          ]
+        },
+        {
+          "id": "n2",
+          "text": "Whether the relevant arrangement lacked the landlord's written consent, considering the petitioners' allegation of no written permission and the respondent's allegation of a landlord-approved written understanding dated 10.03.2008.",
+          "refs": [
+            "IK-111425525:L112",
+            "IK-111425525:L117",
+            "IK-111425525:L118"
+          ]
+        },
+        {
+          "id": "n3",
+          "text": "Whether the respondent retained participation, possession, or control through the two family partnership firms, and how the identity of the tenant or tenants relates to the alleged transfer of possession.",
+          "refs": [
+            "IK-111425525:L116",
+            "IK-111425525:L122",
+            "IK-111425525:L123",
+            "IK-111425525:L125",
+            "IK-111425525:L127",
+            "IK-111425525:L128",
+            "IK-111425525:L129"
+          ]
+        },
+        {
+          "id": "n4",
+          "text": "What temporal and procedural conditions in the supplied Delhi provisions are potentially implicated by an arrangement alleged to have existed or changed in 2008 and by the eviction petition filed in 2012.",
+          "refs": [
+            "IK-111425525:L107",
+            "IK-111425525:L117",
+            "IK-111425525:L118",
+            "IK-111425525:L130",
+            "IK-111425525:L157",
+            "IK-111425525:L159"
+          ]
+        },
+        {
+          "id": "n5",
+          "text": "Whether any supplied corporate-amalgamation, banking-transfer, acquisition, or non-Delhi rent-law material has a factual connection to this record, which describes family partnership firms and alleged tenancy arrangements rather than a corporate or statutory amalgamation.",
+          "refs": [
+            "IK-111425525:L116",
+            "IK-111425525:L117",
+            "IK-111425525:L118",
+            "IK-111425525:L127",
+            "IK-111425525:L128",
+            "IK-111425525:L147"
+          ]
+        }
+      ],
+      "quarantined": [
+        {
+          "record": {
+            "id": "f6",
+            "text": "The respondent disputes that a landlord-tenant relationship exists between the petitioners and respondent.",
+            "speaker": "TENANT",
+            "status": "DISPUTED",
+            "court": "TARGET",
+            "stage": "written statement",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "whether the target court accepts or rejects this contention"
+            ],
+            "roles": [
+              {
+                "role": "SUBJECT",
+                "object_id": "o1"
+              },
+              {
+                "role": "OBJECT",
+                "object_id": "o2"
+              }
+            ],
+            "refs": [
+              "IK-111425525:L116",
+              "IK-111425525:L125"
+            ],
+            "quote": "there is no relationship of landlord and tenant between the parties"
+          },
+          "reasons": [
+            "POSSIBLE_TARGET_ADJUDICATION"
+          ]
+        },
+        {
+          "record": {
+            "id": "f11",
+            "text": "The respondent denies the alleged subletting and construction, asserting that the premises had been identified as two separate shops since the beginning of the tenancy.",
+            "speaker": "TENANT",
+            "status": "DISPUTED",
+            "court": "TARGET",
+            "stage": "written statement",
+            "polarity": "NEGATIVE",
+            "unknown": [
+              "whether the premises were two shops from the beginning",
+              "whether any later partition or subletting occurred"
+            ],
+            "roles": [
+              {
+                "role": "ACTOR",
+                "object_id": "o2"
+              },
+              {
+                "role": "PROPERTY",
+                "object_id": "o5"
+              }
+            ],
+            "refs": [
+              "IK-111425525:L124"
+            ],
+            "quote": "there has been no subletting and/or construction as alleged"
+          },
+          "reasons": [
+            "POSSIBLE_TARGET_ADJUDICATION"
+          ]
+        }
+      ],
+      "pre_source_ids": [
+        "IK-111425525:L107",
+        "IK-111425525:L108",
+        "IK-111425525:L109",
+        "IK-111425525:L110",
+        "IK-111425525:L111",
+        "IK-111425525:L112",
+        "IK-111425525:L113",
+        "IK-111425525:L115",
+        "IK-111425525:L116",
+        "IK-111425525:L117",
+        "IK-111425525:L118",
+        "IK-111425525:L119",
+        "IK-111425525:L120",
+        "IK-111425525:L121",
+        "IK-111425525:L122",
+        "IK-111425525:L123",
+        "IK-111425525:L124",
+        "IK-111425525:L125",
+        "IK-111425525:L126",
+        "IK-111425525:L127",
+        "IK-111425525:L128",
+        "IK-111425525:L129",
+        "IK-111425525:L130",
+        "IK-111425525:L131",
+        "IK-111425525:L132",
+        "IK-111425525:L134",
+        "IK-111425525:L135",
+        "IK-111425525:L137",
+        "IK-111425525:L139",
+        "IK-111425525:L140",
+        "IK-111425525:L141",
+        "IK-111425525:L143",
+        "IK-111425525:L144",
+        "IK-111425525:L146",
+        "IK-111425525:L147",
+        "IK-111425525:L148",
+        "IK-111425525:L150",
+        "IK-111425525:L152",
+        "IK-111425525:L153",
+        "IK-111425525:L155",
+        "IK-111425525:L156",
+        "IK-111425525:L157",
+        "IK-111425525:L159"
+      ]
+    },
+    "oracle_rule_material": [
+      {
+        "id": "LAW:S02:DRC14:1b",
+        "text": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+        "source": {
+          "document_id": "18143401",
+          "url": "https://indiankanoon.org/doc/18143401/"
+        },
+        "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+        "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+        "dependencies": [],
+        "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+        "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+      },
+      {
+        "id": "LAW:S02:DRC:16",
+        "text": "(1) Where at any time before the 9th day of June, 1952, a tenant has sub-let the whole or any part of the premises and the sub-tenant is, at the commencement of this Act, in occupation of such premises, then notwithstanding that the consent of the landlord was not obtained for such sub-letting, the premises shall be deemed to have been lawfully sub-let.(2) No premises which have been sub-let either in whole or in part on or after the 9th day of June, 1952, without obtaining the consent in writing of the landlord, shall be deemed to have been lawfully sub-let.(3) After the commencement of this Act, no tenant shall, without the previous consent in writing of the landlord, -(a) sub-let the whole or any part of the premises held by him as a tenant; or(b) transfer or assign his rights in the tenancy or in any part thereof.(4) No landlord shall claim or receive the payment of any sum as premium or pugree or claim or receive any consideration whatsoever in cash or in kind for giving his consent to the sub-letting of the whole or any part of the premises held by the tenant.",
+        "source": {
+          "document_id": "152548910",
+          "url": "https://indiankanoon.org/doc/152548910/"
+        },
+        "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+        "scope": "Delhi Rent Control Act section 16; read its own date/notice/consent conditions.",
+        "dependencies": [
+          "LAW:S02:DRC14:1b"
+        ],
+        "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+        "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+      },
+      {
+        "id": "LAW:V09:AH_CONSENT_SCOPE",
+        "text": "The Courts below concurrently found that the sub-lettings after the commencement of the Act were made without obtaining the consent of the landlord in writing, and the sub-lettings before the commencement of the Act were made without obtaining the consent of the landlord either orally or in writing. We are not inclined to interfere with this concurrent finding.\nIt is said that by the lease deed dated August 18, 1939 the respondent impliedly consented to this sub-letting. Clauses 21 .and 22 of the lease are in these terms \"21.\nThat the lessee shall not be entitled to either transfer or sub-lease the premises or any part thereof to any other party without the written consent of the lessor and on such transfer, both the transferee and the lessee shall be liable for the payment of rent to the lessor and responsible to deliver,possession of the building and equipments in the same condition as when taken.\n22.That the lessee will use the premises only for the purpose of running a first class hotel.\"\nIt is -,aid that for the purpose of running a first class hotel it was necessary to sub-let the apartments. It is impossible to accept the contention. A hotel-keeper may run a first class hotel without sub-letting any part of it. Clause 21-clearly provided that the lessee shall not sub- lease the hotel premises or any part thereof. In the teeth of cl. 21, it is impossible to read in cl. 22 an implied consent to sub-letting.\nReliance is placed on the correspondence passed between the Land Development Officer, New Delhi and the respondent bet- ween April 1948 and February 1949 for establishing that the respondent gave written consent to the sub-lettings. The Land and Development Officer was then complaining of the occupation of portions of the premises by Pan American World Airways and other persons.\nBy his letters dated November 4, 1948 and February 23, 1949, the respondent requested the Land and Development Officer to regularise the matter adding that in an first class hotels counters of air-lines and show-rooms of jewellery and curios were always provided. These letter,.; do not amount to a consent in writing to sub-lettings of portions of the hotel to the persons mentioned therein. Moreover, the consent, if any, 'was to the sub-lettings made before 1949 and not to the sub- lettings made thereafter.",
+        "source": {
+          "document_id": "923000",
+          "url": "https://indiankanoon.org/doc/923000/",
+          "date": "1967-12-07",
+          "court_or_publisher": "Supreme Court of India",
+          "passage_addresses": [
+            {
+              "id": "IK-923000:L235",
+              "start": 0,
+              "end": 363
+            },
+            {
+              "id": "IK-923000:L236",
+              "start": 0,
+              "end": 167
+            },
+            {
+              "id": "IK-923000:L237",
+              "start": 0,
+              "end": 380
+            },
+            {
+              "id": "IK-923000:L238",
+              "start": 0,
+              "end": 94
+            },
+            {
+              "id": "IK-923000:L239",
+              "start": 0,
+              "end": 427
+            },
+            {
+              "id": "IK-923000:L240",
+              "start": 0,
+              "end": 381
+            },
+            {
+              "id": "IK-923000:L241",
+              "start": 0,
+              "end": 511
+            }
+          ]
+        },
+        "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+        "scope": "Delhi and Ajmer Rent Control Act1952; contract and specific subtenancies",
+        "mechanisms": [
+          "written_consent",
+          "temporal_applicability"
+        ],
+        "legal_status": "COURT_ADOPTED",
+        "coverage_limit": "Consent must concern relevant subtenancy/time; a lease purpose or letter about earlier occupation is not blanket written permission for later sublettings.",
+        "dependencies": [],
+        "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+        "full_source_status": "INCOMPLETE",
+        "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+        "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+      }
+    ],
+    "unknown_is_not_false": true,
+    "target_info_included": false
+  },
+  "POST_OUTCOME_TARGET_CONSTRUCTION": {
+    "case_id": "111425525",
+    "title": [
+      "Sh. Sandeep Singh vs Sh. Ramji Lal Goel (Since Deceased) on 2 July, 2019"
+    ],
+    "usage": "TARGET_CONSTRUCTION_ONLY_NEVER_MODEL_INPUT",
+    "full_historical_source": [
+      {
+        "id": "IK-111425525:L107",
+        "text": "1. Brief facts of the present case are that on 07.03.2012, the petitioners filed this petition Under Section 14 (1) (a),(b) and (j) of the cite8†Delhi Rent Control Act, 1958 (hereinafter referred to as \"cite9†DRC Act \") praying to this court to pass an eviction order in favour of the petitioners and against the respondent in respect of tenanted premises i.e. shop admeasuring 19 ft. x 37 ft. in property No."
+      },
+      {
+        "id": "IK-111425525:L108",
+        "text": "WZ-622/D-3, Shiv Nagar, Jail Road, New Delhi- 110058 more specifically shown in red colour in the annexed site plan (hereinafter referred to as \"tenanted premises\")."
+      },
+      {
+        "id": "IK-111425525:L109",
+        "text": "2. As per the claim of the petitioners, late S. Charanjit Singh S/o Sh. Tehal Ram had let out a portion of property No. WZ- 622/D-3, Shiv Nagar, Jail Road, New Delhi-58 admeasuring 19ft.X37ft. to the respondent on a rent payable on month to ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -3- month basis. That upon the death of S. Charanjit Singh, his sons Sh. Ravinder Pal Singh and Sh. Rajender Pal Singh became joint owners of the tenanted premises. That the entire property bearing No."
+      },
+      {
+        "id": "IK-111425525:L110",
+        "text": "WZ-622/D-3, Shiv Nagar, Jail Road, New Delhi-58 has sold by the owner i.e. Sh. Ravinder Pal Singh and Sh. Rajinder Pal Singh to the petitioners vide registered sale deed dated 04.05.2011. That the respondent was informed by the then owner-landlord about the sale of the tenanted premises to petitioners. However, till date, the respondent has not tendered any rent to petitioners and thus, is in arrears of rent since 01.05.2011 till date."
+      },
+      {
+        "id": "IK-111425525:L111",
+        "text": "That the notice dated 21.01.2012 was caused to be served upon the respondent by speed post. However, the same was returned with the remarks, \"Baar Baar jane par prapt Karta nahi milta, atah wapas jaye\". The notice was also caused to be served simultaneously by courier but the envelope has not been received back."
+      },
+      {
+        "id": "IK-111425525:L112",
+        "text": "That the respondent has sublet the tenanted premises to two separate business entities namely M/s Goel Handloom House and M/s Goel Foam and Furnishing, who are carrying on the business therein independently upon having created a wooden partition in the tenanted premises dividing the tenanted premises equally among themselves. That the respondent, while subletting the tenanted premises to the said two business entities, did not take any permission from the then owners- landlord in writing."
+      },
+      {
+        "id": "IK-111425525:L113",
+        "text": "That the respondent has caused the material alteration in the tenanted premises by dividing it into two equal parts for the ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -4- purpose of subletting."
+      },
+      {
+        "id": "IK-111425525:L114",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L115",
+        "text": "Lastly, it is prayed that an eviction order may be passed against the respondent."
+      },
+      {
+        "id": "IK-111425525:L116",
+        "text": "3. On the other hand, Written Statement was filed by the respondent inter-alia stating that there is no relationship of landlord and tenant between the parties. That there are two distinct tenanted properties in question consisting of two separate shops. Initially, both the shops were under the tenancy of M/s Goel Foam and Furnishing, a partnership firm under the management of father Sh. Ramji Lal Goel and his children."
+      },
+      {
+        "id": "IK-111425525:L117",
+        "text": "That the children wanted to separate so as to run their business along with their father Sh. Ramji Lal Goel. That this matter was discussed with the owner S. Charanjit Singh in March 2008 and it was agreed to have separate shops being run for two separate partnership firms namely M/s Goel Handloom House and M/s Goel Foam and Furnishing. That the then landlord S."
+      },
+      {
+        "id": "IK-111425525:L118",
+        "text": "Charanjit Singh had consented to the said fact and an understanding was reduced in writing on 10.03.2008 whereby two tenancies were created in respect of two different shops. That the said understanding had put an embargo on the tenants not to involve any person other than family members into the partnership. That since then the rent @ Rs. 800/- per month each has been paid by M/s Goel Handloom House and M/s Goel Foam and Furnishing respectively."
+      },
+      {
+        "id": "IK-111425525:L119",
+        "text": "That the said rent has been regularly paid and accepted by the landlord which apparently show that since 2008, two tenancies were acknowledged and accepted by the landlord and the tenants."
+      },
+      {
+        "id": "IK-111425525:L120",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -5- That even to the knowledge of the tenants, the landlord had got certain rent deed prepared and executed but somehow the photocopies of the same are not with the respondent. That the original of the said rent deeds have been with the landlord. That since the rent was regularly paid by cheques, no rent receipts were issued and as such, the rent receipts placed on record are forged and invalid."
+      },
+      {
+        "id": "IK-111425525:L121",
+        "text": "That the said fact is evident from the fact that the same do not bear any signatures of the tenants."
+      },
+      {
+        "id": "IK-111425525:L122",
+        "text": "That the tenanted premises was let out way back in the year 1979 at monthly rent of Rs. 1400/- per month to M/s Goel Handloom House, a partnership firm having two partners i.e Sh. Ramji Lal Goel and Sh. Bhajan Lal Goel. That in the year 1981, son of Sh. Ramji Lal Goel namely Sh. Naresh Goel joined the firm and thereafter in the year 1992 Sh. Surender Goel also joined the firm. That there are two shops since beginning and separate tenancies existed for the two shops. That there is one shop no."
+      },
+      {
+        "id": "IK-111425525:L123",
+        "text": "3 and other is numbered shop No. 4 situated in property No. WZ-622/D-3, Shiv Nagar, Jail Road, New Delhi-58. That the said two shops are distinct and they are in possession of two separate tenants. That the shop no. 3 is under the tenancy and possession of M/s Goel Handloom House whereas shop No. 4 is in tenancy of M/s Goel Foam and Furnishing."
+      },
+      {
+        "id": "IK-111425525:L124",
+        "text": "That the tenanted premises is since beginning of the tenancy, being identified as two separate shops and there has been no subletting and/or construction as alleged. That no notice has been served upon the tenants as per law."
+      },
+      {
+        "id": "IK-111425525:L125",
+        "text": "That the petitioners are not the landlord as per law and there is no relationship of landlord and tenant. That the shops ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -6- are under the tenancy of M/s Goel Foam and Furnishing and M/s Goel Handloom House. That the respondent has not divided the tenanted shop but he has been a partner in both the shops under the tenancy of M/s Goel Foam and Furnishing and M/s Goel Handloom House."
+      },
+      {
+        "id": "IK-111425525:L126",
+        "text": "That Rs. 800/- for rent was fixed between late S. Charanjit Singh and the tenants in respect of two separate shops under the tenancy of M/s Goel Foam and Furnishing and M/s Goel Handloom House."
+      },
+      {
+        "id": "IK-111425525:L127",
+        "text": "That M/s Goel Handloom House and M/s Goel Foam and Furnishing are not sub-tenants. That the two shops existed since beginning and initially the two shops were under the tenancy of M/s Goel Handloom House with Sh. Ramji Lal Goel and Sh. Bhajan Lal Goel being the partners and subsequently in the year 1981, Sh Naresh Goel joined and further in the year 1992 Sh. Surender Goel joined the firm. However, in the year 2008 Goel Handloom remained the partnership firm with Sh. Ramji Lal Goel, Sh."
+      },
+      {
+        "id": "IK-111425525:L128",
+        "text": "Surender Goel and his wife Smt. Jyoti and partners. Goel Foam and furnishing was constituted in the year 2008 with Sh. Ramji Lal Goel and Sh. Naresh Goel as partners."
+      },
+      {
+        "id": "IK-111425525:L129",
+        "text": "That the petitioner is trying to mislead the court by showing the tenants as sub-tenant and by showing two shops as one. On the other hand, massive unauthorised construction has been carried out by the petitioner in the building. That no damage or substantial damage has been caused by the tenants. That the respondent is an old person and he has been a partner in both the firms."
+      },
+      {
+        "id": "IK-111425525:L130",
+        "text": "That the rent was tendered lastly @ Rs. 800/- by each M/s ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -7- Goel Foam and Furnishing and M/s Goel Handloom House. That prior to 2008 the shops were under the tenancy of M/s Goel Handloom House at monthly rent of Rs. 1600/- and later on the same was divided in two tenancies in respect of two shops at monthly rent of Rs. 800/- which aggregated the same sum of Rs. 1600/- per month to the landlord."
+      },
+      {
+        "id": "IK-111425525:L131",
+        "text": "That the rent of each month was duly sent to Sh. Ravinder Pal Singh through the cheque."
+      },
+      {
+        "id": "IK-111425525:L132",
+        "text": "That no legal notice ever was served by the petitioner to the tenants to handover the vacant and peaceful possession of the tenanted premises on or before 01.03.2012. That the tenants had never received any such alleged notice."
+      },
+      {
+        "id": "IK-111425525:L133",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L134",
+        "text": "That the shop no. 3 is under the tenancy and possession of M/s Goel Handloom House whereas shop no. 4 is in tenancy of M/s Goel Foam and Furnishing. That both the tenants have been paying rent separately."
+      },
+      {
+        "id": "IK-111425525:L135",
+        "text": "Lastly, it is prayed that eviction petition may be dismissed with heavy cost."
+      },
+      {
+        "id": "IK-111425525:L136",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L137",
+        "text": "4. Record reveals that the replication was filed by the petitioners in which the petitioners have reiterated and reasserted their stand taken in the petition."
+      },
+      {
+        "id": "IK-111425525:L138",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L139",
+        "text": "5. Thereafter evidence was led by the petitioners as well as by the respondent."
+      },
+      {
+        "id": "IK-111425525:L140",
+        "text": "Sh. K.D. Sharma was examined as PW-1, who relied upon the site plan Ex. PW-1/1, Rent receipts upto April, 2011 Ex. PW-1/2 (Colly.), copy of sale deed Ex. PW-1/3, two ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -8- photographs Ex. PW-1/4 (colly.), copy of legal notice dated 21.01.2012 along with postal receipt are Ex. PW-1/5 (colly.) and returned envelope Ex. PW-1/6."
+      },
+      {
+        "id": "IK-111425525:L141",
+        "text": "Sh. Ram Sharan, AAO, Office of G.M. Finance, Postal Accounts Office, Shyam Nath Marg, New Delhi-110054 was examined as PW-2, who relied upon the certified copy of order Ex. PW-2/1 whereby the summoned record was weeded out."
+      },
+      {
+        "id": "IK-111425525:L142",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L143",
+        "text": "Sh. Rajesh Kumar, Public Relation Inspector, Department of Post, Post Office, Janak Puri, New Delhi was also examined as PW-3, who relied upon the certified copy of order Ex. PW-3/A whereby the summoned record was weeded out."
+      },
+      {
+        "id": "IK-111425525:L144",
+        "text": "Sh. Rajiv, Public Relation Officer, Post office, Naraina, Delhi was also examined as PW-4, who relied upon the documents Ex. PW-4/1 to PW-4/8."
+      },
+      {
+        "id": "IK-111425525:L145",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L146",
+        "text": "Sh. Ravinder Pal Singh was also examined as PW-5, who relied upon the documents i.e. copy of the sale deed by which he had sold the tenanted premises Ex. PW-1/3."
+      },
+      {
+        "id": "IK-111425525:L147",
+        "text": "PW-6 Sh. Lekh Raj Singh, LDC from the office of Assistant Value Added Tax Officer, Ward No. 60, Trade and Taxes Department, Govt. of NCT of Delhi, Vypar Bhawan, IP Estate, New Delhi produced the certified copy of Partnership Deed dated 06.03.1979, Ex. PW-6/1, partnership deed dated 10.04.1981 Ex. PW-6/2, Deed of Partnership dated 16.04.1992 Ex. PW-6/3, Deed of Dissolution dated 16.04.1992 Ex. PW-6/4, partnership dated 19.12.2008 Ex. PW-6/5, retirement-cum- partnership deed dated 31.01.2009 Ex. PW-6/6."
+      },
+      {
+        "id": "IK-111425525:L148",
+        "text": "All the witnesses were cross examined at length and petitioner's evidence was closed."
+      },
+      {
+        "id": "IK-111425525:L149",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L150",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -9- On the other hand, respondent examined Sh. Surender Goel as DW-1, who relied upon various documents."
+      },
+      {
+        "id": "IK-111425525:L151",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L152",
+        "text": "Sh. Naresh Goel as DW-2 also relied upon various documents."
+      },
+      {
+        "id": "IK-111425525:L153",
+        "text": "Sh. Pradeep Kumar Kapoor, VATI, Sales Tax Department, Vyapar Bhawan, Ward-60, 6th Floor, ITO, Delhi was examined as RW-3, who produced the attested copies of Certificate of Registration of M/s Goel Handloom House along with Form-B, Dealer Profile i.e. M/s Goel Handloom House, which are Ex. RW-3/A (Colly.)."
+      },
+      {
+        "id": "IK-111425525:L154",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L155",
+        "text": "Sh. Shashi Kumar, Chief Manager, Dena Bank, Hari Nagar, New Delhi was examined as RW-4, who produced the bank account details of M/s Goel Handloom House."
+      },
+      {
+        "id": "IK-111425525:L156",
+        "text": "ASI Rajendra Prasad, P.S. Hari Nagar, Delhi was summoned and examined as RW-5, who stated that the summoned record pertaining to the year 2013 has been weeded out, copy of which was marked as Mark-X. Ms. Uma Kumari, Sr. Associate, SBI, Shiv Nagar, Delhi was examined as RW-6, who produced the certified copies of statement of account and the documents of Goel Foam & Furnishing Form dated 02.02.2009 till 13.11.2018, Ex. RW-6/1 (Colly.)."
+      },
+      {
+        "id": "IK-111425525:L157",
+        "text": "Sh. Virender Goel was also examined as RW-7. All the witnesses were cross examined at length by Ld. Counsel for petitioners and thereafter Respondent's evidence was closed and the matter was fixed for final arguments."
+      },
+      {
+        "id": "IK-111425525:L158",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L159",
+        "text": "6. I have heard the arguments at length advanced by Ld. ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -10- Counsels for both the parties and also gone through the entire record, written submissions and case law relied upon."
+      },
+      {
+        "id": "IK-111425525:L160",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L161",
+        "text": "LANDLORSHIP:-"
+      },
+      {
+        "id": "IK-111425525:L162",
+        "text": "7. The petitioners have claimed to be owner and landlord of the tenanted premises."
+      },
+      {
+        "id": "IK-111425525:L163",
+        "text": "As per the claim of the petitioners, the respondent was let out by previous owner Sardar charnanjit Singh and upon the death of S. Charanjit Singh, his sons namely S. Ravinder Pal Singh and Rajinder Pal Singh became owners and they sold out the tenanted premises and entire suit property to the petitioners vide registered sale deed dated 04.05.2011 and respondent was informed about such purchase and asked to pay rent but the respondents are in the arrears of rent w.e.f."
+      },
+      {
+        "id": "IK-111425525:L164",
+        "text": "01.05.2011 till date despite legal demand notice dated 21.01.2012."
+      },
+      {
+        "id": "IK-111425525:L165",
+        "text": "On the contrary, the claim of the respondent is that there is no relationship of landlord and tenant between the parties as there are two distinct tenanted properties in question consisting of two separate shops. It is further claimed that initially both the shops were under the tenancy of M/s Goel Foam and furnishing, a partnership firm under Sh. Ramji Lal and his children."
+      },
+      {
+        "id": "IK-111425525:L166",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L167",
+        "text": "It is expedient to reproduce the relevant portion of evidence of DW-2 Sh. Naresh Goel which is as under:-"
+      },
+      {
+        "id": "IK-111425525:L168",
+        "text": "> \"I have not filed any suit, application or petition before any authority or any court challenging the claim of the petitioners being owners of the property of which suit property is a part. (Vol. I have filed a suit for repair of the roof against Sandeep Singh and Sh.K.D. Sharma).\""
+      },
+      {
+        "id": "IK-111425525:L169",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L170",
+        "text": "As such, perusal of testimony of DW-2 manifestly shows ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -11- that the respondent has admitted the landlorship of petitioners."
+      },
+      {
+        "id": "IK-111425525:L171",
+        "text": "Perusal of record shows that respondent has emphasized that there are two distinct tenanted properties in questions consisting of two separate shops. As per claim of the respondent, initially both the shops were under the tenancy of M/s Goel Foam and Furnishing, a partnership firm under the management of Sh. Ramji Lal Goyal which were later on in March, 2008 started running as two separate partnership firm namely M/s Goyal Handloom House and M/s Goyal Foam and Furnishing and the previous owner/landlord S."
+      },
+      {
+        "id": "IK-111425525:L172",
+        "text": "Charanjit Singh consented thereto and an understanding was reduced in writing on 10.03.2008 whereby two tenancies were created in respect of two different shops."
+      },
+      {
+        "id": "IK-111425525:L173",
+        "text": "As such, record shows that respondent has not directly disputed the landlordship of petitioners but disputed the extent and number of tenancy. Moreover, the respondent has not disclosed who is the landlord if not the petitioners."
+      },
+      {
+        "id": "IK-111425525:L174",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L175",
+        "text": "On the contrary, the petitioners have placed on record copy of sale deed Ex. PW-1/3 executed on 04.05.2011 in their favour by the previous owner which is a registered document with the sub-registrar office and this document clearly shows the ownership of the petitioners."
+      },
+      {
+        "id": "IK-111425525:L176",
+        "text": "Moreover, testimony of DW-2 Sh. Naresh Goel manifestly shows that he himself has admitted during the cross examination that he filed a suit for repair of roof against the petitioners. As such, relationship of landlord and tenant is indirectly admitted by the respondent himself."
+      },
+      {
+        "id": "IK-111425525:L177",
+        "text": "Record shows that the petitioners have been able to show ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -12- that they are something more than a tenant/respondent. Moreover, the respondent has not been able to prove that the petitioners are not the landlords of the tenanted premises."
+      },
+      {
+        "id": "IK-111425525:L178",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L179",
+        "text": "As such, record manifestly shows that there exists a relationship of landlord and tenant between the parties."
+      },
+      {
+        "id": "IK-111425525:L180",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L181",
+        "text": "cite10†Section 14 (1) (b) sub-letting:-"
+      },
+      {
+        "id": "IK-111425525:L182",
+        "text": "8. It is expedient to reproduce the cite11†Section 14 (1)(b) of DRC Act which is as under:"
+      },
+      {
+        "id": "IK-111425525:L183",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L184",
+        "text": "> \"cite11†Section-14 . Protection of tenant against eviction- (1) Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by court or any controller in favour of the landlord against a tenant:"
+      },
+      {
+        "id": "IK-111425525:L185",
+        "text": "> Provided that the controller may, on an application made to him in the prescribed manner, make an order for recovery of possession of the premises on one or more of the following grounds only, namely:-"
+      },
+      {
+        "id": "IK-111425525:L186",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L187",
+        "text": "> (b) That the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or part of the premises without obtaining the consent in writing of the landlord\"."
+      },
+      {
+        "id": "IK-111425525:L188",
+        "text": "As per cite9†Delhi Rent Control Act , Section 14 (1)(b) D.R.C. Act is one of the grounds entitling landlord to get the order of ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -13- eviction against the tenant. It is well settled that subletting is not absolutely prohibited by the law or by the cite9†Delhi Rent Control Act but the subletting should be with the consent of landlord and such consent should be in writing."
+      },
+      {
+        "id": "IK-111425525:L189",
+        "text": "cite11†Section 14 (1)(b) clearly lays down that eviction may take place even when the tenant has parted with the possession of whole or part of the premises. In view of provision of law, the landlord is required to prove following essential conditions:-"
+      },
+      {
+        "id": "IK-111425525:L190",
+        "text": "> (i) The tenant sub-let, assigned or parted with the possession of the whole or part of the premises. i.e. the sub tenant was in exclusive possession of property or part of the property."
+      },
+      {
+        "id": "IK-111425525:L191",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L192",
+        "text": "> (ii). No consent in writing was taken from the landlord by the tenant."
+      },
+      {
+        "id": "IK-111425525:L193",
+        "text": "9. It is well settled that exclusive possession means the possession to the exclusion of others and it includes not only the physical possession but also the legal possession. It is also clear that parting with possession means giving possession to persons other than those to whom possession was assigned by the lessee and parting with possession must have been by the tenant."
+      },
+      {
+        "id": "IK-111425525:L194",
+        "text": "It is also settled that mere use by other persons is not parting with possession so long as the tenant retains the legal possession himself. Subletting takes place only when there is divesting of physical possession as well as of the right to possession. In other words, there must be vesting of possession by the tenant in other person by divesting himself not only of ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -14- physical possession but also of the right to possession."
+      },
+      {
+        "id": "IK-111425525:L195",
+        "text": "So long as the tenant keeps the control with him, it can not be said that sub-tenant is in exclusive possession of premises and in such situation the case does not fall within Section 14 (1)(b) D.R.C. Act."
+      },
+      {
+        "id": "IK-111425525:L196",
+        "text": "The divestment or abandonment of the right to possession is always necessary to invoke the clause of parting with possession."
+      },
+      {
+        "id": "IK-111425525:L197",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L198",
+        "text": "10. In the case titled as cite12†Vaishakhi Ram & Others Vs Sanjeev Kumar Bhatiani 2008, 14 SCC, it was held as under:-"
+      },
+      {
+        "id": "IK-111425525:L199",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L200",
+        "text": "> \"21. It is well settled that the burden of proving subletting is on the landlord but if the landlord proves that the subtenant is in exclusive possession of the suit premises, then the onus is shifted to the tenant to prove that it was not a case of subletting.\""
+      },
+      {
+        "id": "IK-111425525:L201",
+        "text": "It is well settled that initial burden to prove that subtenant is in exclusive possession of the suit property is on the owner. However, the onus to prove the exclusive possession of the subtenant is that of preponderance of probability only and he has to prove the same prima- facie only and if he succeeds then the burden to rebut the same lies on the tenant."
+      },
+      {
+        "id": "IK-111425525:L202",
+        "text": "In the case titled as cite13†Associated Hotels of India Limited Delhi Vs. S.B. Sardar Ranjit Singh , 1968, AIR (SC) 933, it was held that when eviction is sought on the ground of subletting, this onus to prove subletting is on the landlord. If the landlord prima facie shows that the occupant who was in exclusive possession of the premises let out for valuable consideration, it would then be for the tenant to rebut the evidence."
+      },
+      {
+        "id": "IK-111425525:L203",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -15- In the case titled as cite14†Kala and another Vs. Madho Parshad Vaidya , 1998, 6 SCC, 573; the Hon'ble Apex Court reiterated the very same principle observing that the burden of proof of subletting is on the landlord but once he establishes parting of possession by the tenant to third party, the onus would shift on the tenant to explain his possession."
+      },
+      {
+        "id": "IK-111425525:L204",
+        "text": "If he is unable to discharge that onus, it is permissible for the court to raise an inference that such possession was for monetary consideration."
+      },
+      {
+        "id": "IK-111425525:L205",
+        "text": "In the case titled as cite15†Prem Parkash Vs. Santosh Kumar Jain & Sons and another , 2017, law suit (SC) 872, the relevant para is as under:-"
+      },
+      {
+        "id": "IK-111425525:L206",
+        "text": "> \"18. sub-tenancy or subletting comes into existence when the tenant gives a possession of the tenanted accommodation, wholly or in part, and puts another person in exclusive possession thereof. This arrangement comes about obviously under a mutual agreement or understanding between the tenant and the person to whom the possession is so delivered. In this process, the landlord is kept out of the scene."
+      },
+      {
+        "id": "IK-111425525:L207",
+        "text": "Rather, the scene is enacted behind the back of the landlord, concealing the overt acts and transferring possession clandestinely to a person who is an utter stranger to the landlord, in the sense that the landlord had not let out the premises to that person nor had he allowed or consented to his entering into possession of that person, instead of the tenant which ultimately reveals to the landlord that the tenant to whom the property was let out has put some other person in possession of that property."
+      },
+      {
+        "id": "IK-111425525:L208",
+        "text": "In such a situation, it would be difficult for the landlord to prove, by direct evidence, the contract or agreement or understanding between the tenant and the subtenant. It would also be difficult for the landlord to prove, by direct evidence, that the person to whom the property had been sublet, had paid monetary consideration to the tenant. Payment of rent, undoubtedly, is an essential element of lease or sublease. It may be paid in cash or in kind or may have been paid or promised to be paid."
+      },
+      {
+        "id": "IK-111425525:L209",
+        "text": "It may have been paid in lump sum in advance covering the period for which the premises is let out or sublet or it ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -16- may have been paid or promised to have been paid periodically. Since payment of rent or monetary consideration may have been made secretly, the law does not require such payment to be proved by affirmative evidence and the court is permitted to draw its own inference upon the fact of the case.\""
+      },
+      {
+        "id": "IK-111425525:L210",
+        "text": "In the case titled as cite16†Munshi Ram Vs Bhoj Ram through LRs in C.M. (M) No.1612/2010 and C.M. No.8004/2005, wherein it was observed as under:-"
+      },
+      {
+        "id": "IK-111425525:L211",
+        "text": "> \"It is well settled that to make out a case for subletting or parting with possession, it means giving a possession to persons other than those to whom the possession had been given by the original lessor and that parted with possession must have been made by the tenant. The word 'subletting' necessarily means transfer of an exclusive right to enjoy the property in favour of the third party.\""
+      },
+      {
+        "id": "IK-111425525:L212",
+        "text": "In the case titled as cite17†Shalimar Tar Products Ltd. Vs H.C. Sharma , 1988, 1 (SCC) 70, the Hon'ble Apex Court noted that to constitute a subletting, there must be a parting with a legal possession and whether in a particular case, there was subletting or not, was a question of fact."
+      },
+      {
+        "id": "IK-111425525:L213",
+        "text": "It is well settled that to establish the aforesaid ingredients, the landlord must establish that tenant had completely divested himself of the suit premises and parted with possession of the suit premises of the whole or part of the premises to the sub- tenants and this should be substantiated by the evidence."
+      },
+      {
+        "id": "IK-111425525:L214",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L215",
+        "text": "In the case titled as cite18†Praveen Saini Vs Reetu Kapur & Anr. 246 (2018) DLT 709, the Hon'ble High Court of Delhi inter- alia observed as under:-"
+      },
+      {
+        "id": "IK-111425525:L216",
+        "text": "> \"On the aspect of admissions being binding, this Court would like to straightaway refer to the judgment of the Supreme Court in the case of ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his cite19†L.Rs -17- Nagindas Ramdas Vs Dalpatram Ichharam alias Brijram & Others, 1973 (SLT Soft) 15 (1974) 1 SCC 242, because in this judgment the Supreme Court has laid down the ratio that evidentiary admissions are different than judicial admissions."
+      },
+      {
+        "id": "IK-111425525:L217",
+        "text": "Supreme Court has held that admissions which are made in judicial proceedings are on a higher pedestal than evidentiary admissions made in the form of correspondence etc and that judicial admissions can be a basis in themselves for deciding the claim. The relevant para 27 of the judgment in the case of cite19†Nagindas Ramdas (supra) read as under:-"
+      },
+      {
+        "id": "IK-111425525:L218",
+        "text": "> \"27. From a conspectus of the cases cited at the bar the principle that emerges is that if at the time of the passing of the decree, there was some material before the court, on the basis of which the court could be prima facie satisfied, about the existence of a statutory ground for eviction, it will be presumed that the Court was so satisfied and the decree for eviction apparently passed on the basis of a compromise, would be valid."
+      },
+      {
+        "id": "IK-111425525:L219",
+        "text": "Such material may take the shape either of evidence recorded or produced in the case or, it may partly or wholly be in the shape of an express or implied admission made in the compromise agreement itself. Admissions if true and clear are by far the best proof of the facts admitted. Admissions in pleadings or judicial admission admissible under cite20†Section 58 of the Evidence Act, made by the parties or their agents at or before the hearing of the case, stand on a higher footing than evidentiary admission."
+      },
+      {
+        "id": "IK-111425525:L220",
+        "text": "The former class of admissions are fully binding on the party that makes them and constitute a waiver of proof. They by themselves can be made the foundation of the rights of the parties. On the other hand evidentiary admissions which are receivable at the rivalas evidence are by themselves not conclusive. They can be shown to be wrong.\""
+      },
+      {
+        "id": "IK-111425525:L221",
+        "text": "In the case titled as cite21†Sukhpal Singh & Anr. Vs Satbir Singh & Anr. 296 Capital Law Judgment 2012 (4), the Hon'ble Delhi High Court inter-alia observed as under:-"
+      },
+      {
+        "id": "IK-111425525:L222",
+        "text": "> \"4. It is important to note that the onus of proving sub- tenancy lies on the landlord. 0The Supreme Court in \"cite22†Jagan Nath Vs Chander Bhdn , AIR 1988 SC ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -18- 1362\", enunciated the principles whereby once the landlord has proved that a particular portion of the demised premises has been given in exclusive possession to a stranger, then the onus shifts upon the tenant.\""
+      },
+      {
+        "id": "IK-111425525:L223",
+        "text": "In the case titled as cite23†Padam Chand Jain Vs Messrs Mahabir Pershad & Sons and another , S.A.O. No.464 of 1968, the Hon'ble Delhi High Court inter-alia observed as under:-"
+      },
+      {
+        "id": "IK-111425525:L224",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L225",
+        "text": "> \"It is now settled by the decision of a Full Bench of this Court in cite24†Kedar Nath and another Vs Smt. Mohini Devi , etc. that the initial burden lies upon the landlord to establish that any of the con-"
+      },
+      {
+        "id": "IK-111425525:L226",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L227",
+        "text": "> -ditions mentioned in the clauses (a) to (e) of the proviso exists (vide at page 170-I of the report).\""
+      },
+      {
+        "id": "IK-111425525:L228",
+        "text": "In case bearing C.M. (Main) No.172 of 2010 & C.M. Appl. Nos.2248-2249 of 2010 in case titled as M/s cite25†Udhey Bhan Ashok Kumar & Co. & Ors. vs. Neelam Kumari February 24, 2010; it was observed that :-"
+      },
+      {
+        "id": "IK-111425525:L229",
+        "text": "> \"4. Learned counsel for the petitioners has argued that mere change of the constitution of firm from partnership to proprietorship would not amount to sub- tenancy. I consider that this argument is not tenable. A partnership firm is not a legal entity. It is a conglomeration of partners. A tenancy in the name of partnership firm is a joint tenancy of the partners."
+      },
+      {
+        "id": "IK-111425525:L230",
+        "text": "If none of the partners in whose favour the tenancy was created is in possession of the shop and another person, who was later on inducted as a partner and then becomes sole proprietor of the firm is in possession of the tenanted premises then it is a clear cut case of sub-letting and parting with possession through the device of first inducting a stranger as a partner and then dissolving the partnership firm and handing over the premises to him."
+      },
+      {
+        "id": "IK-111425525:L231",
+        "text": "It makes no difference that he continues the business in the same name or that he was related to an erstwhile partner. I find no force in this petition. The petition is hereby dismissed.\""
+      },
+      {
+        "id": "IK-111425525:L232",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -19-"
+      },
+      {
+        "id": "IK-111425525:L233",
+        "text": "11. Keeping in view, the aforementioned principles of law and observations made by the Hon'ble Superior Courts, I have carefully gone through the entire testimonies of all the witnesses from the petitioners' side and respondent's side and also all the relevant documents and written submissions filed on record and I have also heard the arguments advanced by the Ld. Counsels and I have also gone through carefully the case law relied upon."
+      },
+      {
+        "id": "IK-111425525:L234",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L235",
+        "text": "12. Lets discuss the 1st ingedients:-"
+      },
+      {
+        "id": "IK-111425525:L236",
+        "text": "> (i). The tenant sub-let, assigned or parted with the possession of the whole or part of the premises. i.e. the sub tenant was in exclusive possession of property or part of the property."
+      },
+      {
+        "id": "IK-111425525:L237",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L238",
+        "text": "13. Perusal of record shows that petitioners have claimed that respondent has let out the tenanted premises to the another person without their consent or consent of previous owner/landlord in writing."
+      },
+      {
+        "id": "IK-111425525:L239",
+        "text": "On the other hand, respondent has claimed that there are two different tenanted premises in questions consisting of two separate shops. As such, the claim of the respondent is that there are two separate shops and not one shop and both the separate shops were under the tenancy of Sh. Ramji Lal Goyal."
+      },
+      {
+        "id": "IK-111425525:L240",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L241",
+        "text": "It is expedient to reproduce the relevant portion of evidence of DW-1 Sh. Surender Goel which is as under:-"
+      },
+      {
+        "id": "IK-111425525:L242",
+        "text": "> \"I have never seen the rent receipt of the suit property. I do not remember if there is any rent receipt issued in favour of Goel Handloom House. I have ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -20- tendered the rent but I do not remember when did I tender the rent. I never collected the rent receipt since the matter was looked after by my father."
+      },
+      {
+        "id": "IK-111425525:L243",
+        "text": "I can not say if I am evading to answer regarding the rent receipt because I do not wish to depose that the rent receipt issued in the name of Ramji Lal Goel and not Goel Handloom House. I do not know if the demise property was let out to Ramji Lal Goel and Goel Handloom House was not tenant of the demise property. I have placed on record the electricity bill showing that the two different shop i.e. shop no.3 and 4 had different electricity connections."
+      },
+      {
+        "id": "IK-111425525:L244",
+        "text": "I do not know if in any partnership deed it is recorded that the tenanted premises had been let out to Goel Handloom House a partnership firm. Smt. Padma Singal, Smt. Sunita Mittal, Sh. Bhajan Goel and Sh. Virender Goel do not conduct any business from the tenanted premises. I am conducting the business in the name and style of M/s Goel Handloom House a partnership firm. I do not remember if Ramji Lal Goel had ever retired from the partnership firm M/s Goel Handloom House during his life time."
+      },
+      {
+        "id": "IK-111425525:L245",
+        "text": "Despite witness having been confronted with deed of partnership dated 16.04.1992 Ex.PW6/3 to which the witness is signatory at point A. Witness states that he can not say if his father had retired from partnership firm of M/s Goel Handloom House on 31.03.1992 vide deed of disolutation dated 16.04.1992 Ex.PW6/4. The document Ex.PW6/5 bears my signature at point A on each page."
+      },
+      {
+        "id": "IK-111425525:L246",
+        "text": "I do not remember that after 1992 my father was readmitted to the partnership of M/s Goel Handloom House vide partnership deed dated 19.12.2008 Ex.PW6/5 despite I having seen the said partnership deed and admitting my signatures at point A on each page of Ex.PW6/5. I do not know if my father Sh. Ramji Lal Goel despite being the sole tenant of the tenanted premises was not a partner of M/s Goel Handloom House a partnership firm from 31.03.1992 to 19.12.2008."
+      },
+      {
+        "id": "IK-111425525:L247",
+        "text": "It is correct that from 16.04.1992 to 19.12.2008 the business was carried from the tenanted premises solely in the name and style of M/s Goel Handloom House and in no other name and style. I do not remember if on 16.04.1992 or at any time before the same or thereafter my father took the permission in writiting from the then landlord Sardar Charanjit Singh to retire from the business and hand over the entire business to us brothers, i.e., Naresh Goel and Sureinder Goel."
+      },
+      {
+        "id": "IK-111425525:L248",
+        "text": "The bank accounts of M/s Goel Handloom House from 16.04.1992 to 19.12.2008 were with State Bank of Patiala, Shiv Nagar Branch and Dena Bank, Hari Nagar. The said accounts were operated by Sh. Ramji Lal Goel."
+      },
+      {
+        "id": "IK-111425525:L249",
+        "text": "> ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -21- Again said I do not clearly remember. I do not remember if the partners of M/s Goel Handloom House used to operate its accounts or a third person who was not partner used to operate the said account. Even after my father was readmitted in to partnership on 19.12.2008 account of the firm remained with the said banks."
+      },
+      {
+        "id": "IK-111425525:L250",
+        "text": "I do not remember if my father ever had an authority to operate the bank accounts of M/s Goel Handloom House after having readmitted into the partnership on 19.12.2008. It is wrong to suggest that I am giving evasive answer regarding the role of my late father in the partnership firm namely M/s Goel Handloom House during his retirement or upon readmission since I do not wish to admit he being not conducting any business of M/s Goel Handloom House a partnership firm."
+      },
+      {
+        "id": "IK-111425525:L251",
+        "text": "Even my father used to sign the cheques of these bank accounts of M/s Goel Handloom House after being readmitted into the partnership firm on 19.12.2008 along with me. I do not know if I had produced any cheque drawn by my father on the accounts of M/s Goel Handloom House after being readmitted into the partnership on the record of this case. It is wrong to suggest that I have not produced any such document."
+      },
+      {
+        "id": "IK-111425525:L252",
+        "text": "I do not know if after 19.12.2008 I or my other partner had ever given any intimation to the said banks of M/s Goel Handloom House that my father upon being readmitted into the partnership is authorised to operate the said accounts of the said partnership firm. It is wrong to suggest that I am giving evasive answers since no such communication was given to the banks."
+      },
+      {
+        "id": "IK-111425525:L253",
+        "text": "> I do not know if the son of Late Sh. Charan Jit Singh had deposed in the present case. I know Ravinder Pal Singh s/o Late Sh. Charanjit Singh. It is correct that Ex.DW1/2 was produced in original on 25.08.2017 during my examination in chief and not any point of time before the said date. Ex.DW1/2 is in the handwriting of one of our accountants whose name I do not remember. In 2008 we had one accountant and whose name I do not remember."
+      },
+      {
+        "id": "IK-111425525:L254",
+        "text": "I can not produce any document in the handwriting of my alleged accountant who had written Ex.DW1/2...."
+      },
+      {
+        "id": "IK-111425525:L255",
+        "text": "> ....I do not remember if Late Ramji Lal Goel was not the partner of Goel Handloom House on 10.03.2008. It is correct that even in Ex.DW1/2 the name of tenant was mentioned as Ramji Lal Goel and not M/s Goel Handloom House...."
+      },
+      {
+        "id": "IK-111425525:L256",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L257",
+        "text": "> ....I do not know if my father in his own name had tendered the rent by way of three money orders of sum of Rs.4800/- each to Ravinder Pal Singh s/o Late Sardar Charanjit Singh for the tenanted premises....."
+      },
+      {
+        "id": "IK-111425525:L258",
+        "text": "> ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -22- ....There is no document whereby I can show that we had intimated Sardar Charanjit Singh regarding the constutiton of Goel Foam & Furnishing....."
+      },
+      {
+        "id": "IK-111425525:L259",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L260",
+        "text": "> ..... I can not show any document other than the unregistered partnership deed that Sh. Ramji Lal Goel was the partner of M/s Goel Foam & Furnishing.\""
+      },
+      {
+        "id": "IK-111425525:L261",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L262",
+        "text": "It is expedient to reproduce the relevant portion of evidence of DW-2 Sh. Naresh Goel which is as under:-"
+      },
+      {
+        "id": "IK-111425525:L263",
+        "text": "> \"Smt. Padma Singhal, Smt. Sunita Mittal, Sh. Bhajan Lal Goel and Sh. Varinder Goel conduct no business from the suit property. I am doing the business from the suit property in the name of M/s Goel Foam and furnishing, which is a partnership concern. The said partnership was constituted in the year 2008. At that time, I and my late father were the partners of the said property. The said firm maintains the bank account with State Bank of Patiala, Shiv Nagar, Delhi."
+      },
+      {
+        "id": "IK-111425525:L264",
+        "text": "The said bank account was operated by me and my father. I have the record wherein I had submitted the said partnership deed in the said bank. I do not remember if I have filed any record showing that the said partnership deed having been submitted to the bank or not, has been placed on record."
+      },
+      {
+        "id": "IK-111425525:L265",
+        "text": "> Que: I suggest to you that neither Sh. Ramji Lal Goel nor you have placed any document on record which shows that late Sh. Ramji Lal Goel had ever operated the bank account of M/s Goel Foam and Furnishing with State Bank of Patiala, Shiv Nagar, Delhi ?"
+      },
+      {
+        "id": "IK-111425525:L266",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L267",
+        "text": "> Ans: I do not know....."
+      },
+      {
+        "id": "IK-111425525:L268",
+        "text": "> .....Que: As per the W.S. filed by Sh. Ramji Lal Goel which you have adopted upon his death, the writing dated 10.03.2008 was not available ? I put it to you kindly inform as to in whose possession was the said writing until the same was filed in original on the court record. Ans: I cannot say as to in whose possession the said document Ex. DW-1/2 was at the time of filing the W.S."
+      },
+      {
+        "id": "IK-111425525:L269",
+        "text": "I cannot say as to why my father under his affidavit dated 25.09.2012 in response to the directions on the application under order 11 rule 12 r/w cite26†Sec. 151 CPC did not produce the original of MOU dated 10.03.2008. I cannot say Ex. DW-1/2 was in our possession as on 20.05.2015 when Sh. Ravinder Pal Singh i.e. PW-5 was examined in witness box for cross examination."
+      },
+      {
+        "id": "IK-111425525:L270",
+        "text": "> Ex. DW -1/2 is in the handwriting of one of our Accountants, but I do not remember his name. There was only one accountant in both the firms I.e. Goel Handloom House and M/s Goel Foam and Furnishers. I do not know ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -23- if the said accountant was a paid employee or on the contract basis and was being paid remuneration from which firm...."
+      },
+      {
+        "id": "IK-111425525:L271",
+        "text": "> .....I do not know if before 2008 it was ever informed to Sh. Charanjit Singh that we wish to partition the shop."
+      },
+      {
+        "id": "IK-111425525:L272",
+        "text": "> I have remained the partner of Goel Handloom House. I have remained the partner of M/s Goel Handloom House from 1992 to 2008. It is correct that as per Ex. RW-3/P-2, I was the partner of M/s Goel Handloom House until the execution of the said deed on 31.01.2009. (Vol. I may not have remember the exact date earlier). I do not remember as from year 2008 till the execution of Ex. RW-3/P-2, I remained the partner of both firms or not. After seeing the document Ex."
+      },
+      {
+        "id": "IK-111425525:L273",
+        "text": "RW-3/A, I say that I became the partner of M/s Goel Hanloom House on 01.04.1981 and my statement given above that I became partner in the year 1992 is incorrect. I do not remember as upto what time Sh. Ramji Lal Goel was the partner of M/s Goel Handloom House. It is correct that Ex. RW-3/P-1 bears my signature at point A. Even after reading the said document, I cannot say that whether Sh. Ramji Lal Goel was the partner of M/s Goel Handloom House as on 16.04.1992 or not."
+      },
+      {
+        "id": "IK-111425525:L274",
+        "text": "Whatever information I as a partner of M/s Goel Handloom House provided to Sales Tax Authorities used to be a correct information..."
+      },
+      {
+        "id": "IK-111425525:L275",
+        "text": "> ...Que: Witness is shown Ex. RW-3/P-1 (colly.) and is also pointed out that along with the said letter you had submitted copy of Dissolution deed dated 16.04.1992 and copy of the partnership deed dated 16.04.1992, the attention of the witness is also drawn to the deed of partnership dated 16.04.1992 and pointed out that as per the said document, Sh. Ramji Lal Goel and Sh. Bhajan Lal Goel had retired from M/s Goel Handloom House on 16.04.1992."
+      },
+      {
+        "id": "IK-111425525:L276",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L277",
+        "text": "> What do you have to say ?"
+      },
+      {
+        "id": "IK-111425525:L278",
+        "text": "> Ans: Since the question relates to a matter of long ago, I do not remember."
+      },
+      {
+        "id": "IK-111425525:L279",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L280",
+        "text": "> I have to see and find out if my father was ever a partner of M/s Goel Handloom House from 16.04.1992 to 19.12.2008."
+      },
+      {
+        "id": "IK-111425525:L281",
+        "text": "> After reading the document Ex. PW-6/5, I say it is correct that on 19.12.2008, I along with my brother Surender Goel, his wife Jyoti Goel admitted Sh. Ramji Lal Goel as the partner of M/s Goel Handloom House. I do not remember if Ramji Lal Goel was ever a partner of M/s Goel Handloom House from 16.04.1992 i.e. date of his resignation to 19.12.2008 i.e. date of his re-admission...."
+      },
+      {
+        "id": "IK-111425525:L282",
+        "text": "> ....Que:I put it to you that Sh. Ramji Lal Goel as a partner of M/s Goel Foam and Furnishing had never ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -24- issued any cheque under his signatures because he had never been given any authority to issue the cheuqe under his signature for the said firm. What have you to say ? Ans: I do not remember..."
+      },
+      {
+        "id": "IK-111425525:L283",
+        "text": "> ....It is correct that Ex. DW-1/2 mentions that \"a shop under the tenancy of Ramji Lal Goel as partner of M/s Goel Handloom House.\" (Vol. It must have been wrongly mentioned since there were two shops and two shutters). I do not remember if there is any document in writing to show that the tenancy of two shops was in the name of M/s Goel Handloom House. It is wrong to suggest that there was a single shop comprising of shop no. 2 & 3 which was let out to Sh. Ramji Lal Goel."
+      },
+      {
+        "id": "IK-111425525:L284",
+        "text": "> Que: As per your written statement in 2008 shops were split and two tenancy were created. Kindly tell me which shop was split ?"
+      },
+      {
+        "id": "IK-111425525:L285",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L286",
+        "text": "> Ans: I do not remember."
+      },
+      {
+        "id": "IK-111425525:L287",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L288",
+        "text": "> Even after seeing the partnership deed of Goel Handloom House, I cannot say that whether it is written in the said partnership deed that Goel Handloom House has two tenanted shops.\""
+      },
+      {
+        "id": "IK-111425525:L289",
+        "text": "14. Perusal of testimony of DW-1/ respondent Sh. Surender Goel and DW-2 Sh. Naresh Goel shows that both the respondents i.e. DW-1 and DW-2 Sh. Surender Goel and Naresh Goel have made large number of evasive answers and have made utmost efforts to conceal the facts and did not answer the questions of opposite parties. During the cross examination. Sh. Surender Goel/DW-1 has not claimed that Sh."
+      },
+      {
+        "id": "IK-111425525:L290",
+        "text": "Ramji Goel got retired from the partnership firm M/s Goel Handloom House during his lifetime despite being confronted with partnership deed dated 16.04.92 Ex. PW-6/3. Moreover, he has admitted the execution of partnership deed dated 19.12.2008 Ex. PW-6/5."
+      },
+      {
+        "id": "IK-111425525:L291",
+        "text": "During the cross examination, DW-1/ Sh. Surender Goel has deposed that \"Even after my father was re-admitted into a partnership firm 19.12.2008, account of firm remained with the ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -25- said banks. I do not remember if my father ever had an authority to operate the bank accounts of M/s Goel Handloom House after having admitted into the partnership on 19.12.2008.\""
+      },
+      {
+        "id": "IK-111425525:L292",
+        "text": "As such, DW-1 has admitted the re-admission into the partnership on 19.12.2008 which shows that Sh. Ramji Lal Goel got retired before 19.12.2008. Although the respondent/DW-1 has claimed that he does not know whether his father Sh. Ramji Goel had the authority to operate the bank account of M/s Goel Handloom House after admission into the partnership on 19.12.2008 yet he has not claimed that Sh. Ramji Lal Goel had the authority to operate such bank accounts. As such, he has again made the evasive reply."
+      },
+      {
+        "id": "IK-111425525:L293",
+        "text": "Moreover, bank record RW-4/1 (Colly.) pertaining to M/s Goel Handloom House was produced by RW-4 Chief Manager of Dena Bank which shows that Sh. Ramji Lal Goel was never authorised to operate the bank account of M/s Goel Handloom House. As such, the claim of DW-1 is without merit in respect of operatiion of bank account by Sh. Ramji Lal Goel."
+      },
+      {
+        "id": "IK-111425525:L294",
+        "text": "During the cross examinatiion, DW-1 again made the evasive reply by deposing that he does not remember whether on 16.04.1992 or anytime before or thereafter his father took permission in writing from S. Charanjit Singh (previous owner) about his retirement from business and handover the business to Sh. Surender Goel and Sh. Naresh Goel. As such, he has not claimed that tenanted premises was taken by his father in writing from S. Charanjit Singh."
+      },
+      {
+        "id": "IK-111425525:L295",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -26- Record shows that DW-1 again claimed that his father had the authority to sign the cheques of these bank accounts of Goel Handloom House after being re-admitted into partnership firm on 19.12.2008 along with him but he has not produced any such cheque on record. Moreover, he himself has admitted that he does not know whether he has produced such cheque drawn by his father."
+      },
+      {
+        "id": "IK-111425525:L296",
+        "text": "DW-1 again made evasive reply as to intimation to the bank about the re-admission of his father in the partnership firm and authorisation to operate the bank account. Morover, the bank account record manifestly shows that Sh. Ramji Lal had no authority to handle the bank account of M/s Goel Handloom House."
+      },
+      {
+        "id": "IK-111425525:L297",
+        "text": "DW-1 has deposed that he does not remember whether Sh. Ramji Lal Goel was not the partner of Goel Handloom House on 10.03.2008 and DW-1 has not claimed that he was the partner on 10.03.2008. As such, he again made an evasive reply."
+      },
+      {
+        "id": "IK-111425525:L298",
+        "text": "Moreover, DW-1 has admitted that in DW-1/2, the name of the tenant is Sh. Ramji Lal Goel and not Goel Handloom House. DW-1 also admitted that rent was being paid for tenanted premises @ Rs. 1600/- per month. As such, it is admitted on record that rent was not being paid separately for two shops. Moreover, DW-1 has claimed during the cross examination that his father in his own name tendered the rent to son of S. Charanjit Singh i.e. Sh. Ravinder Singh by way of money orders."
+      },
+      {
+        "id": "IK-111425525:L299",
+        "text": "During the cross examination DW-1 has also admittd that he has no document which shows that intimation to S. Charanjit ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -27- Singh regarding the Constitution of Goel Handloom House and also admitted that he cannot show any document other than unregistered partnership deed which shows that Sh. Ramji Lal Goel was Partner of M/s Goel Foam and furnishing."
+      },
+      {
+        "id": "IK-111425525:L300",
+        "text": "Record shows that DW-2 Sh. Naresh Goel has also deposed almost on the same lines as deposed by DW-1 Sh. Surender Goel. DW-2 has claimed that partnership firm M/s Goel Foam and Furnishing was constituted in the year 2008 and he and his father were partners and bank account was operated by both of them. But later on he accepted that he does not remember whether he intimated the bank about Constitution of such partnership or not."
+      },
+      {
+        "id": "IK-111425525:L301",
+        "text": "It is pertinent tomention here that when a question was put to DW-2 about not placing any document in respect of operatiion of bank account of M/s Goel Foam and Furnishing, the DW-2 Sh. Naresh Goel again made an evasive reply that \"I do not know\". During the cross examination, DW-2 has deposed that even after reading the Ex. RW-3/P-1, he cannot say whether sh. Ramji Lal Goel was the partner of M/s Goel Handloom House as on 16.04.1992 or not."
+      },
+      {
+        "id": "IK-111425525:L302",
+        "text": "As such, DW-2 has again not claimed that Sh Ramji Lal was the partner of Goel Handloom House as on 16.04.1992. Durng the cross examinatioin DW-2 further deposed that \"I have to see and find out if my father was ever a partner of M/s Goel Handloom House from 16.04.1992 to 19.12.2008.\" and he also made an evasive reply that \"I do not remember if Sh. Ramji Lal Goel was ever a partner of M/s Goel Handloom house from 16.04.1992 ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -28- i.e."
+      },
+      {
+        "id": "IK-111425525:L303",
+        "text": "date of his resignation to 19.12.2008 i.e. date of his re- admission.\""
+      },
+      {
+        "id": "IK-111425525:L304",
+        "text": "It is admitted by DW-2 that \"it is correct that Ex. DW-1/2 mentions that \"a shop under the tenancy of Ramji Lal Goel as partner of M/s Goel Handloom House.\" (Vol. it must have been wrongly mentioned since there were two shops and two shutters)\"."
+      },
+      {
+        "id": "IK-111425525:L305",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L306",
+        "text": "Moreover, DW-2 himself admitted that \"I do not remember if there is any document in writing to show that tenancy of two shops was in the name of M/s Goel Handloom House.\""
+      },
+      {
+        "id": "IK-111425525:L307",
+        "text": "I have also perused the document Ex. RW-3/P-1 (OSR) which is an admitted document as DW-2 Sh. Naresh Goel has admitted during the cross examination his signatures thereon at point A. Document Ex. RW-3/P-1 clearly shows that Sh. Ramji Lal Goel and Sh. Bhajan Lal Goel got retired from the firm w.e.f. 01.04.1992 vide deed of dissolution dated 16.04.1992 and Sh. Surender Goel joined the firm with Sh. Naresh Goel."
+      },
+      {
+        "id": "IK-111425525:L308",
+        "text": "I have also gone through the documents relied upon by both the parties. Record shows that respondent has relied upon DW-1/2 to show that consent in writing was taken by them about such partnership but it bears date of 10.03.2008 but as per record, RW-3/P-1 and other record clearly shows that Sh. Ramji Lal Goel already got retired in the year 1992."
+      },
+      {
+        "id": "IK-111425525:L309",
+        "text": "As such, perusal of record, documents and testimonies manifesly shows that first ingredient of Sec. 14(1)(b) of D.R.C. Act is satisfied as the physical as well as legal possession of the tenanted premises has been parted with."
+      },
+      {
+        "id": "IK-111425525:L310",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L311",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -29-"
+      },
+      {
+        "id": "IK-111425525:L312",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L313",
+        "text": "(ii). No consent in writing was taken from the landlord by the tenant."
+      },
+      {
+        "id": "IK-111425525:L314",
+        "text": "15. Perusal of record shows that respondent has claimed that the consent was taken from previous owner S. Charanjit Singh about such arrangement but record shows that no cogent and convincing evidence documentary or oral has been produced before this court which prove that such consent in writing was given by the previous owner S. Charanjit Singh or the present petitioners in respect of such arrangement in the year 1992."
+      },
+      {
+        "id": "IK-111425525:L315",
+        "text": "As such, ingredient in respect of not taking of consent of landlord in writing is also satisfied."
+      },
+      {
+        "id": "IK-111425525:L316",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L317",
+        "text": "16. Law on 14(1) (a):-"
+      },
+      {
+        "id": "IK-111425525:L318",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L319",
+        "text": "> It is expedient to reproduce the relevant provision of cite9†Delhi Rent Control Act so that position may be crystal clear:-"
+      },
+      {
+        "id": "IK-111425525:L320",
+        "text": "> \"cite11†Section-14 . Protection of tenant against eviction- (1) Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by court or any controller in favour of the landlord against a tenant:"
+      },
+      {
+        "id": "IK-111425525:L321",
+        "text": "> Provided that the controller may, on an application made to him in the prescribed manner, make an order for recovery of possession of the premises on one or more of the following grounds only, namely:- \"(a) that the tenant has neither paid nor tendered the whole arrears of the rent legally ARC No. 26009/16 Sandeep Singh & Anr. Vs."
+      },
+      {
+        "id": "IK-111425525:L322",
+        "text": "Ramji Lal Goel by his L.Rs -30- recoverable from him within two months of the day on which a notice of demand for the arrears of rent has been served of him by the landlord in the manner provided in cite27†Section 106 of the Transfer of Property Act, 1882 (4 of 1882).\""
+      },
+      {
+        "id": "IK-111425525:L323",
+        "text": "As such, the following are the ingredients of cite11†section 14(1) proviso (a) :-"
+      },
+      {
+        "id": "IK-111425525:L324",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L325",
+        "text": "> (i) There should be a relationship of landlord and tenant between the parties."
+      },
+      {
+        "id": "IK-111425525:L326",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L327",
+        "text": "> (ii) There should be a non-payment or tendering of whole arrears of legally recoverable rent within two months of service of legal notice upon the tenant given by the landlord."
+      },
+      {
+        "id": "IK-111425525:L328",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L329",
+        "text": "17. Let us discuss the ingredients of Sec. 14(1)(a) D.R.C. Act."
+      },
+      {
+        "id": "IK-111425525:L330",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L331",
+        "text": "(i). RELATIONSHIP OF LANDLORD AND TENANT:-"
+      },
+      {
+        "id": "IK-111425525:L332",
+        "text": "18. In view of discussion earlier, it is already held by this court in the earlier part of this judgment that there exists relationship of landlord and tenant between the parties. Hence, there is no requirement of repetition of the same. Hence, this ingredient of relationship of landlord and tenant is satisfied."
+      },
+      {
+        "id": "IK-111425525:L333",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L334",
+        "text": "(ii). There should be a non-payment or tendering of whole arrears of legally recoverable rent within two months of service of legal notice upon the tenant given by the landlord:-"
+      },
+      {
+        "id": "IK-111425525:L335",
+        "text": "> ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -31- Service of Legal Demand Notice:-"
+      },
+      {
+        "id": "IK-111425525:L336",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L337",
+        "text": "19. Perusal of of record shows that the petitioner has claimed to have given legal demand notice dated 21.01.2012 Ex. PW-1/5 (Colly.)."
+      },
+      {
+        "id": "IK-111425525:L338",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L339",
+        "text": "On the other hand, the respondent has denied to have received such legal notice."
+      },
+      {
+        "id": "IK-111425525:L340",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L341",
+        "text": "In the case titled as K. Bhaskaran vs sankaran vaidhyan Balan 1999 A.I.R SC 3762, the Hon'ble supreme court observed :-"
+      },
+      {
+        "id": "IK-111425525:L342",
+        "text": "> \"The principle incorporated in cite28†section 27 can profitably be imported in a case where the sender has dispatched the notice by post with the correct address written on it. Then it can be deemed to have been served on the sendee unless he proves that it was not really served and that he was not responsible for such non-service.\""
+      },
+      {
+        "id": "IK-111425525:L343",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L344",
+        "text": "cite29†Section 114 of Indian Evidence Act, 1972 lays down as under:-"
+      },
+      {
+        "id": "IK-111425525:L345",
+        "text": "> 114: Court may presume existence of certain facts. That the court may presume existence of any fact which it thinks likely to have happened, regard being head to the common course of natural events, human conduct and public and private business, in their relation to the facts of the particular case."
+      },
+      {
+        "id": "IK-111425525:L346",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L347",
+        "text": "> Illustrations:"
+      },
+      {
+        "id": "IK-111425525:L348",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L349",
+        "text": "> The court may presume-"
+      },
+      {
+        "id": "IK-111425525:L350",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L351",
+        "text": "> (a)..."
+      },
+      {
+        "id": "IK-111425525:L352",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L353",
+        "text": "> (b)..."
+      },
+      {
+        "id": "IK-111425525:L354",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L355",
+        "text": "> (c)..."
+      },
+      {
+        "id": "IK-111425525:L356",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L357",
+        "text": "> (d)..."
+      },
+      {
+        "id": "IK-111425525:L358",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L359",
+        "text": "> (e)..."
+      },
+      {
+        "id": "IK-111425525:L360",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L361",
+        "text": "> (f) That the common course of business has been followed in particular cases; -"
+      },
+      {
+        "id": "IK-111425525:L362",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L363",
+        "text": "> (g)...."
+      },
+      {
+        "id": "IK-111425525:L364",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L365",
+        "text": "> (h)....."
+      },
+      {
+        "id": "IK-111425525:L366",
+        "text": "> (I)....."
+      },
+      {
+        "id": "IK-111425525:L367",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L368",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -32- but the court shall also have regard to such facts as the following, in considering whether such maxim do or do not apply to the particular case before it:-\""
+      },
+      {
+        "id": "IK-111425525:L369",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L370",
+        "text": "> As to illustration (a)....."
+      },
+      {
+        "id": "IK-111425525:L371",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L372",
+        "text": "> As to illustration (b)....."
+      },
+      {
+        "id": "IK-111425525:L373",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L374",
+        "text": "> As to illustration (c)....."
+      },
+      {
+        "id": "IK-111425525:L375",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L376",
+        "text": "> As to illustration (d)....."
+      },
+      {
+        "id": "IK-111425525:L377",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L378",
+        "text": "> As to illustration (e)....."
+      },
+      {
+        "id": "IK-111425525:L379",
+        "text": "> As to illustration (f): The question is whether a letter was received. It is shown to have been posted, but the usual course of the post was interrupted by disturbances;"
+      },
+      {
+        "id": "IK-111425525:L380",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L381",
+        "text": "> As to illustration (g)....."
+      },
+      {
+        "id": "IK-111425525:L382",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L383",
+        "text": "> As to illustration (h)....."
+      },
+      {
+        "id": "IK-111425525:L384",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L385",
+        "text": "> As to illustration (i)........\""
+      },
+      {
+        "id": "IK-111425525:L386",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L387",
+        "text": "20. It is well settled law that this presumption is a rebuttable presumption. If there is any such circumstance weakening such presumption, it cannot be ignored by the court."
+      },
+      {
+        "id": "IK-111425525:L388",
+        "text": "21. I have carefully and minutely gone through the record which shows that the respondent has merely made the bald averments in respect of non receiving of such legal demand notice given by the petitioners."
+      },
+      {
+        "id": "IK-111425525:L389",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L390",
+        "text": "In reply to paragraph no. 18(b), the respondent has merely replied in the written statement that \"No notice alleged has been served upon the tenants/respondent.\""
+      },
+      {
+        "id": "IK-111425525:L391",
+        "text": "As such, the respondent has merely denied the notice but has done nothing to prove it. It was the duty of the respondent to prove that he was not served by such notice, but he failed to rebut the evidence and documents of petitioner in respect of legal demand notice."
+      },
+      {
+        "id": "IK-111425525:L392",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L393",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -33- As such, in my considered view, the legal demand notice is proved to have been served upon the respondent."
+      },
+      {
+        "id": "IK-111425525:L394",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L395",
+        "text": "(iii). Non-payment of rent:-"
+      },
+      {
+        "id": "IK-111425525:L396",
+        "text": "22. It is well settled law that when the petitioner files the petition under section 14(1) (a) of D.R.C Act for non-payment of rent, the onus is always upon the respondent /tenant to prove that he had paid the rent and there was no due against him at the time of service of legal demand notice served by the petitioner on the respondent/tenant."
+      },
+      {
+        "id": "IK-111425525:L397",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L398",
+        "text": "23. Record shows that the petitioner has claimed tht the respondent has not paid rent w.e.f. 01.05.2011 till date @ Rs. 1600/- per month."
+      },
+      {
+        "id": "IK-111425525:L399",
+        "text": "On the other hand, the respondent has claimed that the rent was regularly paid by cheques but no rent receipts were issued."
+      },
+      {
+        "id": "IK-111425525:L400",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L401",
+        "text": "As such, the respondent has admitted that he was paying rent to the petitioners. As such, the respondent has indirectly admitted the landlordship of the petitioners."
+      },
+      {
+        "id": "IK-111425525:L402",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L403",
+        "text": "It is well settled that it is the duty of the respondent to prove that he has paid the rent upto date and there is no delay or default on his part."
+      },
+      {
+        "id": "IK-111425525:L404",
+        "text": "In the present case, the respondent has himself claimed that rent was not being paid in cash and it was being paid or tendered by way of cheques. As such, he could have easily proved the payment of such rent within time and without default ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -34- by placing on record his passbook or bank statements but the respondent has been unable to prove payment of such rent to the petitioners by way of cheques."
+      },
+      {
+        "id": "IK-111425525:L405",
+        "text": "Although the respondent has claimed that rent receipts were not issued by the petitioners but in my view the respondent always has the remedy against this by filing an application before the Court U/sec. 26 of the D.R.C. Act but he has not claimed to have filed such application. As such the respondent cannot take advantage of his own wrong or default."
+      },
+      {
+        "id": "IK-111425525:L406",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L407",
+        "text": "As such, it is proved that the respondent is in arrears of rent w.e.f. 01.05.2011 @ Rs. 1600/- as claimed by the petitioners."
+      },
+      {
+        "id": "IK-111425525:L408",
+        "text": "It is expedient to reproduce the relevant portion of evidence of DW-1 Sh. Surender Goel which is as under:-"
+      },
+      {
+        "id": "IK-111425525:L409",
+        "text": "> \"It is correct that the rent for the tenanted premises Rs.1600/- which used to be paid alternatively once by me and once by my brother Sh. Naresh Goel. It is wrong to suggest that two shops from the two separate tenancies. It is wrong to suggest that for the shop no. 3 tenancy in the name of Goel Handloom House and for shop no.4 is of Goel Foam and Furnishing."
+      },
+      {
+        "id": "IK-111425525:L410",
+        "text": "It is wrong to suggest that I have deposed falsely that the rent of the said shop had become Rs.800/- each or we had been separately tendering the rent @ Rs.800/- each or I have deposed falsely in this regard in para 3 of my affidavit. I do not know who had signed the cheques mentioned in para 4 of my affidavit for tendering the rent to late Sardar Charanjit Singh."
+      },
+      {
+        "id": "IK-111425525:L411",
+        "text": "> I had come to know about the death of Sardar Charanjit Singh. I do not remember if after the death of Late Sardar Charanjit Singh I had ever tender the rent to the children of late Sardar Charanjit Singh for and on behalf of the alleged tenant M/s Goel Handloom House. It is wrong to suggest that I am giving evasive answer in this regard since I do not wish to depose correctly before this court in this regard. I do not know if my father in his own name had tendered the rent by way of three money ARC No."
+      },
+      {
+        "id": "IK-111425525:L412",
+        "text": "26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -35- orders of sum of Rs.4800/- each to Ravinder Pal Singh s/o Late Sardar Charanjit Singh for the tenanted premises. I do not know if Sandeep Singh Sarna the petitioner of this case has sought the record of the said money order under RTI or my father requested to the RTI officer that the said information be not provided to him since the said record pertains between him and Sardar Ravinder Pal Singh s/o Late Sardar Charanjit Singh....."
+      },
+      {
+        "id": "IK-111425525:L413",
+        "text": "> ....I do not remember if I had tender the rent to any person in any manner since the death of Sardar Charanjit Singh for the tenanted premises. I have not tendered the rent to any person in last one year for the tenanted premises. Despite occupying the tenanted premises I can not even say as to for how long I had not tendered the rent of the tenanted premises.\""
+      },
+      {
+        "id": "IK-111425525:L414",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L415",
+        "text": "It is expedient to reproduce the relevant portion of evidence of DW-2 Sh. Naresh Goel which is as under:-"
+      },
+      {
+        "id": "IK-111425525:L416",
+        "text": "> \"I have seen the Written Statement and the records filed by my father in the present case few days ago. I do not know upto what date late Sh. Ramji Lal Goel had remitted the rent for the suit property. I have never paid any rent to anybody for the suit property. Again said, I have paid the rent to Charanjit Singh by cheque. I have never taken any receipt."
+      },
+      {
+        "id": "IK-111425525:L417",
+        "text": "> I do not know as to when Sh. Charanjit Singh expired. I have not paid the rent of the suit property to anyone since the death of Sh. Charanjit Singh. Neither me nor my father ever tendered the rent to anyone after the death of Sh. Charanjit Singh for the suit property nor we deposited the same in the Court. I do not remember as to when I came to know that the captioned suit has been filed against Sh. Ramji Lal Goel. I do not remember if during the lifetime of Late Sh."
+      },
+      {
+        "id": "IK-111425525:L418",
+        "text": "Ramji Lal Goel, I ever appeared on his behalf in the captioned case in this court. I do not know if Ramji Lal Goel had tendered the rent by three different money orders to Sh. Ravinder Pal Singh on 23.11.2011. I do not know if my father recorded his objection for refusal of providing the record of the said money orders to the petitioner no. 1 with the RTI Authorities of the Indian Postal Authorities when the petitioner no. 1 applied for supply of documents with the RTI Authorities...."
+      },
+      {
+        "id": "IK-111425525:L419",
+        "text": "> ....I do not remember as to when the first cheque of rent issued by me was got encashed by Sardar Charanjit Singh. It must be in the record. I do not remember as to under whose signature the rent cheque of the suit ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -36- property was handed over to Sardar Charanjit Singh on behalf of Goel Foam and Furnishing."
+      },
+      {
+        "id": "IK-111425525:L420",
+        "text": "I do not remember if any cheque under the signatures of Ramji Lal goel as a partner of M/s Goel Foam and Furnishing was ever issued to anyone."
+      },
+      {
+        "id": "IK-111425525:L421",
+        "text": "> Que: I put it to you that Sh. Ramji Lal Goel as a partner of M/s Goel Foam and Furnishing had never issued any cheque under his signatures because he had never been given any authority to issue the cheuqe under his signature for the said firm. What have you to say ? Ans: I do not remember...."
+      },
+      {
+        "id": "IK-111425525:L422",
+        "text": "> ....I do not remember if while I was a partner of M/s Goel Handloom House, I had ever tendered the rent to the owner separately for two shops. It is wrong to suggest that I am evading to give direct answer since I am concealing the true and correct answer.\""
+      },
+      {
+        "id": "IK-111425525:L423",
+        "text": "Record as well as testimonies of respondents clearly shows that they themselves admitted during the cross examination that they have not paid or tendered the rent to the petitioners and they have also admitted to have not deposited the rent with the court. Moreover, no cogent proof of payment or deposit has been produced by the respondent."
+      },
+      {
+        "id": "IK-111425525:L424",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L425",
+        "text": "24. As such, ingredient in respect of non-payment of rent is also satisfied. Also, all the ingredients of Sec. 14(1)(a) of D.R.C. Act are satisfied."
+      },
+      {
+        "id": "IK-111425525:L426",
+        "text": "CONCLUSION of cite11†Sec. 14(1)(a) :-"
+      },
+      {
+        "id": "IK-111425525:L427",
+        "text": "25. Perusal of record shows that no order U/Sec. 15(1) of the D.R.C. Act was passed by my Ld. Predecessor. Hence, an order U/Sec. 15(1) D.R.C. Act is passed directing the respondents to pay or tender or deposit the rent w.e.f. 01.05.2011 till date @ Rs. 1600/- per month along with simple interest @ 15% per annum within one month from today and the respondents are ARC No. 26009/16 Sandeep Singh & Anr. Vs."
+      },
+      {
+        "id": "IK-111425525:L428",
+        "text": "Ramji Lal Goel by his L.Rs -37- also directed to pay or tender or deposit the future rent at the same rate month by month on or before 15 th of each succeeding English Calendar month."
+      },
+      {
+        "id": "IK-111425525:L429",
+        "text": "Nazir is directed to file his report on 03.08.2019 in respect of compliance of order passed today U/Sec. 15(1) of D.R.C. Act for ascertaining the benefit U/Sec. 14(2) of D.R.C. Act."
+      },
+      {
+        "id": "IK-111425525:L430",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L431",
+        "text": "26. SEC. 14(1)(j) D.R.C. ACT:-"
+      },
+      {
+        "id": "IK-111425525:L432",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L433",
+        "text": "> cite11†Section 14(1)(j) is reproduced as under:-"
+      },
+      {
+        "id": "IK-111425525:L434",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L435",
+        "text": "> \"(j) that the tenant has, whether before or after the commencement of this Act, caused or permitted to be caused substantial damage to the premises.\""
+      },
+      {
+        "id": "IK-111425525:L436",
+        "text": "It is well settled that every damage to premises does not entitle the landlord to obtain the eviction order. There should be substantial damage to the premises. There should be material alteration in the premises. The onus to prove that the tenant has caused substantial damage to the property is on the landlord."
+      },
+      {
+        "id": "IK-111425525:L437",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L438",
+        "text": "In the case titled as cite30†Shakuntla Devi Vs Avtar Singh 113 (2004) DLT 424 , the Hon'ble Delhi High Court observed that:-"
+      },
+      {
+        "id": "IK-111425525:L439",
+        "text": "> \"6. Having analysed the reasonings of the courts below, I am of the view that the very fact that the tenant- respondent has punctured the weight-bearing walls of the premises in question and created additional space for himself by way of parchhati equivalent to the floor area, admits of increase of weight on the load- bearing walls and certainly can be said to have caused substantial damage to the premises in question. The tenant can not damage the walls, errect additional ARC No."
+      },
+      {
+        "id": "IK-111425525:L440",
+        "text": "26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -38- space and yet claim that no substantial damage has been caused to the premises in question. Structural change which brings about additional load on the existing load bearing walls, is substantial damage to the premises in question. It is not necessary that the walls must crumble under additional weight to bring the mischief of the tenant under cite11†Section 14(1)(j) of the Act."
+      },
+      {
+        "id": "IK-111425525:L441",
+        "text": "Suffice to say in the facts and circumstances of the present case where the tenant has punctured holes into the walls created additional space by erecting a parchhati equivalent to the floor area of the room in question and is using the same for either storage of goods and/or residence purposes, would come within the mischief of cite11†Section 14(1)(j) of the Act."
+      },
+      {
+        "id": "IK-111425525:L442",
+        "text": "The tenant is not permitted to make any changes/alterations so as to increase load on the walls which are otherwise designed to hold the structure as was let out to the tenant\"."
+      },
+      {
+        "id": "IK-111425525:L443",
+        "text": "In the case titled as cite31†Suraj Parkash Chopra Raj kumar vs Baij Nath Dhawan and Anr. 2003 III AD Delhi 705, 103 (2003) DLT 645, the Hon'be High Court of Delhi observed as under :-"
+      },
+      {
+        "id": "IK-111425525:L444",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L445",
+        "text": "> \"(i) the onus of proving that the tenant has caused substantial damage to the demised premises is upon the landlord;"
+      },
+      {
+        "id": "IK-111425525:L446",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L447",
+        "text": "> (ii) landlord must prove that addition and alteration in the tenancy premises is carried out by the tenant;"
+      },
+      {
+        "id": "IK-111425525:L448",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L449",
+        "text": "> (iii) tenant has made his construction without the consent of landlord;"
+      },
+      {
+        "id": "IK-111425525:L450",
+        "text": "> (iv) the said construction has materially affected the tenancy premises and further that the construction which had been carried out by the tenant had materially altered the premises;"
+      },
+      {
+        "id": "IK-111425525:L451",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L452",
+        "text": "> (v) Court must determine the nature, character of the construction and the extent to which they make changes in the structure of the premises having regard to the purpose for which the premises have been let out;"
+      },
+      {
+        "id": "IK-111425525:L453",
+        "text": "> (vi) landlord has to prove it by cogent evidence and wherever necessary expert witness should be examined;"
+      },
+      {
+        "id": "IK-111425525:L454",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L455",
+        "text": "> (vii) an eviction order under Clause (j) could be passed if and structural changes in the tenancy premises which had brought about material impairment in the value and utility of premises;"
+      },
+      {
+        "id": "IK-111425525:L456",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L457",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -39-"
+      },
+      {
+        "id": "IK-111425525:L458",
+        "text": "(viii) every construction or alteration does not impair the value and utility of the building and that construction must be of material nature which should substantially diminish the value of the building either from commercial and monetary point of view or from utilisation aspect of the building;"
+      },
+      {
+        "id": "IK-111425525:L459",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L460",
+        "text": "(ix) a temporary alteration or addition which can be easily repaired without causing damage to the structure is not substantial damage to the tenancy premises;"
+      },
+      {
+        "id": "IK-111425525:L461",
+        "text": "(x) every change, addition or alteration in the tenancy premises will not invite eviction of the tenant under Clause"
+      },
+      {
+        "id": "IK-111425525:L462",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L463",
+        "text": "(j) and that each case would depend upon its own facts; and"
+      },
+      {
+        "id": "IK-111425525:L464",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L465",
+        "text": "(xi) the impairment of the value and utility of the building is to be seen from the point of view of the landlord and not tenant.\""
+      },
+      {
+        "id": "IK-111425525:L466",
+        "text": "27. Perusal of record shows that petitioners have claimed that respondent has caused the material alteration in the tenanted premises by dividing it into two equal parts for the purpose of subletting."
+      },
+      {
+        "id": "IK-111425525:L467",
+        "text": "On the contrary, the respondent has squarely denied these facts and claimed that the petitioner is trying to mislead the court by showing the tenants as sub-tenant and by showing two shops as one and further claimed that massive unauthorised construction has been carried out by the petitioners in the building and no damage or substantial damage has been caused by the tenants."
+      },
+      {
+        "id": "IK-111425525:L468",
+        "text": "28. As mentioned earlier, all the alterations and additions in the premises are not substantial damage and the duty is always on the landlord to prove that such alterations and additions have caused substantial damage to his premises. It is well settled that every damage is not substantial damage."
+      },
+      {
+        "id": "IK-111425525:L469",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L470",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -40-"
+      },
+      {
+        "id": "IK-111425525:L471",
+        "text": "29. It is well settled that every construction or alteration does not impair the value and utility of the building and that construction must be of material nature which should substantially diminish the value of the building either from commercial and monetary point of view or from utilisation aspect of the building. It is also clear that every change, addition or alteration in the tenancy premises will not invite eviction of the tenant under Clause (j) and each case depends upon its own facts."
+      },
+      {
+        "id": "IK-111425525:L472",
+        "text": "Perusal of record shows that although the petitioners have claimed in their eviction petition that substantial damage has been caused in the tenanted premises but evidence shows that the petitioners have not been able to prove the substantial damage to the tenanted premises. Moreover, no expert witness has been examined by the petitioners."
+      },
+      {
+        "id": "IK-111425525:L473",
+        "text": "In my considered view, the petitioners have not been able to prove that the present construction or alteration impairs the value and utility of the building and that construction is of material nature which will substantially diminish the value of the building either from commercial and monetary point of view or from utilisation aspect of the building. Moreover, the petitioners have not been able to prove that it cannot be easily repaired without causing damage to the structure."
+      },
+      {
+        "id": "IK-111425525:L474",
+        "text": "Moreover, the petitioners have failed to prove that the impairment of the value and utility of the building."
+      },
+      {
+        "id": "IK-111425525:L475",
+        "text": "ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -41-"
+      },
+      {
+        "id": "IK-111425525:L476",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L477",
+        "text": "30. As such, in my considered view, the petitioners have not been able to fulfill the requirements as formulated by the Hon'ble High Court of Delhi in case titled as cite31†Suraj Parkash Chopra Raj kumar vs Baij Nath Dhawan and Anr. 2003 III AD Delhi 705, 103 (2003) DLT 645. Hence, the petitioners have not been able to prove all the ingredients of Sec. 14(1)(j) of the D.R.C. Act."
+      },
+      {
+        "id": "IK-111425525:L478",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L479",
+        "text": "CONCLUSION:-"
+      },
+      {
+        "id": "IK-111425525:L480",
+        "text": "31 (i). Keeping in view the facts and circumstances of the case, testimonies of all the witnesses from both the sides, sub- missions made by the Learned Counsels for the parties, well settled proposition of law and material on record, I am of the considered view that the ingredients of 14(1)(b) D.R.C. Act are satisfied and consequently, an eviction order is passed in favour of the petitioners and against the respondents in respect of ten- anted premises i.e. shop admeasuring 19 ft. x 37 ft."
+      },
+      {
+        "id": "IK-111425525:L481",
+        "text": "in prop- erty No. WZ-622/D-3, Shiv Nagar, Jail Road, New Delhi- 110058 more specifically shown in red colour in the an- nexed site plan Ex. PW-1/1."
+      },
+      {
+        "id": "IK-111425525:L482",
+        "text": "(ii). So far as Sec. 14(1)(j) D.R.C. Act is concerned, the petitioners have not been able to prove all the ingredients of Sec. 14(1)(j) of the D.R.C. Act."
+      },
+      {
+        "id": "IK-111425525:L483",
+        "text": "(iii). Furthermore, the petitioners have been able to prove all the ingredients of Sec. 14(1)(a) of D.R.C. Act. Perusal of record shows that no order U/Sec. 15(1) of the D.R.C. Act was passed ARC No. 26009/16 Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs -42- by my Ld. Predecessor. Hence, an order U/Sec. 15(1) D.R.C. Act is passed directing the respondents to pay or tender or de- posit the rent w.e.f. 01.05.2011 till date @ Rs."
+      },
+      {
+        "id": "IK-111425525:L484",
+        "text": "1600/- per month along with simple interest @ 15% per annum within one month from today and the respondents are also directed to pay or ten- der or deposit the future rent at the same rate month by month on or before 15th of each succeeding English Calendar month."
+      },
+      {
+        "id": "IK-111425525:L485",
+        "text": "32. Nazir is directed to file his report on 03.08.2019 in respect of compliance of order passed today U/Sec. 15(1) of D.R.C. Act for ascertaining the benefit U/Sec. 14(2) of D.R.C. Act."
+      },
+      {
+        "id": "IK-111425525:L486",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L487",
+        "text": "33. This file be consigned to Record Room and a separate file be maintained for consideration on Sec. 14(2)of D.R.C. Act."
+      },
+      {
+        "id": "IK-111425525:L488",
+        "text": "Announced in the open Court on 2nd July, 2019."
+      },
+      {
+        "id": "IK-111425525:L489",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L490",
+        "text": "                                                                       Digitally signed"
+      },
+      {
+        "id": "IK-111425525:L491",
+        "text": "    (This judgment contains 42 pages)"
+      },
+      {
+        "id": "IK-111425525:L492",
+        "text": "                                               AJAY                    by AJAY NAGAR"
+      },
+      {
+        "id": "IK-111425525:L493",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L494",
+        "text": "                                               NAGAR                   Date: 2019.07.02"
+      },
+      {
+        "id": "IK-111425525:L495",
+        "text": "                                                                       16:46:30 +0530"
+      },
+      {
+        "id": "IK-111425525:L496",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L497",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L498",
+        "text": "                                              (Ajay Nagar)"
+      },
+      {
+        "id": "IK-111425525:L499",
+        "text": "                                        Additional Rent Controller,"
+      },
+      {
+        "id": "IK-111425525:L500",
+        "text": "                                         West District, THC, Delhi."
+      },
+      {
+        "id": "IK-111425525:L501",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L502",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L503",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L504",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L505",
+        "text": "    ARC No. 26009/16                           Sandeep Singh & Anr. Vs. Ramji Lal Goel by his L.Rs"
+      },
+      {
+        "id": "IK-111425525:L506",
+        "text": "### Related AI tags, queries and research notes"
+      },
+      {
+        "id": "IK-111425525:L507",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L508",
+        "text": "#### Translation"
+      },
+      {
+        "id": "IK-111425525:L509",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L510",
+        "text": "#### Top AI Tags"
+      },
+      {
+        "id": "IK-111425525:L511",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L512",
+        "text": "  * cite32†middleman-liability"
+      },
+      {
+        "id": "IK-111425525:L513",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L514",
+        "text": "  * cite33†delhi-rent-law"
+      },
+      {
+        "id": "IK-111425525:L515",
+        "text": "#### Related user Queries"
+      },
+      {
+        "id": "IK-111425525:L516",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L517",
+        "text": "  * cite34†judicial admissions"
+      },
+      {
+        "id": "IK-111425525:L518",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L519",
+        "text": "  * cite35†bhajan lal"
+      },
+      {
+        "id": "IK-111425525:L520",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L521",
+        "text": "  * cite36†legal possession"
+      },
+      {
+        "id": "IK-111425525:L522",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L523",
+        "text": "  * cite37†evidentiary admissions"
+      },
+      {
+        "id": "IK-111425525:L524",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L525",
+        "text": "  * cite38†material alteration"
+      },
+      {
+        "id": "IK-111425525:L526",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L527",
+        "text": "  * cite39†rti"
+      },
+      {
+        "id": "IK-111425525:L528",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L529",
+        "text": "  * cite40†14 1 (b)"
+      },
+      {
+        "id": "IK-111425525:L530",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L531",
+        "text": "  * cite41†14 (1)(b)"
+      },
+      {
+        "id": "IK-111425525:L532",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L533",
+        "text": "  * cite42†rent control act"
+      },
+      {
+        "id": "IK-111425525:L534",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L535",
+        "text": "  * cite43†tenant landlord relationship"
+      },
+      {
+        "id": "IK-111425525:L536",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L537",
+        "text": "  * cite44†ARREARS OF RENT"
+      },
+      {
+        "id": "IK-111425525:L538",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L539",
+        "text": "  * cite45†sub letting"
+      },
+      {
+        "id": "IK-111425525:L540",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L541",
+        "text": "  * cite46†\"material alteration only when\""
+      },
+      {
+        "id": "IK-111425525:L542",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L543",
+        "text": "  * cite47†parting with possession tenant"
+      },
+      {
+        "id": "IK-111425525:L544",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L545",
+        "text": "  * cite48†sub tenant"
+      },
+      {
+        "id": "IK-111425525:L546",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L547",
+        "text": "  * cite49†rent and tenant"
+      },
+      {
+        "id": "IK-111425525:L548",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L549",
+        "text": "  * cite50†delhi rent control act"
+      },
+      {
+        "id": "IK-111425525:L550",
+        "text": "  * cite51†\"exclusive possession\""
+      },
+      {
+        "id": "IK-111425525:L551",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L552",
+        "text": "  * cite52†physical possession"
+      },
+      {
+        "id": "IK-111425525:L553",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L554",
+        "text": "  * cite53†owner and landlord filter: delhi rent control act"
+      },
+      {
+        "id": "IK-111425525:L555",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L556",
+        "text": "cite54†About cite55†Disclaimer cite56†Privacy Policy cite57†Terms cite58†Case Removal cite59†Blog†blog.indiankanoon.org [Button: Share URL]"
+      },
+      {
+        "id": "IK-111425525:L557",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L558",
+        "text": "[Input] [Button: Mobile View]"
+      },
+      {
+        "id": "IK-111425525:L559",
+        "text": ""
+      },
+      {
+        "id": "IK-111425525:L560",
+        "text": "cite60†⚖ Case Recast AI "
+      }
+    ]
+  }
+}
+END_OF_INPUT 111425525

@@ -1,0 +1,310 @@
+{
+  "case_id": "111425525",
+  "conditions": [
+    {
+      "id": "c1_parting_with_possession",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises",
+      "description": "The tenant must have sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises.",
+      "logical_role": "REQUIRED",
+      "scope": "Delhi Rent Control Act section 14(1)(b); fixed subletting/assignment/parting-with-possession issue.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c2_post_1952_timing",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on or after the 9th day of June, 1952",
+      "description": "The relevant subletting, assignment, or parting with possession must have occurred on or after 9 June 1952.",
+      "logical_role": "REQUIRED",
+      "scope": "Temporal limit in Delhi Rent Control Act section 14(1)(b); the pre-9 June 1952 deeming rule in section 16(1) is outside the alleged 1992/2008 chronology.",
+      "dependencies": [
+        {
+          "condition_id": "c1_parting_with_possession",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b",
+        "LAW:S02:DRC:16"
+      ]
+    },
+    {
+      "id": "c3_no_written_landlord_consent",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+      "description": "The relevant subletting, assignment, or parting with possession must have occurred without written landlord consent; section 16(3) additionally states the requirement as previous consent in writing after commencement of the Act.",
+      "logical_role": "REQUIRED",
+      "scope": "Written-consent condition for the same relevant transfer or parting with possession; no implied-consent rule is added.",
+      "dependencies": [
+        {
+          "condition_id": "c1_parting_with_possession",
+          "operator": "AND"
+        },
+        {
+          "condition_id": "c2_post_1952_timing",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b",
+        "LAW:S02:DRC:16"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "b1",
+      "fact_id": "f2",
+      "condition_id": "c1_parting_with_possession",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "petition",
+      "case_refs": [
+        "IK-111425525:L109"
+      ],
+      "reason": "The petitioners' claimed original letting to the respondent supplies the asserted baseline tenant identity against which any later transfer of possession to the firms would be assessed.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b2",
+      "fact_id": "f4",
+      "condition_id": "c1_parting_with_possession",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "petition",
+      "case_refs": [
+        "IK-111425525:L112"
+      ],
+      "reason": "The petitioners directly allege subletting to two firms carrying on business independently, which is candidate evidence for parting with possession but is not itself an established fact.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b3",
+      "fact_id": "f7",
+      "condition_id": "c1_parting_with_possession",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "written statement",
+      "case_refs": [
+        "IK-111425525:L116",
+        "IK-111425525:L122"
+      ],
+      "reason": "The respondent's two-distinct-tenancies account tends to defeat the proposition that one tenancy was later parted with to third parties.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b4",
+      "fact_id": "f10",
+      "condition_id": "c1_parting_with_possession",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "written statement",
+      "case_refs": [
+        "IK-111425525:L123",
+        "IK-111425525:L134"
+      ],
+      "reason": "The respondent's own pleading places each firm in tenancy and possession of a separate shop, providing candidate evidence of possession by persons or firms other than the asserted original tenant, while leaving the legal character disputed.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b5",
+      "fact_id": "f12",
+      "condition_id": "c1_parting_with_possession",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "written statement",
+      "case_refs": [
+        "IK-111425525:L125",
+        "IK-111425525:L129"
+      ],
+      "reason": "The respondent's claimed participation as partner in both firms is candidate evidence that he retained participation or control, which tends against complete divestment of possession.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b6",
+      "fact_id": "f13",
+      "condition_id": "c1_parting_with_possession",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "written statement",
+      "case_refs": [
+        "IK-111425525:L130"
+      ],
+      "reason": "The respondent's account of a pre-2008 single tenancy later divided into two tenancies is candidate evidence of a change in possessory or tenancy arrangement, although the respondent characterizes that change as lawful new tenancies.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b7",
+      "fact_id": "f8",
+      "condition_id": "c2_post_1952_timing",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "written statement",
+      "case_refs": [
+        "IK-111425525:L117",
+        "IK-111425525:L118"
+      ],
+      "reason": "The respondent dates the alleged separation and creation of two tenancies to March 2008, which is after the statutory cutoff.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b8",
+      "fact_id": "f13",
+      "condition_id": "c2_post_1952_timing",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "written statement",
+      "case_refs": [
+        "IK-111425525:L130"
+      ],
+      "reason": "The respondent likewise places the asserted division into two tenancies in 2008, supporting the temporal condition if that is the legally relevant arrangement.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b9",
+      "fact_id": "f5",
+      "condition_id": "c3_no_written_landlord_consent",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "petition",
+      "case_refs": [
+        "IK-111425525:L112"
+      ],
+      "reason": "The petitioners expressly allege that no written permission was obtained for the alleged subletting.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b10",
+      "fact_id": "f8",
+      "condition_id": "c3_no_written_landlord_consent",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "written statement",
+      "case_refs": [
+        "IK-111425525:L117",
+        "IK-111425525:L118"
+      ],
+      "reason": "The respondent alleges landlord consent and a written understanding dated 10.03.2008, directly contesting the absence-of-written-consent condition, subject to authenticity, timing, and legal effect.",
+      "input_candidate": true,
+      "target_only": false
+    }
+  ],
+  "address_checks": {
+    "conditions": [
+      {
+        "id": "c1_parting_with_possession",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 502,
+              "raw_end": 600
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c2_post_1952_timing",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 463,
+              "raw_end": 500
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c3_no_written_landlord_consent",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 601,
+              "raw_end": 657
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "id": "b1",
+        "errors": []
+      },
+      {
+        "id": "b2",
+        "errors": []
+      },
+      {
+        "id": "b3",
+        "errors": []
+      },
+      {
+        "id": "b4",
+        "errors": []
+      },
+      {
+        "id": "b5",
+        "errors": []
+      },
+      {
+        "id": "b6",
+        "errors": []
+      },
+      {
+        "id": "b7",
+        "errors": []
+      },
+      {
+        "id": "b8",
+        "errors": []
+      },
+      {
+        "id": "b9",
+        "errors": []
+      },
+      {
+        "id": "b10",
+        "errors": []
+      }
+    ]
+  },
+  "origin": "HIGH_WITH_POST_OUTCOME_ACCESS",
+  "feature_admission": "NOT_ADMITTED",
+  "semantic_rule_source_review_required": true,
+  "conditions_need_pre_only_origin_for_future_test": "derive definitions from rule text only, with outcome-blind task-construction policy; do not regenerate in this round",
+  "signed_binding_need_pre_only_generation_for_future_test": "candidate evidence links must be obtainable from same allowed input at inference; current source checks alone cannot certify that procedure"
+}

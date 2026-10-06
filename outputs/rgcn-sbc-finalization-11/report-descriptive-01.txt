@@ -1,0 +1,24 @@
+S/B/C authority-selection 收尾：V11
+
+决定：KEEP_S_NO_STABLE_NET_CASE_CONDITIONED_VALUE_ESTABLISHED。这是6个已参与开发案件上的材料选择判断，不是独立测试、法律回答正确性或纯图消息传递效应。
+
+27 TRAIN／6 DEV／8 SEALED；30项法源不变。六次固定拟合完成6次，失败0次；网页准备最多12次、语义重试0、新法律回答0。
+标签与图分别在独立High对话处理指定四项，共132个位置。其余记录原样继承V10。UNKNOWN、ISOLATED和未完成不进入确定类别loss；现有弱标签不被称为人工金标准。
+
+最终状态：{"TRAIN": {"KNOWN": 757, "UNKNOWN": 0, "ISOLATED": 27, "UNPROCESSED": 26, "REVIEW_NOT_COMPLETED": 0}, "DEV": {"KNOWN": 176, "UNKNOWN": 0, "ISOLATED": 4, "UNPROCESSED": 0, "REVIEW_NOT_COMPLETED": 0}}。
+
+已知非强制CORE的送达计数（只表示现有不完整参考的覆盖，不作准确率排名）：
+20261004: S 16/35，已知无关入选5；B 14/35，已知无关入选2；C 13/35，已知无关入选2
+20261005: S 16/35，已知无关入选5；B 15/35，已知无关入选2；C 15/35，已知无关入选3
+
+逐案及逐seed的增益、损失、反对规则与范围限制见paired-comparison.json及case-comparison-detail.json。任何重要CORE丢失都不能被重复法源计数掩盖；同一文书不等于段落可替代。计数变化不能证明法律回答改善。
+
+B>S信号：{"stable_development_signal": false, "per_seed": {"20261004": {"gain_cases": ["110204406"], "loss_or_ambiguous_cases": ["172908545", "58386394", "890045", "869439"]}, "20261005": {"gain_cases": ["110204406"], "loss_or_ambiguous_cases": ["172908545", "58386394", "890045", "869439"]}}, "rule": "requires >1 case meaningful gain in both seeds and no known material CORE tradeoff; redundant sources not mechanically independent"}
+C>B信号：{"stable_development_signal": false, "per_seed": {"20261004": {"gain_cases": [], "loss_or_ambiguous_cases": ["110204406", "172908545", "58386394", "890045", "869439"]}, "20261005": {"gain_cases": ["172908545", "1908519"], "loss_or_ambiguous_cases": ["110204406", "58386394", "890045", "869439"]}}, "rule": "requires >1 case meaningful gain in both seeds and no known material CORE tradeoff; redundant sources not mechanically independent"}
+
+本轮训练耗时10.7秒；完整成本见cost-ledger.json。网页精确tokens不可得，不估造。
+历史字节核验1161文件，无改变；SEALED正文、图和标签未读。首次拟合前代码、数据、图、特征、TRAIN标准化、材料视图及readiness均已冻结。
+
+S不读案件且有30项独立先验；B是18维共享线性模型；C同时增加文本、非线性和图传播，因此不是严格嵌套消融。未对架构、seed、步数或类别权重调参。
+
+本轮到此停止，不自动修标签、重训、启封SEALED、生成法律答案、提交或推送。

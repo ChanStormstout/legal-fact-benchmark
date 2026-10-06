@@ -1,0 +1,2487 @@
+Task: construct a minimal rule-given IRAC application training proposal, NOT a new legal answer or whole-case extraction. Use only the attached data; no external search. Input is permanently frozen independently below. Full historical judgment is POST-OUTCOME, only for target construction. Reuse existing_inventory facts and objects; do not add/rewrite facts, court status, identity or relationship. If facts are wrong or insufficient mark a GAP and identify IDs. Do not make final target conclusions appear in input. Rules are oracle candidates, not automatically correct for this stage/jurisdiction/date. Check necessary scope and exceptions; if insufficient, mark GAP rather than invent.
+Return complete JSON code block and downloadable JSON. Avoid long copied text except exact short rule and target quotes. At most 6 meaningful conditions and 12 bindings, no need to fill arrays. Conditions only from provided rules, exclude target's own final reasoning from rule definitions. Relations SUPPORTS/DEFEATS describe a candidate evidentiary proposition, not established truth of a party allegation. Each binding must cite existing fact's PRE source refs and retain original statement status, court and stage. Target reasoning belongs only in element_targets/issue_target, never in bindings. A target SATISFIED requires express TARGET court adoption; DEFEATED requires express nonfulfilment or express opposing judgment. Burden not carried is distinct from false fact. UNRESOLVED must explain NOT_DECIDED, INSUFFICIENT_RECORD, AMBIGUOUS_REASONING or scope limits, not be technical failure. Lower findings are not target adoption. Do not label every statutory condition from the overall disposition. Search full target reasoning for each condition and issue; unresolved when too implicit.
+Output fields exactly: {case_id, conditions:[{id,rule_id,exact_rule_quote,description,logical_role,scope,dependencies:[{condition_id,operator}],law_refs}], bindings:[{id,fact_id,condition_id,relation,statement_status,court,stage,case_refs,reason,input_candidate:true,target_only:false}], element_targets:[{condition_id,status,basis_kind,target_refs:[{id,quote}],reason}], issue_target:{status,target_refs:[{id,quote}],reason}, gaps:[{kind,description,affected_ids}], chain_status}. Use status SATISFIED/DEFEATED/UNRESOLVED; issue SUPPORTED/NOT_SUPPORTED/UNRESOLVED. basis_kind FACT_ACCEPTED/FACT_FALSE/BURDEN_NOT_CARRIED/NOT_DECIDED/INSUFFICIENT_RECORD/LEGAL_INTERPRETATION/AMBIGUOUS_REASONING. chain_status PROPOSED_COMPLETE/GAP. law_refs are provided rule IDs. dependencies operators AND/OR/QUALIFICATION; no invented IDs. No binding to a new fact.
+MATERIAL
+{
+  "PRE_OUTCOME_FROZEN_INPUT": {
+    "case_id": "1381386",
+    "fixed_issue": "Whether the landlord's section 14(1)(b) eviction ground is established against the tenant for subletting, assignment or other parting with possession without written landlord consent, preserving procedural posture.",
+    "stage": "SC appeal; lower findings and landlord argument; target rejection excluded",
+    "pre_outcome_source": {
+      "case_id": "1381386",
+      "segments": [
+        {
+          "id": "IK-1381386:L137",
+          "text": "> The appellant landlord had filed an application under cite15†Sec. 14(1)(b) of the Delhi Rent Control Act, 1958 (for short the 'Act') for ejectment of the respondents. All the three courts concurrently found that Gulzar Singh was the sole tenant. The Rent Controller and the Tribunal found that he sublet the demised premises to Avtar Singh, his brother and therefore ordered ejectment. The High Court found that the tenant was in exclusive possession of the premises bearing No. W.Z.",
+          "source_document": "1381386",
+          "source_segment_id": "IK-1381386:L137",
+          "start": 0,
+          "end": 488
+        },
+        {
+          "id": "IK-1381386:L138",
+          "text": "258/4, Subash Bazar, Nangal 540 Raya, New Jail Road, New Delhi, and that he did not sublet the premises to Avtar Singh. On that premise the petition for ejectment was dismissed. Thus this appeal by special leave under cite17†Art. 136 of the Constitution.",
+          "source_document": "1381386",
+          "source_segment_id": "IK-1381386:L138",
+          "start": 0,
+          "end": 257
+        },
+        {
+          "id": "IK-1381386:L139",
+          "text": "> Shri Nagaraja, learned counsel for the appellant has con- tended that the High Court has committed a gross error in interfering with the concurrent finding of fact recorded by the Addl. Rent Controller and the Rent control Tribunal that the tenant, Gulzar Singh has sublet the premises in question to his brother, Avtar Singh and that it is not open to the High court to interfere with the concurrent finding of fact. He placed reliance on cite16†Sec.",
+          "source_document": "1381386",
+          "source_segment_id": "IK-1381386:L139",
+          "start": 0,
+          "end": 455
+        },
+        {
+          "id": "IK-1381386:L140",
+          "text": "18 of the Evidence Act and said that in an affidavit filed by Avtar singh before Income-Tax Authorities he claimed exclusive possession as a tenant and that, therefore, the admission made by him would be binding on Gulzar Singh. The Addl. Rent Controller and the Rent Control Tribunal relying upon this admission of Avtar Singh and other oral evidence concluded that Avtar Singh alone was in exclusive possession and that, therefore, subletting was proved as a fact.",
+          "source_document": "1381386",
+          "source_segment_id": "IK-1381386:L140",
+          "start": 0,
+          "end": 467
+        }
+      ],
+      "input_scope": "SC appeal; lower findings and landlord argument; target rejection excluded",
+      "coverage": "Complete approved ranges, NOT full judgment; full original held outside all model inputs",
+      "relation_status": "No known shared dispute in chosen titles/dockets; broader links unconfirmed"
+    },
+    "existing_inventory": {
+      "case_id": "1381386",
+      "origin": "EXISTING_LOCAL_WEAK_INVENTORY_NOT_LATENTWEAVER_CANONICAL",
+      "facts": [
+        {
+          "id": "f1",
+          "text": "The appellant landlord filed an application under Delhi Rent Control Act section 14(1)(b) seeking ejectment of the respondents.",
+          "speaker": "COURT",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal procedural history",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the application satisfied every prescribed procedural requirement"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "for ejectment of the respondents."
+        },
+        {
+          "id": "f2",
+          "text": "The supplied opinion reports that all three lower courts concurrently found Gulzar Singh to be the sole tenant.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "UNKNOWN",
+          "stage": "Rent Controller, Tribunal and High Court findings",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o2"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "All the three courts concurrently found that Gulzar Singh was the sole tenant."
+        },
+        {
+          "id": "f3",
+          "text": "The Rent Controller found that Gulzar Singh sublet the demised premises to Avtar Singh and ordered ejectment.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "TRIAL",
+          "stage": "Rent Controller merits determination",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of this finding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "The Rent Controller and the Tribunal found that he sublet the demised premises to Avtar Singh, his brother and therefore ordered ejectment."
+        },
+        {
+          "id": "f4",
+          "text": "The Rent Control Tribunal found that Gulzar Singh sublet the demised premises to Avtar Singh and ordered ejectment.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "Rent Control Tribunal merits determination",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of this finding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "The Rent Controller and the Tribunal found that he sublet the demised premises to Avtar Singh, his brother and therefore ordered ejectment."
+        },
+        {
+          "id": "f5",
+          "text": "The High Court found that Gulzar Singh did not sublet the premises to Avtar Singh and dismissed the ejectment petition on that premise.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court appeal",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target court acceptance of this finding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L138"
+          ],
+          "quote": "and that he did not sublet the premises to Avtar Singh. On that premise the petition for ejectment was dismissed."
+        },
+        {
+          "id": "f6",
+          "text": "The appellant landlord argued that the High Court committed gross error by interfering with the concurrent Rent Controller and Tribunal finding that Gulzar Singh had sublet the premises to Avtar Singh.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal appellant argument",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of the argument"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L139"
+          ],
+          "quote": "the High Court has committed a gross error in interfering with the concurrent finding of fact"
+        },
+        {
+          "id": "f7",
+          "text": "Avtar Singh was reported to have claimed in an affidavit before the Income-Tax Authorities that he had exclusive possession as a tenant.",
+          "speaker": "THIRD_PARTY",
+          "status": "CLAIMED",
+          "court": "NONE",
+          "stage": "Income-Tax affidavit",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "truth of the affidavit assertion",
+            "full contents and context of the affidavit"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "quote": "in an affidavit filed by Avtar singh before Income-Tax Authorities he claimed exclusive possession as a tenant"
+        },
+        {
+          "id": "f8",
+          "text": "The appellant landlord argued, relying on section 18 of the Evidence Act, that Avtar Singh's asserted admission would bind Gulzar Singh.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal appellant argument",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the admission is legally binding on Gulzar Singh",
+            "target court acceptance of the evidentiary argument"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o2"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L139",
+            "IK-1381386:L140"
+          ],
+          "quote": "the admission made by him would be binding on Gulzar Singh."
+        },
+        {
+          "id": "f9",
+          "text": "The Rent Controller and Rent Control Tribunal relied on Avtar Singh's admission and other oral evidence and concluded that Avtar Singh alone was in exclusive possession and that subletting was proved.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "UNKNOWN",
+          "stage": "Rent Controller and Rent Control Tribunal evidentiary findings",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of these lower-court findings",
+            "contents and weight of the unspecified other oral evidence"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "quote": "Avtar Singh alone was in exclusive possession and that, therefore, subletting was proved as a fact."
+        }
+      ],
+      "objects": [
+        {
+          "id": "o1",
+          "text": "appellant landlord",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L139"
+          ],
+          "unknown": true
+        },
+        {
+          "id": "o2",
+          "text": "Gulzar Singh",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L139",
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o3",
+          "text": "Avtar Singh",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138",
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o4",
+          "text": "premises bearing No. W.Z. 258/4, Subash Bazar, Nangal 540 Raya, New Jail Road, New Delhi",
+          "kind": "PROPERTY",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o5",
+          "text": "Avtar Singh affidavit before Income-Tax Authorities",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o6",
+          "text": "Addl. Rent Controller",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L139",
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o7",
+          "text": "Rent Control Tribunal",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L139",
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o8",
+          "text": "High Court",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138",
+            "IK-1381386:L139"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o9",
+          "text": "Income-Tax Authorities",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "unknown": false
+        }
+      ],
+      "relations": [
+        {
+          "id": "r1",
+          "left": "o3",
+          "right": "o2",
+          "relation": "other",
+          "text": "Avtar Singh is identified as the brother of Gulzar Singh.",
+          "speaker": "COURT",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal factual background",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "Avtar Singh, his brother"
+        },
+        {
+          "id": "r2",
+          "left": "o2",
+          "right": "o4",
+          "relation": "controls",
+          "text": "The High Court found Gulzar Singh to be in exclusive possession of the premises.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of this finding"
+          ],
+          "refs": [
+            "IK-1381386:L137"
+          ],
+          "quote": "the tenant was in exclusive possession of the premises bearing No. W.Z."
+        },
+        {
+          "id": "r3",
+          "left": "o3",
+          "right": "o4",
+          "relation": "controls",
+          "text": "The Rent Controller and Rent Control Tribunal found Avtar Singh alone to be in exclusive possession of the premises.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "UNKNOWN",
+          "stage": "Rent Controller and Rent Control Tribunal merits findings",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance of these findings"
+          ],
+          "refs": [
+            "IK-1381386:L140"
+          ],
+          "quote": "Avtar Singh alone was in exclusive possession"
+        }
+      ],
+      "issue_needs_context_not_application_targets": [
+        {
+          "id": "n1",
+          "text": "Whether Gulzar Singh is the tenant whose conduct can engage the supplied Delhi Rent Control Act section 14(1)(b) ground.",
+          "refs": [
+            "IK-1381386:L137"
+          ]
+        },
+        {
+          "id": "n2",
+          "text": "Whether Gulzar Singh sublet, assigned, or otherwise parted with possession of all or part of the premises to Avtar Singh, preserving the conflicting lower-court findings.",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138",
+            "IK-1381386:L140"
+          ]
+        },
+        {
+          "id": "n3",
+          "text": "Whether any relevant subletting, assignment, or parting with possession occurred with or without the landlord's written consent.",
+          "refs": []
+        },
+        {
+          "id": "n4",
+          "text": "Whether any relevant transfer or subletting occurred within the statutory date scope, including on or after 9 June 1952 and, where applicable, after commencement of the Act.",
+          "refs": []
+        },
+        {
+          "id": "n5",
+          "text": "Whether the supplied record establishes any notice, lawful-subletting, or protected-subtenant facts needed for the supplied sections 17 and 18 mechanisms.",
+          "refs": [
+            "IK-1381386:L137",
+            "IK-1381386:L138"
+          ]
+        }
+      ],
+      "quarantined": [],
+      "pre_source_ids": [
+        "IK-1381386:L137",
+        "IK-1381386:L138",
+        "IK-1381386:L139",
+        "IK-1381386:L140"
+      ]
+    },
+    "oracle_rule_material": [
+      {
+        "id": "LAW:S02:DRC14:1b",
+        "text": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+        "source": {
+          "document_id": "18143401",
+          "url": "https://indiankanoon.org/doc/18143401/",
+          "raw_provenance": [
+            [
+              {
+                "document_id": "18143401",
+                "url": "https://indiankanoon.org/doc/18143401/",
+                "response_index": 0,
+                "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                "raw_char_range": [
+                  1228,
+                  2945
+                ],
+                "raw_byte_range": [
+                  1346,
+                  3103
+                ],
+                "raw_physical_line": 37,
+                "original_line": 39
+              }
+            ],
+            [
+              {
+                "document_id": "18143401",
+                "url": "https://indiankanoon.org/doc/18143401/",
+                "response_index": 0,
+                "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                "raw_char_range": [
+                  1228,
+                  2945
+                ],
+                "raw_byte_range": [
+                  1346,
+                  3103
+                ],
+                "raw_physical_line": 37,
+                "original_line": 39
+              }
+            ]
+          ]
+        },
+        "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+        "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+        "dependencies": [],
+        "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+        "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+      },
+      {
+        "id": "LAW:V09:KR_BURDEN",
+        "text": "The case of the respondent in his application under cite16†section 14 of of the Act was that the appellant had sub-let the whole premises to Sohan Singh who was running the business under the name of Royal Dispensing Chemists and Druggists and that the entire premises have been sub-let by the appellant and the appellant had completely parted with possession without the written consent of the respondent.\nIt was also alleged that the appellant was charging fabulous amount of rent from the sub-tenant Sohan Singh. Sub-letting was,' therefore, the principal ground on which eviction was sought. When eviction is sought on that ground it is now settled law that the onus to prove sub-letting is on the landlord. If the landlord prima-facie shows that the occupant who was in exclusive possession of the premises let out for valuable consideration, it would then be for the tenant to rebut the evidence.",
+        "source": {
+          "document_id": "114533",
+          "url": "https://indiankanoon.org/doc/114533/",
+          "date": "1973-11-29",
+          "court_or_publisher": "Supreme Court of India",
+          "passage_addresses": [
+            {
+              "id": "IK-114533:L165",
+              "start": 0,
+              "end": 409
+            },
+            {
+              "id": "IK-114533:L166",
+              "start": 0,
+              "end": 495
+            }
+          ],
+          "raw_provenance": [
+            [
+              {
+                "document_id": "114533",
+                "url": "https://indiankanoon.org/doc/114533/",
+                "response_index": 1,
+                "raw_path": "outputs/rgcn-data-expansion-09/sources/raw/authority-open-02.txt",
+                "raw_sha256": "1e2dd50f090bcf43250f082de78c3ff61d01c78fa610430e76d714e3e9b91114",
+                "raw_char_range": [
+                  18190,
+                  18599
+                ],
+                "raw_byte_range": [
+                  18306,
+                  18723
+                ],
+                "raw_physical_line": 66,
+                "original_line": 165
+              }
+            ],
+            [
+              {
+                "document_id": "114533",
+                "url": "https://indiankanoon.org/doc/114533/",
+                "response_index": 1,
+                "raw_path": "outputs/rgcn-data-expansion-09/sources/raw/authority-open-02.txt",
+                "raw_sha256": "1e2dd50f090bcf43250f082de78c3ff61d01c78fa610430e76d714e3e9b91114",
+                "raw_char_range": [
+                  18606,
+                  19101
+                ],
+                "raw_byte_range": [
+                  18730,
+                  19225
+                ],
+                "raw_physical_line": 67,
+                "original_line": 166
+              }
+            ]
+          ]
+        },
+        "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+        "scope": "Delhi DRC14(1)(b)",
+        "mechanisms": [
+          "control_exclusive_possession"
+        ],
+        "legal_status": "COURT_ADOPTED",
+        "coverage_limit": "Initial burden and rebuttal depend on the proof stated; mere presence alone is not equivalent to exclusive possession for consideration.",
+        "dependencies": [],
+        "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+        "full_source_status": "INCOMPLETE",
+        "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+        "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+      }
+    ],
+    "unknown_is_not_false": true,
+    "target_info_included": false
+  },
+  "POST_OUTCOME_TARGET_CONSTRUCTION": {
+    "case_id": "1381386",
+    "full_historical_source": [
+      {
+        "id": "IK-1381386:L137",
+        "source_document": "1381386",
+        "original_line": 137,
+        "text": "> The appellant landlord had filed an application under cite15†Sec. 14(1)(b) of the Delhi Rent Control Act, 1958 (for short the 'Act') for ejectment of the respondents. All the three courts concurrently found that Gulzar Singh was the sole tenant. The Rent Controller and the Tribunal found that he sublet the demised premises to Avtar Singh, his brother and therefore ordered ejectment. The High Court found that the tenant was in exclusive possession of the premises bearing No. W.Z.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              6384,
+              6872
+            ],
+            "raw_byte_range": [
+              6574,
+              7070
+            ],
+            "raw_physical_line": 133,
+            "original_line": 137
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L138",
+        "source_document": "1381386",
+        "original_line": 138,
+        "text": "258/4, Subash Bazar, Nangal 540 Raya, New Jail Road, New Delhi, and that he did not sublet the premises to Avtar Singh. On that premise the petition for ejectment was dismissed. Thus this appeal by special leave under cite17†Art. 136 of the Constitution.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              6879,
+              7136
+            ],
+            "raw_byte_range": [
+              7077,
+              7342
+            ],
+            "raw_physical_line": 134,
+            "original_line": 138
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L139",
+        "source_document": "1381386",
+        "original_line": 139,
+        "text": "> Shri Nagaraja, learned counsel for the appellant has con- tended that the High Court has committed a gross error in interfering with the concurrent finding of fact recorded by the Addl. Rent Controller and the Rent control Tribunal that the tenant, Gulzar Singh has sublet the premises in question to his brother, Avtar Singh and that it is not open to the High court to interfere with the concurrent finding of fact. He placed reliance on cite16†Sec.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              7143,
+              7598
+            ],
+            "raw_byte_range": [
+              7349,
+              7810
+            ],
+            "raw_physical_line": 135,
+            "original_line": 139
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L140",
+        "source_document": "1381386",
+        "original_line": 140,
+        "text": "18 of the Evidence Act and said that in an affidavit filed by Avtar singh before Income-Tax Authorities he claimed exclusive possession as a tenant and that, therefore, the admission made by him would be binding on Gulzar Singh. The Addl. Rent Controller and the Rent Control Tribunal relying upon this admission of Avtar Singh and other oral evidence concluded that Avtar Singh alone was in exclusive possession and that, therefore, subletting was proved as a fact. We find no substance in the contention.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              7605,
+              8112
+            ],
+            "raw_byte_range": [
+              7817,
+              8326
+            ],
+            "raw_physical_line": 136,
+            "original_line": 140
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L141",
+        "source_document": "1381386",
+        "original_line": 141,
+        "text": "cite16†Section 18 of the Evidence Act. reads as under:-",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              8119,
+              8177
+            ],
+            "raw_byte_range": [
+              8333,
+              8399
+            ],
+            "raw_physical_line": 137,
+            "original_line": 141
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L142",
+        "source_document": "1381386",
+        "original_line": 142,
+        "text": "> \"18. Admission by party to proceeding or his agent; by suitor in representative character; by party interested in subject-matter by person from whom interest derived. - State- ments made by a party to the proceedings, or by an agent to any such party, whom the court regards, under the circumstances of the case, as expressly or impliedly authorised by him to made them, are admissions.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              8184,
+              8572
+            ],
+            "raw_byte_range": [
+              8406,
+              8794
+            ],
+            "raw_physical_line": 138,
+            "original_line": 142
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L143",
+        "source_document": "1381386",
+        "original_line": 143,
+        "text": "> Statements made by parties to suits, suing or sued in a representative character, are not admissions, unless they were made while the party making them held that character. Statements made by -",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              8579,
+              8774
+            ],
+            "raw_byte_range": [
+              8801,
+              8996
+            ],
+            "raw_physical_line": 139,
+            "original_line": 143
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L144",
+        "source_document": "1381386",
+        "original_line": 144,
+        "text": "> (1) persons whom have any proprietary or pecuniary interest in the subject matter of the proceeding and who make the statement in their character of persons so interested, or (2) persons from whom the parties to the suit have derived their interest in the subject matter of the suit, are admissions, if they are made during the continuance of the inter-",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              8781,
+              9136
+            ],
+            "raw_byte_range": [
+              9003,
+              9358
+            ],
+            "raw_physical_line": 140,
+            "original_line": 144
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L145",
+        "source_document": "1381386",
+        "original_line": 145,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              9143,
+              9143
+            ],
+            "raw_byte_range": [
+              9365,
+              9365
+            ],
+            "raw_physical_line": 141,
+            "original_line": 145
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L146",
+        "source_document": "1381386",
+        "original_line": 146,
+        "text": "est of the persons making the statement.\"",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              9150,
+              9191
+            ],
+            "raw_byte_range": [
+              9372,
+              9413
+            ],
+            "raw_physical_line": 142,
+            "original_line": 146
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L147",
+        "source_document": "1381386",
+        "original_line": 147,
+        "text": "cite16†Section 18 postulates that statements made by a party to the 541 proceeding, or by an agent to any such party, whom the Court regards, under the circumstances of the. case, as expressly or impliedly authorised by him to make them, are admissions. Equally statement made by a person who has an proprietary or pecuniary interest in the subject matter of the proceedings or persons having derivative interest make statements during the continuance of the interest also are admissions.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              9198,
+              9689
+            ],
+            "raw_byte_range": [
+              9420,
+              9919
+            ],
+            "raw_physical_line": 143,
+            "original_line": 147
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L148",
+        "source_document": "1381386",
+        "original_line": 148,
+        "text": "In this case, admittedly, Gulzar Singh was not a party to the .affidavit signed by Avtar Singh. Therefore, the admis- sion made by Avtar Singh that he is the tenant m exclusive possession of the demised premises does not bind Gulzar Singh. In view of the plea and stand of the appellant, Avtar Singh cannot claim to have any pecuniary interest or any joint interest alongwith Gulzar Singh in the demised prem- ises.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              9696,
+              10111
+            ],
+            "raw_byte_range": [
+              9926,
+              10341
+            ],
+            "raw_physical_line": 144,
+            "original_line": 148
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L149",
+        "source_document": "1381386",
+        "original_line": 149,
+        "text": "Once it is found that Gulzar Singh alone is the ten- ant, as admittedly pleaded by the appellant, Avtar Singh cannot claim to have any pecuniary or derivative interest in the demised premises. He is not an agent of Gulzar Singh. Under those circumstances, as rightly found by the High Court, that the admission made by Avtar Singh in the affida- vit is inadmissible and does not bind Gulzar Singh.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              10118,
+              10515
+            ],
+            "raw_byte_range": [
+              10348,
+              10745
+            ],
+            "raw_physical_line": 145,
+            "original_line": 149
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L150",
+        "source_document": "1381386",
+        "original_line": 150,
+        "text": "Once that admission is excluded from consideration, there is no other evidence worth accepting to conclude that Avtar Singh was in exclusive possession as a tenant. The High Court rightly held that the finding of subletting or parting with possession of the premises in dispute was vitiated in law as it was primarily based on inadmissible evidence. Having found the finding vitiated, it was open to the High Court to re-examine and reappreciate the evidence on record.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              10522,
+              10991
+            ],
+            "raw_byte_range": [
+              10752,
+              11221
+            ],
+            "raw_physical_line": 146,
+            "original_line": 150
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L151",
+        "source_document": "1381386",
+        "original_line": 151,
+        "text": "On reappraisal it disbelieved-the oral evidence. We do not find any error in such reappraisal. It is then sought to be contended that Gulzar Singh had other business and it im- plies that he is not in exclusive possession of the demised premises. We find no force in the contention. It may be that Gulzar Singh had other business but that does not lead to the conclusion that Gulzar singh is not in exclusive posses- sion of the demised premises as tenant or that he sublet the premises to Avtar Singh.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              10998,
+              11500
+            ],
+            "raw_byte_range": [
+              11228,
+              11730
+            ],
+            "raw_physical_line": 147,
+            "original_line": 151
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L152",
+        "source_document": "1381386",
+        "original_line": 152,
+        "text": "Accordingly, the appeal is dismissed, but in the circum- stances, without costs.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11507,
+              11587
+            ],
+            "raw_byte_range": [
+              11737,
+              11817
+            ],
+            "raw_physical_line": 148,
+            "original_line": 152
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L153",
+        "source_document": "1381386",
+        "original_line": 153,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11594,
+              11594
+            ],
+            "raw_byte_range": [
+              11824,
+              11824
+            ],
+            "raw_physical_line": 149,
+            "original_line": 153
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L154",
+        "source_document": "1381386",
+        "original_line": 154,
+        "text": "    T.N.A.\t\t\t\t\t\t      Appeal",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11601,
+              11629
+            ],
+            "raw_byte_range": [
+              11831,
+              11859
+            ],
+            "raw_physical_line": 150,
+            "original_line": 154
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L155",
+        "source_document": "1381386",
+        "original_line": 155,
+        "text": "    dismissed.",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11636,
+              11650
+            ],
+            "raw_byte_range": [
+              11866,
+              11880
+            ],
+            "raw_physical_line": 151,
+            "original_line": 155
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L156",
+        "source_document": "1381386",
+        "original_line": 156,
+        "text": "    542",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11657,
+              11664
+            ],
+            "raw_byte_range": [
+              11887,
+              11894
+            ],
+            "raw_physical_line": 152,
+            "original_line": 156
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L157",
+        "source_document": "1381386",
+        "original_line": 157,
+        "text": "### Related AI tags, queries and research notes",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11671,
+              11718
+            ],
+            "raw_byte_range": [
+              11901,
+              11948
+            ],
+            "raw_physical_line": 153,
+            "original_line": 157
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L158",
+        "source_document": "1381386",
+        "original_line": 158,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11725,
+              11725
+            ],
+            "raw_byte_range": [
+              11955,
+              11955
+            ],
+            "raw_physical_line": 154,
+            "original_line": 158
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L159",
+        "source_document": "1381386",
+        "original_line": 159,
+        "text": "#### Translation",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11732,
+              11748
+            ],
+            "raw_byte_range": [
+              11962,
+              11978
+            ],
+            "raw_physical_line": 155,
+            "original_line": 159
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L160",
+        "source_document": "1381386",
+        "original_line": 160,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11755,
+              11755
+            ],
+            "raw_byte_range": [
+              11985,
+              11985
+            ],
+            "raw_physical_line": 156,
+            "original_line": 160
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L161",
+        "source_document": "1381386",
+        "original_line": 161,
+        "text": "#### Top AI Tags",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11762,
+              11778
+            ],
+            "raw_byte_range": [
+              11992,
+              12008
+            ],
+            "raw_physical_line": 157,
+            "original_line": 161
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L162",
+        "source_document": "1381386",
+        "original_line": 162,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11785,
+              11785
+            ],
+            "raw_byte_range": [
+              12015,
+              12015
+            ],
+            "raw_physical_line": 158,
+            "original_line": 162
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L163",
+        "source_document": "1381386",
+        "original_line": 163,
+        "text": "  * cite18†admission-by-interested-parties-to-proceeding",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11792,
+              11851
+            ],
+            "raw_byte_range": [
+              12022,
+              12089
+            ],
+            "raw_physical_line": 159,
+            "original_line": 163
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L164",
+        "source_document": "1381386",
+        "original_line": 164,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11858,
+              11858
+            ],
+            "raw_byte_range": [
+              12096,
+              12096
+            ],
+            "raw_physical_line": 159,
+            "original_line": 164
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L165",
+        "source_document": "1381386",
+        "original_line": 165,
+        "text": "  * cite19†special-leave-appeal-by-supreme-court",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11865,
+              11916
+            ],
+            "raw_byte_range": [
+              12103,
+              12162
+            ],
+            "raw_physical_line": 160,
+            "original_line": 165
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L166",
+        "source_document": "1381386",
+        "original_line": 166,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11923,
+              11923
+            ],
+            "raw_byte_range": [
+              12169,
+              12169
+            ],
+            "raw_physical_line": 160,
+            "original_line": 166
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L167",
+        "source_document": "1381386",
+        "original_line": 167,
+        "text": "  * cite20†delhi-rent-law",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11930,
+              11958
+            ],
+            "raw_byte_range": [
+              12176,
+              12212
+            ],
+            "raw_physical_line": 161,
+            "original_line": 167
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L168",
+        "source_document": "1381386",
+        "original_line": 168,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11965,
+              11965
+            ],
+            "raw_byte_range": [
+              12219,
+              12219
+            ],
+            "raw_physical_line": 161,
+            "original_line": 168
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L169",
+        "source_document": "1381386",
+        "original_line": 169,
+        "text": "  * cite21†middleman-liability",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              11972,
+              12005
+            ],
+            "raw_byte_range": [
+              12226,
+              12267
+            ],
+            "raw_physical_line": 162,
+            "original_line": 169
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L170",
+        "source_document": "1381386",
+        "original_line": 170,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12012,
+              12012
+            ],
+            "raw_byte_range": [
+              12274,
+              12274
+            ],
+            "raw_physical_line": 162,
+            "original_line": 170
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L171",
+        "source_document": "1381386",
+        "original_line": 171,
+        "text": "  * cite22†law-governing-evidence",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12019,
+              12055
+            ],
+            "raw_byte_range": [
+              12281,
+              12325
+            ],
+            "raw_physical_line": 163,
+            "original_line": 171
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L172",
+        "source_document": "1381386",
+        "original_line": 172,
+        "text": "#### Related user Queries",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12062,
+              12087
+            ],
+            "raw_byte_range": [
+              12332,
+              12357
+            ],
+            "raw_physical_line": 163,
+            "original_line": 172
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L173",
+        "source_document": "1381386",
+        "original_line": 173,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12094,
+              12094
+            ],
+            "raw_byte_range": [
+              12364,
+              12364
+            ],
+            "raw_physical_line": 164,
+            "original_line": 173
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L174",
+        "source_document": "1381386",
+        "original_line": 174,
+        "text": "  * cite23†rent control act",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12101,
+              12131
+            ],
+            "raw_byte_range": [
+              12371,
+              12409
+            ],
+            "raw_physical_line": 165,
+            "original_line": 174
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L175",
+        "source_document": "1381386",
+        "original_line": 175,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12138,
+              12138
+            ],
+            "raw_byte_range": [
+              12416,
+              12416
+            ],
+            "raw_physical_line": 165,
+            "original_line": 175
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L176",
+        "source_document": "1381386",
+        "original_line": 176,
+        "text": "  * cite24†eviction petition",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12145,
+              12176
+            ],
+            "raw_byte_range": [
+              12423,
+              12462
+            ],
+            "raw_physical_line": 166,
+            "original_line": 176
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L177",
+        "source_document": "1381386",
+        "original_line": 177,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12183,
+              12183
+            ],
+            "raw_byte_range": [
+              12469,
+              12469
+            ],
+            "raw_physical_line": 166,
+            "original_line": 177
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L178",
+        "source_document": "1381386",
+        "original_line": 178,
+        "text": "  * cite25†sub letting",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12190,
+              12215
+            ],
+            "raw_byte_range": [
+              12476,
+              12509
+            ],
+            "raw_physical_line": 167,
+            "original_line": 178
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L179",
+        "source_document": "1381386",
+        "original_line": 179,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12222,
+              12222
+            ],
+            "raw_byte_range": [
+              12516,
+              12516
+            ],
+            "raw_physical_line": 167,
+            "original_line": 179
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L180",
+        "source_document": "1381386",
+        "original_line": 180,
+        "text": "  * cite26†inadmissible evidence",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12229,
+              12264
+            ],
+            "raw_byte_range": [
+              12523,
+              12566
+            ],
+            "raw_physical_line": 168,
+            "original_line": 180
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L181",
+        "source_document": "1381386",
+        "original_line": 181,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12271,
+              12271
+            ],
+            "raw_byte_range": [
+              12573,
+              12573
+            ],
+            "raw_physical_line": 168,
+            "original_line": 181
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L182",
+        "source_document": "1381386",
+        "original_line": 182,
+        "text": "  * cite27†delhi rent control act",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12278,
+              12314
+            ],
+            "raw_byte_range": [
+              12580,
+              12624
+            ],
+            "raw_physical_line": 169,
+            "original_line": 182
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L183",
+        "source_document": "1381386",
+        "original_line": 183,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12321,
+              12321
+            ],
+            "raw_byte_range": [
+              12631,
+              12631
+            ],
+            "raw_physical_line": 169,
+            "original_line": 183
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L184",
+        "source_document": "1381386",
+        "original_line": 184,
+        "text": "  * cite28†delhi rent control act 1958",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12328,
+              12369
+            ],
+            "raw_byte_range": [
+              12638,
+              12687
+            ],
+            "raw_physical_line": 170,
+            "original_line": 184
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L185",
+        "source_document": "1381386",
+        "original_line": 185,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12376,
+              12376
+            ],
+            "raw_byte_range": [
+              12694,
+              12694
+            ],
+            "raw_physical_line": 170,
+            "original_line": 185
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L186",
+        "source_document": "1381386",
+        "original_line": 186,
+        "text": "  * cite29†\"exclusive possession\"",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12383,
+              12419
+            ],
+            "raw_byte_range": [
+              12701,
+              12745
+            ],
+            "raw_physical_line": 171,
+            "original_line": 186
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L187",
+        "source_document": "1381386",
+        "original_line": 187,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12426,
+              12426
+            ],
+            "raw_byte_range": [
+              12752,
+              12752
+            ],
+            "raw_physical_line": 171,
+            "original_line": 187
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L188",
+        "source_document": "1381386",
+        "original_line": 188,
+        "text": "  * cite30†ejectment",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12433,
+              12456
+            ],
+            "raw_byte_range": [
+              12759,
+              12790
+            ],
+            "raw_physical_line": 172,
+            "original_line": 188
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L189",
+        "source_document": "1381386",
+        "original_line": 189,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12463,
+              12463
+            ],
+            "raw_byte_range": [
+              12797,
+              12797
+            ],
+            "raw_physical_line": 172,
+            "original_line": 189
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L190",
+        "source_document": "1381386",
+        "original_line": 190,
+        "text": "  * cite31†concurrent findings",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12470,
+              12503
+            ],
+            "raw_byte_range": [
+              12804,
+              12845
+            ],
+            "raw_physical_line": 173,
+            "original_line": 190
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L191",
+        "source_document": "1381386",
+        "original_line": 191,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12510,
+              12510
+            ],
+            "raw_byte_range": [
+              12852,
+              12852
+            ],
+            "raw_physical_line": 173,
+            "original_line": 191
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L192",
+        "source_document": "1381386",
+        "original_line": 192,
+        "text": "  * cite32†\"pecuniary interest\"",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12517,
+              12551
+            ],
+            "raw_byte_range": [
+              12859,
+              12901
+            ],
+            "raw_physical_line": 174,
+            "original_line": 192
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L193",
+        "source_document": "1381386",
+        "original_line": 193,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12558,
+              12558
+            ],
+            "raw_byte_range": [
+              12908,
+              12908
+            ],
+            "raw_physical_line": 174,
+            "original_line": 193
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L194",
+        "source_document": "1381386",
+        "original_line": 194,
+        "text": "  * cite33†exclusive possession",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12565,
+              12599
+            ],
+            "raw_byte_range": [
+              12915,
+              12957
+            ],
+            "raw_physical_line": 175,
+            "original_line": 194
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L195",
+        "source_document": "1381386",
+        "original_line": 195,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12606,
+              12606
+            ],
+            "raw_byte_range": [
+              12964,
+              12964
+            ],
+            "raw_physical_line": 175,
+            "original_line": 195
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L196",
+        "source_document": "1381386",
+        "original_line": 196,
+        "text": "  * cite34†avtar singh",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12613,
+              12638
+            ],
+            "raw_byte_range": [
+              12971,
+              13004
+            ],
+            "raw_physical_line": 176,
+            "original_line": 196
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L197",
+        "source_document": "1381386",
+        "original_line": 197,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12645,
+              12645
+            ],
+            "raw_byte_range": [
+              13011,
+              13011
+            ],
+            "raw_physical_line": 176,
+            "original_line": 197
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L198",
+        "source_document": "1381386",
+        "original_line": 198,
+        "text": "  * cite35†sub-letting",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12652,
+              12677
+            ],
+            "raw_byte_range": [
+              13018,
+              13051
+            ],
+            "raw_physical_line": 177,
+            "original_line": 198
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L199",
+        "source_document": "1381386",
+        "original_line": 199,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12684,
+              12684
+            ],
+            "raw_byte_range": [
+              13058,
+              13058
+            ],
+            "raw_physical_line": 177,
+            "original_line": 199
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L200",
+        "source_document": "1381386",
+        "original_line": 200,
+        "text": "  * cite36†section 14 filter: delhi rent control act",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12691,
+              12746
+            ],
+            "raw_byte_range": [
+              13065,
+              13128
+            ],
+            "raw_physical_line": 178,
+            "original_line": 200
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L201",
+        "source_document": "1381386",
+        "original_line": 201,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12753,
+              12753
+            ],
+            "raw_byte_range": [
+              13135,
+              13135
+            ],
+            "raw_physical_line": 178,
+            "original_line": 201
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L202",
+        "source_document": "1381386",
+        "original_line": 202,
+        "text": "  * cite37†delhi rent control",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12760,
+              12792
+            ],
+            "raw_byte_range": [
+              13142,
+              13182
+            ],
+            "raw_physical_line": 179,
+            "original_line": 202
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L203",
+        "source_document": "1381386",
+        "original_line": 203,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12799,
+              12799
+            ],
+            "raw_byte_range": [
+              13189,
+              13189
+            ],
+            "raw_physical_line": 179,
+            "original_line": 203
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L204",
+        "source_document": "1381386",
+        "original_line": 204,
+        "text": "  * cite38†123",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12806,
+              12823
+            ],
+            "raw_byte_range": [
+              13196,
+              13221
+            ],
+            "raw_physical_line": 180,
+            "original_line": 204
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L205",
+        "source_document": "1381386",
+        "original_line": 205,
+        "text": "cite39†About cite40†Disclaimer cite41†Privacy Policy cite42†Terms cite43†Case Removal cite44†Blog†blog.indiankanoon.org [Button: Share URL]",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12830,
+              12987
+            ],
+            "raw_byte_range": [
+              13228,
+              13435
+            ],
+            "raw_physical_line": 180,
+            "original_line": 205
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L206",
+        "source_document": "1381386",
+        "original_line": 206,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              12994,
+              12994
+            ],
+            "raw_byte_range": [
+              13442,
+              13442
+            ],
+            "raw_physical_line": 181,
+            "original_line": 206
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L207",
+        "source_document": "1381386",
+        "original_line": 207,
+        "text": "[Input] [Button: Mobile View]",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              13001,
+              13030
+            ],
+            "raw_byte_range": [
+              13449,
+              13478
+            ],
+            "raw_physical_line": 182,
+            "original_line": 207
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L208",
+        "source_document": "1381386",
+        "original_line": 208,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              13037,
+              13037
+            ],
+            "raw_byte_range": [
+              13485,
+              13485
+            ],
+            "raw_physical_line": 183,
+            "original_line": 208
+          }
+        ]
+      },
+      {
+        "id": "IK-1381386:L209",
+        "source_document": "1381386",
+        "original_line": 209,
+        "text": "cite45†⚖ Case Recast AI ",
+        "provenance": [
+          {
+            "document_id": "1381386",
+            "url": "https://indiankanoon.org/doc/1381386/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/1381386-web-open.txt",
+            "raw_sha256": "e98d52a9fd3588f496b083b50a0de9e3f0523d7306c87da6d015bf7892243401",
+            "raw_char_range": [
+              13044,
+              13071
+            ],
+            "raw_byte_range": [
+              13492,
+              13529
+            ],
+            "raw_physical_line": 184,
+            "original_line": 209
+          }
+        ]
+      }
+    ],
+    "source_document_status": "COMPLETE_RENDERING",
+    "title": [
+      "Sri Chand Gupta vs Gulzar Singh And Anr on 22 October, 1991"
+    ],
+    "usage": "TARGET_CONSTRUCTION_ONLY_NEVER_MODEL_INPUT"
+  }
+}
+END_OF_INPUT 1381386

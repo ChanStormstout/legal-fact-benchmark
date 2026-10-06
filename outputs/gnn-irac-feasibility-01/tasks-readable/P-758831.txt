@@ -1,0 +1,729 @@
+Task: construct a minimal rule-given IRAC application training proposal, NOT a new legal answer or whole-case extraction. Use only the attached data; no external search. Input is permanently frozen independently below. Full historical judgment is POST-OUTCOME, only for target construction. Reuse existing_inventory facts and objects; do not add/rewrite facts, court status, identity or relationship. If facts are wrong or insufficient mark a GAP and identify IDs. Do not make final target conclusions appear in input. Rules are oracle candidates, not automatically correct for this stage/jurisdiction/date. Check necessary scope and exceptions; if insufficient, mark GAP rather than invent.
+Return complete JSON code block and downloadable JSON. Avoid long copied text except exact short rule and target quotes. At most 6 meaningful conditions and 12 bindings, no need to fill arrays. Conditions only from provided rules, exclude target's own final reasoning from rule definitions. Relations SUPPORTS/DEFEATS describe a candidate evidentiary proposition, not established truth of a party allegation. Each binding must cite existing fact's PRE source refs and retain original statement status, court and stage. Target reasoning belongs only in element_targets/issue_target, never in bindings. A target SATISFIED requires express TARGET court adoption; DEFEATED requires express nonfulfilment or express opposing judgment. Burden not carried is distinct from false fact. UNRESOLVED must explain NOT_DECIDED, INSUFFICIENT_RECORD, AMBIGUOUS_REASONING or scope limits, not be technical failure. Lower findings are not target adoption. Do not label every statutory condition from the overall disposition. Search full target reasoning for each condition and issue; unresolved when too implicit.
+Output fields exactly: {case_id, conditions:[{id,rule_id,exact_rule_quote,description,logical_role,scope,dependencies:[{condition_id,operator}],law_refs}], bindings:[{id,fact_id,condition_id,relation,statement_status,court,stage,case_refs,reason,input_candidate:true,target_only:false}], element_targets:[{condition_id,status,basis_kind,target_refs:[{id,quote}],reason}], issue_target:{status,target_refs:[{id,quote}],reason}, gaps:[{kind,description,affected_ids}], chain_status}. Use status SATISFIED/DEFEATED/UNRESOLVED; issue SUPPORTED/NOT_SUPPORTED/UNRESOLVED. basis_kind FACT_ACCEPTED/FACT_FALSE/BURDEN_NOT_CARRIED/NOT_DECIDED/INSUFFICIENT_RECORD/LEGAL_INTERPRETATION/AMBIGUOUS_REASONING. chain_status PROPOSED_COMPLETE/GAP. law_refs are provided rule IDs. dependencies operators AND/OR/QUALIFICATION; no invented IDs. No binding to a new fact.
+MATERIAL
+{
+  "PRE_OUTCOME_FROZEN_INPUT": {
+    "case_id": "758831",
+    "fixed_issue": "Whether the landlord's section 14(1)(b) eviction ground is established against the tenant for subletting, assignment or other parting with possession without written landlord consent, preserving procedural posture.",
+    "stage": "SC leave petition; historical lower findings and tenant argument; final rejection excluded",
+    "pre_outcome_source": {
+      "case_id": "758831",
+      "segments": [
+        {
+          "id": "IK-758831:L72",
+          "text": "> S. SAGHIR AHMAD Indefatigable stamina to litigate has been exhibited by the parties in this case in which proceedings started on 5.2.1965 when the respondent, as landlord of the premises in question, filed a petition under cite10†Section 14(1) (b) of the Delhi Rent Control Act for the eviction of the petitioner on the ground of subletting. This application was allowed on 29th August, 1974 by the Addl."
+        },
+        {
+          "id": "IK-758831:L73",
+          "text": "Rent Controller and the petitioner was directed to be evicted as it was established on record that the premises had been sublet by the petitioner in contravention of the prohibitory provisions of the Act."
+        },
+        {
+          "id": "IK-758831:L74",
+          "text": "2. The petitioner challenged the judgment of the Rent Controller in an appeal filed before the Rent Control Tribunal which was allowed on 3rd march, 1978 and the eviction order was set aside. The respondent-landlord approached the Delhi High Court in second appeal (SAO No. 217 of 1978) which was allowed on 26th September, 1994 and the case was remanded to the Tribunal to re-hear the appeal."
+        },
+        {
+          "id": "IK-758831:L75",
+          "text": "The Rent Control Tribunal dismissed the appeal of the petitioner by judgment dated 7.7.1997 and the finding recorded earlier by the Addl. Rent Controller that the premises had been sublet was upheld. The petitioner, thereafter, filed S.A. No. 48 of 1997 in the Delhi High Court which was dismissed on 3.12.1997. Now the matter is before us. Just as every battle has a D-Day, so also this long litigative battle must come to an end today."
+        },
+        {
+          "id": "IK-758831:L76",
+          "text": "3. The only contention raised before us in this Special Leave Petition is that the finding recorded by the Rent Controller as also the Rent Control Appellate Tribunal, Delhi, on the question of subletting is erroneous as they have not recorded a positive finding that there was payment of consideration by the so-called sub-tenants to the petitioner for parting with the part of possession of the disputed premises."
+        },
+        {
+          "id": "IK-758831:L77",
+          "text": "it is contended that unless payment of consideration was established as a fact between the tenant and the sub-tenant, the eviction petition under cite10†section 14(1) (b) of the Delhi Rent Control Act cannot be allowed."
+        }
+      ],
+      "input_scope": "SC leave petition; historical lower findings and tenant argument; final rejection excluded",
+      "coverage": "Complete approved ranges, NOT full judgment; full original held outside all model inputs",
+      "relation_status": "No known shared dispute in chosen titles/dockets; broader links unconfirmed"
+    },
+    "existing_inventory": {
+      "case_id": "758831",
+      "origin": "EXISTING_LOCAL_WEAK_INVENTORY_NOT_LATENTWEAVER_CANONICAL",
+      "facts": [
+        {
+          "id": "f1",
+          "text": "The respondent-landlord filed an eviction petition against the petitioner concerning the premises, with proceedings beginning on 5 February 1965 and the asserted ground being subletting under section 14(1)(b).",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "eviction petition filed before Rent Controller",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "date of the alleged subletting itself",
+            "identity and legal nature of the petitioner beyond the tenant role",
+            "whether written landlord consent existed"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o3"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-758831:L72"
+          ],
+          "quote": "the respondent, as landlord of the premises in question, filed a petition"
+        },
+        {
+          "id": "f2",
+          "text": "The Addl. Rent Controller found that the petitioner had sublet the premises in contravention of the Act's prohibitory provisions.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "TRIAL",
+          "stage": "Addl. Rent Controller merits decision, 29 August 1974",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "identity of the sub-tenant or sub-tenants",
+            "date of the subletting",
+            "whether written landlord consent existed",
+            "whether consideration was paid by any sub-tenant to the petitioner"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o3"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o6"
+            }
+          ],
+          "refs": [
+            "IK-758831:L73"
+          ],
+          "quote": "the premises had been sublet by the petitioner in contravention of the prohibitory provisions of the Act"
+        },
+        {
+          "id": "f3",
+          "text": "The Rent Control Tribunal allowed the petitioner's appeal on 3 March 1978 and set aside the eviction order.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "APPELLATE",
+          "stage": "first Rent Control Tribunal appeal",
+          "polarity": "NEGATIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o6"
+            }
+          ],
+          "refs": [
+            "IK-758831:L74"
+          ],
+          "quote": "the eviction order was set aside"
+        },
+        {
+          "id": "f4",
+          "text": "The Delhi High Court allowed the landlord's second appeal on 26 September 1994 and remanded the case to the Tribunal for rehearing.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "APPELLATE",
+          "stage": "Delhi High Court second appeal and remand",
+          "polarity": "UNKNOWN",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-758831:L74"
+          ],
+          "quote": "the case was remanded to the Tribunal to re-hear the appeal"
+        },
+        {
+          "id": "f5",
+          "text": "On rehearing, the Rent Control Tribunal dismissed the petitioner's appeal on 7 July 1997 and upheld the Addl. Rent Controller's earlier finding that the premises had been sublet.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "Rent Control Tribunal rehearing after remand",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "identity of the sub-tenant or sub-tenants",
+            "date of the subletting",
+            "whether written landlord consent existed",
+            "whether consideration was paid by any sub-tenant to the petitioner"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o3"
+            }
+          ],
+          "refs": [
+            "IK-758831:L75"
+          ],
+          "quote": "the finding recorded earlier by the Addl. Rent Controller that the premises had been sublet was upheld"
+        },
+        {
+          "id": "f6",
+          "text": "The petitioner's S.A. No. 48 of 1997 was dismissed by the Delhi High Court on 3 December 1997.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "APPELLATE",
+          "stage": "Delhi High Court appeal after Tribunal rehearing",
+          "polarity": "UNKNOWN",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            }
+          ],
+          "refs": [
+            "IK-758831:L75"
+          ],
+          "quote": "S.A. No. 48 of 1997 in the Delhi High Court which was dismissed on 3.12.1997"
+        },
+        {
+          "id": "f7",
+          "text": "In the Special Leave Petition, the petitioner challenged the Rent Controller and Rent Control Tribunal findings on subletting as erroneous.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Special Leave Petition argument",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "whether the target court accepts the challenge",
+            "withheld target disposition"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o7"
+            }
+          ],
+          "refs": [
+            "IK-758831:L76"
+          ],
+          "quote": "the finding recorded by the Rent Controller as also the Rent Control Appellate Tribunal, Delhi, on the question of subletting is erroneous"
+        },
+        {
+          "id": "f8",
+          "text": "The petitioner contended that the lower courts had not recorded a positive finding that the so-called sub-tenants paid consideration to the petitioner for parting with part of possession of the disputed premises.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Special Leave Petition argument",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "whether any consideration was actually paid",
+            "whether any omitted portion of the lower record contains such a finding",
+            "whether the target court accepts the contention",
+            "whether consideration is legally required for the fixed ground"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o4"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o3"
+            }
+          ],
+          "refs": [
+            "IK-758831:L76"
+          ],
+          "quote": "they have not recorded a positive finding that there was payment of consideration by the so-called sub-tenants to the petitioner"
+        },
+        {
+          "id": "f9",
+          "text": "The petitioner further contended that unless payment of consideration between tenant and sub-tenant was established as a fact, the section 14(1)(b) eviction petition could not be allowed.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Special Leave Petition legal contention",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "whether this asserted legal requirement is correct",
+            "whether the target court accepts it",
+            "withheld target disposition"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o4"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-758831:L77"
+          ],
+          "quote": "unless payment of consideration was established as a fact between the tenant and the sub-tenant"
+        }
+      ],
+      "objects": [
+        {
+          "id": "o1",
+          "text": "petitioner / tenant",
+          "kind": "OTHER",
+          "refs": [
+            "IK-758831:L72",
+            "IK-758831:L76",
+            "IK-758831:L77"
+          ],
+          "unknown": true
+        },
+        {
+          "id": "o2",
+          "text": "respondent / landlord",
+          "kind": "OTHER",
+          "refs": [
+            "IK-758831:L72",
+            "IK-758831:L74"
+          ],
+          "unknown": true
+        },
+        {
+          "id": "o3",
+          "text": "premises in question / disputed premises",
+          "kind": "PROPERTY",
+          "refs": [
+            "IK-758831:L72",
+            "IK-758831:L73",
+            "IK-758831:L76"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o4",
+          "text": "so-called sub-tenants",
+          "kind": "GROUP",
+          "refs": [
+            "IK-758831:L76",
+            "IK-758831:L77"
+          ],
+          "unknown": true
+        },
+        {
+          "id": "o5",
+          "text": "section 14(1)(b) eviction petition",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-758831:L72",
+            "IK-758831:L77"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o6",
+          "text": "Addl. Rent Controller eviction order",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-758831:L72",
+            "IK-758831:L73",
+            "IK-758831:L74"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o7",
+          "text": "Special Leave Petition proceeding",
+          "kind": "EVENT",
+          "refs": [
+            "IK-758831:L75",
+            "IK-758831:L76"
+          ],
+          "unknown": false
+        }
+      ],
+      "relations": [],
+      "issue_needs_context_not_application_targets": [
+        {
+          "id": "n1",
+          "text": "Whether the lower-court finding that the petitioner sublet the premises connects to the section 14(1)(b) conduct element of subletting, assignment, or other parting with possession.",
+          "refs": [
+            "IK-758831:L73",
+            "IK-758831:L75",
+            "IK-758831:L76"
+          ]
+        },
+        {
+          "id": "n2",
+          "text": "Whether the relevant subletting or other transfer occurred without the landlord's written consent, including whether any supplied Delhi consent or notice provision connects to the case.",
+          "refs": [
+            "IK-758831:L72",
+            "IK-758831:L73",
+            "IK-758831:L75"
+          ]
+        },
+        {
+          "id": "n3",
+          "text": "Whether the conduct underlying the eviction petition falls within the supplied statutory date scope, including the on-or-after 9 June 1952 requirement.",
+          "refs": [
+            "IK-758831:L72",
+            "IK-758831:L73"
+          ]
+        },
+        {
+          "id": "n4",
+          "text": "Whether the tenant's contention that there was no positive finding of consideration paid by the alleged sub-tenants affects the fixed section 14(1)(b) ground.",
+          "refs": [
+            "IK-758831:L76",
+            "IK-758831:L77"
+          ]
+        }
+      ],
+      "quarantined": [],
+      "pre_source_ids": [
+        "IK-758831:L72",
+        "IK-758831:L73",
+        "IK-758831:L74",
+        "IK-758831:L75",
+        "IK-758831:L76",
+        "IK-758831:L77"
+      ]
+    },
+    "oracle_rule_material": [
+      {
+        "id": "LAW:S02:DRC14:1b",
+        "text": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+        "source": {
+          "document_id": "18143401",
+          "url": "https://indiankanoon.org/doc/18143401/"
+        },
+        "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+        "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+        "dependencies": [],
+        "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+        "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+      },
+      {
+        "id": "LAW:V09:KR_BURDEN",
+        "text": "The case of the respondent in his application under cite16†section 14 of of the Act was that the appellant had sub-let the whole premises to Sohan Singh who was running the business under the name of Royal Dispensing Chemists and Druggists and that the entire premises have been sub-let by the appellant and the appellant had completely parted with possession without the written consent of the respondent.\nIt was also alleged that the appellant was charging fabulous amount of rent from the sub-tenant Sohan Singh. Sub-letting was,' therefore, the principal ground on which eviction was sought. When eviction is sought on that ground it is now settled law that the onus to prove sub-letting is on the landlord. If the landlord prima-facie shows that the occupant who was in exclusive possession of the premises let out for valuable consideration, it would then be for the tenant to rebut the evidence.",
+        "source": {
+          "document_id": "114533",
+          "url": "https://indiankanoon.org/doc/114533/",
+          "date": "1973-11-29",
+          "court_or_publisher": "Supreme Court of India",
+          "passage_addresses": [
+            {
+              "id": "IK-114533:L165",
+              "start": 0,
+              "end": 409
+            },
+            {
+              "id": "IK-114533:L166",
+              "start": 0,
+              "end": 495
+            }
+          ]
+        },
+        "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+        "scope": "Delhi DRC14(1)(b)",
+        "mechanisms": [
+          "control_exclusive_possession"
+        ],
+        "legal_status": "COURT_ADOPTED",
+        "coverage_limit": "Initial burden and rebuttal depend on the proof stated; mere presence alone is not equivalent to exclusive possession for consideration.",
+        "dependencies": [],
+        "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+        "full_source_status": "INCOMPLETE",
+        "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+        "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+      }
+    ],
+    "unknown_is_not_false": true,
+    "target_info_included": false
+  },
+  "POST_OUTCOME_TARGET_CONSTRUCTION": {
+    "case_id": "758831",
+    "title": [
+      "M/S Bharat Sales Ltd vs Life Insurance Corporation Of India on 5 February, 1998"
+    ],
+    "usage": "TARGET_CONSTRUCTION_ONLY_NEVER_MODEL_INPUT",
+    "full_historical_source": [
+      {
+        "id": "IK-758831:L72",
+        "text": "> S. SAGHIR AHMAD Indefatigable stamina to litigate has been exhibited by the parties in this case in which proceedings started on 5.2.1965 when the respondent, as landlord of the premises in question, filed a petition under cite10†Section 14(1) (b) of the Delhi Rent Control Act for the eviction of the petitioner on the ground of subletting. This application was allowed on 29th August, 1974 by the Addl."
+      },
+      {
+        "id": "IK-758831:L73",
+        "text": "Rent Controller and the petitioner was directed to be evicted as it was established on record that the premises had been sublet by the petitioner in contravention of the prohibitory provisions of the Act."
+      },
+      {
+        "id": "IK-758831:L74",
+        "text": "2. The petitioner challenged the judgment of the Rent Controller in an appeal filed before the Rent Control Tribunal which was allowed on 3rd march, 1978 and the eviction order was set aside. The respondent-landlord approached the Delhi High Court in second appeal (SAO No. 217 of 1978) which was allowed on 26th September, 1994 and the case was remanded to the Tribunal to re-hear the appeal."
+      },
+      {
+        "id": "IK-758831:L75",
+        "text": "The Rent Control Tribunal dismissed the appeal of the petitioner by judgment dated 7.7.1997 and the finding recorded earlier by the Addl. Rent Controller that the premises had been sublet was upheld. The petitioner, thereafter, filed S.A. No. 48 of 1997 in the Delhi High Court which was dismissed on 3.12.1997. Now the matter is before us. Just as every battle has a D-Day, so also this long litigative battle must come to an end today."
+      },
+      {
+        "id": "IK-758831:L76",
+        "text": "3. The only contention raised before us in this Special Leave Petition is that the finding recorded by the Rent Controller as also the Rent Control Appellate Tribunal, Delhi, on the question of subletting is erroneous as they have not recorded a positive finding that there was payment of consideration by the so-called sub-tenants to the petitioner for parting with the part of possession of the disputed premises."
+      },
+      {
+        "id": "IK-758831:L77",
+        "text": "it is contended that unless payment of consideration was established as a fact between the tenant and the sub-tenant, the eviction petition under cite10†section 14(1) (b) of the Delhi Rent Control Act cannot be allowed. We are not impressed by the argument."
+      },
+      {
+        "id": "IK-758831:L78",
+        "text": "4. Sub-tenancy or subletting comes into existence when the tenant gives up possesion of the tenanted accommodation, wholly or in part, and puts another person in exclusive possession thereof. This arrangement comes about obviously under a mutual agreement of understanding between the tenant and the person to whom the possession is so delivered. In this process, the landlord is kept out the scene."
+      },
+      {
+        "id": "IK-758831:L79",
+        "text": "Rather, the scene is enacted behind the back of the landlord, concealing the overtacts and transferring possession clandestinely to a person who is an utter stranger to the landlord, in the sense that the landlord had not let out the premises to that person nor had he allowed or consented to his entering into possession over the demised property."
+      },
+      {
+        "id": "IK-758831:L80",
+        "text": "It is the actual, physical and exclusive possession of that person, instead of the tenant, which ultimately reveals to the landlord that the tenant to whom the property was let out has put some other person into possession of that property. In such a situation, it would be difficult for the landlord to prove, by direct evidence, the contract or agreement or understanding between the tenant and the sub- tenant."
+      },
+      {
+        "id": "IK-758831:L81",
+        "text": "It would also be difficult for the landlord to prove, by direct evidence, that the person to whom the property had been sublet had paid monetary consideration to the tenant. Payment of rent, undoubtedly , is an essential element of lease or sub-lease. It may be paid in cash or in kind or may have been paid or promised to the paid. It may have been paid in lump-sum in advance covering the period for which the premises is let out or sublet or it may have been paid or promised to be paid periodically."
+      },
+      {
+        "id": "IK-758831:L82",
+        "text": "Since payment of rent or monetary consideration may have been made secretly, the law does not require such payment to be proved by affirmative evidence and the court is permitted to draw its own inference upon the facts of the case proved at the trial, including the delivery of exclusive possession to infer that the premises were sublet."
+      },
+      {
+        "id": "IK-758831:L83",
+        "text": "5. In cite11†Rajbir Kaur vs. S. Chokesiri & Co (1989) 1 SCC 19, it was held that it was not necessary for the landlord in every case to prove payment of consideration. It was laid down that if exclusive possession was established, it would not be impermissible for the Court to draw an inference that the transaction was entered into with the monetary consideration in mind."
+      },
+      {
+        "id": "IK-758831:L84",
+        "text": "The Court further observed that transactions of subletting in the guise of licences are in their very nature clandestine arrangements between the tenant and the sub-tenant and there cannot be furnished direct evidence in every case."
+      },
+      {
+        "id": "IK-758831:L85",
+        "text": "It will be noticed that in this case it was established as a fact that the tenant had parted with a part of the demised premises in favour of an ice-cream vendor who was in exclusive possession of that part of the premises and, therefore, the Court drew an inference that the transaction must have been entered into for monetary consideration. This decision has since been followed in many cases, as, for example, cite12†United Bank of India Vs. Cooks and Kelvey Properties (p) Ltd."
+      },
+      {
+        "id": "IK-758831:L86",
+        "text": "(1994) 5 SCC 9, upon which, as we shall presently see, reliance has been placed by the petitioner also."
+      },
+      {
+        "id": "IK-758831:L87",
+        "text": "6. Learned counsel for the petitioner drew our attention to a decision of this Court in cite13†Delhi Stationers & Printers Vs. Rajendra Kumar (1990) 2 SCC 331, where the tenant was found to have allowed his relative (brother-in-law) to live with him and to use his kitchen and latrine. This was not treated as subletting or parting with possession. Consequently, it is of no aid to petitioner."
+      },
+      {
+        "id": "IK-758831:L88",
+        "text": "7. The case of cite14†Jagan Nath Vs. Chander Bhan & Ors. (1988) 3 SCC 57 is also distinguishable on facts as cite14†in that case it was found that the father was carrying on business with his sons and the family was joint Hindu family and, therefore, it was difficult to presume that the father had parted with possession to attract the mischief of cite10†Section 14(1)(b) of the Act. Reliance for this purpose was placed on an earlier decision of this Court in cite15†Smt. Krishnavati Vs."
+      },
+      {
+        "id": "IK-758831:L89",
+        "text": "Hans Raj (1974) 1 SCC 289, in which two persons lived in a house as husband and wife and one of them who was the tenant of the premises allowed the other to carry on business in a part of it. The contention that it amounted to subletting was rejected and it was observed that it would be a rash inference to draw that the husband had sublet the house to the wife."
+      },
+      {
+        "id": "IK-758831:L90",
+        "text": "8. In another case, namely, cite16†Gopal Saran Vs. Satyanarayana (1989) 3 SCC 56, which was cited by the counsel for the petitioner, it was held that the question whether there is a tenancy of licence or parting with possession in a particular case, would depend upon the quality of occupation given to the licencee or the transferee."
+      },
+      {
+        "id": "IK-758831:L91",
+        "text": "It was held on facts that where the tenant had allowed the advertisement board of another company to be fixed on the terrace of the shop, he cannot be said to have sublet the premises within the meaning of Section 13(1)(e) of the Rajasthan Premises (Control of Rent & Eviction) Act, 1950."
+      },
+      {
+        "id": "IK-758831:L92",
+        "text": "9. Learned counsel for the petitioner placed strong reliance upon the decision of this Court in cite12†United Bank of India Vs."
+      },
+      {
+        "id": "IK-758831:L93",
+        "text": "Cook and Kelvey Properties (p) Limited (1994) 5 SCC 9, in which it was indicated that \"the meaning of transfer of a right to enjoy the property for consideration envisaged under cite17†Section 105 of the Transfer of Property Act, postulates that a tenant who transfers of assigns his right in the tenancy or any part thereof in whole or in part held by him without the previous consent in writing creates a sub-tenancy.\" This case also does not help the petitioner as it was found as a fact that although the bank (appellant) had inducted the trade union into the premises, the bank had not received any monetary consideration and the union was only permitted to use the property for its trade union activities."
+      },
+      {
+        "id": "IK-758831:L94",
+        "text": "It was also found that the bank had retained its power to call upon the union to vacate the premises at any time. The bank had been maintaining the premises at its own expenses and was also paying the electricity charges consumed by the trade union. It was also found that the bank retained its control over the trade union whose membership was confined only to the employee of the bank. The possession of the union was held to be \"constructive possession\" for and on behalf of the bank."
+      },
+      {
+        "id": "IK-758831:L95",
+        "text": "Reliance was placed on the observation that \" the existence of consideration, an ingredient of subletting, had not been present to hold that there was subletting.\" In the background of the facts of the case, this observation does not purport to lay down that in every case payment of consideration must be established by the landlord to prove subletting by the tenant."
+      },
+      {
+        "id": "IK-758831:L96",
+        "text": "10. The Rent Controller as also the Rent Control Appellate Tribunal have found it as a fact that the petitioner had sublet the premises. This finding was accepted by the High Court and was not interfered with on the ground that was no infirmity of illegality in the judgment."
+      },
+      {
+        "id": "IK-758831:L97",
+        "text": "11. For the reasons stated above, we find no merit in this special Leave petition which is dismissed. However, having regard to the facts of the case, we allow the petitioner, on its request, time till 31st July, 1998 to vacate the premises on furnishing usual undertaking in this Court within two weeks from today so that fresh legal battle for execution may not start as the blood seems to be still hot and stamina endless."
+      },
+      {
+        "id": "IK-758831:L98",
+        "text": "### Related AI tags, queries and research notes"
+      },
+      {
+        "id": "IK-758831:L99",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L100",
+        "text": "#### Translation"
+      },
+      {
+        "id": "IK-758831:L101",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L102",
+        "text": "#### Top AI Tags"
+      },
+      {
+        "id": "IK-758831:L103",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L104",
+        "text": "  * cite18†middleman-liability"
+      },
+      {
+        "id": "IK-758831:L105",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L106",
+        "text": "  * cite19†lease-defined"
+      },
+      {
+        "id": "IK-758831:L107",
+        "text": "#### Related user Queries"
+      },
+      {
+        "id": "IK-758831:L108",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L109",
+        "text": "  * cite20†14 1 (b)"
+      },
+      {
+        "id": "IK-758831:L110",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L111",
+        "text": "  * cite21†14 (1)(b)"
+      },
+      {
+        "id": "IK-758831:L112",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L113",
+        "text": "  * cite22†trade union"
+      },
+      {
+        "id": "IK-758831:L114",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L115",
+        "text": "  * cite23†direct evidence"
+      },
+      {
+        "id": "IK-758831:L116",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L117",
+        "text": "  * cite24†sub tenant"
+      },
+      {
+        "id": "IK-758831:L118",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L119",
+        "text": "  * cite25†\"exclusive possession\""
+      },
+      {
+        "id": "IK-758831:L120",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L121",
+        "text": "  * cite26†section 14 (1)(b)"
+      },
+      {
+        "id": "IK-758831:L122",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L123",
+        "text": "  * cite27†section 14 filter: delhi rent control act"
+      },
+      {
+        "id": "IK-758831:L124",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L125",
+        "text": "  * cite28†exclusive possession"
+      },
+      {
+        "id": "IK-758831:L126",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L127",
+        "text": "cite29†About cite30†Disclaimer cite31†Privacy Policy cite32†Terms cite33†Case Removal cite34†Blog†blog.indiankanoon.org [Button: Share URL]"
+      },
+      {
+        "id": "IK-758831:L128",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L129",
+        "text": "[Input] [Button: Mobile View]"
+      },
+      {
+        "id": "IK-758831:L130",
+        "text": ""
+      },
+      {
+        "id": "IK-758831:L131",
+        "text": "cite35†⚖ Case Recast AI "
+      }
+    ]
+  }
+}
+END_OF_INPUT 758831

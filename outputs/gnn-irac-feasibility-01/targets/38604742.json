@@ -1,0 +1,129 @@
+{
+  "case_id": "38604742",
+  "usage": "TARGET_ONLY_MODEL_PROPOSAL_NOT_HUMAN_GOLD",
+  "element_targets": [
+    {
+      "condition_id": "c1",
+      "status": "SATISFIED",
+      "basis_kind": "FACT_ACCEPTED",
+      "target_refs": [
+        {
+          "id": "IK-38604742:L163",
+          "quote": "we set aside the judgment of the High Court and restore the Appellate Tribunal’s findings."
+        }
+      ],
+      "reason": "The target court expressly restored the Appellate Tribunal's findings after holding that the High Court had impermissibly re-appreciated the evidence. Because the restored Tribunal finding was subletting to respondents 2 to 4, this is express target adoption of the core transfer/subletting finding without importing that conclusion into the frozen input."
+    },
+    {
+      "condition_id": "c2",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [
+        {
+          "id": "IK-38604742:L163",
+          "quote": "restore the Appellate Tribunal’s findings."
+        }
+      ],
+      "reason": "The target judgment restores the Tribunal globally but does not separately and expressly decide the distinct statutory fact of absence of written landlord consent. Under the task's anti-inference rule, the overall disposition is insufficient to mark this element satisfied."
+    },
+    {
+      "condition_id": "c3",
+      "status": "UNRESOLVED",
+      "basis_kind": "INSUFFICIENT_RECORD",
+      "target_refs": [],
+      "reason": "The target reasoning does not expressly identify when the doctors were inducted or when any qualifying transfer occurred relative to 9 June 1952. The 1974 filing date does not itself establish the date of the transfer conduct."
+    },
+    {
+      "condition_id": "c4",
+      "status": "UNRESOLVED",
+      "basis_kind": "INSUFFICIENT_RECORD",
+      "target_refs": [
+        {
+          "id": "IK-38604742:L64",
+          "quote": "an eviction proceeding instituted under Section 14 of the Delhi Rent Control Act, 1958"
+        }
+      ],
+      "reason": "The target record expressly describes a section 14 eviction proceeding, but does not expressly establish that every prescribed-manner requirement was satisfied. The frozen inventory itself flags that point as unknown."
+    },
+    {
+      "condition_id": "c5",
+      "status": "SATISFIED",
+      "basis_kind": "LEGAL_INTERPRETATION",
+      "target_refs": [
+        {
+          "id": "IK-38604742:L146",
+          "quote": "The onus, under such circumstances, was on the respondents to establish the degree of control they were maintaining"
+        },
+        {
+          "id": "IK-38604742:L148",
+          "quote": "individual cabins and had separate telephone connections"
+        },
+        {
+          "id": "IK-38604742:L163",
+          "quote": "restore the Appellate Tribunal’s findings."
+        }
+      ],
+      "reason": "The target court treated the degree of retained control as material after admitted third-party occupation, identified the cabins and separate telephone connections as factors used by the Tribunal, and expressly restored the Tribunal's findings. This supports the control/exclusive-possession qualification at the target stage, while the supplied oracle authority remains only analogous."
+    }
+  ],
+  "issue_target": {
+    "status": "SUPPORTED",
+    "target_refs": [
+      {
+        "id": "IK-38604742:L163",
+        "quote": "we set aside the judgment of the High Court and restore the Appellate Tribunal’s findings."
+      },
+      {
+        "id": "IK-38604742:L171",
+        "quote": "The appeal stands allowed in the above terms."
+      }
+    ],
+    "reason": "At the target stage the Supreme Court expressly restored the Appellate Tribunal's findings and allowed the landlord's appeal. That supports the fixed section 14(1)(b) issue at the issue level, while separate statutory subconditions not expressly addressed remain UNRESOLVED rather than being inferred from the disposition."
+  },
+  "gaps": [
+    {
+      "kind": "HISTORICAL_STATUTE_SCOPE",
+      "description": "LAW:S02:DRC14:1b is supplied as a current statutory reproduction with the historical version unverified. Its applicability to the relevant conduct date cannot be certified from the supplied oracle material alone.",
+      "affected_ids": [
+        "LAW:S02:DRC14:1b",
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    {
+      "kind": "ANALOGOUS_AUTHORITY_SCOPE",
+      "description": "LAW:V09:AH_LICENCE concerns the Delhi and Ajmer Rent Control Act, 1952, is supplied as an incomplete source, and is expressly limited to an analogous licence/lease inquiry; it cannot replace the 1958 Act rule.",
+      "affected_ids": [
+        "LAW:V09:AH_LICENCE",
+        "c5"
+      ]
+    },
+    {
+      "kind": "MISSING_TEMPORAL_FACT",
+      "description": "No existing_inventory fact expressly dates the alleged induction, subletting, assignment, or parting-with-possession conduct on or after 9 June 1952. The 1974 filing date in f1 is not the conduct date.",
+      "affected_ids": [
+        "f1",
+        "c3"
+      ]
+    },
+    {
+      "kind": "WRITTEN_CONSENT_NOT_ESTABLISHED",
+      "description": "f8 records only the landlord's CLAIMED position that the doctors were inducted without written consent, and its own unknown field states that independent proof of absence of written consent is unresolved.",
+      "affected_ids": [
+        "f8",
+        "c2"
+      ]
+    },
+    {
+      "kind": "PRESCRIBED_MANNER_NOT_ESTABLISHED",
+      "description": "f1 establishes institution of a section 14 eviction proceeding but expressly leaves whether every prescribed procedural requirement was satisfied unknown.",
+      "affected_ids": [
+        "f1",
+        "c4"
+      ]
+    }
+  ],
+  "proposal_sha256": "4021a959f266a9ab108f8c724d668395ce973cabde413818ab1c2a43417a65ac"
+}

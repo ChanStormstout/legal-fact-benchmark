@@ -65,7 +65,9 @@
     "outputs/rgcn-ranking-diagnostic-07",
     "outputs/rgcn-use-development-08",
     "outputs/rgcn-data-expansion-09",
-    "outputs/rgcn-dev-contract-repair-10"
+    "outputs/rgcn-dev-contract-repair-10",
+    "outputs/rgcn-sbc-finalization-11",
+    "outputs/gnn-irac-feasibility-01"
   ],
   "exclude_globs": [
     "*/__pycache__/*",
@@ -127,7 +129,16 @@
     "outputs/rgcn-dev-contract-repair-10/web/*.snapshot.txt",
     "outputs/rgcn-dev-contract-repair-10/web/*.preview.txt",
     "outputs/rgcn-dev-contract-repair-10/web/*.response.txt",
-    "outputs/rgcn-data-expansion-09/target-source-screen/mappings/84124.json"
+    "outputs/rgcn-data-expansion-09/target-source-screen/mappings/84124.json",
+    "outputs/rgcn-sbc-finalization-11/**/*.npz",
+    "outputs/rgcn-sbc-finalization-11/**/*.sqlite",
+    "outputs/rgcn-sbc-finalization-11/browser/**",
+    "outputs/rgcn-sbc-finalization-11/web/*.snapshot.txt",
+    "outputs/rgcn-sbc-finalization-11/web/*.response.txt",
+    "outputs/gnn-irac-feasibility-01/browser/**",
+    "outputs/gnn-irac-feasibility-01/web/*.snapshot.txt",
+    "outputs/gnn-irac-feasibility-01/web/*.response.txt",
+    "outputs/gnn-irac-feasibility-01/group-repo/**"
   ],
   "artifact_suffixes": [
     ".py",
@@ -327,7 +338,21 @@
     "legal_bench/rules_verdict_v1/authority_evaluation_v10.py",
     "legal_bench/rules_verdict_v1/rgcn_use_v3.py",
     "tests/test_rgcn10_contract.py",
-    "scripts/rgcn10_report.py"
+    "scripts/rgcn10_report.py",
+    "scripts/rgcn11_prepare.py",
+    "scripts/rgcn11_run.py",
+    "scripts/rgcn11_report.py",
+    "scripts/rgcn11_interpret.py",
+    "legal_bench/rules_verdict_v1/family_overlay_v11.py",
+    "tests/test_rgcn11_overlay.py",
+    "legal_bench/rules_verdict_v1/irac_adapter_v1.py",
+    "legal_bench/rules_verdict_v1/irac_contract_v1.py",
+    "scripts/irac01_prepare.py",
+    "scripts/irac01_contracts.py",
+    "scripts/irac01_audit.py",
+    "scripts/irac01_graph.py",
+    "scripts/irac01_finish.py",
+    "tests/test_irac_adapter_v1.py"
   ],
   "development_follow_up": {
     "latest_run": "outputs/local-qwen-pattern-eval-v10",
@@ -393,6 +418,27 @@
       "v08_preserved": true,
       "main_training_gate": "CLOSED",
       "publication": "LOCAL_ONLY_NO_COMMIT_NO_PUSH"
+    },
+    "rgcn_sbc_finalization11": {
+      "status": "COMPLETED_BOUNDED_SIX_FITS_AND_DEV_MATERIAL_COMPARISON",
+      "report": "outputs/rgcn-sbc-finalization-11/report-zh.txt",
+      "train": 27,
+      "dev": 6,
+      "sealed": 8,
+      "law_units": 30,
+      "web_preparation_calls": 12,
+      "semantic_retries": 0,
+      "known_train": 757,
+      "known_dev": 176,
+      "fits": 6,
+      "fit_failures": 0,
+      "material_packages": 36,
+      "decision": "KEEP_S_NO_STABLE_NET_CASE_CONDITIONED_VALUE_ESTABLISHED",
+      "sealed_untouched": true,
+      "new_legal_answers": 0,
+      "not_human_gold": true,
+      "publication": "LOCAL_ONLY_NO_COMMIT_NO_PUSH",
+      "stopped": true
     }
   },
   "research_objective": {
@@ -1071,11 +1117,17 @@
   },
   "development_base_commit": "9ddc35d0a3b4b60fde11b3f669139ed38469aac3",
   "current_review": {
-    "title": "V10 DEV/data/evaluation contract repair; training gate stopped",
-    "report": "outputs/rgcn-dev-contract-repair-10/report-zh.txt",
-    "summary": "V10集中修复完成：六案180个DEV位置均有状态（176可评价、4隔离），统一类别、可逆空白定位、材料视图和构图。TRAIN746项弱监督候选；抽查发现两案重复用途口径错配，按预定规则停止六次新拟合。旧36项排名已重评；8 SEALED未读取，未生成法律答案或提交推送。",
-    "review_kind": "RGCN_CONTRACT_REPAIR",
-    "stage_description": "本轮22次普通High数据准备，重试0。已完成同一30项池的全部DEV对齐、粗用途参考与独立来源复核；未知和隔离不作负例。旧排名重评区分旧指标、历史参考修正和扩展参考，未重拟合或用新图声称新模型表现。有限TRAIN抽查出现重复“同一法体系即BACKGROUND”的用途边界问题，训练门槛关闭；不自动改写标签至通过。保留27 TRAIN／6 DEVELOPMENT／8 SEALED，封存正文、图与标签未读。参考不是人工金标准；仅本地交付。"
+    "title": "GNN-IRAC data feasibility and canonical adapter: NO_GO, no training",
+    "report": "outputs/gnn-irac-feasibility-01/report-zh.txt",
+    "summary": "GNN-IRAC数据可行性完成：固定8个旧TRAIN，8次提议＋2次独立High来源审阅，无语义重试。1案有较完整回顾性链，7案缺决定性测试、证据内容或阶段明确的target；1106992发现目标FOUND关系残留。通用关系guard离线隔离两条，不覆盖冻结输入。真实组内canonical仅有合成接口检查，没有八案上游产物；NO_GO，未训练、未启封SEALED、未生成法律回答或发布。保留S并暂停扩大排序R-GCN。",
+    "review_kind": "IRAC_DATA_FEASIBILITY",
+    "stage_description": "组内main只读固定88ff082；字段级输入许可＋下游任务层，不修改production schema。八案为本地弱事实来源审阅，不声称组内上游复现。原source/input/target/失败及V11字节保留；有目标访问的任务层不自动进入训练特征。",
+    "feasibility_decision": "NO_GO",
+    "usable_retrospective_chains": 1,
+    "actual_cases": 8,
+    "ordinary_High_calls": 10,
+    "no_training": true,
+    "stopped": true
   },
   "publication_authorization": {
     "source": "Direct user request: 每次运行完要推送上去",
@@ -1103,7 +1155,8 @@
     "current_study02_hold": "Direct current authorization: local implementation, bounded A/G/L experiment and review pack; no commit or GitHub push.",
     "current_diagnostic03_hold": "Local diagnostic only; no automatic commit or push. No new model calls.",
     "current_study04_hold": "Local preparation and authorized bounded comparison only; no automatic commit or push.",
-    "current_rgcn05_hold": "No automatic commit or push; bounded feasibility and local package only."
+    "current_rgcn05_hold": "No automatic commit or push; bounded feasibility and local package only.",
+    "current_irac01_hold": "Direct user request: local feasibility artifacts and review only; no training, SEALED, automatic commit or push."
   },
   "frozen_method_snapshots": {
     "outputs/local-qwen-pattern-eval-v3": {

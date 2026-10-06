@@ -1,0 +1,81 @@
+{
+  "case_id": "111425525",
+  "usage": "TARGET_ONLY_MODEL_PROPOSAL_NOT_HUMAN_GOLD",
+  "element_targets": [
+    {
+      "condition_id": "c1_parting_with_possession",
+      "status": "SATISFIED",
+      "basis_kind": "FACT_ACCEPTED",
+      "target_refs": [
+        {
+          "id": "IK-111425525:L309",
+          "quote": "first ingredient of Sec. 14(1)(b) of D.R.C. Act is satisfied as the physical as well as legal possession of the tenanted premises has been parted with"
+        }
+      ],
+      "reason": "The target court expressly adopted the first section 14(1)(b) ingredient and found parting with both physical and legal possession."
+    },
+    {
+      "condition_id": "c2_post_1952_timing",
+      "status": "SATISFIED",
+      "basis_kind": "FACT_ACCEPTED",
+      "target_refs": [
+        {
+          "id": "IK-111425525:L307",
+          "quote": "Sh. Ramji Lal Goel and Sh. Bhajan Lal Goel got retired from the firm w.e.f. 01.04.1992"
+        },
+        {
+          "id": "IK-111425525:L309",
+          "quote": "the physical as well as legal possession of the tenanted premises has been parted with"
+        }
+      ],
+      "reason": "The target court accepted a 1992 retirement fact in the reasoning immediately preceding its express finding of parting with possession; 1992 is after the statutory cutoff of 9 June 1952."
+    },
+    {
+      "condition_id": "c3_no_written_landlord_consent",
+      "status": "SATISFIED",
+      "basis_kind": "BURDEN_NOT_CARRIED",
+      "target_refs": [
+        {
+          "id": "IK-111425525:L314",
+          "quote": "no cogent and convincing evidence documentary or oral has been produced before this court which prove that such consent in writing was given"
+        },
+        {
+          "id": "IK-111425525:L315",
+          "quote": "ingredient in respect of not taking of consent of landlord in writing is also satisfied"
+        }
+      ],
+      "reason": "The target court expressly found the no-written-consent ingredient satisfied because the respondent did not produce cogent and convincing proof of written consent; this is labeled burden not carried rather than a finding that the asserted writing never existed."
+    }
+  ],
+  "issue_target": {
+    "status": "SUPPORTED",
+    "target_refs": [
+      {
+        "id": "IK-111425525:L480",
+        "quote": "the ingredients of 14(1)(b) D.R.C. Act are satisfied and consequently, an eviction order is passed"
+      }
+    ],
+    "reason": "The target court expressly held that the section 14(1)(b) ingredients were satisfied and granted relief on that ground."
+  },
+  "gaps": [
+    {
+      "kind": "INPUT_FACT_GAP",
+      "description": "The frozen input inventory reports that partnership deeds and bank records were produced but expressly omits their substantive contents and court assessment. The target court's first-ingredient reasoning relies materially on contents later described from those records, including the 1992 retirement and bank-operation evidence. Those target-only factual propositions cannot be added to bindings without violating input/target isolation.",
+      "affected_ids": [
+        "f14",
+        "f15",
+        "c1_parting_with_possession",
+        "c2_post_1952_timing"
+      ]
+    },
+    {
+      "kind": "INPUT_FACT_GAP",
+      "description": "The frozen input contains the respondent's claim of a 10.03.2008 written understanding but does not contain the evidentiary details later used by the target court to assess that document's provenance, timing, or probative force. The target label for written consent is therefore learnable as an outcome label, but the full target application rationale is not reconstructible from existing input facts alone.",
+      "affected_ids": [
+        "f8",
+        "c3_no_written_landlord_consent"
+      ]
+    }
+  ],
+  "proposal_sha256": "d3eafeb2886657798337bdeeb39cd92a380d08302756326732899e97f570ff7f"
+}

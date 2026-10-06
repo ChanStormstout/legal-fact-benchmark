@@ -1,0 +1,194 @@
+{
+  "case_id": "1106992",
+  "conditions": [
+    {
+      "id": "c1",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises",
+      "description": "The tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises.",
+      "logical_role": "NECESSARY_ELEMENT",
+      "scope": "Delhi Rent Control Act section 14(1)(b) transfer/possession component; supplied statutory reproduction only, with historical consolidation unverified.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c2",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on or after the 9th day of June, 1952",
+      "description": "Any qualifying subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "logical_role": "NECESSARY_ELEMENT",
+      "scope": "Delhi Rent Control Act section 14(1)(b) temporal predicate; supplied statutory reproduction only, with historical consolidation unverified.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c3",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+      "description": "The qualifying transfer or parting with possession occurred without the landlord's consent in writing.",
+      "logical_role": "NECESSARY_ELEMENT",
+      "scope": "Delhi Rent Control Act section 14(1)(b) written-consent predicate; supplied statutory reproduction only, with historical consolidation unverified.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "b1",
+      "fact_id": "f4",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "1979 eviction petition before Additional Rent Controller",
+      "case_refs": [
+        "IK-1106992:L52"
+      ],
+      "reason": "The landlord's petition alleged that West sublet, assigned, or otherwise parted with possession to Caravan; this is a claimed proposition, not an established transfer.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b2",
+      "fact_id": "f9",
+      "condition_id": "c1",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Supreme Court appeal submission",
+      "case_refs": [
+        "IK-1106992:L54"
+      ],
+      "reason": "West expressly denied any subletting, assignment, or parting with possession; the binding preserves the submission as a candidate counter-proposition only.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b3",
+      "fact_id": "f10",
+      "condition_id": "c1",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Supreme Court appeal submission",
+      "case_refs": [
+        "IK-1106992:L55"
+      ],
+      "reason": "West claimed that it remained in possession of the premises, which is candidate evidence against a parting-with-possession theory; target acceptance is not imported into the binding.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b4",
+      "fact_id": "f12",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Supreme Court appeal submission",
+      "case_refs": [
+        "IK-1106992:L57"
+      ],
+      "reason": "The landlord claimed that West had gone out of the picture and Caravan alone possessed the premises, a candidate proposition supporting parting with possession.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b5",
+      "fact_id": "f5",
+      "condition_id": "c3",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "1979 eviction petition before Additional Rent Controller",
+      "case_refs": [
+        "IK-1106992:L52"
+      ],
+      "reason": "The landlord alleged that the asserted transfer occurred without obtaining consent. This supports the no-consent predicate only as an allegation and does not establish a distinct finding about written consent.",
+      "input_candidate": true,
+      "target_only": false
+    }
+  ],
+  "address_checks": {
+    "conditions": [
+      {
+        "id": "c1",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 502,
+              "raw_end": 600
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c2",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 463,
+              "raw_end": 500
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      },
+      {
+        "id": "c3",
+        "errors": [],
+        "quote_location": {
+          "status": "EXACT",
+          "matches": [
+            {
+              "raw_start": 601,
+              "raw_end": 657
+            }
+          ],
+          "unique": true,
+          "semantic_support_certified": false
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "id": "b1",
+        "errors": []
+      },
+      {
+        "id": "b2",
+        "errors": []
+      },
+      {
+        "id": "b3",
+        "errors": []
+      },
+      {
+        "id": "b4",
+        "errors": []
+      },
+      {
+        "id": "b5",
+        "errors": []
+      }
+    ]
+  },
+  "origin": "HIGH_WITH_POST_OUTCOME_ACCESS",
+  "feature_admission": "NOT_ADMITTED",
+  "semantic_rule_source_review_required": true,
+  "conditions_need_pre_only_origin_for_future_test": "derive definitions from rule text only, with outcome-blind task-construction policy; do not regenerate in this round",
+  "signed_binding_need_pre_only_generation_for_future_test": "candidate evidence links must be obtainable from same allowed input at inference; current source checks alone cannot certify that procedure"
+}

@@ -1,0 +1,83 @@
+{
+  "case_id": "1106992",
+  "usage": "TARGET_ONLY_MODEL_PROPOSAL_NOT_HUMAN_GOLD",
+  "element_targets": [
+    {
+      "condition_id": "c1",
+      "status": "DEFEATED",
+      "basis_kind": "FACT_FALSE",
+      "target_refs": [
+        {
+          "id": "IK-1106992:L77",
+          "quote": "the Madras-Bangalore Transport Company (West) continued to be in occupation of the premises even after the Caravan Goods Carrier Private Limited came in. They never effaced themselves."
+        },
+        {
+          "id": "IK-1106992:L78",
+          "quote": "We do not think that there was any sub-letting, assignment or parting with possession of the premises"
+        }
+      ],
+      "reason": "The target court expressly found continued occupation by West and expressly rejected subletting, assignment, or parting with possession; this is nonfulfilment of the transfer/possession element, not merely a failure of proof."
+    },
+    {
+      "condition_id": "c2",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [],
+      "reason": "The target court did not separately decide the statutory date predicate. The 1968 formation of Caravan and the 1979 petition chronology do not establish the date of a qualifying transfer, especially because the court found no such transfer."
+    },
+    {
+      "condition_id": "c3",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [],
+      "reason": "The target court did not expressly adopt a finding that written landlord consent was absent. The frozen input contains only the landlord's allegation, and the target disposed of the section 14(1)(b) ground on the no-transfer determination."
+    }
+  ],
+  "issue_target": {
+    "status": "NOT_SUPPORTED",
+    "target_refs": [
+      {
+        "id": "IK-1106992:L78",
+        "quote": "We do not think that there was any sub-letting, assignment or parting with possession of the premises by Madras-Bangalore Transport Company (West) to Caravan Goods Carrier Private Limited so as to attract Section 14(1)(b) of the Delhi Rent Control Act."
+      }
+    ],
+    "reason": "The fixed section 14(1)(b) eviction ground is not supported at the target stage because the target court expressly rejected the necessary transfer/parting-with-possession element. The unresolved temporal and written-consent predicates are not inferred from the overall disposition."
+  },
+  "gaps": [
+    {
+      "kind": "HISTORICAL_STATUTE_SCOPE",
+      "description": "The supplied section 14(1)(b) text is a current statutory reproduction whose historical consolidation for the target date is expressly unverified, so the proposal cannot certify that the reproduced wording is the authenticated historical text.",
+      "affected_ids": [
+        "LAW:S02:DRC14:1b",
+        "c1",
+        "c2",
+        "c3"
+      ]
+    },
+    {
+      "kind": "AUTHORITY_SCOPE",
+      "description": "LAW:V09:CEL_CONTROL is a 2009 Supreme Court synthesis under a Goa rent statute and postdates the 1986 target decision. Its control/retention principle is therefore not used as a governing target-era Delhi condition without additional scope validation.",
+      "affected_ids": [
+        "LAW:V09:CEL_CONTROL",
+        "c1"
+      ]
+    },
+    {
+      "kind": "INSUFFICIENT_INPUT_FACT",
+      "description": "No frozen inventory fact establishes the date of any qualifying transfer. Fact f3 dates Caravan's formation to 1968 but expressly leaves unknown whether formation itself transferred any tenancy or possessory right.",
+      "affected_ids": [
+        "c2",
+        "f3"
+      ]
+    },
+    {
+      "kind": "INSUFFICIENT_TARGET_FINDING",
+      "description": "The frozen input supplies only f5 as the landlord's no-consent allegation, and the target reasoning does not separately adopt absence of written consent.",
+      "affected_ids": [
+        "c3",
+        "f5"
+      ]
+    }
+  ],
+  "proposal_sha256": "49c93f59f214cc86ed14be7fbb8cf320a94bc0c5ee7b051aa4eca995cfb80f43"
+}

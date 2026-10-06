@@ -1,0 +1,242 @@
+{
+  "case_id": "1859043",
+  "conditions": [
+    {
+      "id": "c1",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises",
+      "description": "The tenant engaged in at least one covered transfer-of-possession act as to the whole or any part of the premises.",
+      "logical_role": "CONDUCT",
+      "scope": "Section 14(1)(b) covered conduct only: sub-letting, assignment, or otherwise parting with possession of all or part of the premises.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c2",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on or after the 9th day of June, 1952",
+      "description": "The covered conduct occurred on or after 9 June 1952.",
+      "logical_role": "TEMPORAL_QUALIFICATION",
+      "scope": "Post-9-June-1952 conduct; section 16(1) supplies the contrasting pre-9-June-1952 deeming rule.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "QUALIFICATION"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b",
+        "LAW:S02:DRC:16"
+      ]
+    },
+    {
+      "id": "c3",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+      "description": "The covered post-1952 conduct occurred without legally sufficient landlord consent in writing.",
+      "logical_role": "WRITTEN_CONSENT_NEGATION",
+      "scope": "Written landlord consent for the relevant post-1952 sub-letting; section 16(2)-(3) supplies the related written-consent constraint.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "AND"
+        },
+        {
+          "condition_id": "c2",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b",
+        "LAW:S02:DRC:16"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "b1",
+      "fact_id": "f4",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "written statement dated August 11, 1970",
+      "case_refs": [
+        "IK-1859043:L47"
+      ],
+      "reason": "The tenant's written statement admitted Hans Raj and Ram Bakhsh were sub-tenants in different portions, supporting the covered-conduct proposition while leaving legal effect unresolved.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b2",
+      "fact_id": "f12",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "second appeal record recounting affidavit admission",
+      "case_refs": [
+        "IK-1859043:L53"
+      ],
+      "reason": "The tenant's affidavit admission specifically states that he sublet identified rooms to Hans Raj and Ram Bakhsh, directly supporting the covered-conduct proposition.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b3",
+      "fact_id": "f12",
+      "condition_id": "c2",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "second appeal record recounting affidavit admission",
+      "case_refs": [
+        "IK-1859043:L53"
+      ],
+      "reason": "The admission dates the two sub-lettings to 1963 and 1964, supporting the post-9-June-1952 temporal condition.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b4",
+      "fact_id": "f2",
+      "condition_id": "c3",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "eviction petition paragraph 16",
+      "case_refs": [
+        "IK-1859043:L45"
+      ],
+      "reason": "The landlords alleged that the 1963-64 inductions occurred without written landlord consent; this is a supporting allegation, not an established target fact.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b5",
+      "fact_id": "f3",
+      "condition_id": "c3",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "eviction petition",
+      "case_refs": [
+        "IK-1859043:L46"
+      ],
+      "reason": "The landlords asserted that Ex. A-7 did not amount to written consent and alternatively that any authority lasted only 11 months; both propositions support the absence-of-effective-written-consent condition if accepted.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b6",
+      "fact_id": "f5",
+      "condition_id": "c3",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "written statement dated August 11, 1970",
+      "case_refs": [
+        "IK-1859043:L47"
+      ],
+      "reason": "The tenant pleaded that Ex. A-7 gave him the right to sub-let; if legally effective as written landlord consent, that proposition would defeat c3.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b7",
+      "fact_id": "f14",
+      "condition_id": "c3",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "second appeal argument",
+      "case_refs": [
+        "IK-1859043:L54",
+        "IK-1859043:L55"
+      ],
+      "reason": "The appellant argued that the tenancy and the asserted written sub-letting consent continued until May 31, 1970; if accepted, that would defeat the absence-of-effective-written-consent condition for the 1963-64 sub-lettings.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b8",
+      "fact_id": "f15",
+      "condition_id": "c3",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "second appeal subsidiary argument",
+      "case_refs": [
+        "IK-1859043:L56"
+      ],
+      "reason": "The appellant alternatively argued that the asserted written consent in Ex. A-7 carried into statutory tenancy and covered the 1963-64 sub-tenancies; if accepted, that would defeat c3.",
+      "input_candidate": true,
+      "target_only": false
+    }
+  ],
+  "element_targets": [
+    {
+      "condition_id": "c1",
+      "status": "SATISFIED",
+      "basis_kind": "FACT_ACCEPTED",
+      "target_refs": [
+        {
+          "id": "IK-1859043:L54",
+          "quote": "The material facts on which the decision of this appeal depends are thus not disputed before me."
+        },
+        {
+          "id": "IK-1859043:L109",
+          "quote": "creation of sub-tenancy in favor of Shri Hans Raj in the year 1963 and Shri Ram Bakhsh in the year 1964"
+        }
+      ],
+      "reason": "The target court treated the two sub-lettings as established material facts and directed the dispute to the legal sufficiency of landlord consent."
+    },
+    {
+      "condition_id": "c2",
+      "status": "SATISFIED",
+      "basis_kind": "FACT_ACCEPTED",
+      "target_refs": [
+        {
+          "id": "IK-1859043:L109",
+          "quote": "Shri Hans Raj in the year 1963 and Shri Ram Bakhsh in the year 1964"
+        }
+      ],
+      "reason": "The target court expressly identified the two sub-tenancies as created in 1963 and 1964, both after 9 June 1952."
+    },
+    {
+      "condition_id": "c3",
+      "status": "SATISFIED",
+      "basis_kind": "LEGAL_INTERPRETATION",
+      "target_refs": [
+        {
+          "id": "IK-1859043:L109",
+          "quote": "the consent of the landlady is, admittedly, oral. Such a consent can be of no avail to the tenant"
+        },
+        {
+          "id": "IK-1859043:L121",
+          "quote": "there is no consent in writing of the landlord for the creation of sub-tenancies in favor of Shri Hans Raj in the year 1963 and Shri Ram Baksh in the year 1964"
+        }
+      ],
+      "reason": "The target court expressly held that the landlady's oral acceptance did not satisfy section 14(1)(b) and concluded that no legally sufficient written landlord consent existed for these sub-tenancies."
+    }
+  ],
+  "issue_target": {
+    "status": "SUPPORTED",
+    "target_refs": [
+      {
+        "id": "IK-1859043:L121",
+        "quote": "there is no consent in writing of the landlord for the creation of sub-tenancies in favor of Shri Hans Raj in the year 1963 and Shri Ram Baksh in the year 1964"
+      },
+      {
+        "id": "IK-1859043:L149",
+        "quote": "For the reasons stated, the appeal fails and is dismissed with costs."
+      }
+    ],
+    "reason": "The target court accepted the 1963-64 sub-lettings, held that the statutory written-consent requirement was not met, and dismissed the tenant's second appeal, supporting the fixed section 14(1)(b) ground at the target stage."
+  },
+  "gaps": [],
+  "chain_status": "PROPOSED_COMPLETE"
+}

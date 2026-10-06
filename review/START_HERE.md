@@ -1,13 +1,13 @@
 # ChatGPT 审阅入口
 
-内容快照：`5f7e6f89a76a4922e46125c8d0efb5f30a5b0f01efa7dbfc40fd6fab51e6e9cb`
+内容快照：`3844700a0515d9491a017565ab6e58fdf924ec00fec0c8dc1c86ed78d5c6ad85`
 
-V10集中修复完成：六案180个DEV位置均有状态（176可评价、4隔离），统一类别、可逆空白定位、材料视图和构图。TRAIN746项弱监督候选；抽查发现两案重复用途口径错配，按预定规则停止六次新拟合。旧36项排名已重评；8 SEALED未读取，未生成法律答案或提交推送。
+当前实验：GNN-IRAC data feasibility and canonical adapter: NO_GO, no training
 
-先读[本轮报告](../outputs/rgcn-dev-contract-repair-10/report-zh.txt)、[就绪决定](../outputs/rgcn-dev-contract-repair-10/readiness-final.json)、[历史排名重评](../outputs/rgcn-dev-contract-repair-10/saved-ranking-reevaluation.json)、[实际数据清单](../outputs/rgcn-dev-contract-repair-10/cohort-status-final.json)。
+GNN-IRAC数据可行性完成：固定8个旧TRAIN，8次提议＋2次独立High来源审阅，无语义重试。1案有较完整回顾性链，7案缺决定性测试、证据内容或阶段明确的target；1106992发现目标FOUND关系残留。通用关系guard离线隔离两条，不覆盖冻结输入。真实组内canonical仅有合成接口检查，没有八案上游产物；NO_GO，未训练、未启封SEALED、未生成法律回答或发布。保留S并暂停扩大排序R-GCN。
 
-本轮22次普通High数据准备，重试0。已完成同一30项池的全部DEV对齐、粗用途参考与独立来源复核；未知和隔离不作负例。旧排名重评区分旧指标、历史参考修正和扩展参考，未重拟合或用新图声称新模型表现。有限TRAIN抽查出现重复“同一法体系即BACKGROUND”的用途边界问题，训练门槛关闭；不自动改写标签至通过。保留27 TRAIN／6 DEVELOPMENT／8 SEALED，封存正文、图与标签未读。参考不是人工金标准；仅本地交付。
+先读[报告](../outputs/gnn-irac-feasibility-01/report-zh.txt)、[八案可行性表](../outputs/gnn-irac-feasibility-01/feasibility-table.csv)、[来源审阅](../outputs/gnn-irac-feasibility-01/source-review.json)、[泄漏审计](../outputs/gnn-irac-feasibility-01/leakage-audit.json)、[组内接口审计](../outputs/gnn-irac-feasibility-01/group-schema-audit.md)、[映射表](../outputs/gnn-irac-feasibility-01/canonical-to-irac-crosswalk.csv)。
 
-tasks/保存完整提交；web/保存原始回复与对话记录；sources/、labels/、graph-inputs/、graphs/保存允许来源、版本化参考及图。参考是模型生成并依据来源复核，不是人工金标准；SEALED正文与特征没有读取。
+inputs及input-graphs仅保存冻结输入；target-construction及targets仅为监督构造。bindings和task-layer-candidates是有目标访问的研究提议，未经许可不能当成推断时可取得的图特征。web保留原始JSON和调用元数据，tasks-readable是实际完整任务。真正组内canonical只测了合成fixture；八案用的是既有本地弱事实，不声称上游复现。
 
-[代码](CODE.md)、[文件哈希](MANIFEST.json)、[项目状态](../docs/PROJECT_STATE.json)。仅本地prepare/verify；未提交推送，远端不能假设含有本快照。
+[代码](CODE.md)、[清单](MANIFEST.json)、[审阅要求](REVIEW_REQUEST.md)、[项目状态](../docs/PROJECT_STATE.json)。本轮无训练、无新法律回答、未启封SEALED、未提交或推送；旧S/B/C保持，S保留，暂停扩大排序R-GCN。远端未包含本地快照时须使用本地审阅包。

@@ -1,0 +1,369 @@
+{
+  "case_id": "1497837",
+  "conditions": [
+    {
+      "id": "c1",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "against a tenant",
+      "description": "The section 14(1)(b) ground presupposes that the person against whom the ground is invoked occupies the legally relevant tenant position vis-à-vis the landlord for the premises.",
+      "logical_role": "PREREQUISITE",
+      "scope": "Fixed section 14(1)(b) eviction ground; ownership questions outside the tenancy relationship are not independently added as elements.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c2",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises",
+      "description": "The tenant must have sublet, assigned, or otherwise parted with possession of the whole or any part of the premises.",
+      "logical_role": "CORE_ELEMENT",
+      "scope": "The statutory alternatives are treated as alternative modes within one element. The supplied General Radio material confirms broad amplitude, including involuntary sale, but its reported context is limited and is not treated as resolving the present statutory-succession facts.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b",
+        "LAW:V21:GR:REPORTED_DELHI"
+      ]
+    },
+    {
+      "id": "c3",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on or after the 9th day of June, 1952",
+      "description": "The relevant subletting, assignment, or other parting with possession must have occurred on or after 9 June 1952.",
+      "logical_role": "TEMPORAL_QUALIFICATION",
+      "scope": "Applies only to the timing of the legally relevant transfer or parting identified under c2.",
+      "dependencies": [
+        {
+          "condition_id": "c2",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c4",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+      "description": "The qualifying subletting, assignment, or other parting with possession must have occurred without the landlord's written consent.",
+      "logical_role": "CONSENT_ELEMENT",
+      "scope": "Written landlord consent is assessed only if the relevant tenancy and transfer predicates are legally engaged.",
+      "dependencies": [
+        {
+          "condition_id": "c1",
+          "operator": "AND"
+        },
+        {
+          "condition_id": "c2",
+          "operator": "AND"
+        }
+      ],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "b1",
+      "fact_id": "f2",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "eviction petition",
+      "case_refs": [
+        "IK-1497837:L82"
+      ],
+      "reason": "The eviction petition identifies DTC as the lessee/tenant at a stated monthly rent, which is candidate evidence for the tenant predicate but remains an allegation.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b2",
+      "fact_id": "f9",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "ARCT review of ARC order",
+      "case_refs": [
+        "IK-1497837:L88"
+      ],
+      "reason": "The ARCT expressly found a landlord-tenant relationship, providing lower-court support for the tenant predicate without converting that finding into target-court adoption.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b3",
+      "fact_id": "f15",
+      "condition_id": "c1",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "respondents' submissions on Supreme Court appeal",
+      "case_refs": [
+        "IK-1497837:L116"
+      ],
+      "reason": "Respondents disputed the antecedent landlord-tenant relationship, which is candidate evidence against the tenancy chain but is only a submission in the frozen input.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b4",
+      "fact_id": "f3",
+      "condition_id": "c2",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "eviction petition",
+      "case_refs": [
+        "IK-1497837:L82"
+      ],
+      "reason": "The landlords alleged subletting, assignment, and parting with possession from DTC to MCD; this directly matches the candidate transfer element but remains an allegation.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b5",
+      "fact_id": "f6",
+      "condition_id": "c2",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "TRIAL",
+      "stage": "ARC merits determination",
+      "case_refs": [
+        "IK-1497837:L85"
+      ],
+      "reason": "The ARC found MCD in possession and paying Rs.3500 to DTC as rent, candidate circumstantial support for a transfer or subletting proposition.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b6",
+      "fact_id": "f8",
+      "condition_id": "c2",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "TRIAL",
+      "stage": "ARC merits determination",
+      "case_refs": [
+        "IK-1497837:L86"
+      ],
+      "reason": "The ARC expressly found that DTC had sublet, assigned, or otherwise parted with possession to MCD, directly supporting the candidate element at the lower-court level.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b7",
+      "fact_id": "f9",
+      "condition_id": "c2",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "ARCT review of ARC order",
+      "case_refs": [
+        "IK-1497837:L88"
+      ],
+      "reason": "The ARCT found that exclusive possession was handed to MCD and treated that as subletting, providing lower-appellate support for the transfer element.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b8",
+      "fact_id": "f10",
+      "condition_id": "c2",
+      "relation": "DEFEATS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "High Court Article 227 disposition",
+      "case_refs": [
+        "IK-1497837:L94"
+      ],
+      "reason": "The High Court expressly found no parting with possession by DTC to MCD and therefore no subletting, directly opposing the candidate element.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b9",
+      "fact_id": "f11",
+      "condition_id": "c2",
+      "relation": "DEFEATS",
+      "statement_status": "FOUND",
+      "court": "APPELLATE",
+      "stage": "High Court Article 227 disposition",
+      "case_refs": [
+        "IK-1497837:L95"
+      ],
+      "reason": "The High Court found that the Rs.3500 payment did not itself establish subletting or parting with possession, defeating that particular evidentiary inference for c2.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b10",
+      "fact_id": "f14",
+      "condition_id": "c2",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "respondents' submissions on Supreme Court appeal",
+      "case_refs": [
+        "IK-1497837:L118"
+      ],
+      "reason": "Respondents claimed that MCD retained legal possession all along and that parting with possession had not been proved, candidate opposition to c2 but not a target-court finding.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b11",
+      "fact_id": "f4",
+      "condition_id": "c4",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "eviction petition",
+      "case_refs": [
+        "IK-1497837:L82"
+      ],
+      "reason": "The eviction petition alleged that the transfer or parting occurred without the appellants' written consent, directly supporting the no-written-consent proposition as an allegation.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b12",
+      "fact_id": "f7",
+      "condition_id": "c4",
+      "relation": "SUPPORTS",
+      "statement_status": "FOUND",
+      "court": "TRIAL",
+      "stage": "ARC merits determination",
+      "case_refs": [
+        "IK-1497837:L85"
+      ],
+      "reason": "The ARC found that respondents did not assert that written consent of the petitioners had been obtained, providing lower-court support for the no-written-consent element.",
+      "input_candidate": true,
+      "target_only": false
+    }
+  ],
+  "element_targets": [
+    {
+      "condition_id": "c1",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [
+        {
+          "id": "IK-1497837:L131",
+          "quote": "Both ARC and ARCT had acted within the limits of the jurisdiction vested in them. The conclusions reached cannot be said to be based on no evidence. All relevant material has been taken into consideration."
+        },
+        {
+          "id": "IK-1497837:L229",
+          "quote": "The issue herein only related to a tenancy and subletting."
+        }
+      ],
+      "reason": "The Supreme Court rejected the High Court's basis for reappreciating the lower decisions, but it did not expressly adopt a specific landlord-tenant finding as its own merits determination. Lower-court findings therefore cannot be converted into target SATISFIED."
+    },
+    {
+      "condition_id": "c2",
+      "status": "UNRESOLVED",
+      "basis_kind": "AMBIGUOUS_REASONING",
+      "target_refs": [
+        {
+          "id": "IK-1497837:L131",
+          "quote": "The conclusions reached cannot be said to be based on no evidence. All relevant material has been taken into consideration."
+        },
+        {
+          "id": "IK-1497837:L184",
+          "quote": "We also do not agree that the ARC and ARCT ignored the sequence of events through which GNIT was substituted by DTC."
+        },
+        {
+          "id": "IK-1497837:L229",
+          "quote": "The issue herein only related to a tenancy and subletting."
+        }
+      ],
+      "reason": "The target court treated the ARC/ARCT conclusions as evidentially supportable and rejected the High Court's reappreciation, but it did not expressly state as its own factual/legal finding that DTC sublet, assigned, or parted with possession to MCD. The operative reversal is insufficient by itself to label c2 SATISFIED."
+    },
+    {
+      "condition_id": "c3",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [
+        {
+          "id": "IK-1497837:L184",
+          "quote": "The entire sequence of metamorphosis of GNIT into DTC have been elaborately explained and dilated upon."
+        }
+      ],
+      "reason": "The target court acknowledged that the historical sequence had been considered, but it did not expressly identify the date of the legally relevant subletting, assignment, or parting with possession or expressly hold that the statutory 9 June 1952 threshold was met."
+    },
+    {
+      "condition_id": "c4",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [
+        {
+          "id": "IK-1497837:L132",
+          "quote": "It was claimed that DTC has sublet the premises to MCD, without permission of the landlord."
+        },
+        {
+          "id": "IK-1497837:L235",
+          "quote": "We, therefore, allow this appeal and set aside the impugned judgment and order."
+        }
+      ],
+      "reason": "The target judgment restated the landlord's no-permission allegation and ultimately set aside the High Court judgment, but it did not expressly adopt a finding that written landlord consent was absent. The ARC finding on consent remains a lower-court finding."
+    }
+  ],
+  "issue_target": {
+    "status": "SUPPORTED",
+    "target_refs": [
+      {
+        "id": "IK-1497837:L131",
+        "quote": "Both ARC and ARCT had acted within the limits of the jurisdiction vested in them. The conclusions reached cannot be said to be based on no evidence. All relevant material has been taken into consideration."
+      },
+      {
+        "id": "IK-1497837:L229",
+        "quote": "The issue herein only related to a tenancy and subletting."
+      },
+      {
+        "id": "IK-1497837:L235",
+        "quote": "We, therefore, allow this appeal and set aside the impugned judgment and order."
+      }
+    ],
+    "reason": "At the issue level and preserving procedural posture, the Supreme Court rejected the High Court's displacement of the ARC/ARCT conclusions and set the High Court judgment aside, thereby supporting the landlord-side section 14(1)(b) outcome. This issue-level support does not convert each statutory condition into an express target-court merits finding."
+  },
+  "gaps": [
+    {
+      "kind": "MISSING_TEMPORAL_INPUT_FACT",
+      "description": "No existing_inventory fact fixes the date of the legally relevant alleged subletting, assignment, or parting with possession. The frozen input therefore cannot bind a PRE fact to the statutory 'on or after 9 June 1952' condition.",
+      "affected_ids": [
+        "c3"
+      ]
+    },
+    {
+      "kind": "HISTORICAL_RULE_VERSION_SCOPE",
+      "description": "The supplied section 14(1)(b) text is identified as a current statutory reproduction whose historical version is unverified. The proposal therefore cannot independently certify the exact historical consolidation applicable to the alleged transfer date.",
+      "affected_ids": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    {
+      "kind": "TARGET_ELEMENT_ADOPTION_GAP",
+      "description": "The Supreme Court expressly resolved the Article 227 posture and operative appeal, but did not expressly adopt each section 14(1)(b) element as its own merits finding. Lower ARC/ARCT findings cannot fill that target-adoption requirement.",
+      "affected_ids": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    }
+  ],
+  "chain_status": "GAP"
+}

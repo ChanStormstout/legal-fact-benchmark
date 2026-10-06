@@ -1,0 +1,3324 @@
+Task: construct a minimal rule-given IRAC application training proposal, NOT a new legal answer or whole-case extraction. Use only the attached data; no external search. Input is permanently frozen independently below. Full historical judgment is POST-OUTCOME, only for target construction. Reuse existing_inventory facts and objects; do not add/rewrite facts, court status, identity or relationship. If facts are wrong or insufficient mark a GAP and identify IDs. Do not make final target conclusions appear in input. Rules are oracle candidates, not automatically correct for this stage/jurisdiction/date. Check necessary scope and exceptions; if insufficient, mark GAP rather than invent.
+Return complete JSON code block and downloadable JSON. Avoid long copied text except exact short rule and target quotes. At most 6 meaningful conditions and 12 bindings, no need to fill arrays. Conditions only from provided rules, exclude target's own final reasoning from rule definitions. Relations SUPPORTS/DEFEATS describe a candidate evidentiary proposition, not established truth of a party allegation. Each binding must cite existing fact's PRE source refs and retain original statement status, court and stage. Target reasoning belongs only in element_targets/issue_target, never in bindings. A target SATISFIED requires express TARGET court adoption; DEFEATED requires express nonfulfilment or express opposing judgment. Burden not carried is distinct from false fact. UNRESOLVED must explain NOT_DECIDED, INSUFFICIENT_RECORD, AMBIGUOUS_REASONING or scope limits, not be technical failure. Lower findings are not target adoption. Do not label every statutory condition from the overall disposition. Search full target reasoning for each condition and issue; unresolved when too implicit.
+Output fields exactly: {case_id, conditions:[{id,rule_id,exact_rule_quote,description,logical_role,scope,dependencies:[{condition_id,operator}],law_refs}], bindings:[{id,fact_id,condition_id,relation,statement_status,court,stage,case_refs,reason,input_candidate:true,target_only:false}], element_targets:[{condition_id,status,basis_kind,target_refs:[{id,quote}],reason}], issue_target:{status,target_refs:[{id,quote}],reason}, gaps:[{kind,description,affected_ids}], chain_status}. Use status SATISFIED/DEFEATED/UNRESOLVED; issue SUPPORTED/NOT_SUPPORTED/UNRESOLVED. basis_kind FACT_ACCEPTED/FACT_FALSE/BURDEN_NOT_CARRIED/NOT_DECIDED/INSUFFICIENT_RECORD/LEGAL_INTERPRETATION/AMBIGUOUS_REASONING. chain_status PROPOSED_COMPLETE/GAP. law_refs are provided rule IDs. dependencies operators AND/OR/QUALIFICATION; no invented IDs. No binding to a new fact.
+MATERIAL
+{
+  "PRE_OUTCOME_FROZEN_INPUT": {
+    "case_id": "308216",
+    "fixed_issue": "Whether the landlord's section 14(1)(b) eviction ground is established against the tenant for subletting, assignment or other parting with possession without written landlord consent, preserving procedural posture.",
+    "stage": "SC appeal; conflicting positions and lower orders; target amendment endorsement and final merits excluded",
+    "pre_outcome_source": {
+      "case_id": "308216",
+      "segments": [
+        {
+          "id": "IK-308216:L154",
+          "text": "A.K. Ganguli and E.M.S. Anam for the Respondents. The Judgement of the Court was delivered by 327 SABYASACHI MUKHARJI, J. This appeal by special leave is directed against the judgement and order of the High Court of Delhi dated 29th August, 1984. One Jagan Nath, since deceased, was the original tenant of the premises in question. He died during the pendency of this appeal here. His sons have been substituted. The tenancy in question started on 1st January, 1962.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L154",
+          "start": 0,
+          "end": 466
+        },
+        {
+          "id": "IK-308216:L155",
+          "text": "It appears that on 7th November, 1967 notice was addressed to Shri Baldev Raj, describing him as sole proprietor of M/s Bindra Tent House, New Delhi, for eviction. There was an increase in rent in July, 1970. The respondent herein filed the petition against the appellant herein Jagan Nath under cite11†section 14(1)(a) and cite12†14(1)(b) of the Delhi Rent Control Act, 1958 (hereinafter called the Act) for eviction of the appellant from the premises consisting of one room forming part of premises No.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L155",
+          "start": 0,
+          "end": 510
+        },
+        {
+          "id": "IK-308216:L156",
+          "text": "N-80, Kirti Nagar, New Delhi, as the appellant herein had not paid rent with effect from 1st May, 1975 till 30th April, 1977 at the rate of Rs.75 per month despite service of the demand notice dated 8th January, 1976. It was the further case of the respondent herein that the appellant had after 9th June, 1962 sublet, assigned or otherwise parted with possession of the premises to Shri Baldev Raj Bindra and Sat Pal Bindra without the consent in writing of the respondent-landlord.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L156",
+          "start": 0,
+          "end": 483
+        },
+        {
+          "id": "IK-308216:L157",
+          "text": "The suit was filed before the Additional Rent Controller and the same was contested on various grounds. It was contended that the petition was not maintainable because of non-joinder of Shri Baldev Raj Bindra and Sat Pal Bindra. The premises in question is residential-cum - commercial. It was stated that Shri Baldev Raj Bindra and Sat Pal Bindra are the sons of the original appellant, since deceased.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L157",
+          "start": 0,
+          "end": 403
+        },
+        {
+          "id": "IK-308216:L158",
+          "text": "The said tenant was in exclusive possession of the premises and was carrying on his business therein with which, it was stated, Baldev Raj and Sat Pal had no concern. They are the sons of the tenant, since deceased, and had constituted a Hindu Undivided Family. No demand notice was ever served upon the tenant. The tenant tendered the rent to the landlord by money order for an amount of Rs.450 which he refused to accept.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L158",
+          "start": 0,
+          "end": 423
+        },
+        {
+          "id": "IK-308216:L159",
+          "text": "The Additional Rent Controller so far as the ground of nonpayment of rent was concerned held that there was a compliance with the order passed under cite15†section 15(1) of the Act. The Additional Rent Controller gave the tenant the benefit under cite16†section 14(2) of the Act. The petition of the landlord on the ground of non-payment of rent was, therefore, dismissed.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L159",
+          "start": 0,
+          "end": 378
+        },
+        {
+          "id": "IK-308216:L160",
+          "text": "The other ground was the ground of eviction claimed by the landlord for subletting, assignment or parting with the possession of the premises in question by the tenant hl favour of his sons Baldev Raj and Sat Pal Bindra. The landlord in his deposition had stated that since 328 1st July, 1971 Baldev Raj and Satpal were running their business in the name of M/s. Bindra Tent House in partnership and they were in possession of the premises in question.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L160",
+          "start": 0,
+          "end": 452
+        },
+        {
+          "id": "IK-308216:L161",
+          "text": "The tenant had no concern with the business carried on in the demised premises and the tenant had retired. The tenant in his cross-examination had stated that he had sent partnership document and Form II to the Income- tax Department. 13 The landlord had denied the suggestion that the said Jagan Nath was in possession of the premises and his sons had been helping him from the very beginning.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L161",
+          "start": 0,
+          "end": 394
+        },
+        {
+          "id": "IK-308216:L162",
+          "text": "The landlord had produced on the record one statement made by the appellant herein, Jagan Nath before the Income Tax officer, photostat copy of which is Exhibit A.W. 3/1 on the record which indicated that Jagan Nath who was the proprietor of the Bindra Tent House sold the same for Rs.18,000 on 1.1.1970 to his sons Baldev Raj and Sat Pal and he got cash of Rs.8,000 and he gifted the other amount into two equal shares to his sons Baldev Raj and Sat Pal.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L162",
+          "start": 0,
+          "end": 455
+        },
+        {
+          "id": "IK-308216:L163",
+          "text": "In his statement, Jagan Nath had stated that Sat Pal and Baldev Raj had entered into a partnership in the same name M/s. Bindra Tent House in the same premises. This document was heavily relied upon before us by Shri Sachhar in aid of his submissions that the tenant had parted with possession.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L163",
+          "start": 0,
+          "end": 294
+        },
+        {
+          "id": "IK-308216:L164",
+          "text": "There is another document Exhibit A.W-2/1. According to this document which is a photostat copy of the stamp vendor register, non-judicial papers for Rs.13, Rs.2 and Rs.20 were purchased by Baldev Raj for partnership purposes in the name of M/s. Bindra Tent House. Our attention was also drawn to the fact that an application for electricity connection was made by Sat Pal Bindra in the name of M/s. Bindra Tent House on 25th July, 1975 as the sole proprietor of the same.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L164",
+          "start": 0,
+          "end": 472
+        },
+        {
+          "id": "IK-308216:L165",
+          "text": "From these and other documents, it was contended that there was parting of possession and as such the tenant was liable to be . evicted. The Additional Rent Controller ordered the eviction under cite12†section 14(1)(b) of the Act. He held that there was no subletting by the tenant, Jagan Nath since deceased but he had unlawfully parted with the possession of the demised premises in favour of his sons Sat Pal and Baldev Raj without the consent in writing of the landlord.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L165",
+          "start": 0,
+          "end": 477
+        },
+        {
+          "id": "IK-308216:L166",
+          "text": "During the pendency of the appeal the tenant preferred an application under order 6 cite13†Rule 17 of the Code of Civil Procedure seeking permission to amend his written statement. The appellant contended that the landlord filed eviction petition in respect of the said premises against the appellant and his two sons which was assigned to Shri A.P. Chaudhary, Additional Rent Controller.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L166",
+          "start": 0,
+          "end": 391
+        },
+        {
+          "id": "IK-308216:L167",
+          "text": "Another objection raised was that the property was taken on rent by M/s.Bindra Tent House 329 and, therefore, the petition for eviction was not maintainable. The application had been contested in which it had been admitted that the earlier petition for eviction was filed but according to the respondent it was not properly instituted and the same was withdrawn. It was denied that the application was not maintainable.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L167",
+          "start": 0,
+          "end": 419
+        },
+        {
+          "id": "IK-308216:L168",
+          "text": "The Tribunal on an analysis of the matter came to the conclusion that belated amendment could not be permitted. It was emphasised that the tenant had admitted in the written statement that he was a tenant in the property in question. He could not subsequently be allowed to wriggle out of this situation and withdraw the admission. If the amendment was allowed, they would take valuable right of the other side and altogether a new plea would be taken, it was held. This cannot be permitted.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L168",
+          "start": 0,
+          "end": 491
+        },
+        {
+          "id": "IK-308216:L169",
+          "text": "In this connection, the Rent Tribunal relied upon the observations of the Assam High Court in Subashini Majumdar and another v. Krishna Prasad Mahatoo and Ors., A.I.R. 1956 Assam 79. The same view was reiterated by this Court in M/s. Modi Spinning and Weaving Mills Co. Ltd. and another v. M/s. Ladha Ram and Co., [1977] l SCR 728 where the proposed amendment introduced an entirely new case seeking to displace the other side completely from the admission made then.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L169",
+          "start": 0,
+          "end": 467
+        },
+        {
+          "id": "IK-308216:L171",
+          "text": "The High Court on an analysis of the evidence and relevant authorities came to the conclusion that there was no substantial question of law and dismissed the second appeal. Hence this appeal.",
+          "source_document": "308216",
+          "source_segment_id": "IK-308216:L171",
+          "start": 0,
+          "end": 191
+        }
+      ],
+      "input_scope": "SC appeal; conflicting positions and lower orders; target amendment endorsement and final merits excluded",
+      "coverage": "Complete approved ranges, NOT full judgment; full original held outside all model inputs",
+      "relation_status": "No known shared dispute in chosen titles/dockets; broader links unconfirmed"
+    },
+    "existing_inventory": {
+      "case_id": "308216",
+      "origin": "EXISTING_LOCAL_WEAK_INVENTORY_NOT_LATENTWEAVER_CANONICAL",
+      "facts": [
+        {
+          "id": "f1",
+          "text": "The supplied Supreme Court narrative reports that Jagan Nath was the original tenant and that the tenancy began on 1 January 1962.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal background",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-308216:L154"
+          ],
+          "quote": "One Jagan Nath, since deceased, was the original tenant of the premises in question."
+        },
+        {
+          "id": "f2",
+          "text": "The landlord's section 14(1)(b) case alleged that after 9 June 1962 Jagan Nath sublet, assigned, or otherwise parted with possession to Baldev Raj and Sat Pal without the landlord's written consent.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "eviction petition before Additional Rent Controller",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the alleged transfer or parting occurred",
+            "whether written consent existed beyond the landlord's allegation"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o4"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-308216:L156"
+          ],
+          "quote": "the appellant had after 9th June, 1962 sublet, assigned or otherwise parted with possession of the premises to Shri Baldev Raj Bindra and Sat Pal Bindra without the consent in writing of the respondent-landlord."
+        },
+        {
+          "id": "f3",
+          "text": "The tenant side contested maintainability on the ground that Baldev Raj and Sat Pal were not joined.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "defence before Additional Rent Controller",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "legal effect of non-joinder on the fixed ground"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-308216:L157"
+          ],
+          "quote": "the petition was not maintainable because of non-joinder of Shri Baldev Raj Bindra and Sat Pal Bindra."
+        },
+        {
+          "id": "f4",
+          "text": "The tenant side stated that Jagan Nath remained in exclusive possession and carried on his business there, with Baldev Raj and Sat Pal having no concern with it.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "defence before Additional Rent Controller",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "court acceptance at the target appeal stage"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-308216:L158"
+          ],
+          "quote": "The said tenant was in exclusive possession of the premises and was carrying on his business therein with which, it was stated, Baldev Raj and Sat Pal had no concern."
+        },
+        {
+          "id": "f5",
+          "text": "The landlord testified that from 1 July 1971 Baldev Raj and Sat Pal ran M/s. Bindra Tent House in partnership and were in possession of the premises.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "landlord deposition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether this amounted to legal parting with possession"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "ACTOR",
+              "object_id": "o4"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-308216:L160"
+          ],
+          "quote": "since 328 1st July, 1971 Baldev Raj and Satpal were running their business in the name of M/s. Bindra Tent House in partnership and they were in possession of the premises in question."
+        },
+        {
+          "id": "f6",
+          "text": "The landlord's position was that Jagan Nath had no concern with the business, had retired, and was not in possession; the landlord denied that the sons had merely been helping him.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "deposition and cross-examination",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "whether Jagan Nath retained legal or factual possession"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-308216:L161"
+          ],
+          "quote": "The landlord had denied the suggestion that the said Jagan Nath was in possession of the premises and his sons had been helping him from the very beginning."
+        },
+        {
+          "id": "f7",
+          "text": "In cross-examination Jagan Nath stated that he had sent a partnership document and Form II to the Income-tax Department.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "tenant cross-examination",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "contents and legal effect of the partnership document and Form II"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o11"
+            }
+          ],
+          "refs": [
+            "IK-308216:L161"
+          ],
+          "quote": "The tenant in his cross-examination had stated that he had sent partnership document and Form II to the Income- tax Department."
+        },
+        {
+          "id": "f8",
+          "text": "Exhibit A.W. 3/1 was reported to indicate that Jagan Nath, proprietor of Bindra Tent House, sold the business for Rs.18,000 on 1 January 1970 to Baldev Raj and Sat Pal.",
+          "speaker": "TENANT",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "documentary evidence later recounted on Supreme Court appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether sale of the business also transferred legal possession of the premises"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o4"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o8"
+            }
+          ],
+          "refs": [
+            "IK-308216:L162"
+          ],
+          "quote": "Jagan Nath who was the proprietor of the Bindra Tent House sold the same for Rs.18,000 on 1.1.1970 to his sons Baldev Raj and Sat Pal"
+        },
+        {
+          "id": "f9",
+          "text": "Jagan Nath's statement reported that Baldev Raj and Sat Pal entered into a partnership under the same business name in the same premises.",
+          "speaker": "TENANT",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "documentary evidence later recounted on Supreme Court appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "extent of the partnership's possession or control of the premises"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "ACTOR",
+              "object_id": "o4"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o7"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o8"
+            }
+          ],
+          "refs": [
+            "IK-308216:L163"
+          ],
+          "quote": "Sat Pal and Baldev Raj had entered into a partnership in the same name M/s. Bindra Tent House in the same premises."
+        },
+        {
+          "id": "f10",
+          "text": "Exhibit A.W-2/1 was reported to show Baldev Raj purchasing stamp papers for partnership purposes in the name of M/s. Bindra Tent House.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal review of documentary record",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "legal effect on possession of the premises"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o9"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            }
+          ],
+          "refs": [
+            "IK-308216:L164"
+          ],
+          "quote": "non-judicial papers for Rs.13, Rs.2 and Rs.20 were purchased by Baldev Raj for partnership purposes in the name of M/s. Bindra Tent House."
+        },
+        {
+          "id": "f11",
+          "text": "The record reports that Sat Pal applied for an electricity connection on 25 July 1975 in the name of M/s. Bindra Tent House as its sole proprietor.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal review of documentary record",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "legal effect on possession or tenancy rights"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o4"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o10"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            }
+          ],
+          "refs": [
+            "IK-308216:L164"
+          ],
+          "quote": "an application for electricity connection was made by Sat Pal Bindra in the name of M/s. Bindra Tent House on 25th July, 1975 as the sole proprietor of the same."
+        },
+        {
+          "id": "f12",
+          "text": "The Additional Rent Controller ordered eviction under section 14(1)(b), found no subletting, but found that Jagan Nath had unlawfully parted with possession to his sons without the landlord's written consent.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "TRIAL",
+          "stage": "Additional Rent Controller merits order",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether this lower-court finding survives the withheld target final merits decision"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o4"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-308216:L165"
+          ],
+          "quote": "He held that there was no subletting by the tenant, Jagan Nath since deceased but he had unlawfully parted with the possession of the demised premises in favour of his sons Sat Pal and Baldev Raj without the consent in writing of the landlord."
+        },
+        {
+          "id": "f13",
+          "text": "The Rent Tribunal refused the tenant's belated amendment, emphasizing that the tenant had admitted in the written statement that he was a tenant and could not withdraw that admission through a new plea.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "Rent Tribunal appeal, amendment application",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "effect of this procedural ruling on the fixed section 14(1)(b) merits at the target appeal stage"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o1"
+            }
+          ],
+          "refs": [
+            "IK-308216:L168"
+          ],
+          "quote": "the tenant had admitted in the written statement that he was a tenant in the property in question."
+        },
+        {
+          "id": "f14",
+          "text": "The High Court concluded that there was no substantial question of law and dismissed the second appeal.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court second appeal",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target Supreme Court final merits outcome"
+          ],
+          "roles": [],
+          "refs": [
+            "IK-308216:L171"
+          ],
+          "quote": "there was no substantial question of law and dismissed the second appeal."
+        },
+        {
+          "id": "f15",
+          "text": "The narrative reports that a 7 November 1967 notice was addressed to Baldev Raj describing him as sole proprietor of M/s Bindra Tent House.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal background",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "purpose and evidentiary effect of the 1967 description on possession or tenancy rights"
+          ],
+          "roles": [
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "DOCUMENT",
+              "object_id": "o12"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o6"
+            }
+          ],
+          "refs": [
+            "IK-308216:L155"
+          ],
+          "quote": "notice was addressed to Shri Baldev Raj, describing him as sole proprietor of M/s Bindra Tent House, New Delhi, for eviction."
+        }
+      ],
+      "objects": [
+        {
+          "id": "o1",
+          "text": "Jagan Nath",
+          "kind": "PERSON",
+          "refs": [
+            "IK-308216:L154"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o2",
+          "text": "respondent-landlord",
+          "kind": "PERSON",
+          "refs": [
+            "IK-308216:L156"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o3",
+          "text": "Baldev Raj Bindra",
+          "kind": "PERSON",
+          "refs": [
+            "IK-308216:L156",
+            "IK-308216:L157"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o4",
+          "text": "Sat Pal Bindra",
+          "kind": "PERSON",
+          "refs": [
+            "IK-308216:L156",
+            "IK-308216:L157"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o5",
+          "text": "one-room premises at N-80, Kirti Nagar, New Delhi",
+          "kind": "PROPERTY",
+          "refs": [
+            "IK-308216:L155",
+            "IK-308216:L156"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o6",
+          "text": "M/s. Bindra Tent House",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-308216:L160",
+            "IK-308216:L163"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o7",
+          "text": "Baldev Raj and Sat Pal partnership",
+          "kind": "GROUP",
+          "refs": [
+            "IK-308216:L160",
+            "IK-308216:L163"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o8",
+          "text": "Exhibit A.W. 3/1 Income Tax statement copy",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-308216:L162"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o9",
+          "text": "Exhibit A.W-2/1 stamp vendor register copy",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-308216:L164"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o10",
+          "text": "25 July 1975 electricity-connection application",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-308216:L164"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o11",
+          "text": "partnership document and Form II",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-308216:L161"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o12",
+          "text": "7 November 1967 eviction notice to Baldev Raj",
+          "kind": "DOCUMENT",
+          "refs": [
+            "IK-308216:L155"
+          ],
+          "unknown": false
+        }
+      ],
+      "relations": [
+        {
+          "id": "r1",
+          "left": "o3",
+          "right": "o1",
+          "relation": "other",
+          "text": "Baldev Raj Bindra is reported as a son of Jagan Nath.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal background",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-308216:L157"
+          ],
+          "quote": "Shri Baldev Raj Bindra and Sat Pal Bindra are the sons of the original appellant"
+        },
+        {
+          "id": "r2",
+          "left": "o4",
+          "right": "o1",
+          "relation": "other",
+          "text": "Sat Pal Bindra is reported as a son of Jagan Nath.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal background",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-308216:L157"
+          ],
+          "quote": "Shri Baldev Raj Bindra and Sat Pal Bindra are the sons of the original appellant"
+        },
+        {
+          "id": "r3",
+          "left": "o3",
+          "right": "o7",
+          "relation": "member_of",
+          "text": "Baldev Raj was reported as a member of the sons' partnership operating as M/s. Bindra Tent House.",
+          "speaker": "TENANT",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "documentary statement",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-308216:L163"
+          ],
+          "quote": "Sat Pal and Baldev Raj had entered into a partnership"
+        },
+        {
+          "id": "r4",
+          "left": "o4",
+          "right": "o7",
+          "relation": "member_of",
+          "text": "Sat Pal was reported as a member of the sons' partnership operating as M/s. Bindra Tent House.",
+          "speaker": "TENANT",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "documentary statement",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-308216:L163"
+          ],
+          "quote": "Sat Pal and Baldev Raj had entered into a partnership"
+        },
+        {
+          "id": "r5",
+          "left": "o6",
+          "right": "o3",
+          "relation": "transferred_to",
+          "text": "Jagan Nath's business M/s. Bindra Tent House was reported sold jointly to Baldev Raj and Sat Pal; this edge records Baldev Raj's side of that joint transfer and does not by itself assert transfer of the premises.",
+          "speaker": "TENANT",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "Income Tax statement evidence",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether business sale transferred premises possession or tenancy rights"
+          ],
+          "refs": [
+            "IK-308216:L162"
+          ],
+          "quote": "sold the same for Rs.18,000 on 1.1.1970 to his sons Baldev Raj and Sat Pal"
+        },
+        {
+          "id": "r6",
+          "left": "o6",
+          "right": "o4",
+          "relation": "transferred_to",
+          "text": "Jagan Nath's business M/s. Bindra Tent House was reported sold jointly to Baldev Raj and Sat Pal; this edge records Sat Pal's side of that joint transfer and does not by itself assert transfer of the premises.",
+          "speaker": "TENANT",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "Income Tax statement evidence",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether business sale transferred premises possession or tenancy rights"
+          ],
+          "refs": [
+            "IK-308216:L162"
+          ],
+          "quote": "sold the same for Rs.18,000 on 1.1.1970 to his sons Baldev Raj and Sat Pal"
+        },
+        {
+          "id": "r7",
+          "left": "o7",
+          "right": "o5",
+          "relation": "other",
+          "text": "The sons' partnership was reported to operate under the same business name in the same premises.",
+          "speaker": "TENANT",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "documentary statement",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether operation in the premises amounted to exclusive legal possession"
+          ],
+          "refs": [
+            "IK-308216:L163"
+          ],
+          "quote": "in the same name M/s. Bindra Tent House in the same premises."
+        },
+        {
+          "id": "r8",
+          "left": "o1",
+          "right": "o5",
+          "relation": "controls",
+          "text": "The tenant side claimed Jagan Nath retained exclusive possession of the premises.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "defence before Additional Rent Controller",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "court acceptance at target appeal stage"
+          ],
+          "refs": [
+            "IK-308216:L158"
+          ],
+          "quote": "The said tenant was in exclusive possession of the premises"
+        },
+        {
+          "id": "r9",
+          "left": "o1",
+          "right": "o5",
+          "relation": "controls",
+          "text": "The landlord denied that Jagan Nath remained in possession of the premises.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "deposition and cross-examination",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target-court resolution of possession"
+          ],
+          "refs": [
+            "IK-308216:L161"
+          ],
+          "quote": "The landlord had denied the suggestion that the said Jagan Nath was in possession of the premises"
+        },
+        {
+          "id": "r10",
+          "left": "o7",
+          "right": "o5",
+          "relation": "controls",
+          "text": "The landlord claimed that Baldev Raj and Sat Pal, operating in partnership, were in possession of the premises from 1 July 1971.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "landlord deposition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether possession was exclusive and whether it legally displaced Jagan Nath"
+          ],
+          "refs": [
+            "IK-308216:L160"
+          ],
+          "quote": "they were in possession of the premises in question."
+        }
+      ],
+      "issue_needs_context_not_application_targets": [
+        {
+          "id": "n1",
+          "text": "Whether Jagan Nath sublet, assigned, or otherwise parted with possession of all or part of the premises to Baldev Raj Bindra and/or Sat Pal Bindra within Delhi Rent Control Act section 14(1)(b).",
+          "refs": [
+            "IK-308216:L156",
+            "IK-308216:L160",
+            "IK-308216:L165"
+          ]
+        },
+        {
+          "id": "n2",
+          "text": "Whether the alleged transfer or parting conduct occurred on or after the statutory date, including the alleged post-9 June 1962 conduct, the 1 January 1970 business sale, and the asserted possession from 1 July 1971.",
+          "refs": [
+            "IK-308216:L156",
+            "IK-308216:L160",
+            "IK-308216:L162"
+          ]
+        },
+        {
+          "id": "n3",
+          "text": "Whether any landlord consent in writing existed for the alleged subletting, assignment, or parting with possession.",
+          "refs": [
+            "IK-308216:L156",
+            "IK-308216:L165"
+          ]
+        },
+        {
+          "id": "n4",
+          "text": "What the supplied record establishes about actual possession and control of the premises, including the tenant's exclusive-possession position, the landlord's contrary position, and the sons' business activity there.",
+          "refs": [
+            "IK-308216:L158",
+            "IK-308216:L160",
+            "IK-308216:L161",
+            "IK-308216:L163",
+            "IK-308216:L164"
+          ]
+        },
+        {
+          "id": "n5",
+          "text": "What procedural and finding status may be used from the lower proceedings while the supplied Supreme Court appeal record withholds the target final merits outcome.",
+          "refs": [
+            "IK-308216:L165",
+            "IK-308216:L168",
+            "IK-308216:L171"
+          ]
+        }
+      ],
+      "quarantined": [],
+      "pre_source_ids": [
+        "IK-308216:L154",
+        "IK-308216:L155",
+        "IK-308216:L156",
+        "IK-308216:L157",
+        "IK-308216:L158",
+        "IK-308216:L159",
+        "IK-308216:L160",
+        "IK-308216:L161",
+        "IK-308216:L162",
+        "IK-308216:L163",
+        "IK-308216:L164",
+        "IK-308216:L165",
+        "IK-308216:L166",
+        "IK-308216:L167",
+        "IK-308216:L168",
+        "IK-308216:L169",
+        "IK-308216:L171"
+      ]
+    },
+    "oracle_rule_material": [
+      {
+        "id": "LAW:S02:DRC14:1b",
+        "text": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+        "source": {
+          "document_id": "18143401",
+          "url": "https://indiankanoon.org/doc/18143401/",
+          "raw_provenance": [
+            [
+              {
+                "document_id": "18143401",
+                "url": "https://indiankanoon.org/doc/18143401/",
+                "response_index": 0,
+                "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                "raw_char_range": [
+                  1228,
+                  2945
+                ],
+                "raw_byte_range": [
+                  1346,
+                  3103
+                ],
+                "raw_physical_line": 37,
+                "original_line": 39
+              }
+            ],
+            [
+              {
+                "document_id": "18143401",
+                "url": "https://indiankanoon.org/doc/18143401/",
+                "response_index": 0,
+                "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                "raw_char_range": [
+                  1228,
+                  2945
+                ],
+                "raw_byte_range": [
+                  1346,
+                  3103
+                ],
+                "raw_physical_line": 37,
+                "original_line": 39
+              }
+            ]
+          ]
+        },
+        "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+        "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+        "dependencies": [],
+        "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+        "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE"
+      },
+      {
+        "id": "LAW:V09:HELP_GENUINENESS",
+        "text": "In the instant case the basic question is whether keep- ing in background the partnership deeds referred to herein- before and the facts that came to light, was there partner- ship or not. Sharing of profits and contributing to losses were not the only elements in a partnership, existence of agency was essential and whether there was a partnership or not is a mixed question of law and fact, depending upon the varying circumstances in different cases.\nThis view was reiterated by Chief Justice Beaumont, in cite34†Chimanram Motilal and another v. Jayantilal Chhaganlal and another , A.I.R. 1939 Bombay 410. Ramaswami, J. in cite35†Mohammed Musa Sahib (dead) and others v. N.K. Mohammed Ghouse Sahib and another , A.I.R. 1959 Madras 379 observed that whether the relation of part- nership between two or more persons does or does not exit must depend on the real intention and contract of the par- ties and not merely on their expressed intention.\nHe also referred to cite19†section 4 of the Partnership Act about the principles of partnership namely, (1) there must be agree- ment entered into by all the persons concerned; (2) the agreement must be to share the profits of a business; and (3) the business must be carried on by all or any of the persons concerned acting for all. In the instant case judged by the aforesaid principles, it is possible to hold that there was a partnership of which the appellant was a part- ner.\nIf that was so, there was nothing that could be clone about such a view, within the ambit and scope of the power of cite16†section 29(2) of the Rent Act. We may mention that in Gunda- lapalli cite36†Rangamannar Chetty v. Desu Rangiah and others , A.I.R. 1954 Madras 182, Subba Rao, J. as the learned Chief Justice then was, held that there cannot be a subletting, unless the lessee parted with legal possession.\nThe mere fact that another is allowed to use the premises while the lessee retains the legal possession is not enough to create a sub-lease.",
+        "source": {
+          "document_id": "1378557",
+          "url": "https://indiankanoon.org/doc/1378557/",
+          "date": "1987-05-06",
+          "court_or_publisher": "Supreme Court of India",
+          "passage_addresses": [
+            {
+              "id": "IK-1378557:L369",
+              "start": 0,
+              "end": 454
+            },
+            {
+              "id": "IK-1378557:L370",
+              "start": 0,
+              "end": 500
+            },
+            {
+              "id": "IK-1378557:L371",
+              "start": 0,
+              "end": 484
+            },
+            {
+              "id": "IK-1378557:L374",
+              "start": 0,
+              "end": 417
+            },
+            {
+              "id": "IK-1378557:L375",
+              "start": 0,
+              "end": 140
+            }
+          ],
+          "raw_provenance": [
+            [
+              {
+                "document_id": "1378557",
+                "url": "https://indiankanoon.org/doc/1378557/",
+                "response_index": 1,
+                "raw_path": "outputs/rgcn-data-expansion-09/sources/raw/authority-open-04.txt",
+                "raw_sha256": "bd6781c85848ba2f42db9be69eb795fdf17c95798c502b02e2eb4d6d155afe9d",
+                "raw_char_range": [
+                  14707,
+                  15161
+                ],
+                "raw_byte_range": [
+                  14855,
+                  15309
+                ],
+                "raw_physical_line": 51,
+                "original_line": 369
+              }
+            ],
+            [
+              {
+                "document_id": "1378557",
+                "url": "https://indiankanoon.org/doc/1378557/",
+                "response_index": 1,
+                "raw_path": "outputs/rgcn-data-expansion-09/sources/raw/authority-open-04.txt",
+                "raw_sha256": "bd6781c85848ba2f42db9be69eb795fdf17c95798c502b02e2eb4d6d155afe9d",
+                "raw_char_range": [
+                  15168,
+                  15668
+                ],
+                "raw_byte_range": [
+                  15316,
+                  15832
+                ],
+                "raw_physical_line": 52,
+                "original_line": 370
+              }
+            ],
+            [
+              {
+                "document_id": "1378557",
+                "url": "https://indiankanoon.org/doc/1378557/",
+                "response_index": 1,
+                "raw_path": "outputs/rgcn-data-expansion-09/sources/raw/authority-open-04.txt",
+                "raw_sha256": "bd6781c85848ba2f42db9be69eb795fdf17c95798c502b02e2eb4d6d155afe9d",
+                "raw_char_range": [
+                  15675,
+                  16159
+                ],
+                "raw_byte_range": [
+                  15839,
+                  16331
+                ],
+                "raw_physical_line": 53,
+                "original_line": 371
+              }
+            ],
+            [
+              {
+                "document_id": "1378557",
+                "url": "https://indiankanoon.org/doc/1378557/",
+                "response_index": 1,
+                "raw_path": "outputs/rgcn-data-expansion-09/sources/raw/authority-open-04.txt",
+                "raw_sha256": "bd6781c85848ba2f42db9be69eb795fdf17c95798c502b02e2eb4d6d155afe9d",
+                "raw_char_range": [
+                  16375,
+                  16792
+                ],
+                "raw_byte_range": [
+                  16547,
+                  16980
+                ],
+                "raw_physical_line": 56,
+                "original_line": 374
+              }
+            ],
+            [
+              {
+                "document_id": "1378557",
+                "url": "https://indiankanoon.org/doc/1378557/",
+                "response_index": 1,
+                "raw_path": "outputs/rgcn-data-expansion-09/sources/raw/authority-open-04.txt",
+                "raw_sha256": "bd6781c85848ba2f42db9be69eb795fdf17c95798c502b02e2eb4d6d155afe9d",
+                "raw_char_range": [
+                  16799,
+                  16939
+                ],
+                "raw_byte_range": [
+                  16987,
+                  17127
+                ],
+                "raw_physical_line": 57,
+                "original_line": 375
+              }
+            ]
+          ]
+        },
+        "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+        "scope": "Bombay rent statute; Partnership Act4 and6",
+        "mechanisms": [
+          "partnership_company",
+          "control_exclusive_possession"
+        ],
+        "legal_status": "COURT_ADOPTED",
+        "coverage_limit": "Agency, real agreement and conduct matter; a deed or label alone is insufficient. Bombay revisional standard is not Delhi substantive law.",
+        "dependencies": [],
+        "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+        "full_source_status": "INCOMPLETE",
+        "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+        "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED"
+      }
+    ],
+    "unknown_is_not_false": true,
+    "target_info_included": false
+  },
+  "POST_OUTCOME_TARGET_CONSTRUCTION": {
+    "case_id": "308216",
+    "full_historical_source": [
+      {
+        "id": "IK-308216:L154",
+        "source_document": "308216",
+        "original_line": 154,
+        "text": "A.K. Ganguli and E.M.S. Anam for the Respondents. The Judgement of the Court was delivered by 327 SABYASACHI MUKHARJI, J. This appeal by special leave is directed against the judgement and order of the High Court of Delhi dated 29th August, 1984. One Jagan Nath, since deceased, was the original tenant of the premises in question. He died during the pendency of this appeal here. His sons have been substituted. The tenancy in question started on 1st January, 1962.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              7077,
+              7543
+            ],
+            "raw_byte_range": [
+              7259,
+              7725
+            ],
+            "raw_physical_line": 150,
+            "original_line": 154
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L155",
+        "source_document": "308216",
+        "original_line": 155,
+        "text": "It appears that on 7th November, 1967 notice was addressed to Shri Baldev Raj, describing him as sole proprietor of M/s Bindra Tent House, New Delhi, for eviction. There was an increase in rent in July, 1970. The respondent herein filed the petition against the appellant herein Jagan Nath under cite11†section 14(1)(a) and cite12†14(1)(b) of the Delhi Rent Control Act, 1958 (hereinafter called the Act) for eviction of the appellant from the premises consisting of one room forming part of premises No.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              7550,
+              8060
+            ],
+            "raw_byte_range": [
+              7732,
+              8258
+            ],
+            "raw_physical_line": 151,
+            "original_line": 155
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L156",
+        "source_document": "308216",
+        "original_line": 156,
+        "text": "N-80, Kirti Nagar, New Delhi, as the appellant herein had not paid rent with effect from 1st May, 1975 till 30th April, 1977 at the rate of Rs.75 per month despite service of the demand notice dated 8th January, 1976. It was the further case of the respondent herein that the appellant had after 9th June, 1962 sublet, assigned or otherwise parted with possession of the premises to Shri Baldev Raj Bindra and Sat Pal Bindra without the consent in writing of the respondent-landlord.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              8067,
+              8550
+            ],
+            "raw_byte_range": [
+              8265,
+              8748
+            ],
+            "raw_physical_line": 152,
+            "original_line": 156
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L157",
+        "source_document": "308216",
+        "original_line": 157,
+        "text": "The suit was filed before the Additional Rent Controller and the same was contested on various grounds. It was contended that the petition was not maintainable because of non-joinder of Shri Baldev Raj Bindra and Sat Pal Bindra. The premises in question is residential-cum - commercial. It was stated that Shri Baldev Raj Bindra and Sat Pal Bindra are the sons of the original appellant, since deceased.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              8557,
+              8960
+            ],
+            "raw_byte_range": [
+              8755,
+              9158
+            ],
+            "raw_physical_line": 153,
+            "original_line": 157
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L158",
+        "source_document": "308216",
+        "original_line": 158,
+        "text": "The said tenant was in exclusive possession of the premises and was carrying on his business therein with which, it was stated, Baldev Raj and Sat Pal had no concern. They are the sons of the tenant, since deceased, and had constituted a Hindu Undivided Family. No demand notice was ever served upon the tenant. The tenant tendered the rent to the landlord by money order for an amount of Rs.450 which he refused to accept.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              8967,
+              9390
+            ],
+            "raw_byte_range": [
+              9165,
+              9588
+            ],
+            "raw_physical_line": 154,
+            "original_line": 158
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L159",
+        "source_document": "308216",
+        "original_line": 159,
+        "text": "The Additional Rent Controller so far as the ground of nonpayment of rent was concerned held that there was a compliance with the order passed under cite15†section 15(1) of the Act. The Additional Rent Controller gave the tenant the benefit under cite16†section 14(2) of the Act. The petition of the landlord on the ground of non-payment of rent was, therefore, dismissed.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              9397,
+              9775
+            ],
+            "raw_byte_range": [
+              9595,
+              9989
+            ],
+            "raw_physical_line": 155,
+            "original_line": 159
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L160",
+        "source_document": "308216",
+        "original_line": 160,
+        "text": "The other ground was the ground of eviction claimed by the landlord for subletting, assignment or parting with the possession of the premises in question by the tenant hl favour of his sons Baldev Raj and Sat Pal Bindra. The landlord in his deposition had stated that since 328 1st July, 1971 Baldev Raj and Satpal were running their business in the name of M/s. Bindra Tent House in partnership and they were in possession of the premises in question.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              9782,
+              10234
+            ],
+            "raw_byte_range": [
+              9996,
+              10448
+            ],
+            "raw_physical_line": 156,
+            "original_line": 160
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L161",
+        "source_document": "308216",
+        "original_line": 161,
+        "text": "The tenant had no concern with the business carried on in the demised premises and the tenant had retired. The tenant in his cross-examination had stated that he had sent partnership document and Form II to the Income- tax Department. 13 The landlord had denied the suggestion that the said Jagan Nath was in possession of the premises and his sons had been helping him from the very beginning.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              10241,
+              10635
+            ],
+            "raw_byte_range": [
+              10455,
+              10849
+            ],
+            "raw_physical_line": 157,
+            "original_line": 161
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L162",
+        "source_document": "308216",
+        "original_line": 162,
+        "text": "The landlord had produced on the record one statement made by the appellant herein, Jagan Nath before the Income Tax officer, photostat copy of which is Exhibit A.W. 3/1 on the record which indicated that Jagan Nath who was the proprietor of the Bindra Tent House sold the same for Rs.18,000 on 1.1.1970 to his sons Baldev Raj and Sat Pal and he got cash of Rs.8,000 and he gifted the other amount into two equal shares to his sons Baldev Raj and Sat Pal.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              10642,
+              11097
+            ],
+            "raw_byte_range": [
+              10856,
+              11311
+            ],
+            "raw_physical_line": 158,
+            "original_line": 162
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L163",
+        "source_document": "308216",
+        "original_line": 163,
+        "text": "In his statement, Jagan Nath had stated that Sat Pal and Baldev Raj had entered into a partnership in the same name M/s. Bindra Tent House in the same premises. This document was heavily relied upon before us by Shri Sachhar in aid of his submissions that the tenant had parted with possession.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              11104,
+              11398
+            ],
+            "raw_byte_range": [
+              11318,
+              11612
+            ],
+            "raw_physical_line": 159,
+            "original_line": 163
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L164",
+        "source_document": "308216",
+        "original_line": 164,
+        "text": "There is another document Exhibit A.W-2/1. According to this document which is a photostat copy of the stamp vendor register, non-judicial papers for Rs.13, Rs.2 and Rs.20 were purchased by Baldev Raj for partnership purposes in the name of M/s. Bindra Tent House. Our attention was also drawn to the fact that an application for electricity connection was made by Sat Pal Bindra in the name of M/s. Bindra Tent House on 25th July, 1975 as the sole proprietor of the same.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              11405,
+              11877
+            ],
+            "raw_byte_range": [
+              11619,
+              12091
+            ],
+            "raw_physical_line": 160,
+            "original_line": 164
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L165",
+        "source_document": "308216",
+        "original_line": 165,
+        "text": "From these and other documents, it was contended that there was parting of possession and as such the tenant was liable to be . evicted. The Additional Rent Controller ordered the eviction under cite12†section 14(1)(b) of the Act. He held that there was no subletting by the tenant, Jagan Nath since deceased but he had unlawfully parted with the possession of the demised premises in favour of his sons Sat Pal and Baldev Raj without the consent in writing of the landlord.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              11884,
+              12361
+            ],
+            "raw_byte_range": [
+              12098,
+              12583
+            ],
+            "raw_physical_line": 161,
+            "original_line": 165
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L166",
+        "source_document": "308216",
+        "original_line": 166,
+        "text": "During the pendency of the appeal the tenant preferred an application under order 6 cite13†Rule 17 of the Code of Civil Procedure seeking permission to amend his written statement. The appellant contended that the landlord filed eviction petition in respect of the said premises against the appellant and his two sons which was assigned to Shri A.P. Chaudhary, Additional Rent Controller.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              12368,
+              12759
+            ],
+            "raw_byte_range": [
+              12590,
+              12989
+            ],
+            "raw_physical_line": 162,
+            "original_line": 166
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L167",
+        "source_document": "308216",
+        "original_line": 167,
+        "text": "Another objection raised was that the property was taken on rent by M/s.Bindra Tent House 329 and, therefore, the petition for eviction was not maintainable. The application had been contested in which it had been admitted that the earlier petition for eviction was filed but according to the respondent it was not properly instituted and the same was withdrawn. It was denied that the application was not maintainable.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              12766,
+              13185
+            ],
+            "raw_byte_range": [
+              12996,
+              13415
+            ],
+            "raw_physical_line": 163,
+            "original_line": 167
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L168",
+        "source_document": "308216",
+        "original_line": 168,
+        "text": "The Tribunal on an analysis of the matter came to the conclusion that belated amendment could not be permitted. It was emphasised that the tenant had admitted in the written statement that he was a tenant in the property in question. He could not subsequently be allowed to wriggle out of this situation and withdraw the admission. If the amendment was allowed, they would take valuable right of the other side and altogether a new plea would be taken, it was held. This cannot be permitted.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              13192,
+              13683
+            ],
+            "raw_byte_range": [
+              13422,
+              13913
+            ],
+            "raw_physical_line": 164,
+            "original_line": 168
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L169",
+        "source_document": "308216",
+        "original_line": 169,
+        "text": "In this connection, the Rent Tribunal relied upon the observations of the Assam High Court in Subashini Majumdar and another v. Krishna Prasad Mahatoo and Ors., A.I.R. 1956 Assam 79. The same view was reiterated by this Court in M/s. Modi Spinning and Weaving Mills Co. Ltd. and another v. M/s. Ladha Ram and Co., [1977] l SCR 728 where the proposed amendment introduced an entirely new case seeking to displace the other side completely from the admission made then.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              13690,
+              14157
+            ],
+            "raw_byte_range": [
+              13920,
+              14387
+            ],
+            "raw_physical_line": 165,
+            "original_line": 169
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L170",
+        "source_document": "308216",
+        "original_line": 170,
+        "text": "It was held that such an amendment could not be allowed. We are of the opinion that the Rent Tribunal was therefore right in refusing the amendment on the basis of the aforesaid principle. The Tribunal on an analysis of evidence and facts came to the conclusion that there was no merit in the appeal and dismissed the appeal and affirmed the eviction order.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              14164,
+              14521
+            ],
+            "raw_byte_range": [
+              14394,
+              14751
+            ],
+            "raw_physical_line": 166,
+            "original_line": 170
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L171",
+        "source_document": "308216",
+        "original_line": 171,
+        "text": "The High Court on an analysis of the evidence and relevant authorities came to the conclusion that there was no substantial question of law and dismissed the second appeal. Hence this appeal.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              14528,
+              14719
+            ],
+            "raw_byte_range": [
+              14758,
+              14949
+            ],
+            "raw_physical_line": 167,
+            "original_line": 171
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L172",
+        "source_document": "308216",
+        "original_line": 172,
+        "text": "The question for consideration is whether the mischief contemplated under cite12†section 14(1)(b) of the Act has been committed as the tenant had sublet, assigned, or otherwise parted with the possession of the whole or part of the premises without obtaining the consent in writing of the landlord. There is no dispute that there was no consent in writing of the landlord in this case. There is also no evidence that there has been any subletting or assignment.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              14726,
+              15190
+            ],
+            "raw_byte_range": [
+              14956,
+              15428
+            ],
+            "raw_physical_line": 168,
+            "original_line": 172
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L173",
+        "source_document": "308216",
+        "original_line": 173,
+        "text": "The only ground perhaps upon which the landlord was seeking eviction was parting with possession.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              15197,
+              15294
+            ],
+            "raw_byte_range": [
+              15435,
+              15532
+            ],
+            "raw_physical_line": 169,
+            "original_line": 173
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L174",
+        "source_document": "308216",
+        "original_line": 174,
+        "text": "It is well-settled that parting with possession meant giving possession to persons other than those to whom possession had been given by the lease and the parting with possession must have been by the tenant; user by other person is not parting with possession so long as the tenant retains the legal possession himself, or in other words there 330 must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              15301,
+              15801
+            ],
+            "raw_byte_range": [
+              15539,
+              16039
+            ],
+            "raw_physical_line": 170,
+            "original_line": 174
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L175",
+        "source_document": "308216",
+        "original_line": 175,
+        "text": "So long as the tenant retains the right to possession there is no parting with possession in terms of clause (b) of cite14†section 14(1) of the Act. Even though the father had retired from the business and the sons had been looking after the business, in the facts of this case, it cannot be said that the father had divested himself of the legal right to be in possession.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              15808,
+              16184
+            ],
+            "raw_byte_range": [
+              16046,
+              16430
+            ],
+            "raw_physical_line": 171,
+            "original_line": 175
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L176",
+        "source_document": "308216",
+        "original_line": 176,
+        "text": "It the father has a right to displace the possession of the occupants, i.e., his sons, it cannot be said that the tenant had parted with possession. This Court in cite17†Smt. Krishnawati v. Shri Hans Raj , [1974] 1 SCC 289 had occasion to discuss the same aspect of the matter. There two persons lived in a house as husband and wife and one of them who rented the premises, allowed the other to carry on business in a part of it.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              16191,
+              16623
+            ],
+            "raw_byte_range": [
+              16437,
+              16877
+            ],
+            "raw_physical_line": 172,
+            "original_line": 176
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L177",
+        "source_document": "308216",
+        "original_line": 177,
+        "text": "The question was whether it amounted to sub-letting and attracted the provisions of sub-section (4) of cite18†section 14 of the Delhi Rent Control Act. This Court held that if two persons live together in a house as husband and wife and one of them who owns the house allows the other to carry on business in a part of it, it will be in the absence of any other evidence, a rash inference to draw that the owner has let out that part of the premises.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              16630,
+              17083
+            ],
+            "raw_byte_range": [
+              16884,
+              17345
+            ],
+            "raw_physical_line": 173,
+            "original_line": 177
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L178",
+        "source_document": "308216",
+        "original_line": 178,
+        "text": "In this case if the father was carrying on the business with his sons and the family was a joint Hindu family, it is difficult to presume that the father had parted with possession legally to attract the mischief of cite12†section 14(1)(b) of the Act.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              17090,
+              17344
+            ],
+            "raw_byte_range": [
+              17352,
+              17614
+            ],
+            "raw_physical_line": 174,
+            "original_line": 178
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L179",
+        "source_document": "308216",
+        "original_line": 179,
+        "text": "Shri Ganguly appearing for the landlord contended that the con duct of the tenant, Jagan Nath had been as sitting on the fence and avoiding the issue. It is true that Shri Ganguly rightly pointed out that Jagan Nath, the erstwhile tenant had not been fair and frank. But this is no ground to disentitle him to the benefit of the law if the facts have been proved that he had not parted with possession. After all, it has to be borne in mind that this is a residential- cum-commercial premises.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              17351,
+              17844
+            ],
+            "raw_byte_range": [
+              17621,
+              18114
+            ],
+            "raw_physical_line": 175,
+            "original_line": 179
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L180",
+        "source_document": "308216",
+        "original_line": 180,
+        "text": "Jagan Nath was carrying on business in part of the building with his two sons. Jagan Nath had died, therefore, it will be just and proper to presume that they were carrying on business, though perhaps the stand of the Jagan Nath was not always fair.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              17851,
+              18100
+            ],
+            "raw_byte_range": [
+              18121,
+              18370
+            ],
+            "raw_physical_line": 176,
+            "original_line": 180
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L181",
+        "source_document": "308216",
+        "original_line": 181,
+        "text": "In these days of acute shortage of accommodation both for living and for vocation, one has to take the reality with a pinch of salt and the manner in which Shri Jagan Nath has conducted himself would not disentitle him the benefit of the law in the present climate.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              18107,
+              18372
+            ],
+            "raw_byte_range": [
+              18377,
+              18642
+            ],
+            "raw_physical_line": 177,
+            "original_line": 181
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L182",
+        "source_document": "308216",
+        "original_line": 182,
+        "text": "In the view we have taken, this appeal must be allowed and the judgment and order of the High Court of Delhi and the Courts below are set aside. The eviction order is accordingly set aside.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              18379,
+              18568
+            ],
+            "raw_byte_range": [
+              18649,
+              18838
+            ],
+            "raw_physical_line": 178,
+            "original_line": 182
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L183",
+        "source_document": "308216",
+        "original_line": 183,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              18575,
+              18575
+            ],
+            "raw_byte_range": [
+              18845,
+              18845
+            ],
+            "raw_physical_line": 179,
+            "original_line": 183
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L184",
+        "source_document": "308216",
+        "original_line": 184,
+        "text": "331",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              18582,
+              18585
+            ],
+            "raw_byte_range": [
+              18852,
+              18855
+            ],
+            "raw_physical_line": 180,
+            "original_line": 184
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L185",
+        "source_document": "308216",
+        "original_line": 185,
+        "text": "It has, however, to be borne in mind that rent in these areas has increased enormously. So while exercising our jurisdiction under cite19†Article 136 of the Constitution, we will enhance the rent to four times. We are told that the mesne profit at present payable was Rs.75 per month. We direct that mesne profit/rent should be Rs.300 per month.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              18592,
+              18940
+            ],
+            "raw_byte_range": [
+              18862,
+              19218
+            ],
+            "raw_physical_line": 181,
+            "original_line": 185
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L186",
+        "source_document": "308216",
+        "original_line": 186,
+        "text": "We further direct that this will not prejudice the rights of the respondent herein to file any proceedings for eviction on the ground of bona fide need, if there is such a need or on any other ground available to the respondent for eviction under the Act. We give this direction in view of the facts alleged in the affidavit of Shri Chander Bhan Mehta affirmed on '6th April, 1988. About the correctness or validity of the statements made therein, we had no occasion to examine in this appeal.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              18947,
+              19440
+            ],
+            "raw_byte_range": [
+              19225,
+              19718
+            ],
+            "raw_physical_line": 182,
+            "original_line": 186
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L187",
+        "source_document": "308216",
+        "original_line": 187,
+        "text": "We have also taken into consideration the affidavit of Shri Baldev Raj Bindra affirmed on the 2nd May, 1988 about the veracity of which also we express no opinion.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19447,
+              19610
+            ],
+            "raw_byte_range": [
+              19725,
+              19888
+            ],
+            "raw_physical_line": 183,
+            "original_line": 187
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L188",
+        "source_document": "308216",
+        "original_line": 188,
+        "text": "In the facts of this case, the appellants will pay to the respondent the costs of the appeal.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19617,
+              19710
+            ],
+            "raw_byte_range": [
+              19895,
+              19988
+            ],
+            "raw_physical_line": 184,
+            "original_line": 188
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L189",
+        "source_document": "308216",
+        "original_line": 189,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19717,
+              19717
+            ],
+            "raw_byte_range": [
+              19995,
+              19995
+            ],
+            "raw_physical_line": 185,
+            "original_line": 189
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L190",
+        "source_document": "308216",
+        "original_line": 190,
+        "text": "    R.S.S.\t\t\t\t       Appeal allowed.",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19724,
+              19760
+            ],
+            "raw_byte_range": [
+              20002,
+              20038
+            ],
+            "raw_physical_line": 186,
+            "original_line": 190
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L191",
+        "source_document": "308216",
+        "original_line": 191,
+        "text": "    332",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19767,
+              19774
+            ],
+            "raw_byte_range": [
+              20045,
+              20052
+            ],
+            "raw_physical_line": 187,
+            "original_line": 191
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L192",
+        "source_document": "308216",
+        "original_line": 192,
+        "text": "### Related AI tags, queries and research notes",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19781,
+              19828
+            ],
+            "raw_byte_range": [
+              20059,
+              20106
+            ],
+            "raw_physical_line": 188,
+            "original_line": 192
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L193",
+        "source_document": "308216",
+        "original_line": 193,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19835,
+              19835
+            ],
+            "raw_byte_range": [
+              20113,
+              20113
+            ],
+            "raw_physical_line": 189,
+            "original_line": 193
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L194",
+        "source_document": "308216",
+        "original_line": 194,
+        "text": "#### Translation",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19842,
+              19858
+            ],
+            "raw_byte_range": [
+              20120,
+              20136
+            ],
+            "raw_physical_line": 190,
+            "original_line": 194
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L195",
+        "source_document": "308216",
+        "original_line": 195,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19865,
+              19865
+            ],
+            "raw_byte_range": [
+              20143,
+              20143
+            ],
+            "raw_physical_line": 191,
+            "original_line": 195
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L196",
+        "source_document": "308216",
+        "original_line": 196,
+        "text": "#### Top AI Tags",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19872,
+              19888
+            ],
+            "raw_byte_range": [
+              20150,
+              20166
+            ],
+            "raw_physical_line": 192,
+            "original_line": 196
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L197",
+        "source_document": "308216",
+        "original_line": 197,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19895,
+              19895
+            ],
+            "raw_byte_range": [
+              20173,
+              20173
+            ],
+            "raw_physical_line": 193,
+            "original_line": 197
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L198",
+        "source_document": "308216",
+        "original_line": 198,
+        "text": "  * cite20†middleman-liability",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19902,
+              19935
+            ],
+            "raw_byte_range": [
+              20180,
+              20221
+            ],
+            "raw_physical_line": 194,
+            "original_line": 198
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L199",
+        "source_document": "308216",
+        "original_line": 199,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19942,
+              19942
+            ],
+            "raw_byte_range": [
+              20228,
+              20228
+            ],
+            "raw_physical_line": 194,
+            "original_line": 199
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L200",
+        "source_document": "308216",
+        "original_line": 200,
+        "text": "  * cite21†special-leave-appeal-by-supreme-court",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              19949,
+              20000
+            ],
+            "raw_byte_range": [
+              20235,
+              20294
+            ],
+            "raw_physical_line": 195,
+            "original_line": 200
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L201",
+        "source_document": "308216",
+        "original_line": 201,
+        "text": "#### Related user Queries",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20007,
+              20032
+            ],
+            "raw_byte_range": [
+              20301,
+              20326
+            ],
+            "raw_physical_line": 195,
+            "original_line": 201
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L202",
+        "source_document": "308216",
+        "original_line": 202,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20039,
+              20039
+            ],
+            "raw_byte_range": [
+              20333,
+              20333
+            ],
+            "raw_physical_line": 196,
+            "original_line": 202
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L203",
+        "source_document": "308216",
+        "original_line": 203,
+        "text": "  * cite22†legal possession",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20046,
+              20076
+            ],
+            "raw_byte_range": [
+              20340,
+              20378
+            ],
+            "raw_physical_line": 197,
+            "original_line": 203
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L204",
+        "source_document": "308216",
+        "original_line": 204,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20083,
+              20083
+            ],
+            "raw_byte_range": [
+              20385,
+              20385
+            ],
+            "raw_physical_line": 197,
+            "original_line": 204
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L205",
+        "source_document": "308216",
+        "original_line": 205,
+        "text": "  * cite23†14 1 (b)",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20090,
+              20112
+            ],
+            "raw_byte_range": [
+              20392,
+              20422
+            ],
+            "raw_physical_line": 198,
+            "original_line": 205
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L206",
+        "source_document": "308216",
+        "original_line": 206,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20119,
+              20119
+            ],
+            "raw_byte_range": [
+              20429,
+              20429
+            ],
+            "raw_physical_line": 198,
+            "original_line": 206
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L207",
+        "source_document": "308216",
+        "original_line": 207,
+        "text": "  * cite24†14 (1)(b)",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20126,
+              20149
+            ],
+            "raw_byte_range": [
+              20436,
+              20467
+            ],
+            "raw_physical_line": 199,
+            "original_line": 207
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L208",
+        "source_document": "308216",
+        "original_line": 208,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20156,
+              20156
+            ],
+            "raw_byte_range": [
+              20474,
+              20474
+            ],
+            "raw_physical_line": 199,
+            "original_line": 208
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L209",
+        "source_document": "308216",
+        "original_line": 209,
+        "text": "  * cite25†rent control act",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20163,
+              20193
+            ],
+            "raw_byte_range": [
+              20481,
+              20519
+            ],
+            "raw_physical_line": 200,
+            "original_line": 209
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L210",
+        "source_document": "308216",
+        "original_line": 210,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20200,
+              20200
+            ],
+            "raw_byte_range": [
+              20526,
+              20526
+            ],
+            "raw_physical_line": 200,
+            "original_line": 210
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L211",
+        "source_document": "308216",
+        "original_line": 211,
+        "text": "  * cite26†parting with possession tenant",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20207,
+              20251
+            ],
+            "raw_byte_range": [
+              20533,
+              20585
+            ],
+            "raw_physical_line": 201,
+            "original_line": 211
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L212",
+        "source_document": "308216",
+        "original_line": 212,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20258,
+              20258
+            ],
+            "raw_byte_range": [
+              20592,
+              20592
+            ],
+            "raw_physical_line": 201,
+            "original_line": 212
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L213",
+        "source_document": "308216",
+        "original_line": 213,
+        "text": "  * cite27†delhi rent control act",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20265,
+              20301
+            ],
+            "raw_byte_range": [
+              20599,
+              20643
+            ],
+            "raw_physical_line": 202,
+            "original_line": 213
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L214",
+        "source_document": "308216",
+        "original_line": 214,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20308,
+              20308
+            ],
+            "raw_byte_range": [
+              20650,
+              20650
+            ],
+            "raw_physical_line": 202,
+            "original_line": 214
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L215",
+        "source_document": "308216",
+        "original_line": 215,
+        "text": "  * cite28†delhi rent control act 1958",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20315,
+              20356
+            ],
+            "raw_byte_range": [
+              20657,
+              20706
+            ],
+            "raw_physical_line": 203,
+            "original_line": 215
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L216",
+        "source_document": "308216",
+        "original_line": 216,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20363,
+              20363
+            ],
+            "raw_byte_range": [
+              20713,
+              20713
+            ],
+            "raw_physical_line": 203,
+            "original_line": 216
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L217",
+        "source_document": "308216",
+        "original_line": 217,
+        "text": "  * cite29†section 14 (1)(b)",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20370,
+              20401
+            ],
+            "raw_byte_range": [
+              20720,
+              20759
+            ],
+            "raw_physical_line": 204,
+            "original_line": 217
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L218",
+        "source_document": "308216",
+        "original_line": 218,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20408,
+              20408
+            ],
+            "raw_byte_range": [
+              20766,
+              20766
+            ],
+            "raw_physical_line": 204,
+            "original_line": 218
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L219",
+        "source_document": "308216",
+        "original_line": 219,
+        "text": "  * cite30†section 14 filter: delhi rent control act",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20415,
+              20470
+            ],
+            "raw_byte_range": [
+              20773,
+              20836
+            ],
+            "raw_physical_line": 205,
+            "original_line": 219
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L220",
+        "source_document": "308216",
+        "original_line": 220,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20477,
+              20477
+            ],
+            "raw_byte_range": [
+              20843,
+              20843
+            ],
+            "raw_physical_line": 205,
+            "original_line": 220
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L221",
+        "source_document": "308216",
+        "original_line": 221,
+        "text": "  * cite31†parted with possession",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20484,
+              20520
+            ],
+            "raw_byte_range": [
+              20850,
+              20894
+            ],
+            "raw_physical_line": 206,
+            "original_line": 221
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L222",
+        "source_document": "308216",
+        "original_line": 222,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20527,
+              20527
+            ],
+            "raw_byte_range": [
+              20901,
+              20901
+            ],
+            "raw_physical_line": 206,
+            "original_line": 222
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L223",
+        "source_document": "308216",
+        "original_line": 223,
+        "text": "  * cite32†delhi rent control",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20534,
+              20566
+            ],
+            "raw_byte_range": [
+              20908,
+              20948
+            ],
+            "raw_physical_line": 207,
+            "original_line": 223
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L224",
+        "source_document": "308216",
+        "original_line": 224,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20573,
+              20573
+            ],
+            "raw_byte_range": [
+              20955,
+              20955
+            ],
+            "raw_physical_line": 207,
+            "original_line": 224
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L225",
+        "source_document": "308216",
+        "original_line": 225,
+        "text": "  * cite33†mischief",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20580,
+              20602
+            ],
+            "raw_byte_range": [
+              20962,
+              20992
+            ],
+            "raw_physical_line": 208,
+            "original_line": 225
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L226",
+        "source_document": "308216",
+        "original_line": 226,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20609,
+              20609
+            ],
+            "raw_byte_range": [
+              20999,
+              20999
+            ],
+            "raw_physical_line": 208,
+            "original_line": 226
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L227",
+        "source_document": "308216",
+        "original_line": 227,
+        "text": "  * cite34†Sabyasachi Mukharji",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20616,
+              20649
+            ],
+            "raw_byte_range": [
+              21006,
+              21047
+            ],
+            "raw_physical_line": 209,
+            "original_line": 227
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L228",
+        "source_document": "308216",
+        "original_line": 228,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20656,
+              20656
+            ],
+            "raw_byte_range": [
+              21054,
+              21054
+            ],
+            "raw_physical_line": 209,
+            "original_line": 228
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L229",
+        "source_document": "308216",
+        "original_line": 229,
+        "text": "  * cite35†carries on business",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20663,
+              20696
+            ],
+            "raw_byte_range": [
+              21061,
+              21102
+            ],
+            "raw_physical_line": 210,
+            "original_line": 229
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L230",
+        "source_document": "308216",
+        "original_line": 230,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20703,
+              20703
+            ],
+            "raw_byte_range": [
+              21109,
+              21109
+            ],
+            "raw_physical_line": 210,
+            "original_line": 230
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L231",
+        "source_document": "308216",
+        "original_line": 231,
+        "text": "  * cite36†441",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20710,
+              20727
+            ],
+            "raw_byte_range": [
+              21116,
+              21141
+            ],
+            "raw_physical_line": 211,
+            "original_line": 231
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L232",
+        "source_document": "308216",
+        "original_line": 232,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20734,
+              20734
+            ],
+            "raw_byte_range": [
+              21148,
+              21148
+            ],
+            "raw_physical_line": 211,
+            "original_line": 232
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L233",
+        "source_document": "308216",
+        "original_line": 233,
+        "text": "  * cite37†proprietor",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20741,
+              20765
+            ],
+            "raw_byte_range": [
+              21155,
+              21187
+            ],
+            "raw_physical_line": 212,
+            "original_line": 233
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L234",
+        "source_document": "308216",
+        "original_line": 234,
+        "text": "cite38†About cite39†Disclaimer cite40†Privacy Policy cite41†Terms cite42†Case Removal cite43†Blog†blog.indiankanoon.org [Button: Share URL]",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20772,
+              20929
+            ],
+            "raw_byte_range": [
+              21194,
+              21401
+            ],
+            "raw_physical_line": 212,
+            "original_line": 234
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L235",
+        "source_document": "308216",
+        "original_line": 235,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20936,
+              20936
+            ],
+            "raw_byte_range": [
+              21408,
+              21408
+            ],
+            "raw_physical_line": 213,
+            "original_line": 235
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L236",
+        "source_document": "308216",
+        "original_line": 236,
+        "text": "[Input] [Button: Mobile View]",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20943,
+              20972
+            ],
+            "raw_byte_range": [
+              21415,
+              21444
+            ],
+            "raw_physical_line": 214,
+            "original_line": 236
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L237",
+        "source_document": "308216",
+        "original_line": 237,
+        "text": "",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20979,
+              20979
+            ],
+            "raw_byte_range": [
+              21451,
+              21451
+            ],
+            "raw_physical_line": 215,
+            "original_line": 237
+          }
+        ]
+      },
+      {
+        "id": "IK-308216:L238",
+        "source_document": "308216",
+        "original_line": 238,
+        "text": "cite44†⚖ Case Recast AI ",
+        "provenance": [
+          {
+            "document_id": "308216",
+            "url": "https://indiankanoon.org/doc/308216/",
+            "response_index": 0,
+            "raw_path": "outputs/rgcn-ranking-diagnostic-07/pilot/source-captures/308216-web-open.txt",
+            "raw_sha256": "67c30de12cb8cc9ecf50eaf1cf7b525d0d1ebfe46b325c7d24041b2e12dadf71",
+            "raw_char_range": [
+              20986,
+              21013
+            ],
+            "raw_byte_range": [
+              21458,
+              21495
+            ],
+            "raw_physical_line": 216,
+            "original_line": 238
+          }
+        ]
+      }
+    ],
+    "source_document_status": "COMPLETE_RENDERING",
+    "title": [
+      "Jagan Nath (Deceased) Through L.Rs vs Chander Bhan And Others on 11 May, 1988"
+    ],
+    "usage": "TARGET_CONSTRUCTION_ONLY_NEVER_MODEL_INPUT"
+  }
+}
+END_OF_INPUT 308216

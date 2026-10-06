@@ -1,0 +1,197 @@
+{
+  "case_id": "1106992",
+  "conditions": [
+    {
+      "id": "c1",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises",
+      "description": "The tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises.",
+      "logical_role": "NECESSARY_ELEMENT",
+      "scope": "Delhi Rent Control Act section 14(1)(b) transfer/possession component; supplied statutory reproduction only, with historical consolidation unverified.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c2",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "on or after the 9th day of June, 1952",
+      "description": "Any qualifying subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "logical_role": "NECESSARY_ELEMENT",
+      "scope": "Delhi Rent Control Act section 14(1)(b) temporal predicate; supplied statutory reproduction only, with historical consolidation unverified.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    },
+    {
+      "id": "c3",
+      "rule_id": "LAW:S02:DRC14:1b",
+      "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+      "description": "The qualifying transfer or parting with possession occurred without the landlord's consent in writing.",
+      "logical_role": "NECESSARY_ELEMENT",
+      "scope": "Delhi Rent Control Act section 14(1)(b) written-consent predicate; supplied statutory reproduction only, with historical consolidation unverified.",
+      "dependencies": [],
+      "law_refs": [
+        "LAW:S02:DRC14:1b"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "b1",
+      "fact_id": "f4",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "1979 eviction petition before Additional Rent Controller",
+      "case_refs": [
+        "IK-1106992:L52"
+      ],
+      "reason": "The landlord's petition alleged that West sublet, assigned, or otherwise parted with possession to Caravan; this is a claimed proposition, not an established transfer.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b2",
+      "fact_id": "f9",
+      "condition_id": "c1",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Supreme Court appeal submission",
+      "case_refs": [
+        "IK-1106992:L54"
+      ],
+      "reason": "West expressly denied any subletting, assignment, or parting with possession; the binding preserves the submission as a candidate counter-proposition only.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b3",
+      "fact_id": "f10",
+      "condition_id": "c1",
+      "relation": "DEFEATS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Supreme Court appeal submission",
+      "case_refs": [
+        "IK-1106992:L55"
+      ],
+      "reason": "West claimed that it remained in possession of the premises, which is candidate evidence against a parting-with-possession theory; target acceptance is not imported into the binding.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b4",
+      "fact_id": "f12",
+      "condition_id": "c1",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TARGET",
+      "stage": "Supreme Court appeal submission",
+      "case_refs": [
+        "IK-1106992:L57"
+      ],
+      "reason": "The landlord claimed that West had gone out of the picture and Caravan alone possessed the premises, a candidate proposition supporting parting with possession.",
+      "input_candidate": true,
+      "target_only": false
+    },
+    {
+      "id": "b5",
+      "fact_id": "f5",
+      "condition_id": "c3",
+      "relation": "SUPPORTS",
+      "statement_status": "CLAIMED",
+      "court": "TRIAL",
+      "stage": "1979 eviction petition before Additional Rent Controller",
+      "case_refs": [
+        "IK-1106992:L52"
+      ],
+      "reason": "The landlord alleged that the asserted transfer occurred without obtaining consent. This supports the no-consent predicate only as an allegation and does not establish a distinct finding about written consent.",
+      "input_candidate": true,
+      "target_only": false
+    }
+  ],
+  "element_targets": [
+    {
+      "condition_id": "c1",
+      "status": "DEFEATED",
+      "basis_kind": "FACT_FALSE",
+      "target_refs": [
+        {
+          "id": "IK-1106992:L77",
+          "quote": "the Madras-Bangalore Transport Company (West) continued to be in occupation of the premises even after the Caravan Goods Carrier Private Limited came in. They never effaced themselves."
+        },
+        {
+          "id": "IK-1106992:L78",
+          "quote": "We do not think that there was any sub-letting, assignment or parting with possession of the premises"
+        }
+      ],
+      "reason": "The target court expressly found continued occupation by West and expressly rejected subletting, assignment, or parting with possession; this is nonfulfilment of the transfer/possession element, not merely a failure of proof."
+    },
+    {
+      "condition_id": "c2",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [],
+      "reason": "The target court did not separately decide the statutory date predicate. The 1968 formation of Caravan and the 1979 petition chronology do not establish the date of a qualifying transfer, especially because the court found no such transfer."
+    },
+    {
+      "condition_id": "c3",
+      "status": "UNRESOLVED",
+      "basis_kind": "NOT_DECIDED",
+      "target_refs": [],
+      "reason": "The target court did not expressly adopt a finding that written landlord consent was absent. The frozen input contains only the landlord's allegation, and the target disposed of the section 14(1)(b) ground on the no-transfer determination."
+    }
+  ],
+  "issue_target": {
+    "status": "NOT_SUPPORTED",
+    "target_refs": [
+      {
+        "id": "IK-1106992:L78",
+        "quote": "We do not think that there was any sub-letting, assignment or parting with possession of the premises by Madras-Bangalore Transport Company (West) to Caravan Goods Carrier Private Limited so as to attract Section 14(1)(b) of the Delhi Rent Control Act."
+      }
+    ],
+    "reason": "The fixed section 14(1)(b) eviction ground is not supported at the target stage because the target court expressly rejected the necessary transfer/parting-with-possession element. The unresolved temporal and written-consent predicates are not inferred from the overall disposition."
+  },
+  "gaps": [
+    {
+      "kind": "HISTORICAL_STATUTE_SCOPE",
+      "description": "The supplied section 14(1)(b) text is a current statutory reproduction whose historical consolidation for the target date is expressly unverified, so the proposal cannot certify that the reproduced wording is the authenticated historical text.",
+      "affected_ids": [
+        "LAW:S02:DRC14:1b",
+        "c1",
+        "c2",
+        "c3"
+      ]
+    },
+    {
+      "kind": "AUTHORITY_SCOPE",
+      "description": "LAW:V09:CEL_CONTROL is a 2009 Supreme Court synthesis under a Goa rent statute and postdates the 1986 target decision. Its control/retention principle is therefore not used as a governing target-era Delhi condition without additional scope validation.",
+      "affected_ids": [
+        "LAW:V09:CEL_CONTROL",
+        "c1"
+      ]
+    },
+    {
+      "kind": "INSUFFICIENT_INPUT_FACT",
+      "description": "No frozen inventory fact establishes the date of any qualifying transfer. Fact f3 dates Caravan's formation to 1968 but expressly leaves unknown whether formation itself transferred any tenancy or possessory right.",
+      "affected_ids": [
+        "c2",
+        "f3"
+      ]
+    },
+    {
+      "kind": "INSUFFICIENT_TARGET_FINDING",
+      "description": "The frozen input supplies only f5 as the landlord's no-consent allegation, and the target reasoning does not separately adopt absence of written consent.",
+      "affected_ids": [
+        "c3",
+        "f5"
+      ]
+    }
+  ],
+  "chain_status": "GAP"
+}

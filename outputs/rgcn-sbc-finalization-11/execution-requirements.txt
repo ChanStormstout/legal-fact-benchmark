@@ -1,0 +1,660 @@
+请继续 Legal AI 项目，但本轮任务只有一个目标：
+
+【把当前 S/B/C authority-selection 实验正式收尾。】
+
+不要扩展研究范围，不做 pattern mining，不做 GNN-IRAC，不增加模型复杂度，不继续无限标注。请在当前 V10 基础上完成一次“有界的数据口径处理 → 冻结 → 六次固定拟合 → DEV 集中比较 → 明确停止决定”。
+
+==================================================
+一、版本与历史结果
+==================================================
+
+仓库：
+https://github.com/ChanStormstout/legal-fact-benchmark
+
+分支：
+research/rules-and-verdict
+
+本轮审阅父版本固定为：
+6ac6de5b602412e9ca104cd40f0864f010e67637
+
+V10：
+outputs/rgcn-dev-contract-repair-10/
+
+请先确认：
+- 当前 HEAD；
+- 是否存在未提交修改；
+- V10 冻结文件与源码哈希；
+- 27 TRAIN / 6 DEVELOPMENT / 8 SEALED；
+- 30 authority units；
+- V10 readiness-final 的停止原因；
+- V10 已有的两条 Section 17 scope mismatch 证据。
+
+不要覆盖、重写或倒改 V08/V09/V10 历史结果。
+建立一个新的独立实验目录，例如：
+
+outputs/rgcn-sbc-finalization-11/
+
+不要使用已经存在的 rules-verdict-v11-* 目录。
+
+==================================================
+二、本轮科研问题
+==================================================
+
+当前只回答：
+
+1. 案件条件化信息是否比不看案件的法源共享先验更有实际材料选择价值？
+   即：
+   B > S ?
+
+2. 如果案件信息有价值，R-GCN 是否进一步优于简单案件条件化模型？
+   即：
+   C > B ?
+
+三个现有实现保持不变：
+
+S：
+每个 authority 学习自己的共享三类 logits，不读取案件。
+
+B：
+使用现有 18 项 case-authority features 的无 bias 线性分类器。
+
+C：
+现有两层、16 hidden、2 bases 的 R-GCN + 同一 18 项 features。
+
+本轮不声称这是严格嵌套的机制消融：
+- S 有 authority-specific prior；
+- B 是共享线性模型；
+- C 同时增加文本表示、非线性和图消息传递。
+
+本轮比较的是三个具体系统的 practical downstream performance。
+
+==================================================
+三、绝对禁止事项
+==================================================
+
+本轮禁止：
+
+- 新增 TRAIN / DEV / SEALED 案件；
+- 新增或删除 30 项 authority pool；
+- 启封 SEALED；
+- 新增 ontology；
+- 重抽全部 facts；
+- 重标全部 746 个 TRAIN 标签；
+- 扩展所有 BACKGROUND；
+- 修改 S/B/C 架构；
+- 修改 hidden size、层数、basis 数；
+- 调 learning rate、L2、steps；
+- 新增 seed；
+- class weighting；
+- C0；
+- hyperparameter search；
+- pattern mining；
+- FP-Growth / gSpan / AMIE / AnyBURL；
+- GNN-IRAC；
+- verdict prediction；
+- 新法律回答；
+- 新 review agent；
+- 根据 S/B/C 当前表现挑选要改的标签；
+- 结果不好后自动新增一轮修复。
+
+这轮必须允许得出：
+“S 最值得保留”
+或
+“B 有价值但 C 没有”
+或
+“C 有稳定增益”
+或
+“仍无法判别”。
+
+==================================================
+四、为什么允许进行一次有限数据处理
+==================================================
+
+V10 已完成：
+- TRAIN/DEV 类别映射统一；
+- CORE alias 修复；
+- NO_USE 不再自动作为负例；
+- 可逆 whitespace-only 引文定位；
+- 法律材料 display 去除工程 provenance；
+- TRAIN/DEV 统一构图；
+- unknown alignment 不再错误编码为确定0；
+- DEV 30项候选覆盖；
+- 评价区分 CORE / feasible CORE / document coverage /
+  known irrelevant / unknown。
+
+不要重新做这些。
+
+当前唯一已确认、需要处理的语义风险是：
+
+某些 BACKGROUND 标签或 graph needs/alignment
+把：
+
+“属于同一法律体系”
+“理论上可能涉及 lawful subtenancy / notice / consent”
+
+误当成：
+
+“对当前具体案件/问题具有实际用途”。
+
+V10 固定 TRAIN sample 中明确暴露：
+- 758831 × LAW:S02:DRC:17
+- 115676081 × LAW:S02:DRC:17
+
+不要从两条推断整批标签错误率。
+也不要要求 weak supervision 零错误。
+
+==================================================
+五、本轮唯一允许处理的机制族
+==================================================
+
+只处理以下 4 个 authority units：
+
+1. LAW:S02:DRC:17
+2. LAW:S02:DRC:18
+3. LAW:V09:GL_WRITTEN_CONSENT
+4. LAW:V09:GL_CONCURRING_LIMIT
+
+覆盖：
+27 TRAIN + 6 DEV
+
+最多：
+33 × 4 = 132 个 case-authority positions。
+
+选择这一范围的依据是：
+V10 已经记录的“notice / protected subtenant / written-consent /
+subsequent-status”用途边界风险。
+
+不是根据 S/B/C 排名或模型表现选的。
+
+除这 4 项外：
+- 不重新审核其他 authority-use labels；
+- 不扩大到全部 BACKGROUND；
+- 不自动恢复其他 V10 已隔离项；
+- 不因本轮发现一个范围外错误就扩大处理范围。
+
+范围外新问题只登记，不自动开启新一轮。
+
+==================================================
+六、四类 coarse authority-use 的冻结判准
+==================================================
+
+本轮继续只使用：
+
+CORE
+BACKGROUND
+IRRELEVANT
+UNKNOWN
+
+不要新增训练类别。
+
+判断对象是：
+
+“给定固定 research question、允许来源、程序阶段和法源范围，
+这个 authority unit 对当前分析承担什么作用？”
+
+每个非 UNKNOWN 标签必须能够回答三件事：
+
+1. 当前案哪个具体分析问题需要它？
+2. authority 提供什么法律命题？
+3. 该命题如何帮助分析这个问题？
+
+仅以下理由不够：
+- 同一法典；
+- 同一法律体系；
+- 同样出现 subletting；
+- 将来理论上可能涉及；
+- 没有任何对应事实但“作为背景可能有帮助”。
+
+具体定义：
+
+CORE
+----
+该 authority 提供当前一个重要问题所需要的：
+- governing rule；
+- legal test；
+- element definition；
+- burden / evidentiary standard；
+- material limitation；
+- exception；
+- important counter-rule / counterargument。
+
+如果忽略该法源所提供的法律命题，
+当前分析会出现实质缺口。
+
+CORE 不表示：
+- 支持某一方；
+- 事实条件已经满足；
+- 最终结论确定。
+
+BACKGROUND
+----------
+对当前具体问题有可说明的辅助作用，例如：
+- 解释一个已相关 CORE rule 的上下文；
+- 限定当前确实使用的 analogy；
+- 提供非决定性的佐证；
+- 帮助理解某个已实际出现的法律分支。
+
+必须说明：
+“它具体辅助哪一项当前分析”。
+
+仅“同一体系”“同一主题”“可能以后有用”不能成为 BACKGROUND。
+
+IRRELEVANT
+----------
+根据当前固定问题和允许来源，
+可以有依据地判断该 authority unit 不承担上述作用。
+
+例如：
+- 处理的是另一个法律机制；
+- 当前问题明确不涉及该程序；
+- jurisdiction / statutory mechanism 与本案明确不匹配；
+- 且不存在需要回应的对应主张或限制。
+
+以下情况本身不自动等于 IRRELEVANT：
+- 没有引用；
+- 某条件未满足；
+- 来源没有提到某事实。
+
+UNKNOWN
+-------
+当前材料不足以可靠确定 authority use，
+或者用途边界存在无法通过现有来源解决的分歧。
+
+“rule condition 是否满足未知”
+与
+“rule 对本案是否有用未知”
+必须分开。
+
+技术引文定位失败继续使用 ISOLATED 等状态，
+不能伪装成 IRRELEVANT。
+
+重要 counter-rule / distinguished precedent 可能是 CORE；
+不能因为它反对主要论点就标 IRRELEVANT。
+
+两个 authority 若都可以充分提供同一个重要规则，
+可以都是 CORE candidate；
+不要为了人为制造唯一最佳 authority 把其中一个降为 BACKGROUND。
+但 downstream 评价时不能把重复法源机械当成两个独立不可替代贡献。
+
+==================================================
+七、数据处理必须分成两个互相隔离的路径
+==================================================
+
+为了避免 graph 和 label 互相证明：
+
+A. L-path：authority-use review
+--------------------------------
+输入只能包含：
+- case_id；
+- 原始固定 research question；
+- 程序阶段；
+- 完整 allowed source；
+- 本轮4项 authority 原文及必要 dependencies；
+- 当前已有 use label / reason，仅作为待复核旧记录。
+
+不得提供：
+- S/B/C 排名；
+- selection results；
+- graph alignment；
+- graph review结果；
+- DEV指标；
+- 哪种标签会帮助哪个模型。
+
+输出对每个位置：
+- KEEP；
+- CHANGE（CORE/BACKGROUND/IRRELEVANT）；
+- UNKNOWN；
+- ISOLATE；
+以及简短 source-grounded reason 和 case refs。
+
+B. G-path：graph / alignment review
+-----------------------------------
+必须是独立新对话／独立High任务。
+
+输入只能包含：
+- 同一个原始 research question；
+- allowed source；
+- 4项 authority 的 conditions；
+- 当前 case graph 中与4项相关的 need / fact / relation /
+  condition / alignment proposal。
+
+不得提供：
+- authority-use label；
+- L-path结果；
+- S/B/C排名；
+- selection metrics。
+
+只判断：
+- scope compatibility；
+- need 是否真的由固定问题／来源支持；
+- condition alignment 是否有实际来源桥梁；
+- candidate / uncertain / incompatible 是否合理；
+- 是否存在模型自行扩展出来、但原问题并不要求的旁支。
+
+不能：
+- 因 label=IRRELEVANT 就删 graph；
+- 因 graph scope=DIRECT 就证明 label=BACKGROUND；
+- 为了图和标签一致而互相修。
+
+==================================================
+八、调用预算
+==================================================
+
+把33案按固定、预登记顺序分成6批，
+每批最多6案。
+
+每批：
+
+1次 L-path High
+1次 G-path High
+
+总计最多：
+
+12 次普通 High 数据准备调用。
+
+要求：
+- semantic retry = 0；
+- 失败保留，不补跑；
+- 不增加第三个reviewer；
+- 不根据前一批结果改prompt；
+- 所有task在首次提交前冻结并保存hash。
+
+132只是最大检查位置数，
+不是要求132项都得到确定标签。
+
+无法解决的允许保持 UNKNOWN / ISOLATED。
+
+==================================================
+九、TRAIN / DEV统一处理
+==================================================
+
+本轮overlay完成后：
+
+- TRAIN与DEV调用同一个 category normalization；
+- 同一个 whitespace locator；
+- 同一个 material payload；
+- 同一个 graph builder；
+- 同一个 numeric feature builder；
+- 同一个 dependency recovery；
+- 同一个 selection budget；
+- 同一个 evaluation implementation。
+
+保留不同质量身份，例如：
+- OLD_SOURCE_REVIEWED
+- NEW_SINGLE_PASS_ANCHOR_CHECKED
+- DUPLICATE_PROVENANCE_PARTIAL_LABELS
+- 本轮新review身份
+
+不得把所有KNOWN统一写成“语义验证通过”。
+
+不要修改原始proposal；
+所有变化做versioned overlay，并保存：
+old value
+new value
+reason
+source refs
+review path
+review version。
+
+==================================================
+十、恢复训练的最低gate
+==================================================
+
+本轮不再要求：
+“抽查没有任何错误”。
+
+达到以下条件即可训练：
+
+1. 4项×33案均有明确处理状态：
+   KEEP / CHANGE / UNKNOWN / ISOLATED /
+   REVIEW_NOT_COMPLETED。
+
+2. REVIEW_NOT_COMPLETED、UNKNOWN、ISOLATED
+   不进入确定类别loss。
+
+3. 图和用途两条review路径互相隔离。
+
+4. 没有发现：
+   - target final outcome leakage；
+   - target decisive reasoning leakage；
+   - SEALED读取；
+   - case-source串案；
+   - graph直接读取authority-use target；
+   - 无法确定实际训练使用哪个数据版本。
+
+5. TRAIN每案仍至少有有效监督。
+
+6. DEV全部30项仍有明确评价状态；
+   UNKNOWN不作负例。
+
+7. 新轮生成唯一的 readiness 文件，
+   训练入口必须读取该文件和对应freeze hash。
+   不得只改report中的training_allowed。
+
+8. 所有代码、labels、graphs、features、
+   train standardization、material view、unit pool
+   在training前冻结并保存hash。
+
+如果只是发现：
+“还有某个weak label可能有争议”，
+但它已经被UNKNOWN/ISOLATED处理，
+不能因此继续无限关闭训练。
+
+真正关闭训练的情况只包括：
+- 数据串案；
+- leakage；
+- graph读取target；
+- freeze/version不确定；
+- 统一数据合同无法执行；
+- SEALED污染；
+- 本轮风险范围无法形成明确处理状态。
+
+==================================================
+十一、只进行六次训练
+==================================================
+
+Gate通过后，仅运行：
+
+S × seed 20261004
+S × seed 20261005
+
+B × seed 20261004
+B × seed 20261005
+
+C × seed 20261004
+C × seed 20261005
+
+保持：
+
+steps = 200
+lr = 0.003
+L2 = 0.001
+no class weighting
+mean loss within case, then mean across cases
+30 authorities
+20,000-character material budget
+same dependency closure
+same mandatory base statute
+
+不修改architecture。
+不新增seed。
+不调参。
+不根据DEV结果重新训练。
+
+如果发生技术训练失败：
+- 保存失败；
+- 停止尚未运行项；
+- 不自动retry。
+
+如果只是结果不好：
+- 完成既定六次；
+- 不回头改标签后再跑。
+
+==================================================
+十二、DEV主比较
+==================================================
+
+只使用当前6个DEV：
+
+110204406
+172908545
+58386394
+890045
+1908519
+869439
+
+两个seed分别完整报告。
+
+不要只给一个总accuracy。
+
+每案至少报告：
+
+1. 已知非强制CORE：
+   - delivered
+   - missed
+
+2. 哪些 CORE 是：
+   - governing rule
+   - important limitation
+   - counter-rule / counterargument
+   - potentially replaceable source
+
+3. individually feasible CORE coverage
+
+4. actual 20k-budget material package
+
+5. known IRRELEVANT selected
+   - unit
+   - character cost
+
+6. UNKNOWN selected
+
+7. missing reason：
+   - ranking
+   - dependency bundle
+   - budget
+   - isolated/reference unavailable
+   - other
+
+8. document-level auxiliary coverage
+   但明确：
+   same document != interchangeable paragraph。
+
+9. material changes among S/B/C。
+
+强制§14(1)(b)不计为case-conditioned gain。
+
+不能让多个重复background/core单元的数量
+掩盖漏掉一个重要counter-rule。
+
+==================================================
+十三、预先固定投入决定
+==================================================
+
+训练前把以下规则写入protocol：
+
+A. B相对S
+-----------
+
+只有当：
+- 两个预定seed均出现同向或至少不冲突的
+  case-conditioned material-selection improvement；
+- 收益出现在不止一个DEV case；
+- 没有以丢失重要CORE/counter-rule换取表面计数；
+
+才认为：
+“simple case-conditioned ranking 显示值得继续的开发信号”。
+
+如果：
+S≈B，
+或者B主要只是不可确认优劣的material swap，
+优先保留更简单的S。
+
+B. C相对B
+-----------
+
+只有当：
+- 两个seed都出现可解释增益；
+- 跨多个案件；
+- 不是只靠一个seed；
+- 没有同等严重的重要材料损失；
+
+才保留当前R-GCN作为候选。
+
+如果：
+C一个seed明显好、另一个明显差，
+结论 = unstable，
+暂停扩大GNN。
+
+如果：
+B>S，但C≈B，
+结论 =
+case information useful,
+graph neural message passing not yet justified。
+
+如果：
+S≈B≈C，
+结论 =
+当前任务/监督没有证明case-conditioned ranking净价值，
+本阶段结束。
+
+注意：
+C相对B的收益不能严格归因于message passing，
+因为C同时增加text encoder/nonlinearity/graph propagation。
+本轮不新增C0去分解。
+
+==================================================
+十四、不做的新任务
+==================================================
+
+本轮结束后不要自动开始：
+
+- gSpan；
+- FP-Growth；
+- AMIE；
+- AnyBURL；
+- canonical adapter；
+- GNN-IRAC；
+- sealed test；
+- verdict prediction；
+- 新法律回答。
+
+这些都属于下一研究阶段，
+需要用户单独授权。
+
+==================================================
+十五、交付
+==================================================
+
+必须一次性交付：
+
+1. 本轮 protocol
+2. 固定的4类判准
+3. 132位置以内的 L-path处置表
+4. 独立G-path处置表
+5. overlay change log
+6. final TRAIN/DEV state counts
+7. readiness evidence
+8. pretraining freeze manifest
+9. 六次training logs
+10. 六次probabilities/rankings
+11. 六案×两seed×三方法实际material packages
+12. paired comparison table
+13. 一份简洁的研究结论：
+    - 保留S
+    - 或保留B
+    - 或保留C candidate
+    - 或仍无法判别及具体原因
+14. cost ledger
+
+明确标注：
+- weak supervision；
+- model-assisted source review；
+- not human gold；
+- DEV is not independent test；
+- SEALED untouched；
+- no new legal-answer evaluation。
+
+完成后停止。
+不要自动修改、训练、标注或开启下一研究线。
+不要自动提交或推送，除非用户另行授权。
