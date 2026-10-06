@@ -1,0 +1,84 @@
+{
+  "config": {
+    "seeds": [
+      20261004,
+      20261005
+    ],
+    "updates": 200,
+    "lr": 0.003,
+    "l2": 0.001,
+    "loss": "three-class cross entropy; mean within case then across training cases; no class weighting; L2 same original coefficient",
+    "score": "2*P(CORE)+P(BACKGROUND)",
+    "selection": {
+      "max_legal_characters": 20000,
+      "dependencies": "unchanged atomic closure",
+      "order": "unchanged corpus display order",
+      "max_units": null
+    },
+    "mandatory": [
+      "LAW:S02:DRC14:1b"
+    ],
+    "standardization": "training groups only; no held labels or all-case class priors",
+    "methods": [
+      "S",
+      "B",
+      "C"
+    ],
+    "train_ids": [
+      "38604742",
+      "308216",
+      "1106992",
+      "758831",
+      "1497837",
+      "1381386",
+      "115676081",
+      "1843439",
+      "1859043",
+      "111425525",
+      "68065690",
+      "50313565",
+      "186379114",
+      "188721101",
+      "190527224",
+      "69998629",
+      "133241208",
+      "68096693",
+      "52547606",
+      "191402169",
+      "183917167",
+      "489898",
+      "14884716",
+      "125596702",
+      "84524189",
+      "55384096",
+      "33810117"
+    ],
+    "dev_ids": [
+      "110204406",
+      "172908545",
+      "58386394",
+      "890045",
+      "1908519",
+      "869439"
+    ],
+    "sealed_ids": [
+      "38084532",
+      "123883887",
+      "12668753",
+      "120018816",
+      "84124",
+      "131143878",
+      "199292513",
+      "57407111"
+    ],
+    "units": 30,
+    "max_fits": 6,
+    "max_training_seconds": 1800,
+    "web_calls": 0
+  },
+  "authorization": "27-case partial labels approved, count and duplicate hold no longer absolute gate",
+  "deviation_case": "125596702 accepts8 unchanged anchor-passing records,22 remain isolated; not single-pass",
+  "dev_limit": "old14 annotated; new16 law nodes/conditions present but case alignment UNKNOWN; evaluation references only old14. Not complete30-source validation.",
+  "score_scope": "source-anchored model-reference coverage; not accuracy or exhaustive recall",
+  "no_hyperparameter_search": true
+}

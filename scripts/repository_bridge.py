@@ -216,6 +216,22 @@ def prepare(root=ROOT):
                      + '本地审阅包尚未提交或推送；远端不能假设包含本快照。\n\n'
                      + '历史RESULTS与SOURCES_01–04仍是旧关系基线，不能充当本轮答案或来源。\n\n'
                      + 'raw入口：' + prefix + 'review/START_HERE.md\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_DATA_EXPANSION':
+        cur = policy['current_review']; current_root = str(Path(cur['report']).parent)
+        candidate_report = cur.get('candidate_report', current_root + '/candidate-decisions-v2.json')
+        pool_manifest = cur.get('pool_manifest', current_root + '/authority-pool/manifest.json')
+        comparison_protocol = cur.get('comparison_protocol', current_root + '/main-comparison-contract.json')
+        preparation_freeze = cur.get('preparation_freeze', current_root + '/preparation-freeze.json')
+        stage_description = cur.get('stage_description', 'V08已冻结。这里只完成数据准备的一部分：30项原文法源单元、四个未分配候选；没有30案训练、10案封存测试或新模型成绩。标签任务v4尚未提交，旧10案参考来自14项池。来源核对不是人工金标准。')
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`' + snapshot + '`\n\n'
+                 + cur['summary'] + '\n\n'
+                 + '先读[阶段报告](../' + cur['report'] + ')、[候选来源核对](../' + candidate_report + ')、'
+                 + '[法源池](../' + pool_manifest + ')、[实际划分](../' + current_root + '/split-manifest.json)、'
+                 + '[训练门槛](../' + current_root + '/training-gate.json)。\n\n'
+                 + stage_description + '\n\n'
+                 + '[比较约定](../' + comparison_protocol + ')、[准备快照](../' + preparation_freeze + ')、'
+                 + '[代码](CODE.md)、[文件哈希](MANIFEST.json)、[当前状态](../docs/PROJECT_STATE.json)。'
+                 + '封存内容排除出审阅包；实际封存样本数以划分文件为准。仅本地prepare/verify，没有提交推送。\n')
     if policy.get('current_review', {}).get('review_kind') == 'SOURCE_RETRIEVAL':
         start = start.replace('原始输出、最终prompt及程序轨迹位于 `'+current_root+'/runs/`；允许来源在 `sources/`，共同法律包在 `prepared/<case>/law-package.json`。',
                               '原始回答位于 `'+current_root+'/runs/`，实际任务在 `tasks/`；允许来源在 `sources/*-allowed.json`，完整共同法源在 `library/original-units.json`，各方法实际送达在 `retrieval/<case>/result.json`。')
@@ -248,6 +264,21 @@ def prepare(root=ROOT):
                  + 'run1/保存60次训练、材料选择、同分母比较及源码冻结。pilot/保存新训练试做来源、独立图/标签任务、实际网页记录和解析结果。准备完成、模型返回和独立复核完成是不同状态，请读取web-ledger.json与transport-state.json。\n\n'
                  + '没有新增完整法律回答；旧六案与新试做均不是独立检查集。模型参考不是人工金标准。浏览器截图、页面侧栏和模型权重不进入发布清单。\n\n'
                  + '[文件清单](MANIFEST.json)、[项目状态](../docs/PROJECT_STATE.json)。本地包未提交或推送，GitHub未必包含本版本。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_USE_DEVELOPMENT':
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`'+snapshot+'`\n\n'+cur['summary']+'\n\n'
+                 + '先读[报告](../'+cur['report']+')、[逐案比较](../'+current_root+'/comparison-table.csv)、[用途结果](../'+current_root+'/aggregate-results.json)、[完整回答](../'+current_root+'/final-answer-slots.md)、[集中来源审阅](../'+current_root+'/final-source-review.json)。\n\n'
+                 + '训练/回答冻结分别见training-freeze.json和answer-freeze.json；folds保存80次真实训练，selections保存全部选材，raw/parsed保存9次High回答。源与图复用第07轮pilot，未修改标签或语义。12个逻辑位置共享9份回答，不是12个独立重复。模型参考非人工gold，十案为已暴露开发材料。\n\n'
+                 + '[训练协议](../'+current_root+'/protocol.json)、[输入及消息对照](../'+current_root+'/method-material-differences.json)、[网页成本](../'+current_root+'/web-cost.json)、[保留核验](../'+current_root+'/preservation-audit.json)、[文件清单](MANIFEST.json)。权重、侧栏快照与环境只本地保存；本轮未提交或推送，GitHub不保证包含本版本。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_MAIN_TRAINING':
+        cur = policy['current_review']; current_root = str(Path(cur['report']).parent)
+        start = ('# V09主训练审阅入口\n\n' + cur['summary'] + '\n\n'
+                 + '[中文报告](../' + cur['report'] + ')、[逐案比较](../' + current_root + '/case-comparison.md)、'
+                 + '[汇总](../' + current_root + '/aggregate.json)、[材料取舍](../' + current_root + '/material-changes.json)、'
+                 + '[冻结配置](../' + current_root + '/training-freeze.json)、[实际参数](../' + current_root + '/protocol.json)。\n\n'
+                 + 'runs/保留六次拟合日志及全部开发排名、概率、原文选择；权重仅本地保存。8个封存案例没有运行。'
+                 + '本轮参考为不完整模型标签，新增16项缺少开发对齐与用途，不能当完整30法源评价。'
+                 + '先检查B是否超过S，再检查C是否稳定超过B，不挑选有利种子。没有新完整法律回答。\n\n'
+                 + '[源码](CODE.md)、[发布清单](PUBLICATION.json)、[项目状态](../docs/PROJECT_STATE.json)。仅本地更新，未提交推送。\n')
     save(root, 'review/START_HERE.md', start)
     request = '''请审阅公开仓库的指定分支 https://github.com/%s/tree/%s 。先读取 %sreview/START_HERE.md
 和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
@@ -318,10 +349,27 @@ def prepare(root=ROOT):
         request = ('请只审阅本轮完成的关系图排序实验，不开启新训练或模型调用。先读'+cur['report']+'、training-freeze、implementation-notes、ranking-comparison、seed-and-message-comparison、final-source-review与comparison-table。'
                    + '核对输入图和监督隔离、折内标准化、未知不作负例、条件计数去重、真实梯度及权重更新。重点检查严格引文过滤造成的覆盖不均，以及C/C0最终材料相同的解释边界。'
                    + '同时审阅完整法律回答的新增错误、覆盖取舍和重复变化，不以偏好一致或损失下降代替法律效能。模型参考不是人工gold。npz权重仅本地保存；未推送材料应从本地同版审阅包读取，不能假装GitHub已有。无修改或提交推送授权。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_DATA_EXPANSION':
+        cur = policy['current_review']; current_root = str(Path(cur['report']).parent)
+        request = ('请审阅本地V09数据准备，先读review/START_HERE.md和' + cur['report'] + '。\n\n'
+                   + '重点检查来源身份和允许范围、法源数量单位、其他法域/旧法类比限制、目标与法源来源隔离、'
+                   + 'TRAIN/DEVELOPMENT/SEALED划分、UNKNOWN和未复核用途不作为负例、仅S/B/C的后续门槛。'
+                   + '候选不等于可训练案件，准备稿不等于模型标注，格式通过不证明语义。\n\n'
+                   + cur.get('stage_description', '当前只复用10案旧参考并恢复4个新来源候选，尚未达到30案或准备10个封存案，未运行新训练。')
+                   + '不要读取不存在的最终回答/比较成绩；不自动启动模型、补样、调参或提交推送。'
+                   + '远端尚未发布本快照，不能声称GitHub已包含这些材料。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_MAIN_TRAINING':
+        request = ('请审阅27案不完整监督的首次S/B/C训练。按START_HERE读取报告、逐案材料差异、全部种子及冻结配置。'
+                   + '检查CORE映射、30维共享基线、按案损失、监督与特征隔离、训练标准化及8案未启封。'
+                   + '125596702只纳入8项原样可定位标签，22项隔离；保留重复生成局限。开发对新增16项无对齐和标签，不能推断全面排序优劣。'
+                   + '区分训练拟合、已确认依据送达及未运行的完整法律回答。C的4/11与9/11必须同时报告；不选种子，不把未知当负例。'
+                   + '模型参考不是人工金标准。此审阅不授权训练、补标、提交或推送；远端尚无本地快照。\n')
     save(root, 'review/REVIEW_REQUEST.md', request)
     save(root, 'review/PUBLICATION.json', {'included_count':len(paths),'included_bytes':sum(x['bytes'] for x in base),'excluded':excluded,'unregistered_local_only':['.runtime/','work/','other outputs not registered in docs/repository-artifacts.json'],'policy':'Explicit artifact roots, file limits, no UI captures or third-party paper copies; originals unchanged.'})
     if policy.get('current_review', {}).get('review_kind') == 'RGCN_DIAGNOSTIC_PILOT':
         save(root, 'review/REVIEW_REQUEST.md', '请审阅'+cur['report']+'与local-report-zh.txt、run1/comparison.json、same-denominator-analysis.json、pilot/web-ledger.json。区分已完成本地诊断和新训练数据复核状态。检查S无案件特征、训练折隔离、旧标签预算混杂、C/C0材料而非排名差异、原字节保留、空白修复边界与协议偏差。新标签不以篇幅决定偏好，图与标签任务隔离；未复核记录不能当可靠训练监督。不能把模型一致当准确率、把本地审阅包当已推送。此审阅不授权新模型调用或发布。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'RGCN_USE_DEVELOPMENT':
+        save(root, 'review/REVIEW_REQUEST.md', '请只审阅'+cur['report']+'及training-freeze、supervision、aggregate-results、method-material-differences、comparison-table与final-source-review。核对用途损失按案平均、UNKNOWN/隔离不当负例、S只用训练折、C/C0容量相同及旧图/标签未改。区分分类识别、非强制核心送达、无关字符、完整输入差异与法律回答使用；80偏好仅辅助，双种子不是20独立案。审阅共享回答与真实材料缺口、命题assessment混淆，不能用JSON或UNKNOWN认证正确。当前未显示稳定案件相关收益，C降低部分无关占用不等于完整答案改善。npz及UI仅本地保存，未推送材料从同版审阅包读取。此审阅不授权新运行、语义修复、提交或推送。\n')
     derived = records(root, [p for p in GENERATED if p != 'review/MANIFEST.json'])
     save(root, 'review/MANIFEST.json', {'snapshot_id':snapshot,'repository':repo,'branch':branch,'source_files':[dict(x, raw_url=prefix+quote(x['path'])) for x in base],'derived_files':[dict(x, raw_url=prefix+quote(x['path'])) for x in derived],'generated_by':'python3 scripts/repository_bridge.py prepare','manifest_self_hash_not_included':True})
     return verify(root)

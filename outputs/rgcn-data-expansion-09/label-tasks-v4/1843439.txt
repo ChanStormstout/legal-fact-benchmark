@@ -1,0 +1,1517 @@
+Read only the allowed case passages and candidate authorities below.
+Do not search externally, recover the target judgment's final reasoning, predict
+the historical verdict, or read other conversations. This is coarse authority
+use annotation, not fact extraction or pairwise preference annotation.
+For each authority listed in annotation_target_ids give one use; other supplied
+authorities are common legal context. Previously reviewed uses are reused offline,
+not re-annotated and not shown as proposed answers in this task.
+CORE: materially helps resolve a live issue, including a limiting exception or
+counterargument. An unsatisfied condition does not make the governing law irrelevant.
+BACKGROUND: meaningful context or a qualified analogy, but not decisive on this record.
+IRRELEVANT: supplied facts and issue affirmatively make the unit unhelpful or out of scope.
+UNKNOWN: supplied information does not justify choosing the other three categories.
+Mere citation is not sufficient. No citation is not evidence of irrelevance.
+Distinguish lower-court findings from party claims and target endorsement. Keep
+court, statute, version and analogical limitations in the short reason. A later
+authority may assist retrospective analysis but is not historical prediction evidence.
+Use a brief reason (normally 1-2 sentences), allowed case source IDs, and a
+short exact quote from that authority for known uses. UNKNOWN may have no quote.
+Return one JSON object with case_id, uses and unresolved. Each use has only
+unit_id, category, reason, case_refs and law_quote. Do not add pairwise labels,
+new ontology, fine condition tables or a predicted verdict.
+Complete synthetic example (not evidence or law for this task):
+{"case_id":"EXAMPLE","uses":[{"unit_id":"LAW:EXAMPLE:CONTROL","category":"CORE","reason":"The tenant claims retained control while the lower tribunal found the shop was controlled by another firm; the supplied control principle helps assess that disputed condition.","case_refs":["EXAMPLE:L1"],"law_quote":"Retained legal control must be assessed."}],"unresolved":[]}
+Use the actual IDs in the task, not the example IDs. File output is welcome, but
+provide the complete JSON once; do not repeat it in an additional narrative.
+
+TASK
+{
+  "case_id": "1843439",
+  "question": "On the supplied allowed record, does the alleged subletting, assignment or parting with possession support eviction under Delhi Rent Control Act section 14(1)(b), considering written consent and the limits of the supplied law? Address the fixed ground only, not unrelated eviction grounds or the withheld historical final outcome.",
+  "case": {
+    "case_id": "1843439",
+    "input_scope": "HC supervisory proceeding; lower findings and submissions; final analysis excluded",
+    "coverage": "Complete approved ranges, NOT full judgment; full original held outside all model inputs",
+    "relation_status": "No known shared dispute in chosen titles/dockets; broader links unconfirmed",
+    "segments": [
+      {
+        "id": "IK-1843439:L52",
+        "text": "1. Late Smt. Motia Devi/original respondent No. 2 filed an eviction petition against the petitioners on the ground of subletting under cite12†Section 14(1)(b) of the Delhi Rent Control Act, 1958 (hereinafter referred to as the said Act) in respect of shop No. R-16(D-4/495-A) Aruna Park, Shakarpur Extension, Delhi-92. Petitioner No.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L53",
+        "text": "1 was stated to have been inducted as a tenant by a written rent agreement dated 08.06.1973 and was alleged to have sublet assigned or otherwise parted with the whole of the tenancy shop in favor of petitioner No. 2, his son, without the written consent of the landlord about a year prior to the filing of the petition. It was alleged that petitioner No. 1 had shifted to another premises at Vikas Marg where he was running separate business under the name and style of M/s Dania Photo while petitioner No.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L54",
+        "text": "2 came into exclusive possession of the tenanted premises and was doing the business under the name and style of M/s Dania Photo Service.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L55",
+        "text": "2. The petition was contested by the petitioners and after recording of evidence in terms of the order dated 01.09.1995 the petition was dismissed. The order of the Additional Rent Controller (hereinafter referred to as ARC) records that late Smt. Motia Devi and her son appeared in the witness box. It was alleged that petitioner No. 2 opens and closes the shop and that petitioner No. 2 himself told the witness that he was paying Rs 400 to Rs 500 per month to his father, petitioner No. 1.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L56",
+        "text": "The summons of the petition was also alleged to be served on petitioner No. 1 at the new shop address. Both the petitioners also appeared in the witness box as RW1 and RW2 and deposed that the shop at F-14, Vikas Marg had been taken on rent by petitioner No. 2 and was in his possession since 1975. Petitioner No. 2 was stated to have a license to run the business since 1991 in that premises. The ARC found that respondent No. 2 had failed to establish that the petitioner No.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L57",
+        "text": "1 ever divested himself of the legal possession.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L58",
+        "text": "3. The original petitioner/respondent No. 2 herein aggrieved by the order filed an appeal before the Rent Control Tribunal and the Additional Rent Control Tribunal (hereinafter referred to as the ARCT) in terms of the order dated 30.09.1998 allowed the appeal. It is this order which is sought to be challenged by the petitioners under cite13†Article 227 of the Constitution of India.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L59",
+        "text": "4. The ARCT derived an adverse inference against the petitioner No. 2 on account of the fact that he had failed to produce any written rent agreement in respect of shop No. F-14 Vikas Marg, which was stated to have been taken on rent by him from Sh.Ram Kishan in the year 1975. The landlord of that premises was also not produced as a witness and only a license issued by the MCD in his name dated 15.07.1991 was produced.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L60",
+        "text": "This is also the date of filing of the written statement and thus a conclusion was reached that the license in the name of petitioner No. 2 is not a proof that he himself was running the shop as an independent tenant. It has further been held that if the premises were taken on rent in the year 1975 there was no reason to obtain the license in the year 1991. Another factor taken into consideration by the ARCT is that petitioner No. 1 was served at F-14, Vikas Marg while petitioner No.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L61",
+        "text": "2 was served at suit premises. A finding was thus reached that not only had the original tenant/petitioner No. 1 had taken another premises on rent where he had started running his business but he also allowed his son petitioner No. 2 to occupy the tenanted premises in question exclusively for running his independent business. Thus petitioner No. 1 divested himself not only of physical possession but also of the legal right of possession. If it was otherwise, the premises bearing No.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L62",
+        "text": "F-14, Vikas Marg would have been taken on rent in the name of petitioner No. 2.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L63",
+        "text": "5. The matter came up for hearing on 01.12.2006 when none appeared for the respondent. The hearing was deferred for 06.12.2006. On 06.12.2006 again none appeared for the respondent and thus only learned Counsel for the petitioner was heard.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L64",
+        "text": "6. Learned Counsel for the petitioner has pointed out by reference to the testimony of AW1 son of the respondent that the said witness had deposed that petitioner No. 2 himself had informed him that he had taken the premises from his father/petitioner No. 1 by paying rent of Rs 400 to Rs 500 per month.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L65",
+        "text": "The said witness in cross examination admitted that litigation between the parties was pending for more than 4-5 years and thus it would be inconceivable that such a statement could ever be made by petitioner No. 2 to the son of respondent No. 2 when the parties are already litigating. In fact there are police complaints between the parties.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L66",
+        "text": "Learned Counsel also drew the attention of this Court to Annexure P-1 which is a registration certificate issued under the cite14†Delhi Shops and Establishment Act, 1954 dated 07.07.1983 in respect of F-14, Vikas Marg and the same has been issued in the name of petitioner No. 2. Learned Counsel thus submits that the whole premise of the order of the ARCT that the license obtained in 1991 was only to seek a defense to the petition at that stage cannot be accepted.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L67",
+        "text": "7. Learned Counsel referred to the judgment of the Supreme Court in cite15†Smt. Krishnawati v. Sh Hans Raj to advance the plea that subletting like letting is a particular type of demise of immovable property and is distinct from permissive user like that of a licensee.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L68",
+        "text": "If two persons live together in a house as husband and wife and if one of them who owns the house allows the other to carry on business in a part of it, it will be, in the absence of any other evidence, a rash inference to draw that subletting was made out.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L69",
+        "text": "8. Learned Counsel also emphasized that while dealing with the provisions of cite16†Section 39 of the said Act which provided for a Second Appeal, it was held that only in case of a substantial question of law, could this Court interfere with the findings of the Rent Control Tribunal. This provision has been deleted from the Statute from 1988 and the First Appeal under cite17†Section 38 of the said Act now lies to the Rent Control Tribunal only on a question of law.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L70",
+        "text": "Thus the said parameters would apply and there was no reason for the ARCT to interfere with the Order of the ARC.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L71",
+        "text": "9. Learned Counsel also referred to the judgment of the Apex Court in Jagan Nath (Deceased) through cite18†LRs v. Chander Bhan and Ors. where it has been observed that parting with possession meant giving possession to persons other than to whom the possession had been given by the lease and the parting with possession must have been by the tenant. User by other person is not parting with possession so long as the tenant retains the legal possession himself.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L72",
+        "text": "Thus there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession. In cite19†Vishwa Nath and Anr v. Chaman Lal Khanna and Ors. 1975 RCJ 514 it was held that parting with possession was an implicit requirement and is not just a physical concept.",
+        "source_document": "1843439"
+      },
+      {
+        "id": "IK-1843439:L77",
+        "text": "12. Learned Counsel for the petitioner also submits that it was not petitioner No. 1 who was served at the other tenanted shop but the service was through other members of the family and no adverse inference ought to have been drawn in such a situation.",
+        "source_document": "1843439"
+      }
+    ]
+  },
+  "authority_candidates": [
+    {
+      "id": "LAW:S02:DRC14:1b",
+      "text": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+      "dependencies": [],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE",
+      "source": {
+        "document_id": "18143401",
+        "url": "https://indiankanoon.org/doc/18143401/"
+      }
+    },
+    {
+      "id": "LAW:V21:GR:STATUTE",
+      "text": "In  order to determine this issue it is relevant to\nset out  herein the provisions of S. 10(ii)(a) of the Andhra\nPradesh Buildings  (Lease, Rent  and Eviction)  Control Act,\n1960 (A.P.  Act No.  15 of  1960). Section  10(ii)  runs  as\nfollows :\n          \"A landlord  who seeks  to evict  his tenant shall\n          apply to  the Controller  for a  direction in that\n          behalf. If the Controller, after giving the tenant\n          reasonable opportunity  of showing  cause  against\n          the applicant is satisfied :\n          (ii) that the tenant has, in Andhra area after the\n          commencement of  the Hyderabad  House Rent Control\n          Order of 1953 Fasli without the written consent of\n          the landlord ;\n          (a) transferred  his  right  under  the  lease  or\n          sublet the entire building or any portion thereof,\n          if the  lease does  not confer on him any right to\n          do so.\"\n          Section 2(ix) defines tenant :\n          \"'tenant' means  any person  by whom  or on  whose\n          account  rent   is  payable  for  a  building  and\n          includes the  surviving  spouse,  or  any  son  or\n          daughter, of a deceased tenant who had been living\n          with the tenant in the building as a member of the\n          tenant's family  up to the death of the tenant and\n          a  person   continuing  in  possession  after  the\n          termination of the tenancy in his favour, but does\n          not include  a person  placed in  occupation of  a\n          building by its tenant, etc.\"\n",
+      "version_status": "JUDICIAL_QUOTED_STATUTE_HISTORICAL_SCOPE",
+      "scope": "AP rent Act s10(ii)(a), s2(ix); quoted statutory context; not Delhi law",
+      "dependencies": [],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "GENERAL_RADIO",
+        "url": "https://api.sci.gov.in/jonew/judis/9056.pdf",
+        "date": "1986-04-17",
+        "court_or_publisher": "Supreme Court of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/GENERAL_RADIO.json",
+        "joined_start": 17402,
+        "joined_end": 18969,
+        "segment_offsets": [
+          {
+            "id": "LAW:V16:GENERAL_RADIO:P6",
+            "start": 127,
+            "end": 1694
+          }
+        ],
+        "source_status": "JUDICIAL_QUOTED_STATUTE_HISTORICAL_SCOPE"
+      }
+    },
+    {
+      "id": "LAW:V21:GR:APPLICATION",
+      "text": "     In the  instant case  the  appellant  No.  1  i.e.  M/s\nGeneral Radio and Appliances Co. (P) Ltd. is undoubtedly the\ntenant having  taken lease  of the premises in question from\nthe respondent  landlord by executing a rent agreement dated\n12th January,  1959 at  a rental  of Rs.  200 per month, the\ntenancy\n615\ncommencing from 7th day of January 1959. On the basis of the\nsanction accorded  by order of the High Court of Bombay made\non 27th March 1968 sanctioning the scheme of amalgamation in\nCompany Petition  No. 4  of 1968 filed by the 1st appellant,\nall the  property, rights  and powers  of every  description\nincluding all  leases and  tenancy rights  etc. of  the  1st\nappellant were  transferred to  and vested  or deemed  to be\ntransferred and  vested in  the 2nd  appellant M/s  National\nEkco Radio and Engineering Co. Ltd. It also appears that the\nappellant No.  1 company stood dissolved from 16th of April,\n1968. This  clearly goes  to show that the General Radio and\nAppliances (P)  Ltd., the tenant company has transferred all\nits interest  in the  tenanted premises  in  favour  of  the\nappellant No.  2 i.e National Ekco Radio and Engineering Co.\nLtd. (the transferee company). The order of amalgamation has\nbeen  made  on  the  basis  of  the  petition  made  by  the\ntransferor company  in Company Petition No. 4 of 1968 by the\nHigh Court of Bombay. As such it cannot be said that this is\nan involuntary  transfer effected  by order  of  the  court.\nMoreover the 1st appellant company is no longer in existence\nin the  eye of  law and  it  has  effected  itself  for  all\npractical  purposes.   The  2nd   appellant   company   i.e.\ntransferee company  is now the tenant in respect of the suit\npremises and  the  1st  appellant  company  has  transferred\npossession of  the  suit  premises  in  favour  of  the  2nd\nappellant  company.   There  is   undoubtedly   no   written\npermission or  consent of  the respondent  landlord to  this\ntransfer of  tenancy right  of the  1st appellant company as\nhttp://JUDIS.NIC.IN SUPREME COURT OF INDIA Page 7 of 10 \nrequired under  S. 10(ii)(a)  of the said Act. Moreover even\nit is assumed to be a subletting to the 2nd appellant by the\n1st appellant, such subletting has been made contrary to the\nprovisions of  the said Act and in violation of the terms of\nclause 4  of  the  tenancy  agreement  (Exhibit  P-6)  which\nclearly prohibits  such subletting  of the tenanted premises\nwithout the  written permission  of the landlord. The Andhra\nPradesh Building  (Lease, Rent  and Eviction)  Control  Act,\n1960 is a special Act which provides for eviction of tenants\non certain  specific grounds  mentioned in S. 10 of the said\nAct. There  is no  express provision in the said Act that in\ncase of  any involuntary transfer or transfer of the tenancy\nright by  virtue of  a scheme  of amalgamation sanctioned by\nthe court  by its  order  under  ss.  391  and  394  of  the\nCompanies Act as in the present case, such transfer will not\ncome within  the purview of S. 10(ii)(a) of the said Act. In\nother words such a transfer of tenancy right on the basis of\n616\nthe order  of the court will be immune from the operation of\nthe said  Act and  the transferee tenant will not be evicted\non the ground that the original tenant transferred its right\nunder the lease or sublet the tenanted premises or a portion\nthereof. It  is important  to note  in this  connection  the\ndefinition of  tenant as  given in  S. 2(ix) of the said Act\nwhich provides specifically that a tenant does not include a\nperson placed  in occupation of a building by its tenant. On\na plain  reading of  this provision it is crystal clear that\nany person  placed in occupation of a building by the tenant\ncannot be  deemed or considered to be a tenant in respect of\nthe premises in which the said person is to be in possession\nwithin the  meaning of  the said  Act.  Therefore,  the  2nd\nappellant i.e.  National Ekco Radio and Engineering Co. Ltd.\nthe transferee company who has been put in possession of the\ntenanted premises by the transferor tenant General Radio and\nAppliance Co.  (P) Ltd.  cannot be deemed to be tenant under\nthis Act  on the  mere plea that the tenancy right including\nthe leasehold interest in the tenanted premises have come to\nbe transferred  and vested  in the transferee company on the\nbasis of  the order  made under  ss.  391  and  394  of  the\nCompanies Act.\n",
+      "version_status": "JUDICIAL_ADOPTED_HISTORICAL_SCOPE",
+      "scope": "Company-proposed ss391/394 amalgamation under AP rent Act and lease clause4; judicial adopted application",
+      "dependencies": [
+        "LAW:V21:GR:STATUTE",
+        "LAW:V21:GR:REPORTED_DELHI"
+      ],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "GENERAL_RADIO",
+        "url": "https://api.sci.gov.in/jonew/judis/9056.pdf",
+        "date": "1986-04-17",
+        "court_or_publisher": "Supreme Court of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/GENERAL_RADIO.json",
+        "joined_start": 18969,
+        "joined_end": 23388,
+        "segment_offsets": [
+          {
+            "id": "LAW:V16:GENERAL_RADIO:P6",
+            "start": 1694,
+            "end": 3718
+          },
+          {
+            "id": "LAW:V16:GENERAL_RADIO:P7",
+            "start": 0,
+            "end": 2394
+          }
+        ],
+        "source_status": "JUDICIAL_ADOPTED_HISTORICAL_SCOPE"
+      }
+    },
+    {
+      "id": "LAW:V21:GR:REPORTED_DELHI",
+      "text": "     It is  pertinent to  mention  in  this  connection  the\ndecision of  this court  in Parasaram  Harnand Rao v. Shanti\nPrasad Narinder  Kumar Jain  & Anr., [1980] 3 S.C.R. p. 444.\nIn this  case the  appellant landlord  executed a  lease  in\nrespect of the disputed premises in favour of respondent No.\n2 for  three  years  on  1.4.1942.  In  1948  the  appellant\nlandlord filed  a suit  for eviction  of the tenant for non-\npayment of  the rent  and for  conversion  of  user  of  the\npremises. The  suit for  possession  was  dismissed,  but  a\ndecree for  arrears of  rent was passed and it was held that\nLaxmi Bank  was the  real  tenant.  The  Bombay  High  Court\nsubsequently made  an order that the Bank be wound up and in\nthe winding  up proceedings,  the High  Court  appointed  an\nofficial liquidator  who  sold  the  tenancy  right  to  the\nrespondent  No.   1  in  1961.  The  sale  was  subsequently\nconfirmed by  the High  Court and  the respondent No. 1 took\npossession of the premises on 24.2.1961. The landlord\n620\nappellant filed  an application under the Delhi Rent Control\nAct for eviction of the Laxmi Bank and a decree for eviction\nwas passed in favour of the appellant. Thereafter respondent\nhttp://JUDIS.NIC.IN SUPREME COURT OF INDIA Page 10 of 10 \nNo. 1 filed a suit for declaration that he was tenant of the\nlandlord. The suit was dismissed and the appeal against that\norder also  failed. The  respondent No. 1, however, filed an\napplication for  recalling the  warrant of possession issued\nby the  court in  pursuance of  the decree  in favour of the\nappellant. This  ultimately came up in second appeal and the\nHigh Court  allowed the  Rent  Controller's  order  allowing\nrecalling of  warrant of  possession. On  appeal by  special\nleave this  Court held that the amplitude of S. 14(b) of the\nDelhi Rent  Control Act  was wide enough not only to include\nany sublease  but even  an assignment  or any  other mode by\nwhich possession of the tenanted premises is parted. In view\nof the  wide amplitude of s. 14(b), it does not exclude even\nan involuntary sale.\n",
+      "version_status": "REPORTED_PRECEDENT_NOT_FULL_PARASARAM_OPINION",
+      "scope": "Court reports Parasaram and Delhi rent law in liquidation-sale setting; not an independently acquired Parasaram opinion or direct bank s45/s9 holding",
+      "dependencies": [],
+      "coverage_limit": "Exact full reported-precedent paragraph; old OCR and page headers kept.",
+      "source": {
+        "document_id": "GENERAL_RADIO",
+        "url": "https://api.sci.gov.in/jonew/judis/9056.pdf",
+        "date": "1986-04-17",
+        "court_or_publisher": "Supreme Court of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/GENERAL_RADIO.json",
+        "joined_start": 31234,
+        "joined_end": 33323,
+        "segment_offsets": [
+          {
+            "id": "LAW:V16:GENERAL_RADIO:P9",
+            "start": 2537,
+            "end": 3753
+          },
+          {
+            "id": "LAW:V16:GENERAL_RADIO:P10",
+            "start": 0,
+            "end": 872
+          }
+        ],
+        "source_status": "REPORTED_PRECEDENT_NOT_FULL_PARASARAM_OPINION"
+      }
+    },
+    {
+      "id": "LAW:V21:HP:CONTEXT",
+      "text": "Dr. Y.S. Chitale, learned counsel appearing for the petitioners \nrightly contends that the findings reached by the Appellate Court are \nmanifestly erroneous and have caused a grave miscarriage of justice. \nThe finding that there was no subsisting licence existing as on 1st B \nFebruary, 1973 to attract the provisions of s. 15A of the Bombay Rent \nAct in the case of the petitioner-Corporation is vitiated by its failure \nto give effect to the admission contained in .the letter dated 24th \nMarch, 1980 written by respondent No. 2, Smt. Nanki M. Malkani \nwhich is to the effect: \n\"I had given the above flat to the then Essa Standard Inc. \nin December 1968 on leave and licence basis. You as a \nsuccessor in title of that company have been occupying the \nflat as licensee on the same terms and conditions. \n*** *** ••• **' \nAs you and your predecessors in title are reputed organisa­\ntion I had given the flat for your officers use in the expecta­\ntion that you will return the flat, when I require it for my \nown use.'' \nBesides this letter, the learned counsel for the petitioners drew our \nattention to a sheaf of letters exchanged between respondent No. 2 \nSmt. Nanki M. Malkani and the Hindustan Petroleum Corporation \nc \nD \nE \nLtd. sh.owing '1hat she accepted that there was subsisting agreement of \nleave and licence as late as 24th March, 1980 which must by necessary \nimplication, give rise to the inference as to the existence of such a F \nlicence between its predecessor Esso Eastern Inc. as on !st February, \n1973 which conferred on it the status of a protected tenant under \ns. 15A of the Act. Indeed, the corrspondence shows that it was at the \nbehest of respondent No. 2 that every time cm the expiry of a term of \nlicence it came to be renewed from year to year till s. 15A of the \nBombay Rent Act was brought into force. Thereafter, the predeces- G \nsor-in-interest of the petitioner, corporation was deemed to be her \ntenant under s. 15A of the Bombay Rent Act. For instance, by letter \ndated 9th April, 1975 she wrote to the Hindustan Petroleum Corpora-\ntion Ltd. that the above flat had been in its possession since December \n1, 1968. Again,\"by letter dated 15th November, 1976, she wrote to the \nCorporation forwarding the original bill of the society in support of her H \n58 SUPREME COURT REPORTS [1988] Supp. 3 S.C.R. \ndemand for payment ot enhanced taxes and charges. In view of these \nA admissions ma.de in these letters and more particularly in the letter \ndated 29th November, 1971 to Essa Eastern Inc. which reads as under: \n\"As the present agreement of leave and licence in regard to \nabove flat is due to expire on 30th November, 1973 that is \ntwo years from hence, you would like me to give you an \nundertaking of renewal of this agreement to justify' the \nexpenditure being incurred by you now,\" \nthe findings of the Appellate Court are clearly erroneous. On the \nother hand, it stands proved that Esso Eastern Inc. had acquired the \nstatus of deem¢d tenant or protected licensee under s. !SA of the \nC Bombay Rent Act a~on !st February, 1973. The findings of the Appel­\nlate Court to the contrary are therefore clearly erroneous. We are \nunable to sus'tain the view taken by the Appellate'Court in not giving \neffect to sub-s. (1) of s. 5 which vested the tenancy rights in relation to \nthe flat in question on the Central.Government as from appointed day. \nti> While it is true that a licence being personal is not capable of being \ntransferred; there was no warrant for the assumption by the Appellate \nCourt that the licence stood extinguished with the acquisition of the \nright, title and int,erest of Esso Eastern Inc. under s. 3 of the Acquisi­\ntion Act. That Act came into force on 15th March, 1974 and in the \nmeanwhile, the licensee Esso Eastern Inc. had already acquired the \nl: status of deemed tenant under s. 15A of the Bombay Rent Act as \nadmittedly, there was a subsisting licence as on 1st February, 1973. \nThe Appellate Court has also failed to appreciate that the name of Esso \nEastern Inc. was thanged to Essa Eastern lnc. by a Certificate of \nAmendment dated/22nd December, 1970 vide a Resolution passed by \nthe Board of Directors of the Corporation on 15th December, 1970. In \n~ ·view of all this, the finding of the Appellate Court that the Hindustan \nPetroleum Corporation Ltd. was entitled to the protection of s. 15A of \nthe Bombay Rent Act clearly borders on traversity and can hardly be \nsustained. · \n",
+      "version_status": "JUDICIAL_ADOPTED_HISTORICAL_SCOPE",
+      "scope": "Court treatment of subsisting licence, s15A date and acquisition context; preserve OCR errors",
+      "dependencies": [],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "HINDUSTAN_PETROLEUM",
+        "url": "https://orderlawstorage.blob.core.windows.net/judgements/supreme_court/1988/YWRtaW4vanVkZ2VtZW50X2ZpbGUvanVkZ2VtZW50X3BkZi8xOTg4L1N1cHAuICgzKS9QYXJ0IEkvU18xOTg4XzQ0LTU5XzE3MDIxMDMwMDYucGRm.pdf",
+        "date": "1988-09-19",
+        "court_or_publisher": "Supreme Court of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/HINDUSTAN_PETROLEUM.json",
+        "joined_start": 31298,
+        "joined_end": 35760,
+        "segment_offsets": [
+          {
+            "id": "LAW:V16:HINDUSTAN_PETROLEUM:P14",
+            "start": 146,
+            "end": 2439
+          },
+          {
+            "id": "LAW:V16:HINDUSTAN_PETROLEUM:P15",
+            "start": 0,
+            "end": 2168
+          }
+        ],
+        "source_status": "JUDICIAL_ADOPTED_HISTORICAL_SCOPE"
+      }
+    },
+    {
+      "id": "LAW:V21:HP:VESTING",
+      "text": "The Appellate Court was clearly in error in not appreciating that \n<ji by s. 3 of the Acquisition Act, the right, title and interest of Esso \nEastern In6. in relation to its undertakings in India, shall stand trans­\nferred to, and sh~ll vest in, the Central Government as from the \nappointed ~ay i.e. as from 13th March, 1\\174. Under sub-s. ( 1) of s~ 5 \nthereof, the Central Government became the lessee or tenant, as the \ncase may be. By sub·s. (2J thereof, on the expiry of the term of any \nM · lease or tenancy referred to in sub-s. (1), such lease or tenancy shall, if \n' \n' \nHINDUSTAN PETROLEUM CORPN. v. HOUSING SOCIETY {SEN, J.i 59 \nso desired by the Central Government, be renewed on the same terms \nand conditions on which the lease or tenancy was held by Esso \nimmediately before the appointed day. By a notification issued on the \nnext date, the right, title and interest of the Central Government \nbecame vested in Esso Standard Refining Company of India Ltd., a \nGovernment company, w.e.f. 15th March, 1974. Furthermore, by \nreason of Lube India and Esso Standard Refining Company°of India \nLtd. Amalgamation Order, 1974 made by the Company Law Board \nunder s. 39611.\\ & (2) of the Companies Act, 1956, the undertaking of \nLube lndia Ltd. vested ir, Esso Standard Refining Company of India \nLtd. and immediately upon sucli transfer, the name of Esso Standard \nRefining Company of India Ltd., stood changed to Hindustan \nfetroleum Corporation Ltd. \nIn the premises, petitioner No. 1 Hindustan PetroleumCorpo­\nration Ltd. is clearly protected under s. lSA of the Bombay Rents, \nHotel and Lodging House Rates Control Act, 1947. In that view of the \nmatter, we do not think it necessary to deal with the contention as \nregards the applicability of s. 9) of the Maharashtra Co-operative \nSocieties Act, 1960. All aspects arising out of the submissions as to the \njurisdiction of the Registrar under s. 91(1) of the Act have already \nbeen considered by this Court on O.N. Bhatnagar's case and we reit­\nerate the principles laid down therein. \n",
+      "version_status": "JUDICIAL_ADOPTED_HISTORICAL_SCOPE",
+      "scope": "Specific Esso Acquisition Act ss3/5, notification, s396 and Bombay Rent Act s15A; not general Delhi eviction immunity",
+      "dependencies": [
+        "LAW:V21:HP:CONTEXT"
+      ],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "HINDUSTAN_PETROLEUM",
+        "url": "https://orderlawstorage.blob.core.windows.net/judgements/supreme_court/1988/YWRtaW4vanVkZ2VtZW50X2ZpbGUvanVkZ2VtZW50X3BkZi8xOTg4L1N1cHAuICgzKS9QYXJ0IEkvU18xOTg4XzQ0LTU5XzE3MDIxMDMwMDYucGRm.pdf",
+        "date": "1988-09-19",
+        "court_or_publisher": "Supreme Court of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/HINDUSTAN_PETROLEUM.json",
+        "joined_start": 35760,
+        "joined_end": 37811,
+        "segment_offsets": [
+          {
+            "id": "LAW:V16:HINDUSTAN_PETROLEUM:P15",
+            "start": 2168,
+            "end": 2748
+          },
+          {
+            "id": "LAW:V16:HINDUSTAN_PETROLEUM:P16",
+            "start": 0,
+            "end": 1470
+          }
+        ],
+        "source_status": "JUDICIAL_ADOPTED_HISTORICAL_SCOPE"
+      }
+    },
+    {
+      "id": "LAW:V21:TS:PAR16",
+      "text": "It is, however, unnecessary for the present purpose to carry the matter any further. Prima facie, the rights of the transferor-company in the tenancy, contractual or statutory, are transferable on an amalgamation by virtue of the vesting order to be made by the court while sanctioning the scheme of amalgamation or thereafter and having regard to the nature of such a vesting it would not require the consent of the landlord and would be outside the mischief of the provisions of s. 14(1)(b) of the Rent Control Act. This court is, however, not concerned at this stage if the transfer by or consequent on amalgamation by the order of the court would nevertheless be tantamount to the assignment of a tenancy and if without the consent of the landlord would render the company or the transferee-company liable to eviction under s. 14(1)(b) of the Rent Control Act or otherwise be actionable in a regular civil action against them.\nSuch a matter has to be examined and decided in accordance with the special jurisdiction created by that Act or on a regular civil action, if maintainable. No cause of action accrues to the landlord before the amalgamation and consequential vesting. The cause of action, if any, follows the amalgamation and the vesting. Neither the amalgamation nor the vesting would deprive the landlord of any plea based on alleged assignment which may be open in law to the landlord.\nIf there is any assignment in law, which may attract the provisions of the Delhi Rent Control Act, the landlord would be free to take recourse to the proceedings under that Act or in a regular civil action and such proceedings would be dealt with and decided by the appropriate authority in accordance with law.",
+      "version_status": "JUDICIAL_PRIMA_FACIE_RESERVED_PARTIAL_DOCUMENT",
+      "scope": "Company scheme sanction; prima facie view; Delhi s14(1)(b) eviction question expressly reserved",
+      "dependencies": [],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "TELESOUND",
+        "url": "https://indiankanoon.org/doc/1299689/",
+        "date": "1980-12-05",
+        "court_or_publisher": "Delhi High Court",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/TELESOUND.json",
+        "joined_start": 1274,
+        "joined_end": 2987,
+        "segment_offsets": [
+          {
+            "id": "LAW:V16:TELESOUND:PAR16",
+            "start": 0,
+            "end": 1713
+          }
+        ],
+        "source_status": "JUDICIAL_PRIMA_FACIE_RESERVED_PARTIAL_DOCUMENT"
+      }
+    },
+    {
+      "id": "LAW:V21:BR:S44A",
+      "text": "Section 44A - Procedure for amalgamation of banking companies \n \n1[44A. Procedure for amalgamation of banking companies \n(1) Notwithstanding anything contained in any law for the time being in force, no \nbanking company shall be amalgamated with another banking company, unless a \nscheme containing the terms of such amalgamation has been placed in draft before \nthe shareholders of each of the banking companies concerned separately, and \napproved by a resolution passed by a majority in number representing two- thirds \nin value of the shareholders of each of the said companies, present either in person \nor by proxy at a meeting called for the purpose. \n(2) Notice of every such meeting as is referred to in sub-section (1) shall be given \nto every shareholder of each of the banking companies concerned in accordance \nwith the relevant articles of association indicating the time, place and object of the \nmeeting, and shall also be published at least once a week for three consecutive \nweeks in not less than two newspapers which circulate in the locality or localities \nwhere the registered offices of the banking companies concerned are situated, one \nof such newspapers being in a language commonly understood in the locality or \nlocalities.\n \n(3) Any shareholder, who has voted against the scheme of amalgamation at the \nmeeting or has given notice in writing at or prior to the meeting of the company \nconcerned or to the presiding officer of the meeting that he dissents from the \nscheme of amalgamation, shall be entitled, in the event of the scheme being \nsanctioned by the Reserve Bank, to claim from the banking company concerned, in \nrespect of the shares held b y him in that company, their value as determined by \nthe Reserve Bank when sanctioning the scheme and such determination by the \nReserve Bank as to the value of the shares (o be paid to the dissenting shareholder \nshall be final for all purposes.\n \n(4) If the s cheme of amalgamation is approved by the requisite majority of \nshareholders in accordance with the provisions of this section, it shall be submitted \nto the Reserve Bank for sanction and shall, if sanctioned by the Reserve Bank by \nan order in writing passed  in this behalf, be binding on the banking companies \nconcerned and also on all the shareholders thereof. \n2[***] \n(6) On the sanctioning of a scheme of amalgamation by the Reserve Bank, the \nproperly of the amalgamated banking company shall, by virtue of the order of \nsanction, be transferred to and vest in, and the liabilities of the said company shall, \nby virtue of the said order be transferred to, and become the liabilities of, the \nbanking company which under the scheme of amalgamation is to acquire the \nbusiness of the amalgamated banking company, subject in all cases to  \n3[the \nprovisions of the scheme as sanctioned.] \n4[(6A) Where a scheme of amalgamation is sanctioned by the Reserve Bank under \nthe provisions of this section, the Reserve Bank may, by a further order in writing, \ndirect that on such date as may be specified therein the banking company \n(hereinafter in this section referred to as the amalgamated banking company) \nwhich by reason of the amalgamation will cease to function, shall stand dissolved \nand any such direction shall take effect notwithstanding anything to the contrary \ncontained in any other law. \n(6B) Where the Reserve Bank directs a dissolution of the amalgamated banking \ncompany, it shall transmit a copy of the order directing such dissolution to the \nRegistrar before whom the banking company has been registered and on receipt of \nsuch order the Registrar shall strike off the name of the company. \n(6C) An order under sub -section (4) whether made before or after the \ncommencement of section 19 of the Banking Laws (Miscellaneous Provisions) Act, \n1963 (55 of 1963) shall be conclusive evidence that all the require ments of this \nsection relating to amalgamation have been complied with, and a copy of the said \norder certified in writing by an officer of the Reserve Bank to be a true copy of such \norder and a copy of the scheme certified in the tike manner to be a true c opy \nthereof shall, in all legal proceedings (whether in appeal or otherwise and whether \ninstituted before or after the commencement of the said section 19), be admitted \nas evidence to the same extent as the original order and the original scheme.]\n \n5[(7) Nothing in the foregoing provisions of this section shall affect the power of \nthe Central Government to provide for the amalgamation of two or more banking \ncompanies \n6[***] under section 396 of the Companies Act, 1956 (1 of 1956): \nProvided that no such power shall be exercised by the Central Government \nexcept after consultation with the Reserve Bank.] \n______________________ \n1. Inserted by Act 20 of 1950, Section 8. \n2. Sub-section (5) omitted by Act 55 of 1963, Section 19 (w.e.f. 1-2-1964). \n3. Substituted by Act 55 of 1963, Section 19, for \"the terms of the order sanctioning the scheme\" w.e.f. 1- 2-\n1964. \n4 . Inserted by Act 55 of 1963, Section 19 w.e.f. 1-12-1964. \n5. Inserted by Act 37 of 1960, Section 5. \n6. The words \"in national interest\" omitted by Act 7 of 1961, Section 3. \n \n",
+      "version_status": "OFFICIAL_CONSOLIDATION_AS_AMENDED_2021_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Banking companies voluntary amalgamation procedure; distinct from s45 and bank acquisition Act s9",
+      "dependencies": [],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "BR_ACT_DFS",
+        "url": "https://financialservices.gov.in/sites/default/files/Act-Policies/2026-01/The-Banking-Regulation-Act-1949--1-.pdf",
+        "date": "1949-03-10",
+        "court_or_publisher": "Department of Financial Services, Government of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/BR_ACT_DFS.json",
+        "joined_start": 204363,
+        "joined_end": 209563,
+        "segment_offsets": [
+          {
+            "id": "BR_ACT_DFS:P92",
+            "start": 1738,
+            "end": 2100
+          },
+          {
+            "id": "BR_ACT_DFS:P93",
+            "start": 0,
+            "end": 2791
+          },
+          {
+            "id": "BR_ACT_DFS:P94",
+            "start": 0,
+            "end": 2045
+          }
+        ],
+        "source_status": "OFFICIAL_CONSOLIDATION_AS_AMENDED_2021_HISTORICAL_VERSION_UNVERIFIED"
+      }
+    },
+    {
+      "id": "LAW:V21:BR:S45",
+      "text": "Section 45 - Power of Reserve Bank to apply to Central Government for \nsuspension of business by a banking company and to prepare scheme of \nreconstitution of amalgamation \n \n  \n1[45. Power of Reserve Bank to apply to Central Government for suspension of \nbusiness by a banking company and to prepare scheme of  12[reconstruction] of \namalgamation \n(1) Notwithstanding anything contained in the foregoing provisions of this Part or \nin any other law or 2[any agreement or other instrument], for the time being in \nforce, where it appears to the Reserve Bank that there is good reason so to do, the \nReserve Bank may apply to the Central Government for an order of moratorium in \nrespect of 3[a banking company]. \n(2) The Central Government, after considering the application made by the Reserve \nBank section -section (1), may make an order of moratorium staying the \ncommencement or continuance of all actions and proceedings against the company \nfor a fixed period of time on such terms and conditions as it thinks fit and proper \nand may from time to time extend the period so however that the total period of \nmoratorium shall not exceed six months.\n \n(3) Except as otherwise provided by any directions given by the Central \nGovernment in the order made by it under sub-section (2) or at any time thereafter \nthe banking company shall not during the period of moratorium make any payment \nto any depositors or discharge any liabilities or obligations to any other \ncreditors \n13[or grant any loans or advances or make investments in any credit \ninstruments]. \n4[(4) During the period of moratorium 13[or at any other time], if the Reserve Bank \nis satisfied that- \n(a) in the public interest; or \n(b) in the interests of the depositors; or \n(c) in order to secure the proper management of the banking company; or \n(d) in the interests of the banking system of the country as a whole, \nit is necessary so to do, the Reserve Bank may prepare a scheme- \n(i) for the reconstruction of the banking company, or \n(ii) for the amalgamation of the banking company with any other banking \ninstitution (in this section referred to as \"the transferee bank\").] \n(5) The scheme aforesaid may contain provisions for all or any of the following \nmatters, namely: - \n(a) the constitution, name and registered office, the capital, assets, powers, \nrights, interests, authorities and privileges, the liabilities, duties and \nobligations of the banking company on its reconstruction or as the case may \nbe, of the transferee bank; \n(b) in the case of amalgamation of the banking company, the transfer to \nthe transferee bank of the business, properties, assets and liabilities of the \nbanking company on such terms and conditions as may be specified in the \nscheme; \n(c) any change in the Board of directors, or the appointment of a new Board \nof directors, of the banking company on its reconstruction or, as the case \nmay be, of the transferee bank and the authority of whom, the manner in \nwhich, and the other terms and condition son which, such change or \nappointment shall be made and in the case of appointment of a new Board \nof directors or of any director the period for which such appointment shall \nbe made;\n \n(d) the alteration of the memorandum and articles of association of the \nbanking company on its reconstruction or, as the case may be, of the \ntransferee bank for the purpose of altering the capital thereof or for such \nother purposes as may be necessary to give effect to the reconstruction or \namalgamation; \n(e) subject to the provisions of the scheme, the continuation by or against \nthe banking company on its reconstruction or, as the case may be, the \ntransferee bank, of any actions or proceedings pending against the banking \ncompany immediately before the \n14[reconstruction or amalgamation]; \n(f) the reduction of the interest or rights which the members, depositors \nand other creditors have in or against the banking company before its \nreconstruction or amalgamation to such extent as the Reserve Bank \nconsiders necessary in the public interest or in the interest of the members, \ndepositors and other creditors or for the maintenance of the business of the \nbanking company;\n \n(g) the payment in cash or otherwise to  depositors and other creditors in \nfull satisfaction of their claim- \n(i) in respect of their interest or rights in or against the banking \ncompany before its reconstruction or amalgamation; or\n \n(ii) where their interest or rights aforesaid in or against the banking \ncompany has or have been reduced under clause (f), in respect of \nsuch interest or rights as so reduced;\n \n(h) the allotment to the members of the banking company for shares held \nby them therein before its reconstruction or amalgamation whether their \ninterest in such shares has been reduced under clause (f) or not, of shares \nin the banking company on its reconstruction or, as the case may be, in the \ntransferee bank and where any members claim payment in cash and not \nallotment of shares, or where it is not possible to allot shares to any \nmembers, the payment in cash to those members in full satisfaction of their \nclaim-\n \n(i) in respect of their interest in shares in the banking company \nbefore its reconstruction or amalgamation; or \n(ii) where such interest has been reduced under clause (f) in respect \nof their interest in shares as so reduced; \n(i) the continuance of the services of all the employees of the banking \ncompany (excepting such of them as not being workmen within the meaning \nof the Industrial Disputes Act, 1947 (14 of 1947), are specifically mentioned \nin the scheme) in the banking company itself on its reconstruction or, as the \ncase maybe, in the transferee bank at the same remuneration and on the \nsame terms and conditions of service, which they were  getting, or as the \ncase may be, by which they were being governed, immediately before \nthe \n14[reconstruction or amalgamation]: \nProvided that the scheme shall contain a provision that- \n(i) the banking company shall pay or grant not later than the \nexpiry of the period of three years from the date on which the \nscheme is sanctioned by the Central Government, to the said \nemployees the same remuneration and the same terms and \nconditions of service \n5[as are, at the time of such payment or \ngrant, applicable] to emp loyees of corresponding rank or \nstatus of a comparable banking company to be determined \nfor this purpose by the Reserve Bank (whose determination \nin this respect shall be final); \n(ii) the transferee bank shall pay or grant not later than the \nexpiry of the aforesaid period of three years, to the said \nemployees the same remuneration and the same terms and \nconditions of service 5[as are, at the time of such payment or \ngrant, applicable] to the other employees corresponding rank \nor status of the transferee bank  subject to the qualifications \nand experience of the said employees being the same as or \nequivalent to those of such other employees of the transferee \nbank: \nProvided further that if in any case under clause (ii) of \nthe first proviso any doubt or difference as to whether \nthe qualification and experience of any of the said \nemployees are the same as or equivalent to the \nqualifications and experience of the other employees \nof corresponding rank or status of the transferee \nbank \n6[the doubt or difference shall be  referred, \nbefore the expiry of a period of three years from the \ndate of the payment or grant mentioned in that \nclause,] to the Reserve Bank whose decision thereon \nshall be final; \n(j) notwithstanding anything contained in clause (i) where any of the \nemployees of the banking company not being workmen within the meaning \nof the Industrial Disputes Act, 1947 (14 of 1947), are specifically mentioned \nin the scheme under clause (i) or where any employees of the banking \ncompany have by notice in writing given to the banking company, or, as the \ncase may be, the transferee bank at any time before the expiry of the one \nmonth next following the date on which the scheme is sanctioned by the \nCentral Government, intimated their intention of not becoming employees \nof the banking company on its reconstruction or, as the case may be, of the \ntransferee bank, the payment to such employees of compensation, if any, \nto which they are entitled under the Industrial Disputes Act, 1947, and such \npension, gratuity, provident fund and ot her retirement benefits ordinarily \nadmissible to them under the rules or authorisations of the banking \ncompany immediately before the \n14[reconstruction or amalgamation]; \n(k) any other terms and conditions for the reconstruction or amalgamation \nof the banking company;\n \n(l) such incidental, consequential and supplemental matters as are \nnecessary to secure that the reconstruction or amalgamation shall be fully \nand effectively carried out. \n(6)     (a) A copy of the scheme prepared by the Reserve Bank shall be sent in draft \nto the banking company and also to the transferee bank and any other banking \ncompany concerned in the 15[reconstruction or amalgamation], for suggestions and \nobjections, if any, within such period as the Reserve Bank may specify for this \npurpose. \n(b) The Reserve Bank may make such modifications, if any, in the draft \nscheme as it may consider necessary in the light of the suggestions and \nobjections received from the banking company and also from the transferee \nbank, and any other banking company concerned in the amalgamation and \nfrom any members, depositors or other creditors of each of those companies \nand the transferee bank. \n(7) The scheme shall thereafter be placed before the Central Government for its \nsanction and the Central Government may sanction the scheme without any \nmodifications or with such modifications as it may consider necessary, and the \nscheme as sanctioned by the Central Government shall come into force on such \ndate as the Central Government may specify in this behalf: \nProvided that different dates may be specified for different provisions of the \nscheme. \n7[(7A) The sanction accorded by the Central Government under sub -section (7), \nwhether before or after the commencement of  section 21  of the Banking Laws \n(Miscellaneous Provisions) Act, 1963 (55 of 1963) shall be conclusive evidence that \nall that requirements of this section relating to reconstruction, or, as the case may \nbe, amalgamation have been complied with and a copy of the sanctioned scheme \ncertified in writing by an officer o f the Central Government to be a true copy \nthereof, shall, in all legal proceedings (whether in appeal or otherwise and whether \ninstituted before or after the commencement of the said section 21), be admitted \nas evidence to the same extent . as the original scheme.]\n \n(8) On and from the date of the coming into operation of the scheme or any \nprovision thereof, the scheme or such provision shall be binding on the banking \ncompany, or, as the case may be, on the transferee bank and any other banking \ncompany concerned in the amalgamation and also on all the members, depositors \nand other creditors and employees of each of those companies and of the transferee \nbank, and on any other person having any right or liability in relation to any of \nthose companies or the transferee bank  \n8[including the trustees or other persons \nmanaging, or connected in any other manner with, any provident fund or other \nfund maintained by any of those companies or the transferee bank]. \n(9) 9[On and from the date of the coming into operation or, or as the case may be, \nthe date specified in this behalf in, the scheme], the properties and assets of the \nbanking company shall, by virtue of and to the extent provided in the scheme, \nstand transferred to, and vest in, and the liabilities of the banki ng company shall, \nby virtue of and to the extent provided in the scheme, stand transferred to, and \nbecome the liabilities of the transferee bank. \n(10) If any difficulty arises in giving effect to the provisions of the scheme, the \nCentral Government may by order do anything not inconsistent with such \nprovisions which appears to it necessary or expedient for the purpose of removing \nthe difficulty. \n(11) Copies of the scheme or of any order made under sub -section (10) shall be \nlaid before both Houses of Parliam ent, as soon as may be, after the scheme has \nbeen sanctioned by the Central Government, or, as the case may be, the order has \nbeen made.\n \n(12) Where the scheme is a scheme for amalgamation of the banking company, \nany business acquired by the transferee bank  under the scheme or under any \nprovision thereof shall, after the coming into operation of the scheme or such \nprovision, be carried on by the transferee bank in accordance with the law \ngoverning the transferee bank, subject to such modifications in that la w or such \nexemptions of the transferee bank from the operation of any provisions thereof as \nthe Central Government on the recommendation of the Reserve Bank may, by \nnotification in the Official Gazette, make for the purpose of giving full effect to the \nscheme:\n \nProvided that no such modification or exemption shall be made so as to \nhave effect for a period of more than seven years from the date of the \nacquisition of such business. \n(13) Nothing in this section shall be deemed to prevent the amalgamation with a  \nbanking institution by a single scheme of several banking companies in respect of \neach of which an order of moratorium has been made under this section.\n \n(14) The provisions of this section and of any scheme made under it shall have \neffect notwithstanding anything to the contrary contained in any other provisions \nof this Act or in any other law or any agreement, award or other instrument for the \ntime being in force. \n(15) In this section, \"banking institution\" means any banking company and includes \nthe Stale Bank of India \n16[***] or a corresponding new bank]. \n11[Explanation.-References in this section of the terms and conditions of \nservice as applicable to an employee shall not be construed as extending to \nthe rank and status of such employee.]\n \n______________________ \n1. Inserted by Act 37 of 1960, Section 6. \n2. Substituted by Act 7 of 1961, Section 4, for \"any agreement\". \n3. Substituted by Act 7 of 1961, Section 4, for \"the banking company\". \n4. Substituted by Act 7 of 1961, Section 4, for sub-sections (4) to (9). \n5. Substituted by Act 1 of 1984, Section 34 for \"as are applicable\" w.e.f. 15-2-1984. \n6. Substituted by Act 1 of 1984, Section 34 for \"the doubt or difference shall be referred\" w.e.f. 15-2-1984. \n7. Inserted by Act 55 of 1963, Section 21 w.e.f. 1-2-1964. \n8. Inserted by Act 1 of 1984, Section 34 w.e.f. 15-2-1984. \n9. Substituted by Act 1 of 1984, Section 34 for certain words w.e.f. 15-2-1984. \n10. Substituted by Act 1 of 1984, Section 34 for certain words w.e.f. 15-2-1984. \n11. Inserted by Act 1 of 1984, Section 34 w.e.f. 15-2-1984. \n12. Substituted by Banking Regulation (Amendment) Act, 2020, w.e.f. 26.06.2020, for the following:- \n\"reconstitution\" \n13. Inserted by Banking Regulation (Amendment) Act, 2020, w.e.f. 26.06.2020. \n14. Substituted by Banking Regulation (Amendment) Act, 2020, w.e.f. 26.06.2020, for the following:- \n\"date of the order of moratorium\" \n15. Substituted by Banking Regulation (Amendment) Act, 2020, w.e.f. 26.06.2020, for the following:- \n\"amalgamation\" \n16. Omitted by Banking Regulation (Amendment) Act, 2020, w.e.f. 26.06.2020, the previous text was:- \n\"or 10[a subsidiary bank\"  \n \nPart 3A - SPECIAL PROVISIONS FOR SPEEDY DISPOSAL OF WINDING UP \nPROCEEDINGS \n \n1[PART IIIA \nSPECIAL PROVISIONS FOR SPEEDY DISPOSAL OF WINDING UP PROCEEDINGS \n_________________________ \n1. Substituted by Act 52 of 1953, Section 10, fro the former Part IIIA which was Inserted by  Act 20 of 1950, \nSection 10. \n \n",
+      "version_status": "OFFICIAL_CONSOLIDATION_AS_AMENDED_2021_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "RBI/Central Government moratorium and reconstruction/amalgamation regime, including conditions and override; individual scheme still necessary",
+      "dependencies": [],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "BR_ACT_DFS",
+        "url": "https://financialservices.gov.in/sites/default/files/Act-Policies/2026-01/The-Banking-Regulation-Act-1949--1-.pdf",
+        "date": "1949-03-10",
+        "court_or_publisher": "Department of Financial Services, Government of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/BR_ACT_DFS.json",
+        "joined_start": 211548,
+        "joined_end": 227395,
+        "segment_offsets": [
+          {
+            "id": "BR_ACT_DFS:P95",
+            "start": 1796,
+            "end": 1973
+          },
+          {
+            "id": "BR_ACT_DFS:P96",
+            "start": 0,
+            "end": 2231
+          },
+          {
+            "id": "BR_ACT_DFS:P97",
+            "start": 0,
+            "end": 2205
+          },
+          {
+            "id": "BR_ACT_DFS:P98",
+            "start": 0,
+            "end": 2323
+          },
+          {
+            "id": "BR_ACT_DFS:P99",
+            "start": 0,
+            "end": 2259
+          },
+          {
+            "id": "BR_ACT_DFS:P100",
+            "start": 0,
+            "end": 2747
+          },
+          {
+            "id": "BR_ACT_DFS:P101",
+            "start": 0,
+            "end": 2318
+          },
+          {
+            "id": "BR_ACT_DFS:P102",
+            "start": 0,
+            "end": 1580
+          }
+        ],
+        "source_status": "OFFICIAL_CONSOLIDATION_AS_AMENDED_2021_HISTORICAL_VERSION_UNVERIFIED"
+      }
+    },
+    {
+      "id": "LAW:V21:BC1980:S9",
+      "text": "\n9. Power of Central Govemment to make scherte.-(1) The Central\nGovemment may, after consultation with the Reserve Banl<, make a scheme for\ncarrvins out the orovisions of this Act.\n(21 in particulir, and without prejudice to the generality of the foregoing power,\nthe said scheme may provide for all or any of the followinl; matters, name]y:-\n(a) the capital structure of the corresponding neu bank '[...];(b) the constitution of the Board of Directors by u'hatever name called,\nof the corresponding new bank and all such rnatters in cormection\ntherewith or incidental thereto as the Centtal Government may\nconsider to be necessary or exPedient;\n(c) the reconstitution of any corresponding new bank into two or more\ncorporations, the amalgamation of any conespond ing new bank with any\nother corresponding new bank or with another banking irstitution the\ntransfer of tfie whoie or any part of the undertaking of z[corresponding\nnew banl to any other corresponding new bank or banking institutionl\nor the harufer of the whole or any palt of the undertaking of any other\nbanking institution to a cofi€sponding new banJi;\n3[(ca) the manner in which the excess nurnber of directors shall retire\nunder the second proviso to clause (i) of sub-r;ection (3)l\n(d) such incidental, consequential and supplemen:al matters as may be\nnecessary to carry out the provisions of this l.ct.4[(3) Every Board of Directors of a corresponding new bank, constituted\nunder any scheme made under sub-section (1), shall include-5[(a) not more than five whole-time directors to be appointed by the\nCentral Govemment after consultation with tlrc Reserve Banl:\nProvided that the Central Govemment, may, after consultation\nwith the Resewe Bank, by noffication published in the Official\nGazette, post a wholetime director so appointed to any other\ncorresponding new bank.\nExplanation.-For the purposes of this c lause, the expression\n\"corresponding new banl<\" shall include a \"corresponding new\nban-k\" as defined in clause (d) of section 2 of the Banking Companies\n(Acquisition and Transfer of Undertakints) A<:t, 1970 (5 ot 1970);l\n(b) one director who is an official of the Centr,rl Government to be\nnominated by the Central Govemment:\nProvided that no such director shall be a director of any other\ncorresponding new bank.\n1. Certain words omitted by A.l 37 ot 1994, s€c. 14 (w.e-f- k1995). Earlie! daus€ (a) was\namended by Act 66 of l9il8, sec. %(a)(i) (w.e.f. 30-12-1988) and t,y Act 36 of 1992, sec 3ft)\n(w.e.f. l-1I-'1992).\n2. Subs. by Act 66 of 1988, sec. %(aXn), for \"corr€sponding new l)ar* to any odner banking\ninstihrtion \" (w.e.f. 3&12-1988).\n3. tns. by Act 45 of 2006, sec. 9(a) (w.e.f. 161G2006).\n4. sub-d,ctions (3), (3A) and 3(B) substituled by Act 37 of 7994, :;ec. 14, for sub-section (3)\n(w.e.f. 3-4-1995).\n5. Subs. by the Finance (No. 2) Act, mlg Q3 ot mlr, sec. 151. fo! dause (a) [w.e.I. 9-8-2019,\nuide S.O. 2901(E), dated 9th Augusl 20191. Earlier clause (a) was amended by Act 45 of 2006,\nsec.9(bxi) (w.e.f. 1G1G2006). ehuse (a), before substitution, stocd as under:\n\"(a) not more than four whole-time directors to be appointed by the Cenkal Covemment\nafter consultation with the Reserve Bank;\".\nSec.9l\n1[(c)\n,t**I\n(e)\n1 Subs. by Act 45 of 2006, s€€. g(bxn), for claus€ (c) (w.e.f. 1610-2006). Ctause (c), before\nsubstifutioo stood as under:\n\"(c) one directo! who is an officer of the Reserve Bank to be nominated by the Central\nCovemment on the lecorunendation of the Reserve Bank;\nErplanation.-Fot tle purpose of this daus., \"an officer of the Reserve Baik\" indudes\nan ofacer of the Res€.rve Bank who is deputed by that Eank under section 54AA of the\nReserve Bank of lndia Act, 19!4 \\2 ol 7934) to any institution referr€d to therein;\".\n2- Clause (d) omitted by Act 45 of 2006, s€c. 9(in) (w.e.f. 1G1G2006). Cllause (d), before omissioo\nstood as trndei\n\"(d) not more *lan two dir€ctors to b€ nominaH by the Centra.l Govemmgt iom amon$it the\nSecurities and Exchange Boad of India established under section 3 of the Secudties and\nExclunge Board of lndia Act, 1992 (15 of 1992), the National Bank for Agricu.ltue and Rural\nDevelopm€nt €stablished urder section 3 of the National Bank for Agricultue and Rual\nDevelopment Act, 1981 (15 of 1%1), public financial institutiorE as s?ecified in sub-6€ctidr\n(1), or notilied from time to time undet sub-section (2), of section 4A of tle Companies Act,\n1956 (1 of 1955) and other institutions established o. constituted by or under any C€nEal\nAct oi irrorporated r.rnder tre Companies Act, 1956 and having n;t kss than fiIt!-one per\ncrnt oI rtle paid-up share capital lEld or conEolled by the Centra.l Covemment'i\n3. Subs. by Act ,l5 of 2005, sec. 9(iv), for clause (i) (w.e.f. 161(!2006). Ctause (i), before\nsubstihrtioo stood as under:\n\"(i) where the capital issued under clause (c) of sub-eection (28) of section 3 is-(I) not morc than twenty per c€nt. o, the total paid-up capital, not more than two\ndirectorE.\n(tr) more than twenty per cent but not morc tIEn fo.ty Fr cent. of the total paid-up\ncapita! not more than four directors,\n(Itr) mole tlEn forty per cent of the total paid-up capital, not dlo.e than six directors.\nto be elected by the shareholders, othe! than the Centra.l Govemment, flom\namongst thetns€lves:\nProvided that on the assumption of charge afte! electir>n of any such directors\nunder thi6 claus€, equal nurnber of directo.s nominated under alause (h) shall\nletire in such manner as Elay be specified in the scheme\".\n(0\n(g)\n(h)\n3t(i)\nThe Banking Companies (Acguisilion and Transler 41\nol undeftakings) Act, 1980\nExplanation.-Fot the purposes of this clause, the express.ion\n\"corresponding new bank\" shall include a corresponding new bank\nwithin the meaning of the Banking Companies (Acqulsition and\nTransfer of Undertakings) Act, 1970 (5 ot [970\\;\none director, possessing necessary expertist,and experience in\nmatters relating to regr.rlation or supervision of commercial banks,\nto be nominated by the Central Govemment on the recomrnendation\nof the Reserve Bankl\none director, from among such of the employees of the corresponding\nnew bank who are workmen under clause (s) of section 2 of thi\nIndustrial Disputes Act, 1947 (14 ot 1947) to be nominated by the\nCentral Govemment in such manner as may be specified in a scheme\nmade under this section;\none director, from among the employees of the corresponding new\nbank who are workmen under clause (s) of section 2 of ihe Industrial\nDisputes Act, 1947 (14 of 79471, to be nomlrated by the Central\nGovemment after consultation with the Reserve Banli;\none director who has been a Chartered Accountant for not less\nthan fifteen years to be nominated by the Central Government after\nconsultation with the Reserve Ban-k;\nsubrect to the provisions of clause (i) not more than six directors to\nbe nominated by the Central Govemment;\nwhere the capital issued r,rnder clause (c) of sub-section (28) of\nsection 3 is-\n42 The Banking Companies (Acquisition and Transfq [Sec.9\not Undedakings) Act, 1980\n(I) not more than sixteen per cent. of the total paid-up capital, one\ndirector;\n(II) more than sixteen Per cent. but not more than thirty-two per\ncent. of the total Paid-uP caPital, two dire(:tors;\n(Itr) more than thtty-two Per cent. of the total Paid-uP caPital, three\ndirectors,\nto be elected by the shareholders, other than the Central Govemment,\nfrom amongst themselves:\nProvided that on the assumption of charge after election of any such\ndirector under this clause, equal number of directors nominated under\nclause (h) shall retire in such manner as may be sp-'ci6ed in the scheme:\nProvided further that in case the number of di:ectors elected, on or\nbefore the commencement of the Banking Comparies (Acquisition and\nTransfer of Undertakings) and Financial lnstitutions Laws (Amendment)\nAct, 2006, in a correspo-nding new banl< exceed thr: number of directors\nspecified in sub-chGe (l) oi sub-clause (II) or srrb-clause (III), as the\ncise may be, such excess number of dtectors elected before such\ncommeniement shall refue in such manner as may be specified\nin the scheme and such directors shall not be tntitled to claim any\ncompensation lor the premature retirement of the ir term of office.]\n(3A) The directors to be nominated under clause (h) or to be elected under\nclauie (i) of sub-section (3A) shail-\n(A) have special knowledge or practical experienc,: in resPect of one or\nmore of the following matters, namely:-\n(i) agricultural and rural economy/\n(ii) banking,\n(iii) co-operatiory\n(iv) economics,\n(v) finance,\n(vi) Iaw,\n(vii) small-scaleindustry\n(viii) any other \n. \nmatter the special knowledl;e -oj, qnd pra_ctic3l\nexperience in, which would, in the opinior. of the Reserve Bank,\nbe useful to the corresponding new bank;\n(B) represent the interests of depositors; or\n(C) represent the interests of farmers, workers an,l artisars.\n1[(3AA) Without prejudice to the Provisions of sub-section (3A) and\nnotwithstanding anything to the contrary contained in this Act or in any other\nlaw for the tirf,e fi'ing It fot\"\", no pei.ott shatl be elig,ible to be eleited as\ndirector under clause (i) of sub-section (3) unless he is a 1;erson having fit and\nproper status based upon track record, integrity and such other criteria as the\nReserve Bank may notify ftom time to time in this regartt.l\n1[(3AB) The Reserve Bank also specify in the notificatjon issued under sub-\nsection (3AA), the authority to determine the fit and Proper status, the manner\n1. Ins. by Act tl5 of 2006, sec. 9(c) (w.e.f. 1G10-2006)\nSec.9l The Banking Companias (Acquisition and Transfer\not Undertaking€) Act, 1980\n1. Subs. by Act 45 of 2005, sec. 9(d), Iot \"sub-section (3A)\" (w.e.f. 1&10-2006).\n2. Ins. by Act 1 of 198'4, sec. 72 (w.e,L l5-2-19U\\.\n3. Erplanotion re.numbered as Erplonation I by Act 66 of 1988, sec. 36(b) (w.e.f. 30-12-1988).\n4. k$. by Act 66of 1988, sec. 36(b) (w.e.f. 30-12-1988).\n5. Sub-s€ction (5) re-numbered as sub-sechon (6) by Act 1 of 1984, sec. 72 {w,e.f,7*2-798l)\n43\nof such determinatiory the procedure to be followed for such determination\nand such other matters as may be considered necessary or incidental thereto.]\n(38) Vr'here the Reserve Bank is of the opinion that any director of a\ncorresponding new bank elected under clause (i) of sub-section (3) does not\nfuIfil the requirements of l[sub-section (3A) and sub-section (3AA)], it may, after\ngiving to such director and the bank a reasonable opportunity of being heard, by\norder, remove such director and on such removal, the Board of Directors shall\nco-opt any other person ftrfilling the requirements of l[sub-section (3A) and\nsub-section (3AA)l as a dtector in place of the person so removed till a director\nis duly elected by the shareholders of the corresponding new ban-k in the next\nannual general meeting and the person so co-opted shall be deemed to have been\nduly elected by the shareholders of the corresponding new bank as a director.l\n(4) The Central Govemment may, after consultation u'ith the Reserve BanI,\nmake a scheme to amend or vary any scheme made under sub-section (1).\n2[(5) On and from the date of coming into operation of a scheme made under\nthis section with respect to any of the matters referred to in clause (c) of sub-\nsection (2) or any matters incidental, consequential and supplemental thereto,-\n(a) the scheme shall be binding on the corresponding new bank or\ncorporations or banking institutions, and also on the members, if\nany, the depositors, and other creditors and employees of each of\nthem and on any other person having any right or liability in relation\nto any of them including the trustees or other persons, managing or\nin any other manner connected with, any provident ftrnd or other\nftrnd maintained by any of them;\n(b) the properties and assets of the correspondin5; new bank, or, as the\ncase ma)' be, of the banking institution shall, by virtue of and to\nthe extent provided in the scheme, stand transferred to, and vested\nin, and the Iiabilities of the corresponding nerv bank or, as the case\nmay be, of the banking institution shall, by virtue of, and to the\nextent provided in the scheme, stand kansferred to, and become the\nLiabfities of the corporation or corporations brought into existence\nby reconstitution of the banking institution or the corresponding\nnew bank, as the case may be.\n3lEtplanation f.l-ln this section, \"barking institution\" means a banking\ncompany and includes the State Bank of lndia or a subsidiary bank.l\nalExplanation II.-For the purposes of this section, the expression\n\"corresponding new bank\" shall include a corresponding new bank within the\nmeaning of the Banking Companies (Acquisition and Trarsfer of Undertalings)\nAct, 1970.1\n5[(6)] Every rheme made by the Central Govemment under this Act shall be\nlaid as soon as may be after it is made, before each House of Parliament, while\nit is in session, for a total period of thirty days which mav be comprised in one\n44 The Banking Companies (Acquisition and Transfer [Sec. 9\not Undeiakings) Act, 1980\nsession or in two or more successive sessions, and if, bef,:re the expiry of the\nsession immediately following the session or the successi\\.e sessions aforesaid,\nboth Houses agree in making any modification in the sch.eme or both Houses\nagree that the scheme should not be made, the scheme shall thereafter have\neffect only in such modified form or be of no effect, as the case may be; so\nhowever, that any such modification or annulment shall be without prejudice\nto the validity of anything previously done under that sctreme.\n",
+      "version_status": "OFFICIAL_CONSOLIDATION_CUTOFF_UNKNOWN_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Central Government scheme powers for corresponding new banks under 1980 Acquisition Act; not BR s45; OCR uncorrected",
+      "dependencies": [],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "BC_ACT1980_DFS",
+        "url": "https://financialservices.gov.in/sites/default/files/Act-Policies/2026-01/Banking-Companies-Act-1980_.pdf",
+        "date": "1980-07-11",
+        "court_or_publisher": "Department of Financial Services, Government of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/BC_ACT1980_DFS.json",
+        "joined_start": 36469,
+        "joined_end": 50004,
+        "segment_offsets": [
+          {
+            "id": "BC_ACT1980_DFS:P12",
+            "start": 315,
+            "end": 3505
+          },
+          {
+            "id": "BC_ACT1980_DFS:P13",
+            "start": 0,
+            "end": 3728
+          },
+          {
+            "id": "BC_ACT1980_DFS:P14",
+            "start": 0,
+            "end": 2596
+          },
+          {
+            "id": "BC_ACT1980_DFS:P15",
+            "start": 0,
+            "end": 3403
+          },
+          {
+            "id": "BC_ACT1980_DFS:P16",
+            "start": 0,
+            "end": 614
+          }
+        ],
+        "source_status": "OFFICIAL_CONSOLIDATION_CUTOFF_UNKNOWN_HISTORICAL_VERSION_UNVERIFIED"
+      }
+    },
+    {
+      "id": "LAW:V21:NBI:SCHEME1993",
+      "text": "REGD. NO. D.L.-33004/93\nThe Gazette of India\nEXTRAORDlNARY\nPART II—Section 3—Sub-Section (ii)\nPUBLISHED BY AUTHORITY\nNo. 523] NEW DELHI, SATURDAY, SEPTEMBER 4, 1993/BHADRA 13, 1915\n1966GI/93 (I)\n2 THE GAZETTE OF INDIA: EXTRAORDINARY [I-ART II—SEC. 3(ii)]\n3\nMINISTRY OF FINANCE\n(Department of Economic Allairs)\n(Banking Division)\nNOTIFICATION\nNew Delhi, the 4th September, 1993\nS O. b62(E).—In exercise of the powers conferred by sec-\ntion y of the Banking Companies (Acquisition and Transfei\nof Undertakings) Act, 1980 (40 of 1980), the Central Gov-\nernment, after consultation with the Reserve Bank of India,\nhui eby makes the following Scheme, namely :—\nChapteM\nIntroductory\n1. Short title and commencement.—(1) This Scheme may\nbe called the New Bank of India (Amalgamation and Trans-\nfer of Undertaking) Scheme, 1993.\n(2) It shall come into force on such date as the CentraJ\nGovernment may, by notification in the Official Gazette,\nappoint.\n2. Definitions.—In this Scheme, unless the context otherwise\nrequires :—\n(a) \"Act\" means the Banking Companies (Acquisition and\nTransfer of Undertakings) Act, 1980 (40 of 1980);\n(b) \"Board\" means the Board of Directors constituted\nunder clause (3) of the Nationalised Banks (Man-\nagement and Miscellaneous Provisions) Scheme\nJ980;\n(c) \"Chairman\" in relation to a nationalised bank mean*\nthe Chairman of the Board of that bank;\n(d) \"transferee bank\" means Punjab National Bank;\n(c) \"transferor bank\" means New Bank of India;\n(f) words and expressions used herein and not defined\nbut defined in the Act have the meanings respec-\ntively assigned to them in the Act.\nChapter-11\n3. Undertaking of New Bank of India to vest in Punjab\nNational Bank.—O»i the commencement of this Scheme, th*\nundertakings of New Bank of India shall be transferred to.\nand shall vest in, Punjab National Bank.\n4. General effect of vesting.—(1) The undertakings of the\ntransferor hank shall be deemed to include all assets, rights,\npowers, authorities and privileges and all properly, movable\nand immovable, cash balances, capital, reserve funds, invest-\nments and all other rights and interests in, or arising out of.\nsuch property as were immediately before the commencement\nof this Scheme in the ownership, possession, power or control\nof the transferor bank in relation to the undertakings, whe-\nther within or outside India, and all books of accounts, re-\ngisters, records and all other documents of whatever nature\nrelating thereto and shall also be deemed to include all bor-\nrowings, liabilities and obligations of whatever kind then pub-\nsisting of the transferor bank in relation to the undertakings.\n(2) Where any. property is held by the transferor bank\nunder any lease the transferee bank shall on and from the\ndate of commencement of this scheme be deemed to have\nbecome the lessee in respect of such properly as if the lease\nin relation to such property had been granted to the transferee\nhank and thereupon all the rights under such lease shall be\ndeemed to have been transferred to, and vested in, the trans-\nferee bank ;\nProvided that on the expiry of the term of any lease re-\nferred to in this sub-clause such lease shall, if so desired\nby the transferee bank, be renewed on the same terms and\nconditions on which (he lease was held by the transferor bank\nimmediately before the date of commencement of this Scheme.\n(2) If. according to the laws of any country outside India,\nthe provisions of this Scheme by themselves are not effective\nto transfer or vest any asset or liability situated in that\ncountry which forms part of the undertaking of the transferor\n4 THE GAZETTE OF INDIA: EXTRAORDINARY [PART II—SEC. 3(ii)J\nbank to, or in, the transferee bank, the affairs of the trans-\nfcior bank in relation to such asset or liability shall, on and\nfrom the commencement of this Scheme stand entrusted to\nthe Chief Hxccutive Officer for the time being of the trans-\nferee bank, and the Chief Executive Officer may exercise\nall powers and do all such acts and things as may be exer-\ncised or done by the transferor bunk for the purpose of\neffectively transferring such assets and discharging such lia-\nbilities,\n(4) The Chief Executive Officer of the transferee bank shall,\nin exercise of the powers conferred on him by such-clause (2)\ntake all such steps as may be required by I he laws of any\nsuch country outside India for the purpose of effecting such\ntransfer or vesting, and may cither himself or through any\nperson authorised by him in this behalf realise any asset and\ndischarge any liability of the transferor bank.\n(5) Unless otherwise expressly provided by this Scheme, all\ncontracts, deeds, bonds, agreements, powers of attorney,\ngrants of legal representation and other instruments of what-\never nature subsisting or having elfect, immediately before\nthe commencement of this Scheme and to which the transferor\nbunk is a party or which are in favour of the transferor bank,\nshall be of full force and effect against or in favour of the\ntransferee bank, and may be enforced or acted upon as fully\nand effectively as if in the place of the transferor bank the\ntransferee bank had been a party thereto or as if they had\nbee;i issued in favour of the transferee bank.\n(6) If, immediately before the commencement of this\nScheme, any suit, appeal or other proceedings of whatever\nnature in relation to any business of the undertakings which\nhave been transferred under clause 3, is pending by or against\nthe transferor bank, the same shall not abate, he discontinued\nor be, in any way. prejudicially affected by reason of the\ntransfer of the undertakings of the transferor bank or of\nanything contained in this Scheme but the suit, appeal or\nother proceeding may be continued, prosecuted and enforced\nby or Hgainst the transferee bank.\n5. Dissolution of the Board of Directors, etc.—(1) On and\nfrom the commencement of this Scheme :—\nfa) the Chairman or any other wholetime director, in-\ncluding the Managing Director, of the Transferor\nbank shall coase to hold office and shall be entitled\nto receive three months' salary and allowances in\nlieu of the notice of three months specified in sub-\nclause (2) of clause 8 of the Nationalised Banks\n(Management and Miscellaneous Provisions) Scheme,\n1980;\n(b) The Board of Doctors of the transferor bank shall\nstand dissolved.\n(2) Save as otherwise provided in this Scheme, every officer\nor other employee of the transferor bank shall become, on\nthe commencement of this Scheme an officer or other emp-\nloyee, as the case may be, of the transferee bank and shall\nhold his office or service in that bank on the same terms\nand conditions and with the same rights to pension, gratuity\nand other matters as would have been admissible to him\nif the undertakings of the transferor bank had not been\ntransferred to and vested in the transferee bank subject,\nhowever, to such facilities being available at the time of.\nthe transfer to similarly placed officers and employees of\nthe transferee bank and continue to do so unless and until\nhis employment in the transferee bank is terminated or until\nhis remuneration, terms or conditions are duly altered by\nthe transferee bank.\n(3) Any officer or other employee of the transferor bank\nwho does not want to hold his office or service in the\ntransferee bank under sub-clause (2) shall be entitled to\nleave hia office or service on the same terms and conditions\nand with the same rights to pension, gratuity and other\njnatters as would have been admissible to him if the under-\ntaking of the transferor bank had not been transferred to\nand vested in the transferee bank.\n(••I) The Central Government shall, as soon as possible\nafter the commencement of this Scheme, make a Scheme\nin consultation with Reserve Bank of India for determining\nthe placement of the employees of the transferor hank in-\ncluding the determination of their inter-se seniority vis-a-vis\nthe employees of the transferee bank. While making tno\nScheme the Central Government shall take account of rele-\nvant factors such as experience of the employee of the\ntransferor bank.\n(5) The trustees or administrators of any Provident Fand,\nGratuity and such other funds constituted for the employees\nof the transferor bank, shall on, or as soon as possible after,\nthe commencement of this Scheme, transfer to the trustees\nof the employees Provident Fund, Gratuity and any other\nfund, constituted for the transferee bank or otherwise as\nthe transferee bank may direct, all monies and investments\nheld Sn Irust for the benefit of the emtployees of the\ntransferor bank :\nProvided that such latter trustees shall not be liable for\ndeficiency in the value of investments or in respect of any\nact, neglect or default done before the commencement of\nthis Scheme.\n[F. No. 1/2/93-BO.TCOI\nR. V. GUPTA, Addl. Secy.\nNew Delhi, the 4th September, 1993\nS.O. 663(E),—Tn pursuance of sub-pararaph (2) of para-\ngraph 1 of New Bank of India (Amalgamation and Transfer\nof Undertaking) Scheme, 1993, the Central Government hereby\nspecifies the 4th day of September, 1993 as the appointed\ndate on which the aforesaid Scheme shall come into force.\n[F. No. l/2/93-B.O.I(ii)!\nR. V. GUPTA, Addl. Secy.\nPrinted by the Manager, Govt. of India Pies«, Rinfi Road, Maya Puri, New Delhl-110064\nand Published by the Controller of Publications, Delhi-110054, 1993",
+      "version_status": "OFFICIAL_GAZETTE_SCHEME_ORIGINAL_TEXT_WITH_OCR",
+      "scope": "New Bank of India to Punjab National Bank specific scheme; no automatic application to other bank mergers",
+      "dependencies": [
+        "LAW:V21:BC1980:S9"
+      ],
+      "coverage_limit": "Exact stored source text including OCR and page headers; not a complete statute history or full-law applicability certification.",
+      "source": {
+        "document_id": "NBI_SCHEME1993_DFS",
+        "url": "https://financialservices.gov.in/sites/default/files/Act-Policies/2026-01/The-New-Bank-of-India--Amalgamation-and-Transfer-of-Undertaking--Scheme--1993.pdf",
+        "date": "1993-09-04",
+        "court_or_publisher": "Department of Financial Services, Government of India",
+        "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/NBI_SCHEME1993_DFS.json",
+        "joined_start": 0,
+        "joined_end": 9315,
+        "segment_offsets": [
+          {
+            "id": "NBI_SCHEME1993_DFS:P1",
+            "start": 0,
+            "end": 194
+          },
+          {
+            "id": "NBI_SCHEME1993_DFS:P2",
+            "start": 0,
+            "end": 59
+          },
+          {
+            "id": "NBI_SCHEME1993_DFS:P3",
+            "start": 0,
+            "end": 3341
+          },
+          {
+            "id": "NBI_SCHEME1993_DFS:P4",
+            "start": 0,
+            "end": 5718
+          }
+        ],
+        "source_status": "OFFICIAL_GAZETTE_SCHEME_ORIGINAL_TEXT_WITH_OCR"
+      }
+    },
+    {
+      "id": "LAW:S02:DRC:16",
+      "text": "(1) Where at any time before the 9th day of June, 1952, a tenant has sub-let the whole or any part of the premises and the sub-tenant is, at the commencement of this Act, in occupation of such premises, then notwithstanding that the consent of the landlord was not obtained for such sub-letting, the premises shall be deemed to have been lawfully sub-let.(2) No premises which have been sub-let either in whole or in part on or after the 9th day of June, 1952, without obtaining the consent in writing of the landlord, shall be deemed to have been lawfully sub-let.(3) After the commencement of this Act, no tenant shall, without the previous consent in writing of the landlord, -(a) sub-let the whole or any part of the premises held by him as a tenant; or(b) transfer or assign his rights in the tenancy or in any part thereof.(4) No landlord shall claim or receive the payment of any sum as premium or pugree or claim or receive any consideration whatsoever in cash or in kind for giving his consent to the sub-letting of the whole or any part of the premises held by the tenant.",
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi Rent Control Act section 16; read its own date/notice/consent conditions.",
+      "dependencies": [
+        "LAW:S02:DRC14:1b"
+      ],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE",
+      "source": {
+        "document_id": "152548910",
+        "url": "https://indiankanoon.org/doc/152548910/"
+      }
+    },
+    {
+      "id": "LAW:S02:DRC:17",
+      "text": "(1) Whoever, after the commencement of this Act, any premises are sub-let either in whole or in part by the tenant with the previous consent in writing of the landlord, the tenant or the sub-tenant to whom the promises are sub-let may, in the proscribed manner, give notice to the landlord of the creation of the sub-tenancy within one month of the date of such sub-letting and notify the termination of such sub- tenancy within one month of such termination.(2) Where, before the commencement of this Act, any premises have been lawfully sub-let either in whole or in part by the tenant, the tenant or the sub- tenant to whom the premises have been sub-let may, in the prescribed manner, give notice to the landlord of the creation of the sub-tenancy within six months of the commencement of this Act, and notify the termination of such sub-tenancy within one month of such termination.(3) Where in any case mentioned in sub-section (2), the landlord contests that the premises were not lawfully sub-let, and an application is made to the Controller in this behalf, either by the landlord or by the sub-tenant, within two months of the date of the receipt of the notice of sub-letting by the landlord or the issue of the notice by the tenant or the sub-tenant, as the case may be, the Controller shall decide the dispute.",
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi Rent Control Act section 17; read its own date/notice/consent conditions.",
+      "dependencies": [
+        "LAW:S02:DRC14:1b"
+      ],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE",
+      "source": {
+        "document_id": "152548910",
+        "url": "https://indiankanoon.org/doc/152548910/"
+      }
+    },
+    {
+      "id": "LAW:S02:DRC:18",
+      "text": "(1) Where an order for eviction in respect of any premises is made under section 14 against a tenant but not against a sub-tenant referred to in section 17 and a notice of the sub-tenancy has been given to the landlord, the sub-tenant shall, with effect from the date of the order, be deemed to become a tenant holding directly under the landlord in respect of the premises in his occupation on the same terms and conditions on which the tenant would have held from the landlord, if the tenancy had continued.(2) Where, before the commencement of this Act, the interest of a tenant in respect of any premises has been determined without determining the interest of any sub-tenant to whom the premises either in whole or in part had been lawfully sub-let, the sub-tenant shall, with effect from the date of the commencement of this Act, be deemed to have become a tenant holding directly under the landlord on the same terms and conditions on which the tenant would have held from the landlord, if the tenancy had continued.",
+      "version_status": "INDIAN_KANOON_STATUTORY_REPRODUCTION_CURRENT_SNAPSHOT_HISTORICAL_VERSION_UNVERIFIED",
+      "scope": "Delhi Rent Control Act section 18; read its own date/notice/consent conditions.",
+      "dependencies": [
+        "LAW:S02:DRC14:1b"
+      ],
+      "coverage_limit": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+      "source_status": "STATUTORY_REPRODUCTION_NOT_OFFICIAL_GAZETTE",
+      "source": {
+        "document_id": "152548910",
+        "url": "https://indiankanoon.org/doc/152548910/"
+      }
+    },
+    {
+      "id": "LAW:V09:DRC14_4",
+      "text": "For the purposes of clause (b) of the proviso to sub-section (1), any premises which have been let for being used for the purposes of business or profession shall be deemed to have been sub-let by the tenant, if the Controller is satisfied that the tenant without obtaining the consent in writing of the landlord has, after the 16th day of August, 1958, allowed any person to occupy the whole or any part of the premises ostensibly on the ground that such person is a partner of the tenant in the business or profession but really for the purpose of sub-letting such premises to that person.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC14(4)",
+      "mechanisms": [
+        "partnership_company",
+        "temporal_applicability"
+      ],
+      "legal_status": "STATUTE",
+      "coverage_limit": "Extract only subsection (4); 16 August 1958 threshold, business/profession, ostensible partnership and real subletting are all required. Current online consolidation is not a certified historical version.",
+      "dependencies": [
+        "LAW:S02:DRC14:1b"
+      ],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "18143401",
+        "url": "https://indiankanoon.org/doc/18143401/",
+        "date": "1958",
+        "court_or_publisher": "NCT Delhi statute",
+        "passage_addresses": [
+          {
+            "id": "IK-18143401:L44",
+            "start": 1931,
+            "end": 2522
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:KR_PERMISSIVE_FAMILY",
+      "text": "The simple question which had to be determined in the case was whether having regard to the fact that the appellant and Sohan Singh were living as husband and wife, it was open to draw, in the absence of evidence to the contrary, the factual inference that the wife had sub-let the premises to her husband. Sub-letting like letting, is a particular type of demise of immovable property and is distinct from permissive user like that of a licensee.\nIf two persons live together in a house as husband and wife and one of them who owns the house allows the other to carry on business in a part of it,it will be in the absence of any other evidence, a rash inference to draw that the owner has let out that part of the premises. And that is what the learned single Judge has done in the present case.\nHe was of the view that even if it is assumed that the appellant was the wife of Sohan Singh, she, who was entitled to possession of the shop premises as a tenant, must be presumed to have sub-let the same to Sohan Singh to carry on his business, In support of this conclusion he relied on clause (b) of the proviso to sub-section (1) of cite16†section 14 of the Act read with sub-cite18†section 4 of that section. The provisions are as follows :",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC14(1)(b)",
+      "mechanisms": [
+        "family_occupation",
+        "licence_sublease"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Living as husband and wife is contextual evidence, not blanket immunity for relatives; do not invent continued control or disregard contrary evidence.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "114533",
+        "url": "https://indiankanoon.org/doc/114533/",
+        "date": "1973-11-29",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-114533:L154",
+            "start": 0,
+            "end": 447
+          },
+          {
+            "id": "IK-114533:L155",
+            "start": 0,
+            "end": 348
+          },
+          {
+            "id": "IK-114533:L156",
+            "start": 0,
+            "end": 452
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:KR_PARTNERSHIP_SCOPE",
+      "text": "> (b) that the tenant has, on or after the 9th day of June, 1952 sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;\"\n> Sub-section (4) of cite16†section 14 is as follows : \"(4) For the purposes of clause (b) of the proviso to sub-section (1),any premises which have been let for being used for the purposes of business or profession shall be deemed to have been sub-let by the tenant, if the Controller is satisfied that the tenant without obtaining the consent in writing of the landlord has, after the 16th day of August, 1958, allowed any person or occupy the whole or any part of the premises ostensibly on the ground that such person is a partner of the tenant in the business or profession but really for the purpose of sub-letting such premises to that person.\nUnder sub-section (4) referred to above the premises could be deemed to have been sub-let by the tenant only when the Controller is satisfied that some person is let into possession ostensibly as a partner in business but really for the purposes of sub-letting. These provisions evidently have no application to the facts of the present case.\nIt is not the case of anybody that the appellant was the owner of the business carried on in the premises and she had let in Sohan Singh into possession ostensibly as a partner in their business. The learned Judge was, 527 therefore, in error in relying on the provisions of the Act for presuming that the appellant must have sub-let the premises.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC14(4)",
+      "mechanisms": [
+        "family_occupation",
+        "partnership_company",
+        "temporal_applicability"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Statutory deeming of sham business partnership is not a presumption applicable to every family occupation.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "114533",
+        "url": "https://indiankanoon.org/doc/114533/",
+        "date": "1973-11-29",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-114533:L161",
+            "start": 0,
+            "end": 222
+          },
+          {
+            "id": "IK-114533:L162",
+            "start": 0,
+            "end": 653
+          },
+          {
+            "id": "IK-114533:L163",
+            "start": 0,
+            "end": 342
+          },
+          {
+            "id": "IK-114533:L164",
+            "start": 0,
+            "end": 347
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:KR_BURDEN",
+      "text": "The case of the respondent in his application under cite16†section 14 of of the Act was that the appellant had sub-let the whole premises to Sohan Singh who was running the business under the name of Royal Dispensing Chemists and Druggists and that the entire premises have been sub-let by the appellant and the appellant had completely parted with possession without the written consent of the respondent.\nIt was also alleged that the appellant was charging fabulous amount of rent from the sub-tenant Sohan Singh. Sub-letting was,' therefore, the principal ground on which eviction was sought. When eviction is sought on that ground it is now settled law that the onus to prove sub-letting is on the landlord. If the landlord prima-facie shows that the occupant who was in exclusive possession of the premises let out for valuable consideration, it would then be for the tenant to rebut the evidence.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC14(1)(b)",
+      "mechanisms": [
+        "control_exclusive_possession"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Initial burden and rebuttal depend on the proof stated; mere presence alone is not equivalent to exclusive possession for consideration.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "114533",
+        "url": "https://indiankanoon.org/doc/114533/",
+        "date": "1973-11-29",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-114533:L165",
+            "start": 0,
+            "end": 409
+          },
+          {
+            "id": "IK-114533:L166",
+            "start": 0,
+            "end": 495
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:CEL_CONTROL",
+      "text": "> (ii) Inducting a partner or partners in the business or profession by a tenant by itself does not amount to subletting.\n\nHowever, if the purpose of such partnership is ostensible and a deed of partnership is drawn to conceal the real transaction of sub-letting, the court may tear the veil of partnership to find out the real nature of transaction entered into by the tenant.\n(iii) The existence of deed of partnership between tenant and alleged sub-tenant or ostensible transaction in any other form would not preclude the landlord from bringing on record material and circumstances, by adducing evidence or by means of cross-examination, making out a case of sub-letting or parting with possession in tenancy premises by the tenant in favour of a third person.\n(iv) If tenant is actively associated with the partnership business and retains the control over the tenancy premises with him, may be along with partners, the tenant may not be said to have parted with possession.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Goa rent statute; Supreme Court synthesis including Delhi precedents",
+      "mechanisms": [
+        "partnership_company",
+        "control_exclusive_possession"
+      ],
+      "legal_status": "COURT_ADOPTED_SYNTHESIS",
+      "coverage_limit": "Analogical principles; original target statute Goa22(2)(b)(i), not Delhi. Retention of control and genuine partnership are factual requirements.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "1312881",
+        "url": "https://indiankanoon.org/doc/1312881/",
+        "date": "2009-10-30",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-1312881:L186",
+            "start": 0,
+            "end": 121
+          },
+          {
+            "id": "IK-1312881:L187",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-1312881:L188",
+            "start": 0,
+            "end": 254
+          },
+          {
+            "id": "IK-1312881:L189",
+            "start": 0,
+            "end": 386
+          },
+          {
+            "id": "IK-1312881:L190",
+            "start": 0,
+            "end": 214
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:CEL_SHAM_PROOF",
+      "text": "29. The main question that falIs to be determined in the present case is: is High Court justified in non-suiting the landlord on the ground that he has not pleaded that business of the firm M/s. Mandovi Tours and Travels is not conducted by its partners, but by Balaji Lawande and Netravalkar and that tenant has parted with the premises by subletting the same to these two persons under the garb of deed of partnership by constituting a bogus firm? In our judgment, the answer have to 2 be in negative.\nIn the plaint, the landlord averred that the tenant has sub-let the premises to M/s. Mandovi Tours and Travels, a partnership concern, without his permission and that the sub-lessee has been exclusively running the business in the rented premises although he has not pleaded specifically that the premises have been sublet to Balaji Lawande and Netravalkar but such lack of pleading cannot be held to be fatal.\nIt has to be kept in mind that a transaction such as sub-letting by tenant which is not permissible under lease may be outwardly a deceptive arrangement and landlord may not come to know of true facts. The pleadings in such matters ought not to be construed too technically. The true test, as has been repeatedly said, is to see whether the other side has been taken by surprise or prejudiced.\n30. If the purpose of constituting partnership by the tenant is ostensible and a deed of partnership is drawn to conceal the real transaction of subletting in a given case, the court may be required to tear the veil of partnership to find out the real nature of transaction entered into by the tenant and in such circumstances the evidence let in by the landlord cannot 2 be ignored on the ground that there is some variance between pleading and proof.\nIn a case such as the present one, the rule of secundum allegata et probata is not strictly applicable as the tenant cannot be said to have been put to any prejudice.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Goa rent statute; pleading/evidence scope",
+      "mechanisms": [
+        "partnership_company"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "No universal waiver of pleading requirements. Surprise/prejudice and actual pleaded subletting matter; use only compatible reasoning.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "1312881",
+        "url": "https://indiankanoon.org/doc/1312881/",
+        "date": "2009-10-30",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-1312881:L195",
+            "start": 0,
+            "end": 503
+          },
+          {
+            "id": "IK-1312881:L196",
+            "start": 0,
+            "end": 410
+          },
+          {
+            "id": "IK-1312881:L197",
+            "start": 0,
+            "end": 393
+          },
+          {
+            "id": "IK-1312881:L198",
+            "start": 0,
+            "end": 452
+          },
+          {
+            "id": "IK-1312881:L199",
+            "start": 0,
+            "end": 166
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:CEL_BURDEN",
+      "text": "28. The legal position that emerges from the aforesaid decisions can be summarised thus :\n\n> (i) In order to prove mischief of subletting as a ground for eviction under rent control laws, two ingredients have to be established, (one) parting with possession of tenancy or part of it by tenant in favour of a third party with exclusive right of possession and (two) that such parting with possession has 10 (2008) 7 SCC 722 2 been done without the consent of the landlord and in lieu of compensation or rent.\n> (ii) Inducting a partner or partners in the business or profession by a tenant by itself does not amount to subletting.\n\nHowever, if the purpose of such partnership is ostensible and a deed of partnership is drawn to conceal the real transaction of sub-letting, the court may tear the veil of partnership to find out the real nature of transaction entered into by the tenant.\n(iii) The existence of deed of partnership between tenant and alleged sub-tenant or ostensible transaction in any other form would not preclude the landlord from bringing on record material and circumstances, by adducing evidence or by means of cross-examination, making out a case of sub-letting or parting with possession in tenancy premises by the tenant in favour of a third person.\n(iv) If tenant is actively associated with the partnership business and retains the control over the tenancy premises with him, may be along with partners, the tenant may not be said to have parted with possession.\n\n2\n(v) Initial burden of proving subletting is on landlord but once he is able to establish that a third party is in exclusive possession of the premises and that tenant has no legal possession of the tenanted premises, the onus shifts to tenant to prove the nature of occupation of such third party and that he (tenant) continues to hold legal possession in tenancy premises.\n(vi) In other words, initial burden lying on landlord would stand discharged by adducing prima facie proof of the fact that a party other than tenant was in exclusive possession of the premises. A presumption of sub-letting may then be raised and would amount to proof unless rebutted.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Goa rent statute; general subletting synthesis",
+      "mechanisms": [
+        "control_exclusive_possession",
+        "licence_sublease"
+      ],
+      "legal_status": "COURT_ADOPTED_SYNTHESIS",
+      "coverage_limit": "Presumption is rebuttable. Different formulations in subparagraphs (i),(v),(vi) must be read together; do not apply consideration to every Delhi assignment/parting-with-possession alternative.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "1312881",
+        "url": "https://indiankanoon.org/doc/1312881/",
+        "date": "2009-10-30",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-1312881:L183",
+            "start": 0,
+            "end": 89
+          },
+          {
+            "id": "IK-1312881:L184",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-1312881:L185",
+            "start": 0,
+            "end": 416
+          },
+          {
+            "id": "IK-1312881:L186",
+            "start": 0,
+            "end": 121
+          },
+          {
+            "id": "IK-1312881:L187",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-1312881:L188",
+            "start": 0,
+            "end": 254
+          },
+          {
+            "id": "IK-1312881:L189",
+            "start": 0,
+            "end": 386
+          },
+          {
+            "id": "IK-1312881:L190",
+            "start": 0,
+            "end": 214
+          },
+          {
+            "id": "IK-1312881:L191",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-1312881:L192",
+            "start": 0,
+            "end": 1
+          },
+          {
+            "id": "IK-1312881:L193",
+            "start": 0,
+            "end": 373
+          },
+          {
+            "id": "IK-1312881:L194",
+            "start": 0,
+            "end": 285
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:HELP_GENUINENESS",
+      "text": "In the instant case the basic question is whether keep- ing in background the partnership deeds referred to herein- before and the facts that came to light, was there partner- ship or not. Sharing of profits and contributing to losses were not the only elements in a partnership, existence of agency was essential and whether there was a partnership or not is a mixed question of law and fact, depending upon the varying circumstances in different cases.\nThis view was reiterated by Chief Justice Beaumont, in cite34†Chimanram Motilal and another v. Jayantilal Chhaganlal and another , A.I.R. 1939 Bombay 410. Ramaswami, J. in cite35†Mohammed Musa Sahib (dead) and others v. N.K. Mohammed Ghouse Sahib and another , A.I.R. 1959 Madras 379 observed that whether the relation of part- nership between two or more persons does or does not exit must depend on the real intention and contract of the par- ties and not merely on their expressed intention.\nHe also referred to cite19†section 4 of the Partnership Act about the principles of partnership namely, (1) there must be agree- ment entered into by all the persons concerned; (2) the agreement must be to share the profits of a business; and (3) the business must be carried on by all or any of the persons concerned acting for all. In the instant case judged by the aforesaid principles, it is possible to hold that there was a partnership of which the appellant was a part- ner.\nIf that was so, there was nothing that could be clone about such a view, within the ambit and scope of the power of cite16†section 29(2) of the Rent Act. We may mention that in Gunda- lapalli cite36†Rangamannar Chetty v. Desu Rangiah and others , A.I.R. 1954 Madras 182, Subba Rao, J. as the learned Chief Justice then was, held that there cannot be a subletting, unless the lessee parted with legal possession.\nThe mere fact that another is allowed to use the premises while the lessee retains the legal possession is not enough to create a sub-lease.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Bombay rent statute; Partnership Act4 and6",
+      "mechanisms": [
+        "partnership_company",
+        "control_exclusive_possession"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Agency, real agreement and conduct matter; a deed or label alone is insufficient. Bombay revisional standard is not Delhi substantive law.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "1378557",
+        "url": "https://indiankanoon.org/doc/1378557/",
+        "date": "1987-05-06",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-1378557:L369",
+            "start": 0,
+            "end": 454
+          },
+          {
+            "id": "IK-1378557:L370",
+            "start": 0,
+            "end": 500
+          },
+          {
+            "id": "IK-1378557:L371",
+            "start": 0,
+            "end": 484
+          },
+          {
+            "id": "IK-1378557:L374",
+            "start": 0,
+            "end": 417
+          },
+          {
+            "id": "IK-1378557:L375",
+            "start": 0,
+            "end": 140
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:AH_LICENCE",
+      "text": "Where the agreement is in writing, it is a question of construction of the agreement whether the grant is a lease or a license. It was for the appellant to prove the written agreements, and the Court could then construe them. The appellant has not brought before the Court the best and the primary evidence of the terms on which the apartments were being occupied. The onus to prove sub-letting was on the respondent.\nThe respondent discharged the onus by leading evidence showing that the occupants were in exclusive possession of the apartments for valuable consideration. The appellant chose not to rebut this prime facie evidence by proving and exhibiting the relevant agreements. The documents formed part of the appellant's case. The appellant bad no right to withhold them from the scrutiny of the Court.\nIn the absence of the best evidence of the grants, the Courts below properly inferred sub-lettings from the other materials on the record.\nThe test of exclusive possession, though not conclusive, is a very important indication in favour of tenancy, see Addiscombe Garden Estates Ltd. and Anr. v. Crabbe and Ors.(1) The argument is that as the landlord is living in the premises, that fact raises the presumption that he intends to retain the control of the whole of the premises and that the occupation of the other parts is that of a lodger or inmate and not that of a tenant, and reliance was placed on Helman v.\nHorsham Assessment Committee(2) and the cases referred to therein. Those cases consider what constitute rateable occupation. In the case last cited, Denning, L. J. said that a person who is regarded as a lodger for rating purposes need not necessarily be a lodger for the purposes of the Rent Restriction Acts, while Evershed L.J. seems to have expressed a contrary opinion.\nNormally, an occupier of an apartment in a hotel is in the position of a licensee as the hotel-keeper retains the general control of the hotel including the apartment. But it is not a necessary inference of law that the occupier of an apartment in a hotel is not a tenant. Where, as in this case, the hotel-keeper retains no control over the apart- ment, the occupier is in the position of a tenant. In Halsbury's Laws of England, Vol. 23, Art. 1028, p.\n433, the law is accurately summarised thus \"A lodger who has no separate apartment is only a licensee, and, even though he has a separate apart-\n(1) [1958] 1 Q.B. 513, 525.\n\n(2) [1949] 2 K.B. 335.\n\n555\nment, he has not in law an exclusive occupation, and is therefore in the position of a licensee, if the landlord retains the general control and dominion of the house, including the part occupied by the lodger; but, if in fact the landlord exercises no control over that part, the occupier is a tenant.\nThe occupier does not, however, become a lodger merely by reason of the fact that the landlord resides on the premises and retains control of the passages and staircases and other parts used in common.\" On the question whether the occupier of a separate apartment in a premises is a licensee or a tenant, the test is-has the landlord retained control over the apartment ? The fact that the apartment is a room in a hotel may lead to the inference that the hotel-keeper retains the general dominion of the en-tire hotel including the apartment and that the occupier is in the position of a lodger or inmate.\nBut the inference is not a necessary inference of law. Where, as in this case, the best evidence of the -rant was withheld from the scrutiny of the Court, the inference was rightly drawn that the occupiers were tenants.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi and Ajmer Rent Control Act1952; analogous licence/lease inquiry",
+      "mechanisms": [
+        "licence_sublease",
+        "control_exclusive_possession"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Exclusive possession is important but not conclusive; written agreement and retained control must be assessed. Do not replace 1958 Act with1952 Act.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "923000",
+        "url": "https://indiankanoon.org/doc/923000/",
+        "date": "1967-12-07",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-923000:L213",
+            "start": 0,
+            "end": 417
+          },
+          {
+            "id": "IK-923000:L214",
+            "start": 0,
+            "end": 393
+          },
+          {
+            "id": "IK-923000:L215",
+            "start": 0,
+            "end": 138
+          },
+          {
+            "id": "IK-923000:L216",
+            "start": 0,
+            "end": 475
+          },
+          {
+            "id": "IK-923000:L217",
+            "start": 0,
+            "end": 374
+          },
+          {
+            "id": "IK-923000:L218",
+            "start": 0,
+            "end": 453
+          },
+          {
+            "id": "IK-923000:L219",
+            "start": 0,
+            "end": 144
+          },
+          {
+            "id": "IK-923000:L220",
+            "start": 0,
+            "end": 27
+          },
+          {
+            "id": "IK-923000:L221",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-923000:L222",
+            "start": 0,
+            "end": 22
+          },
+          {
+            "id": "IK-923000:L223",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-923000:L224",
+            "start": 0,
+            "end": 3
+          },
+          {
+            "id": "IK-923000:L225",
+            "start": 0,
+            "end": 302
+          },
+          {
+            "id": "IK-923000:L226",
+            "start": 0,
+            "end": 606
+          },
+          {
+            "id": "IK-923000:L227",
+            "start": 0,
+            "end": 219
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:AH_BURDEN",
+      "text": "Where the agreement is in writing, it is a question of construction of the agreement whether the grant is a lease or a license. It was for the appellant to prove the written agreements, and the Court could then construe them. The appellant has not brought before the Court the best and the primary evidence of the terms on which the apartments were being occupied. The onus to prove sub-letting was on the respondent.\nThe respondent discharged the onus by leading evidence showing that the occupants were in exclusive possession of the apartments for valuable consideration. The appellant chose not to rebut this prime facie evidence by proving and exhibiting the relevant agreements. The documents formed part of the appellant's case. The appellant bad no right to withhold them from the scrutiny of the Court.\nIn the absence of the best evidence of the grants, the Courts below properly inferred sub-lettings from the other materials on the record.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi and Ajmer Rent Control Act1952; evidential principle later cited",
+      "mechanisms": [
+        "control_exclusive_possession"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Prima facie exclusive possession plus valuable consideration; withheld best evidence matters. Not a rule making every evidential omission conclusive.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "923000",
+        "url": "https://indiankanoon.org/doc/923000/",
+        "date": "1967-12-07",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-923000:L213",
+            "start": 0,
+            "end": 417
+          },
+          {
+            "id": "IK-923000:L214",
+            "start": 0,
+            "end": 393
+          },
+          {
+            "id": "IK-923000:L215",
+            "start": 0,
+            "end": 138
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:AH_CONSENT_SCOPE",
+      "text": "The Courts below concurrently found that the sub-lettings after the commencement of the Act were made without obtaining the consent of the landlord in writing, and the sub-lettings before the commencement of the Act were made without obtaining the consent of the landlord either orally or in writing. We are not inclined to interfere with this concurrent finding.\nIt is said that by the lease deed dated August 18, 1939 the respondent impliedly consented to this sub-letting. Clauses 21 .and 22 of the lease are in these terms \"21.\nThat the lessee shall not be entitled to either transfer or sub-lease the premises or any part thereof to any other party without the written consent of the lessor and on such transfer, both the transferee and the lessee shall be liable for the payment of rent to the lessor and responsible to deliver,possession of the building and equipments in the same condition as when taken.\n22.That the lessee will use the premises only for the purpose of running a first class hotel.\"\nIt is -,aid that for the purpose of running a first class hotel it was necessary to sub-let the apartments. It is impossible to accept the contention. A hotel-keeper may run a first class hotel without sub-letting any part of it. Clause 21-clearly provided that the lessee shall not sub- lease the hotel premises or any part thereof. In the teeth of cl. 21, it is impossible to read in cl. 22 an implied consent to sub-letting.\nReliance is placed on the correspondence passed between the Land Development Officer, New Delhi and the respondent bet- ween April 1948 and February 1949 for establishing that the respondent gave written consent to the sub-lettings. The Land and Development Officer was then complaining of the occupation of portions of the premises by Pan American World Airways and other persons.\nBy his letters dated November 4, 1948 and February 23, 1949, the respondent requested the Land and Development Officer to regularise the matter adding that in an first class hotels counters of air-lines and show-rooms of jewellery and curios were always provided. These letter,.; do not amount to a consent in writing to sub-lettings of portions of the hotel to the persons mentioned therein. Moreover, the consent, if any, 'was to the sub-lettings made before 1949 and not to the sub- lettings made thereafter.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi and Ajmer Rent Control Act1952; contract and specific subtenancies",
+      "mechanisms": [
+        "written_consent",
+        "temporal_applicability"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Consent must concern relevant subtenancy/time; a lease purpose or letter about earlier occupation is not blanket written permission for later sublettings.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "923000",
+        "url": "https://indiankanoon.org/doc/923000/",
+        "date": "1967-12-07",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-923000:L235",
+            "start": 0,
+            "end": 363
+          },
+          {
+            "id": "IK-923000:L236",
+            "start": 0,
+            "end": 167
+          },
+          {
+            "id": "IK-923000:L237",
+            "start": 0,
+            "end": 380
+          },
+          {
+            "id": "IK-923000:L238",
+            "start": 0,
+            "end": 94
+          },
+          {
+            "id": "IK-923000:L239",
+            "start": 0,
+            "end": 427
+          },
+          {
+            "id": "IK-923000:L240",
+            "start": 0,
+            "end": 381
+          },
+          {
+            "id": "IK-923000:L241",
+            "start": 0,
+            "end": 511
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:CK_REGULATORY_TRANSFER",
+      "text": "> Clause (1) specifically mentioned that on and from the date including the transfer date the said business shall become and be deemed to have been owned by and assigned to the Assignee, i.e. Indian Company. Clause (2) envisages that assignment was received for consideration Clause 7(1)(b) indicates as regards the leaseholds , subject to payment of the rent reserved and the observance of all the covenants and conditions contained in the Leases or Agreements for Leases under which the same are hold.\nClause 7(ii) indicates that incidental to the assignment of the said business as a going concern; the Assignor shall, in so for as it is within its power to do so, assign or cause to be assigned the monthly and other tenancies of all rented premises of the Assignor in India\".\nThus, It could be seen that under the consequence of agreement the Foreign Company and the Indian Company, the Indian Company became the assignee with all rights and liabilities and subject to observance of the terms and conditions of all the tenancy rights contained in the leases or agreements for lease under which the same are being held by the Foreign Company.\nIt would, thus, be clear that it is a case of assignment of the leasehold right, had from the respondent in favour of India Company, subject to the observance of the leasehold covenants contained in the lease held by the Foreing Company. The question, therefore, is:\n> whether it is a sub-letting or assignment? It is seen that sub-section (b) of cite17†Section 14 , in clear terms envisages that the tenant shall not, after June 9, 1952, sub-let, assign, or otherwise part with the possession of the whole or any part of the premises, without obtaining the written consent of the landlord.\nIt is seen that though by operation of FERA the Foreign company had wound up its business, it assigned, under the agreement, the leasehold interest in the demised premises to the Indian Company which is carrying on the same business in the tenanted premises without obtaining the written consent of the landlord.\n> The respondent-landlord is not bound by such assignment, induction of the appellant-Company against her wishes. Her written consent is a pre-condition, as envisaged under sub-section (i)(b) of cite17†Section 14 which was not obtained. Therefore, it is a clear case of sub-letting. Even otherwise, it would be an assignment, as admittedly agreed in the agreement referred to herein before between the Foreing Company and the Indian Company. In P.H. Rao v. S.P.N.K. Jain & Anr.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC14(1)(b)",
+      "mechanisms": [
+        "amalgamation",
+        "partnership_company",
+        "written_consent"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "FERA-driven business assignment is distinguished from direct statutory vesting. Same business does not establish same tenant; exact assignment and written consent matter.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "1707845",
+        "url": "https://indiankanoon.org/doc/1707845/",
+        "date": "1996-12-12",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-1707845:L88",
+            "start": 0,
+            "end": 503
+          },
+          {
+            "id": "IK-1707845:L89",
+            "start": 0,
+            "end": 276
+          },
+          {
+            "id": "IK-1707845:L90",
+            "start": 0,
+            "end": 365
+          },
+          {
+            "id": "IK-1707845:L91",
+            "start": 0,
+            "end": 266
+          },
+          {
+            "id": "IK-1707845:L92",
+            "start": 0,
+            "end": 326
+          },
+          {
+            "id": "IK-1707845:L93",
+            "start": 0,
+            "end": 312
+          },
+          {
+            "id": "IK-1707845:L94",
+            "start": 0,
+            "end": 480
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:CK_ASSIGNMENT_SCOPE",
+      "text": "[(1980) 3 SCR 444], the landlord had executed a lease in respect of the demised premises in favour of the Laxmi Bank on 1.4.1942; the Bank went into liquidation. the liquidator sold leasehold right to the respondent and the Court confirmed the same. An application for eviction come to be filed and it was contended that it being an involuntary transfer it was not a case of sub- letting under cite17†Section 14(1)(b) of the Act. This Court had negatived the contention holding thus:\n> \" As regards point No.3, the High Court relying on a decision of Calcutta High Court in cite18†Krishna Das Nandy vs. Bidhan Chandra Roy [AIR 1959 Cal. 1811] has found that as the transfer in favour of respondent No. 1 by the official liquidator was confirmed by the Court, the status of the tenant by respondent No.1 was acquired by operation of law and, therefore, the transfer was an involuntary transfer and the provisions of cite19†Rent Control Act would not be attracted.\n> After careful perusal of Calcutta case, in the first place it appears that the section concerned has not been extracted and we are not in a position to know what the actual language of the Section of the Bengali Act. Secondly, in our opinion, the official liquidator had merely stepped into the shoes of Laxmi Bank which was the original tenant and even if the official liquidator had transferred the tenancy interest to respondent No.2 under the orders of the Court, it was on behalf of the original tenant.\nIt was undoubtedly a voluntary sale which clearly fell within the mischief of cite17†Section 14(1)(b) of the Delhi Rent control Act. Assuming that the sale by the official Liquidator was an involuntary sale, then it undoubtedly become an assignment as provided for by cite11†s.14(b) of Delhi Rent Control Act. cite11†S.14(b) runs thus:-\n> \"14(b)--that the tenant has, on or after the 9th day of June, 1952, sublet, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord.\"\n\nThe language of s.14(b) is wide enough not only to include any sub-\nlease but even an assignment or any other mode by which possession of the tenanted premises is parted. In view of the wide amplitude of s.14(b) we are clearly of the opinion that it does not exclude even an involuntary sale. Fore These reasons, therefore, we are unable to agree with the view taken by the High Court. The appeal is accordingly allowed, the judgment and decree of the High Court are set aside and the plaintiff's application under cite20†s.25 of the Delhi Rent Control Act is dismissed.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC14(1)(b), quoting Parasram Harnand Rao",
+      "mechanisms": [
+        "statutory_succession",
+        "amalgamation"
+      ],
+      "legal_status": "ADOPTED_REPORTED_AUTHORITY",
+      "coverage_limit": "Court-confirmed liquidator sale is not direct nationalisation/vesting. Do not generalise this quoted authority to every involuntary statutory succession; exclude106222 as a target.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "1707845",
+        "url": "https://indiankanoon.org/doc/1707845/",
+        "date": "1996-12-12",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-1707845:L95",
+            "start": 0,
+            "end": 486
+          },
+          {
+            "id": "IK-1707845:L96",
+            "start": 0,
+            "end": 484
+          },
+          {
+            "id": "IK-1707845:L97",
+            "start": 0,
+            "end": 510
+          },
+          {
+            "id": "IK-1707845:L98",
+            "start": 0,
+            "end": 345
+          },
+          {
+            "id": "IK-1707845:L99",
+            "start": 0,
+            "end": 226
+          },
+          {
+            "id": "IK-1707845:L100",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-1707845:L101",
+            "start": 0,
+            "end": 67
+          },
+          {
+            "id": "IK-1707845:L102",
+            "start": 0,
+            "end": 505
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:GL_WRITTEN_CONSENT",
+      "text": "Bearing these broad principles in mind if we now turn to the cite23†Delhi Rent Control Act , it is at once apparent that the Act is primarily devised to prevent unreasonable eviction of the tenants and sub-tenants from demised premises and unreasonable enhancement of rent. In particular, the purpose of cite14†sections 17 and cite15†18 is clearly to protect the sub-tenants from eviction where a landlord obtains a decree for eviction against the principal tenant.\nIn an action for eviction by a landlord against the principal tenant, the sub-tenant has no defence of his own under the ordinary law, even if he has been inducted into possession with the consent of the landlord. He has to go with the tenant. He can claim no right to sit in the premises apart and distinct from the right of the tenant. Showing an awareness of the problems of sub-tenants, the legislature enacted cite14†sections 17 and cite15†18 for their protection.\nThe protection was afforded to sub-tenants who had been inducted into possession with the consent of the landlord. While so extending a protecting hand to the sub-tenants who had genuinely obtained the consent of the landlord alone should be entitled to that protection.\nThe legislature wanted to prevent persons who had somehow managed to get into possession, having been inducted into such possession by the tenant or otherwise from putting forward baseless claims that they were inducted into possession with the consent of the landlord.\nSo the legislature while offering protection to a sub-tenant who has been inducted into possession by a landlord 396 has limited the protection to the sub-tenant who can establish the consent of the landlord by documentary evidence to which the landlord and the tenant or sub-tenant who can establish the consent of the landlord by documentary evidence to which the landlord and the tenant or sub-tenant are parties.\nSo it is provided that the previous consent of the landlord has to be in writing and that a notice in the prescribed manner has to be given to the landlord by the tenant or the sub-tenant.\nThe essence of the requirement, therefore, is that the consent of the landlord to the sub-tenancy and the notice of the creation of the sub-tenancy have to be evidenced by writing.\n\nThe writing is to be such as to indicate clearly the consent of the landlord to the creation of a sub-tenancy and his knowledge of the particular sub-tenancy after its creation.\nThe writing relating to the consent and the writing relation to the knowledge (notice) may be by different documents or they may telescope into the same document. Where, as in the present case, the agreement or the letter of the sub-tenancy in respect of the demised premises is attested by the landlord himself, there can be no question that the landlord has given his previous consent and that he has notice in writing of the sub-tenancy in respect of the particular premises. The requirements of cite14†sec.\n17 and cite15†18 both as regards to his consent and the notice to him are satisfied. There is no magical form in which the consent is to be given nor any charmed form in which the notice is to be sent. As we said, the essence of the matter is that the consent to the sub-tenancy and the notice of the sub-tenancy in respect of the premises must be evidenced by writing signed by the landlord and the tenant or the sub-tenant.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC17 and18, independent subtenant protection",
+      "mechanisms": [
+        "written_consent",
+        "licence_sublease"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Specific documentary consent and notice; not blanket acceptance of any landlord signature. Read with separately retained concurring caution.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "614998",
+        "url": "https://indiankanoon.org/doc/614998/",
+        "date": "1986-02-26",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-614998:L289",
+            "start": 0,
+            "end": 474
+          },
+          {
+            "id": "IK-614998:L290",
+            "start": 0,
+            "end": 475
+          },
+          {
+            "id": "IK-614998:L291",
+            "start": 0,
+            "end": 270
+          },
+          {
+            "id": "IK-614998:L292",
+            "start": 0,
+            "end": 269
+          },
+          {
+            "id": "IK-614998:L293",
+            "start": 0,
+            "end": 416
+          },
+          {
+            "id": "IK-614998:L294",
+            "start": 0,
+            "end": 188
+          },
+          {
+            "id": "IK-614998:L295",
+            "start": 0,
+            "end": 180
+          },
+          {
+            "id": "IK-614998:L296",
+            "start": 0,
+            "end": 0
+          },
+          {
+            "id": "IK-614998:L297",
+            "start": 0,
+            "end": 177
+          },
+          {
+            "id": "IK-614998:L298",
+            "start": 0,
+            "end": 512
+          },
+          {
+            "id": "IK-614998:L299",
+            "start": 0,
+            "end": 429
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:GL_CONCURRING_LIMIT",
+      "text": "However, in the peculiar facts and circumstances of this case, where the conduct of the landlord is anything but wholesome, I agree with my learned brother in the order passed by him allowing the appeal. But, I would like to make my position clear regarding the scope and purpose of cite14†section 17 and cite15†18 of the Act.\nThe normal rule is that all rights created by a tenant disappear along with the disappearance of his tenancy unless there are special satisfactory safeguards for the sub- tenants. A sub-tenant has no independent existence de-hors the tenant who inducted him into possession. cite23†In the Act before us a subtenant is given a special right, not available to him under the general law, but that right is circumscribed by specific conditions laid down in section\n17. We have chosen to rescue the appellants before us only because of the hide and seek 398 conduct displayed by the so-called tenant and the so-called land-lord in this case. The facts speak for themselves. Even a man who runs can see that the so-called tenant in this case is the alter ego of the so-called land-lord. There is a total identification between the two.\nIt is their attempt to over reach the appellants by dubious methods that has, in fact, imperilled their case, and it is for this reason that the appellants get relief from us, even though strict adherence to the conditions imposed under cite14†section 17 is absent.\nIn normal case a sub-tenant under the Act can get relief under the provision of the Act only if he satisfies the twin conditions laid down in cite14†section 17 , viz., that there must be the previous consent in writing by the land- lord, of the creation of the sub-tenancy and a notice in the prescribed manner by the sub-tenant of the creation of the sub-tenancy to the land-lord within one month of the date of such creation.\nIt is only when these two conditions are satisfied that the consequences mentioned in cite25†section 18(1) will follow. I should not, therefore, be understood to hold the view that, as a general rule, in all cases where the sub-tenant some- how secures the signature of the land-lord in some communication relating to tenancy, a consent in writing satisfying the requirements of the section is to be assumed.\nIn this case, Messrs Om Prakash & Company and Balbir Nath Mathur have been hand in gloves with one another to defeat the appellants. It is the attestation by Balbir Nath Mathur on behalf of Messrs Om Prakash & Company in the letter dated June 10, 1975, that has found favour with us to assume consent in writing in the peculiar facts of the case. This, according to me, is an exceptional case with facts peculiar to its own.\nNormally, cite14†section 17 should be strictly complied with, for the sub-tenant to get the benefit under section\n18.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi DRC17 and18",
+      "mechanisms": [
+        "written_consent"
+      ],
+      "legal_status": "CONCURRING_LIMITATION",
+      "coverage_limit": "KhalidJ concurs in result but stresses exceptional facts and normal strict twin conditions; preserve this status, not an independently universal majority exception.",
+      "dependencies": [
+        "LAW:V09:GL_WRITTEN_CONSENT"
+      ],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "614998",
+        "url": "https://indiankanoon.org/doc/614998/",
+        "date": "1986-02-26",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-614998:L306",
+            "start": 0,
+            "end": 332
+          },
+          {
+            "id": "IK-614998:L307",
+            "start": 0,
+            "end": 463
+          },
+          {
+            "id": "IK-614998:L308",
+            "start": 0,
+            "end": 368
+          },
+          {
+            "id": "IK-614998:L309",
+            "start": 0,
+            "end": 268
+          },
+          {
+            "id": "IK-614998:L310",
+            "start": 0,
+            "end": 430
+          },
+          {
+            "id": "IK-614998:L311",
+            "start": 0,
+            "end": 411
+          },
+          {
+            "id": "IK-614998:L312",
+            "start": 0,
+            "end": 424
+          },
+          {
+            "id": "IK-614998:L313",
+            "start": 0,
+            "end": 116
+          },
+          {
+            "id": "IK-614998:L314",
+            "start": 0,
+            "end": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "LAW:V09:GD_COMMERCIAL_SUCCESSION",
+      "text": "Usually, on the death of the person who runs the business and maintains his family out of the income of the business, the other members of the family who suffer the bereavement have necessarily to carry on the business for the maintenance and support of the family. A running business is indeed a very valuable asset and often a great source of comfort to the family as the business keeps the family going.\nSo long as the contractual tenancy of a tenant who carries on the business continues, there can be no question of the heirs of the deceased tenant not only inheriting the tenancy but also inheriting the business and they are entitled to run and enjoy the same.\nWe have earlier held that mere termination of the contractual tenancy does not bring about any change in the status of the tenant and the tenant by virtue of the definition of the `tenant' in the Act and the other Rent Acts continues to enjoy the same status and position unless there be any provisions in the Rent Acts which indicate to the contrary.\nThe mere fact that in the Act no provision has been made with regard to the heirs of tenants in respect of commercial tenancies on the death of the tenant after termination of the tenancy, as has been done in the case of heirs of the tenants of residential premises, does not indicate that the Legislature intended that the heirs of the tenants of commercial premises will cease to enjoy the protection afforded to the tenant under the Act.\nThe Legislature could never have possibly intended that with the death of a tenant of the commercial premises, the business carried on by the tenant, however flourishing it may be and even if the same constituted the source of livelihood of the members of the family, must necessarily come to an end on the death of the tenant, only because the tenant died after the contractual tenancy had been terminated.\nIt could never have been the intention of the Legislature that the entire family of a tenant depending upon the 36 business carried on by the tenant will be completely stranded and the business carried on for years in the premises which had been let out to the tenant must stop functioning at the premises which the heirs of the deceased tenant must necessarily vacate, as they are afforded no protection under the Act.\nWe are of the opinion that in case of commercial premises governed by the cite23†Delhi Act , the Legislature has not thought it fit in the light of the situation at Delhi to place any kind of restriction on the ordinary law of inheritance with regard to succession. It may also be borne in mind that in case of commercial premises the heirs of the deceased tenant not only succeed to the tenancy rights in the premises but they succeed to the business as a whole.\nIt might have been open to the Legislature to limit or restrict the right of inheritance with regard to the tenancy as the Legislature had done in the case of the tenancies with regard to the residential houses but it would not have been open to the Legislature to alter under the cite24†Rent Act , the Law of Succession regarding the business which is a valuable heritable right and which must necessarily devolve on all the heirs in accordance with law.\nThe absence of any provision restricting the heritability of the tenancy in respect of the commercial premises only establishes that commercial tenancies notwithstanding the determination of the contractual tenancies will devolve on the heirs in accordance with law and the heirs who step into the position of the deceased tenant will continue to enjoy the protection afforded by the Act and they can only be evicted in accordance with the provisions of the Act.",
+      "version_status": "AS_REPORTED_NO_HISTORICAL_CONSOLIDATION_CERTIFICATE",
+      "scope": "Delhi commercial tenancy; ordinary inheritance",
+      "mechanisms": [
+        "family_occupation",
+        "statutory_succession"
+      ],
+      "legal_status": "COURT_ADOPTED",
+      "coverage_limit": "Death/inheritance of commercial tenancy; residential statutory limitations and corporate amalgamation are different. Later changes not audited; retrospective research only.",
+      "dependencies": [],
+      "source_status": "ADDRESSED_PASSAGE_RECOVERED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+      "full_source_status": "INCOMPLETE",
+      "allowed_role": "AUTHORITY_SOURCE_NOT_TARGET_CASE",
+      "annotation_status": "RESEARCHER_SELECTED_SOURCE_REVIEWED_PASSAGE; CASE_USE_NOT_YET_LABELLED",
+      "source": {
+        "document_id": "1887042",
+        "url": "https://indiankanoon.org/doc/1887042/",
+        "date": "1985-05-01",
+        "court_or_publisher": "Supreme Court of India",
+        "passage_addresses": [
+          {
+            "id": "IK-1887042:L648",
+            "start": 0,
+            "end": 406
+          },
+          {
+            "id": "IK-1887042:L649",
+            "start": 0,
+            "end": 260
+          },
+          {
+            "id": "IK-1887042:L650",
+            "start": 0,
+            "end": 351
+          },
+          {
+            "id": "IK-1887042:L651",
+            "start": 0,
+            "end": 440
+          },
+          {
+            "id": "IK-1887042:L652",
+            "start": 0,
+            "end": 407
+          },
+          {
+            "id": "IK-1887042:L653",
+            "start": 0,
+            "end": 419
+          },
+          {
+            "id": "IK-1887042:L654",
+            "start": 0,
+            "end": 466
+          },
+          {
+            "id": "IK-1887042:L655",
+            "start": 0,
+            "end": 458
+          },
+          {
+            "id": "IK-1887042:L656",
+            "start": 0,
+            "end": 462
+          }
+        ]
+      }
+    }
+  ],
+  "annotation_target_ids": [
+    "LAW:V09:DRC14_4",
+    "LAW:V09:KR_PERMISSIVE_FAMILY",
+    "LAW:V09:KR_PARTNERSHIP_SCOPE",
+    "LAW:V09:KR_BURDEN",
+    "LAW:V09:CEL_CONTROL",
+    "LAW:V09:CEL_SHAM_PROOF",
+    "LAW:V09:CEL_BURDEN",
+    "LAW:V09:HELP_GENUINENESS",
+    "LAW:V09:AH_LICENCE",
+    "LAW:V09:AH_BURDEN",
+    "LAW:V09:AH_CONSENT_SCOPE",
+    "LAW:V09:CK_REGULATORY_TRANSFER",
+    "LAW:V09:CK_ASSIGNMENT_SCOPE",
+    "LAW:V09:GL_WRITTEN_CONSENT",
+    "LAW:V09:GL_CONCURRING_LIMIT",
+    "LAW:V09:GD_COMMERCIAL_SUCCESSION"
+  ],
+  "scope": "Retrospective Delhi14(1)(b); target final reasoning excluded in inherited approved view"
+}

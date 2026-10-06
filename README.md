@@ -1,4 +1,8 @@
-当前第07轮见[完成报告](outputs/rgcn-ranking-diagnostic-07/report-zh.txt)与[逐案数据质量](outputs/rgcn-ranking-diagnostic-07/pilot/case-quality-summary.csv)。无案件输入S在旧六案偏好上不低于R-GCN，但送达较差；空白定位修复后仍无稳定图传播收益。完成60次本地训练与10案40次普通High任务，保留113项用途、80项方向偏好，争议隔离；参考非人工金标准，尚无独立泛化结论。 本轮未提交或推送。
+最新[V09主训练报告](outputs/rgcn-data-expansion-09/main-training-01/report-zh.txt)：27 TRAIN、730项暂定用途监督、30法源，两个种子共6次S/B/C训练完成。DEV核心送达S8/11、B7/11、C4/11与9/11；无稳定条件化收益，暂停扩大图。8 SEALED未用；未生成法律回答或推送。
+
+准备阶段[V09剩余任务报告](outputs/rgcn-data-expansion-09/continuation-03/report-zh.txt)：27 TRAIN／6 DEV／8 SEALED；27图、26标签、26案接口配对。补2项，125596702标签保留隔离；未训练或推送。 旧结果保持；接口完成不等于语义验收。
+
+历史第08轮见[完成报告](outputs/rgcn-use-development-08/report-zh.txt)与[逐案比较](outputs/rgcn-use-development-08/comparison-table.csv)。十案80次用途监督训练、三案9次普通High回答完成；共享基线核心送达仍领先，R-GCN减少部分无关材料占用，但未显示稳定完整答案改善。冻结字节保留；非独立测试、非人工gold。
 
 # Legal Facts, Rules and Decisions
 

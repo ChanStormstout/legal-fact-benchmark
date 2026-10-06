@@ -1,0 +1,53 @@
+{
+  "version": "V09-continuation-01",
+  "started_at": "2026-10-05T06:37:52.591007+00:00",
+  "deadline": "2026-10-05T08:37:52.591007+00:00",
+  "preparation_budget": {
+    "active_minutes": 120,
+    "new_detailed_candidates": 40,
+    "new_full_target_acquisitions": 36,
+    "web_annotation_calls": 60,
+    "retries": 0
+  },
+  "authority_pool": "outputs/rgcn-data-expansion-09/authority-pool/laws.json",
+  "authority_units": 30,
+  "pool_sha256": "98a545799907919977a479ac37d8b8065d7f11152f5e30a552e8de47b46ca0de",
+  "scope": "Actual live Delhi DRC1958 s14(1)(b) issue, SC/DelhiHC/RC/ARC/RCT sources; mere citations excluded",
+  "training": false,
+  "legal_answers": false,
+  "split_rule": {
+    "seed": 20261004,
+    "mechanism_order": [
+      "family_occupation",
+      "control_exclusive_possession",
+      "partnership_company",
+      "amalgamation",
+      "statutory_succession",
+      "licence_sublease",
+      "written_consent",
+      "temporal_applicability"
+    ],
+    "order": "round-robin mechanism and stage, saved candidate rank within stratum; deterministic case-ID tie-break",
+    "assignment_cycle": [
+      "TRAIN",
+      "TRAIN",
+      "SEALED_TEST"
+    ],
+    "known_dispute": "one group one split; unknown relation explicitly marked",
+    "sealed": "reserve before annotations, never used for development feedback; content excluded from review/publication"
+  },
+  "model_reference": "ordinary ChatGPT High; source reviewed not human gold",
+  "labels": "existing coarse-use contract; unmarked/UNKNOWN not negatives",
+  "graph": "existing V07 contract; reuse old fact/object/relation records; new16 condition and candidate alignments source-based, no labels in feature input",
+  "searches_before_freeze": [
+    {
+      "purpose": "initial locator pass only",
+      "queries": [
+        "site:indiankanoon.org/doc/ \"Delhi\" \"14(1)(b)\" \"family\" \"2023\"",
+        "site:indiankanoon.org/doc/ \"Delhi\" \"14(1)(b)\" \"partnership\" \"2019\"",
+        "site:indiankanoon.org/doc/ \"Additional Rent Controller\" \"14(1)(b)\" \"consent\""
+      ]
+    }
+  ],
+  "no_commit_no_push": true
+}

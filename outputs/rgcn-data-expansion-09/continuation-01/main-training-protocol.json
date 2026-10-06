@@ -1,0 +1,57 @@
+{
+  "status": "FROZEN_FUTURE_PROTOCOL_NOT_EXECUTED",
+  "methods": [
+    "S",
+    "B",
+    "C"
+  ],
+  "exclude": [
+    "C0",
+    "architecture/parameter search"
+  ],
+  "reuse_v08_settings": {
+    "seeds": [
+      20261004,
+      20261005
+    ],
+    "updates": 200,
+    "lr": 0.003,
+    "l2": 0.001,
+    "loss": "three-class cross entropy; mean within case then across training cases; no class weighting; L2 same original coefficient",
+    "score": "2*P(CORE)+P(BACKGROUND)",
+    "selection": {
+      "max_legal_characters": 20000,
+      "dependencies": "unchanged atomic closure",
+      "order": "unchanged corpus display order",
+      "max_units": null
+    },
+    "mandatory": [
+      "LAW:S02:DRC14:1b"
+    ],
+    "standardization": "training groups only; no held labels or all-case class priors"
+  },
+  "split": {
+    "train": 30,
+    "development": 6,
+    "sealed_test": 10,
+    "actual_manifest": "outputs/rgcn-data-expansion-09/continuation-01/split-manifest.json",
+    "targets_only_not_quotas": true
+  },
+  "order": "Inspect B>S first; inspect C>B only as additional value. No result-based hyperparameter revision.",
+  "stable_meaning": "Pre-fixed seeds must have consistent direction; inspect by-case nonmandatory CORE delivery, serious lost counterauthority and complete-answer evidence separately. One pooled score cannot prove stability.",
+  "interpretation": "No case-use labels, historical verdicts or source-target final reasoning in model input features; unknown/unreviewed not negative. No legal correctness claim from labels alone.",
+  "necessary_interface_note": "V08 S factory defaults to14 units. Future V09 runtime must use actual pool size, in new source version only; do not train a14-unit S against30-unit B/C. This is dimensional compatibility, not GNN architecture tuning.",
+  "material_vs_answer_gate": "C ranking benefit alone is insufficient; only stable original-material delivery AND source-reviewed complete-answer gain justifies growing GNN.",
+  "publication": "LOCAL_ONLY_NO_COMMIT_NO_PUSH",
+  "model_factory": "scripts.rgcn09_continuation.no_training_factory(kind, exact_ordered_pool_ids); units=30 for S, same 30 numeric rows for B/C",
+  "quality_gate": [
+    "30 source-ready TRAIN dispute groups with task-relevant graph and known coarse use labels; record isolation, UNKNOWN and unmarked separately",
+    "No known group crosses TRAIN/DEV/SEALED; broader association uncertainty reported",
+    "Hold SEALED source-only until methods and legal evaluation frozen; no evaluation answers in graph",
+    "Confirm identical30 candidate order,20kchar budget and dependency closure for S/B/C",
+    "Single-pass model reference is provisional, not human gold; exact locators do not establish semantic truth"
+  ],
+  "run_authorization": "NOT_AUTHORIZED_IN_THIS_DATA_PHASE",
+  "sealed_evaluation": "One frozen main run; no architecture or parameter tuning. First B>S, then C>B. Ranking/material delivery distinct from later complete-answer testing.",
+  "data_limit": "Counts in allocation manifest are registered cases, not proof every graph/label task is usable."
+}

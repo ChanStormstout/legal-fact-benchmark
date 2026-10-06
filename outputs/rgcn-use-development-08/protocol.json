@@ -1,0 +1,72 @@
+{
+  "version": "USE_SUPERVISION_DEVELOPMENT_08",
+  "review_base": "6bb38168096239c78a34497f4afe1396ef4e4a64",
+  "pilot": "outputs/rgcn-ranking-diagnostic-07/pilot",
+  "classes": [
+    "CORE",
+    "BACKGROUND",
+    "IRRELEVANT"
+  ],
+  "mapping": {
+    "DIRECT": "CORE",
+    "EXCEPTION_COUNTER": "CORE",
+    "BACKGROUND": "BACKGROUND",
+    "IRRELEVANT": "IRRELEVANT"
+  },
+  "ignore": [
+    "UNKNOWN",
+    "isolated",
+    "missing"
+  ],
+  "loss": "three-class cross entropy; mean within case then across training cases; no class weighting; L2 same original coefficient",
+  "methods": [
+    "S",
+    "B",
+    "C0",
+    "C"
+  ],
+  "seeds": [
+    20261004,
+    20261005
+  ],
+  "primary_seed": 20261004,
+  "updates": 200,
+  "lr": 0.003,
+  "l2": 0.001,
+  "score": "2*P(CORE)+P(BACKGROUND)",
+  "architecture": "V2 width16, two self layers, two relation bases; only output dimensions changed. S 14 shared zero-initialized 3-class logits; B18-feature no-bias linear head",
+  "graph": "reuse unchanged pilot graph files, no annotation or semantic edits",
+  "standardization": "training groups only; no held labels or all-case class priors",
+  "split": "leave-one-case-group-out; existing distinct group IDs, broader links unconfirmed; exposed development not sealed test",
+  "max_fits": 80,
+  "selection": {
+    "max_legal_characters": 20000,
+    "dependencies": "unchanged atomic closure",
+    "order": "unchanged corpus display order",
+    "max_units": null
+  },
+  "mandatory": [
+    "LAW:S02:DRC14:1b"
+  ],
+  "answer_cases": [
+    "38604742",
+    "1497837",
+    "111425525"
+  ],
+  "answer_case_basis": "preselected material types: multi-level possession dispute, statutory institution changes, contested first-instance facts",
+  "final_task": "unchanged pack.prompt and V21 examples/output contract; no proposal, scores, use labels or references to preferred law IDs",
+  "final_model": {
+    "visible_family": "Latest expected; verify each new conversation",
+    "mode": "ordinary High",
+    "exact_model": null,
+    "sampling": null
+  },
+  "web_calls_max": 12,
+  "share": "same case and byte-identical complete prompt only",
+  "retries": 0,
+  "review": "one concentrated local source review after all final answers; no new review model calls",
+  "new_laws": 0,
+  "new_cases": 0,
+  "no_commit_or_push": true,
+  "stop": "after80fits, <=12unique final answers and one source review; no tuning or follow-on round"
+}

@@ -1,0 +1,141 @@
+{
+  "version": "09",
+  "scope": "Delhi Rent Control Act 14(1)(b) only for target cases",
+  "train_target": 30,
+  "existing_train": [
+    {
+      "case_id": "38604742",
+      "title": "Puri Investments; doctors in chemist premises",
+      "group_id": "38604742",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "SC appeal; ARC and Tribunal conflict with High Court; retained quoted Tribunal reasons, not target endorsement",
+      "source": "sources/38604742.json"
+    },
+    {
+      "case_id": "308216",
+      "title": "Jagan Nath; sons and partnership",
+      "group_id": "308216",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "SC appeal; conflicting positions and lower orders; target amendment endorsement and final merits excluded",
+      "source": "sources/308216.json"
+    },
+    {
+      "case_id": "1106992",
+      "title": "Madras Bangalore; firm and company",
+      "group_id": "1106992",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "SC appeal; narrative evidence and party submissions; target alter-ego conclusion excluded",
+      "source": "sources/1106992.json"
+    },
+    {
+      "case_id": "758831",
+      "title": "Bharat Sales; consideration proof",
+      "group_id": "758831",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "SC leave petition; historical lower findings and tenant argument; final rejection excluded",
+      "source": "sources/758831.json"
+    },
+    {
+      "case_id": "1497837",
+      "title": "Jai Singh; statutory transport bodies",
+      "group_id": "1497837",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "SC appeal; lower decisions and rival submissions retained, target evaluation from paragraph12 excluded",
+      "source": "sources/1497837.json"
+    },
+    {
+      "case_id": "1381386",
+      "title": "Sri Chand Gupta; brother affidavit",
+      "group_id": "1381386",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "SC appeal; lower findings and landlord argument; target rejection excluded",
+      "source": "sources/1381386.json"
+    },
+    {
+      "case_id": "115676081",
+      "title": "Prakash Kaur; tenant and son company",
+      "group_id": "115676081",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "HC supervisory proceeding; ARC quotation retained without target agreement; share counts retained without target inference",
+      "source": "sources/115676081.json"
+    },
+    {
+      "case_id": "1843439",
+      "title": "Shyam Sunder; father and son",
+      "group_id": "1843439",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "HC supervisory proceeding; lower findings and submissions; final analysis excluded",
+      "source": "sources/1843439.json"
+    },
+    {
+      "case_id": "1859043",
+      "title": "Raja Ram; rent note and consent",
+      "group_id": "1859043",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "HC second appeal; facts and lower findings; target statutory interpretation excluded",
+      "source": "sources/1859043.json"
+    },
+    {
+      "case_id": "111425525",
+      "title": "Sandeep Singh; two firms and permission",
+      "group_id": "111425525",
+      "split": "TRAINING_PILOT",
+      "prior_target_use": "No target-ID output file found in prior outputs; prior citations/metadata possible; not proof of global non-exposure",
+      "related": "UNKNOWN_BEYOND_CHECKED_DOCKET_PARTIES",
+      "stage": "ARC first instance; pleadings and evidence inventory only, no target findings",
+      "source": "sources/111425525.json"
+    }
+  ],
+  "development_ids": [
+    "110204406",
+    "172908545",
+    "58386394",
+    "890045",
+    "1908519",
+    "869439"
+  ],
+  "sealed_test_target": 10,
+  "mechanisms": [
+    "family occupation",
+    "control/exclusive possession",
+    "partnership/company",
+    "amalgamation",
+    "statutory succession",
+    "licence/sublease",
+    "written consent",
+    "temporal applicability"
+  ],
+  "selection": "Allowed facts/issues only for coverage; retain saved rank within mechanism; deterministic round robin, seed 20261004 for train/test separation; never verdict, target reasoning, previous model outputs or predicted gain",
+  "candidate_input": "Existing SQLite cases and previously saved candidate records; regex hits are screening only",
+  "authority_target": [
+    30,
+    50
+  ],
+  "source_separation": "Source-case authority must not leak own/related target final reasoning into inputs; unknown relations marked",
+  "labels": "Coarse case-specific authority use, with original source IDs; unknown/unreviewed excluded, not negative; no pairwise labels or new fine schemas",
+  "test_policy": "Reserve before main method freeze; no test labels/features/ranking feedback used to develop method; sealed contents excluded from review/publication",
+  "main_training": "Only S/B/C after sufficient usable 30 train and frozen authority pool; V08 architecture/settings unchanged, no C0/no tuning",
+  "decision_order": [
+    "B>S with stable material benefit? else pause graph",
+    "C>B with stable material and full answer benefit? else keep simple model"
+  ],
+  "no_push": true
+}

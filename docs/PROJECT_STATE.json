@@ -162,6 +162,43 @@
       "source_reviewed_directional_preferences": 80,
       "semantic_accuracy_established": false,
       "new_training_on_pilot": 0
+    },
+    "rgcn_use08": {
+      "status": "COMPLETED_USE_SUPERVISION_DEVELOPMENT",
+      "report": "outputs/rgcn-use-development-08/report-zh.txt",
+      "cases": 10,
+      "law_units": 14,
+      "uses": 113,
+      "fits": 80,
+      "fit_failures": 0,
+      "logical_final_slots": 12,
+      "web_calls": 9,
+      "retries": 0,
+      "source_review_rounds": 1,
+      "decision": "KEEP_SHARED_SIMPLE_BASELINE_NO_STABLE_CASE_CONDITIONED_GAIN_NO_GRAPH_EXPANSION",
+      "publication": "LOCAL_ONLY_NO_COMMIT_NO_PUSH",
+      "stopped": true
+    },
+    "rgcn_data_expansion09_continuation": {
+      "status": "BOUNDED_PREPARATION_PARTIAL_ACCESS_BLOCK",
+      "report": "outputs/rgcn-data-expansion-09/continuation-01/report-zh.txt",
+      "registered_train": 27,
+      "development": 6,
+      "sealed": 8,
+      "source_ready_not_accepted_training": true,
+      "label_imports": 9,
+      "graph_imports": 7,
+      "provisional_interface_pairs": 6,
+      "known_label_rows": 133,
+      "isolated_label_rows": 11,
+      "new_conditions": 58,
+      "confirmed_web_submissions": 40,
+      "additional_uncertain_send": 1,
+      "training_runs": 0,
+      "new_legal_answers": 0,
+      "v08_preserved": true,
+      "main_training_gate": "CLOSED",
+      "publication": "LOCAL_ONLY_NO_COMMIT_NO_PUSH"
     }
   },
   "research_objective": {
@@ -839,10 +876,15 @@
     }
   },
   "current_review": {
-    "title": "关系排序诊断与训练数据试做07",
-    "report": "outputs/rgcn-ranking-diagnostic-07/report-zh.txt",
-    "summary": "无案件输入S在旧六案偏好上不低于R-GCN，但送达较差；空白定位修复后仍无稳定图传播收益。完成60次本地训练与10案40次普通High任务，保留113项用途、80项方向偏好，争议隔离；参考非人工金标准，尚无独立泛化结论。",
-    "review_kind": "RGCN_DIAGNOSTIC_PILOT"
+    "title": "V09 27-case partial-supervision S/B/C training",
+    "report": "outputs/rgcn-data-expansion-09/main-training-01/report-zh.txt",
+    "summary": "27 TRAIN、730项暂定用途监督、30法源，两个种子共6次S/B/C训练完成。DEV核心送达S8/11、B7/11、C4/11与9/11；无稳定条件化收益，暂停扩大图。8 SEALED未用；未生成法律回答或推送。",
+    "review_kind": "RGCN_MAIN_TRAINING",
+    "candidate_report": "outputs/rgcn-data-expansion-09/continuation-01/candidate-audit.json",
+    "pool_manifest": "outputs/rgcn-data-expansion-09/authority-pool/manifest.json",
+    "comparison_protocol": "outputs/rgcn-data-expansion-09/main-training-01/protocol.json",
+    "preparation_freeze": "outputs/rgcn-data-expansion-09/main-training-01/training-freeze.json",
+    "stage_description": "V09：27案不完整监督的首次S/B/C主训练（开发评价）\n\n六次训练已完成，零技术失败。当前决定：暂停扩大图排序，保留S作为基线；本轮没有获得稳定的B>S或C>B证据。不能用C第二个种子的较好结果抵消第一个种子的明显退步，也不能据此宣称关系信息或GNN普遍无效。本轮未生成法律回答，无法判断完整法律回答收益。\n\nS只学习每项法源的共享用途倾向，不读取案件特征；B读取同一图数据导出的18项案件—法源关系特征，用线性分类器排序；C沿用V08的两层、16维、2个基矩阵R-GCN，将图传播表示与同一18项特征结合。三者都预测CORE、BACKGROUND、IRRELEVANT，以2×P(CORE)+P(BACKGROUND)排序。训练均为200步、学习率0.003、L2系数0.001、种子20261004和20261005；每案损失先取均值，再对案件取均值。没有调架构或选最优种子。\n\n本轮使用27个TRAIN，730项可计算标签：旧113项、新导入609项、125596702中8项地址及引文检查通过的原始标签。按用户授权，重复提交不再整体阻止该案参加训练；重复影响仍未知，8项只作为暂定模型参考，另外22项隔离不进入损失。其他未知、未标记及隔离项同样不当负例。8个SEALED仅核对清单身份与组号，没有读取内容、建立特征或评价。已知纠纷组没有跨集合；更广泛关联未经完全核查。\n\n旧6案继续只作DEVELOPMENT。它们的旧用途记录中只有35条可映射到明确三类，其余未确定项不进入类别评分；强制提供的第14(1)(b)条扣除后，共11项已标记核心依据。新增16项法源没有这6案的用途标签和案件条件对齐。本轮保留新增法源原文及来源条件节点，案件连接为UNKNOWN，没有填造连接。该缺失对依赖案件关系的B/C可能不利，因此这次评价不能完整代表30法源池，也不是独立泛化成绩。\n\n在相同30候选和20,000字符预算下，种子04的核心送达为S8/11、B7/11、C4/11；种子05为S8/11、B7/11、C9/11。各案结果见case-comparison.md，所有排名、概率、原文材料和预算决定保存在runs。以上是已确认依据覆盖，不是准确率或完整召回率。三种方法选中的已标记IRRELEVANT均为0，但大批所选法源没有开发标签，因此不能推断没有错误选择。两个种子下S/B各自送达集合相同；C有明显变化，两个种子不足以估计稳定性。\n\n具体取舍：110204406中，S送达DRC第16条及GR的Delhi报道段，B保留后者却丢失第16条，两种子均少一项已确认依据。58386394中B把S的第16条换为Telesound第16段，数量同为2/3，不能只看总数当作内容相同。C在第一个种子对这两个案件均未送达任何非强制已标记核心依据；第二个种子分别送达2/3、3/3。material-changes.json保存全部新增/挤出项，未按结果筛选展示。\n\n排序的旧偏好诊断S71/73、B56/73、C59/73（两种子相同）；这些偏好也来自模型参考且不完整，不用于调参或挑选模型。排序变化、材料送达和最终法律效能是不同环节，本轮只测到前两者。\n\n六次拟合和本地开发选择合计约22.48秒，未新增网页、LLM或付费API调用。单次拟合S约0.27/1.14秒，B约0.29/1.13秒，C约8.89/10.15秒；时间包括当前进程调度，不能当精确硬件基准。MLX峰值活动内存最高约500MB（不是整机总内存）。三种方法均有非零梯度、参数更新和下降的训练目标，证明实际拟合发生，不证明法律正确。C训练目标下降更大但开发送达不稳定，不能用训练拟合替代开发效果。\n\n实施仅增加30候选接口与CORE标签映射，旧V08源码未改。开发新增法源的缺失连接明确保留UNKNOWN。四项相关程序检查通过，覆盖类别映射/隔离掩码、30维共享基线、缺失对齐以及只用TRAIN计算标准化。准备阶段一次绝对路径快照错误在训练前修正，部分准备原样保存在preparation-attempt-01；同时修正SEALED_TEST名称校验。没有训练重试。主运行代码、实际数值输入、监督、参数及顺序在首次训练前冻结；若干继承辅助模块仅另存运行后哈希，未冒充完整的运行前递归依赖快照。\n\n结论的限制来自三处：单次模型参考仍可能含语义错误；开发对新增16项没有完整标签和对齐；6案此前用于开发，不是未见测试。当前不值得继续参数或架构试验。若下一步要作更强投入判断，应先按统一规则补齐开发法源对齐与粗用途覆盖，再另行授权评价；本轮不执行补标或新训练。暂不启封8案SEALED，不改已有监督追求更好结果。\n\nV08及前一轮原文件哈希保持，完整检查见preservation-audit.json。所有六次权重在本地保存并有哈希，因仓库约定不进入发布清单。本轮更新本地状态、报告和审阅包，不提交或推送。模型参考不是人工金标准，本轮至此结束。\n"
   },
   "latest_run_field_role": "LEGACY_RELATION_BASELINE_NOT_CURRENT_LEGAL_EXPERIMENT",
   "publication_target": {
