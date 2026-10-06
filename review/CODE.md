@@ -16209,3 +16209,512 @@ class RelationGuardTests(unittest.TestCase):
 if __name__=='__main__':unittest.main()
 
 ```
+
+## legal_bench/rules_verdict_v1/irac_gate_v2.py
+
+```python
+"""Explicit semantic-stage gate and inference-only binding admission.
+
+Address validity is not semantic validation. Reviewed partitions are inputs to
+this module, not inferred from a node name, court string or past event date.
+"""
+import copy
+import hashlib
+import json
+
+ALLOWED = {'PRE_TARGET_RECORD', 'PRIOR_COURT_FINDING', 'TARGET_STAGE_PARTY_ARGUMENT'}
+FORBIDDEN = {'TARGET_COURT_REASONING', 'TARGET_DISPOSITION', 'AMBIGUOUS'}
+AVAILABILITY = {'DIRECT_PRE_TARGET_SOURCE', 'RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET', 'UNKNOWN'}
+
+
+def digest(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+
+
+def admit_record(record, grant, source_grants):
+    """One policy for facts, objects, evidence, edges and metadata; no rewriting."""
+    errors = []
+    if grant.get('semantic_stage') not in ALLOWED or grant.get('input_allowed') is not True:
+        errors.append('SEMANTIC_STAGE_FORBIDDEN_OR_UNGRANTED')
+    if grant.get('prospective_availability') not in AVAILABILITY:
+        errors.append('AVAILABILITY_NOT_DECLARED')
+    refs = record.get('refs', grant.get('source_refs', []))
+    if not refs:
+        errors.append('NO_SOURCE_PROVENANCE')
+    if not set(refs) <= set(grant.get('source_refs', [])):
+        errors.append('ORIGINAL_REFS_NOT_GRANTED')
+    for ref in refs:
+        sg = source_grants.get(ref, {})
+        if sg.get('semantic_stage') not in ALLOWED or sg.get('input_allowed') is not True:
+            errors.append('SOURCE_STAGE_FORBIDDEN:' + ref)
+    # A contradictory grant must not silently promote a known target finding.
+    if record.get('court') == 'TARGET' and record.get('status') == 'FOUND':
+        errors.append('TARGET_FOUND_NOT_INPUT')
+    return (None if errors else copy.deepcopy(record)), sorted(set(errors))
+
+
+def validate_condition(condition, rules):
+    rule = rules.get(condition.get('rule_id'), {})
+    errors = []
+    if not rule.get('independent_source_verified'):
+        errors.append('NO_INDEPENDENT_RULE_SOURCE')
+    quote = condition.get('exact_rule_quote', '')
+    if not quote or ' '.join(quote.split()) not in ' '.join(rule.get('exact_quote', '').split()):
+        errors.append('RULE_QUOTE_NOT_LOCATED')
+    if not condition.get('source_refs'):
+        errors.append('NO_CONDITION_SOURCE')
+    for dep in condition.get('dependencies', []):
+        if dep.get('operator') not in {'AND', 'OR', 'QUALIFICATION'}:
+            errors.append('INVALID_DEPENDENCY')
+    return errors
+
+
+def validate_blind_binding(binding, facts, conditions, source_grants, fact_grants):
+    errors = []
+    fact = facts.get(binding.get('fact_id'))
+    if fact is None:
+        return ['UNKNOWN_OR_NEW_FACT_FORBIDDEN']
+    if binding.get('condition_id') not in conditions:
+        errors.append('UNKNOWN_CONDITION')
+    if binding.get('relation') not in {'SUPPORTS', 'DEFEATS', 'RELEVANT_TO'}:
+        errors.append('INVALID_RELATION')
+    _, record_errors = admit_record(fact, fact_grants.get(fact['id'], {}), source_grants)
+    errors += record_errors
+    refs = binding.get('source_refs', [])
+    if not refs or not set(refs) <= set(fact.get('refs', [])):
+        errors.append('BINDING_REF_NOT_IN_FACT_PROVENANCE')
+    for ref in refs:
+        if not source_grants.get(ref, {}).get('input_allowed'):
+            errors.append('TARGET_ONLY_OR_UNKNOWN_SOURCE:' + ref)
+    if binding.get('statement_status') != fact.get('status'):
+        errors.append('FACT_STATUS_CHANGED')
+    stage = binding.get('court_stage', {})
+    if not isinstance(stage, dict) or stage.get('court') != fact.get('court') or stage.get('stage') != fact.get('stage'):
+        errors.append('COURT_STAGE_CHANGED')
+    return sorted(set(errors))
+
+
+def inference_payload(issue, rules, conditions, facts, relations, objects, sources):
+    """Targets, oracle selection notes and source reviews have no argument here."""
+    input_rules = [{k: copy.deepcopy(v) for k, v in r.items()
+                    if k not in {'oracle_selection_basis', 'verification_meaning'}} for r in rules]
+    return {'fixed_issue': issue, 'rules': input_rules,
+            'conditions': copy.deepcopy(conditions), 'facts': copy.deepcopy(facts),
+            'relations': copy.deepcopy(relations), 'objects': copy.deepcopy(objects),
+            'sources': copy.deepcopy(sources), 'unknown_is_not_false': True}
+
+```
+
+## scripts/irac02_address_fix.py
+
+```python
+"""Pre-binding address-only correction: recognize saved PDF segment_offsets.
+
+Never changes rule text, condition semantics, or a model proposal. Initial freeze
+retained. No binding generation has started. New active files are immutable.
+"""
+import datetime,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from irac02_prepare import R,IDS,rd,put,sha,task
+assert not list((R/'web').glob('B-*.run.json')), 'No address revision after inference generation'
+changes=[]
+for cid in IDS:
+ p=rd(R/'rule-package'/f'{cid}.json');rules={r['rule_id']:r for r in p['rules']};conditions={c['condition_id']:c for c in p['conditions']};checks=[]
+ for prior in p['program_checks']:
+  c=conditions[prior['condition_id']];r=rules[c['rule_id']];src=r['source_document'];addresses={c['rule_id']}|{z['id'] for field in ['passage_addresses','segment_offsets'] for z in src.get(field,[])}
+  errors=[e for e in prior['locator_and_reference_errors'] if e!='CONDITION_SOURCE_OUTSIDE_RULE']
+  if not set(c['source_refs'])<=addresses:errors.append('CONDITION_SOURCE_OUTSIDE_RULE')
+  checks.append({'condition_id':c['condition_id'],'locator_and_reference_errors':errors})
+  if prior['locator_and_reference_errors']!=errors:changes.append({'case_id':cid,'condition_id':c['condition_id'],'old_errors':prior['locator_and_reference_errors'],'new_errors':errors,'original_source_offsets':src.get('segment_offsets',[])})
+ p['program_checks']=checks;sem_block=[z for z in p['independent_review']['condition_reviews']+p['independent_review']['rule_reviews'] if z['status']=='BLOCKING_GAP'];p['rule_complete']=bool(p['proposal']['rule_complete'] and p['independent_review']['rule_complete'] and not p['rule_errors'] and not sem_block and not any(z['locator_and_reference_errors'] for z in checks))
+ put('rule-package-address-v2/'+cid+'.json',p)
+old=rd(R/'rule-condition-freeze.json');put('rule-condition-freeze-address-v2.json',dict(old,at=datetime.datetime.now(datetime.timezone.utc).isoformat(),rules={c:sha(R/'rule-package-address-v2'/f'{c}.json') for c in IDS},supersedes_address_check_only=sha(R/'rule-condition-freeze.json'),reason='Saved PDF segment_offsets are valid addresses, not just passage_addresses. No rule/condition semantic change; before first blind call.'))
+put('pre-binding-address-correction.json',{'changes':changes,'source_mapping_only':True,'old_freeze_preserved':True,'model_retries':0,'no_binding_started':True,'text_condition_equality':all(rd(R/'rule-package'/f'{c}.json')['conditions']==rd(R/'rule-package-address-v2'/f'{c}.json')['conditions'] for c in IDS)})
+for cid in IDS:
+ item=rd(R/'blind-binding-tasks'/f'{cid}.json');p=rd(R/'rule-package-address-v2'/f'{cid}.json')
+ if p['rule_complete'] and item['input'] is None:
+  from legal_bench.rules_verdict_v1.irac_gate_v2 import inference_payload
+  from irac02_prepare import OLD
+  st=rd(R/'stage-partition'/f'{cid}.json');inv=st['admitted_inventory'];x=rd(OLD/'inputs'/f'{cid}.json');grants={z['record_id']:z for z in st['records']}
+  item['input']=inference_payload(x['fixed_issue'],p['rules'],p['conditions'],inv['facts'],inv['relations'],inv['objects'],inv['sources']);item['input']['record_stage']=[{k:v for k,v in grants['facts:'+f['id']].items() if k!='reason'} for f in inv['facts']]
+ item['rule_complete']=p['rule_complete'];item['skip_reason']=None if p['rule_complete'] else 'RULE_CONDITION_BLOCKING_GAP_SKIP_BINDING';put('blind-binding-tasks-address-v2/'+cid+'.json',item)
+for n in range(1,5):
+ old_text=(R/'tasks'/f'B-{n}.txt').read_text();instruction=old_text.split('\nMATERIAL\n')[0];data=[rd(R/'blind-binding-tasks-address-v2'/f'{c}.json') for c in IDS[(n-1)*2:n*2]];task('B-'+str(n)+'-address-v2',instruction,data)
+put('blind-binding-input-freeze-address-v2.json',{'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rule_condition_freeze':sha(R/'rule-condition-freeze-address-v2.json'),'stage_partition_freeze':sha(R/'stage-partition-freeze.json'),'input_hashes':{c:sha(R/'blind-binding-tasks-address-v2'/f'{c}.json') for c in IDS},'prompt_hashes':{f'B-{n}':sha(R/'tasks'/f'B-{n}-address-v2.txt') for n in range(1,5)},'code_hashes':{str(p):sha(p) for p in [Path('scripts/irac02_address_fix.py'),Path('legal_bench/rules_verdict_v1/irac_gate_v2.py')]},'active_rule_path':'rule-package-address-v2','active_input_path':'blind-binding-tasks-address-v2'})
+put('active-prebinding-version.json',{'rule_package':'rule-package-address-v2','rule_condition_freeze':'rule-condition-freeze-address-v2.json','binding_inputs':'blind-binding-tasks-address-v2','binding_input_freeze':'blind-binding-input-freeze-address-v2.json','actual_prompt_suffix':'-address-v2','initial_version_retained':True})
+print('Address-only prebinding freeze complete; changed',changes)
+
+```
+
+## scripts/irac02_final_review.py
+
+```python
+"""One independent full-chain review preparation, after all blinded outputs freeze."""
+from irac02_prepare import R,OLD,IDS,rd,put,sha,task
+import datetime
+assert (R/'blind-binding-freeze.json').exists()
+raw={c['case_id']:c for n in [1,2] for c in rd(R/'web'/f'T-{n}.raw.json')['cases']}
+cases=[]
+for cid in IDS:
+ t=raw[cid];rule=rd(R/'rule-package-address-v2'/f'{cid}.json');source=rd(R/'target-construction'/f'{cid}.json');segments={s['id']:s['text'] for s in source['full_historical_source']};conditions={c['condition_id'] for c in rule['conditions']};checks=[]
+ for z in t['application_targets']+[t['issue_target']]:
+  refs=z.get('source_refs',[]);q=z.get('exact_quote','');errs=[]
+  if any(ref not in segments for ref in refs):errs.append('UNKNOWN_TARGET_SOURCE_REF')
+  if q and ' '.join(q.split()) not in ' '.join('\n'.join(segments.get(s,'') for s in refs).split()):errs.append('TARGET_QUOTE_NOT_LOCATED')
+  if not q and z.get('label') not in ['UNRESOLVED']:errs.append('DEFINITE_TARGET_WITHOUT_QUOTE')
+  if 'condition_id' in z and z['condition_id'] not in conditions:errs.append('UNKNOWN_CONDITION')
+  checks.append({'id':z.get('condition_id','ISSUE'),'errors':errs})
+ coverage={z['condition_id'] for z in t['application_targets']}==conditions
+ put('targets/'+cid+'.json',{'case_id':cid,'proposal':t,'locator_checks':checks,'condition_coverage_complete':coverage,'source_semantic_validity_not_implied_by_locator':True,'supervision_only':True,'blind_binding_freeze_sha256':sha(R/'blind-binding-freeze.json')})
+ old=rd(OLD/'inputs'/f'{cid}.json');cases.append({'case_id':cid,'fixed_issue':old['fixed_issue'],'procedure_scope':old['stage'],'rule_package':rule,'stage_partition':rd(R/'stage-partition'/f'{cid}.json'),'blind_bindings':rd(R/'blind-bindings'/f'{cid}.json'),'targets':rd(R/'targets'/f'{cid}.json'),'full_historical_source':source['full_historical_source']})
+put('target-freeze.json',{'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'files':{c:sha(R/'targets'/f'{c}.json') for c in IDS},'blind_before_target_hash':sha(R/'blind-binding-freeze.json')})
+for j in range(2):
+ task('F-'+str(j+1),'''FINAL INDEPENDENT CHAIN SOURCE REVIEW, not repair or legal answer. Supplied four historical development chains. No external search, new facts, altered conditions, targets or bindings. Judge from original excerpts and historical source, not only locator flags or consistency of models. Return complete downloadable JSON {cases:[{case_id,dimensions:[{dimension,status,source_refs,reason}],rule_complete,blind_bindings_meaningful,prior_findings_preserved,leakage_status,recommended_status,blocking_reason,qualification}],systemic_blockers:[string]}. EXACT ten dimensions: Issue,Rule,Conditions,Stage_partition,Input_facts,Blind_bindings,Application_targets,Issue_target,Leakage,Logical_consistency. dimension status SUPPORTED/QUALIFIED/BLOCKING_GAP. recommended_status READY_FOR_RETROSPECTIVE_APPLICATION_TRAINING / REFERENCE_ONLY / GAP. READY requires fixed sourced issue; complete independent decisive rules; faithful condition logic; no target reasoning/disposition or AMBIGUOUS input; prior findings retain level/status; input-only candidate bindings referencing existing facts with unchanged statement status/provenance; application targets sourced in target reasoning, not inferred from issue outcome; issue/element compatibility; no blocking leakage; no dependence on target-aware binding. Mere CLAIMED or REPORTED records do not equal established truth. The exact fact ID/source quote locator proves location only; check actual legal meaning and completeness. Conditions evaluate their own propositions, not general case win. Retained control can defeat parting; lack of consent has opposite polarity from consent existence. Permit genuine UNRESOLVED/not-decided conditions, but do not call missing decisive rule complete. Article227 restoration and rejection of sole contention are not new findings of all substantive elements. Admission under EvidenceAct18 must connect statement-maker to bound party; existence of document is not contents. Check whole stage-approved sources for target evidence appraisal even if event happened earlier; evaluate Fact AND Relation AND object/metadata/graph audit. A raw excluded record is not input leakage when demonstrably absent from admitted inventory and blind tasks. Do not require prior court status to equal target adoption. Qualify source/analogy/version/prospective limitations explicitly. All sources retrospective: no prospective claim. Absence of real group canonical is a separate interface status, NOT reason alone to mark local IRAC GAP. No semantic fix follows. Do not prescribe more annotation or relax criterion to reach GO. Return specific blocking reasons and reference IDs, not a giant per-field audit.''',cases[j*4:j*4+4])
+print('Target proposals saved unmodified; final source-review tasks prepared')
+
+```
+
+## scripts/irac02_finish.py
+
+```python
+"""Aggregate bounded review without altering proposals, facts or frozen results."""
+from irac02_prepare import R,OLD,IDS,rd,put,sha,integrity
+from collections import Counter
+from pathlib import Path
+import csv,datetime,json
+reviews={c['case_id']:c for n in [1,2] for c in rd(R/'web'/f'F-{n}.raw.json')['cases']}
+put('final-source-review.json',{'cases':[reviews[c] for c in IDS],'systemic_blockers':[b for n in [1,2] for b in rd(R/'web'/f'F-{n}.raw.json').get('systemic_blockers',[])],'reference_role':'MODEL_ASSISTED_INDEPENDENT_SOURCE_REVIEW_NOT_HUMAN_GOLD','semantic_retry':0,'raw_review_hashes':{f'F-{n}':sha(R/'web'/f'F-{n}.raw.json') for n in [1,2]}})
+rows=[];comparison=[];audits=[]
+expected={'Issue','Rule','Conditions','Stage_partition','Input_facts','Blind_bindings','Application_targets','Issue_target','Leakage','Logical_consistency'}
+for cid in IDS:
+ rev=reviews[cid];rule=rd(R/'rule-package-address-v2'/f'{cid}.json');st=rd(R/'stage-partition'/f'{cid}.json');b=rd(R/'blind-bindings'/f'{cid}.json');t=rd(R/'targets'/f'{cid}.json');records=st['records'];ds={d['dimension']:d for d in rev['dimensions']};extra=[]
+ if set(ds)!=expected:extra.append('FINAL_REVIEW_DIMENSION_COVERAGE_INCOMPLETE')
+ if not rule['rule_complete'] or not rev.get('rule_complete',False):extra.append('DECISIVE_RULE_INCOMPLETE')
+ if not t['condition_coverage_complete']:extra.append('TARGET_CONDITION_COVERAGE_INCOMPLETE')
+ loc=[z for z in t['locator_checks'] if z['errors']]
+ if loc:extra.append('TARGET_SOURCE_LOCATOR_OR_REFERENCE_GAP')
+ if any(d['status']=='BLOCKING_GAP' for d in ds.values()):extra.append('FINAL_SOURCE_REVIEW_BLOCKING_GAP')
+ final=rev['recommended_status']
+ if extra:final='GAP'
+ retained=st['admitted_inventory'];rawfacts=rd(OLD/'inputs'/f'{cid}.json')['existing_inventory']['facts'];fm={f['id']:f for f in rawfacts};unmodified=all(f==fm[f['id']] for f in retained['facts'])
+ assert unmodified
+ prior=[x for x in records if x['semantic_stage']=='PRIOR_COURT_FINDING' and x['record_id'].startswith('facts:')];priorids={x['record_id'][6:] for x in prior};priorretained=[f for f in retained['facts'] if f['id'] in priorids]
+ forbidden=[x['record_id'] for x in records if x['semantic_stage'] in ['TARGET_COURT_REASONING','TARGET_DISPOSITION']]
+ admitted_ids={'facts:'+f['id'] for f in retained['facts']}|{'relations:'+f['id'] for f in retained['relations']}|{'objects:'+f['id'] for f in retained['objects']}|{'source:'+f['id'] for f in retained['sources']}
+ illegal=[x['record_id'] for x in records if x['record_id'] in admitted_ids and not x['input_allowed']]
+ assert not illegal
+ row={'case_id':cid,'rule_complete':bool(rule['rule_complete'] and rev.get('rule_complete',False)),'frozen_rule_complete':rule['rule_complete'],'decisive_tests_count':rule['decisive_tests_count'],'added_decisive_tests_count':rule['added_decisive_tests_count'],'conditions_count':len(rule['conditions']),'stage_partition_clean':not illegal and ds.get('Stage_partition',{}).get('status')!='BLOCKING_GAP','forbidden_target_records':len(forbidden),'prior_findings_preserved':len(priorretained),'prior_findings_mixed_source_excluded':len(prior)-len(priorretained),'input_facts_count':len(retained['facts']),'input_relations_count':len(retained['relations']),'blind_bindings_count':len(b['bindings']),'blind_bindings_rejected':len(b['rejected_bindings']),'target_aware_binding_used':False,'application_targets_count':len(t['proposal']['application_targets']),'issue_target':t['proposal']['issue_target']['label'],'leakage_status':rev['leakage_status'],'prospective_availability_limit':'RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET_NO_PROSPECTIVE_CLAIM','final_status':final,'blocking_reason':rev.get('blocking_reason',[]) + extra if isinstance(rev.get('blocking_reason',[]),list) else [rev.get('blocking_reason','')]+extra,'qualification':rev.get('qualification',[])};rows.append(row)
+ # This legacy reading occurs only after all new blind outputs have frozen.
+ old=rd(OLD/'web'/f'P-{cid}.raw.json');oldbindings=old.get('bindings',[])
+ comparison.append({'case_id':cid,'old_binding_origin':'POST_AWARE_NOT_INPUT','old_count':len(oldbindings),'new_input_only_count':len(b['bindings']),'new_rejected_count':len(b['rejected_bindings']),'old_bindings':oldbindings,'new_bindings':b['bindings'],'comparison_limit':'Conditions changed; count differences are not precision/recall. Review meaningful links, preserved status and excluded target evidence.','source_review_meaningful':rev.get('blind_bindings_meaningful')})
+ audits.append({'case_id':cid,'forbidden_records_quarantined':forbidden,'ambiguous_count':sum(x['semantic_stage']=='AMBIGUOUS' for x in records),'all_types_reviewed':True,'admitted_forbidden_records':illegal,'source_gate_exclusions':st['source_gate_exclusions'],'raw_graph_gate_audit':st['graph_gate_audit'],'facts_original_values_preserved':unmodified,'prior_finding_count':len(prior),'prior_retained_ids':[f['id'] for f in priorretained],'prior_excluded_ids':sorted(priorids-{f['id'] for f in priorretained}),'blind_task_sha256':sha(R/'blind-binding-tasks-address-v2'/f'{cid}.json'),'target_used_only_after_blind_freeze':True,'final_leakage_review':ds.get('Leakage')})
+put('feasibility-table.json',rows)
+p=R/'feasibility-table.csv';assert not p.exists()
+with p.open('w',newline='') as f:
+ w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows({k:json.dumps(v,ensure_ascii=False) if isinstance(v,(dict,list)) else v for k,v in r.items()} for r in rows)
+put('blind-vs-postaware-comparison.json',comparison);put('leakage-audit.json',{'cases':audits,'target_feature_gate':'Frozen input-only API; no target or oracle selection fields accepted','test_result':rd(R/'engineering-checks.json'),'blind_freeze_sha256':sha(R/'blind-binding-freeze.json')})
+counts=Counter(r['final_status'] for r in rows);system=rd(R/'final-source-review.json')['systemic_blockers'];n=counts['READY_FOR_RETROSPECTIVE_APPLICATION_TRAINING'];limited_engineering_only=all(not any(x in str(r['blocking_reason']) for x in ['DECISIVE_RULE_INCOMPLETE','FINAL_SOURCE_REVIEW_BLOCKING_GAP']) for r in rows if r['final_status']!='READY_FOR_RETROSPECTIVE_APPLICATION_TRAINING')
+decision='GO' if n>=6 and not system else 'CONDITIONAL_GO' if n in [4,5] and not system and limited_engineering_only else 'NO_GO'
+put('readiness.json',{'IRAC_DATA_READINESS':decision,'GROUP_CANONICAL_ADAPTER_STATUS':rd(R/'real-canonical-adapter-audit.json')['status'],'case_status_counts':dict(counts),'ready_case_ids':[r['case_id'] for r in rows if r['final_status']=='READY_FOR_RETROSPECTIVE_APPLICATION_TRAINING'],'systemic_blockers':system,'remaining_gap_only_limited_engineering':limited_engineering_only,'conditions_rule_complete_cases':sum(r['rule_complete'] for r in rows),'no_training':True,'sealed_not_opened':True,'reference_role':'MODEL_ASSISTED_NOT_HUMAN_GOLD','prospective_prediction_supported':False,'next_training_not_authorized':True})
+runs=[rd(p) for p in sorted((R/'web').glob('*.run.json'))];calls=sum(r.get('submission_count',1) for r in runs)
+put('cost.json',{'ordinary_High_calls':calls,'calls_max':16,'runs':runs,'exact_model':None,'visible_mode':'High','technical_generation_failures':0,'technical_retries':0,'semantic_retry':0,'model_training':0,'legal_answers':0,'local_LLM_calls':0,'paid_API_calls':0,'token_counts':None,'cost_limit':'Wall time from submission/download includes polling, UI and concurrent tasks; not exact generation latency. Visible thinking times are observations only.','transport_anomalies':['S-1 showed transient network interruption but completed original task without resubmission','S-2 download event wait timed out in UI tool; downloaded file present and copied intact, no generation retry']})
+assert calls<=16
+end=integrity();assert end['all_unchanged'];put('parent-integrity-end.json',end)
+put('completion.json',{'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'all_eight_included':True,'calls':calls,'stopped_after_bounded_round':True,'no_commit_no_push':True,'immutable_rules_and_blind_freezes_preserved':True})
+print(json.dumps({'readiness':decision,'counts':dict(counts),'calls':calls,'rule_complete':sum(r['rule_complete'] for r in rows)},ensure_ascii=False,indent=2))
+
+```
+
+## scripts/irac02_freeze_bindings.py
+
+```python
+"""Validate and freeze blind results, then and only then open target sources."""
+import sys,datetime
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.irac_gate_v2 import validate_blind_binding
+from irac02_prepare import R,OLD,IDS,rd,put,sha,task
+inp=rd(R/'blind-binding-input-freeze-address-v2.json');assert inp['rule_condition_freeze']==sha(R/'rule-condition-freeze-address-v2.json')
+assert inp['stage_partition_freeze']==sha(R/'stage-partition-freeze.json')
+binding_files={f'B-{n}':next(p for p in [R/'web'/f'B-{n}.raw.json',R/'web'/f'B-{n}.skipped.json'] if p.exists()) for n in range(1,5)}
+raw={c['case_id']:c for p in binding_files.values() for c in rd(p)['cases']}
+for cid in IDS:
+ assert inp['input_hashes'][cid]==sha(R/'blind-binding-tasks-address-v2'/f'{cid}.json')
+ st=rd(R/'stage-partition'/f'{cid}.json');rule=rd(R/'rule-package-address-v2'/f'{cid}.json');rs={x['record_id']:x for x in st['records']};sg={k[7:]:v for k,v in rs.items() if k.startswith('source:')};fg={k[6:]:v for k,v in rs.items() if k.startswith('facts:')};facts={f['id']:f for f in st['admitted_inventory']['facts']};cs={c['condition_id']:c for c in rule['conditions']}
+ accepted=[];rejected=[];ids=set()
+ for b in raw[cid]['bindings']:
+  errors=validate_blind_binding(b,facts,cs,sg,fg)
+  if not rule['rule_complete']:errors.append('RULE_INCOMPLETE_BINDING_NOT_ALLOWED')
+  if b['binding_id'] in ids:errors.append('DUPLICATE_BINDING_ID')
+  ids.add(b['binding_id'])
+  (rejected if errors else accepted).append({'binding':b,'errors':errors} if errors else b)
+ put('blind-bindings/'+cid+'.json',{'case_id':cid,'raw_proposal':raw[cid],'bindings':accepted,'rejected_bindings':rejected,'target_aware_binding_used':False,'target_not_read_for_generation':True,'input_sha256':inp['input_hashes'][cid],'candidate_not_court_adoption':True,'skipped':not rule['rule_complete']})
+put('blind-binding-freeze.json',{'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rule_condition_freeze':sha(R/'rule-condition-freeze-address-v2.json'),'stage_partition_freeze':sha(R/'stage-partition-freeze.json'),'input_freeze':sha(R/'blind-binding-input-freeze-address-v2.json'),'bindings':{c:sha(R/'blind-bindings'/f'{c}.json') for c in IDS},'raw_or_explicit_skips':{k:{'path':str(p),'sha256':sha(p)} for k,p in binding_files.items()},'task_prompts':inp['prompt_hashes'],'targets_not_opened_before_this_freeze':True})
+# Supervision construction is physically separate; old target-aware proposals never input.
+cases=[]
+for cid in IDS:
+ old=rd(OLD/'target-construction'/f'{cid}.json');put('target-construction/'+cid+'.json',{'case_id':cid,'full_historical_source':old['full_historical_source'],'old_source_sha256':sha(OLD/'target-construction'/f'{cid}.json'),'blind_freeze_sha256':sha(R/'blind-binding-freeze.json'),'supervision_only':True})
+ inp=rd(OLD/'inputs'/f'{cid}.json');rule=rd(R/'rule-package-address-v2'/f'{cid}.json');cases.append({'case_id':cid,'fixed_issue':inp['fixed_issue'],'procedure_scope':inp['stage'],'frozen_conditions':rule['conditions'],'independent_rules':rule['rules'],'rule_complete':rule['rule_complete'],'target_source':old['full_historical_source']})
+for j in range(2):
+ task('T-'+str(j+1),'''SUPERVISION-ONLY retrospective Application target reconstruction, after blind binding output freeze. Use frozen conditions and supplied full target historical narrative. No external search, new facts, complete legal answer, or Rule changes. Return downloadable JSON {cases:[{case_id,application_targets:[{condition_id,label,basis_kind,source_refs,exact_quote,reason,target_finding_level,uncertainty}],issue_target:{label,source_refs,exact_quote,reason,procedural_limit},target_passage_stage:[{source_id,semantic_stage,reason}],gaps:[string]}]}. Exactly one row per supplied condition even when source does not independently decide it: label SATISFIED/DEFEATED/UNRESOLVED; basis_kind FACT_ACCEPTED/FACT_FALSE/BURDEN_NOT_CARRIED/NOT_DECIDED/INSUFFICIENT_RECORD/LEGAL_INTERPRETATION/AMBIGUOUS_REASONING. Target finding must explicitly distinguish actual target court application from lower findings/reported arguments. Issue label SUPPORTED/NOT_SUPPORTED/UNRESOLVED separately; no issue disposition→all elements propagation. Procedural restoration/remand or Article227 limitation does not prove every substantive condition; rejecting a sole legal contention is not a de novo fact finding of every element. Missing proof or burden failure is NOT factual falsehood. Unknown/undecided fields remain unresolved with precise reason. A retained-control/absence-of-written-consent condition may have negative legal consequence; labels evaluate exact condition proposition, not general victory. Cite exact supplied source IDs and exact short quotation; whitespace-only locator, no invented words. For no direct target basis source_refs may be empty, quote empty, NOT_DECIDED/INSUFFICIENT_RECORD. Enumerate semantic stage for target passages used, respecting allowed earlier court findings versus target reasoning/disposition. Rule incomplete remains GAP even if history shows outcome; do not reverse-engineer missing law. Do not see blind bindings or prior labels in this task.''',cases[j*4:j*4+4])
+print('Blind results frozen; supervision source opened and target tasks prepared')
+
+```
+
+## scripts/irac02_freeze_rules.py
+
+```python
+"""Freeze source-reviewed rules and conditions BEFORE inference-only binding."""
+import datetime,sys
+sys.path.insert(0,str(__import__('pathlib').Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.irac_gate_v2 import validate_condition,inference_payload
+from irac02_prepare import R,OLD,IDS,rd,put,sha,task
+ps={c['case_id']:c for n in [1,2] for c in rd(R/'web'/f'P-{n}.raw.json')['cases']}
+rs={c['case_id']:c for n in [1,2] for c in rd(R/'web'/f'R-{n}.raw.json')['cases']}
+for cid in IDS:
+ p=ps[cid];review=rs[cid];original=rd(R/'rule-candidates'/f'{cid}.json');rules={r['rule_id']:r for r in original['rules']};cr={c['condition_id']:c for c in p['conditions']};checks=[]
+ for c in p['conditions']:
+  errors=validate_condition(c,rules)
+  allowed={c['rule_id']}|{a['id'] for a in rules.get(c['rule_id'],{}).get('source_document',{}).get('passage_addresses',[])}
+  if not set(c.get('source_refs',[]))<=allowed:errors.append('CONDITION_SOURCE_OUTSIDE_RULE')
+  if any(d.get('condition_id') not in cr for d in c.get('dependencies',[])):errors.append('UNKNOWN_DEPENDENCY')
+  checks.append({'condition_id':c['condition_id'],'locator_and_reference_errors':errors})
+ model_rules={r['rule_id']:r for r in p['rules']};rule_errors=[]
+ for ident,r in rules.items():
+  if ident not in model_rules or model_rules[ident]['exact_quote']!=r['exact_quote']:rule_errors.append(ident+':RULE_TEXT_NOT_PRESERVED')
+ assert set(review['case_id'] for review in [review])=={cid}
+ if {z['condition_id'] for z in review['condition_reviews']}!=set(cr):rule_errors.append('CONDITION_REVIEW_COVERAGE_INCOMPLETE')
+ if {z['rule_id'] for z in review['rule_reviews']}!=set(rules):rule_errors.append('RULE_REVIEW_COVERAGE_INCOMPLETE')
+ sem_block=[z for z in review['condition_reviews']+review['rule_reviews'] if z['status']=='BLOCKING_GAP']
+ complete=bool(p['rule_complete'] and review['rule_complete'] and not rule_errors and not sem_block and not any(x['locator_and_reference_errors'] for x in checks))
+ # Selection provenance is saved per Rule but stripped by inference_payload.
+ for r in rules.values():r['oracle_selection_basis']=rd(R/'oracle-selection'/f'{cid}.json')
+ # Original independent text preserved; decomposition proposals never semantically repaired.
+ out={'case_id':cid,'rules':list(rules.values()),'conditions':p['conditions'],'rule_complete':complete,'decisive_tests_count':review.get('decisive_tests_count',p['decisive_tests_count']),'added_decisive_tests_count':rd(R/'oracle-selection'/f'{cid}.json')['added_decisive_tests_count'],'proposal':p,'independent_review':review,'program_checks':checks,'rule_errors':rule_errors,'oracle_selection_basis':rd(R/'oracle-selection'/f'{cid}.json'),'reference_role':'MODEL_GENERATED_AND_INDEPENDENTLY_SOURCE_REVIEWED_NOT_HUMAN_GOLD'};put('rule-package/'+cid+'.json',out)
+freeze={'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rules':{c:sha(R/'rule-package'/f'{c}.json') for c in IDS},'stage_freeze_sha256':sha(R/'stage-partition-freeze.json'),'independent_source_hashes':{str(p):sha(p) for p in sorted((R/'independent-sources').glob('*.json'))},'no_binding_yet':not (R/'blind-bindings').exists(),'no_change_after_binding':True};put('rule-condition-freeze.json',freeze)
+# No target files, labels or old target-aware bindings are read in this path.
+cases=[]
+for cid in IDS:
+ rule=rd(R/'rule-package'/f'{cid}.json');stage=rd(R/'stage-partition'/f'{cid}.json');x=rd(OLD/'inputs'/f'{cid}.json');inv=stage['admitted_inventory']
+ payload=inference_payload(x['fixed_issue'],rule['rules'],rule['conditions'],inv['facts'],inv['relations'],inv['objects'],inv['sources'])
+ grants={v['record_id']:v for v in stage['records']}
+ payload['record_stage']=[{k:v for k,v in grants['facts:'+f['id']].items() if k!='reason'} for f in inv['facts']]
+ item={'case_id':cid,'rule_complete':rule['rule_complete'],'input':payload if rule['rule_complete'] else None,'skip_reason':None if rule['rule_complete'] else 'RULE_CONDITION_BLOCKING_GAP_SKIP_BINDING'}
+ put('blind-binding-tasks/'+cid+'.json',item);cases.append(item)
+for j in range(4):
+ instruction='''INFERENCE-ONLY BLIND Fact/Evidence to Condition candidate binding. No target reasoning, target outcome, reference answers, old bindings or review conclusions are supplied. Read only fixed issue, frozen independent rules/conditions and approved historical input records. No external search, new fact extraction or full legal answer. Return downloadable JSON {cases:[{case_id,bindings:[{binding_id,fact_id,condition_id,relation,reason,source_refs,statement_status,court_stage:{court,stage},uncertainty}],gaps:[string],skipped:boolean}]}. For rule_complete=false return skipped=true, empty bindings and the given skip reason; no repair. For eligible cases bindings only reference supplied existing fact IDs and condition IDs, relation SUPPORTS/DEFEATS/RELEVANT_TO. Preserve exact fact.status in statement_status and exact fact.court/fact.stage in court_stage; retain attribution, uncertainty and prior finding level. Binding.source_refs must be a nonempty subset of that fact.refs, not a law source or different fact. Candidate SUPPORTS does not mean court adoption or proved fact: a party allegation may propose relevant signed evidence with its status explicit; no inventing truth. UNKNOWN is never wildcard identity. Do not create fact, modify status, infer document contents from its existence, or infer facts from a legal test. Reason states the legal relationship briefly and uncertainty where evidence does not establish it. Distinguish negative condition polarity (absence of written landlord consent), alternatives and inference prerequisites; mere third-party presence cannot automatically prove legal divestment. May produce no binding. Never target labels; do not give issue verdict.'''
+ task('B-'+str(j+1),instruction,cases[j*2:j*2+2]);(R/'blind-binding-tasks'/f'B-{j+1}.txt').write_bytes((R/'tasks'/f'B-{j+1}.txt').read_bytes())
+put('blind-binding-input-freeze.json',{'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rule_condition_freeze':sha(R/'rule-condition-freeze.json'),'stage_partition_freeze':sha(R/'stage-partition-freeze.json'),'input_hashes':{c:sha(R/'blind-binding-tasks'/f'{c}.json') for c in IDS},'prompt_hashes':{f'B-{n}':sha(R/'tasks'/f'B-{n}.txt') for n in range(1,5)},'code_hashes':{p:sha(p) for p in ['legal_bench/rules_verdict_v1/irac_gate_v2.py','scripts/irac02_freeze_rules.py']}})
+print('Rules/conditions frozen; eligible',sum(rd(R/'rule-package'/f'{c}.json')['rule_complete'] for c in IDS),'of8; blind tasks prepared')
+
+```
+
+## scripts/irac02_prepare.py
+
+```python
+"""Bounded IRAC repair preparation, immutable historical inputs, no training."""
+import json,hashlib,subprocess,datetime,sys
+from pathlib import Path
+R=Path('outputs/gnn-irac-feasibility-02');OLD=Path('outputs/gnn-irac-feasibility-01');PARENT='43d8b774e70479250584367bcc9856d080adaa25'
+IDS=['308216','38604742','1106992','1497837','1859043','111425525','758831','1381386']
+def rd(p):return json.loads(Path(p).read_text())
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def put(n,v):
+ p=R/n;p.parent.mkdir(parents=True,exist_ok=True);assert not p.exists(),p;p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def task(n,instruction,data):
+ p=R/'tasks'/f'{n}.txt';p.parent.mkdir(parents=True,exist_ok=True);assert not p.exists();p.write_text(instruction+'\nMATERIAL\n'+json.dumps(data,ensure_ascii=False,indent=2)+'\nEND_OF_TASK '+n+'\n')
+def integrity():
+ rows=[]
+ raw=subprocess.check_output(['git','ls-tree','-r',PARENT,'outputs/rgcn-sbc-finalization-11','outputs/gnn-irac-feasibility-01'],text=True)
+ for line in raw.splitlines():
+  meta,path=line.split('\t');expected=meta.split()[2];b=Path(path).read_bytes();actual=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest();rows.append({'path':path,'parent_blob':expected,'current_blob':actual,'sha256':hashlib.sha256(b).hexdigest(),'unchanged':actual==expected})
+ return {'parent':PARENT,'head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'branch':subprocess.check_output(['git','branch','--show-current'],text=True).strip(),'all_unchanged':all(x['unchanged'] for x in rows),'files':rows}
+if __name__=='__main__':
+ put('parent-integrity.json',integrity());put('fixed-case-manifest.json',rd(OLD/'case-manifest.json'))
+ put('protocol.json',{'parent':PARENT,'case_ids':IDS,'scope':'Three blockers only: independent decisive tests, blind bindings, unified stage gate','rule_tests_added_per_case_max':2,'ordinary_High_calls_max':16,'expected_calls':14,'technical_retry_max':2,'semantic_retry':0,'training':False,'new_legal_answers':False,'sealed_read':False,'no_commit_no_push':True,'sequence':['stage review 2','rule-only proposal 2','rule review 2','rule/condition and stage freezes','blind bindings 4','blind freeze','target reconstruction 2','final review 2'],'readiness':{'GO':'6+ READY without systemic blocker','CONDITIONAL_GO':'4-5 READY with one limited engineering gap','NO_GO':'<4 READY or systemic rule/stage/binding blocker'},'reference_role':'MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD','time':datetime.datetime.now(datetime.timezone.utc).isoformat()})
+ policy={'allowed':['PRE_TARGET_RECORD','PRIOR_COURT_FINDING','TARGET_STAGE_PARTY_ARGUMENT'],'forbidden':['TARGET_COURT_REASONING','TARGET_DISPOSITION','AMBIGUOUS'],'availability':['DIRECT_PRE_TARGET_SOURCE','RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET','UNKNOWN'],'all_record_types':True,'unknown_is_not_false':True,'no_promotion_of_prior_findings':True,'source_ref_gate':'Every referenced target passage must itself be allowed; mixed passage excludes record, no semantic rewrite.'};put('stage-policy.json',policy)
+ cases=[]
+ for cid in IDS:
+  x=rd(OLD/'inputs'/f'{cid}.json');inv=x['existing_inventory'];g=rd(OLD/'interface-export-v2/input-graphs'/f'{cid}.json');records=[]
+  for kind in ['facts','objects','relations','issue_needs_context_not_application_targets','quarantined']:
+   for i,rec in enumerate(inv.get(kind,[])):
+    ident=rec.get('id',str(i+1)) if isinstance(rec,dict) else str(i+1)
+    records.append({'record_id':kind+':'+ident,'kind':kind,'original':rec})
+  for s in x['pre_outcome_source']['segments']:records.append({'record_id':'source:'+s['id'],'kind':'SourcePassage','original':{k:v for k,v in s.items() if k in ['id','text','source_document','source_segment_id','start','end']}})
+  for i,n in enumerate(g['nodes']):
+   if n.get('type') not in ['SourcePassage','Fact','Object']:records.append({'record_id':'graph-node:'+n.get('id',str(i)),'kind':'GraphNode','original':n})
+  for i,e in enumerate(g['edges']):records.append({'record_id':'graph-edge:'+str(i),'kind':'GraphEdge','original':e})
+  records.append({'record_id':'metadata','kind':'Sidecar','original':{k:v for k,v in g.items() if k not in ['nodes','edges']}})
+  case={'case_id':cid,'fixed_issue':x['fixed_issue'],'records':records,'source_lookup':[{k:s[k] for k in ['id','text']} for s in x['pre_outcome_source']['segments']]};put('stage-candidates/'+cid+'.json',case);cases.append(case)
+ for j in range(2):
+  task('S-'+str(j+1),'''Independently review semantic stage of EVERY record in these four existing historical development inventories. No external search, no new fact extraction or legal answer. Return complete JSON code block (downloadable JSON also welcome): {cases:[{case_id,records:[{record_id,semantic_stage,input_allowed,prospective_availability,source_refs,reason}],gaps:[string]}]}. One output row per exact input record_id, including graph edges, metadata, source passages, objects, issue fields and quarantined records. Allowed semantic stages PRE_TARGET_RECORD, PRIOR_COURT_FINDING, TARGET_STAGE_PARTY_ARGUMENT; forbidden TARGET_COURT_REASONING, TARGET_DISPOSITION, AMBIGUOUS. input_allowed must correspond. Classify semantic provenance, not merely event time or node type. Target court's own evidence appraisal/finding/decision is forbidden even when its description concerns past facts. Reported neutral historical facts/party allegations/prior findings may remain retrospective input, retaining original court/status; never upgrade lower findings. Mixed source passages carrying target reasoning should be excluded whole (no editing). Graph edges also need semantic provenance and allowed endpoints, not a not_a_target_label flag. Metadata leakage/audits and inherited partition assertions are engineering records, not input facts: exclude AMBIGUOUS if unsuitable. Source_refs must cite supplied original source IDs, not fabricated ones. Almost all records are reconstructed from the final judgment: use RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET for allowed ones unless direct pre-target original is actually provided; UNKNOWN otherwise. Keep uncertain interpretation AMBIGUOUS and explain. Do not inspect/derive target labels or rewrite records. Each reason brief but specific.''',cases[j*4:j*4+4])
+ print('Prepared stage tasks',[(p.name,p.stat().st_size) for p in (R/'tasks').glob('*')])
+
+```
+
+## scripts/irac02_review_rules.py
+
+```python
+"""Prepare independent rule-only review; no facts, targets or bindings."""
+from irac02_prepare import R,IDS,rd,task
+import sys
+j=int(sys.argv[1]);proposal=rd(R/'web'/f'P-{j}.raw.json')
+data=[{'proposal':c,'independent_original':rd(R/'rule-candidates'/f"{c['case_id']}.json")} for c in proposal['cases']]
+task(f'R-{j}', '''Independent RULE SOURCE REVIEW. Read supplied independent originals and rule-only proposals. No external search, facts, target labels, binding or full legal answer. Do not alter proposals or supply repair conditions. Return complete downloadable JSON: {cases:[{case_id,rule_complete,decisive_tests_count,rule_reviews:[{rule_id,status,source_refs,reason}],condition_reviews:[{condition_id,status,source_refs,reason}],missing_decisive_tests:[string],blocking_gaps:[string],qualification:[string]}]}. status only SUPPORTED,QUALIFIED,BLOCKING_GAP. Check exact quotations separately from legal meaning: faithful decomposition, route alternatives versus AND, retained possession versus divestment, inference prerequisites, initial/evidentiary burden, prior writing/consent, statutory timing, EvidenceAct18 dependency, legal jurisdiction/time/analogy limits. Preserve fixed issue and supplied procedure_scope. A substantive s14(1)(b) excerpt cannot itself establish Article227 restoration/revisional adjudication tests: if decisive procedural legal basis is absent, mark incomplete rather than treating disposal as all merits established. A permissive inference is not automatic mandatory proof, and precedent factual examples are not this case's facts. Source identity independently saved does not prove full decisive coverage. condition IDs must point to real dependencies with supplied operators AND/OR/QUALIFICATION. Do not require every irrelevant hypothetical law; assess the given fixed issue and requested missing test identities. rule_complete true only if decisive required law is recoverable from independent excerpts; QUALIFIED supported analogy may remain explicit limitation but absent decisive test is BLOCKING_GAP. No semantic retry will follow; retain uncertainty honestly.''',data)
+print('Prepared',f'R-{j}')
+
+```
+
+## scripts/irac02_rules.py
+
+```python
+"""Resolve independent excerpts then prepare rule-only decomposition tasks."""
+import re,json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[0]))
+from irac02_prepare import R,OLD,IDS,rd,put,task,sha
+pool={x['id']:x for x in rd('outputs/rgcn-sbc-finalization-11/sources-laws.json')}
+raw=rd(R/'independent-sources/recovered-web.json')
+parts=raw.split('--------------------------------------------------------------------------------\n')
+# Explicit named response boundaries. Never combine lines across different documents.
+def excerpt(doc,a,b,raw_name='recovered-web.json'):
+ text=rd(R/'independent-sources'/raw_name);chunks=text.split('--------------------------------------------------------------------------------\n');hits=[c for c in chunks if c.splitlines()[0].endswith('https://indiankanoon.org/doc/'+doc+'/)')];assert len(hits)==1,(doc,len(hits))
+ rows=[]
+ for line in hits[0].splitlines():
+  m=re.match(r'^L(\d+): (.*)$',line)
+  if m and a<=int(m[1])<=b:rows.append({'id':'IK-'+doc+':L'+m[1],'text':m[2],'raw_source':raw_name})
+ assert rows and rows[0]['id'].endswith(':L'+str(a)) and rows[-1]['id'].endswith(':L'+str(b));return rows
+new=[('IRAC02:VN_CONTROL','190902',107,112,'Delhi High Court','1975-03-19','Delhi DRC14(1)(b), distinct sublet/assignment/parting branches; retained legal possession vs mere user', 'Doctrine not a universal rule equating company with tenant; actual ouster/control must be checked','recovered-web.json'),('IRAC02:VN_CORPORATE','190902',93,95,'Delhi High Court','1975-03-19','Corporate form versus real loss of possession/control','Factual illustration of controlling interest, not every company an alter ego; no target-specific conclusion','recovered-web.json'),('IRAC02:RAJBIR_INFERENCE','1946601',516,518,'Supreme Court of India','1988-08-09','East Punjab Urban Rent Restriction Act1949; consideration inference expressly invoked in Delhi precedent','Inference permissive/rebuttable, established exclusive possession and unacceptable explanation needed; not proof from presence alone','rajbir-rule-web.json'),('IRAC02:EA18','565566',38,39,'Parliament of India','1872','Indian Evidence Act1872 section18, historical evidentiary admissibility','Current statutory reproduction, no historical consolidation certification; do not apply successor2023 statute to historical case','recovered-web.json')]
+for ident,doc,a,b,court,date,scope,lim,rn in new:
+ segs=excerpt(doc,a,b,rn);u={'id':ident,'text':'\n'.join(s['text'] for s in segs),'source':{'document_id':doc,'url':'https://indiankanoon.org/doc/'+doc+'/','date':date,'court_or_publisher':court,'passage_addresses':[{'id':s['id']} for s in segs],'raw_path':str(R/'independent-sources'/rn),'raw_sha256':sha(R/'independent-sources'/rn)},'segments':segs,'scope':scope,'coverage_limit':lim,'legal_status':'INDEPENDENT_STATUTORY_OR_JUDGMENT_TEXT_REPRODUCTION','full_source_status':'EXCERPT_ONLY','source_status':'SOURCE_IDENTITY_AND_ADDRESS_CHECKED_NOT_SEMANTIC_GOLD'};pool[ident]=u
+ if not (R/('independent-sources/'+ident.replace(':','_')+'.json')).exists():put('independent-sources/'+ident.replace(':','_')+'.json',u)
+base='LAW:S02:DRC14:1b'
+selection={
+'308216':[base,'LAW:V09:HELP_GENUINENESS'],
+'38604742':[base,'LAW:V09:AH_LICENCE','LAW:V09:AH_BURDEN','IRAC02:RAJBIR_INFERENCE'],
+'1106992':[base,'IRAC02:VN_CONTROL','IRAC02:VN_CORPORATE'],
+'1497837':[base,'LAW:V21:GR:REPORTED_DELHI'],
+'1859043':[base,'LAW:S02:DRC:16','LAW:V09:AH_CONSENT_SCOPE'],
+'111425525':[base,'LAW:S02:DRC:16','LAW:V09:AH_CONSENT_SCOPE','LAW:V09:CEL_CONTROL'],
+'758831':[base,'LAW:V09:KR_BURDEN','IRAC02:RAJBIR_INFERENCE'],
+'1381386':[base,'LAW:V09:KR_BURDEN','IRAC02:EA18']}
+missing={'308216':['retained legal possession vs mere third-party use'], '38604742':['consideration and burden structure','permissive rebuttable inference'], '1106992':['retained legal possession','corporate form versus actual ouster'],'1497837':[], '1859043':[], '111425525':['retained-control legal possession'], '758831':['consideration may be inferred, not mandatory affirmative payment proof'], '1381386':['Evidence Act18 admission dependency']}
+cases=[]
+for cid in IDS:
+ old=rd(OLD/'inputs'/f'{cid}.json');rules=[]
+ for uid in selection[cid]:
+  u=pool[uid];assert u['source']['document_id']!=cid
+  rules.append({'rule_id':uid,'source_document':u['source'],'authority_type':'STATUTE' if uid in [base,'LAW:S02:DRC:16','IRAC02:EA18'] else 'PRECEDENT','court_jurisdiction':u['source'].get('court_or_publisher',u['source'].get('court','UNKNOWN')),'date':u['source'].get('date'),'exact_quote':u['text'],'scope':u['scope'],'limitations':u.get('coverage_limit',''),'independent_source_verified':True,'verification_meaning':'Different document identity and saved addressed original; independent semantic review still required','legal_status':u.get('legal_status','UNKNOWN')})
+ basis={'case_id':cid,'oracle_selection_basis':'Target reasoning identifies only test identity; not an input feature or retrieval result','tests_to_restore':missing[cid],'added_decisive_tests_count':len(missing[cid]),'target_identity_source':str(OLD/'target-construction'/f'{cid}.json'),'target_identity_source_sha256':sha(OLD/'target-construction'/f'{cid}.json'),'source_priority':'Reuse30 pool; named independent Vishwa Nath/Rajbir/Evidence Act18 recovered as excerpts','not_rule_source':True};
+ if not (R/('oracle-selection/'+cid+'.json')).exists():put('oracle-selection/'+cid+'.json',basis)
+ case={'case_id':cid,'fixed_issue':old['fixed_issue'],'procedure_scope':old['stage'],'rules':rules,'missing_test_identities':missing[cid],'requested_new_tests_max':2};
+ if not (R/('rule-candidates/'+cid+'.json')).exists():put('rule-candidates/'+cid+'.json',case);cases.append(case)
+for j in range(2):
+ task('P-'+str(j+1),'''RULE-ONLY Condition decomposition for four fixed retrospective development tasks. You have independent legal source excerpts, fixed issue/procedural scope and oracle-selected TEST IDENTITIES, but NO target application/element labels or target facts. Do not external-search or invent law. Return complete JSON file and code if short: {cases:[{case_id,rules:[{rule_id,source_document,authority_type,court_jurisdiction,date,exact_quote,scope,limitations,independent_source_verified}],conditions:[{condition_id,rule_id,description,exact_rule_quote,logical_role,dependencies:[{condition_id,operator}],scope,source_refs}],decisive_tests_count,rule_complete,gaps:[{kind,description}]}]}. Preserve provided Rule text/metadata; do not turn precedent illustration into this target's input fact. At most two requested missing decisive tests per case; existing basic statutory conditions may remain. Up to eight meaningful conditions if actually required, do not micro-split every word. Operators only AND,OR,QUALIFICATION. Dependencies must reference real condition IDs, clearly distinguish alternative subletting/assignment/parting routes, consideration only when legally relevant, timing, lack of written consent and evidentiary/retained-control qualifications. State whether a condition supports or qualifies a route; do not make retained possession and divestment simultaneous mandatory positives. Read each rule's full supplied text including exceptions. Never extrapolate Bombay/Goa/Punjab revisional power into Delhi substantive statutory scope, and record post-target dates as retrospective analogical limits. Fixed issue must preserve procedural posture; if independent sources do not support decisive procedural/test reasoning or an intended condition, rule_complete=false and GAP, rather than reverse-engineer labels. independent_source_verified means different saved document identity, NOT automatic legal authority approval. Conditions must only quote exact substrings/whitespace normalized of supplied independent rule; source_refs are rule passage IDs or rule_id when its source uses a different passage wrapper. No bindings/target outcomes/facts in output. Do not fill dates or burden from target unknowns.''',cases[j*4:j*4+4])
+print('Rule-only tasks prepared; four named independent excerpts recovered; no labels provided')
+
+```
+
+## scripts/irac02_stage.py
+
+```python
+"""Freeze stage-reviewed immutable records; no semantic repair or target reads."""
+import sys,json,datetime
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.rules_verdict_v1.irac_gate_v2 import admit_record,ALLOWED
+from irac02_prepare import R,OLD,IDS,rd,put,sha
+reviews={c['case_id']:c for n in ['S-1','S-2'] for c in rd(R/'web'/f'{n}.raw.json')['cases']}
+for cid in IDS:
+ cand=rd(R/'stage-candidates'/f'{cid}.json');rev=reviews[cid];rs={x['record_id']:x for x in rev['records']};expected={x['record_id'] for x in cand['records']};assert expected==set(rs) and len(rs)==len(rev['records']),(cid,'coverage')
+ for g in rs.values():assert g['input_allowed']==(g['semantic_stage'] in ALLOWED),g
+ sg={k.split('source:',1)[1]:v for k,v in rs.items() if k.startswith('source:')};inv=rd(OLD/'inputs'/f'{cid}.json')['existing_inventory'];admitted={};exclusions=[]
+ for kind in ['facts','objects','relations']:
+  admitted[kind]=[]
+  for rec in inv[kind]:
+   value,errors=admit_record(rec,rs[kind+':'+rec['id']],sg)
+   if errors:exclusions.append({'record_id':kind+':'+rec['id'],'errors':errors})
+   else:admitted[kind].append(value)
+ src=rd(OLD/'inputs'/f'{cid}.json')['pre_outcome_source'];admitted['sources']=[{'id':s['id'],'text':s['text'],'source_document':s['source_document']} for s in src['segments'] if sg[s['id']]['input_allowed']]
+ # Raw graph record admission is audited separately; no legacy flags copied to input.
+ graph_audit=[]
+ for r in cand['records']:
+  original=r['original'] if isinstance(r['original'],dict) else {};original=original.get('record',original)
+  if r['record_id'].startswith('graph-') or r['record_id']=='metadata':
+   _,errors=admit_record(original,rs[r['record_id']],sg);graph_audit.append({'record_id':r['record_id'],'input_allowed':not errors,'errors':errors})
+ out={'case_id':cid,'records':rev['records'],'review_gaps':rev.get('gaps',[]),'source_gate_exclusions':exclusions,'graph_gate_audit':graph_audit,'admitted_inventory':admitted,'facts_unmodified':True,'source_review_not_human_gold':True};put('stage-partition/'+cid+'.json',out)
+ print(cid,'facts',len(admitted['facts']),'relations',len(admitted['relations']),'excluded',len(exclusions),'sources',len(admitted['sources']))
+put('stage-partition-freeze.json',{'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'files':{str(R/'stage-partition'/f'{c}.json'):sha(R/'stage-partition'/f'{c}.json') for c in IDS},'raw_review_hashes':{str(R/'web'/f'{n}.raw.json'):sha(R/'web'/f'{n}.raw.json') for n in ['S-1','S-2']},'binding_not_yet_generated':True,'policy_sha256':sha(R/'stage-policy.json')})
+
+```
+
+## tests/test_irac_gate_v2.py
+
+```python
+import copy
+import unittest
+from legal_bench.rules_verdict_v1.irac_gate_v2 import (
+    admit_record, digest, inference_payload, validate_blind_binding, validate_condition)
+
+
+class StageAndBlindGateTests(unittest.TestCase):
+    def setUp(self):
+        self.fact = {'id': 'f1', 'status': 'FOUND', 'court': 'TRIAL',
+                     'stage': 'ARC trial 1990', 'refs': ['p1'], 'text': 'A disputed prior finding'}
+        self.grant = {'semantic_stage': 'PRIOR_COURT_FINDING', 'input_allowed': True,
+                      'source_refs': ['p1'], 'prospective_availability': 'RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET'}
+        self.sg = {'p1': copy.deepcopy(self.grant)}
+        self.binding = {'fact_id': 'f1', 'condition_id': 'c1', 'relation': 'RELEVANT_TO',
+                        'source_refs': ['p1'], 'statement_status': 'FOUND',
+                        'court_stage': {'court': 'TRIAL', 'stage': 'ARC trial 1990'}}
+
+    def test_target_findings_and_reasoning_edges_blocked_for_all_types(self):
+        for kind in ['Fact', 'Relation', 'Claim', 'Evidence', 'GraphEdge', 'Sidecar']:
+            for stage in ['TARGET_COURT_REASONING', 'TARGET_DISPOSITION', 'AMBIGUOUS']:
+                with self.subTest(kind=kind, stage=stage):
+                    grant = dict(self.grant, semantic_stage=stage, input_allowed=False)
+                    value, errors = admit_record(dict(self.fact, type=kind, court='TARGET'), grant, self.sg)
+                    self.assertIsNone(value); self.assertTrue(errors)
+        value, errors = admit_record(dict(self.fact, court='TARGET'), self.grant, self.sg)
+        self.assertIsNone(value); self.assertIn('TARGET_FOUND_NOT_INPUT', errors)
+
+    def test_prior_findings_retained_without_promotion_and_mixed_source_blocked(self):
+        value, errors = admit_record(self.fact, self.grant, self.sg)
+        self.assertEqual(value, self.fact); self.assertFalse(errors)
+        source = {'p1': dict(self.grant, semantic_stage='TARGET_COURT_REASONING', input_allowed=False)}
+        self.assertIsNone(admit_record(self.fact, self.grant, source)[0])
+
+    def test_blind_binding_unknown_fact_target_source_and_status_change(self):
+        facts = {'f1': self.fact}; conditions = {'c1': {}}; grants = {'f1': self.grant}
+        self.assertEqual(validate_blind_binding(self.binding, facts, conditions, self.sg, grants), [])
+        for change, expected in [({'fact_id': 'new'}, 'UNKNOWN_OR_NEW_FACT_FORBIDDEN'),
+                                 ({'source_refs': ['post']}, 'BINDING_REF_NOT_IN_FACT_PROVENANCE'),
+                                 ({'statement_status': 'CLAIMED'}, 'FACT_STATUS_CHANGED')]:
+            errors = validate_blind_binding(dict(self.binding, **change), facts, conditions, self.sg, grants)
+            self.assertIn(expected, errors)
+        self.assertTrue(validate_blind_binding(self.binding, facts, conditions,
+            {'p1': dict(self.grant, input_allowed=False)}, grants))
+
+    def test_independent_rule_condition_required(self):
+        condition = {'rule_id': 'R1', 'exact_rule_quote': 'legal possession', 'source_refs': ['law:p1'], 'dependencies': []}
+        good = {'R1': {'independent_source_verified': True, 'exact_quote': 'Retains legal possession'}}
+        self.assertFalse(validate_condition(condition, good))
+        self.assertIn('NO_INDEPENDENT_RULE_SOURCE', validate_condition(condition, {}))
+        self.assertIn('RULE_QUOTE_NOT_LOCATED', validate_condition(dict(condition, exact_rule_quote='invented'), good))
+
+    def test_targets_and_oracle_selection_never_change_input_or_binding_hash(self):
+        rule = {'rule_id': 'R1', 'exact_quote': 'independent law', 'oracle_selection_basis': 'target says yes'}
+        args = ('fixed issue', [rule], [], [self.fact], [], [], [])
+        before = digest(inference_payload(*args)); bh = digest(self.binding)
+        target = {'status': 'SATISFIED'}; target['status'] = 'DEFEATED'
+        rule['oracle_selection_basis'] = 'changed target label'
+        payload = inference_payload(*args)
+        self.assertEqual(before, digest(payload)); self.assertEqual(bh, digest(self.binding))
+        self.assertNotIn('targets', payload); self.assertNotIn('oracle_selection_basis', payload['rules'][0])
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+```

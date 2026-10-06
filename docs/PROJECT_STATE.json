@@ -220,6 +220,29 @@
       "not_human_gold": true,
       "publication": "LOCAL_ONLY_NO_COMMIT_NO_PUSH",
       "stopped": true
+    },
+    "gnn_irac_feasibility_02": {
+      "status": "COMPLETED_BOUNDED_NO_GO_NO_TRAINING",
+      "report": "outputs/gnn-irac-feasibility-02/report-zh.txt",
+      "IRAC_DATA_READINESS": "NO_GO",
+      "GROUP_CANONICAL_ADAPTER_STATUS": "NOT_AVAILABLE",
+      "ordinary_High_calls": 13,
+      "semantic_retries": 0,
+      "formal_READY": 0,
+      "source_review_READY": 2,
+      "blind_bindings": 132,
+      "case_ids": [
+        "308216",
+        "38604742",
+        "1106992",
+        "1497837",
+        "1859043",
+        "111425525",
+        "758831",
+        "1381386"
+      ],
+      "training": 0,
+      "no_commit_no_push": true
     }
   },
   "research_objective": {
@@ -897,15 +920,16 @@
     }
   },
   "current_review": {
-    "title": "GNN-IRAC data feasibility and canonical adapter: NO_GO, no training",
-    "report": "outputs/gnn-irac-feasibility-01/report-zh.txt",
-    "summary": "GNN-IRAC数据可行性完成：固定8个旧TRAIN，8次提议＋2次独立High来源审阅，无语义重试。1案有较完整回顾性链，7案缺决定性测试、证据内容或阶段明确的target；1106992发现目标FOUND关系残留。通用关系guard离线隔离两条，不覆盖冻结输入。真实组内canonical仅有合成接口检查，没有八案上游产物；NO_GO，未训练、未启封SEALED、未生成法律回答或发布。保留S并暂停扩大排序R-GCN。",
-    "review_kind": "IRAC_DATA_FEASIBILITY",
-    "stage_description": "组内main只读固定88ff082；字段级输入许可＋下游任务层，不修改production schema。八案为本地弱事实来源审阅，不声称组内上游复现。原source/input/target/失败及V11字节保留；有目标访问的任务层不自动进入训练特征。",
+    "title": "GNN-IRAC finite repair 02: NO_GO, blind bindings frozen before targets",
+    "report": "outputs/gnn-irac-feasibility-02/report-zh.txt",
+    "summary": "GNN-IRAC第二轮有限修复完成：固定8个旧TRAIN、13次普通High、语义重试0。阶段许可覆盖711项，五案132条input-only候选绑定先于target冻结；1106992的目标关系和来源隔离。最终来源审阅2案语义READY、3案REFERENCE_ONLY、3案GAP；冻结准入0/8 READY，NO_GO。14项不连续拼接引文、范围错配、目标阶段和悬空对象/跳过绑定仍保留。组内真实canonical NOT_AVAILABLE；未训练、启封SEALED、生成完整法律回答、提交或推送。",
+    "review_kind": "IRAC_DATA_REPAIR",
+    "stage_description": "Independent rule-only decomposition, universal semantic-stage grants and new input-only bindings; target reconstruction after complete blind freeze. Active address-only v2 fixed before first blind call; all original snapshots retained. Model source-review recommendations and formal gate separated. Local only.",
     "feasibility_decision": "NO_GO",
-    "usable_retrospective_chains": 1,
+    "formal_READY_cases": 0,
+    "source_review_READY_cases": 2,
     "actual_cases": 8,
-    "ordinary_High_calls": 10,
+    "ordinary_High_calls": 13,
     "no_training": true,
     "stopped": true
   },

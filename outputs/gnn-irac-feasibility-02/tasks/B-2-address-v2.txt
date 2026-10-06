@@ -1,0 +1,2071 @@
+INFERENCE-ONLY BLIND Fact/Evidence to Condition candidate binding. No target reasoning, target outcome, reference answers, old bindings or review conclusions are supplied. Read only fixed issue, frozen independent rules/conditions and approved historical input records. No external search, new fact extraction or full legal answer. Return downloadable JSON {cases:[{case_id,bindings:[{binding_id,fact_id,condition_id,relation,reason,source_refs,statement_status,court_stage:{court,stage},uncertainty}],gaps:[string],skipped:boolean}]}. For rule_complete=false return skipped=true, empty bindings and the given skip reason; no repair. For eligible cases bindings only reference supplied existing fact IDs and condition IDs, relation SUPPORTS/DEFEATS/RELEVANT_TO. Preserve exact fact.status in statement_status and exact fact.court/fact.stage in court_stage; retain attribution, uncertainty and prior finding level. Binding.source_refs must be a nonempty subset of that fact.refs, not a law source or different fact. Candidate SUPPORTS does not mean court adoption or proved fact: a party allegation may propose relevant signed evidence with its status explicit; no inventing truth. UNKNOWN is never wildcard identity. Do not create fact, modify status, infer document contents from its existence, or infer facts from a legal test. Reason states the legal relationship briefly and uncertainty where evidence does not establish it. Distinguish negative condition polarity (absence of written landlord consent), alternatives and inference prerequisites; mere third-party presence cannot automatically prove legal divestment. May produce no binding. Never target labels; do not give issue verdict.
+MATERIAL
+[
+  {
+    "case_id": "1106992",
+    "rule_complete": true,
+    "input": {
+      "fixed_issue": "Whether the landlord's section 14(1)(b) eviction ground is established against the tenant for subletting, assignment or other parting with possession without written landlord consent, preserving procedural posture.",
+      "rules": [
+        {
+          "rule_id": "LAW:S02:DRC14:1b",
+          "source_document": {
+            "document_id": "18143401",
+            "url": "https://indiankanoon.org/doc/18143401/",
+            "raw_provenance": [
+              [
+                {
+                  "document_id": "18143401",
+                  "url": "https://indiankanoon.org/doc/18143401/",
+                  "response_index": 0,
+                  "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                  "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                  "raw_char_range": [
+                    1228,
+                    2945
+                  ],
+                  "raw_byte_range": [
+                    1346,
+                    3103
+                  ],
+                  "raw_physical_line": 37,
+                  "original_line": 39
+                }
+              ],
+              [
+                {
+                  "document_id": "18143401",
+                  "url": "https://indiankanoon.org/doc/18143401/",
+                  "response_index": 0,
+                  "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                  "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                  "raw_char_range": [
+                    1228,
+                    2945
+                  ],
+                  "raw_byte_range": [
+                    1346,
+                    3103
+                  ],
+                  "raw_physical_line": 37,
+                  "original_line": 39
+                }
+              ]
+            ]
+          },
+          "authority_type": "STATUTE",
+          "court_jurisdiction": "UNKNOWN",
+          "date": null,
+          "exact_quote": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+          "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+          "limitations": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+          "independent_source_verified": true,
+          "legal_status": "UNKNOWN"
+        },
+        {
+          "rule_id": "IRAC02:VN_CONTROL",
+          "source_document": {
+            "document_id": "190902",
+            "url": "https://indiankanoon.org/doc/190902/",
+            "date": "1975-03-19",
+            "court_or_publisher": "Delhi High Court",
+            "passage_addresses": [
+              {
+                "id": "IK-190902:L107"
+              },
+              {
+                "id": "IK-190902:L108"
+              },
+              {
+                "id": "IK-190902:L109"
+              },
+              {
+                "id": "IK-190902:L110"
+              },
+              {
+                "id": "IK-190902:L111"
+              },
+              {
+                "id": "IK-190902:L112"
+              }
+            ],
+            "raw_path": "outputs/gnn-irac-feasibility-02/independent-sources/recovered-web.json",
+            "raw_sha256": "d508aa36e412285dc367d64758caa3461877271506dc3858a6a751619bd28449"
+          },
+          "authority_type": "PRECEDENT",
+          "court_jurisdiction": "Delhi High Court",
+          "date": "1975-03-19",
+          "exact_quote": "30. So long as the lessee retains the legal possession of the whole of the premises he does not commit a breach of law against parting with the possession by allowing other people to use the same. A tenant cannot be said to part with the possession of any part of the premises unless his agreement with the license wholly ousts him from the legal possession of that part. If there is anything in the nature of a right to concurrent user there is no parting with possession: See Stenina v.\nAbrahama, (1931) f Ch D 470 and G. D. Chaudhary v. Anand Sarup. 1966 Delhi Lt 28.\n31. Clause (b) of the proviso to cite8†Section 14(1) uses three expressions namely 'sublet', 'assign' and 'otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord'. These three expressions deal with different concepts and apply to different circumstances.\nIn subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet. In assignment the tenant has to divest himself of all the rights that he has as a tenant.\nThe expression \"parted with possession\" undoubtedly postulates parting with possession session means giving possession to persons other than those to whom possession has been given by lease and \"parting with possession\" must have been by the tenant.\nThe mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself or in other words there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession. The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession: See cite11†Hazari Lal v. Gian Ram . 1972 Ren Cr 74 (Delhi).",
+          "scope": "Delhi DRC14(1)(b), distinct sublet/assignment/parting branches; retained legal possession vs mere user",
+          "limitations": "Doctrine not a universal rule equating company with tenant; actual ouster/control must be checked",
+          "independent_source_verified": true,
+          "legal_status": "INDEPENDENT_STATUTORY_OR_JUDGMENT_TEXT_REPRODUCTION"
+        },
+        {
+          "rule_id": "IRAC02:VN_CORPORATE",
+          "source_document": {
+            "document_id": "190902",
+            "url": "https://indiankanoon.org/doc/190902/",
+            "date": "1975-03-19",
+            "court_or_publisher": "Delhi High Court",
+            "passage_addresses": [
+              {
+                "id": "IK-190902:L93"
+              },
+              {
+                "id": "IK-190902:L94"
+              },
+              {
+                "id": "IK-190902:L95"
+              }
+            ],
+            "raw_path": "outputs/gnn-irac-feasibility-02/independent-sources/recovered-web.json",
+            "raw_sha256": "d508aa36e412285dc367d64758caa3461877271506dc3858a6a751619bd28449"
+          },
+          "authority_type": "PRECEDENT",
+          "court_jurisdiction": "Delhi High Court",
+          "date": "1975-03-19",
+          "exact_quote": "22. If an individual takes the premises on rent and then converts his sole proprietorship concern into a Private limited company in which he has the controlling interest he cannot be evicted from the premises. On the proved facts, this is the inevitable conclusion. The person who took the premises on rent remains in possession though he forms a company and ceases to be the sole proprietor. He does not cease to be in possession. He has not parted with the possession with any one.\nHe has changed the form of his business. In Interads Vishwa Nath was the sole proprietor. In Interads Private Limited he has the controlling interest and his wife and his two sons are the other shareholders along with two other strangers. He was all in all in his proprietorship concern. Now also he is the chief executive, chairman and the managing director of the company.\nIt is true that the company is a juristic person but in each case what we have to see is whether Possession has been parted with and whether there is an ouster of the tenant. If the company is a facade concealing the true facts it may be necessary for the Court to pierce the corporate well.",
+          "scope": "Corporate form versus real loss of possession/control",
+          "limitations": "Factual illustration of controlling interest, not every company an alter ego; no target-specific conclusion",
+          "independent_source_verified": true,
+          "legal_status": "INDEPENDENT_STATUTORY_OR_JUDGMENT_TEXT_REPRODUCTION"
+        }
+      ],
+      "conditions": [
+        {
+          "condition_id": "C1",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "The relevant statutory event must occur on or after 9 June 1952.",
+          "exact_rule_quote": "on or after the 9th day of June, 1952",
+          "logical_role": "BASE_TIMING",
+          "dependencies": [],
+          "scope": "Common timing condition for the section 14(1)(b) routes.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C2",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Subletting is one alternative statutory route.",
+          "exact_rule_quote": "sub-let",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Subletting branch only; alternative to assignment or other parting with possession.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C3",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Assignment is one alternative statutory route.",
+          "exact_rule_quote": "assigned",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Assignment branch only; alternative to subletting or other parting with possession.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C4",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Other parting with possession of the whole or any part is one alternative statutory route.",
+          "exact_rule_quote": "otherwise parted with the possession of the whole or any part of the premises",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Parting-with-possession branch only; alternative to subletting or assignment.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C5",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "The applicable route must be without the landlord's written consent.",
+          "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+          "logical_role": "COMMON_NEGATIVE_CONDITION",
+          "dependencies": [
+            {
+              "condition_id": "C2",
+              "operator": "OR"
+            },
+            {
+              "condition_id": "C3",
+              "operator": "OR"
+            },
+            {
+              "condition_id": "C4",
+              "operator": "OR"
+            }
+          ],
+          "scope": "Common written-consent condition attaching to any of the three alternative statutory routes.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C6",
+          "rule_id": "IRAC02:VN_CONTROL",
+          "description": "The supplied Delhi precedent qualifies the subletting branch by requiring the incidents of letting or tenancy, including transfer of an interest, payment of rent, and a right to possession against the tenant.",
+          "exact_rule_quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet.",
+          "logical_role": "ROUTE_QUALIFICATION",
+          "dependencies": [
+            {
+              "condition_id": "C2",
+              "operator": "QUALIFICATION"
+            }
+          ],
+          "scope": "Subletting branch only; this is not a target finding.",
+          "source_refs": [
+            "IK-190902:L109",
+            "IK-190902:L110"
+          ]
+        },
+        {
+          "condition_id": "C7",
+          "rule_id": "IRAC02:VN_CONTROL",
+          "description": "For the parting-with-possession branch, mere use by others is insufficient while the tenant retains legal possession; possession must vest in another through divestment of physical possession and the right to possession.",
+          "exact_rule_quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself or in other words there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession. The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession",
+          "logical_role": "ROUTE_QUALIFICATION",
+          "dependencies": [
+            {
+              "condition_id": "C4",
+              "operator": "QUALIFICATION"
+            }
+          ],
+          "scope": "Parting-with-possession branch; retained legal possession and concurrent user qualify against treating mere third-party use as parting.",
+          "source_refs": [
+            "IK-190902:L111",
+            "IK-190902:L112"
+          ]
+        },
+        {
+          "condition_id": "C8",
+          "rule_id": "IRAC02:VN_CORPORATE",
+          "description": "A change to corporate form does not itself resolve the possession question; the supplied test asks whether possession was actually parted with and whether the tenant was ousted, with veil-piercing reserved for a facade.",
+          "exact_rule_quote": "It is true that the company is a juristic person but in each case what we have to see is whether Possession has been parted with and whether there is an ouster of the tenant. If the company is a facade concealing the true facts it may be necessary for the Court to pierce the corporate well.",
+          "logical_role": "CORPORATE_FORM_QUALIFICATION",
+          "dependencies": [
+            {
+              "condition_id": "C4",
+              "operator": "QUALIFICATION"
+            }
+          ],
+          "scope": "Corporate-form qualification to the parting-with-possession inquiry; the factual illustration of controlling interest is not generalized into a target conclusion.",
+          "source_refs": [
+            "IK-190902:L95"
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "id": "f1",
+          "text": "The original Madras-Bangalore Transport Company became tenant of the disputed premises in July 1962.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal factual narrative",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L47"
+          ],
+          "quote": "became the tenant of the disputed premises in July 1962."
+        },
+        {
+          "id": "f2",
+          "text": "After disputes and arbitration, the original partnership was split into West and East firms and its business was divided area-wise.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal factual narrative",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "effect of the split on the tenancy rights in the disputed premises"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o1"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L47"
+          ],
+          "quote": "The partnership firm was split up into two firms, the Madras-Bangalore Transport Company (West) and the Madras-Bangalore Transport Company (East)"
+        },
+        {
+          "id": "f3",
+          "text": "The partners of West founded Caravan Goods Carrier Private Limited in 1968 to secure business in territory allotted to East after East ceased functioning effectively.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal factual narrative",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether formation of Caravan itself transferred any tenancy or possessory right"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o10"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L49"
+          ],
+          "quote": "the partners of the Madras-Bangalore Transport Company (West) founded a Limited company styled as the 'Caravan Goods Carrier Private Limited'"
+        },
+        {
+          "id": "f4",
+          "text": "In 1979 the landlord alleged in an eviction petition that West had unlawfully sublet, assigned, or otherwise parted with possession of the disputed premises to Caravan.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "1979 eviction petition before Additional Rent Controller",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether subletting occurred",
+            "whether assignment occurred",
+            "whether West otherwise parted with possession",
+            "extent of any alleged transfer of possession"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o5"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L52"
+          ],
+          "quote": "alleging that the tenant had unlawfully 'sublet, assigned or otherwise parted with the possession' of the disputed premises to the Caravan Goods Carrier Private Limited"
+        },
+        {
+          "id": "f5",
+          "text": "The landlord alleged that the asserted transfer of possession occurred without obtaining the landlord's consent.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "1979 eviction petition before Additional Rent Controller",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "whether any consent existed",
+            "whether any consent was in writing",
+            "whether the lower courts made a distinct consent finding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o6"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L52"
+          ],
+          "quote": "without obtaining the consent of the landlord."
+        },
+        {
+          "id": "f6",
+          "text": "The Additional Rent Controller allowed the landlord's petition and ordered eviction.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "Additional Rent Controller decision",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "specific subsidiary findings supporting the order"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o7"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "quote": "The Additional Rent Controller, Delhi allowed the petition and ordered eviction."
+        },
+        {
+          "id": "f7",
+          "text": "The Rent Control Tribunal confirmed the eviction order on West's appeal.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "APPELLATE",
+          "stage": "Rent Control Tribunal appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "specific appellate findings or reasoning"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o8"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "quote": "the Rent Control Tribunal confirmed the order of eviction."
+        },
+        {
+          "id": "f8",
+          "text": "A second appeal to the High Court was dismissed in limine.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "APPELLATE",
+          "stage": "High Court second appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether any merits reasoning accompanied the in-limine dismissal"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o9"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "quote": "A second appeal to the High Court was dismissed in limine."
+        },
+        {
+          "id": "f9",
+          "text": "West submitted in the Supreme Court appeal that there had been no subletting, assignment, or parting with possession within the asserted statutory ground.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target court acceptance"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L54"
+          ],
+          "quote": "there was no subletting, assignment or parting with possession of the premises"
+        },
+        {
+          "id": "f10",
+          "text": "West argued that it was always in possession of the disputed premises.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance",
+            "degree of exclusive or shared possession"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L55"
+          ],
+          "quote": "the Madras-Bangalore Transport Company (West) was always in possession of the premises"
+        },
+        {
+          "id": "f11",
+          "text": "The landlord argued that West, a partnership firm, and Caravan, a limited company, were distinct legal entities.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target court treatment of formal separateness for the possession issue"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L56"
+          ],
+          "quote": "they could never be the same as they were two distinct legal entities."
+        },
+        {
+          "id": "f12",
+          "text": "The landlord argued that West had gone out of the picture and Caravan alone possessed the disputed premises.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance",
+            "whether Caravan's possession was exclusive",
+            "whether West retained legal or physical possession"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o5"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L57"
+          ],
+          "quote": "the Madras-Bangalore Transport Company (West) had gone out of the picture and the Caravan Goods Carrier Private Limited alone was in possession"
+        }
+      ],
+      "relations": [
+        {
+          "id": "r1",
+          "left": "o3",
+          "right": "o5",
+          "relation": "same_as",
+          "text": "West contends that Caravan was in truth and reality the same enterprise as West for purposes of the disputed possession issue.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance",
+            "legal effect of common directors or partners"
+          ],
+          "refs": [
+            "IK-1106992:L55"
+          ],
+          "quote": "was in truth and reality no other than the Madras-Bangalore Transport Company (West) itself."
+        },
+        {
+          "id": "r2",
+          "left": "o3",
+          "right": "o5",
+          "relation": "same_as",
+          "text": "The landlord denies that West and Caravan are the same legal entity.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target court treatment of legal separateness"
+          ],
+          "refs": [
+            "IK-1106992:L56"
+          ],
+          "quote": "they could never be the same as they were two distinct legal entities."
+        }
+      ],
+      "objects": [
+        {
+          "id": "o1",
+          "text": "Madras-Bangalore Transport Company",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L47"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o4",
+          "text": "Madras-Bangalore Transport Company (East)",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L47",
+            "IK-1106992:L48",
+            "IK-1106992:L49"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o6",
+          "text": "respondent landlord",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1106992:L52",
+            "IK-1106992:L56",
+            "IK-1106992:L57"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o7",
+          "text": "Additional Rent Controller, Delhi",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o8",
+          "text": "Rent Control Tribunal",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o9",
+          "text": "High Court",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "unknown": false
+        }
+      ],
+      "sources": [
+        {
+          "id": "IK-1106992:L47",
+          "text": "1. The Madras-Bangalore Transport Company, a partnership firm, became the tenant of the disputed premises in July 1962. In 1967, there appear to have been some disputes between the partners of the Madras-Bangalore Transport Company. The disputes were settled by arbitration. The partnership firm was split up into two firms, the Madras-Bangalore Transport Company (West) and the Madras-Bangalore Transport Company (East) The business of the old firm was also divided between the new firms area-wise.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L48",
+          "text": "Under the arrangement each of the new firms was forbidden from carrying on operations in the territory allotted to the other. However, the Madras-Bangalore Transport Company (East) appears to have ceased to function for practical purposes. Even so, the Madras-Bangalore Transport Company (West) could not operate in the territory allotted to the Madras-Bangalore Transport Company (East).",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L49",
+          "text": "So the partners of the Madras-Bangalore Transport Company (West) founded a Limited company styled as the 'Caravan Goods Carrier Private Limited' in order to secure the business in the territory which had been allotted to Madras-Bangalore Transport Company (East) and which business was going to be lost consequent on the Madras-Bangalore Transport Company (East) ceasing to function effectively. This was in 1968.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L50",
+          "text": "The Madras-Bangalore Transport Company (West) was appointed as the agent of 'Caravan Goods Carrier Private Limited' in the territory of Delhi. The Caravan Goods Carrier Private Limited was in turn appointed as an agent of the Madras Bangalore Transport Company (West) for certain purposes.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L51",
+          "text": "Both Madras-Bangalore Transport Company (West) and Caravan Goods Carrier Private Limited registered themselves under the cite12†Delhi Shops and Establishments Act disclosing their offices as located at the disputed premises.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L52",
+          "text": "Almost 10 years after the Caravan Goods Carrier Private Limited was founded and started functioning from the disputed premises the landlord, in 1979, filed an eviction petition against the Madras-Bangalore Transport Company (West) alleging that the tenant had unlawfully 'sublet, assigned or otherwise parted with the possession' of the disputed premises to the Caravan Goods Carrier Private Limited without obtaining the consent of the landlord.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L53",
+          "text": "The Additional Rent Controller, Delhi allowed the petition and ordered eviction. On appeal by the Madras-Bangalore Transport Company (West) the Rent Control Tribunal confirmed the order of eviction. A second appeal to the High Court was dismissed in limine. The present appeal has been filed after obtaining the Special leave of this Court under cite13†Article 136 of the Constitution.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L54",
+          "text": "2. The submission of Dr. Chitaley, learned Counsel for the appellant, was that, there was no subletting, assignment or parting with possession of the premises as contemplated by No. 31)(b) of cite14†Delhi Rent Control Act .",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L55",
+          "text": "He argued that the Madras-Bangalore Transport Company (West) was always in possession of the premises and that the Caravan Goods Carrier Private Limited, whose Directors were partners of Madras-Bangalore Transport Company (West) was in truth and reality no other than the Madras-Bangalore Transport Company (West) itself.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L56",
+          "text": "On the other hand, the learned Counsel for the Respondent-Landlord urged that the Madras-Bangalore Transport Company (West) was a partnership firm and the Caravan Goods Carrier Private Limited was a Limited company and, therefore, they could never be the same as they were two distinct legal entities.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L57",
+          "text": "It was argued that the Madras-Bangalore Transport Company (West) had gone out of the picture and the Caravan Goods Carrier Private Limited alone was in possession and, therefore, there was subletting, assignment or parting with possession of the premises as contemplated by cite15†Section 14(1)(b) of the Rent Control Act.",
+          "source_document": "1106992"
+        }
+      ],
+      "unknown_is_not_false": true,
+      "record_stage": [
+        {
+          "record_id": "facts:f1",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L47"
+          ]
+        },
+        {
+          "record_id": "facts:f2",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L47"
+          ]
+        },
+        {
+          "record_id": "facts:f3",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L49"
+          ]
+        },
+        {
+          "record_id": "facts:f4",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L52"
+          ]
+        },
+        {
+          "record_id": "facts:f5",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L52"
+          ]
+        },
+        {
+          "record_id": "facts:f6",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L53"
+          ]
+        },
+        {
+          "record_id": "facts:f7",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L53"
+          ]
+        },
+        {
+          "record_id": "facts:f8",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L53"
+          ]
+        },
+        {
+          "record_id": "facts:f9",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L54"
+          ]
+        },
+        {
+          "record_id": "facts:f10",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L55"
+          ]
+        },
+        {
+          "record_id": "facts:f11",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L56"
+          ]
+        },
+        {
+          "record_id": "facts:f12",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L57"
+          ]
+        }
+      ]
+    },
+    "skip_reason": null
+  },
+  {
+    "case_id": "1497837",
+    "rule_complete": true,
+    "input": {
+      "fixed_issue": "Whether the landlord's section 14(1)(b) eviction ground is established against the tenant for subletting, assignment or other parting with possession without written landlord consent, preserving procedural posture.",
+      "rules": [
+        {
+          "rule_id": "LAW:S02:DRC14:1b",
+          "source_document": {
+            "document_id": "18143401",
+            "url": "https://indiankanoon.org/doc/18143401/",
+            "raw_provenance": [
+              [
+                {
+                  "document_id": "18143401",
+                  "url": "https://indiankanoon.org/doc/18143401/",
+                  "response_index": 0,
+                  "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                  "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                  "raw_char_range": [
+                    1228,
+                    2945
+                  ],
+                  "raw_byte_range": [
+                    1346,
+                    3103
+                  ],
+                  "raw_physical_line": 37,
+                  "original_line": 39
+                }
+              ],
+              [
+                {
+                  "document_id": "18143401",
+                  "url": "https://indiankanoon.org/doc/18143401/",
+                  "response_index": 0,
+                  "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                  "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                  "raw_char_range": [
+                    1228,
+                    2945
+                  ],
+                  "raw_byte_range": [
+                    1346,
+                    3103
+                  ],
+                  "raw_physical_line": 37,
+                  "original_line": 39
+                }
+              ]
+            ]
+          },
+          "authority_type": "STATUTE",
+          "court_jurisdiction": "UNKNOWN",
+          "date": null,
+          "exact_quote": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+          "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+          "limitations": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+          "independent_source_verified": true,
+          "legal_status": "UNKNOWN"
+        },
+        {
+          "rule_id": "LAW:V21:GR:REPORTED_DELHI",
+          "source_document": {
+            "document_id": "GENERAL_RADIO",
+            "url": "https://api.sci.gov.in/jonew/judis/9056.pdf",
+            "date": "1986-04-17",
+            "court_or_publisher": "Supreme Court of India",
+            "original_path": "outputs/rules-verdict-v21-rule-retrieval/library/originals/GENERAL_RADIO.json",
+            "joined_start": 31234,
+            "joined_end": 33323,
+            "segment_offsets": [
+              {
+                "id": "LAW:V16:GENERAL_RADIO:P9",
+                "start": 2537,
+                "end": 3753
+              },
+              {
+                "id": "LAW:V16:GENERAL_RADIO:P10",
+                "start": 0,
+                "end": 872
+              }
+            ],
+            "source_status": "REPORTED_PRECEDENT_NOT_FULL_PARASARAM_OPINION"
+          },
+          "authority_type": "PRECEDENT",
+          "court_jurisdiction": "Supreme Court of India",
+          "date": "1986-04-17",
+          "exact_quote": "     It is  pertinent to  mention  in  this  connection  the\ndecision of  this court  in Parasaram  Harnand Rao v. Shanti\nPrasad Narinder  Kumar Jain  & Anr., [1980] 3 S.C.R. p. 444.\nIn this  case the  appellant landlord  executed a  lease  in\nrespect of the disputed premises in favour of respondent No.\n2 for  three  years  on  1.4.1942.  In  1948  the  appellant\nlandlord filed  a suit  for eviction  of the tenant for non-\npayment of  the rent  and for  conversion  of  user  of  the\npremises. The  suit for  possession  was  dismissed,  but  a\ndecree for  arrears of  rent was passed and it was held that\nLaxmi Bank  was the  real  tenant.  The  Bombay  High  Court\nsubsequently made  an order that the Bank be wound up and in\nthe winding  up proceedings,  the High  Court  appointed  an\nofficial liquidator  who  sold  the  tenancy  right  to  the\nrespondent  No.   1  in  1961.  The  sale  was  subsequently\nconfirmed by  the High  Court and  the respondent No. 1 took\npossession of the premises on 24.2.1961. The landlord\n620\nappellant filed  an application under the Delhi Rent Control\nAct for eviction of the Laxmi Bank and a decree for eviction\nwas passed in favour of the appellant. Thereafter respondent\nhttp://JUDIS.NIC.IN SUPREME COURT OF INDIA Page 10 of 10 \nNo. 1 filed a suit for declaration that he was tenant of the\nlandlord. The suit was dismissed and the appeal against that\norder also  failed. The  respondent No. 1, however, filed an\napplication for  recalling the  warrant of possession issued\nby the  court in  pursuance of  the decree  in favour of the\nappellant. This  ultimately came up in second appeal and the\nHigh Court  allowed the  Rent  Controller's  order  allowing\nrecalling of  warrant of  possession. On  appeal by  special\nleave this  Court held that the amplitude of S. 14(b) of the\nDelhi Rent  Control Act  was wide enough not only to include\nany sublease  but even  an assignment  or any  other mode by\nwhich possession of the tenanted premises is parted. In view\nof the  wide amplitude of s. 14(b), it does not exclude even\nan involuntary sale.\n",
+          "scope": "Court reports Parasaram and Delhi rent law in liquidation-sale setting; not an independently acquired Parasaram opinion or direct bank s45/s9 holding",
+          "limitations": "Exact full reported-precedent paragraph; old OCR and page headers kept.",
+          "independent_source_verified": true,
+          "legal_status": "UNKNOWN"
+        }
+      ],
+      "conditions": [
+        {
+          "condition_id": "C1",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "The relevant statutory event must occur on or after 9 June 1952.",
+          "exact_rule_quote": "on or after the 9th day of June, 1952",
+          "logical_role": "BASE_TIMING",
+          "dependencies": [],
+          "scope": "Common timing condition for the section 14(1)(b) routes.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C2",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Subletting is one alternative statutory route.",
+          "exact_rule_quote": "sub-let",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Subletting branch only; alternative to assignment or other parting with possession.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C3",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Assignment is one alternative statutory route.",
+          "exact_rule_quote": "assigned",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Assignment branch only; alternative to subletting or other parting with possession.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C4",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Other parting with possession of the whole or any part is one alternative statutory route.",
+          "exact_rule_quote": "otherwise parted with the possession of the whole or any part of the premises",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Parting-with-possession branch only; alternative to subletting or assignment.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C5",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "The applicable route must be without the landlord's written consent.",
+          "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+          "logical_role": "COMMON_NEGATIVE_CONDITION",
+          "dependencies": [
+            {
+              "condition_id": "C2",
+              "operator": "OR"
+            },
+            {
+              "condition_id": "C3",
+              "operator": "OR"
+            },
+            {
+              "condition_id": "C4",
+              "operator": "OR"
+            }
+          ],
+          "scope": "Common written-consent condition attaching to any of the three alternative statutory routes.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C6",
+          "rule_id": "LAW:V21:GR:REPORTED_DELHI",
+          "description": "The supplied reported precedent describes section 14(b) as broad enough to include sublease, assignment, other modes of parting with possession, and even involuntary sale.",
+          "exact_rule_quote": "this Court held that the amplitude of S. 14(b) of the\nDelhi Rent  Control Act  was wide enough not only to include\nany sublease  but even  an assignment  or any  other mode by\nwhich possession of the tenanted premises is parted. In view\nof the  wide amplitude of s. 14(b), it does not exclude even\nan involuntary sale.",
+          "logical_role": "ROUTE_SCOPE_QUALIFICATION",
+          "dependencies": [
+            {
+              "condition_id": "C2",
+              "operator": "QUALIFICATION"
+            },
+            {
+              "condition_id": "C3",
+              "operator": "QUALIFICATION"
+            },
+            {
+              "condition_id": "C4",
+              "operator": "QUALIFICATION"
+            }
+          ],
+          "scope": "Scope clarification reported by General Radio from Parasaram; the supplied source is not an independently acquired Parasaram opinion.",
+          "source_refs": [
+            "LAW:V16:GENERAL_RADIO:P10"
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "id": "f1",
+          "text": "The appellants claimed to be the landlords of the premises.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "APPELLATE",
+          "stage": "High Court factual recital reproduced in appeal record",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether the claimed landlord status is legally established on the allowed record"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L81"
+          ],
+          "quote": "the appellants are claiming themselves to be the landlords"
+        },
+        {
+          "id": "f2",
+          "text": "The eviction petition alleged that the premises were let to DTC for Rs.3500 per month.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "eviction petition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether DTC was legally the tenant"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o2"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L82"
+          ],
+          "quote": "the premises were let out to respondent No.2, Delhi Transport Corporation [for short \"DTC\"], on a monthly rental of Rs.3500/-"
+        },
+        {
+          "id": "f3",
+          "text": "The eviction petition alleged that DTC sublet or assigned the premises to MCD and parted with possession in MCD's favour.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "eviction petition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether any subletting, assignment, or parting with possession actually occurred",
+            "whether any transfer covered the whole or only part of the premises"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L82"
+          ],
+          "quote": "DTC has sublet/assigned the premises in favour of respondent No.1, Municipal Corporation of Delhi [for short \"MCD\"] and parted with 3 possession in favour of MCD"
+        },
+        {
+          "id": "f4",
+          "text": "The eviction petition alleged that the transfer or parting with possession occurred without the appellants' written consent.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "eviction petition",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "whether any written consent existed"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L82"
+          ],
+          "quote": "without the written consent of the appellants"
+        },
+        {
+          "id": "f5",
+          "text": "MCD claimed that it retained legal possession and that rent was being paid by MCD to DTC.",
+          "speaker": "THIRD_PARTY",
+          "status": "CLAIMED",
+          "court": "APPELLATE",
+          "stage": "High Court factual recital of MCD position",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "legal significance of the claimed retained possession",
+            "whether the payment was legally rent"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L83"
+          ],
+          "quote": "MCD had, however, claimed that the legal possession was retained by MCD; rent was being paid by MCD to DTC."
+        },
+        {
+          "id": "f6",
+          "text": "The ARC found it admitted that MCD was in possession of the premises and paid Rs.3500 to DTC by cheque as rent.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "TRIAL",
+          "stage": "ARC merits determination",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L85"
+          ],
+          "quote": "Admittedly it is respondent No.2 (MCD) who is in possession of the premises in question. It is also admitted that respondent No.2 (MCD) pays a sum of Rs.3500/- as rent to respondent No.1 (DTC) by way of cheques."
+        },
+        {
+          "id": "f7",
+          "text": "The ARC found that the respondents did not assert that written consent of the petitioners had been obtained.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "TRIAL",
+          "stage": "ARC merits determination",
+          "polarity": "NEGATIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L85"
+          ],
+          "quote": "It is not the case of the respondent that any written consent of the petitioners was obtained in this regard."
+        },
+        {
+          "id": "f8",
+          "text": "The ARC held that DTC had either sublet, assigned, or otherwise parted with possession of the premises to MCD illegally.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "TRIAL",
+          "stage": "ARC merits determination",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L86"
+          ],
+          "quote": "respondent no.1 (DTC) has either sublet, assigned or otherwise parted with the possession of the tenanted premises illegally to respondent No.2 (MCD)"
+        },
+        {
+          "id": "f9",
+          "text": "The ARCT found a landlord-tenant relationship and found that exclusive possession had been handed to MCD, a separate legal entity, amounting to subletting.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "ARCT review of ARC order",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L88"
+          ],
+          "quote": "there exists relationship of landlord and tenant between the parties and since the exclusive possession of the premises was handed over by the erstwhile tenant to the Municipal Corporation of Delhi, i.e., respondent No.2 which is itself a separate and independent legal entity, it amounts to sub- letting."
+        },
+        {
+          "id": "f10",
+          "text": "The High Court found that there was no parting with possession by DTC to MCD and therefore no subletting.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court Article 227 disposition",
+          "polarity": "NEGATIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o2"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L94"
+          ],
+          "quote": "There was no parting with possession by DTC to MCD, therefore, it was not sub-letting."
+        },
+        {
+          "id": "f11",
+          "text": "The High Court found that the Rs.3500 monthly payment by MCD to DTC did not itself show subletting or parting with possession.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court Article 227 disposition",
+          "polarity": "NEGATIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o2"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L95"
+          ],
+          "quote": "Mere payment of Rs.3500/- per month by MCD to DTC does not show sub-letting or parting with possession."
+        },
+        {
+          "id": "f12",
+          "text": "The High Court described GNIT as having been acquired by legislation, the premises going to DTS, DTS being converted to DTU, and DTU being converted into DTC.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court Article 227 disposition",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o5"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o6"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o7"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o2"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L96"
+          ],
+          "quote": "The alleged original tenant GNIT stood acquired by a cite14†Legislative Act and the premises went to DTS. DTS was converted to DTU and DTU was further converted into DTC."
+        },
+        {
+          "id": "f13",
+          "text": "The High Court stated that the lower courts had not considered who the tenant was or how MCD became a sub-tenant after the premises were owned by the Union of India and the land's leasehold rights vested in it.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court Article 227 disposition",
+          "polarity": "NEGATIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o2"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o8"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L102"
+          ],
+          "quote": "The Courts below did not even consider the issue as to who was the tenant and how MCD became the sub-tenant of respondent once the premises was owned by Union of India and the leasehold rights of the entire land vested in Union of India."
+        },
+        {
+          "id": "f14",
+          "text": "Counsel for the respondents claimed that the appellants had failed to prove any parting with possession without written landlord consent, that MCD retained legal possession all along, and that the Rs.3500 payment was routed through DTC for convenience.",
+          "speaker": "UNKNOWN",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "respondents' submissions on Supreme Court appeal",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target-court acceptance of the submission",
+            "whether MCD in fact retained legal possession throughout"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o4"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L118"
+          ],
+          "quote": "the appellants have failed to prove that there has been any parting with possession, without the written consent of the landlord. The ARC and ARCT ignored vital documents in concluding that there has been subletting by DTC to MCD. In fact, MCD has retained the legal possession all along."
+        },
+        {
+          "id": "f15",
+          "text": "Counsel for the respondents claimed that no landlord-tenant relationship existed between the appellants' predecessor and GNIT.",
+          "speaker": "UNKNOWN",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "respondents' submissions on Supreme Court appeal",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target-court acceptance of the submission",
+            "legal identity of the relevant original tenant"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o1"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1497837:L116"
+          ],
+          "quote": "According to the learned counsel, there was no landlord and tenant relationship between the predecessor of the appellants and GNIT."
+        }
+      ],
+      "relations": [
+        {
+          "id": "r1",
+          "left": "o2",
+          "right": "o3",
+          "relation": "transferred_to",
+          "text": "The landlords alleged that DTC transferred possession or tenancy interests in the premises to MCD by subletting, assignment, or other parting with possession.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "eviction petition",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether a legally cognizable transfer occurred",
+            "precise transfer mechanism"
+          ],
+          "refs": [
+            "IK-1497837:L82"
+          ],
+          "quote": "DTC has sublet/assigned the premises in favour of respondent No.1, Municipal Corporation of Delhi [for short \"MCD\"] and parted with 3 possession in favour of MCD"
+        },
+        {
+          "id": "r2",
+          "left": "o3",
+          "right": "o2",
+          "relation": "other",
+          "text": "MCD paid Rs.3500 to DTC by cheque, characterized by the ARC as rent.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "TRIAL",
+          "stage": "ARC merits determination",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-1497837:L85"
+          ],
+          "quote": "respondent No.2 (MCD) pays a sum of Rs.3500/- as rent to respondent No.1 (DTC) by way of cheques"
+        },
+        {
+          "id": "r3",
+          "left": "o2",
+          "right": "o3",
+          "relation": "transferred_to",
+          "text": "The ARCT found that exclusive possession of the premises was handed over by the erstwhile tenant to MCD.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "ARCT review",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-1497837:L88"
+          ],
+          "quote": "the exclusive possession of the premises was handed over by the erstwhile tenant to the Municipal Corporation of Delhi"
+        },
+        {
+          "id": "r4",
+          "left": "o5",
+          "right": "o2",
+          "relation": "same_as",
+          "text": "The High Court treated the GNIT-DTS-DTU-DTC sequence as continuity of the same entity through changes of statutory form for purposes of its subletting analysis.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court Article 227 disposition",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-1497837:L96"
+          ],
+          "quote": "The alleged original tenant GNIT stood acquired by a cite14†Legislative Act and the premises went to DTS. DTS was converted to DTU and DTU was further converted into DTC."
+        },
+        {
+          "id": "r5",
+          "left": "o4",
+          "right": "o8",
+          "relation": "transferred_to",
+          "text": "The High Court described the premises or relevant leasehold rights as having vested in or become owned by the Union of India following acquisition.",
+          "speaker": "COURT",
+          "status": "FOUND",
+          "court": "APPELLATE",
+          "stage": "High Court Article 227 disposition",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "refs": [
+            "IK-1497837:L94",
+            "IK-1497837:L102"
+          ],
+          "quote": "the premises had come to them after it was acquired by Union of India (UOI) from GNIT on nationalization of the business"
+        },
+        {
+          "id": "r6",
+          "left": "o3",
+          "right": "o4",
+          "relation": "controls",
+          "text": "The respondents claimed that MCD retained legal possession of the premises all along.",
+          "speaker": "UNKNOWN",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "respondents' submissions on Supreme Court appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target-court acceptance",
+            "legal character of MCD's possession"
+          ],
+          "refs": [
+            "IK-1497837:L118"
+          ],
+          "quote": "MCD has retained the legal possession all along."
+        }
+      ],
+      "objects": [
+        {
+          "id": "o1",
+          "text": "appellants claiming to be landlords",
+          "kind": "GROUP",
+          "refs": [
+            "IK-1497837:L81",
+            "IK-1497837:L82"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o2",
+          "text": "Delhi Transport Corporation (DTC)",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1497837:L82",
+            "IK-1497837:L83"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o3",
+          "text": "Municipal Corporation of Delhi (MCD)",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1497837:L82",
+            "IK-1497837:L83"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o4",
+          "text": "premises at plot No.2, Block B, transport area of Jhandewalan Estate, Karol Bagh, New Delhi",
+          "kind": "PROPERTY",
+          "refs": [
+            "IK-1497837:L81",
+            "IK-1497837:L82"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o5",
+          "text": "Gwalior Northern India Transport Company (GNIT)",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1497837:L83",
+            "IK-1497837:L94",
+            "IK-1497837:L96"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o6",
+          "text": "Delhi Transport Services (DTS)",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1497837:L94",
+            "IK-1497837:L96"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o7",
+          "text": "Delhi Transport Undertaking (DTU)",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1497837:L94",
+            "IK-1497837:L96"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o8",
+          "text": "Union of India",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1497837:L94",
+            "IK-1497837:L102"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o9",
+          "text": "Bharat Singh",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1497837:L117"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o10",
+          "text": "Delhi Development Authority (DDA)",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1497837:L117"
+          ],
+          "unknown": false
+        }
+      ],
+      "sources": [
+        {
+          "id": "IK-1497837:L78",
+          "text": "1. In this special leave petition, the petitioners have challenged the judgment of the Delhi High Court in a Writ petition under cite11†Article 227 of the Constitution of 2 India, CM (M) No.516 of 2007, dated 23rd March, 2009, whereby the High Court has quashed and set aside the order passed by the Additional Rent Control Tribunal [\"ARCT\" for short] dated 12th March, 2001, upholding the order passed by the Additional Rent Controller [\"ARC\" for brevity].",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L81",
+          "text": "The facts, as noticed by the High Court, are that the appellants are claiming themselves to be the landlords in respect of premises constructed on the plot of land No.2, Block B, transport area of Jhandewalan Estate, Desh Bandhu Gupta Road, Karol Bagh, New Delhi.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L82",
+          "text": "3. In the eviction petition, it was stated that the premises were let out to respondent No.2, Delhi Transport Corporation [for short \"DTC\"], on a monthly rental of Rs.3500/-. DTC has sublet/assigned the premises in favour of respondent No.1, Municipal Corporation of Delhi [for short \"MCD\"] and parted with 3 possession in favour of MCD without the written consent of the appellants. Therefore, both DTC and MCD were liable for eviction.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L83",
+          "text": "The High Court has noticed the sequence of events since the transport services were being run by Gwalior Northern India Transport Company (for short \"GNIT\") to the time when DTC stepped into its shoes. The appellants claimed that the tenancy of the premises was with DTC. MCD had, however, claimed that the legal possession was retained by MCD; rent was being paid by MCD to DTC.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L84",
+          "text": "4. The ARC by an order dated 11th November, 1989, upon consideration of the rival contentions, held:",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L85",
+          "text": "> \"19. Admittedly it is respondent No.2 (MCD) who is in possession of the premises in question. It is also admitted that respondent No.2 (MCD) pays a sum of Rs.3500/- as rent to respondent No.1 (DTC) by way of cheques. It is not the case of the respondent that any written consent of the petitioners was obtained in this regard.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L86",
+          "text": "Therefore, it has to be held that respondent no.1 (DTC) has either sublet, assigned or otherwise parted with the possession of the tenanted premises illegally to respondent No.2 (MCD). It is well settled that in voluntarily (sic) transfers are also included 4 with the meaning of sub-letting etc. in cite12†Section 14(1)(b) DRC Act.\".",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L87",
+          "text": "5. The order passed by the ARC was upheld by the ARCT with the following observations:",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L88",
+          "text": "> \"15. After having heard up the matter in all its possible aspects I do not find any infirmity or illegality in the finding of the learned trial court by holding that there exists relationship of landlord and tenant between the parties and since the exclusive possession of the premises was handed over by the erstwhile tenant to the Municipal Corporation of Delhi, i.e., respondent No.2 which is itself a separate and independent legal entity, it amounts to sub- letting.\"",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L89",
+          "text": "6. The High Court set aside the concurrent findings recorded by the ARC and ARCT with the following observations:",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L91",
+          "text": "> \"The orders passed by learned ARC and the learned ARCT categorically show that neither the learned ARC nor learned ARCT has devolved upon the facts of the case and nor had even considered the concept of tenancy and sub tenancy in this case in the peculiar circumstances of this case.\"",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L94",
+          "text": "7. The High Court held that this is not a case of sub- letting as Delhi Transport Services (for short \"DTS\"), Delhi Transport Undertaking (for short \"DTU\"), MCD and DTC were the creation of statute. The premises had come to them after it was acquired by Union of India (UOI) from GNIT on nationalization of the business. There was no parting with possession by DTC to MCD, therefore, it was not sub-letting.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L95",
+          "text": "The DTC was incorporated in lieu of DTU as a separate company to facilitate running of transport business. Mere payment of Rs.3500/- per month by MCD to DTC does not show sub-letting or parting with possession. Relying on a judgment of this Court in cite13†Madras Bangalore Transport Co. [West] Vs. Inder Singh & Ors. [AIR 1986 SC 1564], the High Court has held that:",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L96",
+          "text": "> \"In the case in hand, the situation, is much better. The alleged original tenant GNIT stood acquired by a cite14†Legislative Act and the premises went to DTS. DTS was converted to DTU and DTU was further converted into DTC. The premises remained in occupation of the same entity which changed its form from one to 6 another. Thus it cannot be said that it was a case of sub-letting under any circumstances.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L97",
+          "text": "The orders passed by learned ARC and learned ARTC are liable to be set aside for non application of law and non consideration of facts at all.\"",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L98",
+          "text": "8. The objection raised by the appellants to the entertainment of the petition under cite11†Article 227 , on the ground of laches, has been rejected with the following observations:",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L99",
+          "text": "> \"The respondent in this case has strongly objected to entertaining the petition on the ground of limitation. The petitioner has filed this petition under cite11†Article 227 of the Constitution of India. In exercise of this power, interfering with the orders of the Court of Tribunal has to be done where this Court finds that there was a serious dereliction of duty and blatant violation of the fundamental principles of law and justice and where, the order caused grave injustice and needs to be corrected.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L100",
+          "text": "Although the petitioner herein had not been vigilant in prosecuting the appeal below but that cannot prevent his Court from correcting the patent illegality writ large on the face of the orders of the ARC and Tribunal below. Both the ARC and ARCT passed orders without considering the facts of the case in a very mechanical manner.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L101",
+          "text": "Neither the learned ARC nor learned ARCT had taken into account the sequence of facts brought before them regarding acquisition of the entire assets of GNIT and conversion of DTS to DTU and then to DTC by the cite14†Legislative Act and the order has 7 been passed merely on the ground that amount of Rs.3500/- was being remitted by the MCD to DTC.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L102",
+          "text": "The Courts below did not even consider the issue as to who was the tenant and how MCD became the sub-tenant of respondent once the premises was owned by Union of India and the leasehold rights of the entire land vested in Union of India. This Court can set aside the findings and the orders of the Tribunal below if there was no evidence at all to justify the findings and the findings were perverse.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L103",
+          "text": "The order can also be set aside if no reasonable or prudent person can possibly come to such a conclusion despite the fact that the petition was not brought before this Court by the petitioner soon after the passing of the order. In Badlu and another Vs.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L104",
+          "text": "Shiv Charan and Others [(1980) 4 SCC 401], Supreme Court observed that the delay caused in prosecuting the case in bona fide and good faith in wrong court due to mistake of law or facts can be condoned, I, therefore, consider that petition is not liable to be dismissed on the ground of delay, nor learned ARCT was justified in dismissing the application. Learned ARCT went wrong in dismissing the application of the petitioner for condonation of delay.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L105",
+          "text": "The order of learned ARCT on this count also is liable to set aside. It is ordered accordingly.\"",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L106",
+          "text": "9. Mr. Altaf Ahmad, learned senior counsel appearing for the appellants submits :",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L108",
+          "text": "> 1. The exercise of power under cite11†Article 227 of the Constitution of India, by the High 8 Court, in the peculiar facts of this case was improper.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L110",
+          "text": "> 2. The petition was liable to be dismissed on the ground of delay and laches alone.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L112",
+          "text": "> 3. Even otherwise, the High Court exceeded its jurisdiction by acting as an appellate court.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L113",
+          "text": "> 4. The High Court erroneously decided the question of ownership of the premises which was not even an issue in the proceedings, under cite11†Article 227 of the Constitution of India.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L115",
+          "text": "> 5. Even on facts, the findings are contrary to the material on record.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L116",
+          "text": "10. On the other hand, Ms. Madhu Tewatia, learned counsel appearing for the respondents submits that the High Court was fully justified in exercising its jurisdiction under cite11†Article 227 of the Constitution to correct the patent, factual and legal errors committed by ARC and 9 ARCT. She has emphasised the entire history of transformation of GNIT into DTC. According to the learned counsel, there was no landlord and tenant relationship between the predecessor of the appellants and GNIT.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L117",
+          "text": "The payment of Rs.3500/- per month was a misnomer. The plot vested in the Government under the agreement dated 23rd April, 1948, therefore, GNIT was incompetent to transfer any perpetual lease to Bharat Singh. The amount of Rs.3500/- was being paid to Bharat Singh as compensation for the amount spent by him on behalf of GNIT for construction of the depot. She further submits that the land vested in DDA, i.e., Government. Therefore, Rent Controller had no jurisdiction.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L118",
+          "text": "In any case, the appellants have failed to prove that there has been any parting with possession, without the written consent of the landlord. The ARC and ARCT ignored vital documents in concluding that there has been subletting by DTC to MCD. In fact, MCD has retained the legal possession all along. The payment of Rs.3500/- was only being routed through DTC, as a 10 matter of convenience.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L119",
+          "text": "On the question of delay and laches, it is submitted that the High Court had converted the RCSA to a petition under cite11†Article 227. The delay has been condoned as the MCD had been bona fide pursuing the wrong legal remedy. The High Court in a petition under cite11†Article 227 of the Constitution of India had the jurisdiction to undo the injustice caused to the MCD by the orders of ARC and ARCT. In support of her submissions, learned counsel relied on a number of judgments of this Court, viz.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L120",
+          "text": ", on subletting: cite15†Resham Singh Vs. Raghbir Singh & Anr. [1999 (7) SCC 263]; cite16†Bharat Sales Ltd. Vs. Life Insurance Coropration of India [1998 (3) SCC 1] and on jurisdiction of the High Court under cite11†Article 227 of the Constitution of India, Estralla Rubber Vs. Dass Estates (P) Ltd. 2001 (8) SCC 97.",
+          "source_document": "1497837"
+        },
+        {
+          "id": "IK-1497837:L121",
+          "text": "11. Mr. Ahmad, in reply submits that the sub-tenant DTC, cannot be permitted to plead a case which even the tenant could not have pleaded.",
+          "source_document": "1497837"
+        }
+      ],
+      "unknown_is_not_false": true,
+      "record_stage": [
+        {
+          "record_id": "facts:f1",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L81"
+          ]
+        },
+        {
+          "record_id": "facts:f2",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L82"
+          ]
+        },
+        {
+          "record_id": "facts:f3",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L82"
+          ]
+        },
+        {
+          "record_id": "facts:f4",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L82"
+          ]
+        },
+        {
+          "record_id": "facts:f5",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L83"
+          ]
+        },
+        {
+          "record_id": "facts:f6",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L85"
+          ]
+        },
+        {
+          "record_id": "facts:f7",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L85"
+          ]
+        },
+        {
+          "record_id": "facts:f8",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L86"
+          ]
+        },
+        {
+          "record_id": "facts:f9",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L88"
+          ]
+        },
+        {
+          "record_id": "facts:f10",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L94"
+          ]
+        },
+        {
+          "record_id": "facts:f11",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L95"
+          ]
+        },
+        {
+          "record_id": "facts:f12",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L96"
+          ]
+        },
+        {
+          "record_id": "facts:f13",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L102"
+          ]
+        },
+        {
+          "record_id": "facts:f14",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L118"
+          ]
+        },
+        {
+          "record_id": "facts:f15",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1497837:L116"
+          ]
+        }
+      ]
+    },
+    "skip_reason": null
+  }
+]
+END_OF_TASK B-2-address-v2

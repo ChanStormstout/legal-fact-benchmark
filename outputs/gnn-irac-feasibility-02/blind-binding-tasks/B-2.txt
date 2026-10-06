@@ -1,0 +1,897 @@
+INFERENCE-ONLY BLIND Fact/Evidence to Condition candidate binding. No target reasoning, target outcome, reference answers, old bindings or review conclusions are supplied. Read only fixed issue, frozen independent rules/conditions and approved historical input records. No external search, new fact extraction or full legal answer. Return downloadable JSON {cases:[{case_id,bindings:[{binding_id,fact_id,condition_id,relation,reason,source_refs,statement_status,court_stage:{court,stage},uncertainty}],gaps:[string],skipped:boolean}]}. For rule_complete=false return skipped=true, empty bindings and the given skip reason; no repair. For eligible cases bindings only reference supplied existing fact IDs and condition IDs, relation SUPPORTS/DEFEATS/RELEVANT_TO. Preserve exact fact.status in statement_status and exact fact.court/fact.stage in court_stage; retain attribution, uncertainty and prior finding level. Binding.source_refs must be a nonempty subset of that fact.refs, not a law source or different fact. Candidate SUPPORTS does not mean court adoption or proved fact: a party allegation may propose relevant signed evidence with its status explicit; no inventing truth. UNKNOWN is never wildcard identity. Do not create fact, modify status, infer document contents from its existence, or infer facts from a legal test. Reason states the legal relationship briefly and uncertainty where evidence does not establish it. Distinguish negative condition polarity (absence of written landlord consent), alternatives and inference prerequisites; mere third-party presence cannot automatically prove legal divestment. May produce no binding. Never target labels; do not give issue verdict.
+MATERIAL
+[
+  {
+    "case_id": "1106992",
+    "rule_complete": true,
+    "input": {
+      "fixed_issue": "Whether the landlord's section 14(1)(b) eviction ground is established against the tenant for subletting, assignment or other parting with possession without written landlord consent, preserving procedural posture.",
+      "rules": [
+        {
+          "rule_id": "LAW:S02:DRC14:1b",
+          "source_document": {
+            "document_id": "18143401",
+            "url": "https://indiankanoon.org/doc/18143401/",
+            "raw_provenance": [
+              [
+                {
+                  "document_id": "18143401",
+                  "url": "https://indiankanoon.org/doc/18143401/",
+                  "response_index": 0,
+                  "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                  "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                  "raw_char_range": [
+                    1228,
+                    2945
+                  ],
+                  "raw_byte_range": [
+                    1346,
+                    3103
+                  ],
+                  "raw_physical_line": 37,
+                  "original_line": 39
+                }
+              ],
+              [
+                {
+                  "document_id": "18143401",
+                  "url": "https://indiankanoon.org/doc/18143401/",
+                  "response_index": 0,
+                  "raw_path": "outputs/legal-rule-support-study-02/sources/raw/DRC14.txt",
+                  "raw_sha256": "393028161e325f61320f239eb2590e1345a0d1abac70d3d9ccdc158680be90c4",
+                  "raw_char_range": [
+                    1228,
+                    2945
+                  ],
+                  "raw_byte_range": [
+                    1346,
+                    3103
+                  ],
+                  "raw_physical_line": 37,
+                  "original_line": 39
+                }
+              ]
+            ]
+          },
+          "authority_type": "STATUTE",
+          "court_jurisdiction": "UNKNOWN",
+          "date": null,
+          "exact_quote": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant:Provided that the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only, namely: -\n(b) that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;",
+          "scope": "Delhi s14(1) opening/proviso and complete clause (b). Other grounds deliberately outside fixed question.",
+          "limitations": "Not an authenticated historical consolidation; only displayed provisions included. No target judicial interpretation.",
+          "independent_source_verified": true,
+          "legal_status": "UNKNOWN"
+        },
+        {
+          "rule_id": "IRAC02:VN_CONTROL",
+          "source_document": {
+            "document_id": "190902",
+            "url": "https://indiankanoon.org/doc/190902/",
+            "date": "1975-03-19",
+            "court_or_publisher": "Delhi High Court",
+            "passage_addresses": [
+              {
+                "id": "IK-190902:L107"
+              },
+              {
+                "id": "IK-190902:L108"
+              },
+              {
+                "id": "IK-190902:L109"
+              },
+              {
+                "id": "IK-190902:L110"
+              },
+              {
+                "id": "IK-190902:L111"
+              },
+              {
+                "id": "IK-190902:L112"
+              }
+            ],
+            "raw_path": "outputs/gnn-irac-feasibility-02/independent-sources/recovered-web.json",
+            "raw_sha256": "d508aa36e412285dc367d64758caa3461877271506dc3858a6a751619bd28449"
+          },
+          "authority_type": "PRECEDENT",
+          "court_jurisdiction": "Delhi High Court",
+          "date": "1975-03-19",
+          "exact_quote": "30. So long as the lessee retains the legal possession of the whole of the premises he does not commit a breach of law against parting with the possession by allowing other people to use the same. A tenant cannot be said to part with the possession of any part of the premises unless his agreement with the license wholly ousts him from the legal possession of that part. If there is anything in the nature of a right to concurrent user there is no parting with possession: See Stenina v.\nAbrahama, (1931) f Ch D 470 and G. D. Chaudhary v. Anand Sarup. 1966 Delhi Lt 28.\n31. Clause (b) of the proviso to cite8†Section 14(1) uses three expressions namely 'sublet', 'assign' and 'otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord'. These three expressions deal with different concepts and apply to different circumstances.\nIn subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet. In assignment the tenant has to divest himself of all the rights that he has as a tenant.\nThe expression \"parted with possession\" undoubtedly postulates parting with possession session means giving possession to persons other than those to whom possession has been given by lease and \"parting with possession\" must have been by the tenant.\nThe mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself or in other words there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession. The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession: See cite11†Hazari Lal v. Gian Ram . 1972 Ren Cr 74 (Delhi).",
+          "scope": "Delhi DRC14(1)(b), distinct sublet/assignment/parting branches; retained legal possession vs mere user",
+          "limitations": "Doctrine not a universal rule equating company with tenant; actual ouster/control must be checked",
+          "independent_source_verified": true,
+          "legal_status": "INDEPENDENT_STATUTORY_OR_JUDGMENT_TEXT_REPRODUCTION"
+        },
+        {
+          "rule_id": "IRAC02:VN_CORPORATE",
+          "source_document": {
+            "document_id": "190902",
+            "url": "https://indiankanoon.org/doc/190902/",
+            "date": "1975-03-19",
+            "court_or_publisher": "Delhi High Court",
+            "passage_addresses": [
+              {
+                "id": "IK-190902:L93"
+              },
+              {
+                "id": "IK-190902:L94"
+              },
+              {
+                "id": "IK-190902:L95"
+              }
+            ],
+            "raw_path": "outputs/gnn-irac-feasibility-02/independent-sources/recovered-web.json",
+            "raw_sha256": "d508aa36e412285dc367d64758caa3461877271506dc3858a6a751619bd28449"
+          },
+          "authority_type": "PRECEDENT",
+          "court_jurisdiction": "Delhi High Court",
+          "date": "1975-03-19",
+          "exact_quote": "22. If an individual takes the premises on rent and then converts his sole proprietorship concern into a Private limited company in which he has the controlling interest he cannot be evicted from the premises. On the proved facts, this is the inevitable conclusion. The person who took the premises on rent remains in possession though he forms a company and ceases to be the sole proprietor. He does not cease to be in possession. He has not parted with the possession with any one.\nHe has changed the form of his business. In Interads Vishwa Nath was the sole proprietor. In Interads Private Limited he has the controlling interest and his wife and his two sons are the other shareholders along with two other strangers. He was all in all in his proprietorship concern. Now also he is the chief executive, chairman and the managing director of the company.\nIt is true that the company is a juristic person but in each case what we have to see is whether Possession has been parted with and whether there is an ouster of the tenant. If the company is a facade concealing the true facts it may be necessary for the Court to pierce the corporate well.",
+          "scope": "Corporate form versus real loss of possession/control",
+          "limitations": "Factual illustration of controlling interest, not every company an alter ego; no target-specific conclusion",
+          "independent_source_verified": true,
+          "legal_status": "INDEPENDENT_STATUTORY_OR_JUDGMENT_TEXT_REPRODUCTION"
+        }
+      ],
+      "conditions": [
+        {
+          "condition_id": "C1",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "The relevant statutory event must occur on or after 9 June 1952.",
+          "exact_rule_quote": "on or after the 9th day of June, 1952",
+          "logical_role": "BASE_TIMING",
+          "dependencies": [],
+          "scope": "Common timing condition for the section 14(1)(b) routes.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C2",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Subletting is one alternative statutory route.",
+          "exact_rule_quote": "sub-let",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Subletting branch only; alternative to assignment or other parting with possession.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C3",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Assignment is one alternative statutory route.",
+          "exact_rule_quote": "assigned",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Assignment branch only; alternative to subletting or other parting with possession.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C4",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "Other parting with possession of the whole or any part is one alternative statutory route.",
+          "exact_rule_quote": "otherwise parted with the possession of the whole or any part of the premises",
+          "logical_role": "ALTERNATIVE_ROUTE",
+          "dependencies": [
+            {
+              "condition_id": "C1",
+              "operator": "AND"
+            }
+          ],
+          "scope": "Parting-with-possession branch only; alternative to subletting or assignment.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C5",
+          "rule_id": "LAW:S02:DRC14:1b",
+          "description": "The applicable route must be without the landlord's written consent.",
+          "exact_rule_quote": "without obtaining the consent in writing of the landlord",
+          "logical_role": "COMMON_NEGATIVE_CONDITION",
+          "dependencies": [
+            {
+              "condition_id": "C2",
+              "operator": "OR"
+            },
+            {
+              "condition_id": "C3",
+              "operator": "OR"
+            },
+            {
+              "condition_id": "C4",
+              "operator": "OR"
+            }
+          ],
+          "scope": "Common written-consent condition attaching to any of the three alternative statutory routes.",
+          "source_refs": [
+            "LAW:S02:DRC14:1b"
+          ]
+        },
+        {
+          "condition_id": "C6",
+          "rule_id": "IRAC02:VN_CONTROL",
+          "description": "The supplied Delhi precedent qualifies the subletting branch by requiring the incidents of letting or tenancy, including transfer of an interest, payment of rent, and a right to possession against the tenant.",
+          "exact_rule_quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet.",
+          "logical_role": "ROUTE_QUALIFICATION",
+          "dependencies": [
+            {
+              "condition_id": "C2",
+              "operator": "QUALIFICATION"
+            }
+          ],
+          "scope": "Subletting branch only; this is not a target finding.",
+          "source_refs": [
+            "IK-190902:L109",
+            "IK-190902:L110"
+          ]
+        },
+        {
+          "condition_id": "C7",
+          "rule_id": "IRAC02:VN_CONTROL",
+          "description": "For the parting-with-possession branch, mere use by others is insufficient while the tenant retains legal possession; possession must vest in another through divestment of physical possession and the right to possession.",
+          "exact_rule_quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself or in other words there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession. The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession",
+          "logical_role": "ROUTE_QUALIFICATION",
+          "dependencies": [
+            {
+              "condition_id": "C4",
+              "operator": "QUALIFICATION"
+            }
+          ],
+          "scope": "Parting-with-possession branch; retained legal possession and concurrent user qualify against treating mere third-party use as parting.",
+          "source_refs": [
+            "IK-190902:L111",
+            "IK-190902:L112"
+          ]
+        },
+        {
+          "condition_id": "C8",
+          "rule_id": "IRAC02:VN_CORPORATE",
+          "description": "A change to corporate form does not itself resolve the possession question; the supplied test asks whether possession was actually parted with and whether the tenant was ousted, with veil-piercing reserved for a facade.",
+          "exact_rule_quote": "It is true that the company is a juristic person but in each case what we have to see is whether Possession has been parted with and whether there is an ouster of the tenant. If the company is a facade concealing the true facts it may be necessary for the Court to pierce the corporate well.",
+          "logical_role": "CORPORATE_FORM_QUALIFICATION",
+          "dependencies": [
+            {
+              "condition_id": "C4",
+              "operator": "QUALIFICATION"
+            }
+          ],
+          "scope": "Corporate-form qualification to the parting-with-possession inquiry; the factual illustration of controlling interest is not generalized into a target conclusion.",
+          "source_refs": [
+            "IK-190902:L95"
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "id": "f1",
+          "text": "The original Madras-Bangalore Transport Company became tenant of the disputed premises in July 1962.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal factual narrative",
+          "polarity": "POSITIVE",
+          "unknown": [],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o1"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L47"
+          ],
+          "quote": "became the tenant of the disputed premises in July 1962."
+        },
+        {
+          "id": "f2",
+          "text": "After disputes and arbitration, the original partnership was split into West and East firms and its business was divided area-wise.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal factual narrative",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "effect of the split on the tenancy rights in the disputed premises"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o1"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o4"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L47"
+          ],
+          "quote": "The partnership firm was split up into two firms, the Madras-Bangalore Transport Company (West) and the Madras-Bangalore Transport Company (East)"
+        },
+        {
+          "id": "f3",
+          "text": "The partners of West founded Caravan Goods Carrier Private Limited in 1968 to secure business in territory allotted to East after East ceased functioning effectively.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal factual narrative",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether formation of Caravan itself transferred any tenancy or possessory right"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o10"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L49"
+          ],
+          "quote": "the partners of the Madras-Bangalore Transport Company (West) founded a Limited company styled as the 'Caravan Goods Carrier Private Limited'"
+        },
+        {
+          "id": "f4",
+          "text": "In 1979 the landlord alleged in an eviction petition that West had unlawfully sublet, assigned, or otherwise parted with possession of the disputed premises to Caravan.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "1979 eviction petition before Additional Rent Controller",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether subletting occurred",
+            "whether assignment occurred",
+            "whether West otherwise parted with possession",
+            "extent of any alleged transfer of possession"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o5"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L52"
+          ],
+          "quote": "alleging that the tenant had unlawfully 'sublet, assigned or otherwise parted with the possession' of the disputed premises to the Caravan Goods Carrier Private Limited"
+        },
+        {
+          "id": "f5",
+          "text": "The landlord alleged that the asserted transfer of possession occurred without obtaining the landlord's consent.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TRIAL",
+          "stage": "1979 eviction petition before Additional Rent Controller",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "whether any consent existed",
+            "whether any consent was in writing",
+            "whether the lower courts made a distinct consent finding"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "RECIPIENT",
+              "object_id": "o6"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L52"
+          ],
+          "quote": "without obtaining the consent of the landlord."
+        },
+        {
+          "id": "f6",
+          "text": "The Additional Rent Controller allowed the landlord's petition and ordered eviction.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "TRIAL",
+          "stage": "Additional Rent Controller decision",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "specific subsidiary findings supporting the order"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o7"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "quote": "The Additional Rent Controller, Delhi allowed the petition and ordered eviction."
+        },
+        {
+          "id": "f7",
+          "text": "The Rent Control Tribunal confirmed the eviction order on West's appeal.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "APPELLATE",
+          "stage": "Rent Control Tribunal appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "specific appellate findings or reasoning"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o8"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "quote": "the Rent Control Tribunal confirmed the order of eviction."
+        },
+        {
+          "id": "f8",
+          "text": "A second appeal to the High Court was dismissed in limine.",
+          "speaker": "NARRATOR",
+          "status": "REPORTED",
+          "court": "APPELLATE",
+          "stage": "High Court second appeal",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "whether any merits reasoning accompanied the in-limine dismissal"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o9"
+            },
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "quote": "A second appeal to the High Court was dismissed in limine."
+        },
+        {
+          "id": "f9",
+          "text": "West submitted in the Supreme Court appeal that there had been no subletting, assignment, or parting with possession within the asserted statutory ground.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target court acceptance"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L54"
+          ],
+          "quote": "there was no subletting, assignment or parting with possession of the premises"
+        },
+        {
+          "id": "f10",
+          "text": "West argued that it was always in possession of the disputed premises.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance",
+            "degree of exclusive or shared possession"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L55"
+          ],
+          "quote": "the Madras-Bangalore Transport Company (West) was always in possession of the premises"
+        },
+        {
+          "id": "f11",
+          "text": "The landlord argued that West, a partnership firm, and Caravan, a limited company, were distinct legal entities.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target court treatment of formal separateness for the possession issue"
+          ],
+          "roles": [
+            {
+              "role": "SUBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o5"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L56"
+          ],
+          "quote": "they could never be the same as they were two distinct legal entities."
+        },
+        {
+          "id": "f12",
+          "text": "The landlord argued that West had gone out of the picture and Caravan alone possessed the disputed premises.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance",
+            "whether Caravan's possession was exclusive",
+            "whether West retained legal or physical possession"
+          ],
+          "roles": [
+            {
+              "role": "ACTOR",
+              "object_id": "o5"
+            },
+            {
+              "role": "OBJECT",
+              "object_id": "o3"
+            },
+            {
+              "role": "PROPERTY",
+              "object_id": "o2"
+            }
+          ],
+          "refs": [
+            "IK-1106992:L57"
+          ],
+          "quote": "the Madras-Bangalore Transport Company (West) had gone out of the picture and the Caravan Goods Carrier Private Limited alone was in possession"
+        }
+      ],
+      "relations": [
+        {
+          "id": "r1",
+          "left": "o3",
+          "right": "o5",
+          "relation": "same_as",
+          "text": "West contends that Caravan was in truth and reality the same enterprise as West for purposes of the disputed possession issue.",
+          "speaker": "TENANT",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "POSITIVE",
+          "unknown": [
+            "target court acceptance",
+            "legal effect of common directors or partners"
+          ],
+          "refs": [
+            "IK-1106992:L55"
+          ],
+          "quote": "was in truth and reality no other than the Madras-Bangalore Transport Company (West) itself."
+        },
+        {
+          "id": "r2",
+          "left": "o3",
+          "right": "o5",
+          "relation": "same_as",
+          "text": "The landlord denies that West and Caravan are the same legal entity.",
+          "speaker": "LANDLORD",
+          "status": "CLAIMED",
+          "court": "TARGET",
+          "stage": "Supreme Court appeal submission",
+          "polarity": "NEGATIVE",
+          "unknown": [
+            "target court treatment of legal separateness"
+          ],
+          "refs": [
+            "IK-1106992:L56"
+          ],
+          "quote": "they could never be the same as they were two distinct legal entities."
+        }
+      ],
+      "objects": [
+        {
+          "id": "o1",
+          "text": "Madras-Bangalore Transport Company",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L47"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o4",
+          "text": "Madras-Bangalore Transport Company (East)",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L47",
+            "IK-1106992:L48",
+            "IK-1106992:L49"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o6",
+          "text": "respondent landlord",
+          "kind": "PERSON",
+          "refs": [
+            "IK-1106992:L52",
+            "IK-1106992:L56",
+            "IK-1106992:L57"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o7",
+          "text": "Additional Rent Controller, Delhi",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o8",
+          "text": "Rent Control Tribunal",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "unknown": false
+        },
+        {
+          "id": "o9",
+          "text": "High Court",
+          "kind": "ORGANIZATION",
+          "refs": [
+            "IK-1106992:L53"
+          ],
+          "unknown": false
+        }
+      ],
+      "sources": [
+        {
+          "id": "IK-1106992:L47",
+          "text": "1. The Madras-Bangalore Transport Company, a partnership firm, became the tenant of the disputed premises in July 1962. In 1967, there appear to have been some disputes between the partners of the Madras-Bangalore Transport Company. The disputes were settled by arbitration. The partnership firm was split up into two firms, the Madras-Bangalore Transport Company (West) and the Madras-Bangalore Transport Company (East) The business of the old firm was also divided between the new firms area-wise.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L48",
+          "text": "Under the arrangement each of the new firms was forbidden from carrying on operations in the territory allotted to the other. However, the Madras-Bangalore Transport Company (East) appears to have ceased to function for practical purposes. Even so, the Madras-Bangalore Transport Company (West) could not operate in the territory allotted to the Madras-Bangalore Transport Company (East).",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L49",
+          "text": "So the partners of the Madras-Bangalore Transport Company (West) founded a Limited company styled as the 'Caravan Goods Carrier Private Limited' in order to secure the business in the territory which had been allotted to Madras-Bangalore Transport Company (East) and which business was going to be lost consequent on the Madras-Bangalore Transport Company (East) ceasing to function effectively. This was in 1968.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L50",
+          "text": "The Madras-Bangalore Transport Company (West) was appointed as the agent of 'Caravan Goods Carrier Private Limited' in the territory of Delhi. The Caravan Goods Carrier Private Limited was in turn appointed as an agent of the Madras Bangalore Transport Company (West) for certain purposes.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L51",
+          "text": "Both Madras-Bangalore Transport Company (West) and Caravan Goods Carrier Private Limited registered themselves under the cite12†Delhi Shops and Establishments Act disclosing their offices as located at the disputed premises.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L52",
+          "text": "Almost 10 years after the Caravan Goods Carrier Private Limited was founded and started functioning from the disputed premises the landlord, in 1979, filed an eviction petition against the Madras-Bangalore Transport Company (West) alleging that the tenant had unlawfully 'sublet, assigned or otherwise parted with the possession' of the disputed premises to the Caravan Goods Carrier Private Limited without obtaining the consent of the landlord.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L53",
+          "text": "The Additional Rent Controller, Delhi allowed the petition and ordered eviction. On appeal by the Madras-Bangalore Transport Company (West) the Rent Control Tribunal confirmed the order of eviction. A second appeal to the High Court was dismissed in limine. The present appeal has been filed after obtaining the Special leave of this Court under cite13†Article 136 of the Constitution.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L54",
+          "text": "2. The submission of Dr. Chitaley, learned Counsel for the appellant, was that, there was no subletting, assignment or parting with possession of the premises as contemplated by No. 31)(b) of cite14†Delhi Rent Control Act .",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L55",
+          "text": "He argued that the Madras-Bangalore Transport Company (West) was always in possession of the premises and that the Caravan Goods Carrier Private Limited, whose Directors were partners of Madras-Bangalore Transport Company (West) was in truth and reality no other than the Madras-Bangalore Transport Company (West) itself.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L56",
+          "text": "On the other hand, the learned Counsel for the Respondent-Landlord urged that the Madras-Bangalore Transport Company (West) was a partnership firm and the Caravan Goods Carrier Private Limited was a Limited company and, therefore, they could never be the same as they were two distinct legal entities.",
+          "source_document": "1106992"
+        },
+        {
+          "id": "IK-1106992:L57",
+          "text": "It was argued that the Madras-Bangalore Transport Company (West) had gone out of the picture and the Caravan Goods Carrier Private Limited alone was in possession and, therefore, there was subletting, assignment or parting with possession of the premises as contemplated by cite15†Section 14(1)(b) of the Rent Control Act.",
+          "source_document": "1106992"
+        }
+      ],
+      "unknown_is_not_false": true,
+      "record_stage": [
+        {
+          "record_id": "facts:f1",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L47"
+          ]
+        },
+        {
+          "record_id": "facts:f2",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L47"
+          ]
+        },
+        {
+          "record_id": "facts:f3",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L49"
+          ]
+        },
+        {
+          "record_id": "facts:f4",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L52"
+          ]
+        },
+        {
+          "record_id": "facts:f5",
+          "semantic_stage": "PRE_TARGET_RECORD",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L52"
+          ]
+        },
+        {
+          "record_id": "facts:f6",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L53"
+          ]
+        },
+        {
+          "record_id": "facts:f7",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L53"
+          ]
+        },
+        {
+          "record_id": "facts:f8",
+          "semantic_stage": "PRIOR_COURT_FINDING",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L53"
+          ]
+        },
+        {
+          "record_id": "facts:f9",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L54"
+          ]
+        },
+        {
+          "record_id": "facts:f10",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L55"
+          ]
+        },
+        {
+          "record_id": "facts:f11",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L56"
+          ]
+        },
+        {
+          "record_id": "facts:f12",
+          "semantic_stage": "TARGET_STAGE_PARTY_ARGUMENT",
+          "input_allowed": true,
+          "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+          "source_refs": [
+            "IK-1106992:L57"
+          ]
+        }
+      ]
+    },
+    "skip_reason": null
+  },
+  {
+    "case_id": "1497837",
+    "rule_complete": false,
+    "input": null,
+    "skip_reason": "RULE_CONDITION_BLOCKING_GAP_SKIP_BINDING"
+  }
+]
+END_OF_TASK B-2

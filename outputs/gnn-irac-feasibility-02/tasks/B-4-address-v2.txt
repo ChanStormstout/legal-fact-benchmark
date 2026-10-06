@@ -1,0 +1,17 @@
+INFERENCE-ONLY BLIND Fact/Evidence to Condition candidate binding. No target reasoning, target outcome, reference answers, old bindings or review conclusions are supplied. Read only fixed issue, frozen independent rules/conditions and approved historical input records. No external search, new fact extraction or full legal answer. Return downloadable JSON {cases:[{case_id,bindings:[{binding_id,fact_id,condition_id,relation,reason,source_refs,statement_status,court_stage:{court,stage},uncertainty}],gaps:[string],skipped:boolean}]}. For rule_complete=false return skipped=true, empty bindings and the given skip reason; no repair. For eligible cases bindings only reference supplied existing fact IDs and condition IDs, relation SUPPORTS/DEFEATS/RELEVANT_TO. Preserve exact fact.status in statement_status and exact fact.court/fact.stage in court_stage; retain attribution, uncertainty and prior finding level. Binding.source_refs must be a nonempty subset of that fact.refs, not a law source or different fact. Candidate SUPPORTS does not mean court adoption or proved fact: a party allegation may propose relevant signed evidence with its status explicit; no inventing truth. UNKNOWN is never wildcard identity. Do not create fact, modify status, infer document contents from its existence, or infer facts from a legal test. Reason states the legal relationship briefly and uncertainty where evidence does not establish it. Distinguish negative condition polarity (absence of written landlord consent), alternatives and inference prerequisites; mere third-party presence cannot automatically prove legal divestment. May produce no binding. Never target labels; do not give issue verdict.
+MATERIAL
+[
+  {
+    "case_id": "758831",
+    "rule_complete": false,
+    "input": null,
+    "skip_reason": "RULE_CONDITION_BLOCKING_GAP_SKIP_BINDING"
+  },
+  {
+    "case_id": "1381386",
+    "rule_complete": false,
+    "input": null,
+    "skip_reason": "RULE_CONDITION_BLOCKING_GAP_SKIP_BINDING"
+  }
+]
+END_OF_TASK B-4-address-v2

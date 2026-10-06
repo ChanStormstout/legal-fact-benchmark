@@ -297,6 +297,13 @@ def prepare(root=ROOT):
                  +'先读[报告](../'+cur['report']+')、[八案可行性表](../'+current_root+'/feasibility-table.csv)、[来源审阅](../'+current_root+'/source-review.json)、[泄漏审计](../'+current_root+'/leakage-audit.json)、[组内接口审计](../'+current_root+'/group-schema-audit.md)、[映射表](../'+current_root+'/canonical-to-irac-crosswalk.csv)。\n\n'
                  +'inputs及input-graphs仅保存冻结输入；target-construction及targets仅为监督构造。bindings和task-layer-candidates是有目标访问的研究提议，未经许可不能当成推断时可取得的图特征。web保留原始JSON和调用元数据，tasks-readable是实际完整任务。真正组内canonical只测了合成fixture；八案用的是既有本地弱事实，不声称上游复现。\n\n'
                  +'[代码](CODE.md)、[清单](MANIFEST.json)、[审阅要求](REVIEW_REQUEST.md)、[项目状态](../docs/PROJECT_STATE.json)。本轮无训练、无新法律回答、未启封SEALED、未提交或推送；旧S/B/C保持，S保留，暂停扩大排序R-GCN。远端未包含本地快照时须使用本地审阅包。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'IRAC_DATA_REPAIR':
+        cur = policy['current_review']; cr = str(Path(cur['report']).parent)
+        start = ('# ChatGPT 审阅入口\n\n内容快照：`'+snapshot+'`\n\n'+cur['title']+'\n\n'+cur['summary']+'\n\n'
+                 +'先读[报告](../'+cur['report']+')、[八案表](../'+cr+'/feasibility-table.csv)、[最终来源审阅](../'+cr+'/final-source-review.json)、[泄漏审计](../'+cr+'/leakage-audit.json)、[状态](../'+cr+'/readiness.json)。\n\n'
+                 +'[实际冻结版本](../'+cr+'/active-prebinding-version.json)区分初始地址检查与首个盲任务前的PDF页段地址修正。规则和条件不作语义修改，旧冻结保留。stage-partition中的admitted_inventory是准入输入；盲任务不含目标或审阅结论。blind-binding-freeze完成后才构造targets，后者只用于监督。\n\n'
+                 +'[盲绑定比较](../'+cr+'/blind-vs-postaware-comparison.json)、[组内真实产物审计](../'+cr+'/real-canonical-adapter-audit.json)、[成本](../'+cr+'/cost.json)。原始网页JSON与元数据见web；实际提示见tasks。无训练、SEALED、法律回答、提交或推送；本地材料不能假装已经在GitHub。\n\n'
+                 +'[代码](CODE.md)、[清单](MANIFEST.json)、[审阅请求](REVIEW_REQUEST.md)、[项目状态](../docs/PROJECT_STATE.json)。来源审阅为模型辅助评价，不是人工金标准。S/B/C保持收尾，不重新打开。\n')
     save(root, 'review/START_HERE.md', start)
     request = '''请审阅公开仓库的指定分支 https://github.com/%s/tree/%s 。先读取 %sreview/START_HERE.md
 和MANIFEST.json，复述内容快照 %s 及实际读取的文件。若GitHub访问不可用或只读取部分
@@ -399,6 +406,9 @@ def prepare(root=ROOT):
     if policy.get('current_review', {}).get('review_kind') == 'IRAC_DATA_FEASIBILITY':
         cur = policy['current_review']
         save(root, 'review/REVIEW_REQUEST.md', '请只审阅'+cur['report']+'及同目录的group-schema-audit、crosswalk、adapter fixture、八案inputs/targets/bindings/lineage、source-review、leakage-audit、readiness与实际web提议。区分组内真实接口与本地弱事实pilot，结构校验与来源语义，有依据的未决与倒推要件，证明责任与事实false。检查有目标访问的条件/绑定是否未经审阅进入输入特征，旧法院认定层级是否保留。不要将来源定位当正确，不称模型参考为human gold。此审阅不授权训练、新调用、语义补写、启封SEALED或发布。\n')
+    if policy.get('current_review', {}).get('review_kind') == 'IRAC_DATA_REPAIR':
+        cur = policy['current_review']; cr = str(Path(cur['report']).parent)
+        save(root, 'review/REVIEW_REQUEST.md', '请审阅本地快照 '+snapshot+'，先读review/START_HERE.md、MANIFEST.json、'+cur['report']+'及readiness、feasibility-table、final-source-review、leakage-audit。检查独立规则来源与决定性完整性、规则先冻结再盲绑定、全部绑定先冻结再target、统一节点/边/元数据阶段门禁、合法下级认定保留、陈述状态和条件极性、target依据及程序范围。实际输入版本见active-prebinding-version；地址修正不等于法律语义认证。区分本地IRAC readiness与真实组内canonical不可用；不以合成fixture冒充真实接入。旧post-aware绑定只作诊断比较，不作为新特征。参考非人工gold；本次审阅不授权训练、新调用、修到GO、启封SEALED或发布。未推送材料应读取本地审阅包，不能声称从远端读到。\n')
     derived = records(root, [p for p in GENERATED if p != 'review/MANIFEST.json'])
     save(root, 'review/MANIFEST.json', {'snapshot_id':snapshot,'repository':repo,'branch':branch,'source_files':[dict(x, raw_url=prefix+quote(x['path'])) for x in base],'derived_files':[dict(x, raw_url=prefix+quote(x['path'])) for x in derived],'generated_by':'python3 scripts/repository_bridge.py prepare','manifest_self_hash_not_included':True})
     return verify(root)

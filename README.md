@@ -1,4 +1,6 @@
-最新[GNN-IRAC数据可行性报告](outputs/gnn-irac-feasibility-01/report-zh.txt)：GNN-IRAC数据可行性完成：固定8个旧TRAIN，8次提议＋2次独立High来源审阅，无语义重试。1案有较完整回顾性链，7案缺决定性测试、证据内容或阶段明确的target；1106992发现目标FOUND关系残留。通用关系guard离线隔离两条，不覆盖冻结输入。真实组内canonical仅有合成接口检查，没有八案上游产物；NO_GO，未训练、未启封SEALED、未生成法律回答或发布。保留S并暂停扩大排序R-GCN。
+最新[GNN-IRAC第二轮有限修复报告](outputs/gnn-irac-feasibility-02/report-zh.txt)：GNN-IRAC第二轮有限修复完成：固定8个旧TRAIN、13次普通High、语义重试0。阶段许可覆盖711项，五案132条input-only候选绑定先于target冻结；1106992的目标关系和来源隔离。最终来源审阅2案语义READY、3案REFERENCE_ONLY、3案GAP；冻结准入0/8 READY，NO_GO。14项不连续拼接引文、范围错配、目标阶段和悬空对象/跳过绑定仍保留。组内真实canonical NOT_AVAILABLE；未训练、启封SEALED、生成完整法律回答、提交或推送。
+
+历史[GNN-IRAC数据可行性报告](outputs/gnn-irac-feasibility-01/report-zh.txt)：GNN-IRAC数据可行性完成：固定8个旧TRAIN，8次提议＋2次独立High来源审阅，无语义重试。1案有较完整回顾性链，7案缺决定性测试、证据内容或阶段明确的target；1106992发现目标FOUND关系残留。通用关系guard离线隔离两条，不覆盖冻结输入。真实组内canonical仅有合成接口检查，没有八案上游产物；NO_GO，未训练、未启封SEALED、未生成法律回答或发布。保留S并暂停扩大排序R-GCN。
 
 历史[V11 S/B/C收尾报告](outputs/rgcn-sbc-finalization-11/report-zh.txt)：V11正式收尾：四项法源的132个位置完成独立L/G复核，12次普通High无语义重试；27 TRAIN／6 DEV／8 SEALED、30法源保持。757项弱监督进入损失，两个种子六次固定S/B/C拟合全部完成。已知非强制CORE送达S16/35两次、B14/35与15/35、C13/35与15/35。B只有单案明确收益，其他案件损失关键限制或反论；C无稳定额外净收益。保留S，暂停扩大当前R-GCN；未启封SEALED、未生成法律回答、未提交推送。
 
