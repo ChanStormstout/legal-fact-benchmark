@@ -1,0 +1,189 @@
+{
+  "case_id": "188721101",
+  "method": "P",
+  "run_status": "OK",
+  "prediction": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Sh. Ramesh Kumar; Shop No. 15; disposition to Sh. Bhagwan Dass",
+        "event": "Alleged subletting/assignment/parting with possession",
+        "stage": "Landlord's appeal (Target Stage)",
+        "refs": [
+          "IK-188721101:L72:restored-v2",
+          "IK-188721101:L74:restored-v2"
+        ]
+      },
+      {
+        "id": "b2",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Sh. Ramesh Kumar; Shop No. 15; possession by Sh. Bhagwan Dass",
+        "event": "Actual possession status (Trial Stage)",
+        "stage": "Trial Court Judgment",
+        "refs": [
+          "IK-188721101:L83:restored-v2"
+        ]
+      },
+      {
+        "id": "b3",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Sh. Bhagwan Dass; Shop No. 15; employment relationship",
+        "event": "Alleged employment/license",
+        "stage": "Trial Court Judgment",
+        "refs": [
+          "IK-188721101:L81:restored-v2",
+          "IK-188721101:L83:restored-v2"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Landlord alleges tenant sub-let/assigned premises to brother Bhagwan Dass.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ],
+        "uses": [
+          {
+            "condition_address": "ADDR-001",
+            "direction": "SUPPORT",
+            "use": "RECORD_EXISTENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Tenant denies subletting; alleges brother was helper/employee.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L74:restored-v2"
+        ],
+        "uses": [
+          {
+            "condition_address": "ADDR-001",
+            "direction": "OPPOSE",
+            "use": "RECORD_EXISTENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b1",
+        "record": "Witnesses (shopkeepers) testified Bhagwan Dass ran the shop.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L80:restored-v2"
+        ],
+        "uses": [
+          {
+            "condition_address": "ADDR-001",
+            "direction": "SUPPORT",
+            "use": "RECORD_EXISTENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b1",
+        "record": "Witnesses (tenant and brother) testified brother was employee drawing salary.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L81:restored-v2"
+        ],
+        "uses": [
+          {
+            "condition_address": "ADDR-001",
+            "direction": "OPPOSE",
+            "use": "RECORD_EXISTENCE"
+          }
+        ]
+      },
+      {
+        "id": "e5",
+        "binding_id": "b1",
+        "record": "Trial Court found sub-tenancy not established; deemed arrangement a revocable license.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-188721101:L83:restored-v2"
+        ],
+        "uses": [
+          {
+            "condition_address": "ADDR-001",
+            "direction": "OPPOSE",
+            "use": "PROVEN_FACT"
+          }
+        ]
+      },
+      {
+        "id": "e6",
+        "binding_id": "b1",
+        "record": "Trial Court found no sub-letting because Bhagwan Dass is a family member.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-188721101:L84:restored-v2"
+        ],
+        "uses": [
+          {
+            "condition_address": "ADDR-001",
+            "direction": "OPPOSE",
+            "use": "PROVEN_FACT"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "id": "l1",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "binding_id": "b1",
+        "condition_address": "ADDR-001",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "SCOPE_UNMAPPED",
+        "reason": "Conflicting party assertions and lack of independent proof regarding the nature of the relationship (sublet vs license) prevent establishing the date or specific disposition type at the target stage.",
+        "refs": [
+          "IK-188721101:L72:restored-v2",
+          "IK-188721101:L74:restored-v2",
+          "IK-188721101:L80:restored-v2",
+          "IK-188721101:L81:restored-v2"
+        ]
+      },
+      {
+        "id": "l2",
+        "evidence_ids": [
+          "e5",
+          "e6"
+        ],
+        "binding_id": "b2",
+        "condition_address": "ADDR-001",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "The prior court finding explicitly negates the existence of sub-letting/assignment/parting with possession for the specific arrangement in question, blocking the ground under s14(1)(b).",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ]
+      }
+    ],
+    "conditions": [],
+    "coverage_limits": [
+      "The trial court's finding that the arrangement was a license (not subletting/assignment) is decisive for the parting-with-possession route but does not independently resolve the subletting or assignment routes without further evidence of tenancy incidents or divestment.",
+      "The target stage is an appeal; the prior finding on the nature of the relationship is binding for the appeal unless overturned, but the specific date of the disposition (ADDR-001) remains unproven due to conflicting testimony on the start date and nature of the arrangement."
+    ]
+  },
+  "import_status": "PARTIAL"
+}

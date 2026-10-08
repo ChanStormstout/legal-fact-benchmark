@@ -1,0 +1,574 @@
+{
+  "case_id": "1870868",
+  "tests": [
+    {
+      "test_id": "DRC_SUBLETTING_C01",
+      "proposition": "The relevant subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.292238712310791,
+          0.04801381379365921,
+          0.6597475409507751
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L1",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E1",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L206:span1",
+                  "quote": "The appellant is the tenant of a building in Delhi having been inducted into possession by the respondent- landlord under a letting of May 19, 1954"
+                }
+              ]
+            },
+            {
+              "role": "landlord",
+              "entity_id": "E2",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L206:span1",
+                  "quote": "The appellant is the tenant of a building in Delhi having been inducted into possession by the respondent- landlord under a letting of May 19, 1954"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "relevant_disposition.date"
+              ],
+              "reason": "The supplied date is the date of the original letting, not the date of the disposition tested by DRC_SUBLETTING_C01; the missing disposition date is therefore not inferred.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L206:span1",
+                  "quote": "under a letting of May 19, 1954"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-1870868:L206:span1",
+              "quote": "The appellant is the tenant of a building in Delhi having been inducted into possession by the respondent- landlord under a letting of May 19, 1954",
+              "recovered_text": "The appellant is the tenant of a building in Delhi having been inducted into possession by the respondent- landlord under a letting of May 19, 1954",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L2",
+          "direction": "UNKNOWN",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "relevant_disposition.date"
+              ],
+              "reason": "No supplied source states that the alleged subletting, assignment, or parting with possession occurred in 1967 or otherwise gives its date.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L207:span2",
+                  "quote": "until the time he filed a petition for eviction (1967)"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-1870868:L207:span2",
+              "quote": "The landlord had been receiving rent from the tenant until the time he filed a petition for eviction (1967)",
+              "recovered_text": "The landlord had been receiving rent from the tenant until the time he filed a petition for eviction (1967)",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C02",
+      "proposition": "For subletting, a landlord-and-tenant relationship exists between tenant and sub-tenant and the incidents of letting or tenancy identified by the supplied opinion are present: transfer of an interest in the estate, payment of rent, and the right to possession as against the tenant in respect of the premises sublet.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.28604671359062195,
+          0.04636470228433609,
+          0.6675885319709778
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L3",
+          "direction": "SUPPORT",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "subletting.landlord_tenant_relationship",
+                "subletting.transfer_of_interest",
+                "subletting.payment_of_rent",
+                "subletting.right_to_possession"
+              ],
+              "reason": "F4 is CLAIMED, not a finding, and the supplied excerpt does not state the tenancy incidents required by DRC_SUBLETTING_C02.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L208:span3",
+                  "quote": "unauthorized sub-letting of a portion of the premises"
+                }
+              ]
+            },
+            {
+              "fields": [
+                "subletting.other_person_identity"
+              ],
+              "reason": "The supplied allegation does not identify the purported sub-tenant or other person.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L208:span3",
+                  "quote": "unauthorized sub-letting of a portion of the premises"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-1870868:L208:span3",
+              "quote": "The eviction petition set out two grounds out of the many specified in s. 14 of the Rent Act, viz.,unauthorized sub-letting of a portion of the premises and possession, by the tenant, of alternative accommodation.",
+              "recovered_text": "The eviction petition set out two grounds out of the many specified in cite21†s. 14 of the Rent Act, viz.,unauthorized sub-letting of a portion of the premises and possession, by the tenant, of alternative accommodation.",
+              "address_located": false
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L5",
+          "direction": "SUPPORT",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "subletting.landlord_tenant_relationship",
+                "subletting.transfer_of_interest",
+                "subletting.payment_of_rent",
+                "subletting.right_to_possession"
+              ],
+              "reason": "The supplied excerpt records the Tribunal's conclusion of sub-letting but does not separately state the underlying incidents required by DRC_SUBLETTING_C02.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L212:span4",
+                  "quote": "the Appellate Tribunal affirmed it, upholding the vice of sub-letting"
+                }
+              ]
+            },
+            {
+              "fields": [
+                "finding.status"
+              ],
+              "reason": "F6 is a PRIOR_FOUND proposition at the Tribunal level and is preserved as such; it is not converted into an independent Supreme Court finding.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L212:span4",
+                  "quote": "the Appellate Tribunal affirmed it"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-1870868:L212:span4",
+              "quote": "The Rent Controller, at the floor level, ordered eviction and the Appellate Tribunal affirmed it, upholding the vice of sub-letting without consent of the landlord in the manner specified in s. 14(1)(b)",
+              "recovered_text": "The Rent Controller, at the floor level, ordered eviction and the Appellate Tribunal affirmed it, upholding the vice of sub-letting without consent of the landlord in the manner specified in cite23†s. 14(1)(b)",
+              "address_located": false
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C03",
+      "proposition": "For assignment, the tenant divests himself of all rights that he has as a tenant.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.28627902269363403,
+          0.046626411378383636,
+          0.6670945286750793
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C04",
+      "proposition": "For parting with possession, possession is vested by the tenant in another person by divesting the tenant of physical possession and the right to possession; divestment or abandonment of the right to possession is required.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.28489455580711365,
+          0.045926954597234726,
+          0.6691784262657166
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C05",
+      "proposition": "The tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.29113534092903137,
+          0.04789494723081589,
+          0.6609696745872498
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L6",
+          "direction": "SUPPORT",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "consent.form",
+                "consent.document",
+                "consent.scope",
+                "consent.timing"
+              ],
+              "reason": "The excerpt says 'without consent of the landlord' but does not separately describe any written-consent evidence, its form, timing, or scope.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L212:span4",
+                  "quote": "sub-letting without consent of the landlord"
+                }
+              ]
+            },
+            {
+              "fields": [
+                "finding.status"
+              ],
+              "reason": "This remains a Tribunal-level prior finding and is not treated as an independently inspected consent record or a new Supreme Court finding.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L212:span4",
+                  "quote": "the Appellate Tribunal affirmed it"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-1870868:L212:span4",
+              "quote": "the Appellate Tribunal affirmed it, upholding the vice of sub-letting without consent of the landlord in the manner specified in s. 14(1)(b)",
+              "recovered_text": "The Rent Controller, at the floor level, ordered eviction and the Appellate Tribunal affirmed it, upholding the vice of sub-letting without consent of the landlord in the manner specified in cite23†s. 14(1)(b)",
+              "address_located": false
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L7",
+          "direction": "UNKNOWN",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "consent.existence",
+                "consent.form",
+                "consent.scope",
+                "consent.timing"
+              ],
+              "reason": "A contractual prohibition against sub-letting is not the same proposition as whether written consent was obtained for the particular alleged disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L241:span5",
+                  "quote": "there was an express condition against sub-letting"
+                }
+              ]
+            },
+            {
+              "fields": [
+                "evidence_record.status"
+              ],
+              "reason": "The rent deed is described through the judgment record; the supplied material does not independently inspect Exhibit AW 3/1.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L241:span5",
+                  "quote": "The Tribunal studied the terms of the rent deed, Exhibit AW 3/1"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-1870868:L241:span5",
+              "quote": "The Tribunal studied the terms of the rent deed, Exhibit AW 3/1 and held that there was an express condition against sub-letting",
+              "recovered_text": "The Tribunal studied the terms of the rent deed, Exhibit AW 3/1 and held that there was an express condition against sub-letting",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C06",
+      "proposition": "For the parting-with-possession route, the tenant retains legal possession of the relevant part where there is concurrent user or mere use by others without wholly ousting the tenant from legal possession of that part.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.28539538383483887,
+          0.04646501690149307,
+          0.6681395769119263
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C07",
+      "proposition": "The relevant disposition concerns the whole or any part of the premises.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.2972162663936615,
+          0.05012280493974686,
+          0.6526609659194946
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L4",
+          "direction": "SUPPORT",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "premises.part_identity",
+                "premises.part_delineation"
+              ],
+              "reason": "The excerpt says only 'a portion' and does not identify or delineate that portion.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L208:span3",
+                  "quote": "unauthorized sub-letting of a portion of the premises"
+                }
+              ]
+            },
+            {
+              "fields": [
+                "premises.scope_status"
+              ],
+              "reason": "This is an allegation in the eviction petition, not an independently established fact about the relevant part of the premises.",
+              "source_refs": [
+                {
+                  "source_id": "IK-1870868:L208:span3",
+                  "quote": "The eviction petition set out two grounds"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-1870868:L208:span3",
+              "quote": "unauthorized sub-letting of a portion of the premises",
+              "recovered_text": "The eviction petition set out two grounds out of the many specified in cite21†s. 14 of the Rent Act, viz.,unauthorized sub-letting of a portion of the premises and possession, by the tenant, of alternative accommodation.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    }
+  ],
+  "elements": [
+    {
+      "element_id": "DRC_SUBLETTING_E01",
+      "text": "Temporal requirement: the relevant disposition occurred on or after 9 June 1952.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C01"
+        ]
+      },
+      "binding_requirements": [
+        "The date must concern the same disposition transaction or arrangement used for the disposition element."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E02",
+      "text": "Disposition requirement: the tenant's conduct fits subletting, assignment, or otherwise parting with possession, with the retained-possession qualification applied to the third route.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "trace": [
+          {
+            "status": "UNRESOLVED",
+            "reason": "MODEL_PREDICTION_NOT_PROOF",
+            "trace": [
+              "DRC_SUBLETTING_C02"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "reason": "MODEL_PREDICTION_NOT_PROOF",
+            "trace": [
+              "DRC_SUBLETTING_C03"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": "MODEL_PREDICTION_NOT_PROOF",
+                "trace": [
+                  "DRC_SUBLETTING_C04"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": "MODEL_PREDICTION_NOT_PROOF",
+                "trace": [
+                  "DRC_SUBLETTING_C06"
+                ]
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        ],
+        "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+      },
+      "binding_requirements": [
+        "Tests combined for a selected route must concern the same tenant, relevant other person, arrangement, and whole or part of the premises.",
+        "For subletting, the relationship, transfer of interest, rent, and right to possession must concern the same purported subtenancy.",
+        "For parting with possession, divestment and any retained legal possession or concurrent use must concern the same arrangement and same part of the premises."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E03",
+      "text": "Premises-scope requirement: the disposition concerns the whole or any part of the premises.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C07"
+        ]
+      },
+      "binding_requirements": [
+        "The premises or part must be the same premises or part used for the selected disposition route and written-consent inquiry."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E04",
+      "text": "Written-consent requirement: the tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C05"
+        ]
+      },
+      "binding_requirements": [
+        "The consent inquiry must concern the same disposition and the same whole or part of the premises as the other elements."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "text": "Section 14(1)(b) ground: on or after 9 June 1952, the tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises without the landlord's written consent.",
+      "conditional_combination": {
+        "status": "UNRESOLVED",
+        "combinations": [],
+        "scope": "ONLY_ENUMERATED_BINDINGS; DOES_NOT_PROVE_GLOBAL_ABSENCE",
+        "burden_failure_inferred": false
+      },
+      "status": "UNRESOLVED",
+      "reason": "Conditional on model test predictions and explicitly proposed source-linked bindings; address checks do not establish their semantic correctness.",
+      "verified_result": false
+    }
+  ],
+  "burdens": [
+    {
+      "id": "DRC_SUBLETTING_B01",
+      "proposition": "Allocation and standard of proof for the overall s14(1)(b) ground.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    },
+    {
+      "id": "DRC_SUBLETTING_B02",
+      "proposition": "Allocation, standard, or burden shift concerning written consent or any disposition route.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    }
+  ],
+  "scope": "Delhi, India; s14(1)(b) of the statute identified in the proposed framing as the Delhi Rent Control Act, 1958. Reusable research structure limited to the supplied statutory excerpt and supplied interpretive opinion excerpts; the quoted law text does not independently establish enactment-year, amendment/version, or decision-date metadata.",
+  "coverage_limits": [
+    "Retrospective model-proposed decomposition only; no case-specific answer or legal advice.",
+    "All supplied law records are marked PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; this does not prove prospective historical availability.",
+    "The quoted law text does not independently state the statute's enactment year, amendment/version date, or the decision date of document 190902; those metadata are not established by the supplied law excerpts.",
+    "No burden allocation, proof standard, burden shift, evidentiary presumption, or additional consent doctrine is supplied.",
+    "No separate affirmative defense is supplied; retained legal possession and concurrent use are only qualifications to the parting-with-possession route.",
+    "Compatibility with other statutes, jurisdictions, procedural stages, fact patterns, or later authorities is not presumed.",
+    "Expressions organize source propositions but do not make open-text legal judgments self-executing booleans.",
+    "Support for any one test proposition does not itself establish eviction; the full claim expression and identity bindings must be satisfied."
+  ],
+  "semantic_status": "EXPERIMENTAL_MODEL_ANALYSIS_NOT_LEGAL_PROOF",
+  "historical_prediction": "SEPARATE_NOT_SCORED_HERE"
+}

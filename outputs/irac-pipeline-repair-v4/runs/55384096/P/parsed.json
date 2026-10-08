@@ -1,0 +1,292 @@
+{
+  "bindings": [
+    {
+      "id": "b1",
+      "claim_ids": [
+        "DRC_SUBLETTING_CLAIM_01"
+      ],
+      "objects": "Hakim Rai; Raj Kumar; Shop at 95 Main Bazar Najafgarh",
+      "event": "Execution of partnership deed and alleged subletting",
+      "stage": "PRE_TARGET_RECORD",
+      "refs": [
+        "IK-55384096:L70:span3",
+        "IK-55384096:L67:span1"
+      ]
+    },
+    {
+      "id": "b2",
+      "claim_ids": [
+        "DRC_SUBLETTING_CLAIM_01"
+      ],
+      "objects": "Hakim Rai; Raj Kumar; Shop at 95 Main Bazar Najafgarh",
+      "event": "Tenant retained legal possession via concurrent user",
+      "stage": "PRE_TARGET_RECORD",
+      "refs": [
+        "IK-55384096:L77:span5",
+        "IK-55384096:L77:span6",
+        "IK-55384096:L79:span7"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "binding_id": "b1",
+      "record": "Partnership deed dated 20.11.1983 executed between Hakim Rai and Raj Kumar for business conducted from suit premises.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-55384096:L70:span3"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C01",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "binding_id": "b1",
+      "record": "Tenant (Hakim Rai) divested himself completely of possession; son-in-law became partner and ran business.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-55384096:L67:span1"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e3",
+      "binding_id": "b2",
+      "record": "Tenant's widow testified husband initially ran business, sat in shop, and denied loss of possession; admitted son-in-law was partner.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": [
+        "IK-55384096:L77:span5",
+        "IK-55384096:L77:span6"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e4",
+      "binding_id": "b2",
+      "record": "Parties residing in same premises; ration card obtained at same address.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-55384096:L79:span7"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e5",
+      "binding_id": "b2",
+      "record": "Landlord's attorney admitted respondent (Hakim Rai) is old, ailing, has poor eyesight and cannot walk properly.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-55384096:L80:span8"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "id": "l1",
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C01",
+      "branch_id": "",
+      "use": "PROVEN_FACT",
+      "effect": "USE_BLOCK",
+      "reason": "Partnership deed date (20.11.1983) satisfies the post-9-June-1952 temporal requirement.",
+      "refs": [
+        "IK-55384096:L70:span3"
+      ]
+    },
+    {
+      "id": "l2",
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C04",
+      "branch_id": "",
+      "use": "PROVEN_FACT",
+      "effect": "USE_BLOCK",
+      "reason": "Tenant divested himself completely of possession and vested it in another person (Raj Kumar) via partnership.",
+      "refs": [
+        "IK-55384096:L67:span1",
+        "IK-55384096:L70:span3"
+      ]
+    },
+    {
+      "id": "l3",
+      "evidence_ids": [
+        "e3",
+        "e4",
+        "e5"
+      ],
+      "binding_id": "b2",
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "",
+      "use": "PROVEN_FACT",
+      "effect": "USE_BLOCK",
+      "reason": "Tenant retained legal possession through concurrent user; mere presence of son-in-law does not divest legal possession.",
+      "refs": [
+        "IK-55384096:L77:span5",
+        "IK-55384096:L77:span6",
+        "IK-55384096:L79:span7",
+        "IK-55384096:L80:span8"
+      ]
+    },
+    {
+      "id": "l4",
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "No evidence of written consent from landlord; landlord alleges deed is forged, but absence of consent is presumed unless proven.",
+      "refs": [
+        "IK-55384096:L71:span4"
+      ]
+    },
+    {
+      "id": "l5",
+      "evidence_ids": [
+        "e3",
+        "e4",
+        "e5"
+      ],
+      "binding_id": "b2",
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Tenant retained legal possession; concurrent user negates 'parting with possession' under supplied law.",
+      "refs": [
+        "IK-55384096:L77:span5",
+        "IK-55384096:L77:span6",
+        "IK-55384096:L79:span7",
+        "IK-55384096:L80:span8"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C01",
+      "branch_id": "",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "Landlord's allegation of forgery remains untested in supplied records."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "branch_id": "",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [],
+      "gap": "No evidence of landlord-tenant relationship or tenancy incidents (rent, interest transfer) for subletting route."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C03",
+      "branch_id": "",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [],
+      "gap": "No evidence that tenant divested all rights as tenant for assignment route."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C04",
+      "branch_id": "",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "gap": "Landlord's forgery claim untested; divestment of possession established by court finding."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "branch_id": "",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [],
+      "gap": "No record of written consent; burden of proof on tenant not met by supplied evidence."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e3",
+        "e4",
+        "e5"
+      ],
+      "gap": "None; concurrent user and retained legal possession negate parting with possession."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C07",
+      "branch_id": "",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "gap": "Specific delineation of 'part' vs 'whole' premises not explicitly argued in records."
+    }
+  ],
+  "coverage_limits": [
+    "Landlord's forgery allegation (evidence e1/e2) lacks independent verification; authenticity of partnership deed is disputed.",
+    "Subletting and assignment routes remain unproven due to missing evidence of tenancy incidents or total divestment of rights.",
+    "Parting with possession route is supported by evidence of divestment but defeated by evidence of concurrent user/retained legal possession.",
+    "Written consent requirement is unsupported by any record; no evidence of consent exists."
+  ]
+}

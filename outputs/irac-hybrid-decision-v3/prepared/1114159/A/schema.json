@@ -1,0 +1,158 @@
+{
+  "type": "object",
+  "properties": {
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "enum": [
+              "DRC_BONA_FIDE-CLAIM-01"
+            ]
+          },
+          "prediction": {
+            "type": "string",
+            "enum": [
+              "PREDICT_GRANT",
+              "PREDICT_DENY"
+            ]
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "test_id": {
+                  "type": "string",
+                  "enum": [
+                    "DRC_BONA_FIDE-C01",
+                    "DRC_BONA_FIDE-C02",
+                    "DRC_BONA_FIDE-C03",
+                    "DRC_BONA_FIDE-C04",
+                    "DRC_BONA_FIDE-C05",
+                    "DRC_BONA_FIDE-C06"
+                  ]
+                },
+                "binding": {
+                  "type": "string"
+                },
+                "prediction": {
+                  "type": "string",
+                  "enum": [
+                    "PREDICT_SUPPORTED",
+                    "PREDICT_REFUTED"
+                  ]
+                },
+                "assessment": {
+                  "type": "string",
+                  "enum": [
+                    "SUPPORTED",
+                    "REFUTED",
+                    "UNRESOLVED",
+                    "UNSUPPORTED"
+                  ]
+                },
+                "refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "IK-1114159:L238:span1",
+                      "IK-1114159:L239:span2",
+                      "IK-1114159:L240:span3",
+                      "IK-1114159:L241:span4",
+                      "IK-1114159:L244:span5",
+                      "IK-1114159:L238:restored-v2",
+                      "IK-1114159:L239:restored-v2",
+                      "IK-1114159:L244:restored-v2",
+                      "IK-18143401:L41:historical-e"
+                    ]
+                  },
+                  "maxItems": 6
+                },
+                "explanation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "test_id",
+                "binding",
+                "prediction",
+                "assessment",
+                "refs",
+                "explanation"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 14
+          },
+          "opposition": {
+            "type": "object",
+            "properties": {
+              "record": {
+                "type": "string"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "IK-1114159:L238:span1",
+                    "IK-1114159:L239:span2",
+                    "IK-1114159:L240:span3",
+                    "IK-1114159:L241:span4",
+                    "IK-1114159:L244:span5",
+                    "IK-1114159:L238:restored-v2",
+                    "IK-1114159:L239:restored-v2",
+                    "IK-1114159:L244:restored-v2",
+                    "IK-18143401:L41:historical-e"
+                  ]
+                },
+                "maxItems": 6
+              },
+              "response": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "record",
+              "refs",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          "gaps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4
+          },
+          "reason": {
+            "type": "string"
+          },
+          "intermediate_correction": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "prediction",
+          "conditions",
+          "opposition",
+          "gaps",
+          "reason",
+          "intermediate_correction"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 2
+    }
+  },
+  "required": [
+    "answers"
+  ],
+  "additionalProperties": false
+}

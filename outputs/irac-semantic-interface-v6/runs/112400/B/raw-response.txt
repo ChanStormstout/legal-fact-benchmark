@@ -1,0 +1,70 @@
+{
+  "answers": [
+    {
+      "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+      "prediction": "PREDICT_DENY",
+      "conditions": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "binding_id": "b1",
+          "binding": "Premises let for residential purposes; first floor lease",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L123:span1", "IK-18143401:L41:historical-e"],
+          "explanation": "The lease document explicitly states the premises were let for residential purposes, satisfying the first element of the clause."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "binding_id": "b2",
+          "binding": "Premises required bona fide by landlord for residence",
+          "assessment": "REFUTED",
+          "refs": ["IK-112400:L127:restored-v2", "IK-112400:L130:span6", "IK-18143401:L41:historical-e"],
+          "explanation": "The Rent Controller explicitly found the landlord's requirement was not bona fide, and the Tribunal reinforced this by ruling that eviction within 11 months precludes a bona fide claim."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C03",
+          "binding_id": "b3",
+          "binding": "Qualifying occupation route (Landlord/Dependent Family or Beneficiary)",
+          "assessment": "UNRESOLVED",
+          "refs": ["IK-112400:L124:restored-v2", "IK-112400:L139:restored-v2", "IK-18143401:L41:historical-e"],
+          "explanation": "While the landlord seeks occupation for himself and family, the specific legal definitions of 'member of family' and 'dependent' are not supplied in the text, leaving the qualification of this route technically unresolved."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C04",
+          "binding_id": "b4",
+          "binding": "Landlord is owner of premises",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L124:restored-v2", "IK-18143401:L41:historical-e"],
+          "explanation": "The respondent is explicitly described as the 'owner of the entire premises' in the application text, satisfying the ownership condition for the landlord branch."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C05",
+          "binding_id": "b5",
+          "binding": "Premises held for benefit of another person",
+          "assessment": "UNRESOLVED",
+          "refs": ["IK-112400:L124:restored-v2", "IK-18143401:L41:historical-e"],
+          "explanation": "The text states the landlord occupied the ground floor, but does not establish that the premises were held for the benefit of a third party distinct from the landlord."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "binding_id": "b6",
+          "binding": "No other reasonably suitable residential accommodation",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L139:restored-v2", "IK-112400:L140:restored-v2", "IK-18143401:L41:historical-e"],
+          "explanation": "The Tribunal explicitly found the landlord's portion was not reasonably sufficient for his family of five, directly supporting the condition that he has no other suitable accommodation."
+        }
+      ],
+      "opposition": {
+        "record": "Tenant denied the bona fide requirement; Tribunal noted short duration of tenancy.",
+        "refs": ["IK-112400:L127:restored-v2", "IK-112400:L130:span6"],
+        "response": "The opposition evidence directly negates the 'bona fide' element, which is a mandatory condition for the claim."
+      },
+      "gaps": [
+        "The precise definition of 'bona fide' is not supplied in the law.",
+        "The definition of 'dependent' family members is not supplied.",
+        "The definition of 'reasonably suitable residential accommodation' is not supplied, though the Tribunal's finding on sufficiency is recorded."
+      ],
+      "reason": "The claim is denied because the 'bona fide' requirement (C02) is explicitly refuted by prior court findings. Even if the other conditions were met, the failure of one mandatory element in an AND-structured claim prevents satisfaction.",
+      "intermediate_correction": "None."
+    }
+  ]
+}

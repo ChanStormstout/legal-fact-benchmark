@@ -1,0 +1,99 @@
+{
+  "answers": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "prediction": "PREDICT_DENY",
+      "conditions": [
+        {
+          "test_id": "DRC_SUBLETTING_C01",
+          "binding": "Disposition date vs 9 June 1952",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": [
+            "IK-188721101:L72:restored-v2"
+          ],
+          "explanation": "The disposition occurred on 06.01.1987, which is after 9 June 1952."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "binding": "Subletting elements (relationship, rent, possession)",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": [
+            "IK-188721101:L81:restored-v2",
+            "IK-188721101:L83:restored-v2"
+          ],
+          "explanation": "Evidence shows a salary relationship and lack of rent transfer, failing the 'incidents of letting' required for subletting; the trial court found it was a license."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C03",
+          "binding": "Assignment elements (divestment of all rights)",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": [
+            "IK-188721101:L81:restored-v2",
+            "IK-188721101:L83:restored-v2"
+          ],
+          "explanation": "The tenant retained the right to terminate the arrangement at will and continued to operate the business, failing to divest all rights as required for assignment."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "binding": "Parting with possession (vesting + divestment)",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": [
+            "IK-188721101:L81:restored-v2",
+            "IK-188721101:L83:restored-v2",
+            "IK-188721101:L84:restored-v2"
+          ],
+          "explanation": "The tenant retained legal possession and the right to terminate; the arrangement is characterized as a license/privilege, meaning mere user without ousting legal possession does not constitute parting with possession."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C05",
+          "binding": "Written consent absence",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": [
+            "IK-188721101:L75:restored-v2"
+          ],
+          "explanation": "While the landlord received rent, the lack of a specific written consent for the sub-letting/assignment is not definitively proven as a negative fact given the disputed nature of the arrangement itself."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "binding": "Concurrent user defense (retained legal possession)",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": [
+            "IK-188721101:L83:restored-v2",
+            "IK-188721101:L84:restored-v2"
+          ],
+          "explanation": "The trial court explicitly found the arrangement was a privilege/license where the tenant retained legal possession, which legally negates 'parting with possession' under the supplied law."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C07",
+          "binding": "Premises scope (whole or part)",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": [
+            "IK-188721101:L72:restored-v2"
+          ],
+          "explanation": "The disposition concerns Shop No. 15, which is a part of the premises."
+        }
+      ],
+      "opposition": {
+        "record": "Landlord alleges sub-letting and assignment to father and brother; witnesses say brother ran the shop.",
+        "refs": [
+          "IK-188721101:L72:restored-v2",
+          "IK-188721101:L80:restored-v2"
+        ],
+        "response": "These allegations are contradicted by the trial court's finding that the arrangement was a revocable license and the tenant retained legal possession, which defeats the statutory definition of parting with possession."
+      },
+      "gaps": [
+        "No definitive proof of written consent or lack thereof for the specific arrangement.",
+        "The trial court's factual finding on the nature of the relationship (license vs tenancy) is a prior finding that may be challenged on appeal, but the current evidence supports the license characterization."
+      ],
+      "reason": "The claim requires an AND of (Date) OR (Sublet OR Assignment OR Parting). While Date and Premises Scope are supported, and the 'Parting' route is supported by the concurrent user defense, the 'Sublet' and 'Assignment' routes are refuted by the lack of tenancy incidents (rent/interest transfer). Since the 'Parting' route is also legally negated by the concurrent user defense (tenant retained legal possession), no valid ground for eviction is established under the supplied law.",
+      "intermediate_correction": "None."
+    }
+  ]
+}

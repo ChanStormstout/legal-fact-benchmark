@@ -1,0 +1,58 @@
+[
+  {
+    "problem": "整份提议被局部缺项拒绝",
+    "evidence": "1114159旧C04未产出；55384096第二绑定缺项",
+    "code": "legal_bench/irac_application/pipeline_v4.py:24",
+    "change": "按绑定、证据、用途、限制及条件分别导入；缺项独立保存NOT_PRODUCED",
+    "deterministic_result": "四份可解析旧提议部分导入；两份截断仍失败",
+    "remaining_limit": "可读取与地址有效不证明语义正确。55384096的旧b1条件分支也无效，仅保留有效证据，未猜改编号"
+  },
+  {
+    "problem": "分支编号跨接口不一致",
+    "evidence": "188721101旧十条用途错误引用element编号",
+    "code": "legal_bench/irac_application/pipeline_v4.py:6",
+    "change": "模板生成合法目录；Schema限制枚举；导入再查test/branch组合；执行沿同目录",
+    "deterministic_result": "十条错误用途隔离，四条证据记录保留",
+    "remaining_limit": "Schema枚举未表达跨字段全部依赖；本地检查仍必要"
+  },
+  {
+    "problem": "条件二元预测与证据状态重复",
+    "evidence": "旧条件同时prediction与assessment",
+    "code": "legal_bench/irac_application/pipeline_v4_tasks.py:6",
+    "change": "条件仅四状态；最终请求保留二元预测；完整虚构示例分别教支持与明确反证",
+    "deterministic_result": "新Schema真实tokenizer通过；旧prediction只从导入投影移除，raw不变",
+    "remaining_limit": "最终明确预测不等于材料已证明请求成立或失败"
+  },
+  {
+    "problem": "来源短片段缺归属及重复",
+    "evidence": "112400发回语境；52547606不同阶段法院；55384096证人身份；68065690说话者",
+    "code": "scripts/irac_pipeline_v4.py:20",
+    "change": "从已有原文恢复九段必要上下文；同源同父行精确包含去重，保留别名和原始偏移",
+    "deterministic_result": "六案原文与展示可追溯；模型实际运行仅四案",
+    "remaining_limit": "仍是限定材料；上下文恢复改变允许输入，不能作纯代码单变量对照"
+  },
+  {
+    "problem": "局部限制与跨绑定误用风险",
+    "evidence": "无效限制若静默删除可能错误释放其目标",
+    "code": "legal_bench/irac_application/pipeline_v4.py:76",
+    "change": "可识别目标的坏限制保留SCOPE_UNMAPPED阻止；沿用局部证据、AND/OR及冲突语义",
+    "deterministic_result": "独立证据、OR、AND、跨绑定与冲突测试通过",
+    "remaining_limit": "程序只计算模型声明，不验证陈述者或法律含义"
+  },
+  {
+    "problem": "完整检查展示重复",
+    "evidence": "完整来源/提议和重复子结构可能反复输入",
+    "code": "legal_bench/irac_application/pipeline_v4.py:87",
+    "change": "整块相等去重，以ID引用；全部完整轨迹另存；不同绑定和未知原因保留",
+    "deterministic_result": "compact/expand可逆测试通过",
+    "remaining_limit": "未做语义筛选；检查视图本身仍可能增加最终模型处理负担"
+  },
+  {
+    "problem": "入口与保存未验证",
+    "evidence": "辅助函数通过不能证明真实入口接入",
+    "code": "scripts/irac_pipeline_v4.py:68",
+    "change": "finish_attempt和complete_slot直接测试；保存raw、实际渲染、来源位置、token IDs及失败null",
+    "deterministic_result": "29项相关测试和三个真实tokenizer/回放检查通过，无跳过",
+    "remaining_limit": "程序测试不计法律能力；未额外模型预跑"
+  }
+]

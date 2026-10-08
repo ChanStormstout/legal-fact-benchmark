@@ -1,0 +1,248 @@
+{
+  "bindings": [
+    {
+      "id": "b1",
+      "claim_ids": ["DRC_SUBLETTING_CLAIM_01"],
+      "objects": "Mohan Lal; Anand Parkash; Parkash Trading Corporation",
+      "event": "Alleged subletting of premises",
+      "stage": "Delhi High Court review of ARCT judgment",
+      "refs": ["IK-52547606:L74:span1", "IK-52547606:L75:span2", "IK-52547606:L82:span6", "IK-52547606:L84:span7"]
+    },
+    {
+      "id": "b2",
+      "claim_ids": ["DRC_SUBLETTING_CLAIM_01"],
+      "objects": "Mohan Lal; Anand Parkash",
+      "event": "Tenant's claim of family arrangement with consent",
+      "stage": "Delhi High Court review of ARCT judgment",
+      "refs": ["IK-52547606:L75:span2", "IK-52547606:L93:span8"]
+    },
+    {
+      "id": "b3",
+      "claim_ids": ["DRC_SUBLETTING_CLAIM_01"],
+      "objects": "Mohan Lal; Anand Parkash; Parkash Trading Corporation",
+      "event": "Evidence of business use and possession by third party",
+      "stage": "Delhi High Court review of ARCT judgment",
+      "refs": ["IK-52547606:L79:span4", "IK-52547606:L81:span5"]
+    },
+    {
+      "id": "b4",
+      "claim_ids": ["DRC_SUBLETTING_CLAIM_01"],
+      "objects": "Mohan Lal; Anand Parkash",
+      "event": "Prior court finding on possession status",
+      "stage": "Delhi High Court review of ARCT judgment",
+      "refs": ["IK-52547606:L82:span6", "IK-52547606:L84:span7"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "binding_id": "b1",
+      "record": "Landlord contended tenant sublet premises to Anand Parkash and Parkash Trading Corporation.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": ["IK-52547606:L74:span1"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "branch_id": "DRC_SUBLETTING_E02/SUBLETTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "DRC_SUBLETTING_E02/PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "binding_id": "b1",
+      "record": "Tenant denied subletting, claiming premises were for his son with landlord's consent.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": ["IK-52547606:L75:span2"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C05",
+          "branch_id": "DRC_SUBLETTING_E04/CONSENT",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e3",
+      "binding_id": "b1",
+      "record": "Electricity and telephone records show business use by Anand Parkash/Parkash Trading Corporation.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-52547606:L78:span3", "IK-52547606:L79:span4"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "DRC_SUBLETTING_E02/PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e4",
+      "binding_id": "b1",
+      "record": "Partnership deed proved showing Anand Parkash was a partner in the firm.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-52547606:L81:span5"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "branch_id": "DRC_SUBLETTING_E02/SUBLETTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e5",
+      "binding_id": "b1",
+      "record": "Landlord admitted tenant took premises for son's business from inception; son used premises from start.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-52547606:L93:span8"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "DRC_SUBLETTING_E02/PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e6",
+      "binding_id": "b1",
+      "record": "Prior court found no parting with possession/subletting/assignment by tenant in favor of son.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-52547606:L82:span6"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "DRC_SUBLETTING_E02/PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e7",
+      "binding_id": "b1",
+      "record": "ARCT judgment confirmed ground of subletting under Section 14(1)(b).",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-52547606:L84:span7"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "branch_id": "DRC_SUBLETTING_E02/SUBLETTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e8",
+      "binding_id": "b1",
+      "record": "Landlord admitted tenant took premises for son's business from inception.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-52547606:L93:span8"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "DRC_SUBLETTING_E02/PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "id": "l1",
+      "evidence_ids": ["e2"],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "branch_id": "DRC_SUBLETTING_E04/CONSENT",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Tenant's denial of written consent is a party claim without independent proof of consent existence; it opposes the inference of lack of consent but does not establish consent.",
+      "refs": ["IK-52547606:L75:span2"]
+    },
+    {
+      "id": "l2",
+      "evidence_ids": ["e5", "e6", "e8"],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "DRC_SUBLETTING_E02/PARTING",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Multiple prior findings establish concurrent user/retention of legal possession by tenant, which negates the 'parting with possession' element under the supplied law.",
+      "refs": ["IK-52547606:L82:span6", "IK-52547606:L93:span8"]
+    },
+    {
+      "id": "l3",
+      "evidence_ids": ["e7"],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "branch_id": "DRC_SUBLETTING_E02/SUBLETTING",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "The ARCT judgment explicitly confirmed subletting; however, the current target stage is a High Court review where the lower court's factual findings on subletting are contested by the tenant's denial of consent and assertion of family arrangement.",
+      "refs": ["IK-52547606:L84:span7"]
+    }
+  ],
+  "conditions": [
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C01",
+      "branch_id": "DRC_SUBLETTING_E01/TEMPORAL",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": ["e1", "e3", "e4", "e7"],
+      "gap": "Specific date of subletting not pinpointed, but business use since inception satisfies 'on or after 9 June 1952'."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "branch_id": "DRC_SUBLETTING_E02/SUBLETTING",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e4", "e7"],
+      "gap": "Evidence shows partnership and business use, but lacks proof of 'transfer of interest in estate', 'payment of rent', and 'right to possession as against tenant' required for subletting under the supplied law."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C03",
+      "branch_id": "DRC_SUBLETTING_E02/ASSIGNMENT",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e4"],
+      "gap": "Tenant retained rights as tenant; no divestment of all rights as required for assignment."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C04",
+      "branch_id": "DRC_SUBLETTING_E02/PARTING",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": ["e3", "e5", "e6", "e8"],
+      "gap": "Evidence supports vesting of possession in another, but prior findings explicitly state tenant retained legal possession from inception, negating 'parting'."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "branch_id": "DRC_SUBLETTING_E04/CONSENT",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e2"],
+      "gap": "Tenant claims consent; no independent evidence of written consent exists to refute the statutory requirement."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C06",
+      "

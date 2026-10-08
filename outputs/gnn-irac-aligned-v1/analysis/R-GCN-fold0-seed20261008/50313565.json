@@ -1,0 +1,1277 @@
+{
+  "case_id": "50313565",
+  "tests": [
+    {
+      "test_id": "DRC_SUBLETTING_C01",
+      "proposition": "The relevant subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          2.4464764010190265e-06,
+          2.0342617575029915e-19,
+          0.9999974966049194
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C02",
+      "proposition": "For subletting, a landlord-and-tenant relationship exists between tenant and sub-tenant and the incidents of letting or tenancy identified by the supplied opinion are present: transfer of an interest in the estate, payment of rent, and the right to possession as against the tenant in respect of the premises sublet.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          1.744361491189117e-13,
+          4.506599897832199e-31,
+          1.0
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L-50313565-01",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "purported_subtenant",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "subletting.relationship",
+                "subletting.transfer_of_interest",
+                "subletting.rent",
+                "subletting.right_to_possession"
+              ],
+              "reason": "The source does not say whose tenant respondent no. 2 is and does not supply the remaining tenancy incidents required by DRC_SUBLETTING_C02.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L73:span1",
+              "quote": "Respondent no. 2 is a legal tenant",
+              "recovered_text": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-02",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "purported_subtenant",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "subletting.relationship",
+                "subletting.transfer_of_interest",
+                "subletting.rent"
+              ],
+              "reason": "Exclusive possession/control alone does not supply the other incidents expressly required by DRC_SUBLETTING_C02.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L73:span1",
+              "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "recovered_text": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-06",
+          "direction": "OPPOSE",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E-50313565-1",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L75:span2",
+                  "quote": "respondent no. 1 has not illegally subleted the shop to respondent no. 2."
+                }
+              ]
+            },
+            {
+              "role": "purported_subtenant",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L75:span2",
+                  "quote": "respondent no. 1 has not illegally subleted the shop to respondent no. 2."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L75:span2",
+                  "quote": "respondent no. 1 has not illegally subleted the shop to respondent no. 2."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "subletting.relationship",
+                "subletting.transfer_of_interest",
+                "subletting.rent",
+                "subletting.right_to_possession",
+                "consent"
+              ],
+              "reason": "This is a denial stated at a conclusory level and does not separately negate or admit each factual incident in DRC_SUBLETTING_C02; the word 'illegally' may also encompass matters beyond the incidents of subletting.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L75:span2",
+                  "quote": "respondent no. 1 has not illegally subleted the shop to respondent no. 2."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L75:span2",
+              "quote": "respondent no. 1 has not illegally subleted the shop to respondent no. 2.",
+              "recovered_text": "respondent no. 1 has not illegally subleted the shop to respondent no. 2. Respondent no.1 is running a printing press in the said premises till today in the name and style of S.R. Printer and respondent no. 1 is the sole proprietor of the said shop.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C03",
+      "proposition": "For assignment, the tenant divests himself of all rights that he has as a tenant.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          5.336163910914238e-14,
+          7.647692895602311e-31,
+          1.0
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L-50313565-13",
+          "direction": "OPPOSE",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E-50313565-1",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "assignment.all_tenancy_rights"
+              ],
+              "reason": "The statement concerns control of the business and premises and does not enumerate every tenancy right; it therefore tends against, but does not independently resolve, DRC_SUBLETTING_C03.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L82:span5",
+              "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises.",
+              "recovered_text": "Respondent no. 1 is in full control of his business as well as tenanted premises.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C04",
+      "proposition": "For parting with possession, possession is vested by the tenant in another person by divesting the tenant of physical possession and the right to possession; divestment or abandonment of the right to possession is required.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          2.0682348639034258e-15,
+          9.827963847380355e-32,
+          1.0
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L-50313565-03",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "other_person",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "parting.tenant_caused_vesting",
+                "parting.tenant_physical_divestment",
+                "parting.tenant_right_to_possession_divestment"
+              ],
+              "reason": "The fact does not itself identify respondent no. 1 as the tenant who caused the vesting or establish that respondent no. 1 divested or abandoned the right to possession.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L73:span1",
+              "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "recovered_text": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-08",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "other_person",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "parting.tenant_caused_vesting",
+                "parting.tenant_right_to_possession_divestment"
+              ],
+              "reason": "The source does not itself prove that respondent no. 1 vested possession in respondent no. 2 or divested/abandoned his own right to possession.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L79:span3",
+              "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself.",
+              "recovered_text": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-11",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E-50313565-1",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L80:span4",
+                  "quote": "at present son of respondent no. 1 is carrying on the business"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "other_person.entity_id",
+                "parting.exclusive_or_vested_possession",
+                "parting.tenant_right_to_possession_divestment"
+              ],
+              "reason": "The legacy fact does not bind the unnamed 'son' to E-50313565-5, and the statement does not establish the divestment required by DRC_SUBLETTING_C04.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L80:span4",
+                  "quote": "at present son of respondent no. 1 is carrying on the business"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L80:span4",
+              "quote": "at present son of respondent no. 1 is carrying on the business",
+              "recovered_text": "at present son of respondent no. 1 is carrying on the business, however, the board of S.R. Printer is still there. During cross examination, petitioner has further stated that tenanted premises is still being used for printing work, till today since the inception of tenancy.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-14",
+          "direction": "OPPOSE",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E-50313565-1",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "parting.legal_possession"
+              ],
+              "reason": "The statement uses 'full control' rather than expressly stating the legal right to possession; its legal effect remains for the test to assess.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L82:span5",
+              "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises.",
+              "recovered_text": "Respondent no. 1 is in full control of his business as well as tenanted premises.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-17",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "other_person",
+              "entity_id": "E-50313565-5",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "parting.tenant_caused_vesting",
+                "parting.tenant_physical_divestment",
+                "parting.tenant_right_to_possession_divestment"
+              ],
+              "reason": "Opening, closing, and sitting in the shop do not by themselves establish the divestment required by DRC_SUBLETTING_C04.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L83:span6",
+              "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son.",
+              "recovered_text": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son. During cross examination, it is further stated by the respondent no. 1, Shyam Singh that Sanjeev Kumar is neither partner nor the CASE No. RC - 01/08 4/10 employee in the said shop.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C05",
+      "proposition": "The tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          1.4486435020444333e-06,
+          1.3383338993998448e-19,
+          0.9999985694885254
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C06",
+      "proposition": "For the parting-with-possession route, the tenant retains legal possession of the relevant part where there is concurrent user or mere use by others without wholly ousting the tenant from legal possession of that part.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          2.4937134364133313e-16,
+          1.2651130115714217e-32,
+          1.0
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L-50313565-04",
+          "direction": "OPPOSE",
+          "binding": [
+            {
+              "role": "other_person",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "retained_possession.tenant_identity",
+                "retained_possession.legal_possession"
+              ],
+              "reason": "The source does not itself state whether respondent no. 1 retained or lost legal possession; it only alleges respondent no. 2's exclusive possession/control.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L73:span1",
+              "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "recovered_text": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-07",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E-50313565-1",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L75:span2",
+                  "quote": "Respondent no.1 is running a printing press in the said premises till today in the name and style of S.R. Printer and respondent no. 1 is the sole proprietor of the said shop."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L75:span2",
+                  "quote": "Respondent no.1 is running a printing press in the said premises till today in the name and style of S.R. Printer and respondent no. 1 is the sole proprietor of the said shop."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "retained_possession.legal_possession",
+                "retained_possession.concurrent_user"
+              ],
+              "reason": "Running the business and being its sole proprietor tend to show continued involvement but do not, by themselves, expressly establish retained legal possession or the absence of whole ouster.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L75:span2",
+                  "quote": "Respondent no.1 is running a printing press in the said premises till today in the name and style of S.R. Printer and respondent no. 1 is the sole proprietor of the said shop."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L75:span2",
+              "quote": "Respondent no.1 is running a printing press in the said premises till today in the name and style of S.R. Printer and respondent no. 1 is the sole proprietor of the said shop.",
+              "recovered_text": "respondent no. 1 has not illegally subleted the shop to respondent no. 2. Respondent no.1 is running a printing press in the said premises till today in the name and style of S.R. Printer and respondent no. 1 is the sole proprietor of the said shop.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-09",
+          "direction": "OPPOSE",
+          "binding": [
+            {
+              "role": "other_person",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "retained_possession.tenant_legal_possession"
+              ],
+              "reason": "The source does not directly state the status of respondent no. 1's legal right to possession.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L79:span3",
+              "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself.",
+              "recovered_text": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-12",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L80:span4",
+                  "quote": "During cross examination, petitioner has further stated that tenanted premises is still being used for printing work, till today since the inception of tenancy."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "retained_possession.tenant_identity",
+                "retained_possession.legal_possession",
+                "retained_possession.concurrent_user"
+              ],
+              "reason": "Continuity of printing work is not the same as continuity of the tenant's legal possession and does not identify the relevant user.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L80:span4",
+                  "quote": "During cross examination, petitioner has further stated that tenanted premises is still being used for printing work, till today since the inception of tenancy."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L80:span4",
+              "quote": "During cross examination, petitioner has further stated that tenanted premises is still being used for printing work, till today since the inception of tenancy.",
+              "recovered_text": "at present son of respondent no. 1 is carrying on the business, however, the board of S.R. Printer is still there. During cross examination, petitioner has further stated that tenanted premises is still being used for printing work, till today since the inception of tenancy.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-15",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E-50313565-1",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "retained_possession.legal_possession"
+              ],
+              "reason": "The source states full control but does not separately define the tenant's legal right to possession.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L82:span5",
+              "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises.",
+              "recovered_text": "Respondent no. 1 is in full control of his business as well as tenanted premises.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-18",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "other_person",
+              "entity_id": "E-50313565-5",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "retained_possession.tenant_legal_possession"
+              ],
+              "reason": "The statement characterizes Sanjeev Kumar's capacity but does not itself state that respondent no. 1 retained legal possession; that proposition is separately asserted in F-50313565-9.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L83:span6",
+              "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son.",
+              "recovered_text": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son. During cross examination, it is further stated by the respondent no. 1, Shyam Singh that Sanjeev Kumar is neither partner nor the CASE No. RC - 01/08 4/10 employee in the said shop.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-20",
+          "direction": "SUPPORT",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "tenant.entity_id",
+                "other_person.entity_id",
+                "identity_witness"
+              ],
+              "reason": "The legacy fact has no entity_ids, and the supplied quotations do not safely permit the pronouns/relationship terms to be equated with E-50313565-1 and E-50313565-5 for combination purposes.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L84:span7",
+                  "quote": "his son used to help him in his work due to his illness."
+                },
+                {
+                  "source_id": "IK-50313565:L87:span8",
+                  "quote": "He is only assisting his father. It is further stated by him that he is living jointly with his father."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L84:span7",
+              "quote": "his son used to help him in his work due to his illness.",
+              "recovered_text": "his son used to help him in his work due to his illness.",
+              "address_located": true
+            },
+            {
+              "source_id": "IK-50313565:L87:span8",
+              "quote": "He is only assisting his father. It is further stated by him that he is living jointly with his father.",
+              "recovered_text": "He is only assisting his father. It is further stated by him that he is living jointly with his father.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C07",
+      "proposition": "The relevant disposition concerns the whole or any part of the premises.",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.9998086094856262,
+          4.1486356988378023e-19,
+          0.0001913692831294611
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L-50313565-05",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "relevant_person",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "disposition.existence"
+              ],
+              "reason": "This link addresses where the alleged conduct occurred; it does not itself establish a legally qualifying disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L73:span1",
+                  "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L73:span1",
+              "quote": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "recovered_text": "Respondent no. 2 is a legal tenant and is in exclusive possession and in full control of the tenanted shop and he is running the business in the said shop himself exclusively.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-10",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "relevant_person",
+              "entity_id": "E-50313565-2",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "disposition.existence"
+              ],
+              "reason": "The link establishes only the alleged location/scope of conduct, not that the conduct legally qualifies as a disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L79:span3",
+                  "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L79:span3",
+              "quote": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself.",
+              "recovered_text": "Respondent no. 2 is in exclusive possession and in full control in the tenanted shop and he is running the business in the said shop himself exclusively and opens and closes the shop himself.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-16",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E-50313565-1",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "disposition.existence"
+              ],
+              "reason": "This supports only the identity/scope of the premises implicated in the possession dispute, not the existence of a qualifying disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L82:span5",
+                  "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L82:span5",
+              "quote": "Respondent no. 1 is in full control of his business as well as tenanted premises.",
+              "recovered_text": "Respondent no. 1 is in full control of his business as well as tenanted premises.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L-50313565-19",
+          "direction": "SUPPORT",
+          "binding": [
+            {
+              "role": "relevant_person",
+              "entity_id": "E-50313565-5",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            },
+            {
+              "role": "premises",
+              "entity_id": "E-50313565-3",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "disposition.existence"
+              ],
+              "reason": "The link identifies the premises implicated by the conduct but does not establish a qualifying disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-50313565:L83:span6",
+                  "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-50313565:L83:span6",
+              "quote": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son.",
+              "recovered_text": "Sanjeev Kumar, his son, opens and closes the shop and sits at the said shop in the capacity of his son. During cross examination, it is further stated by the respondent no. 1, Shyam Singh that Sanjeev Kumar is neither partner nor the CASE No. RC - 01/08 4/10 employee in the said shop.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    }
+  ],
+  "elements": [
+    {
+      "element_id": "DRC_SUBLETTING_E01",
+      "text": "Temporal requirement: the relevant disposition occurred on or after 9 June 1952.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C01"
+        ]
+      },
+      "binding_requirements": [
+        "The date must concern the same disposition transaction or arrangement used for the disposition element."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E02",
+      "text": "Disposition requirement: the tenant's conduct fits subletting, assignment, or otherwise parting with possession, with the retained-possession qualification applied to the third route.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "trace": [
+          {
+            "status": "UNRESOLVED",
+            "reason": "MODEL_PREDICTION_NOT_PROOF",
+            "trace": [
+              "DRC_SUBLETTING_C02"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "reason": "MODEL_PREDICTION_NOT_PROOF",
+            "trace": [
+              "DRC_SUBLETTING_C03"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": "MODEL_PREDICTION_NOT_PROOF",
+                "trace": [
+                  "DRC_SUBLETTING_C04"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": "MODEL_PREDICTION_NOT_PROOF",
+                "trace": [
+                  "DRC_SUBLETTING_C06"
+                ]
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        ],
+        "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+      },
+      "binding_requirements": [
+        "Tests combined for a selected route must concern the same tenant, relevant other person, arrangement, and whole or part of the premises.",
+        "For subletting, the relationship, transfer of interest, rent, and right to possession must concern the same purported subtenancy.",
+        "For parting with possession, divestment and any retained legal possession or concurrent use must concern the same arrangement and same part of the premises."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E03",
+      "text": "Premises-scope requirement: the disposition concerns the whole or any part of the premises.",
+      "candidate_logic": {
+        "status": "SUPPORTED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C07"
+        ]
+      },
+      "binding_requirements": [
+        "The premises or part must be the same premises or part used for the selected disposition route and written-consent inquiry."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E04",
+      "text": "Written-consent requirement: the tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C05"
+        ]
+      },
+      "binding_requirements": [
+        "The consent inquiry must concern the same disposition and the same whole or part of the premises as the other elements."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "text": "Section 14(1)(b) ground: on or after 9 June 1952, the tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises without the landlord's written consent.",
+      "conditional_combination": {
+        "status": "UNRESOLVED",
+        "combinations": [
+          {
+            "binding_id": "COMB-50313565-R2-SUBLETTING",
+            "status": "UNRESOLVED",
+            "reason": "BINDING_NOT_ESTABLISHED"
+          },
+          {
+            "binding_id": "COMB-50313565-R2-POSSESSION",
+            "status": "UNRESOLVED",
+            "reason": "BINDING_NOT_ESTABLISHED"
+          },
+          {
+            "binding_id": "COMB-50313565-SANJEEV-USE",
+            "status": "UNRESOLVED",
+            "reason": "BINDING_NOT_ESTABLISHED"
+          },
+          {
+            "binding_id": "COMB-50313565-ASSIGNMENT-CONTROL",
+            "status": "UNRESOLVED",
+            "reason": "BINDING_NOT_ESTABLISHED"
+          }
+        ],
+        "scope": "ONLY_ENUMERATED_BINDINGS; DOES_NOT_PROVE_GLOBAL_ABSENCE",
+        "burden_failure_inferred": false
+      },
+      "status": "UNRESOLVED",
+      "reason": "Conditional on model test predictions and explicitly proposed source-linked bindings; address checks do not establish their semantic correctness.",
+      "verified_result": false
+    }
+  ],
+  "burdens": [
+    {
+      "id": "DRC_SUBLETTING_B01",
+      "proposition": "Allocation and standard of proof for the overall s14(1)(b) ground.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    },
+    {
+      "id": "DRC_SUBLETTING_B02",
+      "proposition": "Allocation, standard, or burden shift concerning written consent or any disposition route.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    }
+  ],
+  "scope": "Delhi, India; s14(1)(b) of the statute identified in the proposed framing as the Delhi Rent Control Act, 1958. Reusable research structure limited to the supplied statutory excerpt and supplied interpretive opinion excerpts; the quoted law text does not independently establish enactment-year, amendment/version, or decision-date metadata.",
+  "coverage_limits": [
+    "Retrospective model-proposed decomposition only; no case-specific answer or legal advice.",
+    "All supplied law records are marked PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; this does not prove prospective historical availability.",
+    "The quoted law text does not independently state the statute's enactment year, amendment/version date, or the decision date of document 190902; those metadata are not established by the supplied law excerpts.",
+    "No burden allocation, proof standard, burden shift, evidentiary presumption, or additional consent doctrine is supplied.",
+    "No separate affirmative defense is supplied; retained legal possession and concurrent use are only qualifications to the parting-with-possession route.",
+    "Compatibility with other statutes, jurisdictions, procedural stages, fact patterns, or later authorities is not presumed.",
+    "Expressions organize source propositions but do not make open-text legal judgments self-executing booleans.",
+    "Support for any one test proposition does not itself establish eviction; the full claim expression and identity bindings must be satisfied."
+  ],
+  "semantic_status": "EXPERIMENTAL_MODEL_ANALYSIS_NOT_LEGAL_PROOF",
+  "historical_prediction": "SEPARATE_NOT_SCORED_HERE"
+}

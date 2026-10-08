@@ -1,0 +1,81 @@
+{
+  "case_id": "112400",
+  "method": "A",
+  "run_status": "OK",
+  "prediction": {
+    "answers": [
+      {
+        "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+        "prediction": "PREDICT_DENY",
+        "conditions": [
+          {
+            "test_id": "DRC_BONA_FIDE-C01",
+            "binding_id": "b1",
+            "binding": "Premises let for residential purposes; status: supported by lease record",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L123:span1"
+            ],
+            "explanation": "The lease dated Jan 22, 1964 explicitly states the premises were let for residential purposes on a monthly rent."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C02",
+            "binding_id": "b2",
+            "binding": "Premises required bona fide by landlord for residence; status: supported by prior finding",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L127:restored-v2",
+              "IK-112400:L130:span6"
+            ],
+            "explanation": "The Rent Controller found the landlord's requirement was not bona fide, but the Tribunal's remand reasoning establishes that eviction within ~11 months of letting negates bona fide status. The target court accepts this logic as the operative finding."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C03",
+            "binding_id": "b3",
+            "binding": "Occupation by landlord himself or dependent family; status: supported by prior finding",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L139:restored-v2"
+            ],
+            "explanation": "The Tribunal found the landlord and his immediate family (wife, son, son's wife, children) were living in the premises, satisfying the 'himself or dependent family' route."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C04",
+            "binding_id": "b4",
+            "binding": "Landlord is owner of premises; status: supported by prior finding",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L124:restored-v2",
+              "IK-112400:L139:restored-v2"
+            ],
+            "explanation": "The respondent is identified as the owner of the entire premises, and the Tribunal's finding specifically addresses the 'landlord's' occupation, confirming the ownership prerequisite for this branch."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C06",
+            "binding_id": "b5",
+            "binding": "Landlord has no other reasonably suitable residential accommodation; status: REFUTED by prior finding",
+            "assessment": "REFUTED",
+            "refs": [
+              "IK-112400:L139:restored-v2",
+              "IK-112400:L140:restored-v2"
+            ],
+            "explanation": "The Tribunal explicitly held that the portion of premises available to the landlord was 'not reasonably sufficient' for his family, directly contradicting the requirement that he has no other reasonably suitable accommodation."
+          }
+        ],
+        "opposition": {
+          "record": "Tenant contends landlord's requirement was not bona fide and premises were sufficient for his purpose.",
+          "refs": [
+            "IK-112400:L127:restored-v2"
+          ],
+          "response": "The tenant's denial of bona fide status is consistent with the Tribunal's finding that the short duration of the tenancy negates bona fide intent. The tenant's claim of sufficient space is superseded by the Tribunal's specific finding on unsuitability."
+        },
+        "gaps": [
+          "The precise definition of 'reasonably suitable' remains open-text and relies entirely on the Tribunal's discretionary assessment of family size vs. space.",
+          "The status of the 'person for whose benefit' alternative route is not evaluated as the facts do not establish such a beneficiary."
+        ],
+        "reason": "The claim requires all elements of the AND structure to be supported. While the residential letting, bona fide requirement (via the short-term eviction logic), and qualifying occupation/ownership routes are supported by the Tribunal's findings, the critical element regarding the absence of other suitable accommodation is explicitly refuted by the Tribunal's finding that the available space was insufficient for the family.",
+        "intermediate_correction": "None."
+      }
+    ]
+  }
+}

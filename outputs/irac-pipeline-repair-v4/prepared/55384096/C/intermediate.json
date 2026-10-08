@@ -1,0 +1,1302 @@
+{
+  "proposal": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Hakim Rai; Raj Kumar; Shop at 95 Main Bazar Najafgarh",
+        "event": "Execution of partnership deed and alleged subletting",
+        "stage": "PRE_TARGET_RECORD",
+        "refs": [
+          "IK-55384096:L70:span3",
+          "IK-55384096:L67:span1"
+        ]
+      },
+      {
+        "id": "b2",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Hakim Rai; Raj Kumar; Shop at 95 Main Bazar Najafgarh",
+        "event": "Tenant retained legal possession via concurrent user",
+        "stage": "PRE_TARGET_RECORD",
+        "refs": [
+          "IK-55384096:L77:span5",
+          "IK-55384096:L77:span6",
+          "IK-55384096:L79:span7"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Partnership deed dated 20.11.1983 executed between Hakim Rai and Raj Kumar for business conducted from suit premises.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L70:span3"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C01",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Tenant (Hakim Rai) divested himself completely of possession; son-in-law became partner and ran business.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L67:span1"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b2",
+        "record": "Tenant's widow testified husband initially ran business, sat in shop, and denied loss of possession; admitted son-in-law was partner.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-55384096:L77:span5",
+          "IK-55384096:L77:span6"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b2",
+        "record": "Parties residing in same premises; ration card obtained at same address.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L79:span7"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e5",
+        "binding_id": "b2",
+        "record": "Landlord's attorney admitted respondent (Hakim Rai) is old, ailing, has poor eyesight and cannot walk properly.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L80:span8"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "id": "l1",
+        "evidence_ids": [
+          "e1",
+          "e2"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "use": "PROVEN_FACT",
+        "effect": "USE_BLOCK",
+        "reason": "Partnership deed date (20.11.1983) satisfies the post-9-June-1952 temporal requirement.",
+        "refs": [
+          "IK-55384096:L70:span3"
+        ]
+      },
+      {
+        "id": "l2",
+        "evidence_ids": [
+          "e1",
+          "e2"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "use": "PROVEN_FACT",
+        "effect": "USE_BLOCK",
+        "reason": "Tenant divested himself completely of possession and vested it in another person (Raj Kumar) via partnership.",
+        "refs": [
+          "IK-55384096:L67:span1",
+          "IK-55384096:L70:span3"
+        ]
+      },
+      {
+        "id": "l3",
+        "evidence_ids": [
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "PROVEN_FACT",
+        "effect": "USE_BLOCK",
+        "reason": "Tenant retained legal possession through concurrent user; mere presence of son-in-law does not divest legal possession.",
+        "refs": [
+          "IK-55384096:L77:span5",
+          "IK-55384096:L77:span6",
+          "IK-55384096:L79:span7",
+          "IK-55384096:L80:span8"
+        ]
+      },
+      {
+        "id": "l4",
+        "evidence_ids": [
+          "e1",
+          "e2"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "No evidence of written consent from landlord; landlord alleges deed is forged, but absence of consent is presumed unless proven.",
+        "refs": [
+          "IK-55384096:L71:span4"
+        ]
+      },
+      {
+        "id": "l5",
+        "evidence_ids": [
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Tenant retained legal possession; concurrent user negates 'parting with possession' under supplied law.",
+        "refs": [
+          "IK-55384096:L77:span5",
+          "IK-55384096:L77:span6",
+          "IK-55384096:L79:span7",
+          "IK-55384096:L80:span8"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1"
+        ],
+        "gap": "Landlord's allegation of forgery remains untested in supplied records."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [],
+        "gap": "No evidence of landlord-tenant relationship or tenancy incidents (rent, interest transfer) for subletting route."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [],
+        "gap": "No evidence that tenant divested all rights as tenant for assignment route."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2"
+        ],
+        "gap": "Landlord's forgery claim untested; divestment of possession established by court finding."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [],
+        "gap": "No record of written consent; burden of proof on tenant not met by supplied evidence."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "gap": "None; concurrent user and retained legal possession negate parting with possession."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2"
+        ],
+        "gap": "Specific delineation of 'part' vs 'whole' premises not explicitly argued in records."
+      }
+    ],
+    "coverage_limits": [
+      "Landlord's forgery allegation (evidence e1/e2) lacks independent verification; authenticity of partnership deed is disputed.",
+      "Subletting and assignment routes remain unproven due to missing evidence of tenancy incidents or total divestment of rights.",
+      "Parting with possession route is supported by evidence of divestment but defeated by evidence of concurrent user/retained legal possession.",
+      "Written consent requirement is unsupported by any record; no evidence of consent exists."
+    ]
+  },
+  "import_coverage": {
+    "status": "PARTIAL",
+    "quarantine": [
+      {
+        "kind": "conditions",
+        "position": 5,
+        "record": {
+          "binding_id": "b1",
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "",
+          "assessment": "REFUTED",
+          "evidence_ids": [
+            "e3",
+            "e4",
+            "e5"
+          ],
+          "gap": "None; concurrent user and retained legal possession negate parting with possession."
+        },
+        "reason": "INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE"
+      }
+    ],
+    "missing": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      }
+    ]
+  },
+  "program_checks": {
+    "basis": "MODEL_PROPOSED_NOT_LEGAL_VERIFICATION",
+    "root": {
+      "$check_ref": "check61"
+    },
+    "records": {
+      "check1": {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L70:span3"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-55384096:L70"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check2": {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L70:span3"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-55384096:L70"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check3": {
+        "evidence_id": "e2",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L67:span1"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-55384096:L67"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check4": {
+        "evidence_id": "e3",
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-55384096:L77:span5",
+          "IK-55384096:L77:span6"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-55384096:L77"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check5": {
+        "evidence_id": "e4",
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L79:span7"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-55384096:L79"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check6": {
+        "evidence_id": "e5",
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-55384096:L80:span8"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-55384096:L80"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check7": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e1"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+      },
+      "check8": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1"
+        ],
+        "gap": "Landlord's allegation of forgery remains untested in supplied records."
+      },
+      "check9": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "program_assessment": {
+          "$check_ref": "check7"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check8"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check10": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+      },
+      "check11": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [],
+        "gap": "No evidence of landlord-tenant relationship or tenancy incidents (rent, interest transfer) for subletting route."
+      },
+      "check12": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check11"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check13": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [],
+        "gap": "No evidence that tenant divested all rights as tenant for assignment route."
+      },
+      "check14": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check13"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check15": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e1",
+          "e2"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+      },
+      "check16": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2"
+        ],
+        "gap": "Landlord's forgery claim untested; divestment of possession established by court finding."
+      },
+      "check17": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "program_assessment": {
+          "$check_ref": "check15"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check16"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check18": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [],
+        "gap": "No record of written consent; burden of proof on tenant not met by supplied evidence."
+      },
+      "check19": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check18"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check20": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check21": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2"
+        ],
+        "gap": "Specific delineation of 'part' vs 'whole' premises not explicitly argued in records."
+      },
+      "check22": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check21"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check23": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C01",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check24": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C02",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check25": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C03",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check26": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C04",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check27": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C05",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check28": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+      },
+      "check29": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "program_assessment": {
+          "$check_ref": "check28"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check30": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C07",
+        "program_assessment": {
+          "$check_ref": "check10"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check31": [
+        {
+          "$check_ref": "check9"
+        },
+        {
+          "$check_ref": "check12"
+        },
+        {
+          "$check_ref": "check14"
+        },
+        {
+          "$check_ref": "check17"
+        },
+        {
+          "$check_ref": "check19"
+        },
+        {
+          "$check_ref": "check20"
+        },
+        {
+          "$check_ref": "check22"
+        },
+        {
+          "$check_ref": "check23"
+        },
+        {
+          "$check_ref": "check24"
+        },
+        {
+          "$check_ref": "check25"
+        },
+        {
+          "$check_ref": "check26"
+        },
+        {
+          "$check_ref": "check27"
+        },
+        {
+          "$check_ref": "check29"
+        },
+        {
+          "$check_ref": "check30"
+        }
+      ],
+      "check32": {
+        "DRC_SUBLETTING_C01": {
+          "$check_ref": "check7"
+        },
+        "DRC_SUBLETTING_C02": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C03": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C04": {
+          "$check_ref": "check15"
+        },
+        "DRC_SUBLETTING_C05": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C06": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C07": {
+          "$check_ref": "check10"
+        }
+      },
+      "check33": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e1"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C01"
+        ]
+      },
+      "check34": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C07"
+        ]
+      },
+      "check35": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C02"
+        ]
+      },
+      "check36": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C03"
+        ]
+      },
+      "check37": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e1",
+          "e2"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C04"
+        ]
+      },
+      "check38": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C06"
+        ]
+      },
+      "check39": [
+        {
+          "$check_ref": "check35"
+        },
+        {
+          "$check_ref": "check36"
+        },
+        {
+          "status": "UNRESOLVED",
+          "trace": [
+            {
+              "$check_ref": "check37"
+            },
+            {
+              "$check_ref": "check38"
+            }
+          ],
+          "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+        }
+      ],
+      "check40": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C05"
+        ]
+      },
+      "check41": [
+        {
+          "$check_ref": "check33"
+        },
+        {
+          "$check_ref": "check34"
+        },
+        {
+          "status": "UNRESOLVED",
+          "trace": {
+            "$check_ref": "check39"
+          },
+          "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+        },
+        {
+          "$check_ref": "check40"
+        }
+      ],
+      "check42": {
+        "binding_id": "b1",
+        "event": "Execution of partnership deed and alleged subletting",
+        "objects": "Hakim Rai; Raj Kumar; Shop at 95 Main Bazar Najafgarh",
+        "stage": "PRE_TARGET_RECORD",
+        "tests": {
+          "$check_ref": "check32"
+        },
+        "branches": {},
+        "claims": [
+          {
+            "claim_id": "DRC_SUBLETTING_CLAIM_01",
+            "result": {
+              "status": "UNRESOLVED",
+              "trace": {
+                "$check_ref": "check41"
+              },
+              "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+            }
+          }
+        ]
+      },
+      "check43": {
+        "DRC_SUBLETTING_C01": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C02": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C03": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C04": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C05": {
+          "$check_ref": "check10"
+        },
+        "DRC_SUBLETTING_C06": {
+          "$check_ref": "check28"
+        },
+        "DRC_SUBLETTING_C07": {
+          "$check_ref": "check10"
+        }
+      },
+      "check44": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C01"
+        ]
+      },
+      "check45": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C04"
+        ]
+      },
+      "check46": {
+        "status": "REFUTED",
+        "supports": [
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C06"
+        ]
+      },
+      "check47": [
+        {
+          "$check_ref": "check35"
+        },
+        {
+          "$check_ref": "check36"
+        },
+        {
+          "status": "REFUTED",
+          "trace": [
+            {
+              "$check_ref": "check45"
+            },
+            {
+              "$check_ref": "check46"
+            }
+          ],
+          "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+        }
+      ],
+      "check48": [
+        {
+          "$check_ref": "check44"
+        },
+        {
+          "$check_ref": "check34"
+        },
+        {
+          "status": "UNRESOLVED",
+          "trace": {
+            "$check_ref": "check47"
+          },
+          "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+        },
+        {
+          "$check_ref": "check40"
+        }
+      ],
+      "check49": {
+        "binding_id": "b2",
+        "event": "Tenant retained legal possession via concurrent user",
+        "objects": "Hakim Rai; Raj Kumar; Shop at 95 Main Bazar Najafgarh",
+        "stage": "PRE_TARGET_RECORD",
+        "tests": {
+          "$check_ref": "check43"
+        },
+        "branches": {},
+        "claims": [
+          {
+            "claim_id": "DRC_SUBLETTING_CLAIM_01",
+            "result": {
+              "status": "UNRESOLVED",
+              "trace": {
+                "$check_ref": "check48"
+              },
+              "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+            }
+          }
+        ]
+      },
+      "check50": [
+        {
+          "limitation_id": "l1",
+          "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+        },
+        {
+          "limitation_id": "l2",
+          "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+        },
+        {
+          "limitation_id": "l3",
+          "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+        },
+        {
+          "limitation_id": "l4",
+          "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+        },
+        {
+          "limitation_id": "l5",
+          "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+        }
+      ],
+      "check51": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check52": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check53": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check54": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check55": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check56": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check57": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check58": {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check59": [
+        {
+          "$check_ref": "check51"
+        },
+        {
+          "$check_ref": "check52"
+        },
+        {
+          "$check_ref": "check53"
+        },
+        {
+          "$check_ref": "check54"
+        },
+        {
+          "$check_ref": "check55"
+        },
+        {
+          "$check_ref": "check56"
+        },
+        {
+          "$check_ref": "check57"
+        },
+        {
+          "$check_ref": "check58"
+        }
+      ],
+      "check60": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "gap": "None; concurrent user and retained legal possession negate parting with possession."
+      },
+      "check61": {
+        "case_id": "55384096",
+        "evidence_use_checks": [
+          {
+            "$check_ref": "check1"
+          },
+          {
+            "$check_ref": "check2"
+          },
+          {
+            "$check_ref": "check3"
+          },
+          {
+            "$check_ref": "check4"
+          },
+          {
+            "$check_ref": "check5"
+          },
+          {
+            "$check_ref": "check6"
+          }
+        ],
+        "conditions": {
+          "$check_ref": "check31"
+        },
+        "bindings": [
+          {
+            "$check_ref": "check42"
+          },
+          {
+            "$check_ref": "check49"
+          }
+        ],
+        "unapplied_limits": {
+          "$check_ref": "check50"
+        },
+        "legal_truth_verified": false,
+        "scope_of_checks": "Source addresses and declared within-binding uses/boolean combinations only; no claim of semantic or identity proof. UNKNOWN is not negative; no burden failure inferred.",
+        "import_missing": {
+          "$check_ref": "check59"
+        },
+        "import_quarantine": [
+          {
+            "kind": "conditions",
+            "position": 5,
+            "record": {
+              "$check_ref": "check60"
+            },
+            "reason": "INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE"
+          }
+        ]
+      }
+    },
+    "omitted_fields": "source_recovery/common sources; coverage_limits/burdens/scope in common law+proposal; record_retained in proposal by evidence_id. Full file retained."
+  }
+}

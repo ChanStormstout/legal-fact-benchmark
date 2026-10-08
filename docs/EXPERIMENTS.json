@@ -353,6 +353,66 @@
       "role": "bounded_independent_rule_blind_binding_stage_repair_no_training",
       "report": "outputs/gnn-irac-feasibility-02/report-zh.txt",
       "note": "GNN-IRAC第二轮有限修复完成：固定8个旧TRAIN、13次普通High、语义重试0。阶段许可覆盖711项，五案132条input-only候选绑定先于target冻结；1106992的目标关系和来源隔离。最终来源审阅2案语义READY、3案REFERENCE_ONLY、3案GAP；冻结准入0/8 READY，NO_GO。14项不连续拼接引文、范围错配、目标阶段和悬空对象/跳过绑定仍保留。组内真实canonical NOT_AVAILABLE；未训练、启封SEALED、生成完整法律回答、提交或推送。"
+    },
+    {
+      "id": "gnn-irac-native-data-01",
+      "role": "purposive_discovery_gate_stop_with_synthetic_input_graph_implementation",
+      "report": "outputs/gnn-irac-native-data-01/report-zh.txt",
+      "note": "固定16个新候选、4次普通High筛查完成：1 SUITABLE、3模型认可BORDERLINE、12 REJECT。即使全部暂计边界案也只有4案，未达到六案construction门槛，IRAC_NATIVE_DISCOVERY_NO_GO。新input schema及target-free图builder实现，33相关测试通过；真实链/图/READY均0，未训练、未启封SEALED、未提交推送。"
+    },
+    {
+      "id": "gnn-irac-application-development-01",
+      "role": "exposed_grouped_development_condition_application",
+      "report": "outputs/gnn-irac-application-development-01/report-zh.txt",
+      "note": "17图/8组13弱条件，三折三种子18拟合。Flat全猜成立，Graph无额外收益；DEFEATED所在折无训练反例，UNRESOLVED未覆盖。SEALED未读，未提交推送。"
+    },
+    {
+      "id": "gnn-irac-aligned-v1",
+      "role": "bounded_development_predictions_saved_checkpoint_export_failed",
+      "report": "outputs/gnn-irac-aligned-v1/report-zh.txt",
+      "note": "17包、58次普通High、96/117项材料参考；36拟合已保存预测但权重/训练日志导出失败，原失败保留，未重训。Flat/R-GCN及ANCO均未超过条件先验，未显示完整分析额外收益。保留来源接口，暂停扩大图。非独立测试、非人工gold，SEALED未读，未提交推送。"
+    },
+    {
+      "id": "gnn-irac-aligned-v2",
+      "role": "repaired_development_with_remaining_semantic_gates",
+      "report": "outputs/gnn-irac-aligned-v2/report-zh.txt",
+      "note": "17包、31候选绑定、208单位、185模型参考；16次普通High、24次拟合完成并核验权重。主评价128项/15组，学习方法未稳定超过条件先验。六包审阅确认局部限制与择一分支仍有过度阻止，完整分析修复仅部分完成；暂停扩大GNN，未读SEALED、未提交推送。"
+    },
+    {
+      "id": "irac-hybrid-decision-v3",
+      "role": "local_dependency_repair_forced_prediction_development_with_interface_failures",
+      "report": "outputs/irac-hybrid-decision-v3/report-zh.txt",
+      "note": "六案16次本地调用完成：10最终回答均预测拒绝，8位置依赖失败跳过。局部用途和OR修复接通，但两份提议因覆盖门槛失败、两份截断；两完整配对仍有极性／来源误读，188721101全部用途分支地址错误。暂不增加组件，不宣称完整分析已修好。"
+    },
+    {
+      "id": "irac-pipeline-repair-v4",
+      "role": "bounded_sparse_import_repair_source_reorganization_local_recovery_development",
+      "report": "outputs/irac-pipeline-repair-v4/report-zh.txt",
+      "note": "局部导入、分支目录和来源组织修复完成；16次本地调用、2409.5秒，10份最终回答与两诊断完整，112400提议截断致B/C跳过。52547606 B有局部收益，其他配对传播或新增错误，C无稳定净收益；保留工程修复，暂停增加字段与图组件。未读取SEALED、训练、提交或推送。"
+    },
+    {
+      "id": "irac-contract-repair-v5",
+      "role": "engineering_checkpoint_pending_complete_request",
+      "report": "outputs/irac-contract-repair-v5/report-zh.txt",
+      "note": "已收到的接口修复和来源排序通过确定性检查；16项新测试、5项约束回归及15份真实tokenizer样例通过。完整请求在第五节截断，完整E及M/L验收未完成，新模型调用0；历史文件不变，未提交推送。"
+    },
+    {
+      "id": "irac-contract-repair-v5-continuation-01",
+      "role": "bounded_evidence_independence_and_actual_entry_repair_two_case_full_development",
+      "report": "outputs/irac-contract-repair-v5/continuation-01/report-zh.txt",
+      "note": "两案8次本地调用完成，19.31分钟，2份提议、6份完整回答，无截断或重试。22项相关测试通过，E工程验收通过；M仍有安排拆分、错误用途，L仍有极性、来源归属与法律组合问题。B局部纠错但无完整验收，C无可靠额外收益。2426项旧文件未变；未读取SEALED、提交或推送。"
+    },
+    {
+      "id": "irac-semantic-interface-v6",
+      "role": "two_exposed_cases_semantic_interface_development",
+      "report": "outputs/irac-semantic-interface-v6/report-zh.txt",
+      "note": "两案6次本地调用全部完成，12.44分钟，2份P及4份最终回答，无重试、网页或C。23项相关测试、17个真实tokenizer样例通过；E通过，M/L仍未通过。112400 B新增择一分支及来源问题，188721101 B局部纠错但未形成可靠完整净收益。暂停给当前9B增加提示／字段及强制P；2595项历史文件和旧IRAC源码保留，未读SEALED、未提交推送。"
+    },
+    {
+      "id": "irac-web-crossmodel-v7",
+      "role": "two_exposed_cases_same_information_web_configuration_AB_development",
+      "report": "outputs/irac-web-crossmodel-v7/report-zh.txt",
+      "note": "V7六次普通High独立临时对话完成，2份P与4份最终回答均可读，零重试。网页A/B明显减少V6来源误读及遗漏；112400 B接近A，188721101 B有逐安排组织收益但未确认重要额外净收益。优先网页A、P可选；一次模型辅助来源审阅，非人工gold，旧案开发诊断。未新增法源、执行器改动、本地推理或推送。"
     }
   ]
 }

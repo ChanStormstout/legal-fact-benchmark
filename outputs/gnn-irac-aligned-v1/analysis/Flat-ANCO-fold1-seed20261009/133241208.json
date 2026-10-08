@@ -1,0 +1,657 @@
+{
+  "case_id": "133241208",
+  "tests": [
+    {
+      "test_id": "DRC_SUBLETTING_C01",
+      "proposition": "The relevant subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.2976067066192627,
+          0.23525002598762512,
+          0.4671432375907898
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L1",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "tenant",
+              "entity_id": "E1",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L134:span1",
+                  "quote": "the respondent"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "disposition.date",
+                "disposition.identity"
+              ],
+              "reason": "The quoted date is attached to the original induction of the respondent as tenant; the source does not identify that event as the subletting, assignment, or parting-with-possession disposition whose date C01 requires.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L134:span1",
+                  "quote": "he inducted the respondent as a tenant with effect from 01.01.1979 by way of rent receipt"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L134:span1",
+              "quote": "he inducted the respondent as a tenant with effect from 01.01.1979 by way of rent receipt and the respondent started carrying on business of plastic goods from there",
+              "recovered_text": "he inducted the respondent as a tenant with effect from 01.01.1979 by way of rent receipt and the respondent started carrying on business of plastic goods from there",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C02",
+      "proposition": "For subletting, a landlord-and-tenant relationship exists between tenant and sub-tenant and the incidents of letting or tenancy identified by the supplied opinion are present: transfer of an interest in the estate, payment of rent, and the right to possession as against the tenant in respect of the premises sublet.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.2936648428440094,
+          0.23501445353031158,
+          0.4713206887245178
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L2",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "business_concern",
+              "entity_id": "E2",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L137:span3",
+                  "quote": "M/s Gargson"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "subtenant.identity",
+                "subletting.relationship",
+                "subletting.transfer_of_interest",
+                "subletting.rent",
+                "subletting.right_to_possession"
+              ],
+              "reason": "The source identifies M/s Gargson but does not, within the supplied fact and entity bindings, establish a separate subtenant or the required tenancy incidents between the statutory tenant and another person.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L137:span3",
+                  "quote": "the tenanted shop had been let out to him as proprietor of M/s Gargson in 1979 and he continues to be in possession as proprietor of M/s Gargson"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L137:span3",
+              "quote": "the tenanted shop had been let out to him as proprietor of M/s Gargson in 1979 and he continues to be in possession as proprietor of M/s Gargson",
+              "recovered_text": "the tenanted shop had been let out to him as proprietor of M/s Gargson in 1979 and he continues to be in possession as proprietor of M/s Gargson",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L4",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "business_concern",
+              "entity_id": "E2",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L137:span3",
+                  "quote": "M/s Gargson"
+                }
+              ]
+            },
+            {
+              "role": "named_person",
+              "entity_id": "E3",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L137:span4",
+                  "quote": "Shri Om Prakash Gupta"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "subtenant.identity",
+                "subletting.relationship",
+                "subletting.incidents"
+              ],
+              "reason": "No supplied fact states that E3 is the alleged subtenant, so the denial of E3's proprietorship cannot be converted into support or opposition on the complete C02 proposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L137:span4",
+                  "quote": "there was and is no proprietor of M/s Gargson by the name Shri Om Prakash Gupta"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L137:span4",
+              "quote": "there was and is no proprietor of M/s Gargson by the name Shri Om Prakash Gupta",
+              "recovered_text": "there was and is no proprietor of M/s Gargson by the name Shri Om Prakash Gupta",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L5",
+          "direction": "OPPOSE",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "finding.status",
+                "subletting.relationship",
+                "subletting.transfer_of_interest",
+                "subletting.rent",
+                "subletting.right_to_possession"
+              ],
+              "reason": "This is a PRIOR_COURT_FINDING at an unspecified court level and the focal matter is an appeal; the quoted finding does not identify which individual incidents of C02 were absent and is not an independently inspected original evidentiary record.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L154:span5",
+                  "quote": "the petition as well as the evidence lacked material particulars with respect to the alleged subtenancy"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L154:span5",
+              "quote": "the petition as well as the evidence lacked material particulars with respect to the alleged subtenancy",
+              "recovered_text": "the petition as well as the evidence lacked material particulars with respect to the alleged subtenancy",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L6",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "business_concern",
+              "entity_id": "E2",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L178:span7",
+                  "quote": "M/s Gargson"
+                }
+              ]
+            },
+            {
+              "role": "named_person",
+              "entity_id": "E4",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L178:span7",
+                  "quote": "Shri Arun Kumar Garg"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "proprietor.identity",
+                "subtenant.identity",
+                "subletting.relationship",
+                "subletting.incidents"
+              ],
+              "reason": "The source records absence of a document proving a proprietorship relationship; it does not state that E4 was the alleged subtenant or address transfer of interest, rent, or right to possession as between tenant and subtenant.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L178:span7",
+                  "quote": "she could not produce any document to show that M/s Gargson was proprietorship concern of her husband Shri Arun Kumar Garg"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L178:span7",
+              "quote": "she could not produce any document to show that M/s Gargson was proprietorship concern of her husband Shri Arun Kumar Garg",
+              "recovered_text": "she could not produce any document to show that M/s Gargson was proprietorship concern of her husband Shri Arun Kumar Garg though she could try and produce the accounts earlier maintained by M/s Gargson.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L7",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "notice_addressee_business_concern",
+              "entity_id": "E2",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L180:span8",
+                  "quote": "M/s Gargson"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "subtenant.identity",
+                "subletting.relationship",
+                "subletting.incidents"
+              ],
+              "reason": "An addressee label in a notice does not, on the supplied material, prove a tenant-subtenant relationship, transfer of interest, rent, or right to possession.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L180:span8",
+                  "quote": "The legal notice Ex.PW1/3 is addressed to M/s Gargson"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L180:span8",
+              "quote": "The legal notice Ex.PW1/3 is addressed to M/s Gargson",
+              "recovered_text": "The legal notice Ex.PW1/3 is addressed to M/s Gargson and name of the proprietor is left blank. The other legal notice Ex. PW1/6 dated 03.09.2012 also does not name the proprietor of M/s Gargson.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L8",
+          "direction": "UNKNOWN",
+          "binding": [],
+          "limitations": [
+            {
+              "fields": [
+                "proprietor.identity",
+                "subtenant.identity",
+                "subletting.relationship"
+              ],
+              "reason": "The proprietor field is expressly blank; no identity may be manufactured from the notice's business addressee or from role similarity.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L180:span8",
+                  "quote": "name of the proprietor is left blank"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L180:span8",
+              "quote": "name of the proprietor is left blank",
+              "recovered_text": "The legal notice Ex.PW1/3 is addressed to M/s Gargson and name of the proprietor is left blank. The other legal notice Ex. PW1/6 dated 03.09.2012 also does not name the proprietor of M/s Gargson.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        },
+        {
+          "proposal_id": "L9",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "business_concern",
+              "entity_id": "E2",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L180:span8",
+                  "quote": "M/s Gargson"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "proprietor.identity",
+                "subtenant.identity",
+                "subletting.relationship",
+                "subletting.incidents"
+              ],
+              "reason": "The notice omits the proprietor's name; the date of the notice also does not establish the date of any subletting, assignment, or parting-with-possession disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L180:span8",
+                  "quote": "The other legal notice Ex. PW1/6 dated 03.09.2012 also does not name the proprietor of M/s Gargson."
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L180:span8",
+              "quote": "The other legal notice Ex. PW1/6 dated 03.09.2012 also does not name the proprietor of M/s Gargson.",
+              "recovered_text": "The legal notice Ex.PW1/3 is addressed to M/s Gargson and name of the proprietor is left blank. The other legal notice Ex. PW1/6 dated 03.09.2012 also does not name the proprietor of M/s Gargson.",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C03",
+      "proposition": "For assignment, the tenant divests himself of all rights that he has as a tenant.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.2943248450756073,
+          0.23536008596420288,
+          0.4703150987625122
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C04",
+      "proposition": "For parting with possession, possession is vested by the tenant in another person by divesting the tenant of physical possession and the right to possession; divestment or abandonment of the right to possession is required.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.2935578227043152,
+          0.23501694202423096,
+          0.47142526507377625
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C05",
+      "proposition": "The tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.29761260747909546,
+          0.23554134368896484,
+          0.4668460488319397
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C06",
+      "proposition": "For the parting-with-possession route, the tenant retains legal possession of the relevant part where there is concurrent user or mere use by others without wholly ousting the tenant from legal possession of that part.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.29405173659324646,
+          0.23545360565185547,
+          0.4704946279525757
+        ]
+      },
+      "candidate_grounds": [
+        {
+          "proposal_id": "L3",
+          "direction": "UNKNOWN",
+          "binding": [
+            {
+              "role": "business_concern",
+              "entity_id": "E2",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L137:span3",
+                  "quote": "M/s Gargson"
+                }
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "fields": [
+                "tenant.identity",
+                "possession.legal_character",
+                "possession.concurrent_user",
+                "premises.part",
+                "arrangement.identity"
+              ],
+              "reason": "The statement concerns continued possession by an unnamed person acting as proprietor; it does not identify that person with E1, characterize the possession as legal possession, or connect the possession to the same allegedly transferred arrangement and premises part required by C06.",
+              "source_refs": [
+                {
+                  "source_id": "IK-133241208:L137:span3",
+                  "quote": "he continues to be in possession as proprietor of M/s Gargson"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "source_id": "IK-133241208:L137:span3",
+              "quote": "the tenanted shop had been let out to him as proprietor of M/s Gargson in 1979 and he continues to be in possession as proprietor of M/s Gargson",
+              "recovered_text": "the tenanted shop had been let out to him as proprietor of M/s Gargson in 1979 and he continues to be in possession as proprietor of M/s Gargson",
+              "address_located": true
+            }
+          ],
+          "semantic_verified": false
+        }
+      ],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C07",
+      "proposition": "The relevant disposition concerns the whole or any part of the premises.",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.29928115010261536,
+          0.2354523241519928,
+          0.46526649594306946
+        ]
+      },
+      "candidate_grounds": [],
+      "checks": [
+        "source addresses only",
+        "no automatic identity from matching roles or IDs"
+      ],
+      "semantic_verified": false
+    }
+  ],
+  "elements": [
+    {
+      "element_id": "DRC_SUBLETTING_E01",
+      "text": "Temporal requirement: the relevant disposition occurred on or after 9 June 1952.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C01"
+        ]
+      },
+      "binding_requirements": [
+        "The date must concern the same disposition transaction or arrangement used for the disposition element."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E02",
+      "text": "Disposition requirement: the tenant's conduct fits subletting, assignment, or otherwise parting with possession, with the retained-possession qualification applied to the third route.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "trace": [
+          {
+            "status": "UNRESOLVED",
+            "reason": "MODEL_PREDICTION_NOT_PROOF",
+            "trace": [
+              "DRC_SUBLETTING_C02"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "reason": "MODEL_PREDICTION_NOT_PROOF",
+            "trace": [
+              "DRC_SUBLETTING_C03"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": "MODEL_PREDICTION_NOT_PROOF",
+                "trace": [
+                  "DRC_SUBLETTING_C04"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": "MODEL_PREDICTION_NOT_PROOF",
+                "trace": [
+                  "DRC_SUBLETTING_C06"
+                ]
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        ],
+        "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+      },
+      "binding_requirements": [
+        "Tests combined for a selected route must concern the same tenant, relevant other person, arrangement, and whole or part of the premises.",
+        "For subletting, the relationship, transfer of interest, rent, and right to possession must concern the same purported subtenancy.",
+        "For parting with possession, divestment and any retained legal possession or concurrent use must concern the same arrangement and same part of the premises."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E03",
+      "text": "Premises-scope requirement: the disposition concerns the whole or any part of the premises.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C07"
+        ]
+      },
+      "binding_requirements": [
+        "The premises or part must be the same premises or part used for the selected disposition route and written-consent inquiry."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    },
+    {
+      "element_id": "DRC_SUBLETTING_E04",
+      "text": "Written-consent requirement: the tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+      "candidate_logic": {
+        "status": "UNRESOLVED",
+        "reason": "MODEL_PREDICTION_NOT_PROOF",
+        "trace": [
+          "DRC_SUBLETTING_C05"
+        ]
+      },
+      "binding_requirements": [
+        "The consent inquiry must concern the same disposition and the same whole or part of the premises as the other elements."
+      ],
+      "binding_status": "UNRESOLVED_UNLESS_EXPLICITLY_REVIEWED",
+      "verified_result": false
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "text": "Section 14(1)(b) ground: on or after 9 June 1952, the tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises without the landlord's written consent.",
+      "conditional_combination": {
+        "status": "UNRESOLVED",
+        "combinations": [],
+        "scope": "ONLY_ENUMERATED_BINDINGS; DOES_NOT_PROVE_GLOBAL_ABSENCE",
+        "burden_failure_inferred": false
+      },
+      "status": "UNRESOLVED",
+      "reason": "Conditional on model test predictions and explicitly proposed source-linked bindings; address checks do not establish their semantic correctness.",
+      "verified_result": false
+    }
+  ],
+  "burdens": [
+    {
+      "id": "DRC_SUBLETTING_B01",
+      "proposition": "Allocation and standard of proof for the overall s14(1)(b) ground.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    },
+    {
+      "id": "DRC_SUBLETTING_B02",
+      "proposition": "Allocation, standard, or burden shift concerning written consent or any disposition route.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    }
+  ],
+  "scope": "Delhi, India; s14(1)(b) of the statute identified in the proposed framing as the Delhi Rent Control Act, 1958. Reusable research structure limited to the supplied statutory excerpt and supplied interpretive opinion excerpts; the quoted law text does not independently establish enactment-year, amendment/version, or decision-date metadata.",
+  "coverage_limits": [
+    "Retrospective model-proposed decomposition only; no case-specific answer or legal advice.",
+    "All supplied law records are marked PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; this does not prove prospective historical availability.",
+    "The quoted law text does not independently state the statute's enactment year, amendment/version date, or the decision date of document 190902; those metadata are not established by the supplied law excerpts.",
+    "No burden allocation, proof standard, burden shift, evidentiary presumption, or additional consent doctrine is supplied.",
+    "No separate affirmative defense is supplied; retained legal possession and concurrent use are only qualifications to the parting-with-possession route.",
+    "Compatibility with other statutes, jurisdictions, procedural stages, fact patterns, or later authorities is not presumed.",
+    "Expressions organize source propositions but do not make open-text legal judgments self-executing booleans.",
+    "Support for any one test proposition does not itself establish eviction; the full claim expression and identity bindings must be satisfied."
+  ],
+  "semantic_status": "EXPERIMENTAL_MODEL_ANALYSIS_NOT_LEGAL_PROOF",
+  "historical_prediction": "SEPARATE_NOT_SCORED_HERE"
+}

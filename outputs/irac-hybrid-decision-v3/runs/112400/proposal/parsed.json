@@ -1,0 +1,234 @@
+{
+  "bindings": [
+    {
+      "id": "b1",
+      "claim_ids": [
+        "DRC_BONA_FIDE-CLAIM-01"
+      ],
+      "objects": "Respondent; Premises; Landlord",
+      "event": "Eviction under clause (e) ground",
+      "stage": "Delhi High Court appeal",
+      "refs": [
+        "IK-112400:L124:restored-v2",
+        "IK-112400:L127:restored-v2",
+        "IK-112400:L139:restored-v2",
+        "IK-112400:L140:restored-v2"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "binding_id": "b1",
+      "record": "Respondent was owner of entire premises and occupied ground floor; required premises bona fide for himself and family.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-112400:L124:restored-v2",
+        "IK-112400:L127:restored-v2"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C03",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C04",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "binding_id": "b1",
+      "record": "Tribunal found landlord's requirement was not bona fide because eviction sought within 11 months of letting.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-112400:L130:span6"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "branch_id": "",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e3",
+      "binding_id": "b1",
+      "record": "Tribunal found portion in landlord's occupation was not reasonably sufficient for his family (5+ members).",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-112400:L139:restored-v2"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "branch_id": "DRC_BONA_FIDE-C06",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e4",
+      "binding_id": "b1",
+      "record": "Tenant accepted Tribunal's finding that landlord's requirement was not bona fide.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": [
+        "IK-112400:L127:restored-v2"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "branch_id": "",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "id": "l1",
+      "evidence_ids": [
+        "e2",
+        "e4"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior court finding explicitly negates bona fide requirement; tenant admission reinforces this negation.",
+      "refs": [
+        "IK-112400:L130:span6",
+        "IK-112400:L127:restored-v2"
+      ]
+    },
+    {
+      "id": "l2",
+      "evidence_ids": [
+        "e3"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "DRC_BONA_FIDE-C06",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior court finding explicitly negates reasonably suitable accommodation for landlord's family.",
+      "refs": [
+        "IK-112400:L139:restored-v2"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C01",
+      "branch_id": "",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "None; prior finding is unchallenged on residential letting."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e2",
+        "e4"
+      ],
+      "gap": "None; prior finding and tenant admission align to negate bona fide requirement."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "None; prior finding establishes landlord self-occupation."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "None; prior finding establishes family occupation."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "None; prior finding establishes dependency."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C04",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "None; prior finding establishes landlord ownership."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C05",
+      "branch_id": "",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [],
+      "gap": "No evidence supplied regarding premises held for another person's benefit."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "DRC_BONA_FIDE-C06",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e3"
+      ],
+      "gap": "None; prior finding explicitly negates reasonable suitability for landlord's family."
+    }
+  ],
+  "coverage_limits": [
+    "The 'person for whose benefit' branch (C05) lacks evidentiary support but is not required as the landlord/dependent route is established and sufficient for the claim."
+  ]
+}

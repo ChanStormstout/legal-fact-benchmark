@@ -1,0 +1,863 @@
+{
+  "proposal": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Mohan Lal; Anand Parkash; Parkash Trading Corporation; Premises",
+        "event": "Tenancy and alleged subletting/assignment/parting with possession",
+        "stage": "Delhi High Court decision in CM(M) 642/2010",
+        "refs": [
+          "IK-52547606:L74:span1",
+          "IK-52547606:L75:span2",
+          "IK-52547606:L78:span3",
+          "IK-52547606:L79:span4",
+          "IK-52547606:L81:span5",
+          "IK-52547606:L82:context-v4"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Landlord admitted tenant took premises for son's business from inception; son used premises from inception.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-52547606:L75:span2",
+          "IK-52547606:L93:span8"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Prior court found tenant was deceased Mohan Lal; no inference of parting with possession/subletting/assignment by him in favor of son.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L82:context-v4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b1",
+        "record": "Prior court found tenant was Mohan Lal; he parted with possession in favor of son Anand Parkash; subletting ground confirmed.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b1",
+        "record": "Electricity connection and rent receipt in name of Mohan Lal.",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L78:span3"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e5",
+        "binding_id": "b1",
+        "record": "Telephone record shows Parkash Trading Corporation had telephone installed in premises until 21.05.1963.",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L79:span4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "id": "l1",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e2) establishes tenant retained legal possession; mere user by others (e1, e4) does not constitute parting with possession per supplied law.",
+        "refs": [
+          "IK-52547606:L82:context-v4",
+          "IK-52547606:L75:span2",
+          "IK-52547606:L78:span3"
+        ]
+      },
+      {
+        "id": "l2",
+        "evidence_ids": [
+          "e3"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e3) confirms subletting route; however, it conflicts with the stronger prior finding (e2) regarding retention of legal possession which negates the 'parting' element required for any ground under s14(1)(b).",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ]
+      },
+      {
+        "id": "l3",
+        "evidence_ids": [
+          "e3"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e3) confirms parting with possession route; however, it conflicts with the stronger prior finding (e2) regarding retention of legal possession which negates the 'parting' element required for any ground under s14(1)(b).",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "gap": "Target court acceptance of the 'retained legal possession' finding remains to be determined in the final judgment."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3"
+        ],
+        "gap": "Conflict with prior finding on retention of legal possession; subletting requires divestment of right to possession which is negated by the finding of concurrent user."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3"
+        ],
+        "gap": "Conflict with prior finding on retention of legal possession; parting with possession requires divestment of right to possession which is negated by the finding of concurrent user."
+      }
+    ],
+    "coverage_limits": [
+      "The supplied prior court findings (e2 vs e3) present a direct conflict regarding the nature of the tenancy arrangement (retention vs parting).",
+      "The target court's resolution of this conflict is not provided in the supplied records; only the lower court's contradictory findings are available.",
+      "Evidence regarding the dissolution of the partnership firm (e5) is recorded but its specific impact on the 'parting with possession' timeline relative to the 9 June 1952 threshold is not fully analyzed in the provided text."
+    ]
+  },
+  "import_coverage": {
+    "status": "PARTIAL",
+    "quarantine": [],
+    "missing": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      }
+    ]
+  },
+  "program_checks": {
+    "basis": "MODEL_PROPOSED_NOT_LEGAL_VERIFICATION",
+    "root": {
+      "$check_ref": "check39"
+    },
+    "records": {
+      "check1": {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-52547606:L75:span2",
+          "IK-52547606:L93:span8"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-52547606:L75",
+          "IK-52547606:L93"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check2": {
+        "evidence_id": "e2",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L82:context-v4"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-52547606:L82"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check3": {
+        "evidence_id": "e3",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-52547606:L84"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check4": {
+        "evidence_id": "e3",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-52547606:L84"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check5": {
+        "evidence_id": "e4",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L78:span3"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-52547606:L78"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check6": {
+        "evidence_id": "e5",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L79:span4"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-52547606:L79"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check7": {
+        "evidence_id": "e5",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L79:span4"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-52547606:L79"
+        ],
+        "semantic_truth_verified": false
+      },
+      "check8": [
+        {
+          "$check_ref": "check1"
+        },
+        {
+          "$check_ref": "check2"
+        },
+        {
+          "$check_ref": "check3"
+        },
+        {
+          "$check_ref": "check4"
+        },
+        {
+          "$check_ref": "check5"
+        },
+        {
+          "$check_ref": "check6"
+        },
+        {
+          "$check_ref": "check7"
+        }
+      ],
+      "check9": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+      },
+      "check10": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "program_assessment": {
+          "$check_ref": "check9"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check11": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e3",
+          "e5"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+      },
+      "check12": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3"
+        ],
+        "gap": "Conflict with prior finding on retention of legal possession; subletting requires divestment of right to possession which is negated by the finding of concurrent user."
+      },
+      "check13": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "program_assessment": {
+          "$check_ref": "check11"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check12"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check14": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "program_assessment": {
+          "$check_ref": "check9"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check15": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3"
+        ],
+        "gap": "Conflict with prior finding on retention of legal possession; parting with possession requires divestment of right to possession which is negated by the finding of concurrent user."
+      },
+      "check16": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "program_assessment": {
+          "$check_ref": "check11"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check15"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check17": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "program_assessment": {
+          "$check_ref": "check9"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check18": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+      },
+      "check19": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "gap": "Target court acceptance of the 'retained legal possession' finding remains to be determined in the final judgment."
+      },
+      "check20": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "program_assessment": {
+          "$check_ref": "check18"
+        },
+        "branches": {},
+        "model_assessments": [
+          {
+            "$check_ref": "check19"
+          }
+        ],
+        "assessment_not_overwritten": true,
+        "model_output_status": "PRODUCED",
+        "program_placeholder_origin": "DECLARED_EVIDENCE_USE_AGGREGATION"
+      },
+      "check21": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "program_assessment": {
+          "$check_ref": "check9"
+        },
+        "branches": {},
+        "model_assessments": [],
+        "assessment_not_overwritten": true,
+        "model_output_status": "NOT_PRODUCED",
+        "program_placeholder_origin": "MISSING_DECLARED_USABLE_EVIDENCE"
+      },
+      "check22": [
+        {
+          "$check_ref": "check10"
+        },
+        {
+          "$check_ref": "check13"
+        },
+        {
+          "$check_ref": "check14"
+        },
+        {
+          "$check_ref": "check16"
+        },
+        {
+          "$check_ref": "check17"
+        },
+        {
+          "$check_ref": "check20"
+        },
+        {
+          "$check_ref": "check21"
+        }
+      ],
+      "check23": {
+        "DRC_SUBLETTING_C01": {
+          "$check_ref": "check9"
+        },
+        "DRC_SUBLETTING_C02": {
+          "$check_ref": "check11"
+        },
+        "DRC_SUBLETTING_C03": {
+          "$check_ref": "check9"
+        },
+        "DRC_SUBLETTING_C04": {
+          "$check_ref": "check11"
+        },
+        "DRC_SUBLETTING_C05": {
+          "$check_ref": "check9"
+        },
+        "DRC_SUBLETTING_C06": {
+          "$check_ref": "check18"
+        },
+        "DRC_SUBLETTING_C07": {
+          "$check_ref": "check9"
+        }
+      },
+      "check24": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C01"
+        ]
+      },
+      "check25": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C07"
+        ]
+      },
+      "check26": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e3",
+          "e5"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C02"
+        ]
+      },
+      "check27": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C03"
+        ]
+      },
+      "check28": {
+        "status": "SUPPORTED",
+        "supports": [
+          "e3",
+          "e5"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C04"
+        ]
+      },
+      "check29": {
+        "status": "REFUTED",
+        "supports": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C06"
+        ]
+      },
+      "check30": [
+        {
+          "$check_ref": "check26"
+        },
+        {
+          "$check_ref": "check27"
+        },
+        {
+          "status": "REFUTED",
+          "trace": [
+            {
+              "$check_ref": "check28"
+            },
+            {
+              "$check_ref": "check29"
+            }
+          ],
+          "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+        }
+      ],
+      "check31": {
+        "status": "UNRESOLVED",
+        "supports": [],
+        "opposes": [],
+        "conflict": false,
+        "pending_uses": [],
+        "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+        "trace": [
+          "DRC_SUBLETTING_C05"
+        ]
+      },
+      "check32": [
+        {
+          "$check_ref": "check24"
+        },
+        {
+          "$check_ref": "check25"
+        },
+        {
+          "status": "SUPPORTED",
+          "trace": {
+            "$check_ref": "check30"
+          },
+          "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+        },
+        {
+          "$check_ref": "check31"
+        }
+      ],
+      "check33": {
+        "binding_id": "b1",
+        "event": "Tenancy and alleged subletting/assignment/parting with possession",
+        "objects": "Mohan Lal; Anand Parkash; Parkash Trading Corporation; Premises",
+        "stage": "Delhi High Court decision in CM(M) 642/2010",
+        "tests": {
+          "$check_ref": "check23"
+        },
+        "branches": {},
+        "claims": [
+          {
+            "claim_id": "DRC_SUBLETTING_CLAIM_01",
+            "result": {
+              "status": "UNRESOLVED",
+              "trace": {
+                "$check_ref": "check32"
+              },
+              "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+            }
+          }
+        ]
+      },
+      "check34": [
+        {
+          "limitation_id": "l1",
+          "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+        },
+        {
+          "limitation_id": "l2",
+          "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+        },
+        {
+          "limitation_id": "l3",
+          "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+        }
+      ],
+      "check35": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check36": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check37": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check38": {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      "check39": {
+        "case_id": "52547606",
+        "evidence_use_checks": {
+          "$check_ref": "check8"
+        },
+        "conditions": {
+          "$check_ref": "check22"
+        },
+        "bindings": [
+          {
+            "$check_ref": "check33"
+          }
+        ],
+        "unapplied_limits": {
+          "$check_ref": "check34"
+        },
+        "legal_truth_verified": false,
+        "scope_of_checks": "Source addresses and declared within-binding uses/boolean combinations only; no claim of semantic or identity proof. UNKNOWN is not negative; no burden failure inferred.",
+        "import_missing": [
+          {
+            "$check_ref": "check35"
+          },
+          {
+            "$check_ref": "check36"
+          },
+          {
+            "$check_ref": "check37"
+          },
+          {
+            "$check_ref": "check38"
+          }
+        ],
+        "import_quarantine": []
+      }
+    },
+    "omitted_fields": "source_recovery/common sources; coverage_limits/burdens/scope in common law+proposal; record_retained in proposal by evidence_id. Full file retained."
+  }
+}

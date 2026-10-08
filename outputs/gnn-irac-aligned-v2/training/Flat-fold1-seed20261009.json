@@ -1,0 +1,56 @@
+{
+  "spec": {
+    "id": "Flat-fold1-seed20261009",
+    "method": "Flat",
+    "kind": "Flat",
+    "anco": false,
+    "seed": 20261009,
+    "fold": 1,
+    "epochs": 100,
+    "early_stopping": false,
+    "optimizer": "AdamW",
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.1,
+    "hidden": 64,
+    "layers": 2,
+    "bases": 4,
+    "batch_size": 4
+  },
+  "status": "OK",
+  "stages": {
+    "fit": {
+      "status": "OK",
+      "seconds": 0.6043131670448929,
+      "result": {
+        "log_file": "training/Flat-fold1-seed20261009-fit.json"
+      }
+    },
+    "prediction": {
+      "status": "OK",
+      "seconds": 0.007253540912643075,
+      "result": {
+        "prediction_file": "predictions/Flat-fold1-seed20261009.json"
+      }
+    },
+    "weight_export": {
+      "status": "OK",
+      "seconds": 0.00022870907559990883,
+      "result": {
+        "weights": "outputs/gnn-irac-aligned-v2/weights/Flat-fold1-seed20261009.safetensors"
+      }
+    },
+    "weight_readback": {
+      "status": "OK",
+      "seconds": 0.0030266661196947098,
+      "result": {
+        "sha256": "c5906085d593e741ac138ef7596a6733092a5f74b9122874a87664b2008f5405",
+        "max_probability_difference": 0.0,
+        "readable": true
+      }
+    }
+  },
+  "started": 1791415219.621224,
+  "answer": "predictions file",
+  "finished": 1791415220.237323
+}

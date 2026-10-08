@@ -1,0 +1,77 @@
+{
+  "answers": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "prediction": "PREDICT_DENY",
+      "conditions": [
+        {
+          "test_id": "DRC_SUBLETTING_C01",
+          "binding": "Disposition date on or after 9 June 1952",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-52547606:L79:span4", "IK-52547606:L82:span6"],
+          "explanation": "The telephone record shows activity up to 21.05.1963, and the prior finding confirms the arrangement existed from the inception of the tenancy, satisfying the post-1952 temporal requirement."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "binding": "Subletting elements (landlord-tenant relationship, rent transfer, right to possession)",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": ["IK-52547606:L75:span2", "IK-52547606:L78:span3", "IK-52547606:L82:span6"],
+          "explanation": "The tenant asserts the son had a right to concurrent user with the landlord's consent, and the landlord admitted the son's use from the start; this negates the 'transfer of interest' and 'right to possession' required for subletting."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C03",
+          "binding": "Assignment elements (divestment of all tenant rights)",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": ["IK-52547606:L75:span2", "IK-52547606:L82:span6"],
+          "explanation": "The tenant retained legal possession and the right to use the premises for his son, meaning he did not divest himself of all rights as a tenant."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "binding": "Parting with possession (vesting in another + divestment of right)",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": ["IK-52547606:L75:span2", "IK-52547606:L82:span6", "IK-52547606:L93:span8"],
+          "explanation": "The landlord admitted the son's use from the inception, and the prior finding states no inference of parting with possession can be made because the tenant retained legal possession."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C05",
+          "binding": "Written consent absence",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": ["IK-52547606:L75:span2", "IK-52547606:L93:span8"],
+          "explanation": "The tenant explicitly claims the landlord's written consent was obtained, and the landlord admitted awareness; while the specific 'written' form is not proven, the strong evidence of consent makes the 'no consent' condition weak."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "binding": "Concurrent user defense (retained legal possession)",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-52547606:L75:span2", "IK-52547606:L82:span6", "IK-52547606:L93:span8"],
+          "explanation": "The landlord admitted the son was carrying on business from the inception, and the prior finding explicitly states no parting with possession occurred because the tenant retained legal possession."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C07",
+          "binding": "Premises scope (whole or part)",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-52547606:L74:span1", "IK-52547606:L75:span2"],
+          "explanation": "The dispute concerns the specific premises where the son carried on business, satisfying the scope requirement for any part of the premises."
+        }
+      ],
+      "opposition": {
+        "record": "The landlord contends the tenant sublet to Anand Parkash and Parkash Trading Corporation without consent.",
+        "refs": ["IK-52547606:L74:span1", "IK-52547606:L84:span7"],
+        "response": "The landlord's claim of subletting is contradicted by the tenant's assertion of a family arrangement with consent, and the prior finding rejects the subletting inference in favor of a concurrent user defense."
+      },
+      "gaps": [
+        "No documentary proof of the landlord's written consent is supplied to definitively refute the 'no consent' element.",
+        "The prior finding's rejection of subletting is based on the tenant's admission of consent, which is not independently verified by the landlord's testimony regarding the 'written' form."
+      ],
+      "reason": "The strongest evidence points to a concurrent user arrangement (tenant retained legal possession) which legally negates 'parting with possession' under the supplied law. While the 'no consent' element is weakly supported due to the tenant's claim of consent, the concurrent user defense acts as a complete bar to the eviction ground regardless of consent status.",
+      "intermediate_correction": "None."
+    }
+  ]
+}

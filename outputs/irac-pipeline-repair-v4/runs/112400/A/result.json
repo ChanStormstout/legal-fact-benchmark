@@ -1,0 +1,81 @@
+{
+  "case_id": "112400",
+  "method": "A",
+  "run_status": "OK",
+  "prediction": {
+    "answers": [
+      {
+        "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+        "prediction": "PREDICT_DENY",
+        "conditions": [
+          {
+            "test_id": "DRC_BONA_FIDE-C01",
+            "binding_id": "b1",
+            "binding": "Premises let for residential purposes; status: affirmed by prior record",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L123:span1",
+              "IK-112400:L124:restored-v2"
+            ],
+            "explanation": "The record explicitly states the premises were let for residential purposes on a monthly rent, satisfying the residential-letting requirement."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C02",
+            "binding_id": "b2",
+            "binding": "Premises required bona fide by landlord for residence; status: negated by prior finding",
+            "assessment": "REFUTED",
+            "refs": [
+              "IK-112400:L127:restored-v2",
+              "IK-112400:L130:span6"
+            ],
+            "explanation": "The Rent Controller explicitly found the landlord's requirement was not bona fide because eviction was sought within 11 months of letting, directly contradicting the bona fide requirement."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C03",
+            "binding_id": "b3",
+            "binding": "Occupation by landlord himself or dependent family; status: affirmed by prior record",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L124:restored-v2",
+              "IK-112400:L139:restored-v2"
+            ],
+            "explanation": "The record identifies the landlord and his wife, son, son's wife, and children as occupying the premises, satisfying the 'himself or dependent family' branch."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C04",
+            "binding_id": "b4",
+            "binding": "Landlord is owner of premises; status: affirmed by prior record",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L124:restored-v2"
+            ],
+            "explanation": "The record states the respondent was the owner of the entire premises, satisfying the ownership condition for the landlord branch."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C06",
+            "binding_id": "b5",
+            "binding": "Landlord has no other reasonably suitable accommodation; status: affirmed by prior finding",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L140:restored-v2"
+            ],
+            "explanation": "The Tribunal found the portion in the landlord's occupation was not reasonably sufficient for his family, implying no other suitable accommodation existed for him."
+          }
+        ],
+        "opposition": {
+          "record": "Tenant contends landlord's requirement was not bona fide and premises were sufficient for his purpose.",
+          "refs": [
+            "IK-112400:L127:restored-v2"
+          ],
+          "response": "The tenant's denial of bona fide intent is corroborated by the Tribunal's specific finding regarding the short duration of the tenancy, which negates the bona fide requirement."
+        },
+        "gaps": [
+          "The 'reasonably suitable' test for the landlord's alternative accommodation is affirmed by the Tribunal, but the specific criteria used are not detailed in the supplied text.",
+          "The 'reasonably suitable' test for the tenant's current accommodation is not explicitly adjudicated as a separate ground in the supplied text, though it relates to the bona fide finding."
+        ],
+        "reason": "The claim requires all four elements to be satisfied. While residential letting, family occupation, ownership, and lack of other suitable accommodation are supported, the bona fide requirement is explicitly refuted by the Tribunal's finding that eviction was sought too soon after the lease began. This single failure breaks the AND chain, leading to denial.",
+        "intermediate_correction": "None."
+      }
+    ]
+  }
+}

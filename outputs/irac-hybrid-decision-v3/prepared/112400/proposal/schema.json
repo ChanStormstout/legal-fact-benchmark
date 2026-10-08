@@ -1,0 +1,343 @@
+{
+  "type": "object",
+  "properties": {
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "DRC_BONA_FIDE-CLAIM-01"
+              ]
+            },
+            "maxItems": 2
+          },
+          "objects": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-112400:L123:span1",
+                "IK-112400:L124:span2",
+                "IK-112400:L124:span3",
+                "IK-112400:L127:span4",
+                "IK-112400:L127:span5",
+                "IK-112400:L130:span6",
+                "IK-112400:L139:span7",
+                "IK-112400:L140:span8",
+                "IK-112400:L124:restored-v2",
+                "IK-112400:L127:restored-v2",
+                "IK-112400:L139:restored-v2",
+                "IK-112400:L140:restored-v2",
+                "IK-18143401:L41:historical-e"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "id",
+          "claim_ids",
+          "objects",
+          "event",
+          "stage",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 4
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "binding_id": {
+            "type": "string"
+          },
+          "record": {
+            "type": "string"
+          },
+          "statement_status": {
+            "type": "string",
+            "enum": [
+              "PARTY_CLAIM",
+              "DENIAL",
+              "ADMISSION",
+              "TESTIMONY",
+              "PRIOR_COURT_FINDING",
+              "RECORDED_DOCUMENT",
+              "UNKNOWN"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-112400:L123:span1",
+                "IK-112400:L124:span2",
+                "IK-112400:L124:span3",
+                "IK-112400:L127:span4",
+                "IK-112400:L127:span5",
+                "IK-112400:L130:span6",
+                "IK-112400:L139:span7",
+                "IK-112400:L140:span8",
+                "IK-112400:L124:restored-v2",
+                "IK-112400:L127:restored-v2",
+                "IK-112400:L139:restored-v2",
+                "IK-112400:L140:restored-v2",
+                "IK-18143401:L41:historical-e"
+              ]
+            },
+            "maxItems": 6
+          },
+          "uses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "test_id": {
+                  "type": "string",
+                  "enum": [
+                    "DRC_BONA_FIDE-C01",
+                    "DRC_BONA_FIDE-C02",
+                    "DRC_BONA_FIDE-C03",
+                    "DRC_BONA_FIDE-C04",
+                    "DRC_BONA_FIDE-C05",
+                    "DRC_BONA_FIDE-C06"
+                  ]
+                },
+                "branch_id": {
+                  "type": "string"
+                },
+                "direction": {
+                  "type": "string",
+                  "enum": [
+                    "SUPPORT",
+                    "OPPOSE",
+                    "UNKNOWN"
+                  ]
+                },
+                "use": {
+                  "type": "string",
+                  "enum": [
+                    "CONDITION_INFERENCE",
+                    "RECORD_EXISTENCE",
+                    "PROVEN_FACT",
+                    "TARGET_ACCEPTANCE"
+                  ]
+                }
+              },
+              "required": [
+                "test_id",
+                "branch_id",
+                "direction",
+                "use"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "id",
+          "binding_id",
+          "record",
+          "statement_status",
+          "refs",
+          "uses"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 10
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "binding_id": {
+            "type": "string"
+          },
+          "test_id": {
+            "type": "string",
+            "enum": [
+              "DRC_BONA_FIDE-C01",
+              "DRC_BONA_FIDE-C02",
+              "DRC_BONA_FIDE-C03",
+              "DRC_BONA_FIDE-C04",
+              "DRC_BONA_FIDE-C05",
+              "DRC_BONA_FIDE-C06"
+            ]
+          },
+          "branch_id": {
+            "type": "string"
+          },
+          "use": {
+            "type": "string",
+            "enum": [
+              "CONDITION_INFERENCE",
+              "RECORD_EXISTENCE",
+              "PROVEN_FACT",
+              "TARGET_ACCEPTANCE"
+            ]
+          },
+          "effect": {
+            "type": "string",
+            "enum": [
+              "USE_BLOCK",
+              "PROPOSITION_BLOCK",
+              "NOTE",
+              "SCOPE_UNMAPPED"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-112400:L123:span1",
+                "IK-112400:L124:span2",
+                "IK-112400:L124:span3",
+                "IK-112400:L127:span4",
+                "IK-112400:L127:span5",
+                "IK-112400:L130:span6",
+                "IK-112400:L139:span7",
+                "IK-112400:L140:span8",
+                "IK-112400:L124:restored-v2",
+                "IK-112400:L127:restored-v2",
+                "IK-112400:L139:restored-v2",
+                "IK-112400:L140:restored-v2",
+                "IK-18143401:L41:historical-e"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "id",
+          "evidence_ids",
+          "binding_id",
+          "test_id",
+          "branch_id",
+          "use",
+          "effect",
+          "reason",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 8
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "binding_id": {
+            "type": "string"
+          },
+          "test_id": {
+            "type": "string",
+            "enum": [
+              "DRC_BONA_FIDE-C01",
+              "DRC_BONA_FIDE-C02",
+              "DRC_BONA_FIDE-C03",
+              "DRC_BONA_FIDE-C04",
+              "DRC_BONA_FIDE-C05",
+              "DRC_BONA_FIDE-C06"
+            ]
+          },
+          "branch_id": {
+            "type": "string"
+          },
+          "prediction": {
+            "type": "string",
+            "enum": [
+              "PREDICT_SUPPORTED",
+              "PREDICT_REFUTED"
+            ]
+          },
+          "assessment": {
+            "type": "string",
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNRESOLVED",
+              "UNSUPPORTED"
+            ]
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "gap": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "binding_id",
+          "test_id",
+          "branch_id",
+          "prediction",
+          "assessment",
+          "evidence_ids",
+          "gap"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 32
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4
+    }
+  },
+  "required": [
+    "bindings",
+    "evidence",
+    "limitations",
+    "conditions",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,2915 @@
+{
+  "case_id": "68096693",
+  "units": [
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C01|68096693-B1",
+      "binding_id": "68096693-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C01",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.5454545454545454,
+          0.09090909090909091,
+          0.36363636363636365
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "disposition.date"
+            ],
+            "reason": "Neither the composite disposition allegation nor the exclusive-occupation allegation identifies when the challenged disposition occurred. Missing event dates limit the temporal proposition without eliminating the allegations.",
+            "origin_ids": [
+              "LINK:L01:0",
+              "LINK:L08:0",
+              "COMBO:CMB01_F1_SUBLETTING:2",
+              "COMBO:CMB02_F1_ASSIGNMENT:2",
+              "COMBO:CMB03_F1_PARTING_WITH_POSSESSION:2",
+              "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:3"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L01",
+        "L08"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C02|68096693-B1",
+      "binding_id": "68096693-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C02",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.18181818181818182,
+          0.18181818181818182,
+          0.6363636363636364
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "subletting.route",
+              "subletting.incidents",
+              "tenant.identity"
+            ],
+            "reason": "Subletting is alleged alongside assignment and parting with possession. The passage does not independently name the transferring tenant or supply the required incidents of rent, transfer of tenancy interest, and possession against the tenant.",
+            "origin_ids": [
+              "LINK:L02:0",
+              "COMBO:CMB01_F1_SUBLETTING:1",
+              "COMBO:CMB01_F1_SUBLETTING:3"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L12:0",
+              "LINK:L17:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02"
+            ],
+            "fields": [
+              "subletting.incidents",
+              "denial.scope",
+              "statement_status"
+            ],
+            "reason": "The respondents deny the firm's connection with the premises and call the composite disposition allegation false. Neither statement independently establishes the presence or absence of the individual incidents required for subletting, nor isolates the route being denied.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L106:span3",
+                "quote": "the alleged firm Divya Jyoti Electronics or any of his alleged proprietor Sampat Saini had/have nothing to do with the suit/tenanted premises in dispute."
+              },
+              {
+                "source_id": "IK-68096693:L110:span5",
+                "quote": "as falsely alleged by the petitioner."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L02",
+        "L12",
+        "L17"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C03|68096693-B1",
+      "binding_id": "68096693-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C03",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.125,
+          0.125,
+          0.75
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "assignment.route",
+              "assignment.all_tenant_rights",
+              "tenant.identity"
+            ],
+            "reason": "Assignment is one alternative pleaded route. The passage does not identify the disposing tenant or establish that every right held as tenant was divested.",
+            "origin_ids": [
+              "LINK:L03:0",
+              "COMBO:CMB02_F1_ASSIGNMENT:1",
+              "COMBO:CMB02_F1_ASSIGNMENT:3"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L13:0",
+              "LINK:L18:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C03"
+            ],
+            "fields": [
+              "assignment.all_tenant_rights",
+              "denial.scope",
+              "statement_status"
+            ],
+            "reason": "The denials of corporate connection and the composite allegation do not independently address whether all tenant rights were divested or specify an assignment-specific factual basis.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L106:span3",
+                "quote": "the alleged firm Divya Jyoti Electronics or any of his alleged proprietor Sampat Saini had/have nothing to do with the suit/tenanted premises in dispute."
+              },
+              {
+                "source_id": "IK-68096693:L110:span5",
+                "quote": "as falsely alleged by the petitioner."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L03",
+        "L13",
+        "L18"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C04|68096693-B1",
+      "binding_id": "68096693-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C04",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.15,
+          0.1,
+          0.75
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "parting.route",
+              "tenant.identity",
+              "physical_possession",
+              "right_to_possession",
+              "tenant.legal_possession",
+              "concurrent_user",
+              "ouster"
+            ],
+            "reason": "The alternative parting allegation does not separately establish tenant-caused vesting, physical divestment, or abandonment of the right to possession. It also leaves retained legal possession and concurrent use undetermined.",
+            "origin_ids": [
+              "LINK:L04:0",
+              "COMBO:CMB03_F1_PARTING_WITH_POSSESSION:1",
+              "COMBO:CMB03_F1_PARTING_WITH_POSSESSION:3"
+            ],
+            "address_errors": []
+          },
+          {
+            "kind": "FIELD",
+            "fields": [
+              "tenant.identity",
+              "tenant_causation",
+              "right_to_possession"
+            ],
+            "reason": "Alleged non-possession by the heirs and exclusive use by Respondent No.2 concern occupation, but do not independently establish tenant status, tenant-caused vesting, or loss of the legal right to possession.",
+            "origin_ids": [
+              "LINK:L09:0",
+              "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:2"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L14:0",
+              "LINK:L19:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant_causation",
+              "physical_possession",
+              "right_to_possession",
+              "denial.scope",
+              "statement_status"
+            ],
+            "reason": "The respondents' denials do not separately determine tenant-caused vesting, physical possession, or divestment of the right to possession. The composite denial is not converted into findings on each component.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L106:span3",
+                "quote": "had/have nothing to do with the suit/tenanted premises in dispute."
+              },
+              {
+                "source_id": "IK-68096693:L110:span5",
+                "quote": "as falsely alleged by the petitioner."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L15:0",
+              "LINK:L16:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C06"
+            ],
+            "fields": [
+              "entity.identity",
+              "tenant.legal_possession",
+              "concurrent_user",
+              "ouster"
+            ],
+            "reason": "The restored parent expressly identifies Rawat Mal as the antecedent of 'his', resolving that reference to his heirs. The respondents' claimed continuation of business does not itself prove retained legal possession, concurrent use, or absence of complete ouster.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L109:restored-v2",
+                "quote": "Rawat Mal was carrying on a petty business from the suit premises since inception of the tenancy till his death"
+              },
+              {
+                "source_id": "IK-68096693:L109:span4",
+                "quote": "after his death, his legal heirs became the tenants in the suit premises and has been carrying on their petty business therein."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "recipient.identity"
+            ],
+            "reason": "The adjacent petitioner passages refer to the named Respondent No.2 and the same described suit premises. This supports a focal party reference, but does not itself prove the pleaded disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L95:span1",
+                "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+              },
+              {
+                "source_id": "IK-68096693:L95:restored-v2",
+                "quote": "which is in the exclusive use & occupation of respondent No.2."
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L04",
+        "L09",
+        "L14",
+        "L15",
+        "L19"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C05|68096693-B1",
+      "binding_id": "68096693-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C05",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.18181818181818182,
+          0.09090909090909091,
+          0.7272727272727273
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L05:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "written_consent",
+              "disposition.route",
+              "tenant.identity"
+            ],
+            "reason": "The petitioner expressly alleges absence of written consent. The statement does not independently establish a particular consent document, the disposing tenant, or which alternative disposition actually occurred. Allegation status is retained.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L95:span1",
+                "quote": "without the written consent of the Petitioner/Landlord."
+              }
+            ]
+          },
+          {
+            "original_ids": [
+              "LINK:L20:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "written_consent",
+              "denial.scope"
+            ],
+            "reason": "The respondents' rejection of the composite allegation does not specify whether they deny the transfer, absence of consent, or both. It cannot be treated as affirmative proof that written consent existed.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L110:span5",
+                "quote": "without the written consent of the petitioner/landlord, as falsely alleged by the petitioner."
+              }
+            ]
+          },
+          {
+            "original_ids": [
+              "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "recipient.identity"
+            ],
+            "reason": "The adjacent petitioner passages refer to the named Respondent No.2 and the same described suit premises. This supports a focal party reference, but does not itself prove the pleaded disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L95:span1",
+                "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+              },
+              {
+                "source_id": "IK-68096693:L95:restored-v2",
+                "quote": "which is in the exclusive use & occupation of respondent No.2."
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L05",
+        "L20"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C06|68096693-B1",
+      "binding_id": "68096693-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C06",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.1111111111111111,
+          0.16666666666666666,
+          0.7222222222222222
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "parting.route",
+              "tenant.identity",
+              "physical_possession",
+              "right_to_possession",
+              "tenant.legal_possession",
+              "concurrent_user",
+              "ouster"
+            ],
+            "reason": "The alternative parting allegation does not separately establish tenant-caused vesting, physical divestment, or abandonment of the right to possession. It also leaves retained legal possession and concurrent use undetermined.",
+            "origin_ids": [
+              "LINK:L04:0",
+              "COMBO:CMB03_F1_PARTING_WITH_POSSESSION:1",
+              "COMBO:CMB03_F1_PARTING_WITH_POSSESSION:3"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L06:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C06"
+            ],
+            "fields": [
+              "tenant.legal_possession",
+              "concurrent_user",
+              "ouster"
+            ],
+            "reason": "The bare allegation of parting with possession does not determine whether the tenant retained legal possession, had concurrent-use rights, or was wholly ousted.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L95:span1",
+                "quote": "parted with the possession to Respondent No.2 M/s Divya Jyoti Electronics"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L10:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C06"
+            ],
+            "fields": [
+              "tenant.identity",
+              "tenant.legal_possession"
+            ],
+            "reason": "The allegation of non-possession does not distinguish physical occupation from legal possession or establish the heirs' legal tenant status as an adjudicated fact.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L95:span2",
+                "quote": "None of the legal heirs of Late Sh. Rawat Mal Saini are in possession of the suit premises"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L15:0",
+              "LINK:L16:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C06"
+            ],
+            "fields": [
+              "entity.identity",
+              "tenant.legal_possession",
+              "concurrent_user",
+              "ouster"
+            ],
+            "reason": "The restored parent expressly identifies Rawat Mal as the antecedent of 'his', resolving that reference to his heirs. The respondents' claimed continuation of business does not itself prove retained legal possession, concurrent use, or absence of complete ouster.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L109:restored-v2",
+                "quote": "Rawat Mal was carrying on a petty business from the suit premises since inception of the tenancy till his death"
+              },
+              {
+                "source_id": "IK-68096693:L109:span4",
+                "quote": "after his death, his legal heirs became the tenants in the suit premises and has been carrying on their petty business therein."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L21:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C06"
+            ],
+            "fields": [
+              "tenant.legal_possession",
+              "concurrent_user",
+              "ouster"
+            ],
+            "reason": "Denying the alleged parting with possession does not separately establish continuing legal possession, concurrent rights, or the absence of whole ouster.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L110:span5",
+                "quote": "as falsely alleged by the petitioner."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L06",
+        "L10",
+        "L16",
+        "L21"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C07|68096693-B1",
+      "binding_id": "68096693-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C07",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.8181818181818182,
+          0.09090909090909091,
+          0.09090909090909091
+        ]
+      },
+      "program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L07:0",
+              "LINK:L11:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "premises.part"
+            ],
+            "reason": "Both passages refer to the suit premises as a whole. No smaller part is delineated, but the statutory test expressly permits the whole premises, so this absence is not an automatic C07 bar.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L95:span1",
+                "quote": "the suit premises have been unauthorizedly sublet"
+              },
+              {
+                "source_id": "IK-68096693:L95:span2",
+                "quote": "the suit premises, which is in the exclusive use & occupation of respondent No.2."
+              }
+            ]
+          },
+          {
+            "original_ids": [
+              "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "recipient.identity"
+            ],
+            "reason": "The adjacent petitioner passages refer to the named Respondent No.2 and the same described suit premises. This supports a focal party reference, but does not itself prove the pleaded disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L95:span1",
+                "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+              },
+              {
+                "source_id": "IK-68096693:L95:restored-v2",
+                "quote": "which is in the exclusive use & occupation of respondent No.2."
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L07",
+        "L11"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C01|68096693-B2",
+      "binding_id": "68096693-B2",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C01",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.5454545454545454,
+          0.09090909090909091,
+          0.36363636363636365
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "disposition.date"
+            ],
+            "reason": "The witness allegation does not date the purported subletting. The restored parent supplies cross-examination dates, but these cannot be substituted for the disposition date.",
+            "origin_ids": [
+              "LINK:L22:0",
+              "COMBO:CMB05_F6_SUBLETTING_WITH_F1_CONSENT:3"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L22"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C02|68096693-B2",
+      "binding_id": "68096693-B2",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C02",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.18181818181818182,
+          0.18181818181818182,
+          0.6363636363636364
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "tenant.identity",
+              "subletting.incidents"
+            ],
+            "reason": "The witness states that heirs of Respondent No.1 sublet property to Respondent No.2. The statement supplies the legal label but not independent evidence of rent, transfer of tenancy interest, or a right to possession against that tenant.",
+            "origin_ids": [
+              "LINK:L23:0",
+              "COMBO:CMB05_F6_SUBLETTING_WITH_F1_CONSENT:4"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L23"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C03|68096693-B2",
+      "binding_id": "68096693-B2",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C03",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.125,
+          0.125,
+          0.75
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C04|68096693-B2",
+      "binding_id": "68096693-B2",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C04",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.15,
+          0.1,
+          0.75
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C05|68096693-B2",
+      "binding_id": "68096693-B2",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C05",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.18181818181818182,
+          0.09090909090909091,
+          0.7272727272727273
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C06|68096693-B2",
+      "binding_id": "68096693-B2",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C06",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.1111111111111111,
+          0.16666666666666666,
+          0.7222222222222222
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C07|68096693-B2",
+      "binding_id": "68096693-B2",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C07",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.8181818181818182,
+          0.09090909090909091,
+          0.09090909090909091
+        ]
+      },
+      "program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L24"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C01|68096693-B3",
+      "binding_id": "68096693-B3",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C01",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.5454545454545454,
+          0.09090909090909091,
+          0.36363636363636365
+        ]
+      },
+      "program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C02|68096693-B3",
+      "binding_id": "68096693-B3",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C02",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.18181818181818182,
+          0.18181818181818182,
+          0.6363636363636364
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L25:0",
+              "LINK:L26:0"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "evidence_record.contents",
+              "evidence_record.holder",
+              "evidence_record.address",
+              "subletting.incidents",
+              "physical_possession",
+              "right_to_possession"
+            ],
+            "reason": "Only the exhibit description is supplied. Its contents, holder, and address are unknown, so it cannot be assigned to a specific occupant or transaction, used to establish subletting incidents, or treated as proof of physical or legal possession.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L120:span6",
+                "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L25"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C03|68096693-B3",
+      "binding_id": "68096693-B3",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C03",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.125,
+          0.125,
+          0.75
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C04|68096693-B3",
+      "binding_id": "68096693-B3",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C04",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.15,
+          0.1,
+          0.75
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L25:0",
+              "LINK:L26:0"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "evidence_record.contents",
+              "evidence_record.holder",
+              "evidence_record.address",
+              "subletting.incidents",
+              "physical_possession",
+              "right_to_possession"
+            ],
+            "reason": "Only the exhibit description is supplied. Its contents, holder, and address are unknown, so it cannot be assigned to a specific occupant or transaction, used to establish subletting incidents, or treated as proof of physical or legal possession.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L120:span6",
+                "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L26"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C05|68096693-B3",
+      "binding_id": "68096693-B3",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C05",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.18181818181818182,
+          0.09090909090909091,
+          0.7272727272727273
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C06|68096693-B3",
+      "binding_id": "68096693-B3",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C06",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.1111111111111111,
+          0.16666666666666666,
+          0.7222222222222222
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "68096693|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C07|68096693-B3",
+      "binding_id": "68096693-B3",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C07",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.8181818181818182,
+          0.09090909090909091,
+          0.09090909090909091
+        ]
+      },
+      "program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    }
+  ],
+  "bindings": [
+    {
+      "binding_id": "68096693-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "objects": [
+        {
+          "role": "alleged_tenant_group",
+          "mention": "legal heirs of Late Sh. Rawat Mal Saini",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L95:span2",
+              "quote": "None of the legal heirs of Late Sh. Rawat Mal Saini are in possession of the suit premises"
+            },
+            {
+              "source_id": "IK-68096693:L109:restored-v2",
+              "quote": "after his death, his legal heirs became the tenants in the suit premises"
+            }
+          ]
+        },
+        {
+          "role": "alleged_recipient",
+          "mention": "Respondent No.2 M/s Divya Jyoti Electronics",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L95:span1",
+              "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+            }
+          ]
+        },
+        {
+          "role": "alleged_proprietor",
+          "mention": "Sampat Saini",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L106:span3",
+              "quote": "the alleged firm Divya Jyoti Electronics or any of his alleged proprietor Sampat Saini"
+            }
+          ]
+        },
+        {
+          "role": "landlord",
+          "mention": "Petitioner/Landlord",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L95:span1",
+              "quote": "without the written consent of the Petitioner/Landlord."
+            }
+          ]
+        },
+        {
+          "role": "premises",
+          "mention": "suit premises",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L95:span1",
+              "quote": "the suit premises have been unauthorizedly sublet, assigned and/or parted with the possession"
+            }
+          ]
+        }
+      ],
+      "identity_refs": [
+        {
+          "source_id": "IK-68096693:L95:span1",
+          "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+        },
+        {
+          "source_id": "IK-68096693:L95:span2",
+          "quote": "None of the legal heirs of Late Sh. Rawat Mal Saini are in possession of the suit premises"
+        },
+        {
+          "source_id": "IK-68096693:L109:restored-v2",
+          "quote": "after his death, his legal heirs became the tenants in the suit premises"
+        }
+      ],
+      "join_limits": [
+        {
+          "kind": "FIELD",
+          "affected_tests": [
+            "DRC_SUBLETTING_C01"
+          ],
+          "reason": "The challenged dispositions and alleged exclusive occupation are not dated. The restored original-tenancy and other contextual records do not establish the date of the purported disposition. Retain the temporal limitation without blocking the other propositions.",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L95:span1",
+              "quote": "the suit premises have been unauthorizedly sublet, assigned and/or parted with the possession"
+            },
+            {
+              "source_id": "LAW:S02:DRC14:1b",
+              "quote": "on or after the 9th day of June, 1952"
+            }
+          ]
+        },
+        {
+          "kind": "PROPOSITION",
+          "affected_tests": [
+            "DRC_SUBLETTING_C02",
+            "DRC_SUBLETTING_C03",
+            "DRC_SUBLETTING_C04",
+            "DRC_SUBLETTING_C06"
+          ],
+          "reason": "The heirs and named firm are identifiable referents, but the heirs' actual tenant rights, the disposing actor's legal capacity, the individual requirements of each disposition route and retained legal possession remain disputed. Those questions require test-specific evaluation and must not reverse the established referential identity or impose one global incompatibility gate.",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L95:span2",
+              "quote": "which is in the exclusive use & occupation of respondent No.2."
+            },
+            {
+              "source_id": "IK-68096693:L109:span4",
+              "quote": "after his death, his legal heirs became the tenants in the suit premises and has been carrying on their petty business therein."
+            },
+            {
+              "source_id": "IK-68096693:L110:span5",
+              "quote": "as falsely alleged by the petitioner."
+            }
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+          "affected_tests": [
+            "DRC_SUBLETTING_C02",
+            "DRC_SUBLETTING_C03",
+            "DRC_SUBLETTING_C04",
+            "DRC_SUBLETTING_C05"
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+          "affected_tests": [
+            "DRC_SUBLETTING_C04",
+            "DRC_SUBLETTING_C06"
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "reason": "The F1 consent allegation and F2 possession account share the focal respondent and premises, but neither identifies a dated, independently verified disposition or a particular consent instrument connecting the allegations more narrowly.",
+          "affected_tests": [
+            "DRC_SUBLETTING_C05"
+          ]
+        }
+      ],
+      "tests": {
+        "DRC_SUBLETTING_C01": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01"
+            ],
+            "reason": "The challenged dispositions and alleged exclusive occupation are not dated. The restored original-tenancy and other contextual records do not establish the date of the purported disposition. Retain the temporal limitation without blocking the other propositions.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L95:span1",
+                "quote": "the suit premises have been unauthorizedly sublet, assigned and/or parted with the possession"
+              },
+              {
+                "source_id": "LAW:S02:DRC14:1b",
+                "quote": "on or after the 9th day of June, 1952"
+              }
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C02": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C03": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C04": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C06"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C05": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The F1 consent allegation and F2 possession account share the focal respondent and premises, but neither identifies a dated, independently verified disposition or a particular consent instrument connecting the allegations more narrowly.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C06": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C06"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C07": {
+          "status": "SUPPORTED",
+          "blocking": [],
+          "notes": [
+            {
+              "original_ids": [
+                "LINK:L07:0",
+                "LINK:L11:0"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "premises.part"
+              ],
+              "reason": "Both passages refer to the suit premises as a whole. No smaller part is delineated, but the statutory test expressly permits the whole premises, so this absence is not an automatic C07 bar.",
+              "source_refs": [
+                {
+                  "source_id": "IK-68096693:L95:span1",
+                  "quote": "the suit premises have been unauthorizedly sublet"
+                },
+                {
+                  "source_id": "IK-68096693:L95:span2",
+                  "quote": "the suit premises, which is in the exclusive use & occupation of respondent No.2."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:0"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "recipient.identity"
+              ],
+              "reason": "The adjacent petitioner passages refer to the named Respondent No.2 and the same described suit premises. This supports a focal party reference, but does not itself prove the pleaded disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-68096693:L95:span1",
+                  "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+                },
+                {
+                  "source_id": "IK-68096693:L95:restored-v2",
+                  "quote": "which is in the exclusive use & occupation of respondent No.2."
+                }
+              ]
+            }
+          ],
+          "prediction_not_proof": true
+        }
+      },
+      "elements": [
+        {
+          "element_id": "DRC_SUBLETTING_E01",
+          "result": {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01"
+              ],
+              "reason": "The challenged dispositions and alleged exclusive occupation are not dated. The restored original-tenancy and other contextual records do not establish the date of the purported disposition. Retain the temporal limitation without blocking the other propositions.",
+              "source_refs": [
+                {
+                  "source_id": "IK-68096693:L95:span1",
+                  "quote": "the suit premises have been unauthorizedly sublet, assigned and/or parted with the possession"
+                },
+                {
+                  "source_id": "LAW:S02:DRC14:1b",
+                  "quote": "on or after the 9th day of June, 1952"
+                }
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C01"
+            ]
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E02",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C03",
+                    "DRC_SUBLETTING_C04",
+                    "DRC_SUBLETTING_C05"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C02"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C03",
+                    "DRC_SUBLETTING_C04",
+                    "DRC_SUBLETTING_C05"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C03"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C04"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C06"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E03",
+          "result": {
+            "status": "SUPPORTED",
+            "blocking": [],
+            "notes": [
+              {
+                "original_ids": [
+                  "LINK:L07:0",
+                  "LINK:L11:0"
+                ],
+                "kind": "NOTE",
+                "affected_tests": [
+                  "DRC_SUBLETTING_C07"
+                ],
+                "fields": [
+                  "premises.part"
+                ],
+                "reason": "Both passages refer to the suit premises as a whole. No smaller part is delineated, but the statutory test expressly permits the whole premises, so this absence is not an automatic C07 bar.",
+                "source_refs": [
+                  {
+                    "source_id": "IK-68096693:L95:span1",
+                    "quote": "the suit premises have been unauthorizedly sublet"
+                  },
+                  {
+                    "source_id": "IK-68096693:L95:span2",
+                    "quote": "the suit premises, which is in the exclusive use & occupation of respondent No.2."
+                  }
+                ]
+              },
+              {
+                "original_ids": [
+                  "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:0"
+                ],
+                "kind": "NOTE",
+                "affected_tests": [
+                  "DRC_SUBLETTING_C04",
+                  "DRC_SUBLETTING_C05",
+                  "DRC_SUBLETTING_C07"
+                ],
+                "fields": [
+                  "recipient.identity"
+                ],
+                "reason": "The adjacent petitioner passages refer to the named Respondent No.2 and the same described suit premises. This supports a focal party reference, but does not itself prove the pleaded disposition.",
+                "source_refs": [
+                  {
+                    "source_id": "IK-68096693:L95:span1",
+                    "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+                  },
+                  {
+                    "source_id": "IK-68096693:L95:restored-v2",
+                    "quote": "which is in the exclusive use & occupation of respondent No.2."
+                  }
+                ]
+              }
+            ],
+            "prediction_not_proof": true,
+            "trace": [
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E04",
+          "result": {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The F1 consent allegation and F2 possession account share the focal respondent and premises, but neither identifies a dated, independently verified disposition or a particular consent instrument connecting the allegations more narrowly.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C05"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        }
+      ],
+      "result": {
+        "status": "UNRESOLVED",
+        "trace": [
+          {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01"
+              ],
+              "reason": "The challenged dispositions and alleged exclusive occupation are not dated. The restored original-tenancy and other contextual records do not establish the date of the purported disposition. Retain the temporal limitation without blocking the other propositions.",
+              "source_refs": [
+                {
+                  "source_id": "IK-68096693:L95:span1",
+                  "quote": "the suit premises have been unauthorizedly sublet, assigned and/or parted with the possession"
+                },
+                {
+                  "source_id": "LAW:S02:DRC14:1b",
+                  "quote": "on or after the 9th day of June, 1952"
+                }
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C01"
+            ]
+          },
+          {
+            "status": "SUPPORTED",
+            "blocking": [],
+            "notes": [
+              {
+                "original_ids": [
+                  "LINK:L07:0",
+                  "LINK:L11:0"
+                ],
+                "kind": "NOTE",
+                "affected_tests": [
+                  "DRC_SUBLETTING_C07"
+                ],
+                "fields": [
+                  "premises.part"
+                ],
+                "reason": "Both passages refer to the suit premises as a whole. No smaller part is delineated, but the statutory test expressly permits the whole premises, so this absence is not an automatic C07 bar.",
+                "source_refs": [
+                  {
+                    "source_id": "IK-68096693:L95:span1",
+                    "quote": "the suit premises have been unauthorizedly sublet"
+                  },
+                  {
+                    "source_id": "IK-68096693:L95:span2",
+                    "quote": "the suit premises, which is in the exclusive use & occupation of respondent No.2."
+                  }
+                ]
+              },
+              {
+                "original_ids": [
+                  "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:0"
+                ],
+                "kind": "NOTE",
+                "affected_tests": [
+                  "DRC_SUBLETTING_C04",
+                  "DRC_SUBLETTING_C05",
+                  "DRC_SUBLETTING_C07"
+                ],
+                "fields": [
+                  "recipient.identity"
+                ],
+                "reason": "The adjacent petitioner passages refer to the named Respondent No.2 and the same described suit premises. This supports a focal party reference, but does not itself prove the pleaded disposition.",
+                "source_refs": [
+                  {
+                    "source_id": "IK-68096693:L95:span1",
+                    "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+                  },
+                  {
+                    "source_id": "IK-68096693:L95:restored-v2",
+                    "quote": "which is in the exclusive use & occupation of respondent No.2."
+                  }
+                ]
+              }
+            ],
+            "prediction_not_proof": true,
+            "trace": [
+              "DRC_SUBLETTING_C07"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C03",
+                    "DRC_SUBLETTING_C04",
+                    "DRC_SUBLETTING_C05"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C02"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C03",
+                    "DRC_SUBLETTING_C04",
+                    "DRC_SUBLETTING_C05"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C03"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C04"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C06"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          },
+          {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The F1 consent allegation and F2 possession account share the focal respondent and premises, but neither identifies a dated, independently verified disposition or a particular consent instrument connecting the allegations more narrowly.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C05"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        ],
+        "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+      },
+      "all_limits_removed": false
+    },
+    {
+      "binding_id": "68096693-B2",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "objects": [
+        {
+          "role": "alleged_transferor",
+          "mention": "legal heirs of the respondent no.1",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L127:span7",
+              "quote": "the legal heirs of the respondent no.1 are not doing any business and have sub-let the property to respondent no.2."
+            }
+          ]
+        },
+        {
+          "role": "alleged_recipient",
+          "mention": "respondent no.2",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L127:span7",
+              "quote": "have sub-let the property to respondent no.2."
+            }
+          ]
+        },
+        {
+          "role": "premises",
+          "mention": "the property",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L127:span7",
+              "quote": "have sub-let the property to respondent no.2."
+            }
+          ]
+        },
+        {
+          "role": "witness",
+          "mention": null,
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L127:restored-v2",
+              "quote": "The witness was cross examined at length by Ld. Counsel for the respondents on 15.05.2024 and 12.08.2024."
+            }
+          ]
+        }
+      ],
+      "identity_refs": [
+        {
+          "source_id": "IK-68096693:L127:span7",
+          "quote": "the legal heirs of the respondent no.1 are not doing any business and have sub-let the property to respondent no.2."
+        },
+        {
+          "source_id": "IK-68096693:L95:span1",
+          "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+        },
+        {
+          "source_id": "IK-68096693:L95:span2",
+          "quote": "legal heirs of Late Sh. Rawat Mal Saini"
+        }
+      ],
+      "join_limits": [
+        {
+          "kind": "BINDING",
+          "affected_tests": [
+            "DRC_SUBLETTING_C02",
+            "DRC_SUBLETTING_C05"
+          ],
+          "reason": "Do not automatically identify the witness's role-only transferors and recipient with the named parties in B1 or treat the witnessed subletting allegation as the exact transaction covered by B1's written-consent allegation. The missing connection affects the cross-binding use of those propositions, not their general rule scope.",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L127:span7",
+              "quote": "the legal heirs of the respondent no.1 are not doing any business and have sub-let the property to respondent no.2."
+            },
+            {
+              "source_id": "IK-68096693:L95:span1",
+              "quote": "to Respondent No.2 M/s Divya Jyoti Electronics without the written consent of the Petitioner/Landlord."
+            }
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "affected_tests": [
+            "DRC_SUBLETTING_C07"
+          ],
+          "reason": "The witness's reference to 'the property' does not independently provide the precise spatial identity needed to combine that account with B1's suit-premises reference. Preserve the original premises-identity restriction without converting it into an overall legal-scope bar.",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L127:span7",
+              "quote": "have sub-let the property to respondent no.2."
+            },
+            {
+              "source_id": "IK-68096693:L95:span1",
+              "quote": "the suit premises have been unauthorizedly sublet"
+            }
+          ]
+        },
+        {
+          "kind": "FIELD",
+          "affected_tests": [
+            "DRC_SUBLETTING_C01"
+          ],
+          "reason": "The dated cross-examinations are evidence-stage events and cannot automatically date the purported subletting. Retain the unresolved disposition date exclusively for the temporal proposition.",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L127:restored-v2",
+              "quote": "The witness was cross examined at length by Ld. Counsel for the respondents on 15.05.2024 and 12.08.2024."
+            },
+            {
+              "source_id": "IK-68096693:L127:span7",
+              "quote": "have sub-let the property to respondent no.2."
+            }
+          ]
+        },
+        {
+          "kind": "PROPOSITION",
+          "affected_tests": [
+            "DRC_SUBLETTING_C02"
+          ],
+          "reason": "The witness uses the legal label 'sub-let' but does not independently describe all incidents of the alleged subtenancy. That evidentiary limitation must remain separate from the unresolved role-to-name and premises joins.",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L127:span7",
+              "quote": "have sub-let the property to respondent no.2."
+            },
+            {
+              "source_id": "IK-190902:L110",
+              "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+            }
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "reason": "The phrase 'the property' is not independently identified with the same suit premises or a particular part described in B1. A spatial join cannot be manufactured from the shared litigation context alone.",
+          "affected_tests": [
+            "DRC_SUBLETTING_C07"
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+          "affected_tests": [
+            "DRC_SUBLETTING_C02",
+            "DRC_SUBLETTING_C05",
+            "DRC_SUBLETTING_C07"
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "reason": "The witness's reference to heirs of Respondent No.1 does not explicitly identify them as the named heirs of Rawat Mal Saini. That identity is not supplied merely by the E3 identifier or common litigation role.",
+          "affected_tests": [
+            "DRC_SUBLETTING_C02"
+          ]
+        }
+      ],
+      "tests": {
+        "DRC_SUBLETTING_C01": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01"
+            ],
+            "reason": "The dated cross-examinations are evidence-stage events and cannot automatically date the purported subletting. Retain the unresolved disposition date exclusively for the temporal proposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L127:restored-v2",
+                "quote": "The witness was cross examined at length by Ld. Counsel for the respondents on 15.05.2024 and 12.08.2024."
+              },
+              {
+                "source_id": "IK-68096693:L127:span7",
+                "quote": "have sub-let the property to respondent no.2."
+              }
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C02": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The witness's reference to heirs of Respondent No.1 does not explicitly identify them as the named heirs of Rawat Mal Saini. That identity is not supplied merely by the E3 identifier or common litigation role.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C03": {
+          "status": "UNRESOLVED",
+          "blocking": [],
+          "notes": [],
+          "prediction_not_proof": true
+        },
+        "DRC_SUBLETTING_C04": {
+          "status": "UNRESOLVED",
+          "blocking": [],
+          "notes": [],
+          "prediction_not_proof": true
+        },
+        "DRC_SUBLETTING_C05": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C06": {
+          "status": "UNRESOLVED",
+          "blocking": [],
+          "notes": [],
+          "prediction_not_proof": true
+        },
+        "DRC_SUBLETTING_C07": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        }
+      },
+      "elements": [
+        {
+          "element_id": "DRC_SUBLETTING_E01",
+          "result": {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01"
+              ],
+              "reason": "The dated cross-examinations are evidence-stage events and cannot automatically date the purported subletting. Retain the unresolved disposition date exclusively for the temporal proposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-68096693:L127:restored-v2",
+                  "quote": "The witness was cross examined at length by Ld. Counsel for the respondents on 15.05.2024 and 12.08.2024."
+                },
+                {
+                  "source_id": "IK-68096693:L127:span7",
+                  "quote": "have sub-let the property to respondent no.2."
+                }
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C01"
+            ]
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E02",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The witness's reference to heirs of Respondent No.1 does not explicitly identify them as the named heirs of Rawat Mal Saini. That identity is not supplied merely by the E3 identifier or common litigation role.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C02"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "blocking": [],
+                "notes": [],
+                "prediction_not_proof": true,
+                "trace": [
+                  "DRC_SUBLETTING_C03"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "blocking": [],
+                    "notes": [],
+                    "prediction_not_proof": true,
+                    "trace": [
+                      "DRC_SUBLETTING_C04"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "blocking": [],
+                    "notes": [],
+                    "prediction_not_proof": true,
+                    "trace": [
+                      "DRC_SUBLETTING_C06"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E03",
+          "result": {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E04",
+          "result": {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        }
+      ],
+      "result": {
+        "status": "UNRESOLVED",
+        "trace": [
+          {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01"
+              ],
+              "reason": "The dated cross-examinations are evidence-stage events and cannot automatically date the purported subletting. Retain the unresolved disposition date exclusively for the temporal proposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-68096693:L127:restored-v2",
+                  "quote": "The witness was cross examined at length by Ld. Counsel for the respondents on 15.05.2024 and 12.08.2024."
+                },
+                {
+                  "source_id": "IK-68096693:L127:span7",
+                  "quote": "have sub-let the property to respondent no.2."
+                }
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C01"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C07"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The witness's reference to heirs of Respondent No.1 does not explicitly identify them as the named heirs of Rawat Mal Saini. That identity is not supplied merely by the E3 identifier or common litigation role.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C02"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "blocking": [],
+                "notes": [],
+                "prediction_not_proof": true,
+                "trace": [
+                  "DRC_SUBLETTING_C03"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "blocking": [],
+                    "notes": [],
+                    "prediction_not_proof": true,
+                    "trace": [
+                      "DRC_SUBLETTING_C04"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "blocking": [],
+                    "notes": [],
+                    "prediction_not_proof": true,
+                    "trace": [
+                      "DRC_SUBLETTING_C06"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          },
+          {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        ],
+        "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+      },
+      "all_limits_removed": false
+    },
+    {
+      "binding_id": "68096693-B3",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "objects": [
+        {
+          "role": "exhibit",
+          "mention": "Copy of trade license and GST Ex.PW1/4(colly)",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L120:span6",
+              "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+            }
+          ]
+        },
+        {
+          "role": "holder",
+          "mention": null,
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L120:span6",
+              "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+            }
+          ]
+        },
+        {
+          "role": "premises",
+          "mention": null,
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L120:span6",
+              "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+            }
+          ]
+        }
+      ],
+      "identity_refs": [
+        {
+          "source_id": "IK-68096693:L120:restored-v2",
+          "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+        }
+      ],
+      "join_limits": [
+        {
+          "kind": "BINDING",
+          "affected_tests": [
+            "DRC_SUBLETTING_C02",
+            "DRC_SUBLETTING_C04"
+          ],
+          "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+          "source_refs": [
+            {
+              "source_id": "IK-68096693:L120:span6",
+              "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+            }
+          ]
+        }
+      ],
+      "tests": {
+        "DRC_SUBLETTING_C01": {
+          "status": "SUPPORTED",
+          "blocking": [],
+          "notes": [],
+          "prediction_not_proof": true
+        },
+        "DRC_SUBLETTING_C02": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C04"
+            ],
+            "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L120:span6",
+                "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+              }
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C03": {
+          "status": "UNRESOLVED",
+          "blocking": [],
+          "notes": [],
+          "prediction_not_proof": true
+        },
+        "DRC_SUBLETTING_C04": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C04"
+            ],
+            "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+            "source_refs": [
+              {
+                "source_id": "IK-68096693:L120:span6",
+                "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+              }
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C05": {
+          "status": "UNRESOLVED",
+          "blocking": [],
+          "notes": [],
+          "prediction_not_proof": true
+        },
+        "DRC_SUBLETTING_C06": {
+          "status": "UNRESOLVED",
+          "blocking": [],
+          "notes": [],
+          "prediction_not_proof": true
+        },
+        "DRC_SUBLETTING_C07": {
+          "status": "SUPPORTED",
+          "blocking": [],
+          "notes": [],
+          "prediction_not_proof": true
+        }
+      },
+      "elements": [
+        {
+          "element_id": "DRC_SUBLETTING_E01",
+          "result": {
+            "status": "SUPPORTED",
+            "blocking": [],
+            "notes": [],
+            "prediction_not_proof": true,
+            "trace": [
+              "DRC_SUBLETTING_C01"
+            ]
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E02",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C04"
+                  ],
+                  "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-68096693:L120:span6",
+                      "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+                    }
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C02"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "blocking": [],
+                "notes": [],
+                "prediction_not_proof": true,
+                "trace": [
+                  "DRC_SUBLETTING_C03"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C04"
+                      ],
+                      "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-68096693:L120:span6",
+                          "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C04"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "blocking": [],
+                    "notes": [],
+                    "prediction_not_proof": true,
+                    "trace": [
+                      "DRC_SUBLETTING_C06"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E03",
+          "result": {
+            "status": "SUPPORTED",
+            "blocking": [],
+            "notes": [],
+            "prediction_not_proof": true,
+            "trace": [
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E04",
+          "result": {
+            "status": "UNRESOLVED",
+            "blocking": [],
+            "notes": [],
+            "prediction_not_proof": true,
+            "trace": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        }
+      ],
+      "result": {
+        "status": "UNRESOLVED",
+        "trace": [
+          {
+            "status": "SUPPORTED",
+            "blocking": [],
+            "notes": [],
+            "prediction_not_proof": true,
+            "trace": [
+              "DRC_SUBLETTING_C01"
+            ]
+          },
+          {
+            "status": "SUPPORTED",
+            "blocking": [],
+            "notes": [],
+            "prediction_not_proof": true,
+            "trace": [
+              "DRC_SUBLETTING_C07"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C04"
+                  ],
+                  "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-68096693:L120:span6",
+                      "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+                    }
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C02"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "blocking": [],
+                "notes": [],
+                "prediction_not_proof": true,
+                "trace": [
+                  "DRC_SUBLETTING_C03"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C04"
+                      ],
+                      "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-68096693:L120:span6",
+                          "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C04"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "blocking": [],
+                    "notes": [],
+                    "prediction_not_proof": true,
+                    "trace": [
+                      "DRC_SUBLETTING_C06"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          },
+          {
+            "status": "UNRESOLVED",
+            "blocking": [],
+            "notes": [],
+            "prediction_not_proof": true,
+            "trace": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        ],
+        "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+      },
+      "all_limits_removed": false
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "status": "UNRESOLVED",
+      "binding_results": [
+        {
+          "binding_id": "68096693-B1",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "FIELD",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01"
+                  ],
+                  "reason": "The challenged dispositions and alleged exclusive occupation are not dated. The restored original-tenancy and other contextual records do not establish the date of the purported disposition. Retain the temporal limitation without blocking the other propositions.",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-68096693:L95:span1",
+                      "quote": "the suit premises have been unauthorizedly sublet, assigned and/or parted with the possession"
+                    },
+                    {
+                      "source_id": "LAW:S02:DRC14:1b",
+                      "quote": "on or after the 9th day of June, 1952"
+                    }
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C01"
+                ]
+              },
+              {
+                "status": "SUPPORTED",
+                "blocking": [],
+                "notes": [
+                  {
+                    "original_ids": [
+                      "LINK:L07:0",
+                      "LINK:L11:0"
+                    ],
+                    "kind": "NOTE",
+                    "affected_tests": [
+                      "DRC_SUBLETTING_C07"
+                    ],
+                    "fields": [
+                      "premises.part"
+                    ],
+                    "reason": "Both passages refer to the suit premises as a whole. No smaller part is delineated, but the statutory test expressly permits the whole premises, so this absence is not an automatic C07 bar.",
+                    "source_refs": [
+                      {
+                        "source_id": "IK-68096693:L95:span1",
+                        "quote": "the suit premises have been unauthorizedly sublet"
+                      },
+                      {
+                        "source_id": "IK-68096693:L95:span2",
+                        "quote": "the suit premises, which is in the exclusive use & occupation of respondent No.2."
+                      }
+                    ]
+                  },
+                  {
+                    "original_ids": [
+                      "COMBO:CMB04_F2_PARTING_WITH_F1_CONSENT:0"
+                    ],
+                    "kind": "NOTE",
+                    "affected_tests": [
+                      "DRC_SUBLETTING_C04",
+                      "DRC_SUBLETTING_C05",
+                      "DRC_SUBLETTING_C07"
+                    ],
+                    "fields": [
+                      "recipient.identity"
+                    ],
+                    "reason": "The adjacent petitioner passages refer to the named Respondent No.2 and the same described suit premises. This supports a focal party reference, but does not itself prove the pleaded disposition.",
+                    "source_refs": [
+                      {
+                        "source_id": "IK-68096693:L95:span1",
+                        "quote": "to Respondent No.2 M/s Divya Jyoti Electronics"
+                      },
+                      {
+                        "source_id": "IK-68096693:L95:restored-v2",
+                        "quote": "which is in the exclusive use & occupation of respondent No.2."
+                      }
+                    ]
+                  }
+                ],
+                "prediction_not_proof": true,
+                "trace": [
+                  "DRC_SUBLETTING_C07"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C03",
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C05"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C02"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The F1 allegation links the named corporate recipient, suit premises, and alleged absence of written consent, but does not itself identify the disposing tenant. A separate reference to heirs cannot automatically fill that actor in every proposed route.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C03",
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C05"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C03"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "trace": [
+                      {
+                        "status": "UNRESOLVED",
+                        "reason": {
+                          "kind": "BINDING",
+                          "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+                          "affected_tests": [
+                            "DRC_SUBLETTING_C04",
+                            "DRC_SUBLETTING_C06"
+                          ]
+                        },
+                        "trace": [
+                          "DRC_SUBLETTING_C04"
+                        ]
+                      },
+                      {
+                        "status": "UNRESOLVED",
+                        "reason": {
+                          "kind": "BINDING",
+                          "reason": "The petitioner alleges the named heirs are not in possession; the respondents claim the heirs became tenants. The restored parent clarifies Rawat Mal's identity, but does not independently adjudicate the contested tenant status.",
+                          "affected_tests": [
+                            "DRC_SUBLETTING_C04",
+                            "DRC_SUBLETTING_C06"
+                          ]
+                        },
+                        "trace": [
+                          "DRC_SUBLETTING_C06"
+                        ]
+                      }
+                    ],
+                    "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The F1 consent allegation and F2 possession account share the focal respondent and premises, but neither identifies a dated, independently verified disposition or a particular consent instrument connecting the allegations more narrowly.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C05"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C05"
+                ]
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        },
+        {
+          "binding_id": "68096693-B2",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "FIELD",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01"
+                  ],
+                  "reason": "The dated cross-examinations are evidence-stage events and cannot automatically date the purported subletting. Retain the unresolved disposition date exclusively for the temporal proposition.",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-68096693:L127:restored-v2",
+                      "quote": "The witness was cross examined at length by Ld. Counsel for the respondents on 15.05.2024 and 12.08.2024."
+                    },
+                    {
+                      "source_id": "IK-68096693:L127:span7",
+                      "quote": "have sub-let the property to respondent no.2."
+                    }
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C01"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C07"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The witness's reference to heirs of Respondent No.1 does not explicitly identify them as the named heirs of Rawat Mal Saini. That identity is not supplied merely by the E3 identifier or common litigation role.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C02"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "blocking": [],
+                    "notes": [],
+                    "prediction_not_proof": true,
+                    "trace": [
+                      "DRC_SUBLETTING_C03"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "trace": [
+                      {
+                        "status": "UNRESOLVED",
+                        "blocking": [],
+                        "notes": [],
+                        "prediction_not_proof": true,
+                        "trace": [
+                          "DRC_SUBLETTING_C04"
+                        ]
+                      },
+                      {
+                        "status": "UNRESOLVED",
+                        "blocking": [],
+                        "notes": [],
+                        "prediction_not_proof": true,
+                        "trace": [
+                          "DRC_SUBLETTING_C06"
+                        ]
+                      }
+                    ],
+                    "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The witness uses 'respondent no.2' without naming Divya Jyoti Electronics. The repeated party number does not independently prove recipient identity or connect a specific witnessed transaction with the F1 written-consent allegation.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C05"
+                ]
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        },
+        {
+          "binding_id": "68096693-B3",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "SUPPORTED",
+                "blocking": [],
+                "notes": [],
+                "prediction_not_proof": true,
+                "trace": [
+                  "DRC_SUBLETTING_C01"
+                ]
+              },
+              {
+                "status": "SUPPORTED",
+                "blocking": [],
+                "notes": [],
+                "prediction_not_proof": true,
+                "trace": [
+                  "DRC_SUBLETTING_C07"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C04"
+                      ],
+                      "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-68096693:L120:span6",
+                          "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C02"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "blocking": [],
+                    "notes": [],
+                    "prediction_not_proof": true,
+                    "trace": [
+                      "DRC_SUBLETTING_C03"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "trace": [
+                      {
+                        "status": "UNRESOLVED",
+                        "reason": {
+                          "kind": "BINDING",
+                          "affected_tests": [
+                            "DRC_SUBLETTING_C02",
+                            "DRC_SUBLETTING_C04"
+                          ],
+                          "reason": "No exhibit holder, address, contents or transaction is supplied. The exhibit cannot automatically be joined to any purported subtenant or occupant or treated as evidence of subletting incidents, physical possession or divestment of legal possession. The original restrictions on both links remain operative.",
+                          "source_refs": [
+                            {
+                              "source_id": "IK-68096693:L120:span6",
+                              "quote": "Copy of trade license and GST Ex.PW1/4(colly)"
+                            }
+                          ]
+                        },
+                        "trace": [
+                          "DRC_SUBLETTING_C04"
+                        ]
+                      },
+                      {
+                        "status": "UNRESOLVED",
+                        "blocking": [],
+                        "notes": [],
+                        "prediction_not_proof": true,
+                        "trace": [
+                          "DRC_SUBLETTING_C06"
+                        ]
+                      }
+                    ],
+                    "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              },
+              {
+                "status": "UNRESOLVED",
+                "blocking": [],
+                "notes": [],
+                "prediction_not_proof": true,
+                "trace": [
+                  "DRC_SUBLETTING_C05"
+                ]
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        }
+      ],
+      "reason": "Existential support uses a complete bound expression; all enumerated bindings refuted does not prove exhaustive case absence.",
+      "burden_failure_inferred": false
+    }
+  ],
+  "burdens": [
+    {
+      "id": "DRC_SUBLETTING_B01",
+      "proposition": "Allocation and standard of proof for the overall s14(1)(b) ground.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    },
+    {
+      "id": "DRC_SUBLETTING_B02",
+      "proposition": "Allocation, standard, or burden shift concerning written consent or any disposition route.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    }
+  ],
+  "scope": "Delhi, India; s14(1)(b) of the statute identified in the proposed framing as the Delhi Rent Control Act, 1958. Reusable research structure limited to the supplied statutory excerpt and supplied interpretive opinion excerpts; the quoted law text does not independently establish enactment-year, amendment/version, or decision-date metadata.",
+  "coverage_limits": [
+    "Retrospective model-proposed decomposition only; no case-specific answer or legal advice.",
+    "All supplied law records are marked PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; this does not prove prospective historical availability.",
+    "The quoted law text does not independently state the statute's enactment year, amendment/version date, or the decision date of document 190902; those metadata are not established by the supplied law excerpts.",
+    "No burden allocation, proof standard, burden shift, evidentiary presumption, or additional consent doctrine is supplied.",
+    "No separate affirmative defense is supplied; retained legal possession and concurrent use are only qualifications to the parting-with-possession route.",
+    "Compatibility with other statutes, jurisdictions, procedural stages, fact patterns, or later authorities is not presumed.",
+    "Expressions organize source propositions but do not make open-text legal judgments self-executing booleans.",
+    "Support for any one test proposition does not itself establish eviction; the full claim expression and identity bindings must be satisfied."
+  ],
+  "attribution": "CANDIDATE_SOURCES_NOT_FAITHFUL_MODEL_EXPLANATION",
+  "historical_outcome_scored": false
+}

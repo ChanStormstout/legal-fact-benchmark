@@ -1,0 +1,130 @@
+{
+  "case_id": "synthetic",
+  "issue": {
+    "id": "I",
+    "text": "Does Guest have exclusive possession?",
+    "statement_status": "DOCUMENT_RECORDED",
+    "semantic_stage": "PRE_TARGET_RECORD",
+    "court_level": "NONE",
+    "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+    "source_refs": [
+      {
+        "source_id": "CASE:1",
+        "quote": "Tenant alleges that Guest merely uses Room."
+      }
+    ]
+  },
+  "entities": [],
+  "rules": [
+    {
+      "id": "R",
+      "text": "Exclusive possession test",
+      "statement_status": "DOCUMENT_RECORDED",
+      "semantic_stage": "PRE_TARGET_RECORD",
+      "court_level": "NONE",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Exclusive possession is necessary. Mere use is insufficient."
+        }
+      ],
+      "independent_source": true,
+      "governs_issue_id": "I"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "C1",
+      "text": "Exclusive possession",
+      "statement_status": "DOCUMENT_RECORDED",
+      "semantic_stage": "PRE_TARGET_RECORD",
+      "court_level": "NONE",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Exclusive possession is necessary."
+        }
+      ],
+      "rule_id": "R",
+      "dependencies": []
+    },
+    {
+      "id": "C2",
+      "text": "Mere use insufficient",
+      "statement_status": "DOCUMENT_RECORDED",
+      "semantic_stage": "PRE_TARGET_RECORD",
+      "court_level": "NONE",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Mere use is insufficient."
+        }
+      ],
+      "rule_id": "R",
+      "dependencies": [
+        {
+          "condition_id": "C1",
+          "operator": "QUALIFICATION"
+        }
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "F",
+      "text": "Guest merely uses Room",
+      "statement_status": "CLAIMED",
+      "semantic_stage": "PRE_TARGET_RECORD",
+      "court_level": "NONE",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+      "source_refs": [
+        {
+          "source_id": "CASE:1",
+          "quote": "Tenant alleges that Guest merely uses Room."
+        }
+      ]
+    }
+  ],
+  "evidence": [],
+  "relations": [],
+  "blind_bindings": [
+    {
+      "id": "B",
+      "text": "Candidate relevance",
+      "statement_status": "CLAIMED",
+      "semantic_stage": "PRE_TARGET_RECORD",
+      "court_level": "NONE",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+      "source_refs": [
+        {
+          "source_id": "CASE:1",
+          "quote": "Tenant alleges that Guest merely uses Room."
+        }
+      ],
+      "fact_id": "F",
+      "condition_id": "C1",
+      "relation": "RELEVANT_TO"
+    }
+  ],
+  "stage_metadata": {},
+  "provenance": {
+    "LAW:1": {
+      "text": "Exclusive possession is necessary. Mere use is insufficient.",
+      "document_id": "independent",
+      "url": "https://example.org/law",
+      "semantic_stage": "PRE_TARGET_RECORD",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+    },
+    "CASE:1": {
+      "text": "Tenant alleges that Guest merely uses Room. The lower court accepted this account.",
+      "document_id": "synthetic",
+      "url": "https://example.org/case",
+      "semantic_stage": "PRE_TARGET_RECORD",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+    }
+  },
+  "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+}

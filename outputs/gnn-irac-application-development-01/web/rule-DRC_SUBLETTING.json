@@ -1,0 +1,112 @@
+{
+  "template_id": "DRC_SUBLETTING_GIVEN_RULE_V1",
+  "family": "DRC_SUBLETTING",
+  "jurisdiction": "Delhi, India",
+  "version": "DRC1958 s14(1)(b), on/after9June1952; interpretive precedent1975 retrospective given-rule, not historical prediction",
+  "scope": "Reusable given-rule template limited to the Delhi Rent Control Act, 1958, s14(1)(b) ground concerning a tenant who, on or after 9 June 1952, sub-lets, assigns, or otherwise parts with possession of the whole or any part of the premises without the landlord's consent in writing, together with the supplied interpretive distinctions among those three expressions.",
+  "coverage_limits": "Retrospective model-proposed decomposition based only on the supplied statutory excerpt and supplied interpretive precedent excerpt. The historical statutory text/version beyond the stated DRC1958 s14(1)(b) framing and the stated 1975 interpretive-precedent framing is not independently verified. Interpretive coverage is limited to the supplied distinctions and possession principles; no additional burden rule, evidentiary factor, later qualification, exception, or complete decisive test is supplied or implied.",
+  "rule": {
+    "id": "DRC_SUBLETTING_RULE",
+    "text": "Section 14(1)(b) permits recovery of possession on the ground that, on or after 9 June 1952, the tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises without the landlord's consent in writing; subletting, assignment, and parting with possession are distinct concepts applying to different circumstances.",
+    "source_refs": [
+      {
+        "source_id": "LAW:S02:DRC14:1b",
+        "quote": "that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;"
+      },
+      {
+        "source_id": "IK-190902:L109",
+        "quote": "These three expressions deal with different concepts and apply to different circumstances."
+      }
+    ]
+  },
+  "conditions": [
+    {
+      "id": "DRC_SUBLETTING_C01",
+      "text": "The relevant subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "kind": "NECESSARY",
+      "polarity": "POSITIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "LAW:S02:DRC14:1b",
+          "quote": "that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;"
+        }
+      ]
+    },
+    {
+      "id": "DRC_SUBLETTING_C02",
+      "text": "For the subletting route, a landlord-and-tenant relationship must exist between the tenant and sub-tenant, with the incidents of letting or tenancy identified in the supplied interpretation.",
+      "kind": "ALTERNATIVE",
+      "polarity": "POSITIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "IK-190902:L110",
+          "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet."
+        }
+      ]
+    },
+    {
+      "id": "DRC_SUBLETTING_C03",
+      "text": "For the assignment route, the tenant must divest himself of all rights held as a tenant.",
+      "kind": "ALTERNATIVE",
+      "polarity": "POSITIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "IK-190902:L110",
+          "quote": "In assignment the tenant has to divest himself of all the rights that he has as a tenant."
+        }
+      ]
+    },
+    {
+      "id": "DRC_SUBLETTING_C04",
+      "text": "For the parting-with-possession route, the tenant must give or vest possession in another person by divesting or abandoning the tenant's own right to possession.",
+      "kind": "ALTERNATIVE",
+      "polarity": "POSITIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "IK-190902:L111",
+          "quote": "The expression \"parted with possession\" undoubtedly postulates parting with possession session means giving possession to persons other than those to whom possession has been given by lease and \"parting with possession\" must have been by the tenant."
+        },
+        {
+          "source_id": "IK-190902:L112",
+          "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+        }
+      ]
+    },
+    {
+      "id": "DRC_SUBLETTING_C05",
+      "text": "The tenant did not obtain the landlord's consent in writing for the relevant subletting, assignment, or parting with possession.",
+      "kind": "NECESSARY",
+      "polarity": "NEGATIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "LAW:S02:DRC14:1b",
+          "quote": "without obtaining the consent in writing of the landlord;"
+        }
+      ]
+    },
+    {
+      "id": "DRC_SUBLETTING_C06",
+      "text": "For the parting-with-possession route, concurrent use or use by others does not itself establish parting with possession while the tenant retains legal possession.",
+      "kind": "QUALIFICATION",
+      "polarity": "NEGATIVE",
+      "dependencies": [
+        "DRC_SUBLETTING_C04"
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-190902:L107",
+          "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+        },
+        {
+          "source_id": "IK-190902:L112",
+          "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+        }
+      ]
+    }
+  ]
+}

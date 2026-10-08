@@ -1,0 +1,100 @@
+{
+  "template_id": "DRC_BONA_FIDE-RULE-TEMPLATE",
+  "family": "DRC_BONA_FIDE",
+  "jurisdiction": "DRC1958 s14(1)(e) jurisdiction as specified in the supplied material",
+  "version": "DRC1958 s14(1)(e) residential wording, pre2008 scope; editorial note removed with reversible character-range provenance, not applying 2008 expansion",
+  "scope": "Reusable GIVEN RULE template limited to the supplied pre-2008 residential wording of DRC1958 s14(1)(e); no target-case facts, verdicts, or post-2008 expansion are included.",
+  "coverage_limits": "Model-proposed decomposition from the single supplied historical statutory excerpt only. The supplied source is retrospectively reconstructed pre-target material, and the excerpt ends at 'Explanation.' without supplying the explanation text. Historical/version uncertainty therefore remains. This template covers only propositions stated in the supplied excerpt and does not claim a complete law library, complete interpretation coverage, or a complete decisive test.",
+  "rule": {
+    "id": "DRC_BONA_FIDE-RULE",
+    "text": "Under the supplied pre-2008 residential wording, the ground concerns premises let for residential purposes that are required bona fide for residential occupation through the stated qualifying routes, subject to the stated ownership qualification and absence of other reasonably suitable residential accommodation.",
+    "source_refs": [
+      {
+        "source_id": "IK-18143401:L41:historical-e",
+        "quote": "(e) that the premises let for residential purposes are required bona fide by the landlord for occupation as a residence for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held and that the landlord or such person has no other reasonably suitable residential accommodation.Explanation."
+      }
+    ]
+  },
+  "conditions": [
+    {
+      "id": "DRC_BONA_FIDE-C01",
+      "text": "The premises were let for residential purposes.",
+      "kind": "NECESSARY",
+      "polarity": "POSITIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "IK-18143401:L41:historical-e",
+          "quote": "the premises let for residential purposes"
+        }
+      ]
+    },
+    {
+      "id": "DRC_BONA_FIDE-C02",
+      "text": "The premises are required bona fide for occupation as a residence.",
+      "kind": "NECESSARY",
+      "polarity": "POSITIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "IK-18143401:L41:historical-e",
+          "quote": "are required bona fide by the landlord for occupation as a residence"
+        }
+      ]
+    },
+    {
+      "id": "DRC_BONA_FIDE-C03",
+      "text": "One qualifying occupation route is occupation by the landlord himself or by a member of his family dependent on him.",
+      "kind": "ALTERNATIVE",
+      "polarity": "POSITIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "IK-18143401:L41:historical-e",
+          "quote": "for himself or for any member of his family dependent on him"
+        }
+      ]
+    },
+    {
+      "id": "DRC_BONA_FIDE-C04",
+      "text": "For the landlord-or-dependent-family occupation route, the landlord is the owner of the premises.",
+      "kind": "QUALIFICATION",
+      "polarity": "POSITIVE",
+      "dependencies": [
+        "DRC_BONA_FIDE-C03"
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-18143401:L41:historical-e",
+          "quote": "if he is the owner thereof"
+        }
+      ]
+    },
+    {
+      "id": "DRC_BONA_FIDE-C05",
+      "text": "An alternative qualifying route is occupation by a person for whose benefit the premises are held.",
+      "kind": "ALTERNATIVE",
+      "polarity": "POSITIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "IK-18143401:L41:historical-e",
+          "quote": "or for any person for whose benefit the premises are held"
+        }
+      ]
+    },
+    {
+      "id": "DRC_BONA_FIDE-C06",
+      "text": "The landlord or such qualifying person has no other reasonably suitable residential accommodation.",
+      "kind": "NECESSARY",
+      "polarity": "NEGATIVE",
+      "dependencies": [],
+      "source_refs": [
+        {
+          "source_id": "IK-18143401:L41:historical-e",
+          "quote": "and that the landlord or such person has no other reasonably suitable residential accommodation."
+        }
+      ]
+    }
+  ]
+}

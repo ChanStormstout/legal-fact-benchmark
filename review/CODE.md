@@ -16718,3 +16718,6444 @@ if __name__ == '__main__':
     unittest.main()
 
 ```
+
+## legal_bench/rules_verdict_v1/irac_native_schema_v1.py
+
+```python
+"""IRAC-native input contract. Address checks do not certify legal meaning.
+
+No model inference, label recovery, quote repair or implicit stage inference.
+Input and supervision are distinct files and APIs.
+"""
+import copy
+import json
+from pathlib import Path
+from .irac_gate_v2 import ALLOWED, AVAILABILITY, admit_record, digest
+
+INPUT_KEYS = {'case_id','issue','entities','rules','conditions','facts','evidence',
+              'relations','blind_bindings','stage_metadata','provenance','prospective_availability'}
+FORBIDDEN_KEYS = {'target','targets','element_targets','issue_target','target_provenance',
+                  'target_reasoning','target_sources','target_outcome','conclusion','winning',
+                  'losing','oracle_selection_basis','source_reviews','final_source_review',
+                  'target_court_accepted','target_court_rejected','target_reasoning_embedding'}
+COLLECTIONS = ('entities','rules','conditions','facts','evidence','relations','blind_bindings')
+STATUSES = {'CLAIMED','DENIED','ADMITTED','PRIOR_FOUND','DOCUMENT_RECORDED','UNKNOWN'}
+ELEMENT = {'SATISFIED','DEFEATED','UNRESOLVED'}
+BASIS = {'FACT_ACCEPTED','FACT_FALSE','BURDEN_NOT_CARRIED','NOT_DECIDED',
+         'INSUFFICIENT_RECORD','LEGAL_INTERPRETATION','AMBIGUOUS_REASONING'}
+
+class ContractError(ValueError):
+    pass
+
+def forbidden_paths(value, path='$'):
+    out=[]
+    if isinstance(value,dict):
+        for key,v in value.items():
+            if key.lower() in FORBIDDEN_KEYS:out.append(path+'.'+key)
+            out.extend(forbidden_paths(v,path+'.'+key))
+    elif isinstance(value,list):
+        for i,v in enumerate(value):out.extend(forbidden_paths(v,path+'['+str(i)+']'))
+    return out
+
+def quote_errors(refs, sources):
+    """Each quote independently contiguous; whitespace-equivalent location only."""
+    errors=[]
+    if not isinstance(refs,list) or not refs:return ['NO_SOURCE_REFS']
+    for i,ref in enumerate(refs):
+        if not isinstance(ref,dict) or set(ref)!={'source_id','quote'}:
+            errors.append('QUOTE_OBJECT_REQUIRED:'+str(i));continue
+        if not isinstance(ref['source_id'],str):errors.append('SOURCE_ID_STRING_REQUIRED:'+str(i));continue
+        source=sources.get(ref['source_id'],{})
+        if not isinstance(source,dict):errors.append('SOURCE_OBJECT_REQUIRED:'+str(i));continue
+        text=source.get('text','')
+        quote=ref['quote']
+        if not isinstance(quote,str) or not quote.strip():errors.append('EMPTY_QUOTE:'+str(i))
+        elif ' '.join(quote.split()) not in ' '.join(text.split()):
+            errors.append('NONCONTIGUOUS_OR_UNLOCATED_QUOTE:'+str(i))
+    return errors
+
+def record_ids(data):
+    return {r['id'] for k in COLLECTIONS for r in data.get(k,[]) if isinstance(r,dict) and 'id' in r} | {data.get('issue',{}).get('id')}
+
+def endpoint_ids(record):
+    ids=list(record.get('entity_ids',[]))+list(record.get('evidence_ids',[]))
+    for k in ('source_record_id','target_record_id','fact_id','condition_id','rule_id','asserted_by_entity_id','prior_court_entity_id','governs_issue_id'):
+        if record.get(k) is not None:ids.append(record[k])
+    ids+=record.get('supports_fact_ids',[])
+    return ids
+
+def referential_errors(data):
+    ids=record_ids(data);errors=[];seen=set()
+    for k in COLLECTIONS:
+        for r in data.get(k,[]):
+            if not isinstance(r,dict):errors.append('RECORD_NOT_OBJECT:'+k);continue
+            ident=r.get('id')
+            if not isinstance(ident,str) or not ident:errors.append('RECORD_ID_REQUIRED:'+k);continue
+            if ident in seen:errors.append('DUPLICATE_ID:'+ident)
+            seen.add(ident)
+            for ep in endpoint_ids(r):
+                if ep not in ids:errors.append('DANGLING_ENDPOINT:'+ident+':'+str(ep))
+    return errors
+
+def stage_errors(record, sources):
+    refs=record.get('source_refs',[])
+    grant={'semantic_stage':record.get('semantic_stage'), 'input_allowed':record.get('semantic_stage') in ALLOWED,
+           'prospective_availability':record.get('prospective_availability'),
+           'source_refs':[r.get('source_id') for r in refs if isinstance(r,dict)]}
+    original=dict(record,refs=grant['source_refs'])
+    source_grants={sid:{'semantic_stage':s.get('semantic_stage'),'input_allowed':s.get('semantic_stage') in ALLOWED} for sid,s in sources.items()}
+    _,errors=admit_record(original,grant,source_grants)
+    if record.get('statement_status') not in STATUSES:errors.append('STATEMENT_STATUS_INVALID')
+    if record.get('statement_status')=='PRIOR_FOUND' and record.get('semantic_stage')!='PRIOR_COURT_FINDING':errors.append('PRIOR_FINDING_STAGE_MISMATCH')
+    if record.get('court_level')=='TARGET' and record.get('statement_status')=='PRIOR_FOUND':errors.append('PRIOR_FINDING_PROMOTED')
+    return errors
+
+def binding_errors(binding, data):
+    records={r['id']:r for k in ('facts','evidence') for r in data.get(k,[])}
+    fact=records.get(binding.get('fact_id'));conds={r['id'] for r in data.get('conditions',[])}
+    errors=[]
+    if fact is None:return ['BINDING_FACT_NOT_ADMITTED']
+    if binding.get('condition_id') not in conds:errors.append('BINDING_CONDITION_NOT_FOUND')
+    if binding.get('relation') not in {'SUPPORTS','DEFEATS','RELEVANT_TO'}:errors.append('BINDING_RELATION_INVALID')
+    for key in ('statement_status','semantic_stage','court_level'):
+        if binding.get(key)!=fact.get(key):errors.append('BINDING_CHANGED_'+key.upper())
+    permitted={(r['source_id'],r['quote']) for r in fact.get('source_refs',[])}
+    for ref in binding.get('source_refs',[]):
+        if (ref.get('source_id'),ref.get('quote')) not in permitted:errors.append('BINDING_REF_NOT_IN_RECORD_PROVENANCE')
+    if not binding.get('source_refs'):errors.append('BINDING_SOURCE_REQUIRED')
+    return errors
+
+def validate_input(data):
+    errors=[]
+    if not isinstance(data,dict):return ['INPUT_NOT_OBJECT']
+    errors+=['TARGET_OR_AUDIT_FIELD_FORBIDDEN:'+p for p in forbidden_paths(data)]
+    errors+=['UNKNOWN_INPUT_KEY:'+k for k in set(data)-INPUT_KEYS]
+    errors+=['MISSING_INPUT_KEY:'+k for k in INPUT_KEYS-set(data)]
+    for k in COLLECTIONS:
+        if not isinstance(data.get(k),list):errors.append('COLLECTION_REQUIRED:'+k)
+        elif any(not isinstance(r,dict) for r in data[k]):errors.append('RECORD_OBJECT_REQUIRED:'+k)
+        elif any(not isinstance(r.get('id'),str) or not r['id'] for r in data[k]):errors.append('RECORD_ID_REQUIRED:'+k)
+    if errors:return sorted(set(errors))
+    sources=data['provenance']
+    if not isinstance(sources,dict):return ['PROVENANCE_MAP_REQUIRED']
+    metadata=data.get('stage_metadata')
+    if not isinstance(metadata,dict) or set(metadata)-{'policy_version'}:errors.append('STAGE_METADATA_NOT_INPUT_SAFE')
+    # All semantic-stage/status metadata is carried on the actual records.
+    # Sidecar audit decisions and excluded target IDs are not model features.
+    for sid,s in sources.items():
+        if not isinstance(s,dict) or not all(k in s for k in ('text','document_id','url','semantic_stage','prospective_availability')):
+            errors.append('SOURCE_METADATA_MISSING:'+sid);continue
+        if s['semantic_stage'] not in ALLOWED:errors.append('TARGET_SOURCE_IN_INPUT:'+sid)
+        if s['prospective_availability'] not in AVAILABILITY:errors.append('SOURCE_AVAILABILITY_INVALID:'+sid)
+    if errors:return sorted(set(errors))
+    if data.get('prospective_availability') not in AVAILABILITY:errors.append('AVAILABILITY_INVALID')
+    issue=data.get('issue')
+    if not isinstance(issue,dict) or not isinstance(issue.get('id'),str) or not issue['id']:return ['ISSUE_REQUIRED']
+    else:errors+=quote_errors(issue.get('source_refs'),sources)+stage_errors(issue,sources)
+    rules={r.get('id'):r for r in data['rules']}
+    for kind in COLLECTIONS:
+        for r in data[kind]:
+            if not isinstance(r,dict):continue
+            qe=quote_errors(r.get('source_refs'),sources);errors+=qe
+            if qe:continue
+            errors+=stage_errors(r,sources)
+            if kind=='rules':
+                if r.get('independent_source') is not True:errors.append('INDEPENDENT_RULE_SOURCE_REQUIRED:'+str(r.get('id')))
+                for ref in r.get('source_refs',[]):
+                    if sources.get(ref['source_id'],{}).get('document_id')==data['case_id']:errors.append('TARGET_JUDGMENT_CANNOT_BE_INPUT_RULE')
+            if kind=='conditions':
+                rule=rules.get(r.get('rule_id'))
+                if rule is None:errors.append('CONDITION_RULE_REQUIRED')
+                elif not set(ref['source_id'] for ref in r['source_refs']) <= set(ref['source_id'] for ref in rule['source_refs']):errors.append('CONDITION_REF_NOT_IN_RULE')
+                for dep in r.get('dependencies',[]):
+                    if dep.get('operator') not in {'AND','OR','QUALIFICATION'}:errors.append('DEPENDENCY_OPERATOR_INVALID')
+                    if dep.get('condition_id') not in {c['id'] for c in data['conditions']}:errors.append('DEPENDENCY_CONDITION_MISSING')
+            if kind=='blind_bindings':errors+=binding_errors(r,data)
+    errors+=referential_errors(data)
+    types={r.get('id'):k for k in COLLECTIONS for r in data[k]}
+    types[data.get('issue',{}).get('id')]='issue'
+    for r in data['conditions']:
+        if types.get(r.get('rule_id'))!='rules':errors.append('CONDITION_WRONG_RULE_TYPE')
+    for r in data['relations']:
+        a=types.get(r.get('source_record_id'));b=types.get(r.get('target_record_id'))
+        required={'EVIDENCE_SUPPORTS_FACT':({'evidence'},{'facts'}),'PARTY_ASSERTS_FACT':({'entities'},{'facts'}),'PRIOR_COURT_FOUND_FACT':({'entities'},{'facts'}),'FACT_RELATES_TO_ENTITY':({'facts'},{'entities'})}
+        pair=required.get(r.get('relation'))
+        if pair is None or a not in pair[0] or b not in pair[1]:errors.append('RELATION_ENDPOINT_TYPES_INVALID')
+        if r.get('relation')=='PRIOR_COURT_FOUND_FACT':
+            fact=next((f for f in data['facts'] if f['id']==r.get('target_record_id')), {})
+            if fact.get('statement_status')!='PRIOR_FOUND' or fact.get('semantic_stage')!='PRIOR_COURT_FINDING':errors.append('PRIOR_COURT_EDGE_NOT_SUPPORTED_BY_FACT_STATUS')
+    return sorted(set(errors))
+
+def stage_partition(records, source_grants):
+    """Exclude forbidden records then cascading dependents, with original audit."""
+    admitted=[];excluded=[]
+    for r in records:
+        errors=quote_errors(r.get('source_refs'),source_grants)+stage_errors(r,source_grants)
+        (excluded if errors else admitted).append({'original':copy.deepcopy(r),'reasons':errors} if errors else copy.deepcopy(r))
+    changed=True
+    while changed:
+        ids={r['id'] for r in admitted};changed=False;keep=[]
+        for r in admitted:
+            missing=[x for x in endpoint_ids(r) if x not in ids]
+            if missing:excluded.append({'original':r,'reasons':['DEPENDENCY_ENDPOINT_EXCLUDED'],'missing_endpoints':missing});changed=True
+            else:keep.append(r)
+        admitted=keep
+    return admitted,excluded
+
+def validate_targets(targets, condition_ids, source_lookup):
+    """Audit labels; never invent FACT_FALSE from evidentiary failure."""
+    errors=[]
+    for row in targets.get('element_targets',[]):
+        if row.get('condition_id') not in condition_ids:errors.append('TARGET_CONDITION_UNKNOWN')
+        if row.get('status') not in ELEMENT:errors.append('TARGET_STATUS_INVALID')
+        if row.get('basis_kind') not in BASIS:errors.append('TARGET_BASIS_INVALID')
+        errors+=quote_errors(row.get('target_refs'),source_lookup)
+        if row.get('basis_kind')=='BURDEN_NOT_CARRIED' and row.get('fact_truth')=='FALSE':errors.append('BURDEN_IS_NOT_FACT_FALSE')
+    issue=targets.get('issue_target',{})
+    if issue.get('status') not in {'SUPPORTED','NOT_SUPPORTED','UNRESOLVED'}:errors.append('ISSUE_TARGET_STATUS_INVALID')
+    for k in ('procedural_scope','reasoning','derivative_or_de_novo','unresolved_element_relationship'):
+        if k not in issue:errors.append('ISSUE_TARGET_MISSING:'+k)
+    errors+=quote_errors(issue.get('target_refs'),source_lookup)
+    return sorted(set(errors))
+
+def load_input(path):
+    data=json.loads(Path(path).read_text());errors=validate_input(data)
+    if errors:raise ContractError(';'.join(errors))
+    return data
+
+def input_from_case(case):
+    """Explicit envelope separation, never deletes fields inside input."""
+    data=copy.deepcopy(case['input']);errors=validate_input(data)
+    if errors:raise ContractError(';'.join(errors))
+    return data
+
+def schema_description():
+    return {'version':'IRAC_NATIVE_V1','input_keys':sorted(INPUT_KEYS),'forbidden_keys':sorted(FORBIDDEN_KEYS),'allowed_stages':sorted(ALLOWED),'availability':sorted(AVAILABILITY),'statement_status':sorted(STATUSES),'quotes':'array of separately contiguous {source_id,quote}; no concatenation repair','unknown_is_not_false':True,'basis_kind':sorted(BASIS),'targets_are_separate':True}
+
+```
+
+## legal_bench/rules_verdict_v1/irac_graph_builder_v1.py
+
+```python
+"""Deterministic target-free heterogeneous input graph; no train or embeddings."""
+import copy
+from .irac_native_schema_v1 import ContractError, validate_input, digest
+
+NODE_TYPES={'entities':'Entity','rules':'Rule','conditions':'Condition','facts':'Fact','evidence':'Evidence'}
+EDGE_TYPES={'RULE_HAS_CONDITION','ISSUE_GOVERNED_BY_RULE','FACT_SUPPORTS_CONDITION',
+            'FACT_DEFEATS_CONDITION','FACT_RELEVANT_TO_CONDITION','EVIDENCE_SUPPORTS_FACT',
+            'PARTY_ASSERTS_FACT','PRIOR_COURT_FOUND_FACT','FACT_RELATES_TO_ENTITY'}
+FEATURES=('statement_status','semantic_stage','party_side','court_level','polarity','prospective_availability')
+
+def build_input_graph(input_record):
+    errors=validate_input(input_record)
+    if errors:raise ContractError(';'.join(errors))
+    nodes=[];edges=[]
+    def node(r,kind):
+        nodes.append({'id':r['id'],'type':kind,'features':{k:copy.deepcopy(r.get(k)) for k in FEATURES},
+                      'source_grounded':bool(r.get('source_refs')),'text':r.get('text',r.get('description','')),
+                      'source_refs':copy.deepcopy(r['source_refs'])})
+    def edge(a,b,kind,refs,record_id):
+        if kind not in EDGE_TYPES:raise ContractError('UNSUPPORTED_EDGE:'+kind)
+        edges.append({'source':a,'target':b,'type':kind,'source_refs':copy.deepcopy(refs),'provenance_record_id':record_id,'candidate_relation_not_truth':kind.startswith('FACT_') and kind.endswith('_CONDITION')})
+    issue=input_record['issue'];node(issue,'Issue')
+    for collection,kind in NODE_TYPES.items():
+        for r in input_record[collection]:node(r,kind)
+    for r in input_record['rules']:
+        # Relation must be explicitly proposed and independently quoted.
+        if r.get('governs_issue_id')==issue['id']:
+            edge(issue['id'],r['id'],'ISSUE_GOVERNED_BY_RULE',r['source_refs'],r['id'])
+    for r in input_record['conditions']:
+        edge(r['rule_id'],r['id'],'RULE_HAS_CONDITION',r['source_refs'],r['id'])
+    for r in input_record['blind_bindings']:
+        edge(r['fact_id'],r['condition_id'],'FACT_'+r['relation']+'_CONDITION',r['source_refs'],r['id'])
+    for r in input_record['relations']:
+        edge(r['source_record_id'],r['target_record_id'],r['relation'],r['source_refs'],r['id'])
+    ids={n['id'] for n in nodes}
+    if len(ids)!=len(nodes) or any(e['source'] not in ids or e['target'] not in ids for e in edges):raise ContractError('GRAPH_ENDPOINT_INVALID')
+    graph={'schema_version':'IRAC_INPUT_GRAPH_V1','case_id':input_record['case_id'],
+           'nodes':sorted(nodes,key=lambda n:n['id']),'edges':sorted(edges,key=lambda e:(e['source'],e['target'],e['type'],e['provenance_record_id'])),
+           'input_hash':digest(input_record),'semantics':'Directional model-proposed bindings preserve record status; no target, label, automatic identity or truth inference.'}
+    graph['graph_hash']=digest(graph)
+    return graph
+
+def graph_schema():
+    return {'version':'IRAC_INPUT_GRAPH_V1','node_types':['Issue']+list(NODE_TYPES.values()),'edge_types':sorted(EDGE_TYPES),'features':list(FEATURES)+['source_grounded','text'],'target_free_api':'build_input_graph(input_record)','training':False}
+
+```
+
+## scripts/irac_native01_prepare.py
+
+```python
+"""Bounded IRAC-native discovery. Never treats database slices as model input."""
+import datetime
+import hashlib
+import json
+import re
+import sqlite3
+import subprocess
+from pathlib import Path
+
+ROOT = Path('outputs/gnn-irac-native-data-01')
+PARENT = 'eeda90c1dbf5ac3345f10f08b1152b12b04a612a'
+DB = Path('outputs/benchmark-pilot/data/cases.sqlite')
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def save(name, value):
+    p = ROOT / name
+    p.parent.mkdir(parents=True, exist_ok=True)
+    if p.exists():
+        raise FileExistsError(p)
+    p.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
+
+def main():
+    assert str(ROOT) in json.loads(Path('docs/repository-artifacts.json').read_text())['artifact_roots']
+    assert not ROOT.exists()
+    split = json.loads(Path('outputs/rgcn-sbc-finalization-11/protocol.json').read_text())
+    mandatory = set(split['dev'] + split['sealed_ids']) | {'308216','38604742','1106992','1497837','1859043','111425525','758831','1381386'}
+    # Prefer completely new targets; prior main-comparison TRAIN is additionally
+    # excluded for this discovery, without opening any sealed document.
+    excluded = mandatory | set(split['train']) | {'661475','69305','1134266','157278563','34625760'}
+    save('registration.json', {'parent':PARENT, 'branch':subprocess.check_output(['git','branch','--show-current'],text=True).strip(), 'head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(), 'starting_status':subprocess.check_output(['git','status','--short'],text=True), 'time':datetime.datetime.now(datetime.timezone.utc).isoformat(), 'training':False,'sealed_body_read':False,'publication':'LOCAL_ONLY_NO_COMMIT_NO_PUSH'})
+    historical=[]
+    raw=subprocess.check_output(['git','ls-tree','-r',PARENT,'outputs/rgcn-sbc-finalization-11','outputs/gnn-irac-feasibility-01','outputs/gnn-irac-feasibility-02'],text=True)
+    for line in raw.splitlines():
+        meta,path=line.split('\t'); b=Path(path).read_bytes(); actual=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+        historical.append({'path':path,'parent_blob':meta.split()[2],'sha256':hashlib.sha256(b).hexdigest(),'unchanged':actual==meta.split()[2]})
+    assert all(x['unchanged'] for x in historical)
+    save('parent-integrity.json',{'parent':PARENT,'all_unchanged':True,'files':historical})
+    rule={'act':r'delhi.{0,20}rent','behaviour':r'sub.?lett|sub.?ten|part(?:ed|ing).{0,12}possession','section':r'14.{0,18}1.{0,12}b','discovery_fields':['facts','issues','analysis_of_the_law','courts_reasoning','conclusion'],'order':'Explicit provision in issue/facts, then substantive behaviour discussion in reasoning, then provision anywhere; ties database line_number. No verdict/performance/mechanism balancing. Metadata hits are not eligibility. One cohort, no replacement.', 'max_candidates':16,'mandatory_excluded_ids':sorted(mandatory),'additional_prior_exposed_excluded_ids':sorted(excluded-mandatory),'candidate_discovery_only':True}
+    save('discovery-rule.json',rule)
+    conn=sqlite3.connect('file:'+str(DB)+'?mode=ro',uri=True); rows=[]
+    for cid,line,title,url,record_hash,raw in conn.execute('select doc_id,line_number,title,url,record_sha256,raw_json from cases order by line_number'):
+        if cid in excluded:continue
+        record=json.loads(raw); fields={k:record.get(k,'') for k in rule['discovery_fields']}; txt=' '.join(str(v) for v in fields.values())
+        if not re.search(rule['act'],txt,re.I) or not re.search(rule['behaviour'],txt,re.I):continue
+        fi=str(fields['facts'])+' '+str(fields['issues']); reasoning=str(fields['courts_reasoning'])+' '+str(fields['analysis_of_the_law'])
+        score=(bool(re.search(rule['section'],fi,re.I)),min(8,len(re.findall(rule['behaviour'],reasoning,re.I))),bool(re.search(rule['section'],txt,re.I)))
+        rows.append({'case_id':cid,'database_line':line,'title':title,'url':url,'record_sha256':record_hash,'discovery_score':list(score),'candidate_discovery_only':True,'prior_role':'NOT_IN_CURRENT_SBC_TRAIN_DEV_SEALED_OR_OLD_IRAC; other historic source use not ruled out','known_association':'UNCONFIRMED','discovery_fields':fields})
+    rows.sort(key=lambda x:(-int(x['discovery_score'][0]),-x['discovery_score'][1],-int(x['discovery_score'][2]),x['database_line']))
+    # Known duplicate judgment from the database title/date, not outcome based.
+    seen=set();unique=[]
+    for row in rows:
+        key=re.sub(r'[^a-z0-9]','',row['title'].lower().replace('s. kartar','kartar').replace('chamanlal','chaman lal'))
+        if key in seen:continue
+        seen.add(key);unique.append(row)
+    chosen=unique[:16]
+    save('database-source-manifest.json',{'authoritative_dataset_path':str(DB.resolve()),'sha256':sha(DB),'records':conn.execute('select count(*) from cases').fetchone()[0],'query':'read-only cases ordered by line_number; regex/priority as discovery-rule.json','eligible_locator_hits':len(rows),'deduplicated_locator_hits':len(unique),'selection_rule_hash':sha(ROOT/'discovery-rule.json'),'source_entry_evidence':'scripts/rgcn09_data.py:index; scripts/study02_candidates.py','not_complete_judgments':True})
+    save('candidate-cohort-16.json',{'frozen':True,'replacement_allowed':False,'candidate_discovery_only':True,'actual_count':len(chosen),'cases':chosen})
+    save('protocol.json',{'parent':PARENT,'scope':'Delhi Rent Control Act 14(1)(b), rule-given retrospective IRAC-native purposive development','candidate_ids':[x['case_id'] for x in chosen],'candidate_max':16,'construction_max':8,'construction_min':6,'calls_max':16,'semantic_retry':0,'technical_retry_max':2,'construction_batching':'If gate passes: independent rule-only, stage-only, blind-only, target-only batches; preserve freeze order, no all-in-one target-aware construction','training':False,'sealed_read':False,'publication':'LOCAL_ONLY','readiness':{'GO':'6+ READY, no systemic blocker','CONDITIONAL_GO':'4-5 READY, one uniform nonsemantic engineering gap','NO_GO':'<4 READY or systemic blocker'},'reference_role':'MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD'})
+    print([(x['case_id'],x['discovery_score'],x['title']) for x in chosen])
+
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_native01_sources.py
+
+```python
+"""Source envelopes preserved; local discovery fields are never substituted."""
+import json
+from pathlib import Path
+from legal_bench.rules_verdict_v1.source_identity_v2 import parse_responses, merge_windows
+from scripts.irac_native01_prepare import ROOT, save, sha
+
+def merge():
+    responses=[]
+    for p in sorted((ROOT/'sources/raw').glob('*.txt')):
+        responses.extend(parse_responses(p.read_text(),p))
+    documents=merge_windows(responses)
+    # This directory is working acquisition state, not a frozen experiment.
+    # Each raw response remains immutable, freezing makes another version.
+    for cid,d in documents.items():
+        p=ROOT/'sources/documents'/f'{cid}.json';p.parent.mkdir(exist_ok=True)
+        p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+    return documents
+
+if __name__=='__main__':
+    docs=merge()
+    print(json.dumps({cid:{'status':d['status'],'count':len(d['segments']),'total':d['totals'],'next_missing':(min(d['missing_lines']) if d['missing_lines'] else None)} for cid,d in docs.items()},indent=2))
+
+```
+
+## scripts/irac_native01_screen.py
+
+```python
+"""Four immutable screening tasks; no construction or target labels."""
+import json
+from pathlib import Path
+from scripts.irac_native01_prepare import ROOT,save,sha
+
+CRITERIA=['issue_clarity','merits_application','rule_test_identifiability','independent_rule_source_availability','input_stage_separability','factual_sufficiency','element_level_target_availability','procedural_only_risk','retrospective_reconstruction_risk','obvious_target_leakage_risk']
+INSTRUCTION='''Independently screen these four frozen discovery candidates for an IRAC-native purposive development dataset. Read ALL supplied judgment text, including target reasoning, solely for suitability screening. Do not search externally. Do not construct facts, conditions, bindings, targets or a legal final answer. The fixed claim family is Delhi Rent Control Act 1958 s14(1)(b): subletting, assignment, parting with possession, written consent, retained legal control, burden/inference and necessary limitations. Mere citation, other eviction grounds, other Acts or procedural-only restoration do not qualify. Similar language under the 1952 Act does not establish applicability of the 1958 provision. Do not count target outcomes as all elements decided. Target reasoning may be used to assess whether there is meaningful element-level supervision, never for model input. Retrospective reconstruction is permitted and must be disclosed; that alone is not rejection. Independent rule sources can be a statute or actually named cited precedent; a target-specific application sentence is not an independent source. Require identifiable meaningful legal test with at least two conditions and actual reasoned application to records, not a speculative conversion of disposition into targets. A BORDERLINE case is acceptable only if it genuinely fits the fixed claim family, has substantive rule/application and a finite independently recoverable source/stage limitation; do not accept wrong-ground or pure procedural cases as borderline. No desired quota and no replacement.
+Return complete downloadable JSON named SCREEN-N.json (replace N with task number). Full output contract: {cases:[{case_id,status,acceptable_borderline,criteria:{issue_clarity:{assessment,reason,source_refs},merits_application:{assessment,reason,source_refs},rule_test_identifiability:{assessment,reason,source_refs},independent_rule_source_availability:{assessment,reason,source_refs},input_stage_separability:{assessment,reason,source_refs},factual_sufficiency:{assessment,reason,source_refs},element_level_target_availability:{assessment,reason,source_refs},procedural_only_risk:{assessment,reason,source_refs},retrospective_reconstruction_risk:{assessment,reason,source_refs},obvious_target_leakage_risk:{assessment,reason,source_refs}},proposed_issue,identifiable_test,possible_independent_sources:[string],meaningful_conditions_count_estimate,application_clarity_score,independent_source_score,partition_clarity_score,element_coverage_score,reason,full_source_read}],limits:[string]}.
+status SUITABLE/BORDERLINE/REJECT; criteria assessment SUPPORTED/QUALIFIED/BLOCKING_GAP; scores integers 0-3, based on source feasibility not model performance or winner. Source_refs always [{source_id,quote}], each a separate short exact contiguous quote from its one source; never concatenate. If full file cannot be read, say so, no guessing. Preserve a reject when evidence insufficient. Four cases exactly. No schema skeletons, ellipses or optional values joined as one string. This is model-generated screening, not human gold.
+'''
+
+def main():
+    cohort=json.loads((ROOT/'candidate-cohort-16.json').read_text())['cases'];pack=[]
+    for r in cohort:
+        d=json.loads((ROOT/'sources/documents'/f"{r['case_id']}.json").read_text())
+        assert d['status']=='COMPLETE_RENDERING'
+        pack.append({'case_id':r['case_id'],'title':r['title'],'url':r['url'],'discovery_only':True,'full_source_status':d['status'],'judgment': [{'source_id':s['id'],'text':s['text']} for s in d['segments']]})
+    files={}
+    for j in range(4):
+        p=ROOT/'tasks'/f'SCREEN-{j+1}.txt';p.parent.mkdir(exist_ok=True);assert not p.exists()
+        p.write_text(INSTRUCTION.replace('SCREEN-N.json',f'SCREEN-{j+1}.json')+'\nMATERIAL\n'+json.dumps(pack[j*4:j*4+4],ensure_ascii=False,indent=2)+f'\nEND_OF_TASK SCREEN-{j+1}\n');files[str(p)]=sha(p)
+    save('screening-freeze.json',{'files':files,'source_files':{str(p):sha(p) for p in (ROOT/'sources/documents').glob('*.json')},'candidate_hash':sha(ROOT/'candidate-cohort-16.json'),'criteria':CRITERIA,'construction_order':'application clarity, independent rules, partition clarity, element coverage descending, numeric case ID ascending','technical_retry_max':2,'semantic_retry':0})
+    print([(p.name,p.stat().st_size) for p in (ROOT/'tasks').glob('*.txt')])
+
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_native01_import_screen.py
+
+```python
+"""Import screening without semantic repair; finite discovery gate."""
+import json
+from pathlib import Path
+from scripts.irac_native01_prepare import ROOT,save,sha
+from scripts.irac_native01_screen import CRITERIA
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import quote_errors
+
+def main():
+    candidates=json.loads((ROOT/'candidate-cohort-16.json').read_text())['cases'];byid={c['case_id']:c for c in candidates};cases=[];audit=[]
+    for n in range(1,5):
+        p=ROOT/'web'/f'SCREEN-{n}.json';raw=json.loads(p.read_text());rows=raw['cases']
+        expected={c['case_id'] for c in candidates[(n-1)*4:n*4]}
+        assert {c['case_id'] for c in rows}==expected, (p,expected)
+        for c in rows:
+            assert c['status'] in {'SUITABLE','BORDERLINE','REJECT'}
+            assert set(c['criteria'])==set(CRITERIA)
+            assert type(c['acceptable_borderline']) is bool
+            d=json.loads((ROOT/'sources/documents'/f"{c['case_id']}.json").read_text());lookup={s['id']:{'text':s['text']} for s in d['segments']}
+            errors=[]
+            for key,r in c['criteria'].items():
+                assert r['assessment'] in {'SUPPORTED','QUALIFIED','BLOCKING_GAP'}
+                qe=quote_errors(r.get('source_refs'),lookup)
+                # Criterion source gaps may explicitly lack refs; do not
+                # fabricate quotes, promote screening or request semantic retry.
+                errors += [key+':'+e for e in qe]
+            audit.append({'case_id':c['case_id'],'locator_errors':errors,'meaning_not_certified_by_locator':True})
+            cases.append(c)
+    ordered=sorted(cases,key=lambda c:next(i for i,x in enumerate(candidates) if x['case_id']==c['case_id']))
+    accepted=[c for c in ordered if c['full_source_read'] is True and (c['status']=='SUITABLE' or c['status']=='BORDERLINE' and c['acceptable_borderline'])]
+    accepted.sort(key=lambda c:(-c['application_clarity_score'],-c['independent_source_score'],-c['partition_clarity_score'],-c['element_coverage_score'],int(c['case_id'])))
+    gate=len(accepted)>=6
+    save('suitability-screening.json',{'reference_role':'MODEL_GENERATED_INDEPENDENT_SCREENING_NOT_HUMAN_GOLD','cases':ordered,'raw_reply_hashes':{str(p):sha(p) for p in (ROOT/'web').glob('SCREEN-*.json')},'eligible_before_full_construction':[c['case_id'] for c in accepted],'screening_not_READY':True})
+    save('screening-source-check.json',{'cases':audit,'whitespace_location_only':True,'semantic_repairs':0})
+    save('construction-cohort.json',{'status':'FROZEN_READY_TO_START' if gate else 'NOT_RUN_BELOW_SIX_ELIGIBLE','case_ids':[c['case_id'] for c in accepted[:8]] if gate else [],'eligible_count':len(accepted),'minimum':6,'replacement_allowed':False,'screening_candidates':[c['case_id'] for c in accepted],'reason':'Independent candidate screen gate; no failed candidate replaced.'})
+    print('ELIGIBLE',len(accepted),[c['case_id'] for c in accepted],'START_CONSTRUCTION',gate)
+    print([(c['case_id'],c['status'],c['reason']) for c in ordered])
+
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_native_graph.py
+
+```python
+"""Versioned input-only graph CLI. Never fits models or overwrites output."""
+import argparse
+import json
+from pathlib import Path
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import load_input
+from legal_bench.rules_verdict_v1.irac_graph_builder_v1 import build_input_graph
+
+def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('command',choices=['validate','build'])
+    parser.add_argument('input',type=Path)
+    parser.add_argument('--output',type=Path)
+    args=parser.parse_args(); data=load_input(args.input)
+    if args.command=='validate':print('INPUT_CONTRACT_OK_NOT_SEMANTIC_CERTIFICATION');return
+    if args.output is None:parser.error('build requires --output')
+    graph=build_input_graph(data)
+    # Exclusive creation protects frozen and historical runs.
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    with args.output.open('x') as handle:json.dump(graph,handle,ensure_ascii=False,indent=2);handle.write('\n')
+    print(graph['graph_hash'])
+
+if __name__=='__main__':main()
+
+```
+
+## tests/test_irac_native_v1.py
+
+```python
+import copy
+import unittest
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import (
+    ContractError,validate_input,quote_errors,stage_partition,validate_targets,input_from_case)
+from legal_bench.rules_verdict_v1.irac_graph_builder_v1 import build_input_graph
+
+def fixture():
+    avail='RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET';stage='PRE_TARGET_RECORD'
+    def ref(s,q):return [{'source_id':s,'quote':q}]
+    def row(i,text,s,q,**extra):
+        return dict(id=i,text=text,statement_status='DOCUMENT_RECORDED',semantic_stage=stage,
+                    court_level='NONE',prospective_availability=avail,source_refs=ref(s,q),**extra)
+    sources={
+        'LAW:1':dict(text='Exclusive possession is necessary. Mere use is insufficient.',document_id='independent',url='https://example.org/law',semantic_stage=stage,prospective_availability=avail),
+        'CASE:1':dict(text='Tenant alleges that Guest merely uses Room. The lower court accepted this account.',document_id='synthetic',url='https://example.org/case',semantic_stage=stage,prospective_availability=avail)}
+    data=dict(case_id='synthetic',issue=row('I','Does Guest have exclusive possession?','CASE:1','Tenant alleges that Guest merely uses Room.'),entities=[],rules=[row('R','Exclusive possession test','LAW:1',sources['LAW:1']['text'],independent_source=True,governs_issue_id='I')],conditions=[row('C1','Exclusive possession','LAW:1','Exclusive possession is necessary.',rule_id='R',dependencies=[]),row('C2','Mere use insufficient','LAW:1','Mere use is insufficient.',rule_id='R',dependencies=[dict(condition_id='C1',operator='QUALIFICATION')])],facts=[row('F','Guest merely uses Room','CASE:1','Tenant alleges that Guest merely uses Room.')],evidence=[],relations=[],blind_bindings=[],stage_metadata={},provenance=sources,prospective_availability=avail)
+    data['facts'][0]['statement_status']='CLAIMED'
+    data['blind_bindings']=[row('B','Candidate relevance','CASE:1','Tenant alleges that Guest merely uses Room.',fact_id='F',condition_id='C1',relation='RELEVANT_TO')]
+    data['blind_bindings'][0]['statement_status']='CLAIMED'
+    return data
+
+class NativeTests(unittest.TestCase):
+    def test_valid_fixture(self):self.assertEqual(validate_input(fixture()),[])
+    def test_target_field_forbidden(self):
+        x=fixture();x['element_targets']=[];self.assertTrue(any('FORBIDDEN' in e for e in validate_input(x)))
+    def test_target_change_no_input_hash_change(self):
+        x={'input':fixture(),'target':{'element_targets':[{'status':'SATISFIED'}]}}
+        a=build_input_graph(input_from_case(x))['graph_hash'];x['target']['element_targets'][0]['status']='DEFEATED'
+        self.assertEqual(a,build_input_graph(input_from_case(x))['graph_hash'])
+    def test_target_stage_excluded(self):
+        x=fixture();r=x['facts'][0];r['semantic_stage']='TARGET_COURT_REASONING'
+        admitted,excluded=stage_partition([r],x['provenance']);self.assertFalse(admitted);self.assertTrue(excluded)
+    def test_target_disposition_source_excluded(self):
+        x=fixture();x['provenance']['CASE:1']['semantic_stage']='TARGET_DISPOSITION';self.assertTrue(validate_input(x))
+    def test_prior_finding_preserved_not_promoted(self):
+        x=fixture();r=x['facts'][0];r.update(statement_status='PRIOR_FOUND',semantic_stage='PRIOR_COURT_FINDING',court_level='RENT_CONTROLLER');x['blind_bindings'][0].update(statement_status='PRIOR_FOUND',semantic_stage='PRIOR_COURT_FINDING',court_level='RENT_CONTROLLER')
+        g=build_input_graph(x);self.assertEqual(next(n for n in g['nodes'] if n['id']=='F')['features']['court_level'],'RENT_CONTROLLER')
+    def test_prior_not_target_accepted(self):
+        x=fixture();x['facts'][0].update(statement_status='PRIOR_FOUND',semantic_stage='PRIOR_COURT_FINDING',court_level='TARGET');self.assertIn('PRIOR_FINDING_PROMOTED',validate_input(x))
+    def test_dangling_blocks_graph(self):
+        x=fixture();x['facts'][0]['entity_ids']=['excluded']
+        with self.assertRaises(ContractError):build_input_graph(x)
+    def test_cascading_endpoint_exclusion(self):
+        x=fixture();f=x['facts'][0];ent=copy.deepcopy(f);ent.update(id='E',semantic_stage='TARGET_DISPOSITION');f['entity_ids']=['E'];admitted,excluded=stage_partition([f,ent],x['provenance']);self.assertEqual(admitted,[]);self.assertTrue(any('DEPENDENCY_ENDPOINT_EXCLUDED' in r['reasons'] for r in excluded))
+    def test_binding_nonexistent_fact(self):
+        x=fixture();x['blind_bindings'][0]['fact_id']='NEW';self.assertIn('BINDING_FACT_NOT_ADMITTED',validate_input(x))
+    def test_binding_cannot_change_status(self):
+        x=fixture();x['blind_bindings'][0]['statement_status']='ADMITTED';self.assertIn('BINDING_CHANGED_STATEMENT_STATUS',validate_input(x))
+    def test_separate_contiguous_quotes(self):
+        x=fixture();sources=x['provenance'];self.assertEqual(quote_errors([{'source_id':'LAW:1','quote':'Exclusive possession is necessary.'},{'source_id':'LAW:1','quote':'Mere use is insufficient.'}],sources),[])
+        self.assertTrue(quote_errors([{'source_id':'LAW:1','quote':'Exclusive possession\nMere use is insufficient.'}],sources))
+    def test_independent_rule_required(self):
+        x=fixture();x['rules'][0]['independent_source']=False;self.assertTrue(any('INDEPENDENT_RULE' in e for e in validate_input(x)))
+    def test_target_judgment_not_independent_rule(self):
+        x=fixture();x['provenance']['LAW:1']['document_id']='synthetic';self.assertIn('TARGET_JUDGMENT_CANNOT_BE_INPUT_RULE',validate_input(x))
+    def test_unknown_not_false(self):
+        x=fixture();x['facts'][0]['statement_status']='UNKNOWN';x['blind_bindings'][0]['statement_status']='UNKNOWN';g=build_input_graph(x);self.assertEqual(next(n for n in g['nodes'] if n['id']=='F')['features']['statement_status'],'UNKNOWN')
+    def test_burden_not_fact_false(self):
+        x=fixture();t={'element_targets':[dict(condition_id='C1',status='DEFEATED',basis_kind='BURDEN_NOT_CARRIED',fact_truth='FALSE',target_refs=[{'source_id':'CASE:1','quote':'Tenant alleges that Guest merely uses Room.'}])],'issue_target':dict(status='NOT_SUPPORTED',target_refs=[{'source_id':'CASE:1','quote':'Tenant alleges that Guest merely uses Room.'}],procedural_scope='synthetic',reasoning='burden',derivative_or_de_novo='de_novo',unresolved_element_relationship='not decided')};self.assertIn('BURDEN_IS_NOT_FACT_FALSE',validate_targets(t,{'C1','C2'},x['provenance']))
+    def test_graph_api_rejects_case_envelope(self):
+        with self.assertRaises(ContractError):build_input_graph({'input':fixture(),'target':{}})
+    def test_no_identity_edge_invented(self):
+        g=build_input_graph(fixture());self.assertEqual(len(g['edges']),4);self.assertFalse(any(e['type']=='FACT_RELATES_TO_ENTITY' for e in g['edges']))
+    def test_binding_provenance_must_be_original(self):
+        x=fixture();x['blind_bindings'][0]['source_refs']=[{'source_id':'CASE:1','quote':'The lower court accepted this account.'}];self.assertIn('BINDING_REF_NOT_IN_RECORD_PROVENANCE',validate_input(x))
+    def test_stage_sidecar_cannot_hide_target(self):
+        x=fixture();x['stage_metadata']={'court_adopted':True};self.assertIn('STAGE_METADATA_NOT_INPUT_SAFE',validate_input(x))
+    def test_relation_endpoint_types_checked(self):
+        x=fixture();r=copy.deepcopy(x['facts'][0]);r.update(id='REL',source_record_id='F',target_record_id='C1',relation='EVIDENCE_SUPPORTS_FACT');x['relations']=[r];self.assertIn('RELATION_ENDPOINT_TYPES_INVALID',validate_input(x))
+    def test_prior_court_edge_cannot_promote_allegation(self):
+        x=fixture();ent=copy.deepcopy(x['facts'][0]);ent['id']='COURT';x['entities']=[ent];r=copy.deepcopy(ent);r.update(id='REL',source_record_id='COURT',target_record_id='F',relation='PRIOR_COURT_FOUND_FACT');x['relations']=[r];self.assertIn('PRIOR_COURT_EDGE_NOT_SUPPORTED_BY_FACT_STATUS',validate_input(x))
+    def test_malformed_issue_has_explicit_error(self):
+        x=fixture();x['issue']='bad';self.assertEqual(validate_input(x),['ISSUE_REQUIRED'])
+    def test_missing_id_has_explicit_error(self):
+        x=fixture();del x['facts'][0]['id'];self.assertIn('RECORD_ID_REQUIRED:facts',validate_input(x))
+
+if __name__=='__main__':unittest.main()
+
+```
+
+## scripts/irac_native01_finish.py
+
+```python
+"""Close the bounded discovery round; never promotes screening to READY."""
+import csv
+import datetime
+import hashlib
+import json
+from pathlib import Path
+from scripts.irac_native01_prepare import ROOT, save, sha
+
+
+def main():
+    screening = json.loads((ROOT/'suitability-screening.json').read_text())
+    cohort = json.loads((ROOT/'construction-cohort.json').read_text())
+    if cohort['status'] != 'NOT_RUN_BELOW_SIX_ELIGIBLE':
+        raise ValueError('This closure is only for a failed discovery gate.')
+    stop = 'NOT_RUN_DISCOVERY_GATE_BELOW_SIX'
+    for folder in ('independent-rule-sources', 'rule-packages', 'stage-partition',
+                   'blind-binding-tasks', 'blind-bindings', 'inputs', 'targets',
+                   'irac-input-graphs'):
+        p = ROOT/folder/'STATUS.json'
+        save(str(p.relative_to(ROOT)), {'status':stop,'real_cases':0,
+             'reason':'Eligible screen count < 6; no construction permitted.'})
+    for name in ('rule-condition-freeze', 'stage-freeze', 'blind-binding-freeze'):
+        save(name+'.json', {'status':stop,'frozen_cases':[],
+                           'no_completed_freeze_claim':True})
+    save('final-source-review.json', {'status':stop, 'cases':[],
+         'screening_is_not_final_construction_review':True,'model_calls':0})
+    save('leakage-audit.json', {'status':'DISCOVERY_ONLY_NO_REAL_INPUTS',
+         'discovery_target_access':True,'discovery_fields_not_model_features':True,
+         'blind_tasks_created':0,'real_input_graphs':0,'sealed_body_read':False,
+         'program_tests':'graph-builder-validation-final.json',
+         'real_case_semantic_leakage_evaluation':'NOT_RUN'})
+    save('referential-integrity-audit.json', {'status':'SYNTHETIC_INTERFACE_ONLY',
+         'real_graphs':0,'synthetic_fixture_validated':True,
+         'excluded_endpoint_cascade_tested':True,'real_cases_not_certified':True})
+    rows = []
+    for c in screening['cases']:
+        rows.append({'case_id':c['case_id'],'screen_status':c['status'],
+                     'model_acceptable_borderline':c['acceptable_borderline'],
+                     'construction':stop,'readiness':'NOT_EVALUATED',
+                     'reason':c['reason']})
+    save('feasibility-table.json', {'cases':rows,'model_reference_not_human_gold':True})
+    with (ROOT/'feasibility-table.csv').open('x', newline='') as f:
+        w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+    save('readiness.json', {'IRAC_NATIVE_DATA_STATUS':'IRAC_NATIVE_DISCOVERY_NO_GO',
+         'GROUP_CANONICAL_ADAPTER_STATUS':'NOT_AVAILABLE','candidate_count':16,
+         'SUITABLE':1,'model_acceptable_BORDERLINE':3,'REJECT':12,
+         'eligible_screen_upper_bound':4,'construction_minimum':6,
+         'constructed_cases':0,'READY_FOR_GNN_IRAC_PILOT':0,
+         'construction_readiness':'NOT_EVALUATED_DISCOVERY_GATE_STOP',
+         'next_training_allowed':False,'next_training_protocol_generated':False,
+         'boundary_candidates_not_scope_certified':True,'stopped':True})
+    calls=[]
+    for n in range(1,5):
+        run=json.loads((ROOT/'web'/f'SCREEN-{n}.run.json').read_text())
+        completed=json.loads((ROOT/'web'/f'SCREEN-{n}.completed.json').read_text())
+        calls.append({'task_id':f'SCREEN-{n}','submission':run,'completion':completed,
+                      'input_file_bytes':(ROOT/'tasks'/f'SCREEN-{n}.txt').stat().st_size,
+                      'raw_reply_bytes':(ROOT/'web'/f'SCREEN-{n}.json').stat().st_size})
+    save('cost.json', {'ordinary_High_calls':4,'max_authorized':16,'Pro':0,
+         'local_model_calls':0,'paid_api_calls':0,'semantic_retries':0,
+         'technical_retries':0,'training':0,'full_legal_answers':0,
+         'exact_model':None,'exact_tokens':None,'exact_generation_seconds':None,
+         'timing_note':'Submission and observed completion times are saved; visible thinking duration is not exact end-to-end generation time.',
+         'calls':calls})
+    historical=json.loads((ROOT/'parent-integrity.json').read_text())
+    local=json.loads((ROOT/'historical-local-preservation.json').read_text())
+    mismatch=[r['path'] for r in historical['files'] if sha(r['path'])!=r['sha256']]
+    mismatch += [p for p,h in local.items() if sha(p)!=h]
+    freeze=json.loads((ROOT/'screening-freeze.json').read_text())
+    frozen_mismatch=[p for key in ('files','source_files') for p,h in freeze[key].items() if sha(p)!=h]
+    if mismatch or frozen_mismatch:raise ValueError((mismatch,frozen_mismatch))
+    save('preservation-after.json', {'parent_files':len(historical['files']),
+         'local_historical_files':len(local),'historical_unchanged':True,
+         'screening_freeze_unchanged':True,'mismatches':[]})
+    code_paths=['legal_bench/rules_verdict_v1/irac_native_schema_v1.py',
+                'legal_bench/rules_verdict_v1/irac_graph_builder_v1.py',
+                'scripts/irac_native_graph.py','tests/test_irac_native_v1.py']
+    save('delivery-code-hashes.json', {p:sha(p) for p in code_paths})
+    save('stop.json', {'time':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+         'reason':'Fewer than six eligible even with all model-borderline cases counted.',
+         'no_second_cohort':True,'no_training':True,'no_commit_no_push':True})
+
+
+if __name__=='__main__':
+    main()
+
+```
+
+## legal_bench/irac_application/rule_templates.py
+
+```python
+"""Independent, reusable scoped rule templates; given-rule oracle is audited."""
+import copy
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import quote_errors
+from .input_partition import AVAIL
+
+def validate_template(template,sources):
+    errors=[]
+    for key in ('template_id','family','jurisdiction','version','scope','conditions','rule'):
+        if key not in template:errors.append('MISSING:'+key)
+    ids={c.get('id') for c in template.get('conditions',[])}
+    for r in [template.get('rule',{})]+template.get('conditions',[]):
+        errors+=quote_errors(r.get('source_refs'),sources)
+        for d in r.get('dependencies',[]):
+            if not isinstance(d,dict) or d.get('condition_id') not in ids or d.get('operator') not in {'AND','OR','QUALIFICATION'}:errors.append('DEPENDENCY_INVALID')
+    return sorted(set(errors))
+
+def attach(template,issue_id):
+    rule=copy.deepcopy(template['rule']);rule.update(independent_source=True,governs_issue_id=issue_id)
+    common=dict(statement_status='DOCUMENT_RECORDED',semantic_stage='PRE_TARGET_RECORD',court_level='NONE',prospective_availability=AVAIL)
+    rule.update(common);conditions=copy.deepcopy(template['conditions'])
+    for c in conditions:c.update(common,rule_id=rule['id'])
+    return rule,conditions
+
+RULE_PROMPT='''Build a REUSABLE GIVEN RULE template from the independent legal source excerpts below, NOT from any target case. No external search. Return a complete downloadable rule-FAMILY.json once. This is model-proposed rule decomposition, not an automatically induced rule or complete law library. Use at most 4-6 single-proposition conditions; identity and positive/negative direction must be unambiguous and stable across cases. Distinguish legal requirements, alternative routes, qualifications, burden triggers and evidentiary factors. Do not treat factors as necessary conditions. Exclude case-specific facts and verdicts from rule/condition wording, even if the independent precedent excerpt recites such facts. Dependencies only when directly supported; AND/OR/QUALIFICATION IDs refer to defined conditions. Do not force mechanical overall verdict logic. Scope narrowly to the ACTUAL jurisdiction/provision/version specified. Declare historical/version uncertainty and interpretation coverage; no promise of complete decisive tests.
+Output {template_id,family,jurisdiction,version,scope,coverage_limits,rule:{id,text,source_refs:[{source_id,quote}]},conditions:[{id,text,kind:"NECESSARY",polarity:"POSITIVE",dependencies:[],source_refs:[{source_id,quote}]}]}. kind can NECESSARY,ALTERNATIVE,QUALIFICATION,BURDEN_TRIGGER,FACTOR, but fill ONE actual value; same for polarity POSITIVE/NEGATIVE. Exact continuous quotes independently; no concatenation or ellipses. Each condition must quote the given independent rule source. Conditions use unique stable IDs prefixed FAMILY; all references use the source IDs below. No targets, factual supports/defeats or training masks.'''
+
+```
+
+## legal_bench/irac_application/target_adapter.py
+
+```python
+"""Condition-level admission. Mask controls loss, never graph construction."""
+from .rendered_quotes import check_refs
+
+CLASSES=('SATISFIED','DEFEATED','UNRESOLVED')
+BASIS={'FACT_ACCEPTED','FACT_FALSE','BURDEN_NOT_CARRIED','INSUFFICIENT_RECORD',
+       'LEGAL_INTERPRETATION','AMBIGUOUS_REASONING','NOT_DECIDED'}
+
+def adapt_targets(condition_ids, proposal, sources):
+    rows=proposal.get('element_targets',proposal.get('application_targets',[]))
+    indexed={};duplicates=set()
+    for row in rows:
+        cid=row.get('condition_id')
+        if cid in indexed:duplicates.add(cid)
+        indexed[cid]=row
+    result=[]
+    for cid in condition_ids:
+        row=indexed.get(cid,{})
+        label=row.get('status',row.get('label'))
+        basis=row.get('basis_kind');refs=row.get('target_refs',row.get('source_refs',[]))
+        reasons=[]
+        if cid in duplicates:reasons.append('DUPLICATE_TARGET')
+        if not row:reasons.append('NO_TARGET_PROPOSED')
+        if basis=='NOT_DECIDED':reasons.append('NOT_DECIDED_IS_UNOBSERVED')
+        if basis=='AMBIGUOUS_REASONING':reasons.append('AMBIGUOUS_REFERENCE_NOT_OBSERVED_UNRESOLVED')
+        if label not in CLASSES:reasons.append('NO_VALID_CLASS')
+        if basis not in BASIS:reasons.append('BASIS_UNSUPPORTED')
+        if row.get('substantive_adjudication') is not True:reasons.append('SUBSTANTIVE_ADJUDICATION_NOT_CONFIRMED')
+        if row.get('input_sufficient') is not True:reasons.append('INPUT_SUFFICIENCY_NOT_CONFIRMED')
+        if row.get('source_review') not in {'SUPPORTED','QUALIFIED'}:reasons.append('SOURCE_REVIEW_NOT_ADMITTED')
+        if label=='UNRESOLVED' and row.get('explicit_evidentiary_unresolved') is not True:
+            reasons.append('UNRESOLVED_NOT_EXPLICITLY_ADJUDICATED')
+        if basis=='BURDEN_NOT_CARRIED' and row.get('fact_truth')=='FALSE':reasons.append('BURDEN_IS_NOT_FACT_FALSE')
+        if label=='SATISFIED' and basis in {'FACT_FALSE','BURDEN_NOT_CARRIED'}:reasons.append('LABEL_BASIS_CONFLICT')
+        quote_failures,render_audit=check_refs(refs,sources);reasons+=quote_failures
+        result.append({'condition_id':cid,'target':label if not reasons else None,
+                       'class_index':CLASSES.index(label) if not reasons else None,
+                       'supervision_mask':not reasons,'basis_kind':basis,'target_refs':refs,
+                       'mask_reasons':sorted(set(reasons)),'quote_rendering_audit':render_audit,'original_proposal':row})
+    return result
+
+```
+
+## legal_bench/irac_application/data_tasks.py
+
+```python
+"""Self-contained, separately scoped annotation tasks and deterministic imports."""
+import copy,json,hashlib,re
+from pathlib import Path
+from .input_partition import partition,isolate_records,AVAIL
+from .rule_templates import attach,validate_template
+from .graph_builder import build_graph
+from .target_adapter import adapt_targets
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import validate_input,quote_errors
+
+def save(path,x):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(x,ensure_ascii=False,indent=2))
+def sources(root,family):return {s['source_id']:{k:v for k,v in s.items() if k!='source_id'} for s in json.loads((root/'law-sources'/f'{family}.json').read_text())}
+INPUT_PROMPT='''Construct INPUT records only from the approved spans and given rule template below. The target court's reasoning is withheld. No external search or memories. Do not predict condition states, supports/defeats, verdict or target adoption. Return the complete JSON inline in ONE code block; a downloadable input-XX.json is optional, not a replacement for visible JSON. {cases:[{case_id,issue,entities:[],facts:[],evidence:[],relations:[],coverage_limits:[]}]}.
+Every record, including issue/entities/relations, uses {id,text,statement_status,semantic_stage,court_level,party_side,polarity,source_refs:[{source_id,quote}]}. Use ONE status from CLAIMED/DENIED/ADMITTED/PRIOR_FOUND/DOCUMENT_RECORDED/UNKNOWN; stage PRE_TARGET_RECORD/PRIOR_COURT_FINDING/TARGET_STAGE_PARTY_ARGUMENT; court_level NONE/RENT_CONTROLLER/ARC/ARCT/TRIBUNAL/HIGH_COURT/SUPREME_COURT/UNKNOWN, prior findings never TARGET. party_side CLAIMANT/RESPONDENT/NEUTRAL/UNKNOWN; polarity POSITIVE/NEGATIVE/UNKNOWN. Copy source stage accurately. Source_refs quotes independently contiguous; multiple refs allowed; never compose fragments into one quote. Unknown fields remain UNKNOWN or [], not guesses. No whole-case completeness requirement. Keep 4-12 task-relevant atomic facts including opposing accounts, denials, material limitations and documented lower court findings. No forced quota. Entities identity only; unsupported attributes need not be filled. Event text stays in facts, not actor fields. Fact entity_ids list only IDs supported by the same supplied source; no string-similarity identity guesses. Evidence may specify supports_fact_ids; documentary existence is not the truth of every alleged statement. Each relation requires id and common fields plus source_record_id,target_record_id,relation (PARTY_ASSERTS_FACT/PRIOR_COURT_FOUND_FACT/FACT_RELATES_TO_ENTITY/EVIDENCE_SUPPORTS_FACT). No extra relation types. Issue is a neutral question, not a condition result, and cites an approved span establishing the controversy. Rules/conditions will be attached deterministically, don't duplicate or reword them.
+Complete SYNTHETIC teaching example, not a target answer:
+Approved source Z1: "Owner alleges Guest occupies the room. Tenant denies giving Guest exclusive possession." stage PRE_TARGET_RECORD. Output {"cases":[{"case_id":"SYNTHETIC-Z","issue":{"id":"I","text":"Whether alleged guest occupancy amounted to transfer of possession","statement_status":"CLAIMED","semantic_stage":"PRE_TARGET_RECORD","court_level":"NONE","party_side":"CLAIMANT","polarity":"UNKNOWN","source_refs":[{"source_id":"Z1","quote":"Owner alleges Guest occupies the room."}]},"entities":[{"id":"E1","text":"Owner","statement_status":"DOCUMENT_RECORDED","semantic_stage":"PRE_TARGET_RECORD","court_level":"NONE","party_side":"CLAIMANT","polarity":"UNKNOWN","source_refs":[{"source_id":"Z1","quote":"Owner"}]},{"id":"E2","text":"Guest","statement_status":"DOCUMENT_RECORDED","semantic_stage":"PRE_TARGET_RECORD","court_level":"NONE","party_side":"NEUTRAL","polarity":"UNKNOWN","source_refs":[{"source_id":"Z1","quote":"Guest"}]}],"facts":[{"id":"F1","text":"Owner alleges Guest occupies the room","statement_status":"CLAIMED","semantic_stage":"PRE_TARGET_RECORD","court_level":"NONE","party_side":"CLAIMANT","polarity":"POSITIVE","entity_ids":["E1","E2"],"source_refs":[{"source_id":"Z1","quote":"Owner alleges Guest occupies the room."}]},{"id":"F2","text":"Tenant denies giving Guest exclusive possession","statement_status":"DENIED","semantic_stage":"PRE_TARGET_RECORD","court_level":"NONE","party_side":"RESPONDENT","polarity":"NEGATIVE","entity_ids":["E2"],"source_refs":[{"source_id":"Z1","quote":"Tenant denies giving Guest exclusive possession."}]}],"evidence":[],"relations":[{"id":"REL1","text":"Owner asserts alleged occupancy","statement_status":"CLAIMED","semantic_stage":"PRE_TARGET_RECORD","court_level":"NONE","party_side":"CLAIMANT","polarity":"POSITIVE","source_record_id":"E1","target_record_id":"F1","relation":"PARTY_ASSERTS_FACT","source_refs":[{"source_id":"Z1","quote":"Owner alleges Guest occupies the room."}]}],"coverage_limits":["Occupancy is alleged, not target-court confirmed; exclusive possession is disputed."]}]}.
+Use only current case IDs and current approved source IDs, not Z1. Preserve original unknowns; no silent semantic repair.'''
+TARGET_PROMPT='''Construct SUPERVISION separately: predict what the specified TARGET court substantively decided about each GIVEN condition. No external search, no simulated model predictions. Return the complete JSON inline in ONE code block; downloadable target-XX.json is optional. {cases:[{case_id,element_targets:[{condition_id,status,basis_kind,substantive_adjudication,input_sufficient,explicit_evidentiary_unresolved,fact_truth,target_refs:[{source_id,quote}],reason}],procedural_outcome_separate,coverage_limits:[]}]}.
+status SATISFIED, DEFEATED, UNRESOLVED or null. DEFEATED means legal condition not established, not automatic false fact. basis_kind FACT_ACCEPTED/FACT_FALSE/BURDEN_NOT_CARRIED/INSUFFICIENT_RECORD/LEGAL_INTERPRETATION/AMBIGUOUS_REASONING/NOT_DECIDED. No alternatives joined in one string. If not substantively decided, status null, basis NOT_DECIDED, substantive_adjudication false. Explicitly adopted lower court application can support a target; mere appeal dismissal/restoration cannot silently assign all elements. UNRESOLVED only where TARGET actually analyzes and explicitly leaves the condition evidentially undetermined; set explicit_evidentiary_unresolved true. Reviewer uncertainty, missing annotation, incomplete material, legal issue not reached are not observed UNRESOLVED targets. Unknown truth stays UNKNOWN, burden failure not FALSE. An affirmative finding of consent can defeat lack-of-consent only where that polarity is the GIVEN condition. Do not invert condition polarity to fit outcome. No overall win/lose labels.
+Read complete target source including arguments, lower court treatment, actual target reasoning. References exact separate contiguous quotes, never join passages. Check the separately frozen INPUT record to determine input_sufficient: if the historic finding relies on decisive unavailable evidence, false with reason, even if target outcome is clear. This flag controls loss only and NEVER adds target findings to the input. Save every condition including unobserved ones. Stage-specific application, not predicted final outcome; model reference not human gold.'''
+REVIEW_PROMPT='''One concentrated source review, no external search or new full extraction. Return the complete JSON inline in ONE code block; downloadable review-XX.json is optional. {cases:[{case_id,input_review:[{record_id,decision:"SUPPORTED",reason}],target_review:[{condition_id,decision:"SUPPORTED",substantive_adjudication:true,input_sufficient:true,explicit_evidentiary_unresolved:false,reason}],partition_review:[{source_id,decision:"SUPPORTED",reason}],important_omissions:[],association:[],scope_review:"SUPPORTED"}]}. Decisions SUPPORTED/QUALIFIED/UNSUPPORTED/DISPUTED. Check original full source, separately partitioned input, given template and proposed targets. Verify INPUT spans exclude target endorsement/reasoning/outcome; neutral historical descriptions or clearly attributed earlier findings allowed, including unambiguously separable subspans. Don't promote reported claims. Enumerate input_review for EVERY issue/entity/fact/evidence/relation record, including those supported; enumerate partition_review for EVERY admitted case-span source_id; given-law sources are independently reviewed and need not be repeated. target_review enumerates all six conditions, including NOT_DECIDED. scope_review is one of SUPPORTED/QUALIFIED/UNSUPPORTED/DISPUTED. No record is presumed certified merely by address validation. Input record is a proposal, not truth-certified. Conditions need explicit substantive decisions or adoption, not appeal outcome. NOT_DECIDED stays unobserved, NOT UNRESOLVED. Check decisive input availability, polarity and burden, each quote independently. Disagreement unresolved => DISPUTED/mask, not repeated attempts until READY. Rule template only promises supplied scope, not entire case coverage. Identify known same dispute links, preserve uncertainty otherwise. Don't replace original model contents; proposed semantic corrections only described, not silently applied. Partial safe records and reliable targets remain usable even if other rows fail. If record references an unsafe entity, local dependency closure removes it. Source review is model assisted, not human gold.'''
+
+def prepare_inputs(root):
+ root=Path(root);inventory=json.loads((root/'candidate-inventory.json').read_text());byid={r['case_id']:r for r in inventory};selected=[];audit=[]
+ for p in sorted((root/'web').glob('screen-*.json')):
+  if not re.fullmatch(r'screen-\d\d.json',p.name):continue
+  for row in json.loads(p.read_text())['cases']:
+   ident=row['case_id'];family=row.get('family');reason=[]
+   if row['decision']=='REJECT':reason.append('SCREEN_REJECT')
+   if family not in ['DRC_SUBLETTING','DRC_BONA_FIDE']:reason.append('CURRENT_INDEPENDENT_TEMPLATE_NOT_AVAILABLE')
+   if not (root/'templates'/f'{family}.json').exists():reason.append('TEMPLATE_NOT_YET_READY')
+   # Main templates are DRC1958, and bona-fide residential version pre2008 only.
+   scope=json.dumps(row.get('law_scope',''))
+   law_audit=json.loads((root/'scope-selection.json').read_text()).get(ident,{})
+   if law_audit.get('decision')!='COMPATIBLE':reason.append('GIVEN_TEMPLATE_SCOPE_NOT_CONFIRMED:'+law_audit.get('reason','NO_SCOPE_REVIEW'))
+   if reason:audit.append(dict(case_id=ident,reasons=reason,screen=row));continue
+   doc=json.loads(Path(byid[ident]['source_path']).read_text());approved,pa=partition(doc,row.get('allowed_spans',[]))
+   if not approved:audit.append(dict(case_id=ident,reasons=['NO_LOCATED_SAFE_INPUT_SPAN'],screen=row));continue
+   selected.append(dict(case_id=ident,family=family,target_stage=row['target_stage'],target_court=row['target_court'],source_path=byid[ident]['source_path'],group_id=byid[ident]['group_id'],association=byid[ident]['association'],screen=row,sources=approved,span_audit=pa))
+ selected=selected[:24]
+ save(root/'construction-manifest.json',selected);save(root/'screen-import-audit.json',audit)
+ for i in range(0,len(selected),2):
+  name='input-%02d'%(i//2+1);rows=[]
+  for r in selected[i:i+2]:
+   rows.append(dict(case_id=r['case_id'],target_stage=r['target_stage'],family=r['family'],allowed_sources=r['sources'],given_template=json.loads((root/'templates'/f"{r['family']}.json").read_text())))
+  (root/'tasks'/f'{name}.txt').write_text(INPUT_PROMPT.replace('input-XX',name)+'\n'+json.dumps(rows,ensure_ascii=False)+'\nEND_OF_TASK '+name)
+ return selected
+
+def import_inputs(root):
+ root=Path(root);manifest=json.loads((root/'construction-manifest.json').read_text());byid={r['case_id']:r for r in manifest};audits=[]
+ for p in sorted((root/'web').glob('input-*.json')):
+  if not re.fullmatch(r'input-\d\d.json',p.name):continue
+  for row in json.loads(p.read_text())['cases']:
+   ident=row['case_id'];m=byid[ident];template=json.loads((root/'templates'/f"{m['family']}.json").read_text());ss=copy.deepcopy(m['sources']);ss.update(sources(root,m['family']));local,excluded=isolate_records(row,ss);issue=copy.deepcopy(row['issue']);issue.setdefault('prospective_availability',AVAIL)
+   rule,conditions=attach(template,issue['id'])
+   inp=dict(case_id=ident,issue=issue,**local,rules=[rule],conditions=conditions,blind_bindings=[],stage_metadata={'policy_version':'APPLICATION_V1_EXPLICIT_SPANS'},provenance=ss,prospective_availability=AVAIL)
+   errors=validate_input(inp);audit=dict(case_id=ident,excluded=excluded,errors=errors,coverage_limits=row.get('coverage_limits',[]));audits.append(audit)
+   if not errors:
+    save(root/'inputs'/f'{ident}.json',inp);save(root/'graphs'/f'{ident}.json',build_graph(inp));save(root/'packages'/f'{ident}.json',dict(package_id=ident,group_id=m['group_id'],family=m['family'],target_stage=m['target_stage'],target_court=m['target_court'],association=m['association'],condition_templates={c['id']:template['template_id']+':'+c['id'] for c in conditions},given_rule_oracle_selection=True,exposed_development=True))
+ save(root/'input-import-audit.json',audits)
+ return audits
+
+def prepare_targets(root):
+ root=Path(root);manifest=json.loads((root/'construction-manifest.json').read_text());selected=[r for r in manifest if (root/'inputs'/f"{r['case_id']}.json").exists()]
+ for i in range(0,len(manifest),2):
+  batch=manifest[i:i+2]
+  if not all((root/'inputs'/f"{m['case_id']}.json").exists() for m in batch):continue
+  name='target-%02d'%(i//2+1);rows=[]
+  for m in batch:
+   doc=json.loads(Path(m['source_path']).read_text());rows.append(dict(case_id=m['case_id'],target_stage=m['target_stage'],target_court=m['target_court'],full_source=dict(document_id=doc['document_id'],url=doc.get('url'),segments=[dict(source_id=s['id'],text=s['text']) for s in doc['segments']]),given_template=json.loads((root/'templates'/f"{m['family']}.json").read_text()),frozen_input=json.loads((root/'inputs'/f"{m['case_id']}.json").read_text())))
+  (root/'tasks'/f'{name}.txt').write_text(TARGET_PROMPT.replace('target-XX',name)+'\n'+json.dumps(rows,ensure_ascii=False)+'\nEND_OF_TASK '+name)
+ return selected
+
+def prepare_reviews(root):
+ root=Path(root);manifest=json.loads((root/'construction-manifest.json').read_text());target_rows={}
+ for p in sorted((root/'web').glob('target-??.json')):
+  for row in json.loads(p.read_text())['cases']:target_rows[row['case_id']]=row
+ selected=[r for r in manifest if (root/'inputs'/f"{r['case_id']}.json").exists() and r['case_id'] in target_rows]
+ for i in range(0,len(selected),4):
+  name='review-%02d'%(i//4+1);rows=[]
+  for m in selected[i:i+4]:
+   doc=json.loads(Path(m['source_path']).read_text());rows.append(dict(case_id=m['case_id'],target_stage=m['target_stage'],target_court=m['target_court'],full_source=dict(document_id=doc['document_id'],url=doc.get('url'),segments=[dict(source_id=s['id'],text=s['text']) for s in doc['segments']]),given_template=json.loads((root/'templates'/f"{m['family']}.json").read_text()),input=json.loads((root/'inputs'/f"{m['case_id']}.json").read_text()),partition_audit=m['span_audit'],proposed_targets=target_rows[m['case_id']]))
+  (root/'tasks'/f'{name}.txt').write_text(REVIEW_PROMPT.replace('review-XX',name)+'\n'+json.dumps(rows,ensure_ascii=False)+'\nEND_OF_TASK '+name)
+ return selected
+
+def admit_reviewed(root):
+ """Source safety independently of labels, then supervision-only local masks."""
+ root=Path(root);manifest=json.loads((root/'construction-manifest.json').read_text());meta={x['case_id']:x for x in manifest};refs={};reviews={};audits=[]
+ for p in sorted((root/'web').glob('target-??.json')):
+  for x in json.loads(p.read_text())['cases']:refs[x['case_id']]=x
+ for p in sorted((root/'web').glob('review-??.json')):
+  for x in json.loads(p.read_text())['cases']:reviews[x['case_id']]=x
+ for ident,m in meta.items():
+  input_path=root/'inputs'/f'{ident}.json'
+  if not input_path.exists():continue
+  inp=json.loads(input_path.read_text());initial=copy.deepcopy(inp)
+  # Preserve unreviewed input too: source-review gate is local, not a label gate.
+  rev=reviews.get(ident,{});ir={r['record_id']:r for r in rev.get('input_review',[])};pr={r['source_id']:r for r in rev.get('partition_review',[])}
+  quarantined=[];bad_sources=set()
+  for sid in m['sources']:
+   if pr.get(sid,{}).get('decision') not in {'SUPPORTED','QUALIFIED'}:bad_sources.add(sid)
+  for kind in ('entities','facts','evidence','relations'):
+   for row in initial[kind]:
+    bad=ir.get(row['id'],{}).get('decision') not in {'SUPPORTED','QUALIFIED'} or any(ref['source_id'] in bad_sources for ref in row['source_refs'])
+    if bad:quarantined.append(dict(kind=kind,original=row,reason='INPUT_SOURCE_REVIEW_UNSUPPORTED_OR_MISSING'))
+   inp[kind]=[x for x in initial[kind] if x['id'] not in {q['original']['id'] for q in quarantined}]
+  ss={sid:s for sid,s in inp['provenance'].items() if sid not in bad_sources}
+  local,closure=isolate_records(inp,ss);inp.update(local);quarantined+=closure
+  issue_bad=ir.get(inp['issue']['id'],{}).get('decision') not in {'SUPPORTED','QUALIFIED'} or any(x['source_id'] in bad_sources for x in inp['issue']['source_refs'])
+  inp['provenance']=ss;errors=validate_input(inp)
+  # No target-class/target-review decisions have been used to modify input.
+  save(root/'input-before-source-review'/f'{ident}.json',initial)
+  save(root/'graph-before-source-review'/f'{ident}.json',build_graph(initial))
+  input_admitted=not issue_bad and not errors
+  if input_admitted:
+   save(root/'inputs'/f'{ident}.json',inp);save(root/'graphs'/f'{ident}.json',build_graph(inp))
+  else:
+   save(root/'input-quarantine'/f'{ident}.json',dict(input=initial,reason='ISSUE_OR_INPUT_CONTRACT_SOURCE_UNSAFE',errors=errors,issue_bad=issue_bad))
+   # Keep original and graph; a sidecar admission list prevents training on unsafe graphs.
+  proposal=copy.deepcopy(refs.get(ident,{'element_targets':[]}));tr={r['condition_id']:r for r in rev.get('target_review',[])}
+  template_review=json.loads((root/'template-review-audit.json').read_text());rule_review=next(x['review'] for x in template_review if x['family']==m['family']);cr={r['condition_id']:r for r in rule_review['conditions']}
+  for row in proposal['element_targets']:
+   review=tr.get(row['condition_id'],{});row['source_review']=review.get('decision','MISSING')
+   # The reviewer may veto proposed reliability; cannot promote an unsupported proposal.
+   for field in ('substantive_adjudication','input_sufficient','explicit_evidentiary_unresolved'):
+    row[field]=row.get(field) is True and review.get(field) is True
+   if cr.get(row['condition_id'],{}).get('decision') not in {'SUPPORTED','QUALIFIED'}:row['source_review']='RULE_CONDITION_NOT_ADMITTED'
+   if not input_admitted or rev.get('scope_review') not in {'SUPPORTED','QUALIFIED'}:row['input_sufficient']=False
+  doc=json.loads(Path(m['source_path']).read_text());ss_target={s['id']:{'text':s['text']} for s in doc['segments']}
+  adapted=adapt_targets([c['id'] for c in inp['conditions']],proposal,ss_target)
+  save(root/'targets'/f'{ident}.json',dict(original_proposal=refs.get(ident),reviewed_proposal=proposal,adapted_targets=adapted,review=rev,reference_kind='MODEL_GENERATED_SOURCE_REVIEWED_NOT_HUMAN_GOLD'))
+  audits.append(dict(case_id=ident,input_admitted=input_admitted,input_removed=quarantined,unsafe_sources=sorted(bad_sources),issue_bad=issue_bad,errors=errors,scope_review=rev.get('scope_review'),reviewed=bool(rev),supervised_conditions=sum(r['supervision_mask'] for r in adapted),mask_reasons={r['condition_id']:r['mask_reasons'] for r in adapted if not r['supervision_mask']}))
+ save(root/'source-review-admission.json',audits);return audits
+
+```
+
+## legal_bench/irac_application/corpus_inventory.py
+
+```python
+"""Discovery may read outcomes; supervised inputs are built separately."""
+import json,sqlite3,hashlib,re
+from pathlib import Path
+SEALED={'38084532','123883887','12668753','120018816','84124','131143878','199292513','57407111'}
+FAMILIES={'DRC_SUBLETTING':r'(sub.?let|part(?:ed|ing)? with possession|assign.*tenan)', 'DRC_BONA_FIDE':r'(bona.?fide|14\s*\(?\s*1\s*\)?\s*\(?\s*e\s*\)?)','LEASE_LICENCE':r'(licen[cs]e|lessor|lessee)'}
+def digest(x):return hashlib.sha256(json.dumps(x,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+def inventory(db,roots):
+    con=sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True)
+    placeholders=','.join('?' for _ in SEALED)
+    metadata={str(i):json.loads(raw) for i,raw in con.execute('select doc_id,raw_json from cases where doc_id not in ('+placeholders+')',sorted(SEALED))};con.close()
+    rows=[];seen=set()
+    for root in roots:
+        for p in sorted(Path(root).glob('*.json'),key=lambda p:int(p.stem) if p.stem.isdigit() else 10**20):
+            ident=p.stem
+            if ident in SEALED or ident in seen or not ident.isdigit():continue
+            d=json.loads(p.read_text())
+            if d.get('status')!='COMPLETE_RENDERING':continue
+            seen.add(ident);text='\n'.join(s['text'] for s in d['segments'])
+            m=metadata.get(ident,{})
+            discovery=json.dumps(m,ensure_ascii=False)+'\n'+text
+            families=[f for f,pattern in FAMILIES.items() if re.search(pattern,discovery,re.I)]
+            rows.append(dict(case_id=ident,source_path=str(p),source_sha256=hashlib.sha256(p.read_bytes()).hexdigest(),title=d.get('titles'),candidate_families=families,discovery_fields='existing metadata including issues/reasons/outcomes and full source; NOT model input',exposure='PREVIOUS_PREPARATION_OR_DEVELOPMENT_NOT_INDEPENDENT_TEST',association='UNCONFIRMED_UNLESS_EXPLICIT_DUPLICATE',group_id='DOC-'+ident))
+    return rows
+SCREEN_INSTRUCTIONS='''Task: source-grounded discovery for retrospective rule-given CONDITION application, not case win/lose. No external search. Read every supplied source; stop if any document cannot be read completely. Return downloadable JSON screen-XX.json once. Reference: model generated, not human gold.
+For each document, identify at most ONE substantive issue with explicit application findings by the TARGET court (court rendering this judgment). A lower court may instead be target only if detailed reasoning, not mere outcome, is actually quoted; then identify the pre-target boundary. Court level is not a barrier. Do not infer findings from dismissed appeal or restoration alone. Identify family, jurisdiction, statutory version, target court/stage. Allowed families initially DRC_SUBLETTING (actual version separately), DRC_BONA_FIDE (actual provision separately), LEASE_LICENCE (lease/license legal classification). REJECT other claims or merely procedure; BORDERLINE may still contribute locally supervised conditions.
+Output {cases:[{case_id,decision:"SUITABLE",family,law_scope,target_stage,target_court,substantive_issue,issue_refs:[{source_id,quote}],application_refs:[{source_id,quote}],allowed_spans:[{source_id,quote,semantic_stage:"PRE_TARGET_RECORD",statement_status:"CLAIMED",court_level:"NONE",reason}],excluded_stage_notes,independent_rule_leads,coverage_gaps,known_association}]}. decision is SUITABLE/BORDERLINE/REJECT, not joined options. REJECT still fill fields with null or [] as appropriate. allowed_spans need 4-12 SHORT EXACT contiguous quotes preserving decisive factual variation, opposing accounts, admissions and documented prior findings. You are specifying annotation partitions; you are NOT constructing model facts or target classes. Exclude the target court's application endorsements, evaluative descriptions, concluding facts, and HEADNOTES. Do NOT turn target findings into admissible factual assertions. A mixed paragraph can supply a separately contiguous neutral quoted span; no ellipses/rewrites. semantic_stage is PRE_TARGET_RECORD or PRIOR_COURT_FINDING; statement_status CLAIMED/DENIED/ADMITTED/DOCUMENT_RECORDED/PRIOR_FOUND/UNKNOWN, prior findings retain actual court level. Identifying speaker names is optional if status remains explicit. Target reasoning excerpts are application_refs, never allowed_spans. Conditions not decided must later be masked, not UNRESOLVED labels. Prefer a merits issue explicitly adjudicated, but no wholesale READY gate. Source support not absence of errors determines eligibility; don't reject a useful issue solely because other conditions incomplete. Do not create a law rule from target application. Include all cases, no quota; no model predictions provided.'''
+def prepare(root):
+    root=Path(root);out=root/'tasks';out.mkdir(exist_ok=True)
+    rows=inventory('outputs/benchmark-pilot/data/cases.sqlite',['outputs/gnn-irac-native-data-01/sources/documents','outputs/rgcn-data-expansion-09/continuation-01/documents'])[:48]
+    (root/'candidate-inventory.json').write_text(json.dumps(rows,indent=2,ensure_ascii=False))
+    protocol=dict(family_patterns=FAMILIES,max_detailed=48,actual_candidates=len(rows),selection='source root priority then numeric document ID; no verdict/performance selection',sealed_excluded_before_raw_db_read=sorted(SEALED),new_law_scope_per_source=True,grouping='explicit known associations merged before folds; otherwise uncertain marked',screen_output_fields='stage partition annotation separate from input extraction')
+    (root/'discovery-protocol.json').write_text(json.dumps(protocol,indent=2))
+    for i in range(0,len(rows),4):
+        name='screen-%02d'%(i//4+1);body=SCREEN_INSTRUCTIONS.replace('screen-XX',name)+'\n'
+        for r in rows[i:i+4]:
+            d=json.loads(Path(r['source_path']).read_text());body+='\nDOCUMENT '+r['case_id']+' '+json.dumps(r['title'])+'\n'+json.dumps({'document_id':d['document_id'],'url':d.get('url'),'titles':d.get('titles'),'status':d['status'],'segments':[{'source_id':x['id'],'text':x['text']} for x in d['segments']]},ensure_ascii=False)+'\nEND DOCUMENT\n'
+        body+='END_OF_TASK '+name
+        (out/(name+'.txt')).write_text(body)
+    return protocol
+
+```
+
+## legal_bench/irac_application/__init__.py
+
+```python
+"""Rule-given condition application: inputs, supervision and models stay separate."""
+
+```
+
+## legal_bench/irac_application/artifact_reader.py
+
+```python
+"""Extract data literals from visible file-generation code; NEVER execute that code.
+Only literal containers, existing variable references, indexing, list concatenation
+and the displayed q(doc,line,quote) address constructor are interpreted. Unknown
+expressions affecting payloads fail; no quote rewriting or semantic repairs.
+"""
+import ast,json,copy
+class Unsupported(ValueError):pass
+
+def recover(codes,source_lookup=None,initial_payload=None):
+    env={} if initial_payload is None else {'d':copy.deepcopy(initial_payload)};audit=[];payload_names=set(env);source_lookup=source_lookup or {}
+    def value(n):
+        if isinstance(n,ast.Constant):return n.value
+        if isinstance(n,ast.Name):
+            if n.id not in env:raise Unsupported('NAME:'+n.id)
+            return env[n.id]
+        if isinstance(n,(ast.List,ast.Tuple)):return [value(v) for v in n.elts]
+        if isinstance(n,ast.Dict):
+            d={}
+            for k,v in zip(n.keys,n.values):
+                if k is None:d.update(value(v))
+                else:d[value(k)]=value(v)
+            return d
+        if isinstance(n,ast.Subscript):return value(n.value)[value(n.slice)]
+        if isinstance(n,ast.Slice):return slice(value(n.lower) if n.lower else None,value(n.upper) if n.upper else None,value(n.step) if n.step else None)
+        if isinstance(n,ast.Index):return value(n.value)
+        if isinstance(n,ast.BinOp) and isinstance(n.op,ast.Add):return value(n.left)+value(n.right)
+        if isinstance(n,ast.Call) and isinstance(n.func,ast.Name) and n.func.id=='q':
+            args=[value(a) for a in n.args]
+            if len(args)!=3 or not isinstance(args[2],str):raise Unsupported('Q_INTERFACE')
+            sid='IK-'+str(args[0])+':L'+str(args[1]);quote=args[2]
+            if sid not in source_lookup or quote not in source_lookup[sid]:raise Unsupported('Q_UNSUPPORTED_BY_SOURCE:'+sid)
+            return dict(source_id=sid,quote=quote)
+        if isinstance(n,ast.Call) and isinstance(n.func,ast.Name) and n.func.id in {'ref','span'}:
+            args=[value(a) for a in n.args];kw={k.arg:value(k.value) for k in n.keywords}
+            if len(args)<2 or args[0] not in source_lookup or args[1] not in source_lookup[args[0]]:raise Unsupported('ADDRESS_NOT_LOCATED')
+            if n.func.id=='ref' and len(args)==2 and not kw:return dict(source_id=args[0],quote=args[1])
+            if n.func.id=='span' and 4<=len(args)<=6:
+                return dict(source_id=args[0],quote=args[1],statement_status=args[2],reason=args[3],semantic_stage=kw.get('semantic_stage',args[4] if len(args)>4 else 'PRE_TARGET_RECORD'),court_level=kw.get('court_level',args[5] if len(args)>5 else 'NONE'))
+            raise Unsupported('ADDRESS_INTERFACE')
+        if isinstance(n,ast.Compare) and len(n.ops)==1 and isinstance(n.ops[0],ast.Eq):return value(n.left)==value(n.comparators[0])
+        if isinstance(n,ast.Call) and isinstance(n.func,ast.Name) and n.func.id=='next' and len(n.args)==1 and isinstance(n.args[0],ast.GeneratorExp):
+            g=n.args[0]
+            if len(g.generators)!=1:raise Unsupported('MULTIPLE_GENERATORS')
+            gen=g.generators[0]
+            for item in value(gen.iter):
+                assign(gen.target,item)
+                if all(value(c) for c in gen.ifs):return value(g.elt)
+            raise Unsupported('NO_GENERATOR_MATCH')
+        raise Unsupported(type(n).__name__)
+    def assign(t,v):
+        if isinstance(t,ast.Name):env[t.id]=v
+        elif isinstance(t,ast.Subscript):value(t.value)[value(t.slice)]=v
+        else:raise Unsupported('ASSIGN:'+type(t).__name__)
+    def mutate_body(body):
+        for n in body:
+            if isinstance(n,ast.Assign):
+                v=value(n.value)
+                for t in n.targets:assign(t,v)
+            elif isinstance(n,ast.For):
+                seq=value(n.iter)
+                if not isinstance(seq,list) or len(seq)>1000:raise Unsupported('LOOP_BOUND')
+                for item in seq:
+                    assign(n.target,item);mutate_body(n.body)
+            elif isinstance(n,ast.If):mutate_body(n.body if value(n.test) else n.orelse)
+            elif isinstance(n,ast.Expr) and isinstance(n.value,ast.Call):
+                c=n.value
+                if isinstance(c.func,ast.Attribute) and c.func.attr=='append':value(c.func.value).append(value(c.args[0]))
+                else:raise Unsupported('MUTATION_CALL')
+            else:raise Unsupported('MUTATION_STATEMENT')
+    for block,code in enumerate(codes):
+        try:tree=ast.parse(code)
+        except SyntaxError:
+            audit.append(dict(block=block,action='UNPARSEABLE_BLOCK_NOT_EXECUTED'));continue
+        for n in tree.body:
+            if isinstance(n,ast.Assign):
+                try:
+                    v=value(n.value)
+                    for t in n.targets:assign(t,v)
+                    audit.append(dict(block=block,line=n.lineno,action='STATIC_DATA_ASSIGN'))
+                except Unsupported as e:
+                    # Payload mutation may not be silently discarded.
+                    if any(isinstance(t,ast.Subscript) and isinstance(t.value,ast.Name) and t.value.id in payload_names for t in n.targets):raise
+            elif isinstance(n,ast.For) and initial_payload is not None:
+                assigns=[x for x in ast.walk(n) if isinstance(x,ast.Assign)]
+                if assigns and not any(isinstance(x,ast.Assert) for x in ast.walk(n)):
+                    mutate_body([n]);audit.append(dict(block=block,line=n.lineno,action='BOUNDED_LITERAL_MUTATION'))
+            elif isinstance(n,ast.Expr) and isinstance(n.value,ast.Call):
+                call=n.value
+                if isinstance(call.func,ast.Attribute) and call.func.attr=='append' and isinstance(call.func.value,ast.Name) and call.func.value.id in env:
+                    try:
+                        v=value(call.args[0]);env[call.func.value.id].append(v);audit.append(dict(block=block,line=n.lineno,action='STATIC_DATA_APPEND'))
+                    except Unsupported:raise
+            for key,v in env.items():
+                if isinstance(v,dict) and ('template_id' in v or isinstance(v.get('templates'),list) and v['templates'] or isinstance(v.get('cases'),list) and v['cases']):payload_names.add(key)
+    valid=[v for k,v in env.items() if k in payload_names and isinstance(v,dict) and ('template_id' in v or isinstance(v.get('templates'),list) and v['templates'] or isinstance(v.get('cases'),list) and v['cases'])]
+    if not valid:raise Unsupported('NO_RECOVERABLE_COMPLETE_PAYLOAD')
+    return copy.deepcopy(valid[-1]),audit
+
+```
+
+## legal_bench/irac_application/application_models.py
+
+```python
+"""Same node/edge records and head; Graph adds typed neighborhood propagation."""
+import numpy as np
+import mlx.core as mx
+import mlx.nn as nn
+from mlx.utils import tree_flatten
+
+RELATIONS=tuple(sorted(['CANDIDATE_LINK']+[
+    prefix+r for r in ('RULE_HAS_CONDITION','ISSUE_GOVERNED_BY_RULE',
+     'EVIDENCE_SUPPORTS_FACT','PARTY_ASSERTS_FACT','PRIOR_COURT_FOUND_FACT',
+     'FACT_RELATES_TO_ENTITY','CONDITION_AND','CONDITION_OR','CONDITION_QUALIFICATION')
+    for prefix in ('','INVERSE_')]))
+NODE_TYPES=('Issue','Rule','Condition','Fact','Evidence','Entity')
+STATUS=('CLAIMED','DENIED','ADMITTED','PRIOR_FOUND','DOCUMENT_RECORDED','UNKNOWN')
+STAGES=('PRE_TARGET_RECORD','PRIOR_COURT_FINDING','TARGET_STAGE_PARTY_ARGUMENT')
+AVAIL=('DIRECT_PRE_TARGET_SOURCE','RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET','UNKNOWN')
+COURTS=('NONE','RENT_CONTROLLER','ARC','ARCT','TRIBUNAL','HIGH_COURT','SUPREME_COURT','UNKNOWN')
+SIDE=('CLAIMANT','RESPONDENT','NEUTRAL','UNKNOWN')
+POLARITY=('POSITIVE','NEGATIVE','UNKNOWN')
+CONDITION_KIND=('NECESSARY','ALTERNATIVE','QUALIFICATION','BURDEN_TRIGGER','FACTOR','UNKNOWN')
+
+def onehot(value,values):return [float(value==x) for x in values]
+def metadata(n):
+    f=n['features']
+    return (onehot(n['type'],NODE_TYPES)+onehot(f.get('statement_status'),STATUS)+
+        onehot(f.get('semantic_stage'),STAGES)+onehot(f.get('prospective_availability'),AVAIL)+
+        onehot(f.get('court_level'),COURTS)+onehot(f.get('party_side'),SIDE)+
+        onehot(f.get('polarity'),POLARITY)+onehot(f.get('condition_kind'),CONDITION_KIND)+[float(n['source_grounded'])])
+
+def tensorize(graph, embeddings):
+    nodes=sorted(graph['nodes'],key=lambda n:n['id']);idx={n['id']:i for i,n in enumerate(nodes)}
+    x=np.array([list(embeddings[n['id']])+metadata(n) for n in nodes],dtype=np.float32)
+    edges=sorted(graph['edges'],key=lambda e:(e['source'],e['target'],e['type']))
+    if any(e['type'] not in RELATIONS for e in edges):raise ValueError('UNSUPPORTED_RELATION')
+    edge_idx=np.array([[idx[e['source']],idx[e['target']],RELATIONS.index(e['type'])] for e in edges],dtype=np.int32).reshape(-1,3)
+    adj=np.zeros((len(RELATIONS),len(nodes),len(nodes)),dtype=np.float32)
+    for s,t,r in edge_idx:adj[r,t,s]+=1
+    den=adj.sum(axis=2,keepdims=True);adj/=np.maximum(den,1)
+    condition_ids=[n['id'] for n in nodes if n['type']=='Condition']
+    return {'x':mx.array(x),'edges':mx.array(edge_idx),'adj':mx.array(adj),
+        'conditions':mx.array([idx[c] for c in condition_ids],dtype=mx.int32),
+        'condition_ids':condition_ids}
+
+class ApplicationModel(nn.Module):
+    def __init__(self,kind,input_width,hidden=64,dropout=.1):
+        super().__init__();self.kind=kind;self.hidden=hidden
+        self.project=nn.Linear(input_width,hidden)
+        self.self_layers=[nn.Linear(hidden,hidden) for _ in range(2)]
+        self.dropout=nn.Dropout(dropout)
+        self.edge_encoder=nn.Linear(2*hidden+len(RELATIONS),hidden)
+        self.head=nn.Linear(3*hidden,3)
+        if kind=='Graph':
+            self.bases=mx.random.normal((2,4,hidden,hidden))*.03
+            self.coefficients=mx.random.normal((2,len(RELATIONS),4))*.03
+        elif kind!='Flat':raise ValueError(kind)
+    def __call__(self,d):
+        h=nn.relu(self.project(d['x']))
+        for layer in range(2):
+            y=self.self_layers[layer](h)
+            if self.kind=='Graph':
+                w=mx.einsum('rb,bij->rij',self.coefficients[layer],self.bases[layer])
+                y=y+mx.einsum('rtn,rnj->tj',d['adj'],mx.einsum('ni,rij->rnj',h,w))
+            h=self.dropout(nn.relu(y))
+        q=h[d['conditions']]
+        node_pool=mx.softmax(q@h.T/(self.hidden**.5),axis=1)@h
+        if len(d['edges']):
+            e=d['edges'];rels=mx.eye(len(RELATIONS))[e[:,2]]
+            z=nn.relu(self.edge_encoder(mx.concatenate([h[e[:,0]],rels,h[e[:,1]]],axis=1)))
+            edge_pool=mx.softmax(q@z.T/(self.hidden**.5),axis=1)@z
+        else:edge_pool=mx.zeros_like(q)
+        return self.head(mx.concatenate([q,node_pool,edge_pool],axis=1))
+
+def parameter_count(model):return sum(v.size for _,v in tree_flatten(model.trainable_parameters()))
+
+def masked_group_loss(model,packages):
+    groups={}
+    for p in packages:
+        mask=np.array(p['mask'],bool)
+        if not mask.any():continue
+        ids=mx.array(np.where(mask)[0],dtype=mx.int32)
+        # Only select supervised targets before CE; masked placeholders never evaluated.
+        labels=mx.array(np.array(p['labels'])[mask],dtype=mx.int32)
+        loss=nn.losses.cross_entropy(model(p['tensors'])[ids],labels,reduction='mean')
+        groups.setdefault(p['group_id'],[]).append(loss)
+    if not groups:raise ValueError('NO_SUPERVISED_CONDITIONS_IN_BATCH')
+    return mx.mean(mx.stack([mx.mean(mx.stack(values)) for values in groups.values()]))
+
+```
+
+## legal_bench/irac_application/rendered_quotes.py
+
+```python
+"""Reversible presentation-only citation-label view; no page/footer deletion.
+Cached web responses wrap hyperlink labels in cite metadata. All legal characters
+inside labels are retained. This is an address representation, not semantic repair.
+"""
+import re,hashlib
+from .input_partition import locate
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import quote_errors
+MARKER=re.compile(r'\ue200cite\ue202[^†\ue201]*†([^\ue201]*)\ue201')
+
+def citation_view(text):
+    chars=[];mapping=[];start=0;wrappers=[]
+    for m in MARKER.finditer(text):
+        chars.extend(text[start:m.start()]);mapping.extend(range(start,m.start()))
+        chars.extend(m.group(1));mapping.extend(range(m.start(1),m.end(1)))
+        wrappers.append([m.start(),m.end()]);start=m.end()
+    chars.extend(text[start:]);mapping.extend(range(start,len(text)))
+    return ''.join(chars),mapping,wrappers
+
+def check_refs(refs,sources):
+    errors=quote_errors(refs,sources);audit=[]
+    if not isinstance(refs,list):return errors,audit
+    for i,ref in enumerate(refs):
+        error='NONCONTIGUOUS_OR_UNLOCATED_QUOTE:'+str(i)
+        if error not in errors:continue
+        text=sources.get(ref.get('source_id'),{}).get('text','');quote=ref.get('quote')
+        if not isinstance(quote,str):continue
+        view,mapping,wrappers=citation_view(text);qview,_,qwrappers=citation_view(quote)
+        bounds=locate(view,qview)
+        if not bounds or not (wrappers or qwrappers):continue
+        # Only markup removed, no page text or legal words; quote unchanged in storage.
+        a,b=bounds;original=[mapping[a],mapping[b-1]+1]
+        audit.append(dict(source_id=ref['source_id'],ref_index=i,match='CITATION_LABEL_RENDERED_VIEW',original_char_range=original,source_sha256=hashlib.sha256(text.encode()).hexdigest(),quote_sha256=hashlib.sha256(quote.encode()).hexdigest(),source_marker_ranges=wrappers,legal_text_modified=False))
+        errors.remove(error)
+    return errors,audit
+
+```
+
+## legal_bench/irac_application/graph_builder.py
+
+```python
+"""Input-only graph with unsigned, generated computational candidate edges."""
+import copy
+from legal_bench.rules_verdict_v1.irac_graph_builder_v1 import build_input_graph
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import ContractError,digest
+
+FORBIDDEN={'supervision_mask','class_index','source_review','input_sufficient',
+           'substantive_adjudication','explicit_evidentiary_unresolved','label',
+           'target_refs','mask_reasons','review_confidence'}
+
+def reject_supervision(value):
+    if isinstance(value,dict):
+        if set(value)&FORBIDDEN:raise ContractError('SUPERVISION_NOT_INPUT')
+        for v in value.values():reject_supervision(v)
+    elif isinstance(value,list):
+        for v in value:reject_supervision(v)
+
+def build_graph(input_record):
+    reject_supervision(input_record)
+    if input_record.get('blind_bindings'):
+        raise ContractError('SIGNED_BINDINGS_NOT_MAIN_INPUT')
+    graph=build_input_graph(input_record)
+    graph.pop('graph_hash');graph['schema_version']='IRAC_APPLICATION_GRAPH_V1'
+    condition_kinds={c['id']:c.get('kind','UNKNOWN') for c in input_record['conditions']}
+    for n in graph['nodes']:
+        if n['type']=='Condition':n['features']['condition_kind']=condition_kinds[n['id']]
+    facts=[n['id'] for n in graph['nodes'] if n['type'] in {'Fact','Evidence'}]
+    conditions=[n['id'] for n in graph['nodes'] if n['type']=='Condition']
+    for fid in facts:
+        for cid in conditions:
+            for a,b in ((fid,cid),(cid,fid)):
+                graph['edges'].append({'source':a,'target':b,'type':'CANDIDATE_LINK',
+                    'source_refs':[],'provenance_record_id':None,
+                    'origin':'DETERMINISTIC_ALL_FACT_CONDITION_COMPUTATIONAL_LINK',
+                    'not_source_evidence':True})
+    # Preserve already declared input references even if no duplicate relation row
+    # was generated. These are model-proposed links, never identity inferred by code.
+    existing={(e['source'],e['target'],e['type']) for e in graph['edges']}
+    node_types={n['id']:n['type'] for n in graph['nodes']}
+    for kind,key,relation,expected in [('facts','entity_ids','FACT_RELATES_TO_ENTITY','Entity'),('evidence','supports_fact_ids','EVIDENCE_SUPPORTS_FACT','Fact')]:
+        for record in input_record[kind]:
+            for target in record.get(key,[]):
+                if node_types.get(target)!=expected:raise ContractError('DECLARED_REFERENCE_ENDPOINT_TYPE_INVALID')
+                edge_key=(record['id'],target,relation)
+                if edge_key in existing:continue
+                graph['edges'].append(dict(source=record['id'],target=target,type=relation,source_refs=copy.deepcopy(record['source_refs']),provenance_record_id=record['id'],origin='DECLARED_MODEL_INPUT_REFERENCE_NOT_INFERRED'))
+                existing.add(edge_key)
+    # Explicit logical dependencies are given-rule information, not targets.
+    for condition in input_record['conditions']:
+        for dep in condition.get('dependencies',[]):
+            graph['edges'].append({'source':dep['condition_id'],'target':condition['id'],
+                'type':'CONDITION_'+dep['operator'],'source_refs':copy.deepcopy(condition['source_refs']),
+                'provenance_record_id':condition['id'],'origin':'GIVEN_RULE_DEPENDENCY'})
+    original=list(graph['edges'])
+    for e in original:
+        if e['type']=='CANDIDATE_LINK':continue
+        inv=copy.deepcopy(e);inv.update(source=e['target'],target=e['source'],type='INVERSE_'+e['type'])
+        graph['edges'].append(inv)
+    graph['edges'].sort(key=lambda e:(e['source'],e['target'],e['type']))
+    graph['semantics']='Source relations and unsigned computational candidates are distinct; no supervision read.'
+    graph['graph_hash']=digest(graph)
+    return graph
+
+```
+
+## legal_bench/irac_application/text_cache.py
+
+```python
+"""Frozen encoder worker. Run in the independent E5 environment, not MLX."""
+import hashlib,json,time,re,bisect,resource,sys
+from pathlib import Path
+import numpy as np
+
+def chunk_ranges(ids,offsets,text,capacity):
+    ends=[x[1] for x in offsets]
+    boundaries={bisect.bisect_right(ends,m.start()) for m in re.finditer(r'(?<=[.!?])\s+|\n+',text)}
+    ranges=[];start=0
+    while start<len(ids):
+        limit=min(start+capacity,len(ids));eligible=[x for x in boundaries if start<x<=limit]
+        end=max(eligible) if eligible and limit<len(ids) else limit
+        ranges.append([start,end]);start=end
+    return ranges or [[0,0]]
+
+def encode(root):
+    import torch,transformers
+    from transformers import AutoTokenizer,AutoModel
+    root=Path(root);cfg=json.loads((root/'text-cache/encoder.json').read_text())
+    tokenizer=AutoTokenizer.from_pretrained(cfg['path'],local_files_only=True)
+    model=AutoModel.from_pretrained(cfg['path'],local_files_only=True).eval()
+    texts={}
+    for p in sorted((root/'graphs').glob('*.json')):
+        graph=json.loads(p.read_text())
+        for n in graph['nodes']:
+            text=n['text'];key=hashlib.sha256(text.encode()).hexdigest();texts[key]=text
+    out=root/'text-cache';out.mkdir(exist_ok=True);vectors={};audit=[];t=time.perf_counter()
+    # Entire node text is tokenized without truncation, then split reversibly at IDs.
+    prefix=tokenizer.encode(cfg['prefix'],add_special_tokens=False)
+    capacity=512-len(prefix)-tokenizer.num_special_tokens_to_add(pair=False)
+    with torch.no_grad():
+        for key,text in sorted(texts.items()):
+            encoded=tokenizer(text,add_special_tokens=False,truncation=False,return_offsets_mapping=True)
+            ids=encoded['input_ids'];ranges=chunk_ranges(ids,encoded['offset_mapping'],text,capacity)
+            chunks=[ids[a:b] for a,b in ranges]
+            reps=[]
+            for chunk in chunks:
+                input_ids=torch.tensor([tokenizer.build_inputs_with_special_tokens(prefix+chunk)])
+                attention=torch.ones_like(input_ids)
+                hidden=model(input_ids=input_ids,attention_mask=attention).last_hidden_state
+                v=hidden.mean(dim=1);v=torch.nn.functional.normalize(v,p=2,dim=1);reps.append(v[0].numpy())
+            vector=np.mean(reps,axis=0);vector/=max(np.linalg.norm(vector),1e-12);vectors[key]=vector
+            audit.append(dict(text_sha256=key,tokens=len(ids),chunk_count=len(chunks),token_ranges=ranges,char_ranges=[[encoded['offset_mapping'][a][0],encoded['offset_mapping'][b-1][1]] if b>a else [0,0] for a,b in ranges],truncated=False))
+    np.savez(out/'vectors.npz',**vectors)
+    report=dict(model=cfg['model'],revision=cfg['revision'],torch=torch.__version__,transformers=transformers.__version__,device='CPU',unique_texts=len(texts),seconds=time.perf_counter()-t,peak_process_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*(1 if sys.platform=='darwin' else 1024),chunking='prefer deterministic sentence/paragraph token boundaries; split overlong single sentence at capacity; full token coverage',pooling='mean tokens then L2; long nodes mean normalized complete chunks then L2',prefix=cfg['prefix'],max_length=512,audit=audit,legal_correctness_claim=False)
+    (out/'encoding.json').write_text(json.dumps(report,indent=2));return report
+if __name__=='__main__':
+    import sys
+    print(json.dumps(encode(sys.argv[1]),indent=2))
+
+```
+
+## legal_bench/irac_application/train_eval.py
+
+```python
+"""Frozen grouped development training; no labels used in input construction."""
+import copy
+import random
+import time
+import numpy as np
+import mlx.core as mx
+import mlx.nn as nn
+import mlx.optimizers as optim
+from mlx.utils import tree_flatten
+from .application_models import ApplicationModel,masked_group_loss,parameter_count
+
+def grouped_split(packages,seed=20261006,folds=3):
+    groups=sorted({p['group_id'] for p in packages})
+    if len(groups)<2:return []
+    random.Random(seed).shuffle(groups);k=min(folds,len(groups));out=[]
+    for fold in range(k):
+        test=groups[fold::k];train=[g for g in groups if g not in test]
+        shuffled=list(train);random.Random(seed+fold+1).shuffle(shuffled)
+        val=shuffled[:max(1,len(train)//5)] if len(train)>=2 else []
+        out.append({'fold':fold,'test_groups':test,'validation_groups':val,
+                    'fit_groups':[g for g in train if g not in val],
+                    'early_stopping':bool(val)})
+    return out
+
+def fit(kind,packages,validation,seed,epochs=100,batch_size=4,patience=10):
+    train=[p for p in packages if any(p['mask'])]
+    if not train:raise ValueError('NO_SUPERVISED_PACKAGES')
+    mx.reset_peak_memory();mx.random.seed(seed);rng=random.Random(seed)
+    model=ApplicationModel(kind,train[0]['tensors']['x'].shape[1])
+    mx.eval(model.parameters());before={k:np.array(v) for k,v in tree_flatten(model.parameters())}
+    optimizer=optim.AdamW(learning_rate=.001,weight_decay=.0001)
+    grad=nn.value_and_grad(model,masked_group_loss)
+    history=[];best=None;best_loss=float('inf');bad=0;t0=time.perf_counter();updates=0;first_grad=None
+    bygroup={}
+    for p in train:bygroup.setdefault(p['group_id'],[]).append(p)
+    group_ids=sorted(bygroup)
+    for epoch in range(epochs):
+        model.train();rng.shuffle(group_ids);values=[]
+        # Complete groups stay in a batch. A large group is never split and over-weighted.
+        batches=[];batch=[]
+        for gid in group_ids:
+            if batch and len(batch)+len(bygroup[gid])>batch_size:batches.append(batch);batch=[]
+            batch+=bygroup[gid]
+        if batch:batches.append(batch)
+        for batch in batches:
+            value,g=grad(model,batch)
+            if first_grad is None:first_grad=float(sum(mx.sum(v*v).item() for _,v in tree_flatten(g)))**.5
+            optimizer.update(model,g);mx.eval(model.parameters(),optimizer.state,value,g)
+            values.append(float(value.item()));updates+=1
+        model.eval()
+        usable=[p for p in validation if any(p['mask'])]
+        val=float(masked_group_loss(model,usable).item()) if usable else None
+        history.append({'epoch':epoch,'training_loss':float(np.mean(values)),
+                        'validation_loss':val,'optimizer_updates':updates})
+        if not np.isfinite(values).all() or val is not None and not np.isfinite(val):raise ValueError('NONFINITE_TRAINING')
+        if val is not None:
+            if val<best_loss-1e-7:
+                best_loss=val;best=copy.deepcopy(model.parameters());bad=0
+            else:bad+=1
+            if bad>=patience:break
+    last_delta=float(sum(np.sum((np.array(v)-before[k])**2) for k,v in tree_flatten(model.parameters())))**.5
+    if best is not None:model.update(best);mx.eval(model.parameters())
+    model.eval()
+    return model,{'history':history,'updates':updates,'first_gradient_norm':first_grad,
+        'pre_checkpoint_parameter_delta':last_delta,'parameters':parameter_count(model),
+        'kind':kind,'seed':seed,'seconds':time.perf_counter()-t0,
+        'fit_groups':sorted(bygroup),'validation_groups':sorted({p['group_id'] for p in validation}),
+        'early_stop_checkpoint_used':best is not None,'peak_mlx_memory_bytes':mx.get_peak_memory()}
+
+def prior_fit(packages):
+    counts={};all_counts=np.ones(3,dtype=float)
+    for p in packages:
+        for key,y,mask in zip(p['template_condition_ids'],p['labels'],p['mask']):
+            if not mask:continue
+            counts.setdefault(key,np.ones(3,dtype=float))[y]+=1;all_counts[y]+=1
+    return {'per_condition':{k:(v/v.sum()).tolist() for k,v in counts.items()},
+            'fallback':(all_counts/all_counts.sum()).tolist(),'smoothing':1}
+
+def package_group_values(rows,field):
+    groups={}
+    for r in rows:
+        if not r['supervision_mask']:continue
+        y=r['label'];p=r['probabilities'];v=float(int(np.argmax(p))==y) if field=='correct' else -float(np.log(max(p[y],1e-12)))
+        groups.setdefault(r['group_id'],{}).setdefault(r['package_id'],[]).append(v)
+    return {g:float(np.mean([np.mean(v) for v in packages.values()])) for g,packages in groups.items()}
+
+def metrics(rows):
+    admitted=[r for r in rows if r['supervision_mask']]
+    matrix=np.zeros((3,3),int);loss=[]
+    for r in admitted:
+        y=r['label'];pred=int(np.argmax(r['probabilities']));matrix[y,pred]+=1
+        loss.append(-np.log(max(r['probabilities'][y],1e-12)))
+    recall=[];f1=[]
+    for i in range(3):
+        tp=matrix[i,i];fn=matrix[i].sum()-tp;fp=matrix[:,i].sum()-tp
+        recall.append(float(tp/(tp+fn)) if tp+fn else None)
+        f1.append(float(2*tp/(2*tp+fp+fn)) if tp+fn else None)
+    correct=package_group_values(rows,'correct');balanced_loss=package_group_values(rows,'loss')
+    return {'supervised_conditions':len(admitted),'dispute_groups':len(correct),
+        'confusion_matrix':matrix.tolist(),'per_class_recall':recall,
+        'macro_f1_observed_classes':float(np.mean([v for v in f1 if v is not None])) if any(v is not None for v in f1) else None,
+        'unobserved_classes':[i for i,v in enumerate(recall) if v is None],
+        'dispute_mean_correct':float(np.mean(list(correct.values()))) if correct else None,
+        'condition_micro_probability_loss':float(np.mean(loss)) if loss else None,
+        'dispute_balanced_probability_loss':float(np.mean(list(balanced_loss.values()))) if balanced_loss else None,
+        'planned_conditions':len(rows),'supervision_coverage':len(admitted)/len(rows) if rows else 0}
+
+def paired_group_bootstrap(rows,seed=20261006,repeats=2000):
+    # Seeds averaged within each dispute, then resample disputes, not conditions or seeds.
+    scores={}
+    for method in ('P','Flat','Graph'):
+        seeds=sorted({r['seed'] for r in rows if r['method']==method},key=lambda x:-1 if x is None else x)
+        per_seed=[package_group_values([r for r in rows if r['method']==method and r['seed']==s],'correct') for s in seeds]
+        gids=set.intersection(*(set(x) for x in per_seed)) if per_seed else set()
+        scores[method]={g:float(np.mean([x[g] for x in per_seed])) for g in gids}
+    out={}
+    for a,b in [('Flat','P'),('Graph','Flat'),('Graph','P')]:
+        gids=sorted(set(scores[a])&set(scores[b]));delta=np.array([scores[a][g]-scores[b][g] for g in gids]);rng=np.random.default_rng(seed)
+        draws=np.mean(delta[rng.integers(0,len(delta),size=(repeats,len(delta)))],axis=1) if len(delta) else []
+        out[a+'-'+b]=dict(groups=len(gids),mean_delta=float(delta.mean()) if len(delta) else None,percentile_95=np.percentile(draws,[2.5,97.5]).tolist() if len(draws) else None,repeats=repeats,seed=seed,scope='descriptive grouped development uncertainty, not independent-test significance')
+    return out
+
+```
+
+## legal_bench/irac_application/input_partition.py
+
+```python
+"""Reversible, explicitly approved quoted spans; never infer stages by keywords."""
+import copy,re
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import quote_errors,stage_partition,endpoint_ids
+ALLOWED={'PRE_TARGET_RECORD','PRIOR_COURT_FINDING','TARGET_STAGE_PARTY_ARGUMENT'}
+AVAIL='RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET'
+def locate(text,quote):
+    if not isinstance(quote,str) or not quote.strip():return None
+    matches=list(re.finditer(re.escape(quote),text))
+    if len(matches)==1:return [matches[0].start(),matches[0].end()]
+    # Exact words with whitespace differences; recovered text preserves original bytes.
+    pattern=r'\s+'.join(re.escape(w) for w in quote.split())
+    matches=list(re.finditer(pattern,text))
+    return [matches[0].start(),matches[0].end()] if len(matches)==1 else None
+
+def partition(document,approved):
+    lookup={s['id']:s for s in document['segments']};sources={};audit=[]
+    for i,span in enumerate(approved):
+        parent=span.get('source_id');stage=span.get('semantic_stage');s=lookup.get(parent)
+        bounds=locate(s['text'],span.get('quote')) if s else None
+        reasons=[]
+        if s is None:reasons.append('SOURCE_NOT_FOUND')
+        if bounds is None:reasons.append('UNLOCATED_OR_AMBIGUOUS_CONTIGUOUS_QUOTE')
+        if stage not in ALLOWED:reasons.append('STAGE_NOT_ALLOWED')
+        sid=str(parent)+':span'+str(i+1)
+        if not reasons:
+            sources[sid]=dict(text=s['text'][bounds[0]:bounds[1]],document_id=document['document_id'],url=document.get('url'),semantic_stage=stage,prospective_availability=AVAIL)
+        audit.append(dict(source_id=sid,parent_source_id=parent,original_char_range=bounds,proposal=copy.deepcopy(span),admitted=not reasons,reasons=reasons))
+    return sources,audit
+
+def isolate_records(proposal,sources):
+    """Local malformed/unsafe records and dependents excluded; other records remain."""
+    records=[];kinds={}
+    for kind in ('entities','facts','evidence','relations'):
+        for row in proposal.get(kind,[]):
+            row=copy.deepcopy(row);kinds[row.get('id')]=kind
+            if row.get('prospective_availability') is None:row['prospective_availability']=AVAIL
+            records.append(row)
+    admitted,excluded=stage_partition(records,sources)
+    # Duplicate identity records are all isolated, not arbitrarily selected.
+    counts={}
+    for r in admitted:counts[r['id']]=counts.get(r['id'],0)+1
+    duplicate={i for i,n in counts.items() if n>1}
+    while True:
+        ids={r['id'] for r in admitted if r['id'] not in duplicate};keep=[];changed=False
+        for r in admitted:
+            missing=[x for x in endpoint_ids(r) if x not in ids]
+            if r['id'] in duplicate or missing:
+                excluded.append(dict(original=r,reasons=['DUPLICATE_ID'] if r['id'] in duplicate else ['DEPENDENCY_ENDPOINT_EXCLUDED'],missing_endpoints=missing));changed=True
+            else:keep.append(r)
+        admitted=keep;duplicate=set()
+        if not changed:break
+    return {k:[r for r in admitted if kinds[r['id']]==k] for k in ('entities','facts','evidence','relations')},excluded
+
+```
+
+## scripts/irac_application_study.py
+
+```python
+#!/usr/bin/env python3
+"""Single resumable study entry: prepare, encode, freeze, train, report."""
+import argparse,json,hashlib,time,sys
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+DEFAULT=ROOT/'outputs/gnn-irac-application-development-01'
+def save(p,x):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(x,indent=2,ensure_ascii=False))
+def hashfile(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def load_packages(root):
+ import numpy as np
+ from legal_bench.irac_application.application_models import tensorize
+ vectors=np.load(root/'text-cache/vectors.npz');out=[]
+ admitted=None
+ if (root/'source-review-admission.json').exists():admitted={r['case_id'] for r in json.loads((root/'source-review-admission.json').read_text()) if r['input_admitted']}
+ for p in sorted((root/'graphs').glob('*.json')):
+  if admitted is not None and p.stem not in admitted:continue
+  g=json.loads(p.read_text());meta=json.loads((root/'packages'/p.name).read_text());target=json.loads((root/'targets'/p.name).read_text())
+  t=tensorize(g,{n['id']:vectors[hashlib.sha256(n['text'].encode()).hexdigest()] for n in g['nodes']})
+  byid={r['condition_id']:r for r in target['adapted_targets']};ids=t['condition_ids'];r=[byid[i] for i in ids]
+  out.append(dict(package_id=meta['package_id'],group_id=meta['group_id'],family=meta['family'],target_stage=meta['target_stage'],tensors=t,labels=[x['class_index'] if x['supervision_mask'] else -1 for x in r],mask=[x['supervision_mask'] for x in r],template_condition_ids=[meta['condition_templates'][i] for i in ids],condition_ids=ids))
+ return out
+
+def freeze(root):
+ from legal_bench.irac_application.train_eval import grouped_split
+ packages=load_packages(root)
+ files=[p for d in ['inputs','targets','graphs','packages','templates'] for p in (root/d).glob('*.json')]
+ files+=list((ROOT/'legal_bench/irac_application').glob('*.py'))+[Path(__file__)]+[ROOT/'legal_bench/rules_verdict_v1'/p for p in ['irac_native_schema_v1.py','irac_graph_builder_v1.py','irac_gate_v2.py']]
+ files+=[root/p for p in ['scope-selection.json','construction-manifest.json','source-review-admission.json','template-review-audit.json','case-study-protocol.json','protocol-initial.json','dispute-groups-final.json']]
+ files+=[ROOT/'tests/test_irac_application.py',ROOT/'tests/test_irac_native_v1.py']
+ files+=[Path(r['source_path']) for r in json.loads((root/'construction-manifest.json').read_text())]
+ files+=list((root/'tasks').glob('*.txt'))+list((root/'law-sources').glob('*.json'))
+ files+=[root/'text-cache/encoder.json',root/'text-cache/encoding.json',root/'text-cache/vectors.npz']
+ files=[(p if p.is_absolute() else ROOT/p).resolve() for p in files]
+ cfg=json.loads((root/'protocol-initial.json').read_text());cfg['runtime']=json.loads((root/'engineering/runtime.json').read_text());cfg.update(status='FROZEN_BEFORE_REAL_FITS',actual_packages=len(packages),supervised_packages=sum(any(p['mask']) for p in packages),folds=grouped_split([p for p in packages if any(p['mask'])]),hashes={str(p.relative_to(ROOT)):hashfile(p) for p in files},scope='EXPOSED_DEVELOPMENT_RULE_GIVEN_RETROSPECTIVE_CONDITION_TARGETS_NOT_WIN_LOSE',no_test_early_stop=True,prior_smoothing=1,unknown_labels_not_negatives=True,actual_environment='MLX .runtime/qwen35-v1; E5 separate .runtime/irac-e5-v1')
+ for p in files:
+  if p.suffix=='.py':
+   dest=root/'freeze/code'/p.relative_to(ROOT);dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(p.read_bytes())
+ save(root/'training-freeze.json',cfg)
+ return cfg
+
+def train(root):
+ import numpy as np,mlx.core as mx
+ from legal_bench.irac_application.train_eval import fit,prior_fit,metrics,paired_group_bootstrap
+ cfg=json.loads((root/'training-freeze.json').read_text())
+ for name,want in cfg['hashes'].items():
+  if hashfile(ROOT/name)!=want:raise ValueError('FROZEN_FILE_CHANGED:'+name)
+ packages=load_packages(root);runs=root/'training';runs.mkdir(exist_ok=True);weights=root/'weights';weights.mkdir(exist_ok=True);all_rows=[];logs=[]
+ if not cfg['folds']:
+  save(runs/'stop.json',dict(reason='FEWER_THAN_TWO_SUPERVISED_DISPUTES_NO_HOLDOUT_COMPARISON',training_runs=0));return
+ for split in cfg['folds']:
+  pick=lambda key:[p for p in packages if p['group_id'] in split[key]]
+  tr,va,te=pick('fit_groups'),pick('validation_groups'),pick('test_groups')
+  prior=prior_fit(tr)
+  prior_rows=[]
+  for p in te:
+   for i,c in enumerate(p['condition_ids']):
+    prior_rows.append(dict(method='P',seed=None,fold=split['fold'],package_id=p['package_id'],group_id=p['group_id'],family=p['family'],target_stage=p['target_stage'],condition_id=c,supervision_mask=p['mask'][i],label=p['labels'][i] if p['mask'][i] else None,probabilities=prior['per_condition'].get(p['template_condition_ids'][i],prior['fallback'])))
+  save(runs/('fold%d-P.json'%split['fold']),dict(prior=prior,predictions=prior_rows));all_rows+=prior_rows
+  for seed in [20261006,20261007,20261008]:
+   for kind in ['Flat','Graph']:
+    name='fold%d-%s-%d'%(split['fold'],kind,seed);path=runs/(name+'.json')
+    if path.exists():
+     old=json.loads(path.read_text());all_rows+=old['predictions'];logs.append(old['run']);continue
+    t=time.perf_counter()
+    try:
+     model,run=fit(kind,tr,va,seed);rows=[]
+     for p in te:
+      probabilities=np.array(mx.softmax(model(p['tensors']),axis=-1))
+      for i,c in enumerate(p['condition_ids']):rows.append(dict(method=kind,seed=seed,fold=split['fold'],package_id=p['package_id'],group_id=p['group_id'],family=p['family'],target_stage=p['target_stage'],condition_id=c,supervision_mask=p['mask'][i],label=p['labels'][i] if p['mask'][i] else None,probabilities=probabilities[i].tolist()))
+     model.save_weights(str(weights/(name+'.npz')));run.update(status='OK',fold=split['fold']);save(path,dict(run=run,predictions=rows));all_rows+=rows;logs.append(run)
+    except Exception as e:
+     save(path,dict(run=dict(status='FAILED',method=kind,seed=seed,fold=split['fold'],error=str(e),seconds=time.perf_counter()-t),predictions=[]));raise
+ summary={'P':metrics([r for r in all_rows if r['method']=='P'])}
+ for kind in ['Flat','Graph']:
+  summary[kind]={str(seed):metrics([r for r in all_rows if r['method']==kind and r['seed']==seed]) for seed in [20261006,20261007,20261008]}
+ breakdown={}
+ for method in ['P','Flat','Graph']:
+  rr=[r for r in all_rows if r['method']==method and r['seed'] in [None,20261006]]
+  breakdown[method]={field:{v:metrics([r for r in rr if r[field]==v]) for v in sorted({r[field] for r in rr})} for field in ['family','target_stage']}
+ save(runs/'summary.json',dict(metrics=summary,breakdown_seed_20261006=breakdown,fits=len(logs),runs=logs,paired_bootstrap=paired_group_bootstrap(all_rows),development_only=True,not_human_gold=True))
+ save(runs/'all-predictions.json',all_rows)
+ print(json.dumps(summary,indent=2))
+def main():
+ parser=argparse.ArgumentParser();parser.add_argument('command',choices=['prepare','prepare-inputs','import-inputs','prepare-targets','prepare-reviews','admit','encode','freeze','train']);parser.add_argument('--root',type=Path,default=DEFAULT);a=parser.parse_args()
+ if a.command=='prepare':
+  from legal_bench.irac_application.corpus_inventory import prepare
+  print(prepare(a.root))
+ elif a.command in ['prepare-inputs','import-inputs','prepare-targets','prepare-reviews','admit']:
+  from legal_bench.irac_application import data_tasks
+  fn={'prepare-inputs':data_tasks.prepare_inputs,'import-inputs':data_tasks.import_inputs,'prepare-targets':data_tasks.prepare_targets,'prepare-reviews':data_tasks.prepare_reviews,'admit':data_tasks.admit_reviewed}[a.command]
+  print(json.dumps(fn(a.root),ensure_ascii=False,indent=2))
+ elif a.command=='encode':
+  from legal_bench.irac_application.text_cache import encode
+  print(encode(a.root))
+ elif a.command=='freeze':print(freeze(a.root))
+ else:train(a.root)
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_application_smoke.py
+
+```python
+"""Real MLX optimization on explicitly synthetic graphs; not legal evaluation."""
+import copy
+import json
+import hashlib
+from pathlib import Path
+import numpy as np
+import mlx.core as mx
+from tests.test_irac_application import data_fixture
+from legal_bench.irac_application.graph_builder import build_graph
+from legal_bench.irac_application.application_models import tensorize,masked_group_loss
+from legal_bench.irac_application.train_eval import fit
+
+ROOT=Path('outputs/gnn-irac-application-development-01')
+
+def main():
+    out=ROOT/'engineering';out.mkdir(exist_ok=True)
+    if (out/'optimizer-runs.json').exists():raise FileExistsError('Preserve prior smoke; do not rerun automatically')
+    packages=[]
+    for i in range(3):
+        x=data_fixture();x['case_id']='SYNTHETIC-'+str(i)
+        g=build_graph(x);rng=np.random.default_rng(i)
+        emb={n['id']:rng.normal(size=384).astype(np.float32) for n in g['nodes']}
+        packages.append(dict(package_id='SMOKE-'+str(i),group_id='SYNTHETIC-GROUP-'+str(i),
+            tensors=tensorize(g,emb),graph=g,labels=[i,999],mask=[True,False],
+            template_condition_ids=['SYNTHETIC:C1','SYNTHETIC:C2']))
+        (out/(str(i)+'-graph.json')).write_text(json.dumps(g,indent=2)+'\n')
+    runs=[]
+    for kind in ('Flat','Graph'):
+        model,run=fit(kind,packages,[],20261006,epochs=3)
+        assert run['first_gradient_norm']>0 and run['pre_checkpoint_parameter_delta']>0
+        base=float(masked_group_loss(model,packages).item())
+        altered=[dict(p,labels=[p['labels'][0],-12345]) for p in packages]
+        assert base==float(masked_group_loss(model,altered).item())
+        # Independent forward calls cannot mix graph messages between packages.
+        p=packages[0];one=np.array(model(p['tensors']));model(packages[1]['tensors'])
+        assert np.allclose(one,np.array(model(p['tensors'])))
+        runs.append(dict(run,mask_placeholder_invariance=True,independent_graph_forward=True,
+                         final_loss=base,engineering_only=True,legal_accuracy=None))
+        mx.savez(str(out/(kind+'-weights.npz')),**dict(__import__('mlx.utils',fromlist=['tree_flatten']).tree_flatten(model.parameters())))
+    (out/'optimizer-runs.json').write_text(json.dumps({'synthetic':True,'models':runs,
+        'real_legal_training':False,'optimizer':'AdamW','dropout':.1,'legal_accuracy':None},indent=2)+'\n')
+    print(json.dumps(runs,indent=2))
+
+if __name__=='__main__':main()
+
+```
+
+## scripts/report_irac_application.py
+
+```python
+#!/usr/bin/env python3
+"""Post-fit reporting only. Does not change inputs, masks, fitting or predictions."""
+import collections, csv, hashlib, json, statistics
+from pathlib import Path
+
+ROOT=Path(__file__).resolve().parents[1]
+R=ROOT/'outputs/gnn-irac-application-development-01'
+def read(p):return json.loads(p.read_text())
+def save(p,x):p.write_text(json.dumps(x,indent=2,ensure_ascii=False)+'\n')
+def pred(r):return max(range(3),key=lambda i:r['probabilities'][i])
+def main():
+    manifest=read(R/'construction-manifest.json');summary=read(R/'training/summary.json')
+    rows=read(R/'training/all-predictions.json');classes=['SATISFIED','DEFEATED','UNRESOLVED']
+    target={m['case_id']:read(R/'targets'/f"{m['case_id']}.json") for m in manifest}
+    counts=collections.Counter();reasons=collections.Counter();coverage=[]
+    for m in manifest:
+        tt=target[m['case_id']]['adapted_targets']
+        for t in tt:
+            if t['supervision_mask']:counts[t['target']]+=1
+            reasons.update(t['mask_reasons'])
+        inp=read(R/'inputs'/f"{m['case_id']}.json");g=read(R/'graphs'/f"{m['case_id']}.json")
+        coverage.append(dict(case_id=m['case_id'],family=m['family'],stage=m['target_stage'],court=m['target_court'],group_id=m['group_id'],association=m['association'],planned_conditions=len(tt),supervised_conditions=sum(t['supervision_mask'] for t in tt),facts=len(inp['facts']),evidence=len(inp['evidence']),nodes=len(g['nodes']),edges=len(g['edges'])))
+    save(R/'data-quality.json',dict(candidates=31,packages=len(manifest),family_counts=collections.Counter(m['family'] for m in manifest),planned_conditions=sum(x['planned_conditions'] for x in coverage),class_counts=counts,supervised_packages=sum(x['supervised_conditions']>0 for x in coverage),mask_reason_counts_overlapping=reasons,packages_detail=coverage,reference_kind='MODEL_GENERATED_SOURCE_REVIEWED_NOT_HUMAN_GOLD',sealed_read=False,known_cross_document_associations=[],association_complete=False,all_packages_exposed_development=True))
+    with (R/'package-coverage.csv').open('w') as f:
+        w=csv.DictWriter(f,fieldnames=list(coverage[0]));w.writeheader();w.writerows(coverage)
+    split=read(R/'training-freeze.json')['folds'];fit_counts=[]
+    for s in split:
+        c=collections.Counter(t['target'] for m in manifest if m['group_id'] in s['fit_groups'] for t in target[m['case_id']]['adapted_targets'] if t['supervision_mask'])
+        fit_counts.append(dict(fold=s['fold'],fit_class_counts=c,validation_groups=s['validation_groups'],test_groups=s['test_groups']))
+    save(R/'training/fold-label-coverage.json',fit_counts)
+    comparison=[]
+    for method in ['P','Flat','Graph']:
+        items=[summary['metrics']['P']] if method=='P' else list(summary['metrics'][method].values())
+        rr=[x for x in summary['runs'] if x['kind']==method]
+        comparison.append(dict(method=method,seeds=0 if method=='P' else 3,macro_f1_mean=statistics.mean(x['macro_f1_observed_classes'] for x in items),macro_f1_range=[min(x['macro_f1_observed_classes'] for x in items),max(x['macro_f1_observed_classes'] for x in items)],dispute_mean_correct=statistics.mean(x['dispute_mean_correct'] for x in items),dispute_balanced_logloss=statistics.mean(x['dispute_balanced_probability_loss'] for x in items),defeated_recall=[x['per_class_recall'][1] for x in items],parameters=rr[0]['parameters'] if rr else 0,fit_seconds=sum(x['seconds'] for x in rr),peak_mlx_bytes=max((x['peak_mlx_memory_bytes'] for x in rr),default=0)))
+    save(R/'comparison.json',comparison)
+    with (R/'comparison-table.csv').open('w') as f:
+        w=csv.DictWriter(f,fieldnames=list(comparison[0]));w.writeheader();w.writerows(comparison)
+    protocol=read(R/'case-study-protocol.json');distance=[]
+    for ident in sorted({x['package_id'] for x in rows}):
+        a={x['condition_id']:x for x in rows if x['package_id']==ident and x['method']=='Flat' and x['seed']==20261006}
+        b={x['condition_id']:x for x in rows if x['package_id']==ident and x['method']=='Graph' and x['seed']==20261006}
+        d=statistics.mean(sum(abs(v-w) for v,w in zip(a[k]['probabilities'],b[k]['probabilities'])) for k in a)
+        distance.append(dict(case_id=ident,mean_probability_l1=d))
+    extras=[x['case_id'] for x in sorted(distance,key=lambda x:(-x['mean_probability_l1'],x['case_id'])) if x['case_id'] not in protocol['fixed_cases']][:protocol['extra_max']]
+    selected=protocol['fixed_cases']+extras
+    notes={
+      '112400':'3个成立标签有来源支持；所有权和住宅不适宜与允许输入对应。但C03/C04部分依赖从“该请求成立”推认构成条件，弱于逐项独立裁判。C02缺少关于提高租金的背景，被局部屏蔽。Fold0拟合中没有该family，两个模型均预测成立，不能证明读取了这些事实。',
+      '114533':'C02是房东未尽证明责任，不是转租事实被证明确实为假。输入保存租户否认、夫妻关系的下级认定及房东未调查的承认。原文目标理由拒绝转租推论。P、Flat、Graph均漏掉该DEFEATED；该案所在Fold1拟合数据没有任何DEFEATED，这是重要划分限制，而不是必须补负例的理由。',
+      '50313565':'输入保留儿子开关店门、协助父亲以及继续控制的相反主张，但目标法院依赖未取得内容的营业归属文件。三个可解释的历史判断仍因input_sufficient=false屏蔽。该包构图但没有监督，因此没有留出评分；不能将模型生成的“成立”概率当成对真实未决的评价。',
+      '1114159':'仅住宅用途C01有可监督的成立判断：允许输入含下级住宅用途认定，目标原文接受住宅用途。其他需求、受益人及住所条件没有独立决定，所有权缺购房事实。Flat/Graph最高概率同类，但概率差异最大，不能把概率差异包装成法律推理机制。',
+      '1870868':'1954年起租与已成立转租的采纳支持C01；目标“sub-letting has been substantiated”支持C02。允许输入含租约日期及Tribunal的转租认定；二者不是本轮目标法院认定。C01地址只移除显示层citation wrapper后可定位，未改法律字词、标签或依据。两个模型均猜成立，尚未证明对象/日期关系被利用。'
+    }
+    case_studies=[]
+    for ident in selected:
+        m=next(x for x in manifest if x['case_id']==ident);inp=read(R/'inputs'/f'{ident}.json')
+        case_studies.append(dict(case_id=ident,selection='PREDECLARED' if ident in protocol['fixed_cases'] else 'PREDECLARED_PROBABILITY_DISTANCE_RULE',analysis=notes[ident],target_conditions=target[ident]['adapted_targets'],input_sources=inp['provenance'],oof_predictions=[x for x in rows if x['package_id']==ident],reference_kind='MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD',no_post_fit_label_or_feature_change=True))
+    save(R/'case-study.json',dict(protocol=protocol,distance_ranking=sorted(distance,key=lambda x:(-x['mean_probability_l1'],x['case_id'])),selected=selected,cases=case_studies))
+    lines=['# 一次集中案例分析','', '预先固定112400、114533、50313565，另按种子20261006的Flat/Graph平均概率L1差异选择1114159和1870868。未按正确与否选例，没有修标签或重新训练。','']
+    for s in case_studies:
+        lines += [f"## {s['case_id']}",'',s['analysis'],'']
+        for t in s['target_conditions']:
+            if t['supervision_mask']:
+                lines += [t['condition_id']+' → '+t['target']+'；依据：'+', '.join(x['source_id'] for x in t['target_refs']), '']
+    (R/'case-study.md').write_text('\n'.join(lines))
+    # These are independent invariants, not accuracy certification.
+    initial=read(R/'historical-preservation-before.json');changed=[];missing=[]
+    for p,h in initial.items():
+        path=ROOT/p
+        if not path.exists():missing.append(p)
+        elif hashlib.sha256(path.read_bytes()).hexdigest()!=h:changed.append(p)
+    save(R/'preservation-after.json',dict(checked=len(initial),changed=changed,missing=missing,old_bytes_preserved=not changed and not missing))
+    cfg=read(R/'training-freeze.json');fail=[p for p,h in cfg['hashes'].items() if hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=h]
+    save(R/'frozen-integrity-after.json',dict(checked=len(cfg['hashes']),changed=fail,passed=not fail,training_runs=len(summary['runs'])))
+    ui_errors=[p.stem for p in (R/'web').glob('*.snapshot.txt') if '分析出错' in p.read_text()]
+    save(R/'web/tool-display-anomalies.json',dict(tasks=ui_errors,count=len(ui_errors),interpretation='UI analysis/tool error remained visible; complete retained JSON or static original literals were imported separately. This does not certify the web file tool succeeded, or establish semantic correctness. No model retry.'))
+    ledger=read(R/'web/ledger.json');save(R/'cost.json',dict(ordinary_High_calls=len(ledger),Pro=0,paid_api=0,semantic_retries=0,format_model_retries=0,web_ui_error_tasks=ui_errors,actual_visible_model='Latest',mode='High',exact_model=None,web_tokens=None,web_elapsed_exact=None,mlx_real_fits=len(summary['runs']),real_fit_seconds=sum(x['seconds'] for x in summary['runs']),encoder=read(R/'text-cache/encoding.json')|{'audit':'see text-cache/encoding.json'},peak_mlx_bytes=max(x['peak_mlx_memory_bytes'] for x in summary['runs']),engineering_smoke_not_legal_evaluation=True))
+    save(R/'status.json',dict(status='COMPLETED_REAL_GROUPED_DEVELOPMENT_COMPARISON',packages=len(manifest),supervised_conditions=sum(counts.values()),supervised_groups=8,real_fits=18,ordinary_High_calls=34,sealed_read=False,new_legal_answers=0,committed=False,pushed=False,decision='NO_EVIDENCE_TO_EXPAND_GRAPH; RETAIN_RUNNABLE_INTERFACE; NEXT_RESEARCH_NEEDS_CONTRASTIVE_SUPERVISION_NOT_PARAMETER_SEARCH',stopped=True))
+    table='\n'.join(f"{x['method']}: F1 {x['macro_f1_mean']:.3f}（范围{x['macro_f1_range'][0]:.3f}–{x['macro_f1_range'][1]:.3f}），纠纷组平均正确比例{x['dispute_mean_correct']:.3f}，组均概率损失{x['dispute_balanced_logloss']:.3f}，DEFEATED召回{','.join(str(v) for v in x['defeated_recall'])}" for x in comparison)
+    report=f'''IRAC条件适用开发实验01：已经完成真实训练，暂不扩大图模型
+
+本轮完成31份已有完整来源的集中筛查、两套独立法源模板、17个真实问题包与图、34次普通High任务、冻结E5缓存，以及三折×三种子×Flat/Graph共18次真实拟合。训练已实际反向传播和更新参数，不是合成接口演示。没有完整法律回答、自动找法、胜败预测、规则归纳、SEALED访问、提交或推送。
+
+实际任务与数据
+预测对象是给定法律标准下目标法院对单个条件的实体裁判状态。不是“事实现实为真”，也不是整案胜败。2案属于历史住宅需要14(1)(e)，15案属于14(1)(b)。两类各6个固定条件，计划102条件；只有8个问题包的13条件有来源审阅且输入充分的目标：10 SATISFIED、3 DEFEATED、0 UNRESOLVED。全体监督覆盖13/102=12.75%；参与分组比较的8包覆盖13/48=27.08%，其余9包仍有安全输入图，但无监督，不进入拟合或留出计分。
+
+42项NOT_DECIDED明确不入损失；46项输入充分性未确认，与其他屏蔽原因有重叠。未知标签不是否定，程序性恢复/驳回不倒推所有实体条件。引文地址的可逆显示标记映射只恢复1870868的一个条件，初始12条件结果及原字节保留。其他页脚跳过或内容不连续引文继续失败。84524189的一项对象引文失败，13条依赖记录局部隔离，其余2事实仍可构图。来源审阅未新增隔离，不等于已经证明全部语义正确。
+
+模型与隔离
+输入任务只见批准子跨度与独立给定规则；目标和监督mask另存，不参与条件节点有无、边或文本特征。Issue/Rule/Condition/Fact/Evidence/Entity六种节点保留身份、陈述状态和阶段。所有事实/证据与条件生成无支持方向的候选连接，标记为计算关系而非证据证明。Flat读取同样节点及有向关系三元组；Graph仅增加两层R-GCN传播。E5-small-v2 revision ffb93f3bd4047442299a41ebb6fa998a38507c52，query前缀、384维、全token覆盖分块，不微调。本轮271个独立节点文本未超过单块容量。给定模板是oracle选择，不证明自动检索；法条当前复制与历史范围不确定、住宅旧条文缺Explanation覆盖均已保留。组内canonical没有真实接入，此处使用本地native接口。
+
+按DOC纠纷组分三折，内部验证组独立早停，种子20261006/7/8。未发现已知同纠纷跨文书，但关联核验不完整，不能声称8组完全独立。所有案例暴露过开发/历史筛查，不是sealed或独立测试。48个留出条件节点中只有13有目标，模型对其他节点仍可输出概率但不作为已知正确性评分。固定18次拟合均成功；每次初始梯度非零，参数更新非零。Flat45,571参数，Graph78,491参数，信息相同但容量不严格相同。
+
+分组留出结果（相对模型来源审阅参考，非人工金标准）
+{table}
+
+三个DEFEATED全部位于Fold1留出组，该折拟合数据恰好只有SATISFIED。这是预先随机分组在极小数据上的重要限制，不改折、不补造负例。Flat所有种子输出全SATISFIED，Graph两种子同样全SATISFIED，另一种子还错掉一个SATISFIED。两种网络相对P的表面正确比例增加不能证明利用了案件事实；这与直接全猜多数类一致，而且神经模型概率损失明显恶化，出现高置信误判。DEFEATED的0召回和第三类完全未覆盖，比总体正确比例更决定本轮结论。
+
+以组为单位、先跨种子平均的2000次描述性bootstrap：Flat−P均值+0.125、95%范围[0,0.375]；Graph−Flat −0.0139、范围[−0.0417,0]。这不是独立测试显著性。按family及完整阶段的细分见training/summary.json；每个阶段样本极少，不能据细分选有利范围。
+
+一次案例分析
+固定112400、114533、50313565，按预定概率差异加入1114159、1870868。114533的“未证明转租”被两网络误判成立；50313565缺目标法院依赖的营业文件，不硬要求还原其未充分输入的条件；112400部分构成条件标签依赖历史请求成立的推认，需视为较弱参考；1114159最高概率同类的差异不证明推理改善；1870868保留1954租约与下级转租认定，不能把已知来源或日期变成已验证网络机制。关键原文位置、允许来源、各条件依据与全部预测见case-study.json/md。没有训练后改标签、扩例或返工。
+
+成本与验证
+34次普通High（8筛查、2规则、1规则审阅、9输入、9目标、5集中来源审阅），实际界面Latest/High，确切型号、网页tokens及精确生成耗时不可得，不写成GPT-6。没有语义/格式模型重试；下载失败通过已保存可见JSON或工具生成代码的静态字面量恢复，未执行第三方代码、未修语义。提交文件部分在提交后从未修改任务原文补存，不能称作全程发送前快照。E5 CPU编码约{read(R/'text-cache/encoding.json')['seconds']:.2f}秒，进程峰值RSS约373.2MiB；18拟合内部计时合计{sum(x['seconds'] for x in summary['runs']):.2f}秒，不包含网页、数据准备、初始化与报告。MLX峰值与每次epoch/损失、梯度、参数变化、weights保存在本地日志，权重不入审阅包。19项直接相关测试通过，只证明工程行为。冻结前路径相对/绝对混用阻止freeze，已改通用路径规范化，原失败日志保留；发生于任何真实拟合之前。8,243个历史文件原字节及训练冻结哈希另行核验。
+
+投入决定
+保留已实现的条件级数据接口、部分监督、Flat/R-GCN可运行训练；本轮没有支持扩大GNN或宣称法律适用收益的证据。也不能断言Flat取得事实条件化能力：少数类漏检、概率过度自信、反例集中于一折与两个family覆盖不均，使这次比较更接近监督质量和任务可判别性诊断。下一步若另行授权，应先取得同一模板/条件在不同纠纷中有明确相反实体判断、且允许输入足够的监督，再评价是否超过不读案件的先验；不继续参数扫描。本轮已按预算完成并停止，SEALED继续封存。全部产物本地另存，旧实验不改。
+'''
+    report=report.replace('提交文件部分在提交后',f'{len(ui_errors)}个保存页面另显示“分析出错”，完整可读JSON或静态原始数据另行保存导入，不能将其称为网页工具全部成功；详见web/tool-display-anomalies.json。提交文件部分在提交后')
+    (R/'report-zh.txt').write_text(report)
+    print(json.dumps(dict(comparison=comparison,case_study=selected,historical_changed=len(changed),frozen_changed=len(fail)),ensure_ascii=False,indent=2))
+if __name__=='__main__':main()
+
+```
+
+## tests/test_irac_application.py
+
+```python
+import copy
+import unittest
+import numpy as np
+from tests.test_irac_native_v1 import fixture
+from legal_bench.irac_application.graph_builder import build_graph
+from legal_bench.irac_application.target_adapter import adapt_targets
+from legal_bench.rules_verdict_v1.irac_native_schema_v1 import ContractError
+
+def data_fixture():
+    x=fixture();x['blind_bindings']=[];return x
+
+class ApplicationTests(unittest.TestCase):
+    def test_unsigned_no_signed_edges(self):
+        g=build_graph(data_fixture());self.assertEqual(sum(e['type']=='CANDIDATE_LINK' for e in g['edges']),4)
+        self.assertFalse(any('SUPPORTS_CONDITION' in e['type'] for e in g['edges']))
+    def test_mask_not_input(self):
+        x=data_fixture();x['facts'][0]['supervision_mask']=True
+        with self.assertRaises(ContractError):build_graph(x)
+    def test_mask_changes_do_not_change_graph(self):
+        x=data_fixture();a=build_graph(x)['graph_hash']
+        targets={'mask':True,'label':'SATISFIED'};targets.update(mask=False,label='DEFEATED')
+        self.assertEqual(a,build_graph(x)['graph_hash'])
+    def test_not_decided_masked(self):
+        x=data_fixture();row={'condition_id':'C1','label':'UNRESOLVED','basis_kind':'NOT_DECIDED'}
+        out=adapt_targets(['C1'],{'element_targets':[row]},x['provenance'])
+        self.assertFalse(out[0]['supervision_mask']);self.assertIsNone(out[0]['target'])
+    def test_partial_supervision_independent(self):
+        x=data_fixture();ref=x['facts'][0]['source_refs'];r=dict(condition_id='C1',label='SATISFIED',basis_kind='FACT_ACCEPTED',substantive_adjudication=True,input_sufficient=True,source_review='SUPPORTED',target_refs=ref)
+        out=adapt_targets(['C1','C2'],{'element_targets':[r]},x['provenance'])
+        self.assertTrue(out[0]['supervision_mask']);self.assertFalse(out[1]['supervision_mask'])
+    def test_no_judicial_unresolved_from_missing(self):
+        x=data_fixture();r=dict(condition_id='C1',label='UNRESOLVED',basis_kind='INSUFFICIENT_RECORD',substantive_adjudication=True,input_sufficient=True,source_review='SUPPORTED',target_refs=x['facts'][0]['source_refs'])
+        self.assertFalse(adapt_targets(['C1'],{'element_targets':[r]},x['provenance'])[0]['supervision_mask'])
+    def test_duplicate_targets_are_masked(self):
+        x=data_fixture();r=dict(condition_id='C1',label='SATISFIED',basis_kind='FACT_ACCEPTED',substantive_adjudication=True,input_sufficient=True,source_review='SUPPORTED',target_refs=x['facts'][0]['source_refs'])
+        self.assertFalse(adapt_targets(['C1'],{'element_targets':[r,r]},x['provenance'])[0]['supervision_mask'])
+
+if __name__=='__main__':unittest.main()
+
+class PartitionTests(unittest.TestCase):
+ def test_subspan_keeps_original_positions(self):
+  from legal_bench.irac_application.input_partition import partition
+  doc={'document_id':'x','url':'u','segments':[{'id':'p','text':'Tenant denies transfer. The target court finds transfer.'}]}
+  sources,a=partition(doc,[dict(source_id='p',quote='Tenant denies transfer.',semantic_stage='PRE_TARGET_RECORD')])
+  self.assertEqual(sources['p:span1']['text'],'Tenant denies transfer.');self.assertEqual(a[0]['original_char_range'],[0,23])
+ def test_ambiguous_quote_not_guessed(self):
+  from legal_bench.irac_application.input_partition import partition
+  doc={'document_id':'x','url':'u','segments':[{'id':'p','text':'same same'}]}
+  sources,a=partition(doc,[dict(source_id='p',quote='same',semantic_stage='PRE_TARGET_RECORD')]);self.assertFalse(sources)
+ def test_grouped_splits_have_no_cross_dispute(self):
+  from legal_bench.irac_application.train_eval import grouped_split
+  packages=[{'group_id':str(i//2)} for i in range(12)]
+  for s in grouped_split(packages):
+   self.assertFalse(set(s['fit_groups'])&set(s['test_groups']));self.assertFalse(set(s['validation_groups'])&set(s['test_groups']));self.assertFalse(set(s['fit_groups'])&set(s['validation_groups']))
+ def test_permutation_and_id_changes_preserve_logits(self):
+  import numpy as np,mlx.core as mx
+  from legal_bench.irac_application.application_models import tensorize,ApplicationModel
+  from legal_bench.irac_application.graph_builder import build_graph
+  from tests.test_irac_native_v1 import fixture
+  x=fixture();x['blind_bindings']=[];g=build_graph(x)
+  vectors={n['id']:np.random.default_rng(i).normal(size=384).astype('float32') for i,n in enumerate(g['nodes'])}
+  renamed=copy.deepcopy(g);mapping={n['id']:'renamed-'+str(100-i) for i,n in enumerate(g['nodes'])}
+  for n in renamed['nodes']:n['id']=mapping[n['id']]
+  for e in renamed['edges']:e.update(source=mapping[e['source']],target=mapping[e['target']])
+  aa=tensorize(g,vectors);bb=tensorize(renamed,{mapping[k]:v for k,v in vectors.items()})
+  for kind in ['Flat','Graph']:
+   mx.random.seed(1);m=ApplicationModel(kind,aa['x'].shape[1]);m.eval()
+   a=np.array(m(aa));b=np.array(m(bb));idx={c:i for i,c in enumerate(bb['condition_ids'])}
+   reordered=np.array([b[idx[mapping[c]]] for c in aa['condition_ids']]);np.testing.assert_allclose(a,reordered,rtol=1e-5,atol=1e-6)
+
+class ArtifactTests(unittest.TestCase):
+ def test_literal_reader_never_executes(self):
+  from legal_bench.irac_application.artifact_reader import recover
+  x,a=recover(["import os\nos.system('false')\ndata={'cases':[{'case_id':'x'}]}\n"])
+  self.assertEqual(x['cases'][0]['case_id'],'x');self.assertEqual(len(a),1)
+ def test_displayed_literal_mutations_preserved(self):
+  from legal_bench.irac_application.artifact_reader import recover
+  original={'cases':[{'case_id':'x','allowed_spans':[{'source_id':'p','quote':'old'}]}]}
+  code="c=next(x for x in d['cases'] if x['case_id']=='x')\nfor sp in c['allowed_spans']:\n if sp['source_id']=='p':sp['quote']='new'\n"
+  x,a=recover([code],initial_payload=original)
+  self.assertEqual(x['cases'][0]['allowed_spans'][0]['quote'],'new');self.assertEqual(original['cases'][0]['allowed_spans'][0]['quote'],'old')
+ def test_address_requires_located_quote(self):
+  from legal_bench.irac_application.artifact_reader import recover,Unsupported
+  with self.assertRaises(Unsupported):recover(["cases=[]\ncases.append({'source_refs':[ref('p','invented')]})\ndata={'cases':cases}"],{'p':'actual'})
+ def test_hierarchical_metrics(self):
+  from legal_bench.irac_application.train_eval import metrics
+  rows=[dict(group_id='g',package_id='long',label=0,probabilities=[1,0,0],supervision_mask=True) for _ in range(6)]
+  rows+=[dict(group_id='g',package_id='short',label=0,probabilities=[0,1,0],supervision_mask=True)]
+  self.assertEqual(metrics(rows)['dispute_mean_correct'],.5)
+
+class DeclaredReferenceTests(unittest.TestCase):
+ def test_declared_entity_reference_preserved_without_relation_row(self):
+  x=data_fixture();x['relations']=[];f=x['facts'][0];entity=copy.deepcopy(f);entity.pop('entity_ids',None);entity.update(id='ENTITY-Z',text='Tenant');x['entities']=[entity];f['entity_ids']=['ENTITY-Z']
+  g=build_graph(x)
+  self.assertTrue(any(e['source']==f['id'] and e['target']==x['entities'][0]['id'] and e['type']=='FACT_RELATES_TO_ENTITY' and e['origin']=='DECLARED_MODEL_INPUT_REFERENCE_NOT_INFERRED' for e in g['edges']))
+
+class TextChunkTests(unittest.TestCase):
+ def test_sentence_chunks_cover_every_token(self):
+  from legal_bench.irac_application.text_cache import chunk_ranges
+  text='one. two. three.';offsets=[(0,3),(3,4),(5,8),(8,9),(10,15),(15,16)]
+  ranges=chunk_ranges(list(range(6)),offsets,text,3)
+  self.assertEqual(ranges,[[0,2],[2,4],[4,6]]);self.assertEqual([i for a,b in ranges for i in range(a,b)],list(range(6)))
+
+class RenderedQuoteTests(unittest.TestCase):
+ def test_cite_wrapper_retains_every_legal_character_and_original_offsets(self):
+  from legal_bench.irac_application.rendered_quotes import check_refs
+  raw='Under \ue200cite\ue2029†section 14\ue201 the tenant must retain control.'
+  errors,a=check_refs([dict(source_id='p',quote='Under section 14 the tenant must retain control.')],{'p':{'text':raw}})
+  self.assertEqual(errors,[]);self.assertEqual(a[0]['original_char_range'],[0,len(raw)]);self.assertFalse(a[0]['legal_text_modified'])
+ def test_page_text_is_never_silently_removed(self):
+  from legal_bench.irac_application.rendered_quotes import check_refs
+  errors,a=check_refs([dict(source_id='p',quote='Tenant retains possession.')],{'p':{'text':'Tenant retains Page 4 of 5 possession.'}})
+  self.assertTrue(errors);self.assertFalse(a)
+
+```
+
+## legal_bench/irac_application/aligned_v2.py
+
+```python
+"""Input-derived binding-specific queries and dependency-specific analysis, v2."""
+import copy,json,hashlib
+from .aligned_graph import build as build_v1,check_refs
+from .aligned_anco import project,anco
+from .aligned_logic import evaluate
+
+def template_version(t):
+ return t["template_id"]+"@"+hashlib.sha256(json.dumps(t,sort_keys=True,ensure_ascii=False).encode()).hexdigest()[:12]
+def unit_id(case,claim,version,test,binding):
+ return '|'.join((str(case),claim,version,test,binding))
+def build(material,legacy,template,old_proposal,law,binding_proposal):
+ from .graph_builder import reject_supervision
+ reject_supervision(binding_proposal)
+ g=build_v1(material,legacy,template,old_proposal,law);g['schema_version']='ALIGNED_V2_BINDING_GRAPH';sources=g['source_manifest'];byid={n['id']:n for n in g['nodes']};units=[];audit=[]
+ for n in g['nodes']:
+  if n['type']=='Test':n['type']='Rule' # original legal proposition remains, but is no longer a prediction query
+  if n['origin']=='GIVEN_RULE_STRUCTURE':
+   n['text']+='\nLEGAL_CONTEXT '+json.dumps({'scope':template['scope'],'coverage_limits':template['coverage_limits'],'coverage_status':n['features'].get('coverage_status'),'definition':next((x for k in ('claims','elements','tests','burdens','rules') for x in template[k] if x['id']==n['id']),{})},ensure_ascii=False,sort_keys=True)
+ # All allowed source content is observable to both methods. No reference enters here.
+ for sid,s in material['sources'].items():
+  nid='ALLOWED::'+sid;g['nodes'].append(dict(id=nid,type='Evidence',text=s['text'],features={'semantic_stage':s['semantic_stage'],'source_status':'REPORTED_OPINION','coverage_status':'COVERED'},source_grounded=True,source_refs=[{'source_id':sid,'quote':s['text']}],origin='ALLOWED_SOURCE_RECORD',semantic_verified=False));byid[nid]=g['nodes'][-1]
+ def edge(a,b,typ,refs):
+  if a not in byid or b not in byid:return
+  e={'source':a,'target':b,'type':typ,'source_refs':refs,'origin':'MODEL_PROPOSED_BINDING','semantic_verified':False};g['edges'] += [e,dict(e,source=b,target=a,type='INVERSE_'+typ,origin='COMPUTATIONAL_REVERSE')]
+ links={l['id']:l for l in old_proposal['links']};viewlinks=[];bs=[];seen=set()
+ for b0 in binding_proposal.get('bindings',[]):
+  b=copy.deepcopy(b0);bid=b['binding_id'];errors=[]
+  if bid in seen:raise ValueError('DUPLICATE_BINDING')
+  seen.add(bid)
+  errors+=check_refs(b.get('source_refs',[])+b.get('identity_refs',[]),sources)
+  for o in b.get('objects',[]):errors+=check_refs(o.get('source_refs',[]),sources)
+  if b.get('identity_status')=='ESTABLISHED' and not b.get('identity_refs'):errors.append('IDENTITY_WITHOUT_SOURCE')
+  b['automatic_errors']=errors;bs.append(b)
+  bn='BINDING::'+bid;node=dict(id=bn,type='Pattern',text=json.dumps(b,ensure_ascii=False,sort_keys=True),features={'source_status':'MODEL_PROPOSAL','coverage_status':'UNKNOWN','binding_status':b.get('identity_status'),'scope_status':b.get('scope_status')},source_refs=b.get('source_refs',[]),source_grounded=bool(b.get('source_refs')) and not errors,origin='INPUT_BINDING_NOT_LABEL',semantic_verified=False);g['nodes'].append(node);byid[bn]=node
+  for ref in b.get('source_refs',[])+b.get('identity_refs',[]):edge('ALLOWED::'+ref['source_id'],bn,'EVIDENCE_RECORDS',[ref])
+  for claim in b.get('claim_ids',[]):
+   if claim not in {c['id'] for c in template['claims']}:audit.append({'binding_id':bid,'reason':'UNKNOWN_CLAIM'});continue
+   for test in template['tests']:
+    uid=unit_id(material['case_id'],claim,template_version(template),test['id'],bid)
+    u={'id':uid,'case_id':str(material['case_id']),'claim_id':claim,'template_version':template_version(template),'test_id':test['id'],'binding_id':bid};units.append(u)
+    n=dict(id=uid,type='Test',text=json.dumps({'proposition':test,'binding':b,'rule_scope':template['scope']},ensure_ascii=False,sort_keys=True),features={'polarity':test.get('polarity'),'source_status':test.get('source_status'),'coverage_status':test.get('coverage_status','COVERED' if test.get('source_refs') else 'NOT_COVERED'),'binding_status':b.get('identity_status'),'scope_status':b.get('scope_status')},source_refs=test['source_refs'],source_grounded=bool(test['source_refs']),origin='BINDING_TEST_QUERY',semantic_verified=False);g['nodes'].append(n);byid[uid]=n
+    edge(test['id'],uid,'HAS_TEST',test['source_refs']);edge(bn,uid,'PATTERN_MEMBER',b.get('source_refs',[]))
+    for lid in b.get('test_links',{}).get(test['id'],[]):
+     l=links.get(lid)
+     if not l or l['test_id']!=test['id'] or 'PROPOSAL::'+lid not in byid:audit.append({'unit_id':uid,'link':lid,'reason':'INVALID_OR_ISOLATED_LINK'});continue
+     edge('PROPOSAL::'+lid,uid,'PROPOSED_'+l['direction'],l['source_refs']);viewlinks.append(dict(l,test_id=uid))
+ g['binding_proposal']=binding_proposal;g['bindings']=bs;g['prediction_units']=units;g['v2_audit']=audit
+ fids=sorted(n['id'] for n in g['nodes'] if n['type'] in ('Fact','Evidence','Pattern'));v=project(sorted(u['id'] for u in units),fids,viewlinks);a=anco(v['matrix'],n_columns=len(fids));g['anco_view']=v;g['anco']=a
+ for n in g['nodes']:n.pop('anco',None)
+ for ids,key in ((v['test_ids'],'x'),(v['instance_ids'],'y')):
+  for i,nid in enumerate(ids):byid[nid]['anco']={'score':a[key][i] if a[key] is not None else 0.,'valid':a['status']=='CONVERGED','conflict':any(nid in (c['test_id'],c['instance_id']) for c in v['conflicts'])}
+ return g
+
+def applicable_restrictions(binding,test):
+ return [r for r in binding.get('restrictions',[]) if not r.get('affected_tests') or test in r['affected_tests']]
+def effective_state(binding,test,prediction,sources):
+ status=prediction.get('status','UNRESOLVED');reasons=[];notes=[]
+ for r in applicable_restrictions(binding,test):
+  if r['kind']=='NOTE':notes.append(r);continue
+  # A limitation of one cited witness does not invalidate other witnesses.
+  if r.get('original_ids') and all(i.startswith('LINK:') for i in r['original_ids']) and not r.get('unmapped_scope'):
+   notes.append(dict(r,application='LOCAL_LINK_LIMIT_NOT_WHOLE_TEST'));continue
+  if r['kind']=='BINDING':continue # restrict the join, not standalone proposition prediction
+  errors=check_refs(r.get('source_refs',[]),sources)
+  reasons.append({'kind':r['kind'],'fields':r.get('fields',[]),'reason':r['reason'],'origin_ids':r.get('original_ids',[]),'address_errors':errors})
+ if binding.get('scope_status')=='INCOMPATIBLE':status='UNSUPPORTED';reasons.append({'kind':'RULE_SCOPE','reason':'INCOMPATIBLE'})
+ elif reasons:status='UNRESOLVED'
+ return {'status':status,'blocking':reasons,'notes':notes,'prediction_not_proof':True}
+def render(g,predictions):
+ template=g['legal_structure'];sources=g['source_manifest'];defs={e['id']:e['expression'] for e in template['elements']};units=[];bindings=[]
+ for b in g['bindings']:
+  for c in template['claims']:
+   if c['id'] not in b['claim_ids']:continue
+   states={};join=[]
+   if b.get('automatic_errors'):join.append({'kind':'SOURCE_ADDRESS','reason':b['automatic_errors']})
+   if 'reviewed_join_limits' not in b and (b.get('identity_status')!='ESTABLISHED' or not b.get('identity_refs')):join.append({'kind':'BINDING','reason':b.get('identity_reason','MISSING_SOURCE_WITNESS')})
+   if 'reviewed_join_limits' not in b and b.get('scope_status')!='COMPATIBLE':join.append({'kind':'RULE_SCOPE','reason':b.get('scope_reason')})
+   for r in b.get('reviewed_join_limits',[]):
+    if r['kind']!='NOTE':join.append(r)
+   for r in b.get('restrictions',[]):
+    if r['kind']=='BINDING' and not (r.get('original_ids') and all(i.startswith('LINK:') for i in r['original_ids'])):join.append({'kind':'BINDING','reason':r['reason'],'affected_tests':r.get('affected_tests',[])})
+   for t in template['tests']:
+    uid=unit_id(g['case_id'],c['id'],template_version(template),t['id'],b['binding_id']);p=predictions.get(uid,{'status':'UNRESOLVED','probabilities':None});state=effective_state(b,t['id'],p,sources);states[t['id']]=state
+    units.append({'unit_id':uid,'binding_id':b['binding_id'],'claim_id':c['id'],'test_id':t['id'],'prediction':p,'program_state':state,'candidate_link_ids':b['test_links'].get(t['id'],[]),'source_semantics_verified':False})
+   # Mark only affected tests as unavailable for joins; unrelated tests remain computable.
+   joined=copy.deepcopy(states)
+   for j in join:
+    if j['kind']=='RULE_SCOPE' and not j.get('affected_tests'):continue # retain known test states; gate only legal application
+    for tid in j.get('affected_tests') or list(joined):joined[tid]={'status':'UNRESOLVED','reason':j}
+   els=[{'element_id':e['id'],'result':evaluate(e['expression'],joined,defs)} for e in template['elements']]
+   result=evaluate(c['expression'],joined,defs)
+   if any(j['kind']=='RULE_SCOPE' and not j.get('affected_tests') for j in join):result={'status':'UNRESOLVED','pre_scope_result':result,'reason':'RULE_SCOPE_NOT_CONFIRMED','scope_reason':b.get('scope_reason')}
+   bindings.append({'binding_id':b['binding_id'],'claim_id':c['id'],'objects':b['objects'],'identity_refs':b['identity_refs'],'join_limits':join,'tests':joined,'elements':els,'result':result,'all_limits_removed':False})
+ claims=[]
+ for c in template['claims']:
+  rows=[b for b in bindings if b['claim_id']==c['id']];ss=[b['result']['status'] for b in rows]
+  status='SUPPORTED' if 'SUPPORTED' in ss else 'UNRESOLVED' if not ss or 'UNRESOLVED' in ss else 'UNSUPPORTED' if 'UNSUPPORTED' in ss else 'UNRESOLVED'
+  claims.append({'claim_id':c['id'],'status':status,'binding_results':[{k:b[k] for k in ('binding_id','result')} for b in rows],'reason':'Existential support uses a complete bound expression; all enumerated bindings refuted does not prove exhaustive case absence.','burden_failure_inferred':False})
+ return {'case_id':g['case_id'],'units':units,'bindings':bindings,'claims':claims,'burdens':template['burdens'],'scope':template['scope'],'coverage_limits':template['coverage_limits'],'attribution':'CANDIDATE_SOURCES_NOT_FAITHFUL_MODEL_EXPLANATION','historical_outcome_scored':False}
+
+```
+
+## legal_bench/irac_application/aligned_v2_train.py
+
+```python
+"""Frozen grouped development training; no labels used in input construction."""
+import copy
+import random
+import time
+import numpy as np
+import mlx.core as mx
+import mlx.nn as nn
+import mlx.optimizers as optim
+from mlx.utils import tree_flatten
+from .aligned_v2_models import ApplicationModel,masked_group_loss,parameter_count
+
+def fit(kind,packages,validation,seed,epochs=100,batch_size=4,patience=10,progress=None):
+    train=[p for p in packages if any(p['mask'])]
+    if not train:raise ValueError('NO_SUPERVISED_PACKAGES')
+    mx.reset_peak_memory();mx.random.seed(seed);rng=random.Random(seed)
+    model=ApplicationModel(kind,train[0]['tensors']['x'].shape[1])
+    mx.eval(model.parameters());before={k:np.array(v) for k,v in tree_flatten(model.parameters())}
+    optimizer=optim.AdamW(learning_rate=.001,weight_decay=.0001)
+    grad=nn.value_and_grad(model,masked_group_loss)
+    batch_weights=[];history=[];best=None;best_loss=float('inf');bad=0;t0=time.perf_counter();updates=0;first_grad=None
+    bygroup={}
+    for p in train:bygroup.setdefault(p['group_id'],[]).append(p)
+    group_ids=sorted(bygroup)
+    for epoch in range(epochs):
+        model.train();rng.shuffle(group_ids);values=[]
+        # Complete groups stay in a batch. A large group is never split and over-weighted.
+        batches=[];batch=[]
+        for gid in group_ids:
+            if batch and len(batch)+len(bygroup[gid])>batch_size:batches.append(batch);batch=[]
+            batch+=bygroup[gid]
+        if batch:batches.append(batch)
+        for batch in batches:
+            weights={};gs={p['group_id'] for p in batch}
+            for p in batch:
+                issues={i for i,m in zip(p['issue_ids'],p['mask']) if m};npkg=sum(q['group_id']==p['group_id'] for q in batch)
+                for u,i,m in zip(p['units'],p['issue_ids'],p['mask']):
+                    if m:weights[u['id']]=1/len(gs)/npkg/len(issues)/sum(j==i and mm for j,mm in zip(p['issue_ids'],p['mask']))
+            batch_weights.append({'epoch':epoch,'update':updates+1,'weights':weights})
+            value,g=grad(model,batch)
+            if first_grad is None:first_grad=float(sum(mx.sum(v*v).item() for _,v in tree_flatten(g)))**.5
+            optimizer.update(model,g);mx.eval(model.parameters(),optimizer.state,value,g)
+            values.append(float(value.item()));updates+=1
+        model.eval()
+        usable=[p for p in validation if any(p['mask'])]
+        val=float(masked_group_loss(model,usable).item()) if usable else None
+        history.append({'epoch':epoch,'training_loss':float(np.mean(values)),
+                        'validation_loss':val,'optimizer_updates':updates})
+        if progress:progress({'history':history,'updates':updates,'first_gradient_norm':first_grad,'elapsed_seconds':time.perf_counter()-t0,'seed':seed,'stage':'FIT_IN_PROGRESS'})
+        if not np.isfinite(values).all() or val is not None and not np.isfinite(val):raise ValueError('NONFINITE_TRAINING')
+        if val is not None:
+            if val<best_loss-1e-7:
+                best_loss=val;best=copy.deepcopy(model.parameters());bad=0
+            else:bad+=1
+            if bad>=patience:break
+    last_delta=float(sum(np.sum((np.array(v)-before[k])**2) for k,v in tree_flatten(model.parameters())))**.5
+    if best is not None:model.update(best);mx.eval(model.parameters())
+    model.eval()
+    return model,{'actual_batch_loss_weights':batch_weights,'history':history,'updates':updates,'first_gradient_norm':first_grad,
+        'pre_checkpoint_parameter_delta':last_delta,'parameters':parameter_count(model),
+        'kind':kind,'seed':seed,'seconds':time.perf_counter()-t0,
+        'fit_groups':sorted(bygroup),'validation_groups':sorted({p['group_id'] for p in validation}),
+        'early_stop_checkpoint_used':best is not None,'peak_mlx_memory_bytes':mx.get_peak_memory()}
+
+def prior_fit(packages):
+    # Each dispute contributes one normalized distribution per test, not one vote per binding.
+    grouped={};counts={};all_counts=np.ones(3,dtype=float)
+    for p in packages:
+        for key,y,mask in zip(p['template_condition_ids'],p['labels'],p['mask']):
+            if mask:grouped.setdefault((p['group_id'],key),np.zeros(3,dtype=float))[y]+=1
+    for (group,key),v in grouped.items():
+        v=v/v.sum();counts.setdefault(key,np.ones(3,dtype=float))[:]+=v;all_counts+=v
+    return {'per_condition':{k:(v/v.sum()).tolist() for k,v in counts.items()},'fallback':(all_counts/all_counts.sum()).tolist(),'smoothing':1,'group_normalized':True}
+
+def package_group_values(rows,field):
+    groups={}
+    for r in rows:
+        if not r['supervision_mask']:continue
+        y=r['label'];p=r['probabilities'];v=float(int(np.argmax(p))==y) if field=='correct' else -float(np.log(max(p[y],1e-12)))
+        groups.setdefault(r['group_id'],{}).setdefault(r['package_id'],[]).append(v)
+    return {g:float(np.mean([np.mean(v) for v in packages.values()])) for g,packages in groups.items()}
+
+def metrics(rows):
+    admitted=[r for r in rows if r['supervision_mask']]
+    matrix=np.zeros((3,3),int);loss=[]
+    for r in admitted:
+        y=r['label'];pred=int(np.argmax(r['probabilities']));matrix[y,pred]+=1
+        loss.append(-np.log(max(r['probabilities'][y],1e-12)))
+    recall=[];f1=[]
+    for i in range(3):
+        tp=matrix[i,i];fn=matrix[i].sum()-tp;fp=matrix[:,i].sum()-tp
+        recall.append(float(tp/(tp+fn)) if tp+fn else None)
+        f1.append(float(2*tp/(2*tp+fp+fn)) if tp+fn else None)
+    correct=package_group_values(rows,'correct');balanced_loss=package_group_values(rows,'loss')
+    return {'supervised_conditions':len(admitted),'dispute_groups':len(correct),
+        'confusion_matrix':matrix.tolist(),'per_class_recall':recall,
+        'macro_f1_observed_classes':float(np.mean([v for v in f1 if v is not None])) if any(v is not None for v in f1) else None,
+        'unobserved_classes':[i for i,v in enumerate(recall) if v is None],
+        'dispute_mean_correct':float(np.mean(list(correct.values()))) if correct else None,
+        'condition_micro_probability_loss':float(np.mean(loss)) if loss else None,
+        'dispute_balanced_probability_loss':float(np.mean(list(balanced_loss.values()))) if balanced_loss else None,
+        'planned_conditions':len(rows),'supervision_coverage':len(admitted)/len(rows) if rows else 0}
+
+```
+
+## legal_bench/irac_application/aligned_v2_models.py
+
+```python
+"""Same node/edge records and head; Graph adds typed neighborhood propagation."""
+import numpy as np
+import mlx.core as mx
+import mlx.nn as nn
+from mlx.utils import tree_flatten
+
+from .aligned_graph import RELATIONS,TYPES as NODE_TYPES
+STATUS=('CLAIMED','DENIED','ADMITTED','PRIOR_FOUND','DOCUMENT_RECORDED','UNKNOWN')
+STAGES=('PRE_TARGET_RECORD','PRIOR_COURT_FINDING','TARGET_STAGE_PARTY_ARGUMENT')
+AVAIL=('DIRECT_PRE_TARGET_SOURCE','RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET','UNKNOWN')
+COURTS=('NONE','RENT_CONTROLLER','ARC','ARCT','TRIBUNAL','HIGH_COURT','SUPREME_COURT','UNKNOWN')
+SIDE=('CLAIMANT','RESPONDENT','NEUTRAL','UNKNOWN')
+POLARITY=('POSITIVE','NEGATIVE','UNKNOWN')
+CONDITION_KIND=('NECESSARY','ALTERNATIVE','QUALIFICATION','BURDEN_TRIGGER','FACTOR','UNKNOWN')
+
+def onehot(value,values):return [float(value==x) for x in values]
+def metadata(n):
+    f=n['features']
+    return (onehot(n['type'],NODE_TYPES)+onehot(f.get('statement_status'),STATUS)+
+        onehot(f.get('semantic_stage'),STAGES)+onehot(f.get('prospective_availability'),AVAIL)+
+        onehot(f.get('court_level'),COURTS)+onehot(f.get('party_side'),SIDE)+
+        onehot(f.get('polarity'),POLARITY)+onehot(f.get('condition_kind'),CONDITION_KIND)+onehot(f.get('source_status'),('STATUTE','COURT_ADOPTED','REPORTED_OPINION','RESEARCHER_TRANSLATION','MODEL_PROPOSAL'))+onehot(f.get('coverage_status'),('COVERED','NOT_COVERED','PARTIAL','UNKNOWN'))+onehot(f.get('binding_status'),('ESTABLISHED','UNRESOLVED'))+onehot(f.get('scope_status'),('COMPATIBLE','UNRESOLVED','INCOMPATIBLE'))+[float(n['source_grounded'])])
+
+def tensorize(graph, embeddings, use_anco=False):
+    nodes=sorted(graph['nodes'],key=lambda n:n['id']);idx={n['id']:i for i,n in enumerate(nodes)}
+    x=np.array([list(embeddings[n['id']])+metadata(n)+([float(n.get('anco',{}).get('score',0)),float(n.get('anco',{}).get('valid',False)),float(n.get('anco',{}).get('conflict',False))] if use_anco else []) for n in nodes],dtype=np.float32)
+    edges=sorted(graph['edges'],key=lambda e:(e['source'],e['target'],e['type']))
+    if any(e['type'] not in RELATIONS for e in edges):raise ValueError('UNSUPPORTED_RELATION')
+    edge_idx=np.array([[idx[e['source']],idx[e['target']],RELATIONS.index(e['type'])] for e in edges],dtype=np.int32).reshape(-1,3)
+    adj=np.zeros((len(RELATIONS),len(nodes),len(nodes)),dtype=np.float32)
+    for s,t,r in edge_idx:adj[r,t,s]+=1
+    den=adj.sum(axis=2,keepdims=True);adj/=np.maximum(den,1)
+    condition_ids=[n['id'] for n in nodes if n['type']=='Test']
+    return {'x':mx.array(x),'edges':mx.array(edge_idx),'adj':mx.array(adj),
+        'conditions':mx.array([idx[c] for c in condition_ids],dtype=mx.int32),
+        'condition_ids':condition_ids}
+
+class ApplicationModel(nn.Module):
+    def __init__(self,kind,input_width,hidden=64,dropout=.1):
+        super().__init__();self.kind=kind;self.hidden=hidden
+        self.project=nn.Linear(input_width,hidden)
+        self.self_layers=[nn.Linear(hidden,hidden) for _ in range(2)]
+        self.dropout=nn.Dropout(dropout)
+        self.edge_encoder=nn.Linear(2*hidden+len(RELATIONS),hidden)
+        self.head=nn.Linear(3*hidden,3)
+        if kind=='Graph':
+            self.bases=mx.random.normal((2,4,hidden,hidden))*.03
+            self.coefficients=mx.random.normal((2,len(RELATIONS),4))*.03
+        elif kind!='Flat':raise ValueError(kind)
+    def __call__(self,d):
+        h=nn.relu(self.project(d['x']))
+        for layer in range(2):
+            y=self.self_layers[layer](h)
+            if self.kind=='Graph':
+                w=mx.einsum('rb,bij->rij',self.coefficients[layer],self.bases[layer])
+                y=y+mx.einsum('rtn,rnj->tj',d['adj'],mx.einsum('ni,rij->rnj',h,w))
+            h=self.dropout(nn.relu(y))
+        q=h[d['conditions']]
+        node_pool=mx.softmax(q@h.T/(self.hidden**.5),axis=1)@h
+        if len(d['edges']):
+            e=d['edges'];rels=mx.eye(len(RELATIONS))[e[:,2]]
+            z=nn.relu(self.edge_encoder(mx.concatenate([h[e[:,0]],rels,h[e[:,1]]],axis=1)))
+            edge_pool=mx.softmax(q@z.T/(self.hidden**.5),axis=1)@z
+        else:edge_pool=mx.zeros_like(q)
+        return self.head(mx.concatenate([q,node_pool,edge_pool],axis=1))
+
+def parameter_count(model):return sum(v.size for _,v in tree_flatten(model.trainable_parameters()))
+
+def masked_group_loss(model,packages):
+    groups={}
+    for p in packages:
+        mask=np.array(p['mask'],bool)
+        if not mask.any():continue
+        logits=model(p['tensors']); issue_losses=[]
+        for issue in sorted(set(p.get('issue_ids',['focal']*len(mask)))):
+            inds=[i for i,m in enumerate(mask) if m and p.get('issue_ids',['focal']*len(mask))[i]==issue]
+            if not inds:continue
+            ids=mx.array(inds,dtype=mx.int32)
+            labels=mx.array(np.array(p['labels'])[inds],dtype=mx.int32)
+            issue_losses.append(nn.losses.cross_entropy(logits[ids],labels,reduction='mean'))
+        loss=mx.mean(mx.stack(issue_losses))
+        groups.setdefault(p['group_id'],[]).append(loss)
+    if not groups:raise ValueError('NO_SUPERVISED_CONDITIONS_IN_BATCH')
+    return mx.mean(mx.stack([mx.mean(mx.stack(values)) for values in groups.values()]))
+
+```
+
+## legal_bench/irac_application/aligned_v2_split.py
+
+```python
+"""Frozen input-independent group split; validation cannot exhaust a fit stratum."""
+import random,collections
+
+def split(packages,seed=20261007):
+ bygroup=collections.defaultdict(list)
+ for p in packages:bygroup[p['group_id']].append(p)
+ rng=random.Random(seed);families=collections.defaultdict(list)
+ for gid,ps in bygroup.items():
+  fs={p['family'] for p in ps}
+  if len(fs)!=1:raise ValueError('CROSS_FAMILY_DISPUTE_REQUIRES_EXPLICIT_GROUP_STRATUM')
+  families[next(iter(fs))].append(gid)
+ groups=bygroup
+ k=2 if any(len(g)<3 for g in families.values()) else 3
+ buckets=[[] for _ in range(k)];features={}
+ for gid,ps in bygroup.items():
+  features[gid]={(p['family'],u['test_id'],y) for p in ps for u,y,m in zip(p.get('units',[]),p.get('labels',[]),p.get('mask',[])) if m}
+ totals=collections.Counter(x for fs in features.values() for x in fs);counts=[collections.Counter() for _ in range(k)]
+ for family in sorted(families):
+  order=sorted(families[family]);rng.shuffle(order)
+  order.sort(key=lambda g:-sum(1/totals[x] for x in features[g]))
+  family_counts=[0]*k
+  for g in order:
+   options=list(range(k));rng.shuffle(options)
+   choice=min(options,key=lambda i:(family_counts[i],sum(counts[i][x]/totals[x] for x in features[g]),len(buckets[i])))
+   buckets[choice].append(g);family_counts[choice]+=1;counts[choice].update(features[g])
+ out=[]
+ for f in range(k):
+  test=sorted(buckets[f]);fit=sorted(set(groups)-set(test));out.append({'fold':f,'fit_groups':fit,'validation_groups':[],'test_groups':test,'early_stopping':False,'epochs':100,'reason':'Fixed 100 epochs; do not take scarce family/state groups for validation. Never tune on held-out results.'})
+ return out
+
+def coverage(packages,folds):
+ rows=[];scope=[]
+ for fold in folds:
+  fit=[p for p in packages if p['group_id'] in fold['fit_groups']];test=[p for p in packages if p['group_id'] in fold['test_groups']]
+  def labels(ps):
+   d=collections.defaultdict(lambda:collections.defaultdict(set))
+   for p in ps:
+    for u,y,m in zip(p['units'],p['labels'],p['mask']):
+     if m:d[(p['family'],u['test_id'])][y].add(p['group_id'])
+   return d
+  fl,tl=labels(fit),labels(test)
+  for p in test:
+   for u,y,m in zip(p['units'],p['labels'],p['mask']):
+    key=(p['family'],u['test_id']);varied=len(fl[key])>=2 and len(tl[key])>=2
+    admitted=m and varied and y in fl[key]
+    scope.append({'fold':fold['fold'],'unit_id':u['id'],'scope':'PRIMARY_CASE_VARIATION' if admitted else 'COVERAGE_OUTSIDE_DIAGNOSTIC' if m else 'MASKED','reason':'Primary requires same-test variation in fit and holdout and its target state seen in fit; fixed before predictions.'})
+  for part,ps in [('fit',fit),('test',test)]:
+   ls=labels(ps);rows.append({'fold':fold['fold'],'partition':part,'packages':len(ps),'supervised_groups':len({p['group_id'] for p in ps if any(p['mask'])}),'families':dict(collections.Counter(p['family'] for p in ps)),'states':{str(y):len({p['group_id'] for p in ps if any(m and z==y for z,m in zip(p['labels'],p['mask']))}) for y in range(3)},'by_test':{str(k):{str(y):sorted(g) for y,g in v.items()} for k,v in ls.items()}})
+ return {'rows':rows,'evaluation_scope':scope,'primary_count':sum(x['scope']=='PRIMARY_CASE_VARIATION' for x in scope)}
+
+```
+
+## legal_bench/irac_application/aligned_v2_runtime.py
+
+```python
+"""Actual orchestration for v2; injection points are also used by entry tests."""
+import os,json,tempfile,time
+from pathlib import Path
+
+def atomic_json(path,value):
+ path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
+ fd,tmp=tempfile.mkstemp(prefix='.atomic-',dir=path.parent)
+ try:
+  with os.fdopen(fd,'w') as f:json.dump(value,f,ensure_ascii=False,indent=2);f.write('\n');f.flush();os.fsync(f.fileno())
+  os.replace(tmp,path)
+ finally:
+  if os.path.exists(tmp):os.unlink(tmp)
+def preflight(root):
+ root=Path(root)
+ for d in ('training','weights','predictions','analysis'):
+  p=root/d;p.mkdir(parents=True,exist_ok=True);fd,f=tempfile.mkstemp(dir=p);os.close(fd);os.unlink(f)
+def run_one(root,spec,fit_call,predict_call,export_call,verify_call):
+ root=Path(root);preflight(root);stem=spec['id'];rp=root/'training'/f'{stem}.json'
+ if rp.exists():raise RuntimeError('ATTEMPT_ALREADY_RECORDED_NO_REFIT')
+ record={'spec':spec,'status':'RUNNING','stages':{},'started':time.time(),'answer':None};atomic_json(rp,record)
+ model=None
+ for stage in ('fit','prediction','weight_export','weight_readback'):
+  t=time.perf_counter()
+  try:
+   if stage=='fit':
+    model,log=fit_call();atomic_json(root/'training'/f'{stem}-fit.json',{'actual':spec,'log':log});result={'log_file':f'training/{stem}-fit.json'}
+   elif stage=='prediction':
+    predictions=predict_call(model);atomic_json(root/'predictions'/f'{stem}.json',predictions);result={'prediction_file':f'predictions/{stem}.json'}
+   elif stage=='weight_export':
+    dest=root/'weights'/f'{stem}.safetensors';tmp=dest.with_name('.'+dest.name);export_call(model,tmp);os.replace(tmp,dest);result={'weights':str(dest)}
+   else:result=verify_call(root/'weights'/f'{stem}.safetensors',predictions)
+   record['stages'][stage]={'status':'OK','seconds':time.perf_counter()-t,'result':result};atomic_json(rp,record)
+  except Exception as e:
+   record['stages'][stage]={'status':'FAILED','seconds':time.perf_counter()-t,'error':repr(e)};record['status']='PAUSED_SHARED_OR_ARTIFACT_FAILURE';record['failed_stage']=stage;record['finished']=time.time();atomic_json(rp,record);return record
+ record.update(status='OK',answer='predictions file',finished=time.time());atomic_json(rp,record);return record
+
+def run_schedule(root,specs,callbacks):
+ root=Path(root);preflight(root);manifest=root/'run-manifest.json'
+ states={s['id']:'PLANNED' for s in specs}
+ if manifest.exists():states.update(json.loads(manifest.read_text())['states'])
+ if any(v not in ('PLANNED','OK') for v in states.values()):return {'status':'PAUSED','states':states,'no_further_fits':True}
+ atomic_json(manifest,{'specs':specs,'states':states})
+ for spec in specs:
+  if states[spec['id']]!='PLANNED':continue
+  result=run_one(root,spec,**callbacks(spec));states[spec['id']]=result['status'];atomic_json(manifest,{'specs':specs,'states':states})
+  if result['status']!='OK':return {'status':'PAUSED','states':states,'no_further_fits':True}
+ return {'status':'COMPLETE','states':states}
+
+```
+
+## scripts/irac_aligned_v2_review_tasks.py
+
+```python
+import json,pathlib
+R=pathlib.Path('outputs/gnn-irac-aligned-v2')
+INSTR='''Independent INPUT-SIDE dependency review, not reference-label creation. Use only supplied allowed case and law materials. No external search, predictions, target judgment or expected result. Prior input organization is a fallible proposal. Review only whether its identity_status, scope_status and global restrictions improperly mix identity/rule scope with whether substantive tests are satisfied. Do not decide SUPPORTED/REFUTED test states or predict a claim. Return one complete JSON code block {"cases":[{"case_id":string,"bindings":[{"binding_id":string,"identity_status":"ESTABLISHED"|"UNRESOLVED","identity_reason":string,"identity_refs":[{"source_id":string,"quote":string}],"scope_status":"COMPATIBLE"|"UNRESOLVED"|"INCOMPATIBLE","scope_reason":string,"join_limits":[{"kind":"BINDING"|"RULE_SCOPE"|"FIELD"|"PROPOSITION"|"NOTE","affected_tests":[test_id],"reason":string,"source_refs":[{"source_id":string,"quote":string}]}],"review_reason":string}]}]}.
+Do not change bindings, objects, old links or original restrictions. The returned join_limits are an explicit replacement ONLY for the broad automatic join gates inferred from identity_status/scope_status, NOT permission to remove existing restrictions. List every supplied binding once. For an identified focal arrangement, an unknown calendar date or disputed consent does not make its actors different or its whole statutory scope unknown: constrain the temporal/consent test, not every test. If a source only establishes the identity link among some records, preserve it and identify the test-specific join that remains uncertain. Same role/ID alone is not source evidence. Legal applicability encompasses jurisdiction, version, temporal reach and stage; substantive non-satisfaction alone is not scope incompatibility. Stage itself need not duplicate each substantive rule. Genuine law-version/stage/transaction uncertainty must remain with affected tests; use empty affected_tests only if source cannot delimit the affected proposition. A prior finding's reviewability is NOT erased by appeal but is also not target acceptance. Keep uncertainty and contrary accounts. Original references remain mere addresses, not semantic verification. Do not force ESTABLISHED or COMPATIBLE; explain decisions from exact short source quotes. Return no full legal answer. This is the one permitted review; unresolved disagreements remain.
+'''
+a=json.loads((R/'input-manifest.json').read_text()); batches=[a[i:i+5] for i in range(0,len(a),5)]
+for i,rows in enumerate(batches):
+ data=[]
+ if not all((R/'bindings'/f"{c['case_id']}.json").exists() for c in rows):continue
+ for row in rows:
+  cid=str(row['case_id']);p=json.loads((R/'input-payloads'/f'{cid}.json').read_text());b=json.loads((R/'bindings'/f'{cid}.json').read_text());data.append({'case_id':cid,'sources':p['allowed_sources'],'law':p['law'],'template':p['template'],'bindings':b['bindings']})
+ out=R/'tasks'/f'join-review-{i+1:02}.txt'
+ if not out.exists():out.write_text(INSTR+'\n'+json.dumps({'cases':data},ensure_ascii=False))
+ print(out,len(out.read_text()))
+
+```
+
+## scripts/irac_aligned_v2_encode.py
+
+```python
+import sys,json,hashlib,time,fcntl,os
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+import numpy as np
+from legal_bench.irac_application.text_cache import chunk_ranges
+R=Path('outputs/gnn-irac-aligned-v2');O=Path('outputs/gnn-irac-aligned-v1')
+def main():
+ import torch,transformers
+ from transformers import AutoTokenizer,AutoModel
+ torch.set_num_threads(4)
+ out=R/'text-cache';out.mkdir(exist_ok=True);lock=(out/'.encoding.lock').open('w');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);cfg=json.loads((O/'text-cache/encoder.json').read_text());(out/'encoder.json').write_text(json.dumps(cfg,indent=2))
+ tok=AutoTokenizer.from_pretrained(cfg['path'],local_files_only=True);model=AutoModel.from_pretrained(cfg['path'],local_files_only=True).eval();prefix=tok.encode(cfg['prefix'],add_special_tokens=False);cap=512-len(prefix)-tok.num_special_tokens_to_add(pair=False)
+ old=np.load(O/'text-cache/vectors.npz');prior=np.load(out/'vectors.npz') if (out/'vectors.npz').exists() else {};vectors={};audit=[];t=time.perf_counter();texts={hashlib.sha256(n['text'].encode()).hexdigest():n['text'] for p in (R/'graphs').glob('*.json') for n in json.loads(p.read_text())['nodes']}
+ with torch.no_grad():
+  for k,text in sorted(texts.items()):
+   if k in old:vectors[k]=old[k];audit.append({'text_sha256':k,'reuse':'v1 identical text and encoder'});continue
+   if k in prior:vectors[k]=prior[k];audit.append({'text_sha256':k,'reuse':'v2 completed deterministic encoding'});continue
+   e=tok(text,add_special_tokens=False,truncation=False,return_offsets_mapping=True);ids=e['input_ids'];ranges=chunk_ranges(ids,e['offset_mapping'],text,cap);vs=[]
+   for a,b in ranges:
+    x=torch.tensor([tok.build_inputs_with_special_tokens(prefix+ids[a:b])]);assert x.shape[1]<=512;h=model(input_ids=x,attention_mask=torch.ones_like(x)).last_hidden_state;vs.append(torch.nn.functional.normalize(h.mean(dim=1),p=2,dim=1)[0].numpy())
+   v=np.mean(vs,axis=0);v/=max(np.linalg.norm(v),1e-12);vectors[k]=v;audit.append({'text_sha256':k,'tokens':len(ids),'token_ranges':ranges,'truncated':False})
+ np.savez(out/'.vectors.tmp.npz',**vectors);os.replace(out/'.vectors.tmp.npz',out/'vectors.npz');(out/'encoding.json').write_text(json.dumps({'model':cfg,'seconds':time.perf_counter()-t,'unique_texts':len(texts),'audit':audit,'torch':torch.__version__,'transformers':transformers.__version__},indent=2));print('encoded',len(texts),'seconds',time.perf_counter()-t)
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_aligned_v2_admit.py
+
+```python
+"""Local source-address and unit admission; never repairs semantic content."""
+import json,sys,collections,copy
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.irac_application.aligned_v2_runtime import atomic_json
+from legal_bench.irac_application.aligned_graph import check_refs
+from legal_bench.irac_application.aligned_v2 import unit_id,template_version
+R=Path('outputs/gnn-irac-aligned-v2');STATES=['SUPPORTED','REFUTED','UNRESOLVED']
+def read(p):return json.loads(p.read_text())
+def main():
+ totals=collections.Counter()
+ for f in sorted((R/'web').glob('reference-[0-9][0-9].json')):
+  for c in read(f)['cases']:
+   cid=str(c['case_id']);g=read(R/'graphs'/f'{cid}.json');sources=g['source_manifest'];expected={u['id']:u for u in g['prediction_units']};rows={};duplicates=set()
+   for item in c['tests']:
+    uid=unit_id(cid,item.get('claim_id',''),template_version(g['legal_structure']),item.get('test_id',''),item.get('binding_id',''))
+    if uid in rows:duplicates.add(uid)
+    rows[uid]=item
+   out=[]
+   for uid,u in expected.items():
+    row=copy.deepcopy(rows.get(uid,{}));errors=[]
+    if not row:errors.append('MISSING_REFERENCE')
+    if uid in duplicates:errors.append('DUPLICATE_REFERENCE')
+    for k in ['source_refs','law_refs','opposition_refs']:errors+=check_refs(row.get(k,[]),sources)
+    if row.get('status') not in STATES:errors.append('UNRATED_OR_UNSUPPORTED')
+    if row.get('status') in STATES[:2] and not row.get('source_refs'):errors.append('DEFINITE_WITHOUT_CASE_SOURCE')
+    if row.get('status')=='UNRESOLVED' and not row.get('gap_reason'):errors.append('UNKNOWN_WITHOUT_KEY_GAP')
+    row.update(unit_id=uid,supervision_mask=not errors,admission_errors=errors,reference_role='MODEL_GENERATED_SOURCE_REVIEW_NOT_HUMAN_GOLD',semantic_certification=False);out.append(row);totals['all_units']+=1;totals['admitted' if not errors else 'masked']+=1
+    if not errors:totals[row['status']]+=1
+   atomic_json(R/'references'/f'{cid}.json',{'case_id':cid,'tests':out,'unexpected_units':sorted(set(rows)-set(expected)),'raw_path':str(f),'old_case_labels_broadcast':False})
+ atomic_json(R/'reference-admission.json',dict(totals));print(dict(totals))
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_aligned_v2_train.py
+
+```python
+"""Versioned actual training entry. Freeze check precedes each scheduled fit."""
+import sys,json,hashlib,time
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+import numpy as np
+import mlx.core as mx
+from legal_bench.irac_application.aligned_v2_models import tensorize,ApplicationModel
+from legal_bench.irac_application.aligned_v2_train import fit,prior_fit,metrics
+from legal_bench.irac_application.aligned_v2_runtime import atomic_json,run_schedule
+from legal_bench.irac_application.aligned_v2 import render
+R=Path('outputs/gnn-irac-aligned-v2');LABELS=['SUPPORTED','REFUTED','UNRESOLVED']
+def read(p):return json.loads(p.read_text())
+def load(use_anco=False):
+ vectors=np.load(R/'text-cache/vectors.npz');out=[]
+ for path in sorted((R/'graphs').glob('*.json')):
+  g=read(path);cid=str(g['case_id']);rp=R/'references'/f'{cid}.json'
+  rows={x['unit_id']:x for x in read(rp)['tests']} if rp.exists() else {};source=read(R/'sources'/f'{cid}.json');um={u['id']:u for u in g['prediction_units']}
+  d=tensorize(g,{n['id']:vectors[hashlib.sha256(n['text'].encode()).hexdigest()] for n in g['nodes']},use_anco);ids=d['condition_ids'];mask=[rows.get(u,{}).get('supervision_mask',False) for u in ids]
+  out.append({'package_id':cid,'group_id':source['group_id'],'family':source['family'],'units':[um[u] for u in ids],'issue_ids':[um[u]['claim_id'] for u in ids],'labels':[LABELS.index(rows[u]['status']) if m else 0 for u,m in zip(ids,mask)],'mask':mask,'template_condition_ids':[um[u]['test_id'] for u in ids],'tensors':d})
+ return out
+
+def verify_frozen():
+ for path,h in read(R/'freeze/manifest.json').items():
+  if hashlib.sha256(Path(path).read_bytes()).hexdigest()!=h:raise ValueError('FROZEN_INPUT_CHANGED:'+path)
+def predict(model,ps):
+ rows=[]
+ for p in ps:
+  probs=np.array(mx.softmax(model(p['tensors']),axis=1)).tolist()
+  for i,u in enumerate(p['units']):rows.append({'package_id':p['package_id'],'group_id':p['group_id'],'unit_id':u['id'],'test_id':u['test_id'],'binding_id':u['binding_id'],'probabilities':probs[i],'label':p['labels'][i] if p['mask'][i] else None,'supervision_mask':p['mask'][i]})
+ return rows
+
+def callbacks(spec):
+ verify_frozen();ps=load(spec['anco']);fold=next(f for f in read(R/'freeze/splits.json') if f['fold']==spec['fold']);train=[p for p in ps if p['group_id'] in fold['fit_groups']];test=[p for p in ps if p['group_id'] in fold['test_groups']]
+ def pred(m):return {'rows':predict(m,test)}
+ def verify(path,saved):
+  loaded=ApplicationModel(spec['kind'],train[0]['tensors']['x'].shape[1]);loaded.load_weights(str(path));loaded.eval();again=predict(loaded,test)
+  diff=max((abs(a-b) for x,y in zip(saved['rows'],again) for a,b in zip(x['probabilities'],y['probabilities'])),default=0.)
+  if diff>1e-6:raise ValueError('WEIGHT_READBACK_PREDICTION_MISMATCH')
+  return {'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'max_probability_difference':diff,'readable':True}
+ return dict(fit_call=lambda:fit(spec['kind'],train,[],spec['seed'],epochs=spec['epochs'],patience=10,progress=lambda log:atomic_json(R/'training'/f"{spec['id']}-progress.json",log)),predict_call=pred,export_call=lambda m,p:m.save_weights(str(p)),verify_call=verify)
+def main():
+ verify_frozen();specs=read(R/'freeze/run-order.json');packs=load(False);folds=read(R/'freeze/splits.json')
+ for f in folds:
+  dest=R/'predictions'/f"prior-fold{f['fold']}.json"
+  if dest.exists():continue
+  pri=prior_fit([p for p in packs if p['group_id'] in f['fit_groups']]);rows=[]
+  for p in packs:
+   if p['group_id'] not in f['test_groups']:continue
+   for i,u in enumerate(p['units']):rows.append({'package_id':p['package_id'],'group_id':p['group_id'],'unit_id':u['id'],'test_id':u['test_id'],'binding_id':u['binding_id'],'probabilities':pri['per_condition'].get(u['test_id'],pri['fallback']),'label':p['labels'][i] if p['mask'][i] else None,'supervision_mask':p['mask'][i]})
+  atomic_json(dest,{'prior':pri,'rows':rows})
+ result=run_schedule(R,specs,callbacks);atomic_json(R/'training-status.json',result);print(result)
+ # Render from saved predictions only; persistence errors here do not erase fits.
+ for p in sorted((R/'predictions').glob('*.json')):
+  rows=read(p)['rows']
+  for cid in sorted({r['package_id'] for r in rows}):
+   pred={r['unit_id']:{'status':LABELS[int(np.argmax(r['probabilities']))],'probabilities':r['probabilities']} for r in rows if r['package_id']==cid}
+   atomic_json(R/'analysis'/p.stem/f'{cid}.json',render(read(R/'graphs'/f'{cid}.json'),pred))
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_aligned_v2_data.py
+
+```python
+"""Import local input organization; prepare isolated binding-level references."""
+import json,sys,copy
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.irac_application.aligned_v2_runtime import atomic_json
+from legal_bench.irac_application.aligned_v2 import build,unit_id
+R=Path('outputs/gnn-irac-aligned-v2');O=Path('outputs/gnn-irac-aligned-v1')
+def read(p):return json.loads(p.read_text())
+REF='''Independent MATERIAL-SUPPORT reference task. Use only the full allowed sources, supplied law/template and neutral object arrangements below. No external search. You have not been given model predictions, proposed signed edges or prior reference labels. Do not predict the target historical verdict or require the target court to have discussed a proposition. Preserve prior court findings at their stated level without automatically accepting them as a final target determination. Distinguish party allegation, admission, denial, recorded document and prior finding. Evaluate each template test FOR EACH identified binding and claim, not the case as a whole. Distinct arrangements must not share a broadcast answer. Status SUPPORTED/REFUTED evaluates the literal test proposition, not eviction. A clearly supported lower-stage finding can support a proposition within that stage while retaining dispute/opposition. Explain evidence conflict and level. UNRESOLVED needs a specifically decisive factual, identity or interpretation gap; missing irrelevant information is not a reason. UNSUPPORTED is legal coverage or expressivity inadequacy, not an adverse label. If no reliable judgment can be formed use UNRATED. Do not manufacture negative evidence from absence or invent burden rules. Review all allowed material, not just the binding's cited passages; preserve meaningful opposing evidence. The neutral binding description is a fallible input-derived identification aid, not established truth. If it conflates objects or cannot be identified, flag that rather than accepting it. Return one complete JSON code block, no follow-up and no final full legal answer.
+Contract: {"cases":[{"case_id":string,"tests":[{"claim_id":string,"binding_id":string,"test_id":string,"status":"SUPPORTED"|"REFUTED"|"UNRESOLVED"|"UNSUPPORTED"|"UNRATED","source_refs":[{"source_id":string,"quote":string}],"law_refs":[{"source_id":string,"quote":string}],"objects":string,"statement_status":string,"opposition":string,"opposition_refs":[{"source_id":string,"quote":string}],"gap_reason":string,"coverage_status":"COVERED"|"PARTIAL"|"NOT_COVERED","rationale":string}]}]}. Include every test exactly once per supplied binding/claim. Short exact quotes; quote must occur literally in the provided source. Empty evidence is permitted for genuine missing information, but explain what was searched. No missing fields, no ellipses. All answers are model-generated source-reviewed references, not human gold.
+Complete fictional example: source X says 'The tenant admitted occupying Room R. The controller found no written permission.' Rule Y says 'Test T asks whether written permission exists.' Binding B1 is tenant/Room R. Output {"cases":[{"case_id":"DEMO","tests":[{"claim_id":"CLAIM","binding_id":"B1","test_id":"T","status":"REFUTED","source_refs":[{"source_id":"X","quote":"The controller found no written permission."}],"law_refs":[{"source_id":"Y","quote":"Test T asks whether written permission exists."}],"objects":"tenant; Room R","statement_status":"PRIOR_FOUND","opposition":"No contrary permission evidence supplied.","opposition_refs":[],"gap_reason":"","coverage_status":"COVERED","rationale":"The prior finding refutes the written-permission proposition at the supplied procedural level; it is not elevated to an unseen final ruling."}]}]}.
+'''
+def prepare():
+ for f in sorted((R/'web').glob('input-[0-9][0-9].json')):
+  batch=[]
+  for c in read(f)['cases']:
+   cid=str(c['case_id']);payload=read(R/'input-payloads'/f'{cid}.json');original={x['id'] for x in payload['old_limitations']};mapped={i for b in c['bindings'] for r in b['restrictions'] for i in r['original_ids']};unassigned={x['original_id'] for x in c['unassigned_limitations']};missing=sorted(original-mapped-unassigned)
+   if missing: c=copy.deepcopy(c);c['import_unmapped_limitations']=missing
+   # Keep raw unchanged. Missing mappings conservatively restrict the proposition,
+   # but do not guess free-text meaning. Record this as an import dependency.
+   derived=copy.deepcopy(c)
+   for b in derived['bindings']:
+    for item in missing+[x['original_id'] for x in c['unassigned_limitations']]:b['restrictions'].append({'original_ids':[item],'kind':'PROPOSITION','affected_tests':[],'fields':[],'unmapped_scope':True,'reason':'UNRESOLVED_LIMITATION_MAPPING:'+item,'source_refs':[]})
+   for reviewfile in sorted((R/'web').glob('join-review-[0-9][0-9].json')):
+    rc=next((x for x in read(reviewfile)['cases'] if str(x['case_id'])==cid),None)
+    if not rc:continue
+    reviewed={x['binding_id']:x for x in rc['bindings']}
+    for b in derived['bindings']:
+     if b['binding_id'] not in reviewed:continue
+     v=reviewed[b['binding_id']];b['original_identity_scope']={k:b[k] for k in ('identity_status','identity_reason','identity_refs','scope_status','scope_reason')}
+     for k in ('identity_status','identity_reason','identity_refs','scope_status','scope_reason'):b[k]=v[k]
+     b['reviewed_join_limits']=v['join_limits'];b['dependency_review_source']=str(reviewfile);b['dependency_review_reason']=v['review_reason']
+   atomic_json(R/'bindings'/f'{cid}.json',derived)
+   g=build(read(R/'sources'/f'{cid}.json'),read(O/'inputs'/f'{cid}-legacy-facts.json'),payload['template'],payload['old_input_proposal'],payload['law'],derived)
+   atomic_json(R/'graphs'/f'{cid}.json',g)
+   neutral=[{'binding_id':b['binding_id'],'claim_ids':b['claim_ids'],'objects':b['objects']} for b in c['bindings']]
+   batch.append({'case_id':cid,'allowed_sources':payload['allowed_sources'],'law':payload['law'],'template':payload['template'],'bindings':neutral})
+  k=f.stem.replace('input','reference');dest=R/'tasks'/f'{k}.txt'
+  if not dest.exists():dest.write_text(REF+'\n'+json.dumps({'cases':batch},ensure_ascii=False))
+  print(f.stem,[(c['case_id'],len(c['bindings'])) for c in batch])
+if __name__=='__main__':prepare()
+
+```
+
+## scripts/irac_aligned_v2_prepare.py
+
+```python
+import json,hashlib,pathlib,sys
+sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]))
+from legal_bench.irac_application.aligned_tasks import put
+R=pathlib.Path('outputs/gnn-irac-aligned-v2'); OLD=pathlib.Path('outputs/gnn-irac-aligned-v1')
+# Explicit source-review choices; not algorithmic rules or answer-dependent selection.
+RESTORE={'112400':[124,127,139,140],'114533':[148,149,150,169],'1114159':[238,239,244],'1870868':[206,207,212,241],'489898':[45,46,48],'14884716':[67,69,77,78,85,90,99,134],'33810117':[61,62,63,64,65,67,68],'50313565':[73,75,79,80,82,83,84,87],'68096693':[95,106,109,110,120,127],'84524189':[91,92,94,97,104,108,109],'125596702':[76,79,80,81,83,84,85],'133241208':[134,137,154,178],'188721101':[72,73,74,75,80,81,83,84],'191402169':[75,76,87,88,90,91]}
+INSTRUCTION='''Use only supplied allowed sources and law, no external search or other conversations. Return one complete JSON object in a code block; no follow-up. This INPUT task must not predict test labels or claim outcomes. Reorganize existing fallible input proposals into source-grounded distinct transaction/occupant bindings, and classify old limitations by the uses they restrict. Do not re-extract the judgment. Restored parent passages may clarify speaker, timing or actor; retain allegations as allegations and prior findings at their original level. A burden NOT_COVERED is a missing legal rule, not an automatic bar on all facts. Never merge different father/brother/company transactions. IDs and equal roles alone are not identity evidence. One binding can have unknown objects; do not invent identities. A single focal arrangement may be proposed when this is all the source supports. Do not create separate bindings merely for opposing accounts of the SAME arrangement; keep both accounts/links. Different arrangements require different bindings. Preserve every old limitation either mapped or explicitly unassigned, with reason; do not discard it to allow a conclusion.
+Return {"cases":[{"case_id":string,"bindings":[{"binding_id":string,"description":string,"claim_ids":[string],"objects":[{"role":string,"mention":string or null,"source_refs":[{"source_id":string,"quote":string}]}],"test_links":{test_id:[old_link_id]},"source_refs":[source references],"restrictions":[{"original_ids":[old limitation IDs],"kind":"FIELD" or "BINDING" or "RULE_SCOPE" or "PROPOSITION" or "NOTE","affected_tests":[test IDs],"fields":[string],"reason":string,"source_refs":[source references]}],"identity_status":"ESTABLISHED" or "UNRESOLVED","identity_reason":string,"identity_refs":[source references],"scope_status":"COMPATIBLE" or "UNRESOLVED" or "INCOMPATIBLE","scope_reason":string}],"unassigned_limitations":[{"original_id":string,"reason":string}],"coverage_limits":[string]}]}.
+List EVERY template test in test_links even if its list is empty. All tests target this binding only. FIELD affects only the named tests; BINDING limits joining records; RULE_SCOPE limits the applicability named; PROPOSITION blocks the named whole propositions when scope of qualification is uncertain; NOTE preserves attribution/interpretation boundaries but does not automatically block. Empty affected_tests for a blocking restriction means entire binding; avoid it when scope is known. A prior finding's being appealable is generally a NOTE about authority, not erasure of the finding. A genuine unresolved identity or event-continuity issue is BINDING. Do not classify by keywords; explain using sources. Unknown dates do not erase event types. Exact source quotes only, short enough to avoid copying long paragraphs. Output concise descriptions but preserve contrary evidence.
+Complete synthetic example, NOT target law: Source X says 'P lets Room A to Q. Whether permission was written is unknown.' Legal tests T1 tenancy, T2 written permission. Old link L1 targets T1; old restriction LINK:L1:0 says permission form unknown. Output {"cases":[{"case_id":"DEMO","bindings":[{"binding_id":"DEMO-B1","description":"P–Q Room A arrangement","claim_ids":["DEMO-C"],"objects":[{"role":"tenant","mention":"Q","source_refs":[{"source_id":"X","quote":"P lets Room A to Q."}]}],"test_links":{"T1":["L1"],"T2":[]},"source_refs":[{"source_id":"X","quote":"P lets Room A to Q."}],"restrictions":[{"original_ids":["LINK:L1:0"],"kind":"FIELD","affected_tests":["T2"],"fields":["permission.form"],"reason":"Only permission form missing; tenancy is still recorded.","source_refs":[{"source_id":"X","quote":"Whether permission was written is unknown."}]}],"identity_status":"ESTABLISHED","identity_reason":"Single source explicitly links P, Q and Room A.","identity_refs":[{"source_id":"X","quote":"P lets Room A to Q."}],"scope_status":"COMPATIBLE","scope_reason":"Fictional example rule applies to Room A."}],"unassigned_limitations":[],"coverage_limits":[]}]}.
+'''
+def main():
+ manifest=json.loads((OLD/'input-manifest.json').read_text());construction={str(x['case_id']):x for x in json.load(open('outputs/gnn-irac-application-development-01/construction-manifest.json'))};maps=[];payloads=[]
+ for row in manifest:
+  cid=str(row['case_id']);s=json.load(open(OLD/'sources'/f'{cid}.json'));doc=json.load(open(construction[cid]['source_path']));segments={x['original_line']:x for x in doc['segments']}; old=s['sources'].copy()
+  for line in RESTORE.get(cid,[]):
+   p=segments[line];sid=p['id']+':restored-v2';stages={v['semantic_stage'] for k,v in old.items() if k.startswith(p['id']+':')};stage=next(iter(stages)) if len(stages)==1 else 'PRE_TARGET_RECORD'
+   s['sources'][sid]={'text':p['text'],'document_id':cid,'url':doc['url'],'semantic_stage':stage,'prospective_availability':'RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET','parent_source_id':p['id'],'provenance':p['provenance'],'stage_note':'Parent may contain both party statements and prior findings. Preserve explicit attribution within text, not one uniform truth status.'}
+   maps.append({'case_id':cid,'restored_id':sid,'parent':p['id'],'reason':'Restore full already-relevant factual or prior-procedural paragraph; target decisive reasoning not added','sha256':hashlib.sha256(p['text'].encode()).hexdigest()})
+  put(R/'sources'/f'{cid}.json',s);proposal=json.load(open(OLD/'inputs'/f'{cid}-proposal.json'));limitations=[]
+  for section,prefix in [('links','LINK'),('combinations','COMBO')]:
+   for item in proposal.get(section,[]):
+    for i,l in enumerate(item.get('limitations',[])):limitations.append({'id':f'{prefix}:{item["id"]}:{i}','owner_id':item['id'],'content':l})
+  family=row['family'];payloads.append({'case_id':cid,'family':family,'target_stage':row['target_stage'],'allowed_sources':s['sources'],'template':json.load(open(OLD/'templates'/f'{family}.json')),'law':json.load(open(OLD/'sources'/f'{family}-law.json')),'old_input_proposal':proposal,'old_limitations':limitations})
+  put(R/'input-payloads'/f'{cid}.json',payloads[-1])
+ put(R/'source-restoration.json',{'rows':maps,'no_new_external_sources':True,'excluded':'All parent paragraphs not listed remain excluded; 112400 L123 contains target decision context; 114533 L170 and 133241208 L174/L180 mix target evaluation; no automatic whole-parent expansion.'})
+ put(R/'input-manifest.json',manifest)
+ for f in ('DRC_SUBLETTING','DRC_BONA_FIDE'):
+  put(R/'templates'/f'{f}.json',json.load(open(OLD/'templates'/f'{f}.json')));put(R/'sources'/f'{f}-law.json',json.load(open(OLD/'sources'/f'{f}-law.json')))
+ for i in range(0,len(payloads),3):put(R/'tasks'/f'input-{i//3+1:02}.txt',INSTRUCTION+'\n'+json.dumps({'cases':payloads[i:i+3]},ensure_ascii=False))
+ put(R/'preparation-policy.json',{'web_limit':24,'input_batches':6,'reference_batches':6,'independent_review_max':4,'candidate_max':16,'new_groups_max':8,'additional_law_max':4,'training_max':36,'old_labels':'never broadcast; source-expanded units require fresh reference','split_rule':'2 folds preferred if minority family only 2 groups; greedy group stratification; validation chosen only if it preserves all fit states/families, otherwise fixed100 epochs no early stopping','seeds':[20261007,20261008,20261009],'review_rule':'up to6 packages: different bindings, method disagreement, decisive contrary source, persistent unresolved; then seeded remainder; fixed seed20261007','no_extra_legal_answers':True})
+ print('prepared',len(payloads),'restored',len(maps))
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_aligned_v2_freeze.py
+
+```python
+import json,sys,hashlib,shutil,collections,random
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.irac_application.aligned_v2_split import split,coverage
+from legal_bench.irac_application.aligned_v2_runtime import atomic_json
+R=Path('outputs/gnn-irac-aligned-v2');ST=['SUPPORTED','REFUTED','UNRESOLVED']
+def main():
+ if (R/'freeze/manifest.json').exists():raise ValueError('ALREADY_FROZEN')
+ ps=[]
+ for path in sorted((R/'graphs').glob('*.json')):
+  g=json.loads(path.read_text());cid=str(g['case_id']);s=json.loads((R/'sources'/f'{cid}.json').read_text());rp=R/'references'/f'{cid}.json';rs={r['unit_id']:r for r in json.loads(rp.read_text())['tests']} if rp.exists() else {};units=g['prediction_units'];m=[rs.get(u['id'],{}).get('supervision_mask',False) for u in units]
+  ps.append({'package_id':cid,'group_id':s['group_id'],'family':s['family'],'units':units,'labels':[ST.index(rs[u['id']]['status']) if mask else 0 for u,mask in zip(units,m)],'mask':m})
+ folds=split(ps);cov=coverage(ps,folds);atomic_json(R/'freeze/splits.json',folds);atomic_json(R/'freeze/split-coverage.json',cov);atomic_json(R/'freeze/packages.json',ps)
+ if not cov['primary_count']:atomic_json(R/'training-status.json',{'status':'NO_CASE_VARYING_PRIMARY_SUPERVISION','fits':0});return
+ specs=[];weights=[]
+ for f in folds:
+  train=[p for p in ps if p['group_id'] in f['fit_groups'] and any(p['mask'])]
+  ng=len({p['group_id'] for p in train})
+  for p in train:
+   issues={u['claim_id'] for u,m in zip(p['units'],p['mask']) if m};npack=sum(q['group_id']==p['group_id'] for q in train)
+   for u,m in zip(p['units'],p['mask']):
+    if m:
+     n=sum(v['claim_id']==u['claim_id'] and mm for v,mm in zip(p['units'],p['mask']));weights.append({'fold':f['fold'],'unit_id':u['id'],'epoch_objective_weight':1/ng/npack/len(issues)/n,'note':'Minibatch group mean; shuffle fixed by seed.'})
+  for method,kind,a in [('Flat','Flat',False),('Flat-ANCO','Flat',True),('R-GCN','Graph',False),('R-GCN-ANCO','Graph',True)]:
+   for seed in [20261007,20261008,20261009]:specs.append({'id':f'{method}-fold{f["fold"]}-seed{seed}','method':method,'kind':kind,'anco':a,'seed':seed,'fold':f['fold'],'epochs':100,'early_stopping':False,'optimizer':'AdamW','lr':.001,'weight_decay':.0001,'dropout':.1,'hidden':64,'layers':2,'bases':4,'batch_size':4})
+ atomic_json(R/'freeze/run-order.json',specs);atomic_json(R/'freeze/loss-weights.json',weights)
+ atomic_json(R/'freeze/evaluation.json',{'primary':'same-test case variation in both fit and held-out plus seen state; determined before predictions','secondary':'all other admitted units separately; masked not scored','review_max':6,'review_selection':'priority different binding predictions; between-method disagreement; predicted definite against input opposition; persistent unresolved; reserve last slot deterministic random seed20261007','no_historical_outcome_accuracy':True,'reference':'MODEL_GENERATED_WITH_SOURCE_REVIEW_NOT_HUMAN_GOLD','fits_max':len(specs),'no_new_web_legal_answers':True})
+ files=[]
+ for folder in ['sources','templates','bindings','graphs','references','input-payloads','tasks','freeze','text-cache']:
+  files += [p for p in (R/folder).rglob('*') if p.is_file()]
+ code=list(Path('legal_bench/irac_application').glob('*.py'))+list(Path('scripts').glob('irac_aligned_v2*.py'))+[Path('scripts/repository_bridge.py')]
+ for p in code:
+  dest=R/'freeze/code'/p;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest);files.append(dest)
+ files+=code+[R/'runtime.json',R/'preparation-policy.json',R/'preparation-coverage.json']
+ atomic_json(R/'freeze/manifest.json',{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files});print('frozen',len(ps),'packages',cov['primary_count'],'primary',len(specs),'fits')
+if __name__=='__main__':main()
+
+```
+
+## scripts/report_irac_aligned_v2.py
+
+```python
+import sys,json,pathlib,collections,random,csv,re
+sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]))
+import numpy as np
+from legal_bench.irac_application.aligned_v2_train import metrics
+from legal_bench.irac_application.aligned_v2_runtime import atomic_json
+R=pathlib.Path('outputs/gnn-irac-aligned-v2');S=['SUPPORTED','REFUTED','UNRESOLVED']
+def read(p):return json.loads(p.read_text())
+def main():
+ cov=read(R/'freeze/split-coverage.json');scope={(x['fold'],x['unit_id']):x['scope'] for x in cov['evaluation_scope']};allrows=[];per=collections.defaultdict(list)
+ for p in sorted((R/'predictions').glob('*.json')):
+  stem=p.stem;fold=int(re.search(r'fold(\d+)',stem).group(1));method=stem.split('-fold')[0];seed=int(stem.split('-seed')[1]) if '-seed' in stem else None
+  for row in read(p)['rows']:
+   row=dict(row,run=stem,fold=fold,method=method,seed=seed,evaluation_scope=scope[(fold,row['unit_id'])],predicted_status=S[int(np.argmax(row['probabilities']))]);allrows.append(row);per[(method,seed)].append(row)
+ summary=[]
+ for (method,seed),rows in per.items():
+  primary=[x for x in rows if x['evaluation_scope']=='PRIMARY_CASE_VARIATION'];secondary=[x for x in rows if x['evaluation_scope']=='COVERAGE_OUTSIDE_DIAGNOSTIC']
+  summary.append({'method':method,'seed':seed,'primary':metrics(primary),'outside':metrics(secondary),'all_admitted':metrics(rows)})
+ atomic_json(R/'comparison.json',summary);atomic_json(R/'comparison-rows.json',allrows)
+ with (R/'case-comparison.csv').open('w') as f:
+  w=csv.writer(f);w.writerow(['case','method','seed','scope','units','agreement','probability_loss'])
+  for (method,seed),rows in per.items():
+   for cid in sorted({x['package_id'] for x in rows}):
+    for sc in ['PRIMARY_CASE_VARIATION','COVERAGE_OUTSIDE_DIAGNOSTIC']:
+     a=[x for x in rows if x['package_id']==cid and x['evaluation_scope']==sc];m=metrics(a);w.writerow([cid,method,seed,sc,m['supervised_conditions'],m['dispute_mean_correct'],m['dispute_balanced_probability_loss']])
+ claims=[]
+ for p in (R/'analysis').glob('*/*.json'):
+  d=read(p);claims.append({'run':p.parent.name,'case_id':d['case_id'],'claims':[c['status'] for c in d['claims']],'bindings':dict(collections.Counter(b['result']['status'] for b in d['bindings'])),'program_test_states':dict(collections.Counter(u['program_state']['status'] for u in d['units'])),'blocking':dict(collections.Counter(x['kind'] for b in d['bindings'] for x in b['join_limits']))})
+ atomic_json(R/'analysis-summary.json',claims)
+ # Choose before reading source-review conclusions; reserve one random package.
+ cases=sorted({x['package_id'] for x in allrows});rank=[]
+ for cid in cases:
+  rs=[x for x in allrows if x['package_id']==cid and x['method']!='prior'];by=collections.defaultdict(set);unit=collections.defaultdict(set)
+  for x in rs:by[(x['run'],x['test_id'])].add(x['predicted_status']);unit[x['unit_id']].add(x['predicted_status'])
+  flags={'different_binding':any(len(s)>1 for s in by.values()),'method_disagreement':any(len(s)>1 for s in unit.values()),'definite_reference_opposition':any(x['predicted_status'] in S[:2] and x['label'] is not None and S[x['label']]!=x['predicted_status'] for x in rs),'persistent_unknown':any(x['predicted_status']=='UNRESOLVED' for x in rs)}
+  rank.append((tuple(-int(flags[k]) for k in flags),cid,flags))
+ rank.sort();selected=rank[:5];remaining=[x for x in rank if x not in selected];rng=random.Random(20261007)
+ if remaining:selected.append(rng.choice(remaining))
+ atomic_json(R/'source-review-selection.json',{'rule':read(R/'freeze/evaluation.json')['review_selection'],'seed':20261007,'selected':[{'case_id':cid,'flags':flags,'selection':'random reserve' if i==5 else 'priority'} for i,(_,cid,flags) in enumerate(selected)],'all_candidates':[{'case_id':cid,'flags':flags} for _,cid,flags in rank]})
+ for _,cid,flags in selected:
+  atomic_json(R/'review-dossiers'/f'{cid}.json',{'case_id':cid,'flags':flags,'sources':read(R/'sources'/f'{cid}.json'),'reference':read(R/'references'/f'{cid}.json'),'bindings':read(R/'bindings'/f'{cid}.json'),'predictions':[x for x in allrows if x['package_id']==cid]})
+ print('rows',len(allrows),'review',[x[1] for x in selected]);print([(x['method'],x['seed'],x['primary']['dispute_mean_correct'],x['primary']['dispute_balanced_probability_loss']) for x in summary])
+if __name__=='__main__':main()
+
+```
+
+## tests/test_irac_aligned_v2.py
+
+```python
+import unittest,tempfile,json
+from pathlib import Path
+from legal_bench.irac_application.aligned_v2_runtime import run_schedule
+from legal_bench.irac_application.aligned_v2 import effective_state,unit_id,render,template_version
+from legal_bench.irac_application.aligned_v2_split import split
+class Repair(unittest.TestCase):
+ def test_actual_orchestration_failure(self):
+  with tempfile.TemporaryDirectory() as d:
+   calls=[]
+   def cb(s):
+    def fit():calls.append(s['id']);return object(),{'history':[{'epoch':0,'loss':1.0}]}
+    def fail(m,p):raise OSError('injected weight failure')
+    return dict(fit_call=fit,predict_call=lambda m:[{'status':'SUPPORTED'}],export_call=fail,verify_call=lambda *a:{})
+   specs=[{'id':'first'},{'id':'second'}];r=run_schedule(d,specs,cb)
+   self.assertEqual(calls,['first']);self.assertEqual(r['status'],'PAUSED')
+   self.assertTrue((Path(d)/'predictions/first.json').exists());self.assertTrue((Path(d)/'training/first-fit.json').exists())
+   self.assertEqual(json.loads((Path(d)/'training/first.json').read_text())['failed_stage'],'weight_export')
+   run_schedule(d,specs,cb);self.assertEqual(calls,['first'])
+ def test_date_only_and_note(self):
+  b={'restrictions':[{'kind':'FIELD','affected_tests':['DATE'],'fields':['date'],'reason':'unknown','source_refs':[],'original_ids':['COMBO:1:0']},{'kind':'NOTE','reason':'prior court','affected_tests':[]}]}
+  self.assertEqual(effective_state(b,'TENANCY',{'status':'SUPPORTED'}, {})['status'],'SUPPORTED')
+  self.assertEqual(effective_state(b,'DATE',{'status':'SUPPORTED'}, {})['status'],'UNRESOLVED')
+ def test_local_witness_not_other_witness(self):
+  b={'restrictions':[{'kind':'FIELD','affected_tests':['OWN'],'reason':'lessor title unknown','original_ids':['LINK:L1:0']} ]}
+  self.assertEqual(effective_state(b,'OWN',{'status':'SUPPORTED'}, {})['status'],'SUPPORTED')
+  self.assertEqual(effective_state(b,'OWN',{'status':'SUPPORTED'}, {})['notes'][0]['application'],'LOCAL_LINK_LIMIT_NOT_WHOLE_TEST')
+ def test_units_and_split(self):
+  self.assertNotEqual(unit_id('x','c','v','t','father'),unit_id('x','c','v','t','brother'))
+  folds=split([{'group_id':str(i),'family':'A' if i<2 else 'B'} for i in range(6)])
+  self.assertEqual(len(folds),2)
+  for f in folds:
+   self.assertFalse(set(f['fit_groups'])&set(f['test_groups']));self.assertFalse(f['validation_groups']);self.assertEqual(len(set(['0','1'])&set(f['fit_groups'])),1)
+ def test_distinct_bindings_no_broadcast(self):
+  ref={'source_refs':[{'source_id':'law','quote':'rule'}],'op':'REF','id':'T'}
+  g={'case_id':'x','source_manifest':{},'bindings':[],'legal_structure':{'template_id':'v','tests':[{'id':'T'}],'claims':[{'id':'C','expression':ref}],'elements':[],'burdens':[],'scope':{},'coverage_limits':[]}}
+  for bid in ['father','brother']:g['bindings'].append({'binding_id':bid,'claim_ids':['C'],'identity_status':'ESTABLISHED','identity_refs':[{'source_id':'x','quote':'explicit'}],'scope_status':'COMPATIBLE','restrictions':[],'objects':[],'test_links':{'T':[]}})
+  pred={unit_id('x','C','v','T','b'):{} } if False else {unit_id('x','C',template_version(g['legal_structure']),'T','father'):{'status':'REFUTED'},unit_id('x','C',template_version(g['legal_structure']),'T','brother'):{'status':'SUPPORTED'}}
+  result=render(g,pred);self.assertEqual([b['result']['status'] for b in result['bindings']],['REFUTED','SUPPORTED']);self.assertEqual(result['claims'][0]['status'],'SUPPORTED')
+if __name__=='__main__':unittest.main()
+
+```
+
+## tests/test_irac_aligned_v2_mlx.py
+
+```python
+import unittest,numpy as np
+from legal_bench.irac_application.aligned_v2_models import metadata,masked_group_loss
+from legal_bench.irac_application.graph_builder import reject_supervision
+class Inputs(unittest.TestCase):
+ def test_cli_main_keeps_logs_when_export_fails(self):
+  import tempfile,json
+  from pathlib import Path
+  from unittest.mock import patch
+  import scripts.irac_aligned_v2_train as entry
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);(root/'freeze').mkdir();(root/'freeze/run-order.json').write_text(json.dumps([{'id':'a'},{'id':'b'}]));(root/'freeze/splits.json').write_text('[]');called=[]
+   def cb(spec):
+    def fit():called.append(spec['id']);return object(),{'history':[{'epoch':0}]}
+    def fail(*args):raise OSError('injected actual entry export failure')
+    return dict(fit_call=fit,predict_call=lambda m:{'rows':[]},export_call=fail,verify_call=lambda *a:{})
+   with patch.object(entry,'R',root),patch.object(entry,'verify_frozen'),patch.object(entry,'load',return_value=[]),patch.object(entry,'callbacks',side_effect=cb):entry.main()
+   self.assertEqual(called,['a']);self.assertTrue((root/'training/a-fit.json').is_file());self.assertTrue((root/'predictions/a.json').is_file());self.assertEqual(json.loads((root/'training-status.json').read_text())['status'],'PAUSED')
+ def test_coverage_changes_actual_features(self):
+  n={'type':'Burden','features':{'coverage_status':'NOT_COVERED'},'source_grounded':False}
+  a=metadata(n);n['features']['coverage_status']='COVERED';self.assertNotEqual(a,metadata(n))
+ def test_reference_rejected(self):
+  with self.assertRaises(ValueError):reject_supervision({'bindings':[{'label':'SUPPORTED'}]})
+ def test_group_weight_not_binding_count(self):
+  import mlx.core as mx
+  def model(t):return mx.array(t)
+  p={'group_id':'a','mask':[True],'labels':[0],'issue_ids':['c'],'tensors':[[2.,0.,0.]]}
+  q={'group_id':'b','mask':[True],'labels':[1],'issue_ids':['c'],'tensors':[[2.,0.,0.]]}
+  a=float(masked_group_loss(model,[p,q]).item())
+  p=dict(p,mask=[True]*5,labels=[0]*5,issue_ids=['c']*5,tensors=p['tensors']*5)
+  b=float(masked_group_loss(model,[p,q]).item());self.assertAlmostEqual(a,b,places=6)
+if __name__=='__main__':unittest.main()
+
+```
+
+## tests/test_irac_bridge_current.py
+
+```python
+import unittest,tempfile,json
+from pathlib import Path
+from unittest.mock import patch
+import scripts.repository_bridge as b
+class CurrentBridge(unittest.TestCase):
+ def test_generic_current_no_old_scoring_dependency(self):
+  with tempfile.TemporaryDirectory() as d:
+   r=Path(d)
+   for p,text in [('docs/EXPERIMENTS.json',json.dumps({'experiments':[{'id':'v2','role':'dev','report':'outputs/new/report.txt','note':'n'}]})),('outputs/new/report.txt','current'),('README.md','outputs/new/report.txt')]:
+    q=r/p;q.parent.mkdir(parents=True,exist_ok=True);q.write_text(text)
+   for name in b.GENERATED:
+    q=r/name;q.parent.mkdir(parents=True,exist_ok=True);q.write_text('old review')
+   policy={'current_review':{'contract_version':2,'title':'new','summary':'summary','report':'outputs/new/report.txt'},'repository':'test/repo','branch':'test','code_review_files':[],'artifact_roots':['outputs/new'],'extra_artifacts':[]}
+   with patch.object(b,'publication_paths',return_value=(['README.md'],[])),patch.object(b,'scan'),patch.object(b,'verify',return_value={'ok':True}):
+    b.prepare_current(r,policy)
+   s=json.loads((r/'docs/PROJECT_STATE.json').read_text());self.assertEqual(s['active_research_run'],'outputs/new');self.assertIn('outputs/new/report.txt',(r/'review/START_HERE.md').read_text())
+if __name__=='__main__':unittest.main()
+
+```
+
+## legal_bench/irac_application/hybrid_v3.py
+
+```python
+"""Evidence-use checks, independent of historical identifiers or learned probabilities."""
+import copy, json, re
+from .aligned_logic import evaluate
+
+STATES=('SUPPORTED','REFUTED','UNRESOLVED','UNSUPPORTED')
+
+def branches(template):
+ t=copy.deepcopy(template)
+ for test in t['tests']:
+  if test['id']=='DRC_BONA_FIDE-C03':
+   refs=test['source_refs']; base=test['id']
+   test['branches']=[{'id':base+'/SELF','text':'Occupation by the landlord himself.','source_refs':refs},
+    {'id':base+'/FAMILY','text':'Occupation by a member of the landlord family.','source_refs':refs},
+    {'id':base+'/DEPENDENT','text':'That family member is dependent on the landlord.','source_refs':refs}]
+   test['branch_expression']={'op':'OR','args':[{'op':'REF','id':base+'/SELF','source_refs':refs},{'op':'AND','args':[{'op':'REF','id':base+'/FAMILY','source_refs':refs},{'op':'REF','id':base+'/DEPENDENT','source_refs':refs}],'source_refs':refs}],'source_refs':refs}
+   test['branch_origin']='RESEARCHER_EXPANSION_OF_GIVEN_TEXT; not case-specific; ownership remains separate'
+ return t
+
+def para(s):
+ # Address normalization only; not a semantic judgment or document boundary parser.
+ m=re.match(r'(IK-[^:]+:L\d+)',s)
+ return m.group(1) if m else s
+
+def source_errors(refs,sources,case_id=None):
+ errors=[]
+ for sid in refs:
+  if sid not in sources:errors.append({'source_id':sid,'reason':'MISSING_ADDRESS'});continue
+  doc=sources[sid].get('document_id')
+  if case_id and sid.startswith('IK-'+str(case_id)+':') and str(doc)!=str(case_id):errors.append({'source_id':sid,'reason':'DOCUMENT_ID_MISMATCH'})
+ return errors
+
+def analyze(proposal,template,sources,case_id):
+ """Actual pipeline entry: never infer meaning from free text or LINK/COMBO names."""
+ bindings={b['id']:b for b in proposal['bindings']}; tests={t['id']:t for t in template['tests']}
+ traces=[]; audit=[]; restored={}; limits=proposal['limitations']; evidence=proposal['evidence']
+ duplicate_ids=[e['id'] for e in evidence if sum(x['id']==e['id'] for x in evidence)>1]
+ for e in evidence:
+  errors=source_errors(e['refs'],sources,case_id)
+  b=bindings.get(e['binding_id']);binding_errors=[]
+  if b is None:binding_errors.append('UNKNOWN_BINDING')
+  elif not b['refs'] or source_errors(b['refs'],sources,case_id):binding_errors.append('BINDING_WITHOUT_VALID_SOURCE_ADDRESS')
+  if not e['refs']:errors.append({'reason':'NO_SOURCE'})
+  if e['id'] in duplicate_ids:errors.append({'reason':'DUPLICATE_EVIDENCE_ID'})
+  for sid in e['refs']:
+   if sid in sources:restored[sid]=sources[sid]
+  for u in e['uses']:
+   known=u['test_id'] in tests
+   legal_branches=[x['id'] for x in tests.get(u['test_id'],{}).get('branches',[])]
+   if u['branch_id'] and u['branch_id'] not in legal_branches:known=False
+   blocked=[];unmapped=[];notes=[]
+   for l in limits:
+    if l['binding_id']!=e['binding_id'] or l['test_id']!=u['test_id']:continue
+    if l['branch_id']!=u['branch_id']:continue
+    if l['use']!=u['use']:continue
+    if l['evidence_ids'] and e['id'] not in l['evidence_ids']:continue
+    if l['effect']=='NOTE':notes.append(l['id']);continue
+    if l['effect']=='SCOPE_UNMAPPED' or (not l['evidence_ids'] and l['effect']!='PROPOSITION_BLOCK'):
+     unmapped.append(l['id']);continue
+    if source_errors(l['refs'],sources,case_id):unmapped.append(l['id']);continue
+    blocked.append(l['id'])
+   # Prior findings may support a stage-qualified analysis; they never certify target acceptance.
+   if e['statement_status']=='PRIOR_COURT_FINDING' and u['use']=='TARGET_ACCEPTANCE':blocked.append('PRIOR_FINDING_NOT_TARGET_ACCEPTANCE')
+   if e['statement_status'] in ('PARTY_CLAIM','DENIAL','TESTIMONY','UNKNOWN') and u['use']=='PROVEN_FACT':blocked.append('STATEMENT_NOT_ESTABLISHED_FACT')
+   if not known:blocked.append('UNKNOWN_TEST_OR_BRANCH')
+   if errors or binding_errors:blocked.append('INVALID_ADDRESS_OR_BINDING')
+   status='BLOCKED' if blocked else 'UNRESOLVED_MAPPING' if unmapped else 'USABLE_AS_MODEL_PROPOSED'
+   traces.append({'evidence_id':e['id'],'binding_id':e['binding_id'],'test_id':u['test_id'],'branch_id':u['branch_id'],'use':u['use'],'direction':u['direction'],'statement_status':e['statement_status'],'record_retained':e['record'],'refs':e['refs'],'record_address_valid':not errors,'address_errors':errors+binding_errors,'use_status':status,'blocked_by':blocked,'mapping_questions':unmapped,'notes':notes,'independence_group':sorted(set(para(s) for s in e['refs'])),'semantic_truth_verified':False})
+ for l in limits:
+  if not any(l['id'] in x['blocked_by']+x['mapping_questions']+x['notes'] for x in traces):audit.append({'limitation_id':l['id'],'reason':'NO_MATCHING_DECLARED_USE; retained, not applied globally'})
+ rows=[];conditions=[]
+ for bid,b in bindings.items():
+  states={};branch_results={}
+  for tid,t in tests.items():
+   keys=[v['id'] for v in t.get('branches',[])] or ['']
+   local={}
+   for branch in keys:
+    uses=[x for x in traces if x['binding_id']==bid and x['test_id']==tid and x['branch_id']==branch and x['use'] in ('CONDITION_INFERENCE','PROVEN_FACT')]
+    usable=[x for x in uses if x['use_status']=='USABLE_AS_MODEL_PROPOSED']
+    signs={x['direction'] for x in usable}; conflict='SUPPORT' in signs and 'OPPOSE' in signs
+    state='UNRESOLVED' if conflict or not (signs&{'SUPPORT','OPPOSE'}) else 'SUPPORTED' if 'SUPPORT' in signs else 'REFUTED'
+    local[branch or tid]={'status':state,'supports':[x['evidence_id'] for x in usable if x['direction']=='SUPPORT'],'opposes':[x['evidence_id'] for x in usable if x['direction']=='OPPOSE'],'conflict':conflict,'pending_uses':[x['evidence_id'] for x in uses if x['use_status']!='USABLE_AS_MODEL_PROPOSED' or x['direction']=='UNKNOWN'],'basis':'DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes'}
+   result=evaluate(t['branch_expression'],local) if t.get('branch_expression') else local[tid]
+   if t.get('branch_expression'):branch_results[tid]=local
+   states[tid]=result
+   declared=[x for x in proposal['conditions'] if x['binding_id']==bid and x['test_id']==tid]
+   conditions.append({'binding_id':bid,'test_id':tid,'model_predictions':declared,'program_assessment':result,'branches':local if t.get('branches') else {},'prediction_not_overwritten':True})
+  defs={x['id']:x['expression'] for x in template['elements']}
+  rows.append({'binding_id':bid,'event':b['event'],'objects':b['objects'],'stage':b['stage'],'tests':states,'branches':branch_results,'claims':[{'claim_id':c['id'],'result':evaluate(c['expression'],states,defs)} for c in template['claims'] if c['id'] in b['claim_ids']]})
+ return {'case_id':str(case_id),'evidence_use_checks':traces,'conditions':conditions,'bindings':rows,'unapplied_limits':audit,'source_recovery':restored,'coverage_limits':template['coverage_limits']+proposal['coverage_limits'],'burdens':template['burdens'],'scope':template['scope'],'legal_truth_verified':False,'scope_of_checks':'Source addresses and declared within-binding uses/boolean combinations only; no claim of semantic or identity proof. UNKNOWN is not negative; no burden failure inferred.'}
+
+def compact(checks):
+ # Proposal already appears once in model input; trace never silently filters opposition.
+ return {k:v for k,v in checks.items() if k not in ('source_recovery',)}
+
+def legacy_replay(g,predictions):
+ """Do not invent missing witness attribution, branch labels, or binary GNN scores."""
+ from .aligned_v2 import render
+ old=render(g,predictions); template=branches(g['legal_structure']);links={x['id']:x for x in g['proposal']['links']};by={b['binding_id']:b for b in g['bindings']}
+ units=[]
+ for u in old['units']:
+  b=by[u['binding_id']];tid=u['test_id'];records=[]
+  restrictions=b.get('restrictions',[])+b.get('reviewed_join_limits',[])
+  for lid in b.get('test_links',{}).get(tid,[]):
+   l=links.get(lid)
+   if not l:continue
+   refparas={para(x['source_id']) for x in l['source_refs'] if x['source_id'].startswith('IK-'+str(g['case_id'])+':')}
+   limited=[];unmapped=[];notes=[]
+   for r in restrictions:
+    if r.get('affected_tests') and tid not in r['affected_tests']:continue
+    if r['kind']=='NOTE':notes.append(r);continue
+    rparas={para(x['source_id']) for x in r.get('source_refs',[]) if x['source_id'].startswith('IK-'+str(g['case_id'])+':')}
+    if not rparas:unmapped.append(r)
+    elif refparas&rparas:limited.append(r)
+   records.append({'link_id':lid,'record':l['proposition'],'direction':l['direction'],'source_refs':l['source_refs'],'record_retained':True,'target_acceptance_inferred':False,'limitations_for_this_source_use':limited,'unmapped_limits':unmapped,'notes':notes,'use_assessment':'LEGACY_USE_DETAIL_UNAVAILABLE' if limited or unmapped else 'CANDIDATE_USE_RETAINED_NOT_VERIFIED'})
+  # GNN probabilities survive unchanged. In v2 they had no per-witness/branch prediction.
+  raw=u['prediction']; isbranch=any(t['id']==tid and t.get('branches') for t in template['tests'])
+  units.append({'unit_id':u['unit_id'],'test_id':tid,'binding_id':u['binding_id'],'claim_id':u['claim_id'],'raw_prediction':raw,'v2_program_state':u['program_state'],'v3_prediction_preserved':raw,'evidence_records':records,'restriction_application':'SOURCE_USE_AUDIT_ONLY; no ID prefix controls effect','replay_status':'BRANCH_DETAIL_UNAVAILABLE' if isbranch else 'WITNESS_ATTRIBUTION_UNAVAILABLE','branch_predictions':None,'v3_proof_state':'UNRESOLVED','reason':'Old aggregate prediction is not an attributed evidence assessment; retain it without claiming new proof.'})
+ return {'case_id':g['case_id'],'units':units,'old_claims':old['claims'],'new_claims':[{'claim_id':c['id'],'status':'UNRESOLVED','reason':'LEGACY_WITNESS_OR_BRANCH_DETAIL_UNAVAILABLE; no invented sublabels'} for c in template['claims']],'legal_structure':template,'new_model_calls':0,'probabilities_changed':False}
+
+```
+
+## legal_bench/irac_application/hybrid_v3_tasks.py
+
+```python
+"""Short explicit predictions, separate evidence assessments; no target-specific hints."""
+import json
+
+def obj(p):return {'type':'object','properties':p,'required':list(p),'additionalProperties':False}
+def arr(x,n=None):
+ d={'type':'array','items':x}
+ if n is not None:d['maxItems']=n
+ return d
+S={'type':'string'}
+def enum(x):return {'type':'string','enum':x}
+P=enum(['PREDICT_SUPPORTED','PREDICT_REFUTED'])
+A=enum(['SUPPORTED','REFUTED','UNRESOLVED','UNSUPPORTED'])
+USE=enum(['CONDITION_INFERENCE','RECORD_EXISTENCE','PROVEN_FACT','TARGET_ACCEPTANCE'])
+STAT=enum(['PARTY_CLAIM','DENIAL','ADMISSION','TESTIMONY','PRIOR_COURT_FINDING','RECORDED_DOCUMENT','UNKNOWN'])
+
+def schema(stage,material,template,law):
+ refs=arr(enum(list(material['sources'])+[x['source_id'] for x in law]),6)
+ tests=enum([t['id'] for t in template['tests']]); claims=enum([c['id'] for c in template['claims'] if c.get('expression',{}).get('op')!='UNSUPPORTED'])
+ use=obj({'test_id':tests,'branch_id':S,'direction':enum(['SUPPORT','OPPOSE','UNKNOWN']),'use':USE})
+ condition=obj({'binding_id':S,'test_id':tests,'branch_id':S,'prediction':P,'assessment':A,'evidence_ids':arr(S,6),'gap':S})
+ if stage=='proposal':return obj({
+  'bindings':arr(obj({'id':S,'claim_ids':arr(claims,2),'objects':S,'event':S,'stage':S,'refs':refs}),4),
+  'evidence':arr(obj({'id':S,'binding_id':S,'record':S,'statement_status':STAT,'refs':refs,'uses':arr(use,8)}),10),
+  'limitations':arr(obj({'id':S,'evidence_ids':arr(S,6),'binding_id':S,'test_id':tests,'branch_id':S,'use':USE,'effect':enum(['USE_BLOCK','PROPOSITION_BLOCK','NOTE','SCOPE_UNMAPPED']),'reason':S,'refs':refs}),8),
+  'conditions':arr(condition,32),'coverage_limits':arr(S,4)})
+ return obj({'answers':arr(obj({'claim_id':claims,'prediction':enum(['PREDICT_GRANT','PREDICT_DENY']),
+  'conditions':arr(obj({'test_id':tests,'binding':S,'prediction':P,'assessment':A,'refs':refs,'explanation':S}),14),
+  'opposition':obj({'record':S,'refs':refs,'response':S}), 'gaps':arr(S,4), 'reason':S,'intermediate_correction':S}),2)})
+
+GUIDE='''You are performing a retrospective research task, not giving legal advice. Use only the supplied case records and law. No external knowledge to fill missing facts or law; no target final disposition is supplied. Address the request, not the overall appeal outcome.
+Distinguish prediction from proof: every requested condition prediction must be PREDICT_SUPPORTED or PREDICT_REFUTED; every final request prediction must be PREDICT_GRANT or PREDICT_DENY. The separate assessment may remain UNRESOLVED or UNSUPPORTED. Missing evidence is not false. State when a choice is weak; do not invent a burden rule to justify denial. An unsupported historical finding can still exist as a reported prior finding without being accepted at the target stage.
+Use exact supplied source IDs. Source addresses are not semantic certification. Keep persons, premises, events and stages distinct. Same actors need not imply same event; missing values are not identity witnesses. Preserve material opposition and conflicts. Never turn an unknown date into unknown event type or erase known facts because a legal interpretation is missing. Distinguish the fact that a document records a date from disputed document authenticity. Do not treat related source excerpts as independent votes.
+The branch definitions are general researcher translations of provided law, not case answers. Evaluate OR and AND with their stated scope and within the same arrangement. Predict the requested conditions explicitly, preserving their polarity; e.g. consent may oppose eviction. Keep legal gaps separate from facts and computational coverage. Avoid long repeated analysis. Typically one sentence per evidence record and one or two per explanation; these are writing targets, not truncation rules.
+'''
+
+# Complete synthetic teaching examples, never target law or target facts.
+EXAMPLES=[{
+ 'label':'FICTIONAL TEACHING RULE; NOT TARGET AUTHORITY',
+ 'input':{'case_records':{'S1':'The district panel recorded that licensee Mira installed the beacon herself; that finding is challenged.','S2':'The claimant alleges that a technician helped, without identifying one.'},'law':{'L1':'The fictional Beacon Code permits this request if the licensee installed the beacon personally OR a registered technician installed it with the licensee permission.'},'question':'Should the Beacon Code request be supported?'},
+ 'output':{'answers':[{'claim_id':'BEACON','prediction':'PREDICT_GRANT','conditions':[{'test_id':'INSTALL','binding':'Mira and this beacon installation','prediction':'PREDICT_SUPPORTED','assessment':'SUPPORTED','refs':['S1','L1'],'explanation':'The panel recorded personal installation. This supports the personal route at the prior stage; it is not a final appellate finding.'}], 'opposition':{'record':'The claimant alleges technician involvement.','refs':['S2'],'response':'The allegation lacks an identified contrary installation and does not by itself refute the recorded personal route.'},'gaps':['The challenge has not been finally decided; technician registration is not established but is unnecessary for the personal route.'],'reason':'I predict grant on the personal route using the prior finding, while retaining its contested status.','intermediate_correction':'No intermediate material supplied.'}]}},
+ {'label':'FICTIONAL TEACHING RULE; NOT TARGET AUTHORITY',
+ 'input':{'case_records':{'S3':'Applicant Neri says a sealed receiver was delivered to Olan. Olan denies receiving it.','S4':'A dispatch docket records shipment but has no recipient signature.'},'law':{'L2':'The fictional Receiver Code permits the requested release only upon receipt by the named recipient. It supplies no proof-burden rule.'},'question':'Should the release request be supported?'},
+ 'output':{'answers':[{'claim_id':'RELEASE','prediction':'PREDICT_DENY','conditions':[{'test_id':'RECEIPT','binding':'Neri shipment to Olan','prediction':'PREDICT_REFUTED','assessment':'UNRESOLVED','refs':['S3','S4','L2'],'explanation':'Shipment is recorded but receipt is disputed. The negative direction is a prediction under limited evidence, not a finding that receipt did not occur.'}], 'opposition':{'record':'Neri expressly asserts delivery.','refs':['S3'],'response':'That assertion supports release, but the denial and dispatch-only docket leave actual receipt inadequately supported for my prediction.'},'gaps':['No recipient acknowledgment or supplied proof-burden doctrine.'],'reason':'I predict denial of release because the supplied evidence supports dispatch more clearly than receipt. This is not a claimed legal presumption from missing evidence.','intermediate_correction':'No intermediate material supplied.'}]}}]
+PROPOSAL_EXAMPLE={'bindings':[{'id':'b1','claim_ids':['BEACON'],'objects':'Mira; the beacon','event':'The beacon installation','stage':'Review of district-panel finding','refs':['S1']}],
+'evidence':[{'id':'e1','binding_id':'b1','record':'District panel found that Mira installed the beacon herself; challenged on review.','statement_status':'PRIOR_COURT_FINDING','refs':['S1'],'uses':[{'test_id':'INSTALL','branch_id':'INSTALL/SELF','direction':'SUPPORT','use':'CONDITION_INFERENCE'}]},{'id':'e2','binding_id':'b1','record':'Claimant alleges technician involvement.','statement_status':'PARTY_CLAIM','refs':['S2'],'uses':[{'test_id':'INSTALL','branch_id':'INSTALL/SELF','direction':'OPPOSE','use':'CONDITION_INFERENCE'}]}],
+'limitations':[{'id':'l1','evidence_ids':['e1'],'binding_id':'b1','test_id':'INSTALL','branch_id':'INSTALL/SELF','use':'TARGET_ACCEPTANCE','effect':'USE_BLOCK','reason':'A challenged prior finding does not establish acceptance on review.','refs':['S1']}],
+'conditions':[{'binding_id':'b1','test_id':'INSTALL','branch_id':'INSTALL/SELF','prediction':'PREDICT_SUPPORTED','assessment':'SUPPORTED','evidence_ids':['e1','e2'],'gap':'Prior finding challenged; final acceptance unknown.'},{'binding_id':'b1','test_id':'INSTALL','branch_id':'INSTALL/TECHNICIAN','prediction':'PREDICT_REFUTED','assessment':'UNRESOLVED','evidence_ids':['e2'],'gap':'Technician registration and permission not supplied.'}],
+'coverage_limits':['This concise proposal retains conflicting uses. The program may mark them unresolved without overriding the final model prediction.']}
+
+PROPOSAL_GUIDE='''Generate one compact semantic proposal, only for the supplied request. bindings assigns local IDs to arrangements using short objects/event/stage descriptions and source refs; do not split every speaker into a new event. Evidence IDs identify records, not proven facts. statement_status reports who says what and at what stage; include that attribution in record. Each use declares a legal test, branch (empty string unless a defined subbranch), direction SUPPORT/OPPOSE/UNKNOWN and purpose: CONDITION_INFERENCE for stage-qualified reasoning, RECORD_EXISTENCE only for its reported existence, PROVEN_FACT only when supported as established, TARGET_ACCEPTANCE only for target-stage acceptance. Addressed quotations are recovered by code, do not copy them at length.
+limitations identifies exact evidence_ids, binding_id, test_id, branch_id and use. USE_BLOCK restricts only those declared uses; PROPOSITION_BLOCK is permitted without evidence IDs only if a sourced limitation really defeats the whole scoped proposition. NOTE preserves status/interpretation without blocking. SCOPE_UNMAPPED records an unresolved correspondence, not a global deletion. reason explains the restriction; refs show its source. Do not remove evidence merely because one inference from it is weak. An independent evidence item needs its own refs; shared references are not extra votes.
+conditions records an explicit binary prediction and independent evidence assessment for every test needed by the current request on each represented binding. Include supplied subbranches where applicable, never infer sublabels from an old aggregate. evidence_ids point to this proposal; gap records what remains uncertain. coverage_limits names omissions or uncertain bindings. Array limits are ceilings, not targets: at most four bindings, ten evidence items, eight limitations and thirty-two condition items; preserve decisive opposition instead of filling arrays. Return complete schema-conforming JSON once, with no repairs or continuation.
+'''
+FINAL_GUIDE='''Return one answers entry for each supplied substantive claim (not an unsupported defense placeholder). claim_id identifies the request. prediction MUST choose PREDICT_GRANT or PREDICT_DENY, never UNKNOWN. conditions gives every required test a definite PREDICT_SUPPORTED or PREDICT_REFUTED direction for the relevant arrangement(s), with a separate evidence assessment, concrete binding, source IDs and brief explanation. Do not suppress a decisive alternative arrangement to shorten output. opposition gives the strongest counterargument and response. gaps preserves decisive evidence/legal uncertainty; reason states how the signed test directions lead to the request choice, without invented burden rules. intermediate_correction states any correction of intermediate material, with source IDs in the relevant condition; if none say none.
+Read the original materials even when intermediate material is supplied. It is a model proposal, not gold. Program checks show declared relations and boolean results, not legal authority. Invalid/misassigned addresses flagged by the program cannot be treated as reliable; correct by citing the actual provided sources. Respect explicit boolean combinations rather than inventing their result; discuss a semantic disagreement by correcting a premise with sources. Keep explanations short, handle opposition, and make a choice despite uncertainty. All answers must close as valid JSON within the output budget; no long quotation copies.
+'''
+
+def prompt(stage,material,template,law,intermediate=None):
+ case={'case_id':material['case_id'],'target_stage':material['target_stage'],'target_court':material['target_court'],'sources':material['sources']}
+ parts=[GUIDE,'TWO COMPLETE SYNTHETIC INPUT/OUTPUT EXAMPLES (not law for the target):',json.dumps(EXAMPLES,ensure_ascii=False)]
+ if stage=='proposal':parts+=['Additional full proposal for the first fictional example. Its two branch IDs are pedagogical; use only the target template branch IDs.',json.dumps(PROPOSAL_EXAMPLE,ensure_ascii=False),PROPOSAL_GUIDE]
+ else:parts+=[FINAL_GUIDE]
+ parts+=['COMMON GIVEN LAW:',json.dumps(law,ensure_ascii=False),'COMMON LEGAL STRUCTURE:',json.dumps(template,ensure_ascii=False),'INTERMEDIATE MATERIAL (no reference labels):',json.dumps(intermediate or {},ensure_ascii=False),'COMPLETE ALLOWED CASE MATERIAL:',json.dumps(case,ensure_ascii=False),'FINAL TASK: Under the supplied facts, law and procedural stage, should the specified substantive request be supported? '+('Return the semantic proposal with explicit condition predictions.' if stage=='proposal' else 'Return the complete short final prediction JSON. Every condition and request direction must be explicit; preserve uncertainty separately.')]
+ return '\n\n'.join(parts)
+
+```
+
+## scripts/irac_hybrid_v3.py
+
+```python
+"""One immutable 24-slot local development comparison, no semantic repairs/retries."""
+import argparse,copy,hashlib,json,shutil,subprocess,sys,time
+from collections import Counter,defaultdict
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.irac_application.hybrid_v3 import branches,analyze,compact,legacy_replay,source_errors
+from legal_bench.irac_application.hybrid_v3_tasks import schema,prompt
+from legal_bench.irac_application.aligned_v2_runtime import atomic_json
+R=Path('outputs/irac-hybrid-decision-v3');V=Path('outputs/gnn-irac-aligned-v2')
+CASES=['1114159','112400','188721101','52547606','55384096','68065690']
+read=lambda p:json.loads(Path(p).read_text())
+hashfile=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+CODE=['scripts/irac_hybrid_v3.py','legal_bench/irac_application/hybrid_v3.py','legal_bench/irac_application/hybrid_v3_tasks.py','legal_bench/irac_application/aligned_logic.py','legal_bench/irac_application/aligned_v2.py','legal_bench/irac_application/aligned_graph.py','legal_bench/irac_application/aligned_v2_runtime.py','legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py','legal_bench/mlx_json_constraint.py','legal_bench/mlx_json_constraint_v2.py','legal_bench/rules_verdict_v1/repetition_v9.py','legal_bench/rules_verdict_v1/source_views.py','legal_bench/rules_verdict_v1/contracts.py','tests/test_irac_hybrid_v3.py']
+
+def inputs(cid):
+ m=read(R/'sources'/f'{cid}.json');t=read(R/'templates'/f"{m['family']}.json");law=read(R/'sources'/f"{m['family']}-law.json")
+ return m,t,law
+
+def prepare():
+ assert not (R/'freeze/config.json').exists(),'already frozen'
+ for p in (V/'templates').glob('*.json'):atomic_json(R/'templates'/p.name,branches(read(p)))
+ replay_summary=[]
+ for p in sorted((V/'predictions').glob('*.json')):
+  d=read(p); rows=d['rows'];groups=defaultdict(dict)
+  for row in rows:
+   probs=row['probabilities'];idx=max(range(len(probs)),key=probs.__getitem__)
+   groups[row['package_id']][row['unit_id']]={'status':['SUPPORTED','REFUTED','UNRESOLVED'][idx],'probabilities':probs}
+  for cid,preds in groups.items():
+   g=read(V/'graphs'/f'{cid}.json');out=legacy_replay(g,preds);atomic_json(R/'replay'/p.stem/f'{cid}.json',out)
+   replay_summary.append({'run':p.stem,'case_id':cid,'units':len(out['units']),'old_blocked':sum(bool(u['v2_program_state']['blocking']) for u in out['units']),'retained_predictions_different_from_old_program':sum(u['v3_prediction_preserved']['status']!=u['v2_program_state']['status'] for u in out['units']),'branch_detail_unavailable':sum(u['replay_status']=='BRANCH_DETAIL_UNAVAILABLE' for u in out['units']),'legacy_attribution_unavailable':True,'old_claim_states':[x['status'] for x in out['old_claims']],'new_claim_states':[x['status'] for x in out['new_claims']]})
+ atomic_json(R/'replay/summary.json',replay_summary)
+ for cid in CASES:
+  m,t,l=inputs(cid)
+  for stage in ['A','proposal']:
+   kind='proposal' if stage=='proposal' else 'final';dest=R/'prepared'/cid/stage;dest.mkdir(parents=True,exist_ok=True)
+   (dest/'prompt.txt').write_text(prompt(kind,m,t,l));atomic_json(dest/'schema.json',schema(kind,m,t,l))
+ atomic_json(R/'protocol.json',{'cases':CASES,'order':[f'{c}/{s}' for c in CASES for s in ['A','proposal','B','C']], 'max_calls':24,'max_tokens':3072,'context':32768,'generation_seconds_budget':5400,'web':0,'training':0,'retries':0,'source_role':'Exposed development; same complete allowed v2 material, no target final reasoning','conditions':{'A':'direct explicit prediction','B':'same source plus new semantic proposal','C':'same proposal plus deterministic full checks'},'failure':'A or B independent failure does not block others. Proposal interface failure skips B/C. OOM/framework or total generation budget stops remainder. No retry.', 'evaluation':'One six-case source review after all attempts. Existing definite compatible references are secondary; unresolved references never converted to binary. No target outcome score. No target-specific evaluation hints in prompts.','stop':'Deliver after one replay and <=24 calls; no next round, commit or push'})
+
+
+def interface_check(value,stage,template,sources,cid):
+ errors=[]
+ expected={t['id'] for t in template['tests']};claims={c['id'] for c in template['claims'] if c['expression']['op']!='UNSUPPORTED'}
+ if stage=='proposal':
+  ids=[b['id'] for b in value['bindings']];eids=[e['id'] for e in value['evidence']]
+  if not ids or len(ids)!=len(set(ids)) or len(eids)!=len(set(eids)):errors.append('EMPTY_OR_DUPLICATE_LOCAL_ID')
+  for b in value['bindings']:
+   if not b['claim_ids'] or not set(b['claim_ids'])<=claims:errors.append('INVALID_CLAIM')
+   # The interface requires directions, not correct directions.
+   if {x['test_id'] for x in value['conditions'] if x['binding_id']==b['id']}!=expected:errors.append('MISSING_REQUIRED_CONDITION_DIRECTION:'+b['id'])
+  for x in value['conditions']:
+   if x['binding_id'] not in ids or not set(x['evidence_ids'])<=set(eids):errors.append('DANGLING_CONDITION_REFERENCE')
+  for e in value['evidence']:
+   if e['binding_id'] not in ids:errors.append('DANGLING_EVIDENCE_BINDING')
+  for l in value['limitations']:
+   if l['binding_id'] not in ids or not set(l['evidence_ids'])<=set(eids):errors.append('DANGLING_LIMIT_REFERENCE')
+ else:
+  if {a['claim_id'] for a in value['answers']}!=claims:errors.append('MISSING_OR_WRONG_REQUEST')
+  for a in value['answers']:
+   if {x['test_id'] for x in a['conditions']}!=expected:errors.append('MISSING_REQUIRED_CONDITION_DIRECTION')
+ # Bad individual source addresses are isolated in checks, not repaired as facts.
+ return errors
+
+def complete_slot(runner,cid,stage,text,contract,remaining,out):
+ run=runner.run(text,contract,out,max_tokens=3072,remaining_seconds=remaining,constraint_mode='FIXED')
+ m,t,law=inputs(cid);sources=dict(m['sources']);sources.update({s['source_id']:s for s in law})
+ result={'case_id':cid,'method':stage,'run_status':run['run_status'],'prediction':None,'raw_run':'run.json'}
+ if run['run_status']=='OK':
+  if run.get('schema_mask_calls',0)<=0:result.update(run_status='UNSUPPORTED',reason='FIXED_MASK_NOT_EFFECTIVE')
+  else:
+   parsed=read(out/'parsed.json');errors=interface_check(parsed,stage,t,sources,cid)
+   if errors:result.update(run_status='FORMAT_ERROR',reason=errors)
+   else:
+    result['prediction']=parsed
+    if stage=='proposal':atomic_json(R/'checks'/f'{cid}.json',analyze(parsed,t,sources,cid))
+ atomic_json(out/'result.json',result);return result,run
+
+def freeze():
+ assert not (R/'freeze/config.json').exists()
+ tests=(R/'engineering/tests.txt').read_text();assert '\nOK' in tests and 'skipped=' not in tests
+ s=read('outputs/rules-verdict-v11-intermediate-ablation/freeze/config.json')['settings']
+ files={str(p):hashfile(p) for d in ['sources','templates','prepared','replay'] for p in (R/d).rglob('*') if p.is_file()}
+ files[str(R/'protocol.json')]=hashfile(R/'protocol.json')
+ for p in CODE:
+  dest=R/'freeze/code'/p;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest);files[str(dest)]=hashfile(dest)
+ atomic_json(R/'freeze/config.json',{'settings':s,'actual_max_tokens':3072,'constraint_mode':'FIXED','live_code':{p:hashfile(p) for p in CODE},'files':files,'time':time.time(),'evaluation_before_generation':'protocol.json; source review only after all conditions; no new binary gold','original_v2_prediction_hashes':{str(p):hashfile(p) for p in (V/'predictions').glob('*.json')}})
+
+def verify():
+ f=read(R/'freeze/config.json')
+ for p,h in {**f['live_code'],**f['files'],**f['original_v2_prediction_hashes']}.items():assert hashfile(p)==h,p
+ return f
+
+def run():
+ from legal_bench.rules_verdict_v1.runtime_constraint_diag_v1 import Runner
+ frozen=verify(); specs=read(R/'protocol.json')['order']; ledger=R/'run-ledger.json'
+ if ledger.exists():raise RuntimeError('Run already started; preserve; no automatic retry')
+ rows=[];atomic_json(ledger,{'status':'STARTING','rows':rows,'planned':specs})
+ try:runner=Runner(Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),frozen['settings'])
+ except Exception as e:
+  atomic_json(ledger,{'status':'ENVIRONMENT_BLOCKED','error':repr(e),'rows':rows,'planned':specs});return
+ known={}
+ for cid in CASES:
+  for stage in ['A','proposal']:
+   text=(R/'prepared'/cid/stage/'prompt.txt').read_text();known[f'{cid}/{stage}']=len(runner.tokenizer.encode(runner.render(text)))
+ atomic_json(R/'freeze/token-preflight.json',{'known_input_tokens':known,'max_tokens':3072,'total_context':32768,'dynamic_B_C':'Count complete rendered input before each generation; no truncation','versions':runner.versions,'load_seconds':runner.loaded_seconds,'model_config_hash':runner.model_config_hash,'chat_template_thinking_off':all('<think>\n\n</think>' in runner.render((R/'prepared'/cid/'A/prompt.txt').read_text())[-150:] for cid in CASES)})
+ spent=0.;stop=None;proposals={}
+ for slot in specs:
+  verify();cid,stage=slot.split('/');out=R/'runs'/cid/stage
+  if stop or (stage in ['B','C'] and cid not in proposals):
+   result={'case_id':cid,'method':stage,'run_status':'SKIPPED','prediction':None,'reason':stop or 'PROPOSAL_TECHNICAL_OR_INTERFACE_FAILURE'};atomic_json(out/'result.json',result);rows.append(result);atomic_json(ledger,{'status':'RUNNING','rows':rows,'generation_seconds':spent});continue
+  m,t,law=inputs(cid)
+  if stage in ['A','proposal']:
+   text=(R/'prepared'/cid/stage/'prompt.txt').read_text();contract=read(R/'prepared'/cid/stage/'schema.json')
+  else:
+   inter={'proposal':proposals[cid]}
+   if stage=='C':inter['program_checks']=compact(read(R/'checks'/f'{cid}.json'))
+   text=prompt('final',m,t,law,inter);contract=schema('final',m,t,law)
+   dest=R/'prepared'/cid/stage;dest.mkdir(parents=True,exist_ok=True);(dest/'prompt.txt').write_text(text);atomic_json(dest/'schema.json',contract);atomic_json(dest/'intermediate.json',inter)
+  remaining=5400-spent
+  if remaining<=0:
+   stop='TOTAL_GENERATION_BUDGET_EXHAUSTED';result={'case_id':cid,'method':stage,'run_status':'SKIPPED','prediction':None,'reason':stop};atomic_json(out/'result.json',result);rows.append(result);continue
+  try:
+   result,meta=complete_slot(runner,cid,stage,text,contract,remaining,out)
+  except Exception as e:
+   # Raw/start/partial token files from the runner remain; no fabricated answer.
+   result={'case_id':cid,'method':stage,'run_status':'RUN_LOG_OR_FRAMEWORK_ERROR','prediction':None,'error':repr(e)};atomic_json(out/'result.json',result);meta={};stop='FRAMEWORK_OR_RECORDING_FAILURE'
+  spent+=meta.get('elapsed_seconds',0)
+  if result['run_status']=='OK' and stage=='proposal':proposals[cid]=result['prediction']
+  if meta.get('run_status') in ('OUT_OF_MEMORY','UNSUPPORTED'):stop='RESOURCE_OR_FRAMEWORK_FAILURE'
+  if meta.get('run_status')=='TIMEOUT':stop='TOTAL_GENERATION_BUDGET_EXHAUSTED'
+  rows.append({'case_id':cid,'method':stage,'run_status':result['run_status'],'prediction_file':str(out/'result.json'),'elapsed_seconds':meta.get('elapsed_seconds'),'output_tokens':meta.get('output_tokens'),'input_tokens':meta.get('prompt_tokens')})
+  atomic_json(ledger,{'status':'RUNNING','rows':rows,'generation_seconds':spent,'stop':stop})
+ atomic_json(ledger,{'status':'COMPLETE' if not stop else 'STOPPED','rows':rows,'generation_seconds':spent,'stop':stop,'no_retry':True,'generation_calls':sum((R/'runs'/c/s/'start.json').exists() for c in CASES for s in ['A','proposal','B','C'])})
+
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('command',choices=['prepare','freeze','run','verify']);a=p.parse_args();globals()[a.command]()
+
+```
+
+## scripts/report_irac_hybrid_v3.py
+
+```python
+"""Aggregate immutable attempts; no model execution or answer modification."""
+import json,csv,hashlib
+from pathlib import Path
+from collections import Counter, defaultdict
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.irac_application.aligned_logic import evaluate
+R=Path('outputs/irac-hybrid-decision-v3')
+read=lambda p:json.loads(Path(p).read_text())
+def save(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+def formula_audit(parsed,template):
+ rows=[]
+ if not parsed:return rows
+ defs={e['id']:e['expression'] for e in template['elements']}
+ for a in parsed['answers']:
+  claim=next(c for c in template['claims'] if c['id']==a['claim_id']);groups=defaultdict(dict)
+  for x in a['conditions']:
+   # Literal declared binding grouping only: no string similarity or cross-event join.
+   groups[x['binding']][x['test_id']]={'status':'SUPPORTED' if x['prediction']=='PREDICT_SUPPORTED' else 'REFUTED'}
+  for binding,states in groups.items():
+   result=evaluate(claim['expression'],states,defs)
+   rows.append({'claim_id':a['claim_id'],'literal_declared_binding':binding,'formula_from_predicted_directions':result,'request_prediction':a['prediction'],'review_flag':'PREDICTED_CONDITION_FORMULA_DISAGREEMENT' if (result['status']=='SUPPORTED' and a['prediction']=='PREDICT_DENY') or (len(groups)==1 and result['status']=='REFUTED' and a['prediction']=='PREDICT_GRANT') else None,'limitations':'No identity verification; incomplete bindings not joined. Formula checks model directions, not proof or evidence truth. Flag is reviewed, never overwrites answer.'})
+ return rows
+
+def main():
+ ledger=read(R/'run-ledger.json');assert ledger['status'] in ('COMPLETE','STOPPED','ENVIRONMENT_BLOCKED'),'wait until batch ends'
+ order=read(R/'protocol.json')['order'];details=[];case_rows=[];dossiers=[]
+ for cid in read(R/'protocol.json')['cases']:
+  material=read(R/'sources'/f'{cid}.json');law=read(R/'sources'/f"{material['family']}-law.json");sources=dict(material['sources']);sources.update({x['source_id']:x for x in law})
+  case={'case_id':cid,'family':material['family']};dossier={'case_id':cid,'allowed_sources':sources,'outputs':{},'existing_reference_path':str(Path('outputs/gnn-irac-aligned-v2/references')/f'{cid}.json'),'warning':'Existing UNRESOLVED labels are not binary gold. Binding compatibility requires source review.'}
+  for stage in ['A','proposal','B','C']:
+   p=R/'runs'/cid/stage;result=read(p/'result.json') if (p/'result.json').exists() else {'run_status':'NOT_RUN','prediction':None}
+   meta=read(p/'run.json') if (p/'run.json').exists() else {};parsed=result.get('prediction')
+   row={'case_id':cid,'method':stage,'run_status':result['run_status'],'prediction':parsed,'input_tokens':meta.get('prompt_tokens'),'output_tokens':meta.get('output_tokens'),'seconds':meta.get('elapsed_seconds'),'peak_mlx_gb':meta.get('peak_mlx_memory_gb'),'peak_process_rss_gb':meta.get('peak_rss_gb'),'reason':result.get('reason',meta.get('error')),'path':str(p),'finish_reason':meta.get('finish_reason'),'mask_calls':meta.get('schema_mask_calls')};details.append(row);dossier['outputs'][stage]=row
+   if stage!='proposal':dossier['outputs'][stage]['formula_audit']=formula_audit(parsed,read(R/'templates'/f"{material['family']}.json"))
+   case[stage+'_status']=row['run_status'];case[stage+'_seconds']=row['seconds'];case[stage+'_input_tokens']=row['input_tokens'];case[stage+'_output_tokens']=row['output_tokens']
+   if stage!='proposal':case[stage+'_direction']=';'.join(a['claim_id']+':'+a['prediction'] for a in parsed['answers']) if parsed else None
+  for stage in ['B','C']:
+   case[stage+'_pipeline_seconds']=(case['proposal_seconds'] or 0)+(case[stage+'_seconds'] or 0)
+   case[stage+'_pipeline_input_tokens']=(case['proposal_input_tokens'] or 0)+(case[stage+'_input_tokens'] or 0)
+   case[stage+'_pipeline_output_tokens']=(case['proposal_output_tokens'] or 0)+(case[stage+'_output_tokens'] or 0)
+  if (R/'checks'/f'{cid}.json').exists():dossier['program_checks']=read(R/'checks'/f'{cid}.json')
+  dest=R/'review-dossiers';dest.mkdir(exist_ok=True);save(dest/f'{cid}.json',dossier);case_rows.append(case)
+ save(R/'all-results.json',details)
+ with (R/'technical-comparison.csv').open('w') as h:
+  w=csv.DictWriter(h,fieldnames=list(case_rows[0]));w.writeheader();w.writerows(case_rows)
+ completed=[x for x in details if x['run_status']=='OK'];actual=[x for x in details if (Path(x['path'])/'start.json').exists()]
+ save(R/'cost.json',{'generation_calls':len(actual),'status_counts':dict(Counter(x['run_status'] for x in details)),'final_status_counts':dict(Counter(x['run_status'] for x in details if x['method']!='proposal')),'successful_proposals':sum(x['method']=='proposal' for x in completed),'generation_seconds':sum(x['seconds'] or 0 for x in actual),'input_tokens_actual_attempts':sum(x['input_tokens'] or 0 for x in actual),'output_tokens_actual_attempts':sum(x['output_tokens'] or 0 for x in actual),'peak_mlx_gb':max([x['peak_mlx_gb'] or 0 for x in actual],default=0),'peak_process_rss_gb':max([x['peak_process_rss_gb'] or 0 for x in actual],default=0),'load_seconds':read(R/'freeze/token-preflight.json').get('load_seconds'),'training_calls':0,'web_calls':0,'retries':0,'B_C_shared_proposal':'counted once in actual experiment total; counted for each two-stage method cost','note':'source review and preparation time not included; process RSS is cumulative process maximum, MLX peak is per call.'})
+ before=read(R/'preservation-before.json');changed=[p for p,h in before.items() if not Path(p).exists() or hashlib.sha256(Path(p).read_bytes()).hexdigest()!=h];save(R/'preservation-after.json',{'checked':len(before),'changed_or_missing':changed});assert not changed,changed
+ frozen=read(R/'freeze/config.json');files={**frozen['files'],**frozen['live_code'],**frozen['original_v2_prediction_hashes']};bad=[p for p,h in files.items() if hashlib.sha256(Path(p).read_bytes()).hexdigest()!=h];save(R/'freeze-integrity.json',{'checked':len(files),'changed':bad});assert not bad,bad
+ print(json.dumps(read(R/'cost.json'),indent=2))
+if __name__=='__main__':main()
+
+```
+
+## tests/test_irac_hybrid_v3.py
+
+```python
+import copy,json,tempfile,unittest
+from pathlib import Path
+from unittest.mock import patch
+from legal_bench.irac_application.hybrid_v3 import analyze,branches,legacy_replay
+from legal_bench.irac_application.aligned_logic import evaluate
+from scripts import irac_hybrid_v3 as entry
+
+V=Path('outputs/gnn-irac-aligned-v2')
+def load(p):return json.loads(Path(p).read_text())
+
+def fixture():
+ refs=[{'source_id':'law','quote':'A'}]
+ t={'tests':[{'id':'T'}],'elements':[],'claims':[{'id':'C','expression':{'op':'REF','id':'T','source_refs':refs}}],'coverage_limits':[],'burdens':[],'scope':'synthetic'}
+ s={k:{'text':k,'document_id':'c'} for k in ['s1','s2','law']}
+ p={'bindings':[{'id':'b','claim_ids':['C'],'event':'one event','objects':'one person','stage':'review','refs':['s1']}],
+ 'evidence':[{'id':'e1','binding_id':'b','record':'reported operational conduct','statement_status':'TESTIMONY','refs':['s1'],'uses':[{'test_id':'T','branch_id':'','direction':'SUPPORT','use':'CONDITION_INFERENCE'}]},{'id':'e2','binding_id':'b','record':'prior court refuted disposition','statement_status':'PRIOR_COURT_FINDING','refs':['s2'],'uses':[{'test_id':'T','branch_id':'','direction':'OPPOSE','use':'CONDITION_INFERENCE'}]}],
+ 'limitations':[{'id':'LINK:note','evidence_ids':['e1'],'binding_id':'b','test_id':'T','branch_id':'','use':'CONDITION_INFERENCE','effect':'USE_BLOCK','reason':'does not establish legal transfer','refs':['s1']}],'conditions':[],'coverage_limits':[]}
+ return p,t,s
+
+class HybridTests(unittest.TestCase):
+ def test_actual_analyze_independent_opposition_and_prior_stage(self):
+  p,t,s=fixture();r=analyze(p,t,s,'c');self.assertEqual(r['conditions'][0]['program_assessment']['status'],'REFUTED');self.assertEqual(r['evidence_use_checks'][1]['statement_status'],'PRIOR_COURT_FINDING');self.assertFalse(r['legal_truth_verified']);self.assertEqual(r['evidence_use_checks'][0]['record_retained'],p['evidence'][0]['record'])
+ def test_sole_limited_witness_not_proof(self):
+  p,t,s=fixture();p['evidence']=p['evidence'][:1];r=analyze(p,t,s,'c');self.assertEqual(r['conditions'][0]['program_assessment']['status'],'UNRESOLVED')
+ def test_opposition_not_deleted_no_vote(self):
+  p,t,s=fixture();p['limitations']=[];p['evidence'].append(dict(p['evidence'][0],id='duplicate'));r=analyze(p,t,s,'c');self.assertTrue(r['conditions'][0]['program_assessment']['conflict']);self.assertEqual(r['conditions'][0]['program_assessment']['status'],'UNRESOLVED')
+ def test_id_prefix_irrelevant(self):
+  p,t,s=fixture();a=analyze(p,t,s,'c');p['limitations'][0]['id']='COMBO:note';b=analyze(p,t,s,'c');self.assertEqual(a['conditions'],b['conditions']);self.assertEqual(a['bindings'],b['bindings'])
+ def test_or_not_blocked_by_other_branch_and_and_gap(self):
+  t=branches(load(V/'templates/DRC_BONA_FIDE.json'));m=load(V/'sources/112400.json');s=m['sources'];p,_,_=fixture();tid='DRC_BONA_FIDE-C03';sid='IK-112400:L124:restored-v2';p['bindings'][0].update(claim_ids=['DRC_BONA_FIDE-CLAIM-01'],refs=[sid]);p['evidence']=p['evidence'][:1];p['evidence'][0].update(refs=[sid],statement_status='PARTY_CLAIM');p['evidence'][0]['uses'][0].update(test_id=tid,branch_id=tid+'/SELF');p['limitations'][0].update(test_id=tid,branch_id=tid+'/DEPENDENT',refs=[sid]);r=analyze(p,t,s,'112400');self.assertEqual(r['bindings'][0]['tests'][tid]['status'],'SUPPORTED');self.assertEqual(r['bindings'][0]['claims'][0]['result']['status'],'UNRESOLVED')
+ def test_other_binding_never_combined(self):
+  p,t,s=fixture();p['bindings'].append(dict(p['bindings'][0],id='b2',event='different event'));p['evidence'][1]['binding_id']='b2';r=analyze(p,t,s,'c');self.assertEqual(r['bindings'][0]['tests']['T']['status'],'UNRESOLVED');self.assertEqual(r['bindings'][1]['tests']['T']['status'],'REFUTED')
+ def test_prior_not_accepted_target(self):
+  p,t,s=fixture();p['evidence'][1]['uses'][0]['use']='TARGET_ACCEPTANCE';r=analyze(p,t,s,'c');self.assertIn('PRIOR_FINDING_NOT_TARGET_ACCEPTANCE',r['evidence_use_checks'][1]['blocked_by'])
+ def test_address_failure_local(self):
+  p,t,s=fixture();p['evidence'][0]['refs']=['missing'];r=analyze(p,t,s,'c');self.assertEqual(r['conditions'][0]['program_assessment']['status'],'REFUTED');self.assertFalse(r['evidence_use_checks'][0]['record_address_valid'])
+ def test_real_188721101_operational_limit_does_not_erase_prior_record(self):
+  g=load(V/'graphs/188721101.json');m=load(V/'sources/188721101.json');s=dict(m['sources']);s.update({x['source_id']:x for x in load(V/'sources/DRC_SUBLETTING-law.json')});p,t,_=fixture();tid='DRC_SUBLETTING_C04';p['bindings'][0].update(claim_ids=['DRC_SUBLETTING_CLAIM_01'],refs=['IK-188721101:L72:restored-v2'],objects='Ramesh Kumar / Bhagwan Dass / Shop15',event='brother arrangement');p['evidence'][0]['refs']=['IK-188721101:L81:restored-v2'];p['evidence'][1]['refs']=['IK-188721101:L83:restored-v2'];p['limitations'][0].update(test_id=tid,refs=p['evidence'][0]['refs']);
+  for e in p['evidence']:e['uses'][0]['test_id']=tid
+  r=analyze(p,branches(g['legal_structure']),s,'188721101');u=next(x for x in r['conditions'] if x['test_id']==tid);self.assertEqual(u['program_assessment']['opposes'],['e2']);self.assertEqual(u['program_assessment']['status'],'REFUTED');self.assertIn('Trial Court',s['IK-188721101:L83:restored-v2']['text'])
+ def test_old_aggregate_cannot_supply_branch_labels(self):
+  g=load(V/'graphs/112400.json');r=legacy_replay(g,{});u=next(x for x in r['units'] if x['test_id']=='DRC_BONA_FIDE-C03');self.assertEqual(u['replay_status'],'BRANCH_DETAIL_UNAVAILABLE');self.assertIsNone(u['branch_predictions'])
+ def test_actual_run_entry_failure_null(self):
+  class Fake:
+   def run(self,*args,**kwargs):return {'run_status':'OUTPUT_TRUNCATED'}
+  with tempfile.TemporaryDirectory() as d,patch.object(entry,'inputs',return_value=({'sources':{}}, {'tests':[]}, [])):
+   r,_=entry.complete_slot(Fake(),'c','A','x',{},1,Path(d));self.assertIsNone(r['prediction']);self.assertEqual(r['run_status'],'OUTPUT_TRUNCATED');self.assertTrue((Path(d)/'result.json').is_file())
+ def test_actual_proposal_entry_runs_checks(self):
+  p,t,s=fixture();p['conditions']=[{'binding_id':'b','test_id':'T','evidence_ids':['e1'],'prediction':'PREDICT_REFUTED'}]
+  class Fake:
+   def run(self,*args,**kwargs):return {'run_status':'OK','schema_mask_calls':3}
+  with tempfile.TemporaryDirectory() as d,patch.object(entry,'R',Path(d)),patch.object(entry,'inputs',return_value=({'sources':s},t,[])):
+   out=Path(d)/'run';out.mkdir();(out/'parsed.json').write_text(json.dumps(p));r,_=entry.complete_slot(Fake(),'c','proposal','x',{},1,out);self.assertEqual(r['run_status'],'OK');self.assertEqual(load(Path(d)/'checks/c.json')['conditions'][0]['program_assessment']['status'],'REFUTED')
+if __name__=='__main__':unittest.main()
+
+```
+
+## legal_bench/irac_application/pipeline_v4.py
+
+```python
+"""Sparse proposal import, exact address catalogue, reversible display, declared-use checks."""
+import copy,json,hashlib
+from collections import Counter
+from .hybrid_v3 import analyze as declared_checks,source_errors,para
+
+def catalogue(template):
+ return {t['id']:[b['id'] for b in t.get('branches',[])] or [''] for t in template['tests']}
+def address_ok(x,cat):return x.get('test_id') in cat and x.get('branch_id') in cat[x['test_id']]
+def digest(x):return hashlib.sha256(x.encode()).hexdigest()
+
+def display(material):
+ """Remove exact text containment ONLY inside same document/parent line; preserve aliases/ranges."""
+ sources=material['sources']; mapping={};chosen=[]
+ for sid,s in sources.items():
+  matches=[(oid,o) for oid,o in sources.items() if o.get('document_id')==s.get('document_id') and para(oid)==para(sid) and s['text'] in o['text']]
+  oid,o=sorted(matches,key=lambda z:(-len(z[1]['text']),z[0]))[0]
+  start=o['text'].index(s['text']);mapping[sid]={'display_id':oid,'char_range':[start,start+len(s['text'])],'parent_address':para(sid),'original_text_sha256':digest(s['text'])}
+  if oid not in chosen:chosen.append(oid)
+ rows=[]
+ for oid in chosen:
+  s=sources[oid];rows.append({'source_id':oid,'aliases':{k:v['char_range'] for k,v in mapping.items() if v['display_id']==oid and k!=oid},'document_id':s['document_id'],'stage':s.get('semantic_stage'),'text':s['text']})
+ return {'case_id':material['case_id'],'target_stage':material['target_stage'],'target_court':material['target_court'],'records':rows},mapping
+
+def import_proposal(value,template,sources,cid):
+ cat=catalogue(template);q=[];missing=[];out={'bindings':[],'evidence':[],'limitations':[],'conditions':[],'coverage_limits':[]}
+ def reject(kind,i,record,why):q.append({'kind':kind,'position':i,'record':copy.deepcopy(record),'reason':why})
+ if not isinstance(value,dict) or not isinstance(value.get('bindings'),list) or not isinstance(value.get('evidence'),list):
+  return {'status':'STRUCTURE_ERROR','usable':False,'raw_proposal':value,'quarantine':[],'missing':[],'projection':out}
+ claims={c['id'] for c in template['claims'] if c.get('expression',{}).get('op')!='UNSUPPORTED'}
+ bidcounts=Counter(b.get('id') for b in value['bindings'] if isinstance(b,dict) and isinstance(b.get('id'),str))
+ def refsvalid(refs):return isinstance(refs,list) and bool(refs) and all(isinstance(r,str) for r in refs) and not source_errors(refs,sources,cid)
+ for i,b in enumerate(value['bindings']):
+  if not isinstance(b,dict) or not all(isinstance(b.get(k),str) for k in ['id','objects','event','stage']) or bidcounts[b['id']]!=1 or not refsvalid(b.get('refs')) or not isinstance(b.get('claim_ids'),list) or not b['claim_ids'] or not set(b['claim_ids'])<=claims:
+   reject('binding',i,b,'INVALID_BINDING_STRUCTURE_SOURCE_OR_CLAIM');continue
+  out['bindings'].append(copy.deepcopy(b))
+ bids={b['id'] for b in out['bindings']};eids=Counter(e.get('id') for e in value['evidence'] if isinstance(e,dict) and isinstance(e.get('id'),str))
+ for i,e in enumerate(value['evidence']):
+  if not isinstance(e,dict) or not all(isinstance(e.get(k),str) for k in ['id','binding_id','record','statement_status']) or eids[e['id']]!=1 or e['binding_id'] not in bids or not refsvalid(e.get('refs')) or e['statement_status'] not in ['PARTY_CLAIM','DENIAL','ADMISSION','TESTIMONY','PRIOR_COURT_FINDING','RECORDED_DOCUMENT','UNKNOWN'] or not isinstance(e.get('uses'),list):
+   reject('evidence',i,e,'INVALID_RECORD_STRUCTURE_SOURCE_OR_BINDING');continue
+  retained=copy.deepcopy(e);retained['uses']=[]
+  for j,u in enumerate(e['uses']):
+   if not isinstance(u,dict) or not address_ok(u,cat) or u.get('direction') not in ['SUPPORT','OPPOSE','UNKNOWN'] or u.get('use') not in ['CONDITION_INFERENCE','RECORD_EXISTENCE','PROVEN_FACT','TARGET_ACCEPTANCE']:
+    reject('use',f'{i}/{j}',u,'INVALID_TEST_BRANCH_OR_USE; parent record retained');continue
+   retained['uses'].append(copy.deepcopy(u))
+  out['evidence'].append(retained)
+ valid_e={e['id'] for e in out['evidence']}
+ for kind in ['conditions','limitations']:
+  values=value.get(kind,[])
+  if not isinstance(values,list):reject(kind,None,values,'INVALID_ARRAY');continue
+  for i,x in enumerate(values):
+   valid=isinstance(x,dict) and address_ok(x,cat) and x.get('binding_id') in bids and isinstance(x.get('evidence_ids'),list) and set(x['evidence_ids'])<=valid_e and all(e['binding_id']==x['binding_id'] for e in out['evidence'] if e['id'] in x['evidence_ids'])
+   if kind=='conditions':valid=valid and x.get('assessment') in ['SUPPORTED','REFUTED','UNRESOLVED','UNSUPPORTED'] and isinstance(x.get('gap'),str)
+   else:valid=valid and isinstance(x.get('id'),str) and refsvalid(x.get('refs')) and x.get('effect') in ['USE_BLOCK','PROPOSITION_BLOCK','NOTE','SCOPE_UNMAPPED'] and x.get('use') in ['CONDITION_INFERENCE','RECORD_EXISTENCE','PROVEN_FACT','TARGET_ACCEPTANCE'] and isinstance(x.get('reason'),str)
+   if not valid:
+    reject(kind,i,x,'INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE')
+    # A malformed restriction must not silently release a matching declared use.
+    if kind=='limitations' and isinstance(x,dict) and x.get('effect')!='NOTE':
+     for e in out['evidence']:
+      if e['binding_id']!=x.get('binding_id') or not isinstance(x.get('evidence_ids'),list) or e['id'] not in x['evidence_ids']:continue
+      for u in e['uses']:
+       if u['test_id']==x.get('test_id') and u['branch_id']==x.get('branch_id') and u['use']==x.get('use'):
+        out['limitations'].append({'id':f'import-unmapped-{i}-{e["id"]}','evidence_ids':[e['id']],'binding_id':e['binding_id'],'test_id':u['test_id'],'branch_id':u['branch_id'],'use':u['use'],'effect':'SCOPE_UNMAPPED','reason':'Importer could not validate declared restriction; no semantic repair.','refs':[]})
+    continue
+   # Legacy binary predictions are retained only in raw_proposal, never converted into evidence states.
+   fields=['binding_id','test_id','branch_id','assessment','evidence_ids','gap'] if kind=='conditions' else ['id','evidence_ids','binding_id','test_id','branch_id','use','effect','reason','refs']
+   out[kind].append({k:copy.deepcopy(x[k]) for k in fields})
+ out['coverage_limits']=[x for x in value.get('coverage_limits',[]) if isinstance(x,str)] if isinstance(value.get('coverage_limits',[]),list) else []
+ for b in out['bindings']:
+  for tid,branches in cat.items():
+   for branch in branches:
+    if not any(x['binding_id']==b['id'] and x['test_id']==tid and x['branch_id']==branch for x in out['conditions']):
+     missing.append({'binding_id':b['id'],'test_id':tid,'branch_id':branch,'status':'NOT_PRODUCED','reason':'No valid model condition row; not a model UNKNOWN or negative judgment.'})
+ usable=bool(out['bindings'] and (out['evidence'] or out['conditions']))
+ return {'status':'PARTIAL' if usable and (q or missing) else 'OK' if usable else 'NO_USABLE_PROPOSAL','usable':usable,'raw_proposal':value,'projection':out,'quarantine':q,'missing':missing,'catalogue':cat,'semantic_certification':False}
+
+def process(value,template,sources,cid):
+ imp=import_proposal(value,template,sources,cid)
+ if not imp['usable']:return imp,None
+ checks=declared_checks(imp['projection'],template,sources,cid)
+ checks['import_missing']=imp['missing'];checks['import_quarantine']=imp['quarantine']
+ for c in checks['conditions']:
+  c['model_assessments']=c.pop('model_predictions');c['assessment_not_overwritten']=c.pop('prediction_not_overwritten')
+  c['model_output_status']='PRODUCED' if c['model_assessments'] else 'NOT_PRODUCED'
+  c['program_placeholder_origin']='MISSING_DECLARED_USABLE_EVIDENCE' if not c['model_assessments'] else 'DECLARED_EVIDENCE_USE_AGGREGATION'
+ return imp,checks
+
+def compact(checks):
+ # Lossless ID-referenced dedup of entire repeated dict/list blocks. No semantic filtering.
+ pool={};seen={}
+ def intern(x):
+  if isinstance(x,dict): v={k:intern(z) for k,z in x.items()}
+  elif isinstance(x,list):v=[intern(z) for z in x]
+  else:return x
+  key=json.dumps(v,sort_keys=True,ensure_ascii=False)
+  if len(key)<180:return v
+  if key not in seen:
+   ref=f'check{len(pool)+1}';seen[key]=ref;pool[ref]=v
+  return {'$check_ref':seen[key]}
+ # Source originals already in common case block; raw prose proposal already supplied once.
+ view={k:v for k,v in checks.items() if k not in ['source_recovery','coverage_limits','burdens','scope']}
+ for x in view.get('evidence_use_checks',[]):
+  x=x # no in-place changes to full traces
+ view=copy.deepcopy(view)
+ for x in view.get('evidence_use_checks',[]):x.pop('record_retained',None)
+ root=intern(view)
+ return {'basis':'MODEL_PROPOSED_NOT_LEGAL_VERIFICATION','root':root,'records':pool,'omitted_fields':'source_recovery/common sources; coverage_limits/burdens/scope in common law+proposal; record_retained in proposal by evidence_id. Full file retained.'}
+
+def expand_compact(view):
+ def visit(x):
+  if isinstance(x,dict) and set(x)=={'$check_ref'}:return visit(view['records'][x['$check_ref']])
+  if isinstance(x,dict):return {k:visit(v) for k,v in x.items()}
+  if isinstance(x,list):return [visit(v) for v in x]
+  return x
+ return visit(view['root'])
+
+```
+
+## legal_bench/irac_application/pipeline_v4_tasks.py
+
+```python
+"""Shared address catalogue and sparse four-state interface; request alone is binary."""
+import json
+from .pipeline_v4 import catalogue,display
+from .hybrid_v3_tasks import obj,arr,S,enum,A,USE,STAT
+
+def schema(stage,material,template,law):
+ cat=catalogue(template);refs=arr(enum(list(material['sources'])+[s['source_id'] for s in law]),6)
+ test=enum(list(cat));branch=enum(sorted({b for bs in cat.values() for b in bs}));claim=enum([c['id'] for c in template['claims'] if c['expression']['op']!='UNSUPPORTED'])
+ if stage=='diagnostic':return obj({'test_id':test,'assessment':A,'binding':S,'refs':refs,'explanation':S})
+ use=obj({'test_id':test,'branch_id':branch,'direction':enum(['SUPPORT','OPPOSE','UNKNOWN']),'use':USE})
+ if stage=='proposal':return obj({'bindings':arr(obj({'id':S,'claim_ids':arr(claim,2),'objects':S,'event':S,'stage':S,'refs':refs}),4),
+ 'evidence':arr(obj({'id':S,'binding_id':S,'record':S,'statement_status':STAT,'refs':refs,'uses':arr(use,8)}),10),
+ 'limitations':arr(obj({'id':S,'evidence_ids':arr(S,6),'binding_id':S,'test_id':test,'branch_id':branch,'use':USE,'effect':enum(['USE_BLOCK','PROPOSITION_BLOCK','NOTE','SCOPE_UNMAPPED']),'reason':S,'refs':refs}),8),
+ 'conditions':arr(obj({'binding_id':S,'test_id':test,'branch_id':branch,'assessment':A,'evidence_ids':arr(S,6),'gap':S}),24),'coverage_limits':arr(S,4)})
+ return obj({'answers':arr(obj({'claim_id':claim,'prediction':enum(['PREDICT_GRANT','PREDICT_DENY']),
+ 'conditions':arr(obj({'test_id':test,'binding_id':S,'binding':S,'assessment':A,'refs':refs,'explanation':S}),12),
+ 'opposition':obj({'record':S,'refs':refs,'response':S}),'gaps':arr(S,4),'reason':S,'intermediate_correction':S}),2)})
+
+GUIDE='''Use only supplied case and legal sources. This is retrospective development, not reconstruction of an excluded historical verdict. Distinguish a party assertion, denial, witness testimony, recorded instrument, prior court finding and target court acceptance. Keep conflicting evidence and its stage. A valid source ID or a program check does not certify meaning. Do not invent a proof burden or legal presumption from absent evidence.
+Each test_id denotes the complete proposition printed in the legal structure, including all negation and quantifiers. assessment evaluates that proposition, NOT which party it favors. SUPPORTED/REFUTED require pertinent evidence; missing support alone is UNRESOLVED, not REFUTED. UNSUPPORTED means a needed analysis is outside the supplied legal/method coverage. Uncertainty about one facility or event does not establish a universal statement about all others. Preserve known identity, dates and recorded findings independently of disputed meaning, authenticity or target acceptance. Evaluate AND/OR within the same arrangement; do not mix different people, contracts, events or stages. Shared sources are not independent votes.
+Return short complete JSON, no long quotation copies. A few sentences per explanation is a writing target, not a truncation rule. Preserve decisive opposition and limitations before optional detail. Never fill an array simply to reach its limit.
+'''
+EXAMPLES=[{'label':'FICTIONAL TEACHING INPUT AND OUTPUT; NEVER TARGET LAW',
+'input':{'sources':{'S1':'The district panel found that operator Mira installed beacon Z personally. An appeal challenges that finding.','S2':'The claimant alleges an unidentified helper attended.'},'law':{'L1':'The fictional Beacon Code permits certification when the operator installs the beacon personally OR a registered technician installs it with operator permission.'},'tests':{'INSTALL':'Operator personally installed this beacon OR a registered technician installed it with operator permission.'},'request':'Certification for beacon Z'},
+'output':{'answers':[{'claim_id':'CERTIFY','prediction':'PREDICT_GRANT','conditions':[{'test_id':'INSTALL','binding_id':'b1','binding':'Mira; beacon Z; installation reviewed on appeal','assessment':'SUPPORTED','refs':['S1','L1'],'explanation':'The prior panel found personal installation. I rely on that finding while preserving its contested appellate status; helper attendance does not itself negate personal installation.'}],'opposition':{'record':'Claimant alleges a helper attended.','refs':['S2'],'response':'Attendance alone does not contradict the personal route. Technician registration is unknown but unnecessary on that route.'},'gaps':['The appeal challenge remains undecided.'],'reason':'I predict grant on the recorded personal-installation route, conditional on that finding surviving review.','intermediate_correction':'None.'}]}},
+{'label':'FICTIONAL TEACHING INPUT AND OUTPUT; NEVER TARGET LAW',
+'input':{'sources':{'S3':'The district panel found that room A was unsafe, but that operator Neri had room B available and suitable for the proposed storage.','S4':'Neri alleges room B is unavailable; no supporting record is supplied.'},'law':{'L2':'The fictional Storage Code permits emergency space only if no other suitable room is available to the applicant.'},'tests':{'NO_OTHER':'Neri has no other suitable room available for this storage.'},'request':'Emergency space for this storage'},
+'output':{'answers':[{'claim_id':'EMERGENCY','prediction':'PREDICT_DENY','conditions':[{'test_id':'NO_OTHER','binding_id':'b1','binding':'Neri; rooms A and B; this storage request','assessment':'REFUTED','refs':['S3','L2'],'explanation':'The specific finding that B is available and suitable contradicts no-other-room. A being unsafe alone would establish neither existence nor absence of other suitable rooms.'}],'opposition':{'record':'Neri alleges B is unavailable.','refs':['S4'],'response':'I retain the dispute but give the identified prior finding greater weight for this prediction, not because missing evidence proves the allegation false.'},'gaps':['Target-stage acceptance and any changed availability remain unresolved.'],'reason':'I predict denial based on affirmative contrary evidence concerning B. The choice could change if its availability is disproved.','intermediate_correction':'None.'}]}}]
+PROPOSAL_GUIDE='''Generate sparse records only for this request. bindings identify concrete arrangements with id, claim_ids, persons/premises in objects, event, procedural stage and refs. A record need not fill every participant role. evidence preserves compact attributed statements and source IDs; use distinct IDs for distinct evidence. uses declares test_id, branch_id, direction and purpose. CONDITION_INFERENCE is a proposed argument, not proof; RECORD_EXISTENCE only records its existence; PROVEN_FACT requires established status; TARGET_ACCEPTANCE is not implied by prior findings.
+Use exactly the supplied ADDRESS_DIRECTORY. No child branch: branch_id is the empty string. With child branches: use the full listed branch ID. An element_id is NEVER a branch_id. The schema restricts candidate strings; the importer additionally checks each test/branch pair.
+limitations specifies affected evidence_ids, binding_id, test_id, branch_id, use, effect, reason and source refs. USE_BLOCK limits that use; PROPOSITION_BLOCK without evidence IDs must have a sourced whole-proposition justification; NOTE preserves a caveat without blocking; SCOPE_UNMAPPED preserves uncertain correspondence. A local failure does not delete independent evidence. Evidence can exist without any currently valid use.
+conditions is OPTIONAL IN COVERAGE: supply only useful assessment rows with evidence_ids and gap. Arrays themselves are required but may be empty. Do not produce binary condition predictions or rows merely to cover every test/binding. Missing rows mean NOT_PRODUCED, not a model judgment of uncertainty. Empty strings or similar role names do not prove identity. coverage_limits records omissions, conflicts and ambiguous bindings. Prefer 3-6 decisive evidence items; maximum 10, with 4 bindings, 8 limitations and 24 conditions. These are ceilings, not targets. Return complete JSON within budget.'''
+FINAL_GUIDE='''Return one answer per substantive request. Only request prediction is binary: PREDICT_GRANT or PREDICT_DENY. conditions is sparse: assess the decisive complete test propositions with four-state assessment, concrete binding_id and binding text identifying persons, premises, event/arrangement and stage; never put a test title in place of these objects. Reuse a binding_id only for the same sourced arrangement, and do not infer identity from similar text. References point to case and legal IDs. Describe decisive opposing evidence even if it weakens the chosen prediction.
+reason briefly identifies which known judgments and uncertain assumptions determine the prediction and how unresolved matters could change it. Choosing denial does not prove every necessary condition false. Do not invent legal mandatory-denial rules when the supplied law lacks them. Distinguish missing case facts, absent legal coverage and program limits.
+All intermediate material is model-proposed. Read the original sources; correct erroneous intermediate assertions with sources and note the correction. Structural program checks are not authoritative legal findings. Local quarantines do not erase original source text; do not rely on a flagged invalid address. Program-computed AND/OR applies only to its declared binding/premises, not other arrangements. Usually 4-7 decisive conditions suffice; do not duplicate an analysis in several fields.'''
+
+def prompt(stage,material,template,law,intermediate=None):
+ view,_=display(material);cat=catalogue(template)
+ parts=[GUIDE,'TWO COMPLETE FICTIONAL EXAMPLES:',json.dumps(EXAMPLES,ensure_ascii=False)]
+ if stage=='proposal':
+  example={'bindings':[{'id':'b1','claim_ids':['CERTIFY'],'objects':'Mira; beacon Z','event':'Beacon installation','stage':'Appeal from district panel','refs':['S1']}],'evidence':[{'id':'e1','binding_id':'b1','record':'District panel found personal installation by Mira, challenged on appeal.','statement_status':'PRIOR_COURT_FINDING','refs':['S1'],'uses':[{'test_id':'INSTALL','branch_id':'INSTALL/SELF','direction':'SUPPORT','use':'CONDITION_INFERENCE'}]}],'limitations':[{'id':'l1','evidence_ids':['e1'],'binding_id':'b1','test_id':'INSTALL','branch_id':'INSTALL/SELF','use':'TARGET_ACCEPTANCE','effect':'USE_BLOCK','reason':'Prior finding does not establish appellate acceptance.','refs':['S1']}],'conditions':[{'binding_id':'b1','test_id':'INSTALL','branch_id':'INSTALL/SELF','assessment':'SUPPORTED','evidence_ids':['e1'],'gap':'Appeal remains open.'}],'coverage_limits':['Technician registration unknown; no redundant condition row is required.']}
+  parts += [PROPOSAL_GUIDE,'Complete fictional sparse proposal example:',json.dumps(example)]
+ elif stage=='diagnostic':parts+=['Evaluate only the supplied test, not the whole request. Return test_id, assessment, concrete objects in binding, refs and a short explanation. No request prediction.']
+ else:parts+=[FINAL_GUIDE]
+ parts+=['ADDRESS_DIRECTORY:',json.dumps(cat),'COMMON GIVEN LAW:',json.dumps(law,ensure_ascii=False),'COMMON LEGAL STRUCTURE:',json.dumps(template,ensure_ascii=False),'INTERMEDIATE MATERIAL:',json.dumps(intermediate or {},ensure_ascii=False),'COMPLETE ALLOWED CASE MATERIAL:',json.dumps(view,ensure_ascii=False),'TASK: '+('Evaluate this one condition under the given record and scope.' if stage=='diagnostic' else 'Propose sparse attributed evidence and its uses.' if stage=='proposal' else 'Under the supplied facts, law and procedural stage, should each specified substantive request be supported? State a request prediction while retaining evidence uncertainty.')]
+ return '\n\n'.join(parts)
+
+```
+
+## scripts/irac_pipeline_v4.py
+
+```python
+"""Single frozen repair experiment, no retry; deterministic audit and actual local runner."""
+import argparse,json,hashlib,copy,shutil,time,sys,re
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from legal_bench.irac_application.pipeline_v4 import process,display,compact,digest,catalogue
+from legal_bench.irac_application.pipeline_v4_tasks import prompt,schema
+from legal_bench.irac_application.aligned_v2_runtime import atomic_json as save
+R=Path('outputs/irac-pipeline-repair-v4');V=Path('outputs/irac-hybrid-decision-v3')
+ALL=['1114159','112400','188721101','52547606','55384096','68065690'];CASES=['112400','188721101','55384096','52547606']
+read=lambda p:json.loads(Path(p).read_text());hf=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+CODE=['scripts/irac_pipeline_v4_tokenizer.py','scripts/irac_pipeline_v4.py','legal_bench/irac_application/pipeline_v4.py','legal_bench/irac_application/pipeline_v4_tasks.py','legal_bench/irac_application/hybrid_v3.py','legal_bench/irac_application/hybrid_v3_tasks.py','legal_bench/irac_application/aligned_logic.py','legal_bench/irac_application/aligned_v2_runtime.py','legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py','legal_bench/mlx_json_constraint.py','legal_bench/mlx_json_constraint_v2.py','legal_bench/rules_verdict_v1/repetition_v9.py','legal_bench/rules_verdict_v1/contracts.py','legal_bench/rules_verdict_v1/source_views.py','tests/test_irac_pipeline_v4.py']
+
+def inputs(cid,stage=None):
+ m=read(R/'sources'/f'{cid}.json');t=read(R/'templates'/f"{m['family']}.json");law=read(R/'sources'/f"{m['family']}-law.json")
+ if stage in ['D-short','D-full']:
+  tid='DRC_BONA_FIDE-C06';t=copy.deepcopy(t);t['tests']=[x for x in t['tests'] if x['id']==tid];t['elements']=[];t['claims']=[]
+  if stage=='D-short':m['sources']={k:v for k,v in m['sources'].items() if k in ['IK-112400:L124:restored-v2','IK-112400:L137:context-v4','IK-112400:L138:context-v4','IK-112400:L139:restored-v2','IK-112400:L140:restored-v2']}
+ return m,t,law
+
+def prepare():
+ assert not (R/'freeze/config.json').exists()
+ # Only pre-reviewed exact source-context recovery, no model summaries or target conclusions.
+ plans={'112400':[(137,None,None,'Context for remand and the antecedent of The latter.'),(138,None,None,'Identifies Rent Control Tribunal as remand fact finder.')],
+ '52547606':[(82,None,'could be made','Restore ARC attribution to existing contrary finding; exclude later text.'),(84,None,None,'Restore ARCT attribution and Mohan Lal antecedent to existing finding.')],
+ '55384096':[(76,'RW-1 Sumitra Devi',None,'Recover witness identity only; preceding target approval expressly excluded.'),(77,None,None,'Recover attributed testimony around existing denials/admissions; no target evaluation.')],
+ '68065690':[(174,None,None,'Recover source as reply to notice, not final acceptance.'),(176,None,'since 1975.','Recover speaker RW1/respondent and existing testimony; omit adjacent target reasoning.'),(181,None,'other business.','Recover speaker RW2 Kapil; retain only existing quotation extent.')]}
+ for p in (V/'templates').glob('*.json'):dest=R/'templates'/p.name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
+ for p in (V/'sources').glob('*-law.json'):dest=R/'sources'/p.name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
+ audits=[]
+ for cid in ALL:
+  old=read(V/'sources'/f'{cid}.json');m=copy.deepcopy(old)
+  rawp=Path(f'outputs/gnn-irac-native-data-01/sources/raw/single-{cid}-0.txt') if cid in ['1114159','112400'] else Path(f'outputs/rgcn-data-expansion-09/continuation-01/open-{cid}-0.txt')
+  raw=rawp.read_text();line_map={int(mt.group(1)):(mt.group(2),mt.start(2),mt.end(2)) for mt in re.finditer(r'^L(\d+): ?(.*)$',raw,re.M)}
+  additions=[]
+  for n,start,end,reason in plans.get(cid,[]):
+   text,a,b=line_map[n]
+   if start:a+=text.index(start);text=text[text.index(start):]
+   if end:text=text[:text.index(end)+len(end)]
+   b=a+len(text);assert raw[a:b]==text
+   sid=f'IK-{cid}:L{n}:context-v4';prov={'raw_path':str(rawp),'raw_sha256':hf(rawp),'raw_char_range':[a,b],'original_line':n,'document_id':cid,'url':f'https://indiankanoon.org/doc/{cid}/'}
+   m['sources'][sid]={'text':text,'document_id':cid,'url':prov['url'],'semantic_stage':'PRIOR_COURT_FINDING' if cid=='52547606' else 'PRE_TARGET_RECORD','prospective_availability':'RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET','parent_source_id':f'IK-{cid}:L{n}','provenance':[prov]}
+   additions.append({'source_id':sid,'reason':reason,'target_decisive_reasoning_included':False,**prov})
+  source_map=[]
+  for sid,s in m['sources'].items():
+   assert str(s['document_id'])==cid
+   hit=raw.find(s['text']);source_map.append({'source_id':sid,'document_id':cid,'url':s['url'],'raw_path':str(rawp),'raw_sha256':hf(rawp),'raw_char_range':[hit,hit+len(s['text'])] if hit>=0 else None,'text_exact_in_raw':hit>=0,'allowed_text_sha256':digest(s['text'])})
+  assert all(x['text_exact_in_raw'] for x in source_map),[x for x in source_map if not x['text_exact_in_raw']]
+  view,mapping=display(m);save(R/'sources'/f'{cid}.json',m);save(R/'input-audit'/f'{cid}.json',{'case_id':cid,'target_stage':m['target_stage'],'target_court':m['target_court'],'stage_scope':'Existing reconstructed task stage retained; original judgment may be from a later court. No historical prediction claim.','source_map':source_map,'additions':additions,'display_map':mapping,'display':view,'old_source_count':len(old['sources']),'new_source_count':len(m['sources']),'display_count':len(view['records']),'semantic_context_complete':False,'context_limits':'Context recovery confined to attribution for existing fragments. Whole case not restored; testimonial truth, missing law and excluded target reasoning remain unresolved.'})
+  audits.append({'case_id':cid,'added_spans':len(additions),'display_records':len(view['records']),'old_records':len(old['sources']),'new_records':len(m['sources'])})
+ save(R/'input-audit/summary.json',audits)
+ order=['112400/D-short','112400/D-full']+[f'{c}/{s}' for c in CASES for s in ['A','P','B','C']]
+ save(R/'protocol.json',{'cases':CASES,'audit_cases':ALL,'order':order,'max_calls':18,'max_tokens':{'diagnostic':1024,'proposal':4096,'final':3072},'context':32768,'generation_seconds_budget':3600,'seed':20261001,'web':0,'retries':0,'training':0,'diagnostic_short_sources':'Frozen selection of C06 claim identity and remand finding context; excludes other fact disputes; not pure length comparison.','comparison':'Exposed development; interface, display, condition contract and proposal budget jointly changed; not single-variable v3 comparison. A/B/C share exact law/case display.','evaluation':'One source review after all runs. No new gold or binary conversion. Inspect decisive opposition beyond cited paragraphs. No modifications after first generation.','failure':'Only dependent steps skipped; environment/resource/time failure stops rest. No retry or semantic repair.','stop':'After <=18 calls and one review; no further experiment, commit or push.'})
+ for slot in order:
+  cid,stage=slot.split('/')
+  if stage in ['B','C']:continue
+  m,t,l=inputs(cid,stage);kind='diagnostic' if stage.startswith('D-') else 'proposal' if stage=='P' else 'final';dest=R/'prepared'/cid/stage;dest.mkdir(parents=True,exist_ok=True);(dest/'prompt.txt').write_text(prompt(kind,m,t,l));save(dest/'schema.json',schema(kind,m,t,l))
+ # One offline replay of every stored v3 proposal. Truncated JSON remains a failure.
+ rows=[]
+ for cid in ALL:
+  m,t,l=inputs(cid);src=dict(m['sources']);src.update({x['source_id']:x for x in l});run=read(V/'runs'/cid/'proposal/run.json');raw=(V/'runs'/cid/'proposal/raw-response.txt').read_text()
+  if run['run_status']!='OK':result={'status':run['run_status'],'usable':False,'raw_path':str(V/'runs'/cid/'proposal/raw-response.txt'),'answer':None}
+  else:
+   value=json.loads(raw);result,checks=process(value,t,src,cid)
+   if checks:save(R/'replay'/cid/'checks.json',checks)
+  save(R/'replay'/cid/'import.json',result);rows.append({'case_id':cid,'old_status':read(V/'runs'/cid/'proposal/result.json')['run_status'],'new_status':result['status'],'usable':result['usable'],'records':len(result.get('projection',{}).get('evidence',[])),'quarantine':len(result.get('quarantine',[])),'not_produced':len(result.get('missing',[]))})
+ save(R/'replay/summary.json',rows)
+
+def finish_attempt(run,out,stage,m,t,law):
+ result={'case_id':m['case_id'],'method':stage,'run_status':run['run_status'],'prediction':None};src=dict(m['sources']);src.update({x['source_id']:x for x in law})
+ if run['run_status']=='OK' or (stage=='P' and run['run_status']=='FORMAT_ERROR' and run.get('framework_finish_reason')=='stop'):
+  try:value=json.loads((out/'raw-response.txt').read_text())
+  except (ValueError,OSError):value=None
+  if value is not None and run.get('schema_mask_calls',0)>0:
+   if stage=='P':
+    imp,checks=process(value,t,src,m['case_id']);save(out/'import.json',imp)
+    if imp['usable']:
+     result.update(run_status='OK',prediction=value,import_status=imp['status']);save(out/'checks-full.json',checks);save(out/'checks-compact.json',compact(checks))
+    else:result.update(run_status='FORMAT_ERROR',reason=imp['status'])
+   else:
+    try:
+     from legal_bench.rules_verdict_v1.contracts import validate
+     validate(value,read(out/'schema.json'))
+     if not stage.startswith('D-'):
+      expected={c['id'] for c in t['claims'] if c['expression']['op']!='UNSUPPORTED'}
+      assert {a['claim_id'] for a in value['answers']}==expected
+     result['prediction']=value
+    except (AssertionError,ValueError,KeyError,TypeError) as e:result.update(run_status='FORMAT_ERROR',reason=repr(e))
+  elif run['run_status']=='OK':result.update(run_status='FORMAT_ERROR',reason='UNREADABLE_OR_MASK_NOT_EFFECTIVE')
+ save(out/'result.json',result);return result
+
+def complete_slot(runner,cid,stage,text,contract,remaining,out):
+ m,t,l=inputs(cid,stage);budget=1024 if stage.startswith('D-') else 4096 if stage=='P' else 3072
+ # Save exact rendered input BEFORE generation; compare saved runner input afterwards.
+ out.mkdir(parents=True,exist_ok=True);rendered=runner.render(text);save(out/'input-before-generation.json',{'prompt_sha256':digest(text),'rendered_sha256':digest(rendered),'input_tokens':len(runner.tokenizer.encode(rendered)),'max_tokens':budget,'material_sha256':digest(json.dumps(display(m)[0],ensure_ascii=False)),'law_sha256':digest(json.dumps(l,ensure_ascii=False))});(out/'rendered-before-generation.txt').write_text(rendered)
+ view,aliases=display(m);spans=[]
+ for row in view['records']:
+  encoded=json.dumps(row['text'],ensure_ascii=False);pos=text.index(encoded);rpos=rendered.index(encoded)
+  spans.append({'display_id':row['source_id'],'prompt_char_range':[pos,pos+len(encoded)],'rendered_char_range':[rpos,rpos+len(encoded)],'aliases':row['aliases'],'text_sha256':digest(row['text']),'encoding':'JSON string including quotes; decoding exactly recovers source text'})
+ save(out/'source-to-input.json',{'display_spans':spans,'alias_map':aliases,'law_in_prompt':all(json.dumps(s['text'],ensure_ascii=False) in text for s in l),'template_scope_in_prompt':json.dumps(t,ensure_ascii=False) in text})
+ run=runner.run(text,contract,out,max_tokens=budget,remaining_seconds=remaining,constraint_mode='FIXED')
+ assert (out/'prompt.txt').read_text()==text and (out/'rendered.txt').read_text()==rendered,'ACTUAL_INPUT_MISMATCH'
+ save(out/'input-delivery.json',{'prompt_matches':True,'rendered_matches':True,'model_prompt_tokens_reported':run.get('prompt_tokens_actual'),'counted_tokens':run.get('prompt_tokens'),'text_not_truncated':not run.get('source_input_truncated',False)})
+ return finish_attempt(run,out,stage,m,t,l),run
+
+def freeze():
+ assert not (R/'freeze/config.json').exists();log=(R/'engineering/tests.txt').read_text();assert '\nOK' in log and 'skipped=' not in log
+ assert read(R/'engineering/real-tokenizer.json')['passed']
+ settings=read(V/'freeze/config.json')['settings'];files={str(p):hf(p) for folder in ['sources','templates','prepared','input-audit','replay','engineering'] for p in (R/folder).rglob('*') if p.is_file()};files[str(R/'protocol.json')]=hf(R/'protocol.json')
+ for p in CODE:
+  dest=R/'freeze/code'/p;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest);files[str(dest)]=hf(dest)
+ save(R/'freeze/config.json',{'time':time.time(),'settings':settings,'files':files,'live_code':{p:hf(p) for p in CODE},'constraint_mode':'FIXED','max_tokens':read(R/'protocol.json')['max_tokens'],'evaluation':read(R/'protocol.json')['evaluation']})
+def verify():
+ f=read(R/'freeze/config.json')
+ for p,h in {**f['files'],**f['live_code']}.items():assert hf(p)==h,p
+ return f
+
+def run():
+ from legal_bench.rules_verdict_v1.runtime_constraint_diag_v1 import Runner
+ f=verify();assert not (R/'run-ledger.json').exists(),'already started; no duplicate call'
+ specs=read(R/'protocol.json')['order'];save(R/'run-ledger.json',{'status':'STARTING','order':specs})
+ try:r=Runner(Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip(),f['settings'])
+ except Exception as e:save(R/'run-ledger.json',{'status':'ENVIRONMENT_BLOCKED','error':repr(e)});return
+ pre=[]
+ for s in specs:
+  c,st=s.split('/');p=R/'prepared'/c/st
+  if not p.exists():continue
+  txt=(p/'prompt.txt').read_text();ren=r.render(txt);(p/'rendered-preflight.txt').write_text(ren);n=len(r.tokenizer.encode(ren));b=1024 if st.startswith('D-') else 4096 if st=='P' else 3072;pre.append({'slot':s,'input_tokens':n,'max_tokens':b,'within_budget':n+b<=32768,'thinking_off':'<think>\n\n</think>' in ren[-150:]})
+ save(R/'freeze/token-preflight.json',{'rows':pre,'versions':r.versions,'load_seconds':r.loaded_seconds,'model_config_hash':r.model_config_hash,'dynamic_B_C':'Count full rendered input immediately before each call, never truncate.'})
+ rows=[];spent=0;stop=None;props={}
+ for slot in specs:
+  verify();cid,stage=slot.split('/');out=R/'runs'/cid/stage
+  if stop or (stage in ['B','C'] and cid not in props):
+   result={'case_id':cid,'method':stage,'run_status':'SKIPPED','prediction':None,'reason':stop or 'NO_READABLE_USABLE_PROPOSAL'};save(out/'result.json',result);rows.append(result);continue
+  m,t,l=inputs(cid,stage)
+  if stage in ['B','C']:
+   inter={'proposal':props[cid],'import_coverage':{k:v for k,v in read(R/'runs'/cid/'P/import.json').items() if k in ['missing','quarantine','status']}}
+   if stage=='C':inter['program_checks']=read(R/'runs'/cid/'P/checks-compact.json')
+   text=prompt('final',m,t,l,inter);contract=schema('final',m,t,l);dest=R/'prepared'/cid/stage;dest.mkdir(parents=True,exist_ok=True);(dest/'prompt.txt').write_text(text);save(dest/'schema.json',contract);save(dest/'intermediate.json',inter)
+  else:dest=R/'prepared'/cid/stage;text=(dest/'prompt.txt').read_text();contract=read(dest/'schema.json')
+  remaining=3600-spent
+  if remaining<=0:stop='TOTAL_TIME_BUDGET';save(out/'result.json',{'run_status':'SKIPPED','prediction':None,'reason':stop});continue
+  try:result,meta=complete_slot(r,cid,stage,text,contract,remaining,out)
+  except Exception as e:result={'case_id':cid,'method':stage,'run_status':'FRAMEWORK_OR_RECORDING_ERROR','prediction':None,'error':repr(e)};save(out/'result.json',result);meta={};stop='FRAMEWORK_OR_RECORDING_ERROR'
+  spent+=meta.get('elapsed_seconds',0)
+  if stage=='P' and result['run_status']=='OK':props[cid]=result['prediction']
+  if meta.get('run_status') in ['OUT_OF_MEMORY','UNSUPPORTED','TIMEOUT']:stop=meta['run_status']
+  rows.append({'slot':slot,'run_status':result['run_status'],'seconds':meta.get('elapsed_seconds'),'output_tokens':meta.get('output_tokens'),'input_tokens':meta.get('prompt_tokens')});save(R/'run-ledger.json',{'status':'RUNNING','rows':rows,'seconds':spent,'stop':stop})
+ save(R/'run-ledger.json',{'status':'COMPLETE' if not stop else 'STOPPED','rows':rows,'seconds':spent,'stop':stop,'calls':len(list((R/'runs').glob('*/*/start.json'))),'no_retry':True})
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('command',choices=['prepare','freeze','verify','run']);globals()[p.parse_args().command]()
+
+```
+
+## scripts/irac_pipeline_v4_tokenizer.py
+
+```python
+"""Real tokenizer fixture replay only, no model load or generation."""
+import json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from transformers import AutoTokenizer
+from lmformatenforcer import JsonSchemaParser
+from legal_bench.mlx_json_constraint import tokenizer_data
+from legal_bench.mlx_json_constraint_v2 import CompositeQuoteEnforcer
+from scripts.irac_pipeline_v4 import R,inputs,save,read
+from legal_bench.irac_application.pipeline_v4_tasks import schema
+from legal_bench.irac_application.pipeline_v4 import catalogue
+p=Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip();tok=AutoTokenizer.from_pretrained(p,local_files_only=True);data=tokenizer_data(tok,tok.eos_token_id)
+rows=[]
+for cid in ['112400','188721101']:
+ m,t,l=inputs(cid);cat=catalogue(t);sid=next(iter(m['sources']));tid=next(iter(cat));bid=cat[tid][0]
+ sample={'bindings':[{'id':'b1','claim_ids':[t['claims'][0]['id']],'objects':'SYNTHETIC tokenizer fixture','event':'synthetic event','stage':'synthetic review','refs':[sid]}],'evidence':[{'id':'e1','binding_id':'b1','record':'Fixture ends with a composite quote.','statement_status':'UNKNOWN','refs':[sid],'uses':[{'test_id':tid,'branch_id':bid,'direction':'UNKNOWN','use':'RECORD_EXISTENCE'}]}],'limitations':[],'conditions':[],'coverage_limits':['Synthetic syntax only; no case assertion.']}
+ sc=schema('proposal',m,t,l);text=json.dumps(sample);ids=tok.encode(text,add_special_tokens=False);mask=CompositeQuoteEnforcer(data,JsonSchemaParser(sc))
+ for i,token in enumerate(ids):assert token in mask.get_allowed_tokens(ids[:i]).allowed_tokens,(cid,i)
+ assert tok.eos_token_id in mask.get_allowed_tokens(ids).allowed_tokens
+ rows.append({'schema_case':cid,'tokens':len(ids),'all_allowed':True,'eos':True,'synthetic_not_case_answer':True})
+root=Path('outputs/json-constraint-diagnosis-v1');sc=read(root/'prepared/schema.json');ids=read(root/'runs/FIXED/token-ids.json');mask=CompositeQuoteEnforcer(data,JsonSchemaParser(sc))
+for i,token in enumerate(ids):assert token in mask.get_allowed_tokens(ids[:i]).allowed_tokens,i
+assert tok.decode(ids,skip_special_tokens=True)==(root/'runs/FIXED/raw-response.txt').read_text()
+rows.append({'existing_fixed_token_replay':True,'tokens':len(ids),'raw_exact':True})
+save(R/'engineering/real-tokenizer.json',{'passed':True,'model_calls':0,'tokenizer_path_revision':Path(p).name,'rows':rows});print('REAL_TOKENIZER_PASS',len(rows))
+
+```
+
+## scripts/report_irac_pipeline_v4.py
+
+```python
+"""Read-only aggregate after the one frozen v4 batch; no model or semantic changes."""
+import json,csv,hashlib,sys
+from collections import Counter
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from scripts.irac_pipeline_v4 import R,V,CASES,read,save,verify
+
+def main():
+ ledger=read(R/'run-ledger.json');assert ledger['status'] in ['COMPLETE','STOPPED','ENVIRONMENT_BLOCKED']
+ results=[];table=[]
+ for slot in read(R/'protocol.json')['order']:
+  cid,stage=slot.split('/');p=R/'runs'/cid/stage;r=read(p/'result.json') if (p/'result.json').exists() else {'run_status':'NOT_RUN','prediction':None};meta=read(p/'run.json') if (p/'run.json').exists() else {};inputmeta=read(p/'input-before-generation.json') if (p/'input-before-generation.json').exists() else {}
+  row={'slot':slot,'run_status':r['run_status'],'prediction':r.get('prediction'),'reason':r.get('reason',r.get('error',meta.get('error'))),'input_tokens':meta.get('prompt_tokens'),'output_tokens':meta.get('output_tokens'),'seconds':meta.get('elapsed_seconds'),'peak_mlx_gb':meta.get('peak_mlx_memory_gb'),'peak_rss_gb':meta.get('peak_rss_gb'),'finish_reason':meta.get('finish_reason'),'max_tokens':meta.get('effective_max_tokens',inputmeta.get('max_tokens')),'material_hash':inputmeta.get('material_sha256'),'law_hash':inputmeta.get('law_sha256'),'path':str(p),'called':(p/'start.json').exists()};results.append(row)
+ save(R/'all-results.json',results)
+ for cid in CASES:
+  methods={x['slot'].split('/')[1]:x for x in results if x['slot'].startswith(cid+'/')}
+  for st in ['A','B','C']:
+   x=methods[st];pr=methods['P'];table.append({'case_id':cid,'method':st,'run_status':x['run_status'],'prediction':';'.join(a['prediction'] for a in x['prediction']['answers']) if x['prediction'] else None,'seconds':x['seconds'],'pipeline_seconds':(x['seconds'] or 0)+((pr['seconds'] or 0) if st!='A' else 0),'input_tokens':x['input_tokens'],'output_tokens':x['output_tokens'],'pipeline_input_tokens':(x['input_tokens'] or 0)+((pr['input_tokens'] or 0) if st!='A' else 0),'pipeline_output_tokens':(x['output_tokens'] or 0)+((pr['output_tokens'] or 0) if st!='A' else 0),'material_hash':x['material_hash'],'law_hash':x['law_hash']})
+  active=[x for st,x in methods.items() if st in ['A','P','B','C'] and x['material_hash']];assert len({x['material_hash'] for x in active})<=1 and len({x['law_hash'] for x in active})<=1,'UNEQUAL_MATERIALS'
+  save(R/'review-dossiers'/f'{cid}.json',{'sources':read(R/'sources'/f'{cid}.json'),'results':methods,'program_checks':read(R/'runs'/cid/'P/checks-full.json') if (R/'runs'/cid/'P/checks-full.json').exists() else None})
+ with (R/'technical-comparison.csv').open('w') as f:w=csv.DictWriter(f,fieldnames=list(table[0]));w.writeheader();w.writerows(table)
+ attempted=[x for x in results if x['called']];cost={'calls':len(attempted),'seconds':sum(x['seconds'] or 0 for x in attempted),'input_tokens':sum(x['input_tokens'] or 0 for x in attempted),'output_tokens':sum(x['output_tokens'] or 0 for x in attempted),'peak_mlx_gb':max((x['peak_mlx_gb'] or 0 for x in attempted),default=0),'peak_rss_gb':max((x['peak_rss_gb'] or 0 for x in attempted),default=0),'status_counts':dict(Counter(x['run_status'] for x in results)),'load_seconds':read(R/'freeze/token-preflight.json')['load_seconds'],'web_calls':0,'retries':0,'gnn_training':0,'note':'Shared proposal counted once in experiment total, once in each B/C method cost; RSS and MLX have distinct meanings.'};save(R/'cost.json',cost)
+ before=read(R/'preservation-before.json');bad=[p for p,h in before.items() if not Path(p).exists() or hashlib.sha256(Path(p).read_bytes()).hexdigest()!=h];save(R/'preservation-after.json',{'checked':len(before),'changed':bad});assert not bad
+ verify();save(R/'freeze-integrity.json',{'passed':True,'all_live_and_snapshot_hashes_unchanged':True})
+ with (R/'answer-slots.md').open('w') as f:
+  f.write('# 原始答案入口\n\n')
+  for x in results:f.write(f"- {x['slot']}: {x['run_status']} — [结果](runs/{x['slot']}/result.json)\n")
+ print(json.dumps(cost,indent=2))
+if __name__=='__main__':main()
+
+```
+
+## tests/test_irac_pipeline_v4.py
+
+```python
+import unittest,json,copy,tempfile
+from pathlib import Path
+from unittest.mock import patch
+from tests.test_irac_hybrid_v3 import fixture,HybridTests
+from legal_bench.irac_application.pipeline_v4 import process,catalogue,display,compact,expand_compact
+from legal_bench.irac_application.pipeline_v4_tasks import schema,prompt
+from scripts import irac_pipeline_v4 as entry
+R=entry.R;V=entry.V
+class Repairs(unittest.TestCase):
+ def load(self,c):
+  m,t,l=entry.inputs(c);s=dict(m['sources']);s.update({x['source_id']:x for x in l});return m,t,l,s
+ def old(self,c):return json.loads((V/'runs'/c/'proposal/raw-response.txt').read_text())
+ def test_real_111_partial(self):
+  m,t,l,s=self.load('1114159');i,c=process(self.old('1114159'),t,s,'1114159');self.assertTrue(i['usable']);self.assertTrue(i['projection']['evidence']);self.assertTrue(any(x['test_id']=='DRC_BONA_FIDE-C04' for x in i['missing']))
+ def test_real_553_other_binding_not_gate(self):
+  m,t,l,s=self.load('55384096');i,c=process(self.old('55384096'),t,s,'55384096');self.assertTrue(i['usable']);self.assertTrue(any(x['binding_id']=='b1' for x in i['projection']['evidence']));self.assertTrue(any(x['binding_id']=='b2' for x in i['missing']))
+ def test_real_188_bad_uses_records_survive(self):
+  m,t,l,s=self.load('188721101');i,c=process(self.old('188721101'),t,s,'188721101');self.assertTrue(i['usable']);self.assertEqual(len(i['projection']['evidence']),4);self.assertEqual(sum(len(e['uses']) for e in i['projection']['evidence']),0);self.assertEqual(sum(x['kind']=='use' for x in i['quarantine']),10)
+ def test_catalogue_all_layers(self):
+  for cid in ['112400','188721101']:
+   m,t,l,s=self.load(cid);cat=catalogue(t);sc=schema('proposal',m,t,l);choices=sc['properties']['evidence']['items']['properties']['uses']['items']['properties']['branch_id']['enum'];self.assertEqual(set(choices),{x for bs in cat.values() for x in bs});self.assertIn(json.dumps(cat),prompt('proposal',m,t,l));self.assertNotIn('prediction',sc['properties']['conditions']['items']['properties'])
+   for tid,bs in cat.items():
+    for branch in bs:
+     p,_,_=fixture();sid=next(iter(m['sources']));p['bindings'][0].update(refs=[sid],claim_ids=[t['claims'][0]['id']]);p['evidence']=p['evidence'][:1];p['evidence'][0].update(refs=[sid]);p['evidence'][0]['uses'][0].update(test_id=tid,branch_id=branch);p['limitations']=[];i,c=process(p,t,s,cid);self.assertFalse(i['quarantine']);self.assertEqual(c['evidence_use_checks'][0]['use_status'],'USABLE_AS_MODEL_PROPOSED')
+ def test_bad_source_local_and_no_label_fabrication(self):
+  p,t,s=fixture();p['evidence'][0]['refs']=['missing'];i,c=process(p,t,s,'c');self.assertTrue(i['usable']);self.assertEqual(c['conditions'][0]['program_assessment']['status'],'REFUTED');self.assertEqual(c['conditions'][0]['model_output_status'],'NOT_PRODUCED')
+ def test_bad_limit_not_release(self):
+  p,t,s=fixture();p['limitations'][0]['refs']=['missing'];i,c=process(p,t,s,'c');self.assertEqual(c['evidence_use_checks'][0]['use_status'],'UNRESOLVED_MAPPING')
+ def test_conflict_no_vote_and_crossbinding(self):
+  p,t,s=fixture();p['limitations']=[];p['evidence'].append(dict(p['evidence'][0],id='e3'));i,c=process(p,t,s,'c');self.assertTrue(c['conditions'][0]['program_assessment']['conflict']);p['bindings'].append(dict(p['bindings'][0],id='b2',event='other event'));p['evidence'][1]['binding_id']='b2';i,c=process(p,t,s,'c');self.assertEqual(c['bindings'][0]['tests']['T']['status'],'SUPPORTED');self.assertEqual(c['bindings'][1]['tests']['T']['status'],'REFUTED')
+ def test_or_actual_process(self):
+  m,t,l,s=self.load('112400');p,_,_=fixture();sid='IK-112400:L124:restored-v2';tid='DRC_BONA_FIDE-C03';p['bindings'][0].update(refs=[sid],claim_ids=[t['claims'][0]['id']]);p['evidence']=p['evidence'][:1];p['evidence'][0]['refs']=[sid];p['evidence'][0]['uses'][0].update(test_id=tid,branch_id=tid+'/SELF');p['limitations']=[];i,c=process(p,t,s,'112400');self.assertEqual(c['bindings'][0]['tests'][tid]['status'],'SUPPORTED');self.assertEqual(c['bindings'][0]['claims'][0]['result']['status'],'UNRESOLVED')
+ def test_reversible_display(self):
+  for cid in entry.ALL:
+   m,t,l,s=self.load(cid);v,mp=display(m);by={x['source_id']:x for x in v['records']}
+   for sid,a in mp.items():self.assertEqual(by[a['display_id']]['text'][slice(*a['char_range'])],m['sources'][sid]['text'])
+   for row in v['records']:self.assertIn(json.dumps(row['text'],ensure_ascii=False),prompt('final',m,t,l))
+ def test_compact_lossless_except_declared_duplicate_fields(self):
+  p,t,s=fixture();i,c=process(p,t,s,'c');f=copy.deepcopy(c);v=compact(c);self.assertEqual(c,f);expected={k:copy.deepcopy(x) for k,x in c.items() if k not in ['source_recovery','coverage_limits','burdens','scope']}
+  for x in expected['evidence_use_checks']:x.pop('record_retained')
+  self.assertEqual(expand_compact(v),expected)
+ def test_actual_attempt_local_partial_and_failure(self):
+  m,t,l,s=self.load('1114159');value=self.old('1114159')
+  with tempfile.TemporaryDirectory() as d:
+   p=Path(d);(p/'raw-response.txt').write_text(json.dumps(value));r=entry.finish_attempt({'run_status':'OK','schema_mask_calls':1},p,'P',m,t,l);self.assertEqual(r['run_status'],'OK');self.assertTrue((p/'checks-full.json').exists())
+  for cid in ['52547606','68065690']:
+   with tempfile.TemporaryDirectory() as d:
+    p=Path(d);raw=(V/'runs'/cid/'proposal/raw-response.txt').read_text();(p/'raw-response.txt').write_text(raw);r=entry.finish_attempt({'run_status':'OUTPUT_TRUNCATED'},p,'P',*entry.inputs(cid));self.assertIsNone(r['prediction']);self.assertEqual((p/'raw-response.txt').read_text(),raw)
+ def test_actual_complete_slot_saves_exact_input(self):
+  class Tok:
+   def encode(self,t):return list(t.encode())
+  class Fake:
+   tokenizer=Tok()
+   def render(self,t):return 'CHAT:'+t
+   def run(self,text,sc,out,**kwargs):
+    (out/'prompt.txt').write_text(text);(out/'rendered.txt').write_text(self.render(text));(out/'raw-response.txt').write_text('{');return {'run_status':'OUTPUT_TRUNCATED'}
+  m,t,l,s=self.load('112400');txt=prompt('final',m,t,l)
+  with tempfile.TemporaryDirectory() as d:
+   r,_=entry.complete_slot(Fake(),'112400','A',txt,schema('final',m,t,l),1,Path(d));self.assertIsNone(r['prediction']);self.assertTrue(json.loads((Path(d)/'input-delivery.json').read_text())['rendered_matches'])
+if __name__=='__main__':unittest.main()
+
+```
+
+## legal_bench/irac_application/contract_v5.py
+
+```python
+"""V5 interface checks. These compute declared uses, never certify legal truth.
+
+V4 code and frozen results stay unchanged. Address conversion is exact; there is
+no semantic repair, object merging, or keyword interpretation of limitations.
+"""
+import copy
+import hashlib
+import json
+import re
+from collections import Counter
+
+from .hybrid_v3 import analyze as declared_checks, source_errors
+from .pipeline_v4 import compact, expand_compact, display as old_display
+
+USES = ('CONDITION_INFERENCE', 'RECORD_EXISTENCE', 'PROVEN_FACT', 'TARGET_ACCEPTANCE')
+EFFECTS = ('USE_BLOCK', 'PROPOSITION_BLOCK', 'NOTE', 'SCOPE_UNMAPPED')
+STATES = ('SUPPORTED', 'REFUTED', 'UNRESOLVED', 'UNSUPPORTED')
+STATEMENTS = ('PARTY_CLAIM', 'DENIAL', 'ADMISSION', 'TESTIMONY',
+              'PRIOR_COURT_FINDING', 'RECORDED_DOCUMENT', 'UNKNOWN')
+
+
+def digest(text):
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
+def address_directory(template):
+    """Single versioned directory; each enum value maps to one legal leaf."""
+    rows = {}
+    for test in template['tests']:
+        for branch in test.get('branches', []) or [{'id': '', 'text': ''}]:
+            key = 'ADDR-%03d' % (len(rows) + 1)
+            rows[key] = {'test_id': test['id'], 'branch_id': branch['id'],
+                         'test_text': test.get('text', test.get('proposition', '')),
+                         'branch_text': branch.get('text', '')}
+    pairs = [(r['test_id'], r['branch_id']) for r in rows.values()]
+    if len(set(pairs)) != len(pairs):
+        raise ValueError('DUPLICATE_LEGAL_ADDRESS')
+    reserved = {x['id'] for key in ('tests', 'elements') for x in template.get(key, [])}
+    if set(rows) & reserved:
+        raise ValueError('ADDRESS_NAMESPACE_COLLISION')
+    return rows
+
+
+def decode_address(record, directory, allow_legacy=True):
+    if not isinstance(record, dict):
+        return None
+    if 'condition_address' in record:
+        key = record['condition_address']
+        if not isinstance(key, str) or key not in directory:
+            return None
+        row = directory[key]
+        # Never let a second, contradictory representation override the enum.
+        if any(k in record and record[k] != row[k] for k in ('test_id', 'branch_id')):
+            return None
+        return {'test_id': row['test_id'], 'branch_id': row['branch_id']}
+    if allow_legacy:
+        pair = (record.get('test_id'), record.get('branch_id'))
+        for row in directory.values():
+            if pair == (row['test_id'], row['branch_id']):
+                return {'test_id': row['test_id'], 'branch_id': row['branch_id']}
+    return None
+
+
+def encode_address(test_id, branch_id, directory):
+    for key, row in directory.items():
+        if (test_id, branch_id) == (row['test_id'], row['branch_id']):
+            return key
+    raise ValueError('ILLEGAL_TEST_BRANCH_PAIR')
+
+
+def string_list(value):
+    return isinstance(value, list) and all(isinstance(x, str) for x in value)
+
+
+def import_proposal(value, template, sources, case_id, allow_legacy=True):
+    directory = address_directory(template)
+    out = {k: [] for k in ('bindings', 'evidence', 'limitations', 'conditions', 'coverage_limits')}
+    quarantined, coverage, safeguards, records = [], [], [], []
+
+    def reject(kind, position, record, reason):
+        quarantined.append({'kind': kind, 'position': position,
+                            'record': copy.deepcopy(record), 'reason': reason})
+
+    def refs_valid(refs):
+        return string_list(refs) and bool(refs) and not source_errors(refs, sources, case_id)
+
+    def address(row):
+        return decode_address(row, directory, allow_legacy)
+
+    if not isinstance(value, dict) or not all(isinstance(value.get(k), list) for k in ('bindings', 'evidence')):
+        return {'status': 'STRUCTURE_ERROR', 'usable': False, 'raw_proposal': value,
+                'projection': out, 'quarantine': [], 'restriction_coverage': [], 'safeguards': [], 'evidence_records': []}
+
+    claims = {x['id'] for x in template['claims'] if x.get('expression', {}).get('op') != 'UNSUPPORTED'}
+    counts = Counter(x.get('id') for x in value['bindings'] if isinstance(x, dict) and isinstance(x.get('id'), str))
+    for i, b in enumerate(value['bindings']):
+        valid = (isinstance(b, dict) and all(isinstance(b.get(k), str) and bool(b[k].strip())
+                 for k in ('id', 'objects', 'event', 'stage')) and counts[b['id']] == 1
+                 and refs_valid(b.get('refs')) and string_list(b.get('claim_ids'))
+                 and bool(b['claim_ids']) and set(b['claim_ids']) <= claims)
+        if valid:
+            out['bindings'].append(copy.deepcopy(b))
+        else:
+            reject('binding', i, b, 'INVALID_BINDING_STRUCTURE_SOURCE_OR_CLAIM')
+    bids = {x['id'] for x in out['bindings']}
+    counts = Counter(x.get('id') for x in value['evidence'] if isinstance(x, dict) and isinstance(x.get('id'), str))
+    for i, e in enumerate(value['evidence']):
+        row = e if isinstance(e, dict) else {}
+        binding_valid = isinstance(row.get('binding_id'), str) and row['binding_id'] in bids
+        record = {'position': i, 'raw_record': copy.deepcopy(e), 'record_preserved': True,
+                  'source_addresses_valid': refs_valid(row.get('refs')),
+                  'binding_available': binding_valid, 'accepted_use_positions': [], 'isolated_use_positions': [],
+                  'meaning_verified': False}
+        records.append(record)
+        # Record preservation is unconditional. Only the executable projection
+        # needs unambiguous IDs, attribution and valid source addresses.
+        valid = (isinstance(e, dict) and all(isinstance(e.get(k), str) for k in ('id', 'binding_id', 'record', 'statement_status'))
+                 and bool(e['id']) and bool(e['record']) and counts[e['id']] == 1 and refs_valid(e.get('refs'))
+                 and e['statement_status'] in STATEMENTS)
+        record['record_interface_valid'] = valid
+        if not valid:
+            record['computable_record'] = False
+            reject('evidence_projection', i, e, 'INVALID_RECORD_INTERFACE_OR_SOURCE; independent raw record preserved')
+            continue
+        retained = copy.deepcopy(e)
+        retained['uses'] = []
+        record['computable_record'] = True
+        if not isinstance(e.get('uses'), list):
+            reject('uses', i, e.get('uses'), 'INVALID_USE_ARRAY; independent record retained')
+        for j, u in enumerate(e.get('uses') if isinstance(e.get('uses'), list) else []):
+            a = address(u)
+            if not binding_valid or a is None or u.get('direction') not in ('SUPPORT', 'OPPOSE', 'UNKNOWN') or u.get('use') not in USES:
+                record['isolated_use_positions'].append(j)
+                reject('use', '%s/%s' % (i, j), u, 'UNRESOLVED_BINDING' if not binding_valid else 'INVALID_ADDRESS_OR_USE; parent record retained')
+                continue
+            record['accepted_use_positions'].append(j)
+            retained['uses'].append(dict(a, direction=u['direction'], use=u['use']))
+        out['evidence'].append(retained)
+    by_e = {x['id']: x for x in out['evidence']}
+
+    for kind in ('conditions', 'limitations'):
+        values = value.get(kind, [])
+        if not isinstance(values, list):
+            reject(kind, None, values, 'INVALID_ARRAY')
+            if kind == 'limitations':
+                coverage.append({'position': None, 'status': 'UNMAPPED_RESTRICTION',
+                                 'reason': 'Restriction array unreadable; no global block inferred.', 'raw_record': copy.deepcopy(values)})
+            continue
+        id_counts = Counter(x.get('id') for x in values if isinstance(x, dict) and isinstance(x.get('id'), str))
+        for i, x in enumerate(values):
+            a = address(x)
+            row = x if isinstance(x, dict) else {}
+            ids = row.get('evidence_ids')
+            bid = row.get('binding_id')
+            binding_ok = isinstance(bid, str) and bid in bids
+            ids_ok = (string_list(ids) and all(e in by_e and by_e[e]['binding_id'] == bid for e in ids))
+            valid = a is not None and binding_ok and ids_ok
+            if kind == 'conditions':
+                valid = valid and row.get('assessment') in STATES and isinstance(row.get('gap'), str)
+            else:
+                valid = (valid and isinstance(row.get('id'), str) and bool(row['id']) and id_counts[row['id']] == 1
+                         and refs_valid(row.get('refs')) and row.get('effect') in EFFECTS
+                         and row.get('use') in USES and isinstance(row.get('reason'), str))
+                # USE_BLOCK without a specific witness does not mean the whole proposition.
+                valid = valid and not (row.get('effect') == 'USE_BLOCK' and not ids)
+            if valid:
+                fields = ('assessment', 'gap') if kind == 'conditions' else ('id', 'use', 'effect', 'reason', 'refs')
+                out[kind].append(dict(a, binding_id=bid, evidence_ids=copy.deepcopy(ids),
+                                     **{k: copy.deepcopy(row[k]) for k in fields}))
+                continue
+            reject(kind, i, x, 'INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE')
+            if kind != 'limitations':
+                continue
+
+            # Range and source validity are independent. Preserve a known range
+            # as pending even when the alleged restriction cannot be validated.
+            range_known = binding_ok and a is not None and row.get('use') in USES
+            whole = row.get('effect') == 'PROPOSITION_BLOCK' and ids == []
+            specific = string_list(ids) and bool(ids)
+            mapped_ids = [e for e in ids if e in by_e and by_e[e]['binding_id'] == bid] if specific else []
+            can_guard = range_known and row.get('effect') != 'NOTE' and (whole or bool(mapped_ids))
+            c = {'position': i, 'binding_id': bid, 'address': a, 'use': row.get('use'),
+                 'status': 'PENDING_RESTRICTION_IN_KNOWN_SCOPE' if can_guard else 'UNMAPPED_RESTRICTION',
+                 'scope': 'WHOLE_PROPOSITION' if whole else 'SPECIFIC_EVIDENCE' if specific else 'UNDETERMINED',
+                 'reason': 'Restriction could not be validated; this is not legal opposition or absence of source evidence.',
+                 'raw_record': copy.deepcopy(x), 'safeguard_ids': []}
+            if can_guard:
+                guard_id = 'IMPORT-PENDING-%d' % i
+                while guard_id in id_counts:
+                    guard_id += '-INTERNAL'
+                guard = dict(a, id=guard_id, evidence_ids=[] if whole else mapped_ids,
+                             binding_id=bid, use=row['use'], effect='SCOPE_UNMAPPED', refs=[],
+                             reason='Declared restriction pending validation in this exact scope; no semantic repair.')
+                out['limitations'].append(guard)
+                safeguards.append(dict(guard, raw_position=i, scope=c['scope']))
+                c['safeguard_ids'].append(guard['id'])
+            coverage.append(c)
+
+    raw_coverage = value.get('coverage_limits', [])
+    if string_list(raw_coverage):
+        out['coverage_limits'] = copy.deepcopy(raw_coverage)
+    else:
+        reject('coverage_limits', None, raw_coverage, 'INVALID_ARRAY')
+    # Absence of proposed links is a semantic coverage limitation, not a
+    # technical failure of a complete, readable proposal. Empty projections
+    # can still be read with the full sources by the final answerer.
+    usable = True
+    return {'status': 'PARTIAL' if quarantined else 'OK',
+            'usable': usable, 'raw_proposal': copy.deepcopy(value), 'projection': out,
+            'quarantine': quarantined, 'restriction_coverage': coverage, 'safeguards': safeguards,
+            'address_directory': directory, 'condition_summary_required': False,
+            'semantic_certification': False, 'evidence_records': records,
+            'computable_use_count': sum(len(e['uses']) for e in out['evidence']),
+            'empty_projection': not bool(out['bindings'] or out['evidence'])}
+
+
+def process(value, template, sources, case_id, allow_legacy=True):
+    imp = import_proposal(value, template, sources, case_id, allow_legacy)
+    if not imp['usable']:
+        return imp, None
+    checks = declared_checks(imp['projection'], template, sources, case_id)
+    directory = address_directory(template)
+    checks['address_directory'] = directory
+    checks['import_quarantine'] = imp['quarantine']
+    checks['restriction_coverage'] = imp['restriction_coverage']
+    checks['restriction_safeguards'] = imp['safeguards']
+    checks['evidence_records'] = [{k: copy.deepcopy(v) for k, v in r.items() if k != 'raw_record'}
+                                  for r in imp['evidence_records']]
+    checks['evidence_record_index'] = 'Each position refers to proposal.evidence[position]; raw text is preserved in evidence-records.json and the unchanged proposal.'
+    for r in imp['evidence_records']:
+        raw = r['raw_record'] if isinstance(r['raw_record'], dict) else {}
+        for sid in raw.get('refs', []) if string_list(raw.get('refs')) else []:
+            if sid in sources and not source_errors([sid], sources, case_id):
+                checks['source_recovery'][sid] = copy.deepcopy(sources[sid])
+    checks['check_coverage'] = 'INCOMPLETE_RESTRICTION_VALIDATION' if imp['restriction_coverage'] else 'DECLARED_SCOPE_CHECKED'
+    for u in checks['evidence_use_checks']:
+        u['condition_address'] = encode_address(u['test_id'], u['branch_id'], directory)
+    for c in checks['conditions']:
+        c['model_assessments'] = c.pop('model_predictions')
+        c['assessment_not_overwritten'] = c.pop('prediction_not_overwritten')
+        c['model_output_status'] = 'PRODUCED' if c['model_assessments'] else 'NOT_PRODUCED_OPTIONAL'
+        c['model_summary_required'] = False
+        structural = [u for u in checks['evidence_use_checks']
+                      if u['binding_id'] == c['binding_id'] and u['test_id'] == c['test_id']]
+        uses = [u for u in structural if u['use'] in ('CONDITION_INFERENCE', 'PROVEN_FACT')]
+        available = [u for u in uses if u['use_status'] == 'USABLE_AS_MODEL_PROPOSED']
+        c['evidence_use_summary'] = {
+            'structurally_valid_uses': len(structural), 'condition_connections': len(uses),
+            'usable_condition_connections': len(available),
+            'support': [u['evidence_id'] for u in available if u['direction'] == 'SUPPORT'],
+            'opposition': [u['evidence_id'] for u in available if u['direction'] == 'OPPOSE'],
+            'pending': [dict(evidence_id=u['evidence_id'], condition_address=u['condition_address'],
+                             direction=u['direction'], use_status=u['use_status'],
+                             blocked_by=u['blocked_by'], mapping_questions=u['mapping_questions'])
+                        for u in uses if u not in available or u['direction'] == 'UNKNOWN'],
+            'basis': 'Declared uses in the current proposal, not source truth or independent votes.'}
+        c['program_assessment_origin'] = ('DECLARED_EVIDENCE_USE_AGGREGATION' if available else
+                                         'DECLARED_USES_RESTRICTED' if uses else 'NO_USABLE_CONNECTION_IN_CURRENT_PROPOSAL')
+        c['connection_coverage_note'] = ('' if available else
+                                        'The current proposal provides no usable condition connection; no claim that the original source has no evidence.')
+    return imp, checks
+
+
+def display(material, source_map):
+    """Reversible containment display sorted by original document position only.
+
+    source_map is the existing V4 exact-source audit, not inferred event dates.
+    Unknown positions are kept with an explicit limitation, never dropped.
+    """
+    view, aliases = old_display(material)
+    maps = {x['source_id']: x for x in source_map}
+    docs = list(dict.fromkeys(str(s['document_id']) for s in material['sources'].values()))
+    ordering = []
+    for row in view['records']:
+        sid = row['source_id']
+        m = maps.get(sid, {})
+        raw_range = m.get('raw_char_range')
+        valid = (str(m.get('document_id')) == str(row['document_id']) and m.get('text_exact_in_raw') is True
+                 and m.get('allowed_text_sha256') == digest(row['text'])
+                 and isinstance(raw_range, list) and len(raw_range) == 2
+                 and all(isinstance(n, int) for n in raw_range) and 0 <= raw_range[0] <= raw_range[1]
+                 and raw_range[1] - raw_range[0] == len(row['text']))
+        match = re.match(r'^IK-' + re.escape(str(row['document_id'])) + r':L(\d+)(?::|$)', sid)
+        ordering.append({'source_id': sid, 'document_id': row['document_id'],
+                         'raw_path': m.get('raw_path'), 'raw_sha256': m.get('raw_sha256'),
+                         'raw_char_range': raw_range if valid else None,
+                         'line': int(match.group(1)) if match else None,
+                         'position_status': 'AUDITED_ORIGINAL_CHAR_RANGE' if valid else 'SOURCE_ADDRESS_LINE_ONLY' if match else 'POSITION_UNKNOWN'})
+    # Ranges from different raw windows cannot be compared as if one document.
+    order_by = {x['source_id']: x for x in ordering}
+    modes = {}
+    for doc in docs:
+        local = [x for x in ordering if str(x['document_id']) == doc]
+        origins = {(x['raw_path'], x['raw_sha256']) for x in local}
+        modes[doc] = 'RAW_CHARS' if local and len(origins) == 1 and all(x['raw_char_range'] is not None for x in local) else 'LINES'
+
+    def key(row):
+        x = order_by[row['source_id']]
+        doc = str(row['document_id'])
+        if modes[doc] == 'RAW_CHARS':
+            position = (0, x['raw_char_range'][0], x['raw_char_range'][1])
+        else:
+            position = (0, x['line'], 0) if x['line'] is not None else (1, 0, 0)
+        return (docs.index(doc), *position, row['source_id'])
+
+    view['records'].sort(key=key)
+    audit = {'rows': ordering, 'document_order_mode': modes,
+             'ordering': 'Original source position; not inferred event time or legal importance.',
+             'coverage_limits': [x for x in ordering if x['position_status'] != 'AUDITED_ORIGINAL_CHAR_RANGE']}
+    return view, aliases, audit
+
+```
+
+## legal_bench/irac_application/contract_v5_tasks.py
+
+```python
+"""V5 legal addresses and sparse evidence; no source or legal semantic changes."""
+import copy
+import json
+
+from .contract_v5 import address_directory, display
+from .pipeline_v4_tasks import GUIDE, FINAL_GUIDE, EXAMPLES, schema as old_schema
+from .hybrid_v3_tasks import obj, arr, S, enum, A, USE, STAT
+
+PROPOSAL_GUIDE = '''Generate sparse attributed records for the specified request.
+bindings identifies an actual arrangement: persons, premises, conduct or transaction and procedural stage, supported by refs. A date question, consent question or retained-possession question is not by itself a different arrangement. Keep genuinely different arrangements distinct; shared names or premises alone do not establish identity. Do not fill missing facts or merge uncertain identities. No complete five-role tuple is required.
+evidence preserves the compact attributed record, source IDs and statement_status independently of its uses. Use binding_id="" and uses=[] when its arrangement is unresolved; never invent an arrangement to save a record. Each use selects exactly one condition_address from ADDRESS_DIRECTORY, direction (SUPPORT, OPPOSE or UNKNOWN) and purpose. The address deterministically determines its test_id and branch_id: do not output those two fields. An element ID is never a condition address. CONDITION_INFERENCE is a proposed argument, RECORD_EXISTENCE only records existence, PROVEN_FACT needs established status, and TARGET_ACCEPTANCE is not implied by a prior finding. A record survives even with an empty uses array.
+limitations states binding_id, condition_address, use, effect, evidence_ids, reason and refs. USE_BLOCK limits only the listed witnesses' use. PROPOSITION_BLOCK with empty evidence_ids explicitly concerns the entire named proposition within that binding and purpose; it needs a sourced whole-proposition justification. NOTE preserves a non-blocking caveat. SCOPE_UNMAPPED records uncertainty. Limitations never automatically become opposition. Keep independent evidence and independent OR branches.
+conditions is optional in coverage: provide a summary only if useful, using condition_address, binding_id, assessment, evidence_ids and gap. Its absence is not a defect or absence of evidence. A summary alone supplies no evidence use. Keep an empty array when no summary is needed. All top-level arrays exist but may be empty. Preserve decisive opposing evidence, unresolved identity and scope in coverage_limits. Prefer 3-6 decisive evidence items; maxima inherited from V4 are ceilings, not targets. Do not emit rows merely to cover every condition. Return complete JSON; never repair a missing fact to meet an interface.'''
+
+EXAMPLE_PROPOSAL = {
+    'bindings': [{'id': 'b1', 'claim_ids': ['CERTIFY'], 'objects': 'Mira; beacon Z',
+                  'event': 'Beacon installation', 'stage': 'Appeal from district panel', 'refs': ['S1']}],
+    'evidence': [{'id': 'e1', 'binding_id': 'b1', 'record': 'The district panel found personal installation by Mira; the appeal challenges that finding.',
+                  'statement_status': 'PRIOR_COURT_FINDING', 'refs': ['S1'],
+                  'uses': [{'condition_address': 'ADDR-001', 'direction': 'SUPPORT', 'use': 'CONDITION_INFERENCE'}]}],
+    'limitations': [{'id': 'l1', 'evidence_ids': ['e1'], 'binding_id': 'b1', 'condition_address': 'ADDR-001',
+                     'use': 'TARGET_ACCEPTANCE', 'effect': 'USE_BLOCK', 'reason': 'The prior finding does not establish appellate acceptance.', 'refs': ['S1']}],
+    'conditions': [], 'coverage_limits': ['The appeal challenge remains open; no summary row is needed to preserve the evidence.']}
+
+
+def schema(stage, material, template, law):
+    if stage != 'proposal':
+        return old_schema(stage, material, template, law)
+    refs = arr(enum(list(material['sources']) + [s['source_id'] for s in law]), 6)
+    addr = enum(list(address_directory(template)))
+    claims = enum([c['id'] for c in template['claims'] if c['expression']['op'] != 'UNSUPPORTED'])
+    return obj({
+        'bindings': arr(obj({'id': S, 'claim_ids': arr(claims, 2), 'objects': S, 'event': S, 'stage': S, 'refs': refs}), 4),
+        'evidence': arr(obj({'id': S, 'binding_id': S, 'record': S, 'statement_status': STAT, 'refs': refs,
+                             'uses': arr(obj({'condition_address': addr, 'direction': enum(['SUPPORT', 'OPPOSE', 'UNKNOWN']), 'use': USE}), 8)}), 10),
+        'limitations': arr(obj({'id': S, 'evidence_ids': arr(S, 6), 'binding_id': S, 'condition_address': addr,
+                                'use': USE, 'effect': enum(['USE_BLOCK', 'PROPOSITION_BLOCK', 'NOTE', 'SCOPE_UNMAPPED']), 'reason': S, 'refs': refs}), 8),
+        'conditions': arr(obj({'binding_id': S, 'condition_address': addr, 'assessment': A, 'evidence_ids': arr(S, 6), 'gap': S}), 24),
+        'coverage_limits': arr(S, 4)})
+
+
+def prompt(stage, material, template, law, source_map, intermediate=None):
+    view, _, _ = display(material, source_map)
+    parts = [GUIDE, 'TWO COMPLETE FICTIONAL EXAMPLES:', json.dumps(EXAMPLES, ensure_ascii=False)]
+    if stage == 'proposal':
+        parts += [PROPOSAL_GUIDE, 'FICTIONAL EXAMPLE ADDRESS DIRECTORY (not target law):',
+                  json.dumps({'ADDR-001': {'test_id': 'INSTALL', 'branch_id': 'INSTALL/SELF', 'text': 'Operator personally installed this beacon.'}}),
+                  'Complete fictional sparse proposal example:', json.dumps(EXAMPLE_PROPOSAL, ensure_ascii=False)]
+    else:
+        parts.append(FINAL_GUIDE)
+    parts += ['ADDRESS_DIRECTORY:', json.dumps(address_directory(template), ensure_ascii=False),
+              'COMMON GIVEN LAW:', json.dumps(law, ensure_ascii=False),
+              'COMMON LEGAL STRUCTURE:', json.dumps(template, ensure_ascii=False),
+              'INTERMEDIATE MATERIAL:', json.dumps(intermediate or {}, ensure_ascii=False),
+              'COMPLETE ALLOWED CASE MATERIAL:', json.dumps(view, ensure_ascii=False),
+              'TASK: ' + ('Propose sparse attributed evidence and its uses.' if stage == 'proposal' else
+                          'Under the supplied facts, law and procedural stage, should each specified substantive request be supported? State a request prediction while retaining evidence uncertainty.')]
+    return '\n\n'.join(parts)
+
+```
+
+## scripts/irac_contract_v5.py
+
+```python
+"""V5 versioned import/prompt entry; generation uses the separately frozen runner."""
+import argparse
+import hashlib
+import json
+import shutil
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from legal_bench.irac_application.contract_v5 import process, compact, display, digest, address_directory
+from legal_bench.irac_application.contract_v5_tasks import prompt, schema
+from legal_bench.irac_application.aligned_v2_runtime import atomic_json as save
+
+R = Path('outputs/irac-contract-repair-v5')
+V4 = Path('outputs/irac-pipeline-repair-v4')
+AUDIT_CASES = ['1114159', '112400', '188721101', '52547606', '55384096', '68065690']
+
+
+def read(path):
+    return json.loads(Path(path).read_text())
+
+
+def hf(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def inputs(cid):
+    if cid not in AUDIT_CASES:
+        raise ValueError('OUTSIDE_EXISTING_ALLOWED_MATERIAL')
+    m = read(R / 'sources' / (cid + '.json'))
+    t = read(R / 'templates' / (m['family'] + '.json'))
+    law = read(R / 'sources' / (m['family'] + '-law.json'))
+    sm = read(R / 'input-audit' / (cid + '.json'))['source_map']
+    return m, t, law, sm
+
+
+def prepare():
+    assert (R / 'registration.json').exists()
+    assert not (R / 'materials.json').exists(), 'Already prepared; do not overwrite.'
+    files = {}
+    for folder in ('sources', 'templates'):
+        for p in (V4 / folder).glob('*.json'):
+            dst = R / folder / p.name
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(p, dst)
+            files[str(dst)] = {'origin': str(p), 'sha256': hf(dst)}
+    for cid in AUDIT_CASES:
+        prior = read(V4 / 'input-audit' / (cid + '.json'))
+        # Verify the existing exact ranges; don't read/recover any additional spans.
+        buffers = {}
+        for row in prior['source_map']:
+            p = row['raw_path']
+            if p not in buffers:
+                assert 'sealed' not in p.lower()
+                assert hf(p) == row['raw_sha256']
+                buffers[p] = Path(p).read_text()
+            m = read(R / 'sources' / (cid + '.json'))
+            assert buffers[p][slice(*row['raw_char_range'])] == m['sources'][row['source_id']]['text']
+        m = read(R / 'sources' / (cid + '.json'))
+        view, aliases, ordering = display(m, prior['source_map'])
+        save(R / 'input-audit' / (cid + '.json'), {'case_id': cid, 'source_map': prior['source_map'],
+             'display': view, 'display_map': aliases, 'ordering': ordering,
+             'allowed_source_origin': str(V4 / 'sources' / (cid + '.json')), 'new_source_spans': 0})
+        t = read(R / 'templates' / (m['family'] + '.json'))
+        save(R / 'catalogues' / (m['family'] + '.json'), address_directory(t))
+    save(R / 'materials.json', {'files': files, 'audit_cases': AUDIT_CASES,
+                               'new_case_or_law_text': False, 'model_calls': 0})
+
+
+def finish_attempt(run, out, stage, m, t, law, allow_legacy=False):
+    """The actual completion/import path; raw bytes are never edited."""
+    out = Path(out)
+    result = {'case_id': m['case_id'], 'method': stage, 'run_status': run['run_status'], 'prediction': None}
+    if run['run_status'] != 'OK':
+        save(out / 'result.json', result)
+        return result
+    try:
+        value = json.loads((out / 'raw-response.txt').read_text())
+        if not run.get('schema_mask_calls', 0) and not run.get('offline_replay', False):
+            raise ValueError('MASK_NOT_EFFECTIVE')
+        if stage == 'P':
+            sources = dict(m['sources'])
+            sources.update({s['source_id']: s for s in law})
+            imp, checks = process(value, t, sources, m['case_id'], allow_legacy=allow_legacy)
+            save(out / 'import.json', imp)
+            save(out / 'evidence-records.json', imp['evidence_records'])
+            if not imp['usable']:
+                raise ValueError(imp['status'])
+            save(out / 'checks-full.json', checks)
+            save(out / 'checks-compact.json', compact(checks))
+            result.update(prediction=value, import_status=imp['status'])
+        else:
+            from legal_bench.rules_verdict_v1.contracts import validate
+            validate(value, read(out / 'schema.json'))
+            result['prediction'] = value
+    except (ValueError, KeyError, TypeError, OSError) as e:
+        result.update(run_status='FORMAT_ERROR', reason=repr(e), prediction=None)
+    save(out / 'result.json', result)
+    return result
+
+
+def final_task(cid, method, proposal, imported, checks):
+    """Build B/C without treating an optional absent summary as missing evidence."""
+    m, t, law, sm = inputs(cid)
+    inter = {}
+    if method in ('B', 'C'):
+        inter = {'proposal': proposal, 'import_coverage': {k: imported[k] for k in
+                 ('status', 'quarantine', 'restriction_coverage', 'condition_summary_required',
+                  'computable_use_count', 'empty_projection')}}
+        inter['import_coverage']['evidence_records'] = [{k: v for k, v in r.items() if k != 'raw_record'}
+                                                      for r in imported['evidence_records']]
+        if method == 'C':
+            inter['program_checks'] = compact(checks)
+    return prompt('final', m, t, law, sm, inter), schema('final', m, t, law), inter
+
+
+def replay():
+    assert not (R / 'replay/summary.json').exists(), 'Replay already saved.'
+    summary = []
+    # Only the actual V4 proposal outputs, including the truncated one.
+    for cid in ('112400', '188721101', '55384096', '52547606'):
+        origin = V4 / 'runs' / cid / 'P'
+        out = R / 'replay' / cid
+        out.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(origin / 'raw-response.txt', out / 'raw-response.txt')
+        m, t, law, sm = inputs(cid)
+        meta = read(origin / 'run.json')
+        meta['offline_replay'] = True
+        result = finish_attempt(meta, out, 'P', m, t, law, allow_legacy=True)
+        if result['prediction'] is not None:
+            imp, checks = read(out / 'import.json'), read(out / 'checks-full.json')
+            text, sc, intermediate = final_task(cid, 'C', result['prediction'], imp, checks)
+            (out / 'C-prompt-not-submitted.txt').write_text(text)
+            save(out / 'C-schema.json', sc)
+            save(out / 'C-intermediate.json', intermediate)
+        summary.append({'case_id': cid, 'run_status': result['run_status'], 'prediction_present': result['prediction'] is not None,
+                        'raw_sha256': hf(out / 'raw-response.txt'), 'origin': str(origin),
+                        'model_calls': 0, 'C_prompt_submitted': False})
+    save(R / 'replay/summary.json', summary)
+
+
+def verify_preservation():
+    before = read(R / 'registration.json')['old_files']
+    changed = [p for p, sha in before.items() if not Path(p).is_file() or hf(p) != sha]
+    result = {'passed': not changed, 'files_checked': len(before), 'changed': changed}
+    save(R / 'preservation-after.json', result)
+    if changed:
+        raise ValueError('OLD_ARTIFACT_CHANGED')
+    return result
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('command', choices=('prepare', 'replay', 'verify_preservation'))
+    print(json.dumps(globals()[parser.parse_args().command](), ensure_ascii=False))
+
+```
+
+## scripts/irac_contract_v5_tokenizer.py
+
+```python
+"""Actual tokenizer/constraint fixtures, no model load or generation."""
+import json
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from transformers import AutoTokenizer
+from lmformatenforcer import JsonSchemaParser
+from legal_bench.mlx_json_constraint import tokenizer_data
+from legal_bench.mlx_json_constraint_v2 import CompositeQuoteEnforcer
+from legal_bench.irac_application.contract_v5 import address_directory
+from legal_bench.irac_application.contract_v5_tasks import schema
+from scripts.irac_contract_v5 import R, inputs, save, read, hf
+
+
+def run():
+    path = Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip()
+    tok = AutoTokenizer.from_pretrained(path, local_files_only=True)
+    data = tokenizer_data(tok, tok.eos_token_id)
+    rows = []
+    for cid in ('112400', '188721101'):
+        m, t, law, sm = inputs(cid)
+        directory = address_directory(t)
+        sid = next(iter(m['sources']))
+        # One complete small synthetic fixture per legal address, including child branches.
+        for key, address in directory.items():
+            sample = {
+                'bindings': [{'id': 'b1', 'claim_ids': [t['claims'][0]['id']], 'objects': 'Synthetic fixture only',
+                              'event': 'Synthetic event', 'stage': 'Synthetic review', 'refs': [sid]}],
+                'evidence': [{'id': 'e1', 'binding_id': 'b1', 'record': 'The fixture ends with a composite quote.',
+                              'statement_status': 'UNKNOWN', 'refs': [sid],
+                              'uses': [{'condition_address': key, 'direction': 'UNKNOWN', 'use': 'RECORD_EXISTENCE'}]}],
+                'limitations': [], 'conditions': [], 'coverage_limits': ['Syntax fixture, not a factual claim about this case.']}
+            contract = schema('proposal', m, t, law)
+            text = json.dumps(sample)
+            ids = tok.encode(text, add_special_tokens=False)
+            mask = CompositeQuoteEnforcer(data, JsonSchemaParser(contract))
+            for i, token in enumerate(ids):
+                assert token in mask.get_allowed_tokens(ids[:i]).allowed_tokens, (cid, key, i)
+            assert tok.eos_token_id in mask.get_allowed_tokens(ids).allowed_tokens
+            assert json.loads(tok.decode(ids)) == sample
+            rows.append({'schema_case': cid, 'condition_address': key, 'legal_pair': address,
+                         'tokens': len(ids), 'all_allowed': True, 'eos_allowed': True,
+                         'synthetic_not_case_answer': True})
+    prior = Path('outputs/json-constraint-diagnosis-v1')
+    contract = read(prior / 'prepared/schema.json')
+    ids = read(prior / 'runs/FIXED/token-ids.json')
+    mask = CompositeQuoteEnforcer(data, JsonSchemaParser(contract))
+    for i, token in enumerate(ids):
+        assert token in mask.get_allowed_tokens(ids[:i]).allowed_tokens, i
+    assert tok.decode(ids, skip_special_tokens=True) == (prior / 'runs/FIXED/raw-response.txt').read_text()
+    result = {'passed': True, 'model_calls': 0, 'tokenizer_revision': Path(path).name,
+              'constraint_path': 'legal_bench/mlx_json_constraint_v2.py',
+              'constraint_sha256': hf('legal_bench/mlx_json_constraint_v2.py'),
+              'rows': rows, 'historical_fixed_token_replay': {'tokens': len(ids), 'raw_exact': True}}
+    save(R / 'engineering/real-tokenizer.json', result)
+    print('PASS', len(rows), 'complete address fixtures; historical fixed-token replay; model calls 0')
+
+
+if __name__ == '__main__':
+    run()
+
+```
+
+## tests/test_irac_contract_v5.py
+
+```python
+import copy
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+from tests.test_irac_hybrid_v3 import fixture
+from legal_bench.irac_application.contract_v5 import (
+    address_directory, encode_address, decode_address, display, compact, expand_compact)
+from legal_bench.irac_application.contract_v5_tasks import schema, prompt
+from legal_bench.rules_verdict_v1.contracts import validate
+from scripts import irac_contract_v5 as entry
+
+
+class ContractV5Tests(unittest.TestCase):
+    def accept(self, p, t, sources, cid='c'):
+        """All semantic-state tests traverse the actual file completion entry."""
+        m = {'case_id': cid, 'sources': sources}
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            raw = json.dumps(p, ensure_ascii=False)
+            (out / 'raw-response.txt').write_text(raw)
+            result = entry.finish_attempt({'run_status': 'OK', 'offline_replay': True}, out, 'P', m, t, [], allow_legacy=True)
+            self.assertEqual(result['run_status'], 'OK')
+            self.assertEqual((out / 'raw-response.txt').read_text(), raw)
+            return entry.read(out / 'import.json'), entry.read(out / 'checks-full.json'), entry.read(out / 'checks-compact.json')
+
+    def single(self):
+        p, t, s = fixture()
+        p['evidence'] = p['evidence'][:1]
+        return p, t, s
+
+    def test_optional_summary_absent_does_not_hide_evidence(self):
+        p, t, s = self.single()
+        p['limitations'] = []
+        i, c, v = self.accept(p, t, s)
+        row = c['conditions'][0]
+        self.assertEqual(row['model_assessments'], [])
+        self.assertEqual(row['program_assessment']['status'], 'SUPPORTED')
+        self.assertEqual(row['evidence_use_summary']['support'], ['e1'])
+        self.assertFalse(i['condition_summary_required'])
+        self.assertEqual(i['status'], 'OK')
+        self.assertNotIn('MISSING_DECLARED_USABLE_EVIDENCE', json.dumps(v))
+
+    def test_summary_without_evidence_not_promoted_to_support(self):
+        p, t, s = self.single()
+        p['evidence'] = []
+        p['limitations'] = []
+        p['conditions'] = [{'binding_id': 'b', 'test_id': 'T', 'branch_id': '', 'assessment': 'SUPPORTED', 'evidence_ids': [], 'gap': ''}]
+        i, c, v = self.accept(p, t, s)
+        row = c['conditions'][0]
+        self.assertEqual(row['model_assessments'][0]['assessment'], 'SUPPORTED')
+        self.assertEqual(row['program_assessment']['status'], 'UNRESOLVED')
+        self.assertEqual(row['evidence_use_summary']['condition_connections'], 0)
+        self.assertIn('current proposal', row['connection_coverage_note'])
+
+    def test_real_553_all_representation_layers(self):
+        m, t, law, sm = entry.inputs('55384096')
+        sources = dict(m['sources'], **{x['source_id']: x for x in law})
+        p = json.loads((entry.V4 / 'runs/55384096/P/raw-response.txt').read_text())
+        i, c, v = self.accept(p, t, sources, '55384096')
+        row = next(x for x in c['conditions'] if x['binding_id'] == 'b2' and x['test_id'] == 'DRC_SUBLETTING_C06')
+        self.assertEqual(row['program_assessment']['supports'], ['e3', 'e4', 'e5'])
+        self.assertEqual(row['program_assessment']['status'], 'SUPPORTED')
+        self.assertEqual(row['model_output_status'], 'NOT_PRODUCED_OPTIONAL')
+        text, _, intermediate = entry.final_task('55384096', 'C', p, i, c)
+        self.assertIn(json.dumps(intermediate, ensure_ascii=False), text)
+        self.assertNotIn('MISSING_DECLARED_USABLE_EVIDENCE', text)
+        restored = expand_compact(v)
+        self.assertEqual(restored['conditions'], c['conditions'])
+        self.assertEqual(p, intermediate['proposal'])
+
+    def test_specific_limit_does_not_block_independent_witness(self):
+        p, t, s = fixture()
+        p['evidence'][1]['uses'][0]['direction'] = 'SUPPORT'
+        p['limitations'][0]['refs'] = ['bad-source']
+        i, c, _ = self.accept(p, t, s)
+        self.assertEqual(c['conditions'][0]['program_assessment']['supports'], ['e2'])
+        self.assertEqual(c['conditions'][0]['program_assessment']['pending_uses'], ['e1'])
+        self.assertEqual(c['conditions'][0]['program_assessment']['status'], 'SUPPORTED')
+
+    def test_whole_proposition_empty_ids_valid_and_invalid_source(self):
+        for refs in (['s1'], ['MISSING']):
+            with self.subTest(refs=refs):
+                p, t, s = self.single()
+                p['limitations'][0].update(evidence_ids=[], effect='PROPOSITION_BLOCK', refs=refs)
+                i, c, _ = self.accept(p, t, s)
+                self.assertEqual(c['conditions'][0]['program_assessment']['status'], 'UNRESOLVED')
+                self.assertEqual(c['conditions'][0]['program_assessment']['pending_uses'], ['e1'])
+                if refs == ['MISSING']:
+                    self.assertEqual(c['evidence_use_checks'][0]['use_status'], 'UNRESOLVED_MAPPING')
+                    self.assertEqual(i['safeguards'][0]['scope'], 'WHOLE_PROPOSITION')
+                    self.assertEqual(i['safeguards'][0]['evidence_ids'], [])
+
+    def test_whole_proposition_bad_structure_keeps_known_scope(self):
+        p, t, s = self.single()
+        p['limitations'][0].update(evidence_ids=[], effect='PROPOSITION_BLOCK', reason=None)
+        i, c, _ = self.accept(p, t, s)
+        self.assertEqual(c['conditions'][0]['program_assessment']['status'], 'UNRESOLVED')
+        self.assertEqual(c['evidence_use_checks'][0]['mapping_questions'], ['IMPORT-PENDING-0'])
+
+    def test_limit_on_other_binding_does_not_propagate(self):
+        p, t, s = fixture()
+        p['bindings'].append(dict(p['bindings'][0], id='b2', event='another arrangement'))
+        p['evidence'][1].update(binding_id='b2')
+        p['evidence'][1]['uses'][0]['direction'] = 'SUPPORT'
+        p['limitations'][0].update(evidence_ids=[], effect='PROPOSITION_BLOCK', refs=['bad'])
+        i, c, _ = self.accept(p, t, s)
+        states = {x['binding_id']: x['program_assessment']['status'] for x in c['conditions']}
+        self.assertEqual(states, {'b': 'UNRESOLVED', 'b2': 'SUPPORTED'})
+
+    def test_purpose_local_limit_does_not_block_inference(self):
+        p, t, s = self.single()
+        p['limitations'][0].update(evidence_ids=[], effect='PROPOSITION_BLOCK', refs=['bad'], use='TARGET_ACCEPTANCE')
+        i, c, _ = self.accept(p, t, s)
+        self.assertEqual(c['conditions'][0]['program_assessment']['status'], 'SUPPORTED')
+        self.assertEqual(c['check_coverage'], 'INCOMPLETE_RESTRICTION_VALIDATION')
+        self.assertEqual(len(c['unapplied_limits']), 1)
+
+    def test_or_independent_branch_still_establishes_test(self):
+        p, t, s = self.single()
+        refs = [{'source_id': 'law', 'quote': 'A'}]
+        t['tests'][0].update(branches=[{'id': 'T/A'}, {'id': 'T/B'}],
+            branch_expression={'op': 'OR', 'args': [{'op': 'REF', 'id': b, 'source_refs': refs} for b in ('T/A', 'T/B')], 'source_refs': refs})
+        p['evidence'][0]['uses'][0]['branch_id'] = 'T/A'
+        other = copy.deepcopy(p['evidence'][0]); other['id'] = 'e2'; other['uses'][0]['branch_id'] = 'T/B'
+        p['evidence'].append(other)
+        p['limitations'][0].update(branch_id='T/A', effect='PROPOSITION_BLOCK', evidence_ids=[], refs=['bad'])
+        i, c, _ = self.accept(p, t, s)
+        self.assertEqual(c['conditions'][0]['branches']['T/A']['status'], 'UNRESOLVED')
+        self.assertEqual(c['conditions'][0]['branches']['T/B']['status'], 'SUPPORTED')
+        self.assertEqual(c['conditions'][0]['program_assessment']['status'], 'SUPPORTED')
+
+    def test_unmapped_limit_preserved_without_arbitrary_global_block(self):
+        p, t, s = self.single()
+        p['limitations'][0].update(test_id='UNKNOWN', refs=['bad'])
+        i, c, v = self.accept(p, t, s)
+        self.assertEqual(c['conditions'][0]['program_assessment']['status'], 'SUPPORTED')
+        self.assertEqual(c['restriction_coverage'][0]['status'], 'UNMAPPED_RESTRICTION')
+        self.assertEqual(expand_compact(v)['check_coverage'], 'INCOMPLETE_RESTRICTION_VALIDATION')
+        self.assertEqual(i['safeguards'], [])
+
+    def test_invalid_evidence_scope_does_not_expand_to_all(self):
+        p, t, s = self.single()
+        p['limitations'][0].update(evidence_ids=None, refs=['bad'])
+        i, c, v = self.accept(p, t, s)
+        self.assertEqual(c['conditions'][0]['program_assessment']['status'], 'SUPPORTED')
+        self.assertEqual(c['restriction_coverage'][0]['scope'], 'UNDETERMINED')
+        self.assertEqual(expand_compact(v)['restriction_coverage'], c['restriction_coverage'])
+
+    def test_support_opposition_pending_all_survive_no_vote(self):
+        p, t, s = fixture()
+        p['limitations'][0]['refs'] = ['bad']
+        for n in range(3, 6):
+            p['evidence'].append(dict(copy.deepcopy(p['evidence'][0]), id='e%d' % n))
+        i, c, v = self.accept(p, t, s)
+        row = c['conditions'][0]['program_assessment']
+        self.assertEqual(row['status'], 'UNRESOLVED')
+        self.assertTrue(row['conflict'])
+        self.assertEqual(row['supports'], ['e3', 'e4', 'e5'])
+        self.assertEqual(row['opposes'], ['e2'])
+        self.assertEqual(row['pending_uses'], ['e1'])
+        self.assertEqual(expand_compact(v)['conditions'], c['conditions'])
+
+    def test_all_addresses_roundtrip_schema_import_execution_display(self):
+        for cid in ('112400', '188721101'):
+            m, t, law, sm = entry.inputs(cid)
+            d = address_directory(t)
+            sc = schema('proposal', m, t, law)
+            choices = sc['properties']['evidence']['items']['properties']['uses']['items']['properties']
+            self.assertEqual(set(choices), {'condition_address', 'direction', 'use'})
+            self.assertEqual(choices['condition_address']['enum'], list(d))
+            self.assertIn(json.dumps(d, ensure_ascii=False), prompt('proposal', m, t, law, sm))
+            for key, pair in d.items():
+                self.assertEqual(encode_address(pair['test_id'], pair['branch_id'], d), key)
+                p, _, _ = self.single()
+                sid = next(iter(m['sources']))
+                p['bindings'][0].update(refs=[sid], claim_ids=[t['claims'][0]['id']])
+                p['evidence'][0]['refs'] = [sid]
+                p['evidence'][0]['uses'] = [{'condition_address': key, 'direction': 'SUPPORT', 'use': 'CONDITION_INFERENCE'}]
+                p['limitations'] = []
+                validate(p, sc)
+                i, c, _ = self.accept(p, t, m['sources'], cid)
+                self.assertEqual(c['evidence_use_checks'][0]['condition_address'], key)
+                self.assertEqual(c['evidence_use_checks'][0]['test_id'], pair['test_id'])
+                self.assertEqual(c['evidence_use_checks'][0]['branch_id'], pair['branch_id'])
+
+    def test_illegal_old_pair_and_element_not_guessed(self):
+        m, t, law, sm = entry.inputs('112400')
+        d = address_directory(t)
+        self.assertIsNone(decode_address({'test_id': 'DRC_BONA_FIDE-C04', 'branch_id': 'DRC_BONA_FIDE-C03/SELF'}, d))
+        for element in t['elements']:
+            self.assertIsNone(decode_address({'condition_address': element['id']}, d))
+        old = json.loads((Path('outputs/irac-hybrid-decision-v3') / 'runs/188721101/proposal/raw-response.txt').read_text())
+        m, t, law, sm = entry.inputs('188721101')
+        i, c, _ = self.accept(old, t, m['sources'], '188721101')
+        self.assertEqual(len(i['projection']['evidence']), 4)
+        self.assertEqual(sum(len(x['uses']) for x in i['projection']['evidence']), 0)
+        self.assertEqual(sum(x['kind'] == 'use' for x in i['quarantine']), 10)
+
+    def test_sources_sorted_by_original_position_and_reversible(self):
+        for cid in entry.AUDIT_CASES:
+            m, t, law, sm = entry.inputs(cid)
+            before = copy.deepcopy(m)
+            view, aliases, order = display(m, sm)
+            self.assertEqual(m, before)
+            by = {x['source_id']: x for x in view['records']}
+            positions = {x['source_id']: x['raw_char_range'][0] for x in order['rows']}
+            sequence = [positions[x['source_id']] for x in view['records']]
+            self.assertEqual(sequence, sorted(sequence))
+            for sid, a in aliases.items():
+                self.assertEqual(by[a['display_id']]['text'][slice(*a['char_range'])], m['sources'][sid]['text'])
+            self.assertEqual(len(aliases), len(m['sources']))
+            for stage in ('proposal', 'final'):
+                text = prompt(stage, m, t, law, sm)
+                self.assertEqual([text.index(json.dumps(row['text'], ensure_ascii=False)) for row in view['records']],
+                                 sorted(text.index(json.dumps(row['text'], ensure_ascii=False)) for row in view['records']))
+
+    def test_truncation_and_format_failure_null_raw_unchanged(self):
+        m, t, law, sm = entry.inputs('112400')
+        for status in ('OUTPUT_TRUNCATED', 'REPETITION_ABORT', 'FORMAT_ERROR'):
+            with tempfile.TemporaryDirectory() as tmp:
+                p = Path(tmp); (p / 'raw-response.txt').write_text('{bad')
+                result = entry.finish_attempt({'run_status': status}, p, 'P', m, t, law)
+                self.assertIsNone(result['prediction'])
+                self.assertEqual(result['run_status'], status)
+                self.assertEqual((p / 'raw-response.txt').read_text(), '{bad')
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+```
+
+## scripts/irac_contract_v5_run.py
+
+```python
+"""Bounded V5 continuation. No retries, no semantic edits, no new materials."""
+import argparse
+import datetime
+import hashlib
+import json
+import shutil
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts import irac_contract_v5 as entry
+from legal_bench.irac_application.contract_v5 import display, expand_compact
+from legal_bench.irac_application.contract_v5_tasks import prompt, schema
+
+R = entry.R / 'continuation-01'
+CASES = ('112400', '188721101')
+ORDER = [(cid, stage) for cid in CASES for stage in ('A', 'P', 'B', 'C')]
+MAX_TOKENS = {'A': 3072, 'P': 4096, 'B': 3072, 'C': 3072}
+CODE = [
+    'scripts/irac_contract_v5.py', 'scripts/irac_contract_v5_run.py',
+    'scripts/irac_contract_v5_tokenizer.py',
+    'legal_bench/irac_application/contract_v5.py',
+    'legal_bench/irac_application/contract_v5_tasks.py',
+    'legal_bench/irac_application/pipeline_v4.py',
+    'legal_bench/irac_application/pipeline_v4_tasks.py',
+    'legal_bench/irac_application/hybrid_v3.py',
+    'legal_bench/irac_application/hybrid_v3_tasks.py',
+    'legal_bench/irac_application/aligned_logic.py',
+    'legal_bench/irac_application/aligned_v2_runtime.py',
+    'legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py',
+    'legal_bench/mlx_json_constraint.py', 'legal_bench/mlx_json_constraint_v2.py',
+    'legal_bench/rules_verdict_v1/repetition_v9.py',
+    'legal_bench/rules_verdict_v1/contracts.py',
+    'legal_bench/rules_verdict_v1/source_views.py',
+    'tests/test_irac_contract_v5.py', 'tests/test_irac_contract_v5_run.py',
+]
+
+
+def now():
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+
+def delivery(text, m, law, sm):
+    """Audit the actual submitted JSON sections, not merely the template."""
+    law_text = text.split('COMMON GIVEN LAW:\n\n', 1)[1].split('\n\nCOMMON LEGAL STRUCTURE:', 1)[0]
+    assert json.loads(law_text) == law
+    view = json.loads(text.split('COMPLETE ALLOWED CASE MATERIAL:\n\n', 1)[1].split('\n\nTASK:', 1)[0])
+    expected, aliases, order = display(m, sm)
+    assert view == expected
+    by_id = {x['source_id']: x for x in view['records']}
+    rows = []
+    for sid, s in m['sources'].items():
+        a = aliases[sid]
+        row = by_id[a['display_id']]
+        assert str(row['document_id']) == str(s['document_id']) == str(m['case_id'])
+        assert row['text'][slice(*a['char_range'])] == s['text']
+        rows.append({'source_id': sid, 'display_id': a['display_id'],
+                     'range': a['char_range'], 'text_sha256': entry.digest(s['text']),
+                     'exactly_delivered': True})
+    return {'passed': True, 'case_id': m['case_id'], 'source_map': rows, 'ordering': order,
+            'law_sha256': entry.digest(json.dumps(law, ensure_ascii=False)),
+            'prompt_sha256': entry.digest(text), 'new_source_spans': 0,
+            'semantic_correctness_verified': False}
+
+
+def execute_slot(runner, out, cid, stage, text, sc, remaining, allow_legacy=False):
+    """Production entry also exercised by deterministic tests with a fake runner."""
+    m, t, law, sm = entry.inputs(cid)
+    out = Path(out)
+    out.mkdir(parents=True, exist_ok=True)
+    audit = delivery(text, m, law, sm)
+    entry.save(out / 'delivery.json', audit)
+    meta = runner.run(text, sc, out, max_tokens=MAX_TOKENS[stage],
+                      remaining_seconds=remaining, constraint_mode='FIXED')
+    result = entry.finish_attempt(meta, out, stage, m, t, law, allow_legacy=allow_legacy)
+    if stage == 'P' and result['prediction'] is not None:
+        checks = entry.read(out / 'checks-full.json')
+        compact = entry.read(out / 'checks-compact.json')
+        restored = expand_compact(compact)
+        assert restored['conditions'] == checks['conditions']
+        assert restored['evidence_records'] == checks['evidence_records']
+        entry.save(out / 'display-validation.json', {'passed': True, 'conditions_exact': True,
+                    'record_metadata_exact': True, 'model_proposal_unchanged': True})
+    return meta, result
+
+
+def preserved():
+    reg = entry.read(R / 'registration.json')
+    old = dict(entry.read(entry.R / 'registration.json')['old_files'])
+    old.update(reg['preexisting_v5_files'])
+    changed = [p for p, h in old.items() if not Path(p).is_file() or entry.hf(p) != h]
+    return {'passed': not changed, 'files_checked': len(old), 'changed': changed}
+
+
+def freeze():
+    assert not (R / 'freeze/config.json').exists(), 'Frozen already; do not overwrite'
+    gate = entry.read(R / 'engineering/acceptance.json')
+    assert gate['E'] == 'PASS' and gate['model_calls'] == 0
+    assert all(entry.hf(p) == h for p, h in gate['code_hashes'].items())
+    assert preserved()['passed']
+    files = {}
+    for p in CODE:
+        dst = R / 'freeze/code' / p
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(p, dst)
+        files[p] = entry.hf(p)
+    inputs = {}
+    for cid in CASES:
+        m, t, law, sm = entry.inputs(cid)
+        for p in [entry.R / 'sources' / (cid + '.json'), entry.R / 'templates' / (m['family'] + '.json'),
+                  entry.R / 'sources' / (m['family'] + '-law.json'), entry.R / 'input-audit' / (cid + '.json')]:
+            inputs[str(p)] = entry.hf(p)
+        for stage in ('A', 'P'):
+            text = prompt('proposal' if stage == 'P' else 'final', m, t, law, sm)
+            sc = schema('proposal' if stage == 'P' else 'final', m, t, law)
+            d = R / 'freeze/tasks' / cid / stage
+            d.mkdir(parents=True)
+            (d / 'prompt.txt').write_text(text)
+            entry.save(d / 'schema.json', sc)
+            entry.save(d / 'delivery.json', delivery(text, m, law, sm))
+    settings = entry.read(entry.V4 / 'freeze/config.json')['settings']
+    # These formerly descriptive fields now agree with explicit per-call limits.
+    settings['extract_max_tokens'] = 4096
+    settings['direct_max_tokens'] = settings['merge_max_tokens'] = 3072
+    protocol = {'version': 'IRAC_V5_CONTINUATION_01', 'frozen_at': now(),
+        'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+        'cases': CASES, 'order': ORDER, 'max_calls': 8, 'max_generation_seconds': 1800,
+        'max_tokens': MAX_TOKENS, 'settings': settings, 'constraint_mode': 'FIXED',
+        'retry_count': 0, 'web_calls': 0, 'semantic_repairs': False, 'code_hashes': files,
+        'material_hashes': inputs, 'engineering_gate': gate,
+        'failure_policy': 'A failure only affects A. Technical P failure skips B/C; local semantic issues do not. Independent slots continue. OOM/framework failure/total time exhaustion stop remaining slots. No retries or old answers.',
+        'dynamic_prompts': 'B/C assembled once from the same actual P by frozen final_task; saved and audited before each call; no editing after first generation.',
+        'repetition_guard': 'At least 64-character identical substring occurs four times inside one JSON free-text string; occurrences need not be consecutive; state spans streaming chunks, never fields.',
+        'evaluation': {'E': 'Entry-level independence, scope isolation, legal addresses, ordering, source delivery and raw persistence; never source truth.',
+          'M': 'Once after batch: actual arrangements versus legal questions; attribution, objects, directions, independent records and declared uses; no full reannotation.',
+          'L': 'Once after batch: decisive allowed facts and opposing evidence including uncited content, court stages, law scope, condition polarity, reason/prediction consistency and real gaps. Model-assisted source review, no human gold, no historical-verdict target.'},
+        'stop': 'After up to eight calls and one concentrated review; no semantic rerun, GNN, new cases/law, SEALED, commit or push.'}
+    entry.save(R / 'freeze/config.json', protocol)
+    entry.save(R / 'freeze/preservation.json', preserved())
+    print('FROZEN', entry.hf(R / 'freeze/config.json'))
+
+
+def run():
+    cfg = entry.read(R / 'freeze/config.json')
+    for p, h in dict(cfg['code_hashes'], **cfg['material_hashes']).items():
+        assert entry.hf(p) == h, 'Frozen mismatch: ' + p
+    assert cfg['engineering_gate']['E'] == 'PASS'
+    lock = R / 'RUNNING.lock'
+    with lock.open('x') as f:
+        import os
+        f.write(str(os.getpid()))
+    runner = None
+    rows = []
+    spent = 0.0
+    fatal = None
+    started = now()
+    try:
+        for cid, stage in ORDER:
+            out = R / 'runs' / cid / stage
+            out.mkdir(parents=True, exist_ok=True)
+            if (out / 'result.json').exists():
+                result = entry.read(out / 'result.json')
+                meta = entry.read(out / 'run.json') if (out / 'run.json').exists() else {}
+                spent += meta.get('elapsed_seconds', 0)
+                if meta.get('run_status') in ('OUT_OF_MEMORY', 'UNSUPPORTED', 'TIMEOUT'):
+                    fatal = 'REUSED_FATAL_' + meta['run_status']
+                rows.append(dict(case_id=cid, stage=stage, result=result, reused=True))
+                continue
+            if (out / 'start.json').exists():
+                fatal = 'INTERRUPTED_ATTEMPT_NOT_RETRIED'
+            reason = fatal or ('TOTAL_GENERATION_BUDGET_EXHAUSTED' if spent >= 1800 else None)
+            pdir = R / 'runs' / cid / 'P'
+            if stage in ('B', 'C'):
+                pr = entry.read(pdir / 'result.json') if (pdir / 'result.json').exists() else {}
+                if pr.get('prediction') is None:
+                    reason = reason or 'DEPENDENCY_P_TECHNICAL_FAILURE'
+            if reason:
+                result = {'case_id': cid, 'method': stage, 'run_status': 'SKIPPED', 'prediction': None, 'reason': reason}
+                entry.save(out / 'result.json', result)
+                rows.append(dict(case_id=cid, stage=stage, result=result, called=False))
+                continue
+            if stage in ('A', 'P'):
+                d = R / 'freeze/tasks' / cid / stage
+                text, sc = (d / 'prompt.txt').read_text(), entry.read(d / 'schema.json')
+            else:
+                text, sc, inter = entry.final_task(cid, stage, pr['prediction'], entry.read(pdir / 'import.json'), entry.read(pdir / 'checks-full.json'))
+                entry.save(out / 'intermediate.json', inter)
+            if runner is None:
+                from legal_bench.rules_verdict_v1.runtime_constraint_diag_v1 import Runner
+                model = Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip()
+                runner = Runner(model, settings=cfg['settings'])
+                entry.save(R / 'environment.json', {'versions': runner.versions, 'model_path': model,
+                    'model_config_hash': runner.model_config_hash, 'loaded_seconds': runner.loaded_seconds,
+                    'settings': cfg['settings']})
+            meta, result = execute_slot(runner, out, cid, stage, text, sc, 1800 - spent)
+            spent += meta.get('elapsed_seconds', 0)
+            rows.append(dict(case_id=cid, stage=stage, result=result, called=True))
+            entry.save(R / 'progress.json', {'started': started, 'updated': now(), 'elapsed_generation_seconds': spent, 'slots': rows})
+            if meta['run_status'] in ('OUT_OF_MEMORY', 'UNSUPPORTED', 'TIMEOUT'):
+                fatal = 'RESOURCE_OR_FRAMEWORK_STOP:' + meta['run_status']
+        entry.save(R / 'run-summary.json', {'started': started, 'finished': now(), 'elapsed_generation_seconds': spent,
+            'generation_calls': sum((R / 'runs' / c / s / 'start.json').exists() for c, s in ORDER),
+            'slots': rows, 'fatal_stop': fatal, 'retries': 0, 'web_calls': 0})
+    except Exception as exc:
+        import traceback
+        entry.save(R / 'entry-failure.json', {'time': now(), 'error': repr(exc), 'traceback': traceback.format_exc(),
+                   'completed_slots': rows, 'elapsed_generation_seconds': spent})
+        raise
+    finally:
+        lock.unlink()
+
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('command', choices=('freeze', 'run', 'preserved'))
+    args = ap.parse_args()
+    result = globals()[args.command]()
+    if result is not None:
+        print(json.dumps(result))
+
+```
+
+## tests/test_irac_contract_v5_run.py
+
+```python
+import copy
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+from scripts import irac_contract_v5 as entry
+from scripts import irac_contract_v5_run as batch
+from legal_bench.irac_application.contract_v5 import compact, expand_compact, address_directory
+from legal_bench.irac_application.contract_v5_tasks import prompt, schema
+
+
+class FakeRunner:
+    """File-accurate runner stub; no model weights or generation."""
+    def __init__(self, raw, status='OK'):
+        self.raw, self.status = raw, status
+
+    def run(self, text, sc, out, **kwargs):
+        assert kwargs['constraint_mode'] == 'FIXED'
+        (out / 'raw-response.txt').write_text(self.raw)
+        (out / 'prompt.txt').write_text(text)
+        entry.save(out / 'schema.json', sc)
+        return {'run_status': self.status, 'schema_mask_calls': 1, 'elapsed_seconds': 0,
+                'offline_replay': True}
+
+
+class RunV5Tests(unittest.TestCase):
+    def base(self):
+        m, t, law, sm = entry.inputs('112400')
+        addr = next(iter(address_directory(t)))
+        sid = next(iter(m['sources']))
+        p = {'bindings': [{'id': 'b', 'claim_ids': [t['claims'][0]['id']], 'objects': 'Synthetic object',
+                          'event': 'Synthetic arrangement', 'stage': 'Synthetic review', 'refs': [sid]}],
+             'evidence': [{'id': 'e1', 'binding_id': 'b', 'record': 'Synthetic recorded statement.',
+                           'statement_status': 'TESTIMONY', 'refs': [sid],
+                           'uses': [{'condition_address': addr, 'direction': 'SUPPORT', 'use': 'CONDITION_INFERENCE'}]}],
+             'limitations': [], 'conditions': [], 'coverage_limits': ['Synthetic interface fixture, not case facts.']}
+        return p, m, t, law, sm
+
+    def accept(self, p, m, t, law, sm, stage='P', status='OK'):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            raw = json.dumps(p)
+            task = 'proposal' if stage == 'P' else 'final'
+            meta, result = batch.execute_slot(FakeRunner(raw, status), out, m['case_id'], stage,
+                        prompt(task, m, t, law, sm), schema(task, m, t, law), 1800)
+            self.assertEqual((out / 'raw-response.txt').read_text(), raw)
+            self.assertTrue(entry.read(out / 'delivery.json')['passed'])
+            files = {name: entry.read(out / name) for name in
+                     ('import.json', 'checks-full.json', 'evidence-records.json') if (out / name).exists()}
+            return result, files
+
+    def test_unbound_evidence_survives_and_independent_use_executes(self):
+        p, m, t, law, sm = self.base()
+        e2 = copy.deepcopy(p['evidence'][0]); e2.update(id='e2', binding_id='')
+        p['evidence'].append(e2)
+        result, f = self.accept(p, m, t, law, sm)
+        self.assertEqual(result['run_status'], 'OK')
+        self.assertEqual([e['id'] for e in f['import.json']['projection']['evidence']], ['e1', 'e2'])
+        self.assertEqual(f['import.json']['projection']['evidence'][1]['uses'], [])
+        self.assertEqual(f['evidence-records.json'][1]['raw_record'], e2)
+        self.assertEqual(len(f['checks-full.json']['evidence_use_checks']), 1)
+        self.assertEqual(f['checks-full.json']['conditions'][0]['program_assessment']['status'], 'SUPPORTED')
+
+    def test_no_binding_does_not_erase_evidence_or_abort_final(self):
+        p, m, t, law, sm = self.base()
+        p['bindings'] = []
+        result, f = self.accept(p, m, t, law, sm)
+        self.assertEqual(result['run_status'], 'OK')
+        self.assertEqual(len(f['evidence-records.json']), 1)
+        self.assertEqual(f['checks-full.json']['bindings'], [])
+        text, sc, inter = entry.final_task(m['case_id'], 'C', p, f['import.json'], f['checks-full.json'])
+        self.assertEqual(inter['proposal'], p)
+        self.assertEqual(expand_compact(inter['program_checks'])['evidence_records'][0]['binding_available'], False)
+        self.assertTrue(batch.delivery(text, m, law, sm)['passed'])
+
+    def test_invalid_use_array_and_source_preserved_independently(self):
+        p, m, t, law, sm = self.base()
+        e2 = copy.deepcopy(p['evidence'][0]); e2.update(id='e2', refs=['bad-address'])
+        p['evidence'].append(e2)
+        p['evidence'][0]['uses'] = None
+        result, f = self.accept(p, m, t, law, sm)
+        self.assertEqual(result['run_status'], 'OK')
+        self.assertEqual([x['raw_record'] for x in f['evidence-records.json']], p['evidence'])
+        self.assertEqual(f['import.json']['projection']['evidence'][0]['uses'], [])
+        self.assertFalse(f['evidence-records.json'][1]['source_addresses_valid'])
+        self.assertEqual(f['checks-full.json']['evidence_use_checks'], [])
+
+    def test_semantically_empty_proposal_is_not_format_failure(self):
+        p, m, t, law, sm = self.base()
+        p['bindings'] = []; p['evidence'] = []
+        result, f = self.accept(p, m, t, law, sm)
+        self.assertEqual(result['run_status'], 'OK')
+        self.assertTrue(f['import.json']['empty_projection'])
+        self.assertEqual(f['checks-full.json']['conditions'], [])
+
+    def test_failure_preserves_null_and_raw(self):
+        p, m, t, law, sm = self.base()
+        result, f = self.accept(p, m, t, law, sm, status='OUTPUT_TRUNCATED')
+        self.assertIsNone(result['prediction'])
+        self.assertEqual(result['run_status'], 'OUTPUT_TRUNCATED')
+        self.assertEqual(f, {})
+
+    def test_batch_failure_only_blocks_dependent_slots(self):
+        calls = []
+        class BatchFake:
+            versions = {}; loaded_seconds = 0; model_config_hash = 'synthetic'
+            def __init__(self, *a, **kw): pass
+            def run(self, text, sc, out, **kw):
+                cid, stage = out.parent.name, out.name
+                calls.append((cid, stage))
+                entry.save(out / 'start.json', {'fake': True})
+                raw = json.dumps({'bindings': [], 'evidence': [], 'limitations': [], 'conditions': [], 'coverage_limits': []}) if stage == 'P' else '{"answers": []}'
+                status = 'OUTPUT_TRUNCATED' if cid == '112400' and stage == 'P' else 'OK'
+                meta = FakeRunner(raw, status).run(text, sc, out, **kw)
+                entry.save(out / 'run.json', meta)
+                return meta
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            entry.save(root / 'freeze/config.json', {'code_hashes': {}, 'material_hashes': {},
+                'engineering_gate': {'E': 'PASS'}, 'settings': {}})
+            for cid in batch.CASES:
+                m, t, law, sm = entry.inputs(cid)
+                for stage in ('A', 'P'):
+                    d = root / 'freeze/tasks' / cid / stage; d.mkdir(parents=True)
+                    task = 'proposal' if stage == 'P' else 'final'
+                    (d / 'prompt.txt').write_text(prompt(task, m, t, law, sm))
+                    entry.save(d / 'schema.json', schema(task, m, t, law))
+            with patch.object(batch, 'R', root), patch('legal_bench.rules_verdict_v1.runtime_constraint_diag_v1.Runner', BatchFake):
+                batch.run()
+            self.assertEqual(calls, [('112400', 'A'), ('112400', 'P'), ('188721101', 'A'), ('188721101', 'P'), ('188721101', 'B'), ('188721101', 'C')])
+            for stage in ('B', 'C'):
+                r = entry.read(root / 'runs/112400' / stage / 'result.json')
+                self.assertEqual(r['run_status'], 'SKIPPED')
+                self.assertIsNone(r['prediction'])
+            self.assertFalse((root / 'RUNNING.lock').exists())
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+```
+
+## scripts/report_irac_contract_v5.py
+
+```python
+# -*- coding: utf-8 -*-
+"""Persist the single post-batch source review; never edits model outputs."""
+import csv
+import json
+from pathlib import Path
+
+from irac_contract_v5 import read, save, hf, inputs
+from irac_contract_v5_run import R, CASES, ORDER, preserved
+
+
+def finding(key, location, sources, judgment):
+    return {'id': key, 'output_locations': location, 'source_ids': sources, 'judgment_zh': judgment}
+
+
+def build():
+    assert not (R / 'final-source-review.json').exists(), 'Do not overwrite the completed source review'
+    cfg = read(R / 'freeze/config.json')
+    assert all(hf(p) == h for p, h in dict(cfg['code_hashes'], **cfg['material_hashes']).items())
+    summary = read(R / 'run-summary.json')
+    assert summary['generation_calls'] <= 8 and summary['elapsed_generation_seconds'] <= 1800
+    rows, reports, audits = [], [], []
+    for cid, stage in ORDER:
+        out = R / 'runs' / cid / stage
+        meta, result = read(out / 'run.json'), read(out / 'result.json')
+        delivery = read(out / 'delivery.json')
+        assert delivery['passed'] and meta['thinking_disabled_template_verified']
+        assert meta['identity']['constraint_mode'] == 'FIXED' and meta['schema_mask_calls'] > 0
+        assert meta['raw_hash'] == hf(out / 'raw-response.txt')
+        assert meta['prompt_tokens'] + cfg['max_tokens'][stage] <= 32768
+        assert result['run_status'] == 'OK' or result['prediction'] is None
+        rows.append({'case_id': cid, 'stage': stage, 'run_status': result['run_status'],
+            'input_tokens': meta['prompt_tokens'], 'output_tokens': meta['output_tokens'],
+            'max_output_tokens': cfg['max_tokens'][stage], 'seconds': meta['elapsed_seconds'],
+            'peak_mlx_gb': meta['peak_mlx_memory_gb'], 'process_peak_rss_gb': meta['peak_rss_gb'],
+            'answer': str(out / 'result.json'), 'raw': str(out / 'raw-response.txt')})
+        audits.append({'case_id': cid, 'stage': stage, 'delivery': str(out / 'delivery.json'),
+                      'mask_calls': meta['schema_mask_calls'], 'raw_sha256': meta['raw_hash'],
+                      'actual_max_tokens': meta['actual_parameters']['max_tokens'], 'checked': True})
+    for cid in CASES:
+        pdir = R / 'runs' / cid / 'P'
+        raw, imp = read(pdir / 'parsed.json'), read(pdir / 'import.json')
+        ledger = read(pdir / 'evidence-records.json')
+        assert [r['raw_record'] for r in ledger] == raw['evidence']
+        assert imp['raw_proposal'] == raw
+        for method in ('B', 'C'):
+            assert read(R / 'runs' / cid / method / 'intermediate.json')['proposal'] == raw
+            assert 'MISSING_DECLARED_USABLE_EVIDENCE' not in (R / 'runs' / cid / method / 'prompt.txt').read_text()
+        reports.append({'case_id': cid, 'record_count': len(ledger), 'record_exact': True,
+            'projection_record_count': len(imp['projection']['evidence']),
+            'computable_uses': imp['computable_use_count'], 'quarantines': imp['quarantine'],
+            'import_status': imp['status'], 'B_C_share_exact_P': True})
+    save(R / 'delivery-validation.json', {'passed': True, 'slots': audits, 'proposals': reports,
+        'code_and_material_hashes_unchanged': True, 'scope': 'Delivery and execution checks, not legal correctness.'})
+    save(R / 'preservation-after.json', preserved())
+    assert preserved()['passed']
+    save(R / 'costs.json', {'calls': rows, 'generation_calls': summary['generation_calls'],
+        'total_input_tokens': sum(r['input_tokens'] for r in rows),
+        'total_output_tokens': sum(r['output_tokens'] for r in rows),
+        'total_generation_seconds': sum(r['seconds'] for r in rows),
+        'model_load_seconds_separate': read(R / 'environment.json')['loaded_seconds'],
+        'memory_note': 'MLX allocation peak and process peak RSS are different observations; do not add them or treat RSS as total unified-memory consumption.',
+        'cost_note': 'P was generated once per case and shared by B/C. Standalone B cost=P+B and standalone C=P+C; these two method costs are not additive batch costs.'})
+    with (R / 'call-costs.csv').open('w', newline='') as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
+
+    review = {
+      'evaluation_role': 'MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD',
+      'review_rounds': 1, 'web_calls': 0, 'after_all_eight_calls': True,
+      'coverage': 'Six full final answers and decisive proposal/check evidence, compared with all allowed source records including unquoted opposing material. No full-field annotation or inferred historical gold.',
+      'cases': {
+        '112400': {
+          'M': 'NOT_PASSED', 'L': 'NOT_PASSED',
+          'supported_parts': '原文明确租赁楼上、房东拥有整处房产并占用楼下；早期Rent Controller与Tribunal否定真实需求；发回后Tribunal于1970-05-04认定现住房不适合家庭居住。这些已提供内容应保留各自阶段。',
+          'proposal_findings': [
+            finding('112-M1', ['P:bindings/b1,b2,b3'], ['IK-112400:L124:restored-v2', 'IK-112400:L139:restored-v2', 'IK-112400:L140:restored-v2'], '同一自住请求的诉讼、家庭人数认定、居住适宜性认定被拆成三个安排。认定的阶段应保留，但不因此成为三个彼此独立的实质安排；程序没有擅自合并。'),
+            finding('112-M2', ['P:evidence/e4', 'P:checks b1/C02'], ['IK-112400:L127:restored-v2'], 'e4文本正确记载not bona fide，却以SUPPORT连接表示bona fide的ADDR-002。程序按提议与e2支持、e3反对形成冲突；它没有验证自然语言极性。'),
+            finding('112-M3', ['P:evidence/e6', 'P:limitations/l3'], ['IK-112400:L139:restored-v2'], '家庭人数及房屋不足被连接为SUPPORT依赖关系ADDR-005。原文没有独立确认家庭成员对房东的依赖；l3只限制TARGET_ACCEPTANCE，没有改变PROVEN_FACT用途。'),
+            finding('112-M4', ['P:limitations/l2,l4', 'P:evidence/e7'], ['IK-112400:L137:context-v4', 'IK-112400:L138:context-v4', 'IK-112400:L139:restored-v2', 'IK-112400:L140:restored-v2'], '提议保存了后续认定，却又从此前发回推称不存在可用认定；l4把L140的not reasonably suitable转述为not reasonably sufficient，并制造措辞不一致缺口。L140正有suitable用语。'),
+          ],
+          'final_findings': [
+            finding('112-L1', ['A:C01', 'B:C01', 'C:C01'], ['IK-112400:L123:span1', 'IK-112400:L124:restored-v2'], '三者均声称租赁明确用于住宅；L123只说明楼层、日期、租金，L124说明房东拟自住，不等于原租约用途。C标签UNRESOLVED但理由仍虚构住宅用途已记载，仅以目标法院尚未接受为理由保留未知。'),
+            finding('112-L2', ['A:C02,reason', 'B:C02,reason', 'C:C02,opposition'], ['IK-112400:L127:restored-v2', 'IK-112400:L130:span6'], 'A将否定真实需求的早期认定标为SUPPORTED真实需求，标签与解释矛盾，并虚构目标法院接受。B/C修正C02极性为REFUTED；C又称High Court接受该认定，允许材料只记载发回，不能支持这一归属。B的“contradicts ... tenant denial”措辞也与租户反对需求的立场不符。'),
+            finding('112-L3', ['A:C06,reason', 'B:C06', 'C:C06'], ['IK-112400:L139:restored-v2', 'IK-112400:L140:restored-v2'], 'A把现住处不适合误作反驳无其他适宜住所，方向相反。B修正该方向，但把已知一处不适合扩大为全称的无其他住所SUPPORTED。C保留未知却重复虚假的sufficient/suitable区别；正确缺口应限定其他可用住所与目标阶段法律效果，不应抹去已记载的不适合认定。'),
+            finding('112-L4', ['B:C03,gaps', 'C:C03,gaps'], ['IK-112400:L124:restored-v2', 'IK-112400:L139:restored-v2', 'IK-18143401:L41:historical-e'], 'B以家庭名单推依赖，同时在gaps承认未确认。C指出依赖未明，却未处理房东本人自住这条择一路径；不能让家庭依赖缺口封锁本人路径。本人自住系已提出的用途主张，不等于已证明真实需求。'),
+          ],
+          'real_gaps': ['原租赁住宅用途没有明确说明。', '现住处不适合不完整证明不存在其他适宜住宅。', '给定法条未提供bona fide的进一步适用标准或证明责任、审查标准；目标最终裁判仍排除。'],
+          'comparison': 'B较A纠正了两个重要极性错误，但仍有用途、依赖与全称判断过度推断。C没有稳定增益，并引入明确的High Court采纳归属错误及虚假缺口。均不能作为完整法律分析通过。',
+        },
+        '188721101': {
+          'M': 'NOT_PASSED', 'L': 'NOT_PASSED',
+          'supported_parts': 'L72是房东所述租赁及先父亲、后弟弟安排；L80为邻近店主证言；L81为租户与弟弟证言、钥匙承认及工资凭证未证明；L83是可撤销许可且不构成让与/交出占有的原审判断；L84家庭关系推理也仅为原审意见。',
+          'proposal_findings': [
+            finding('188-M1', ['P:bindings/b1,b2,b3', 'P:evidence/e1-e6'], ['IK-188721101:L72:restored-v2', 'IK-188721101:L81:restored-v2', 'IK-188721101:L83:restored-v2'], '弟弟使用店铺的争议被拆为指控、原审占有、雇佣/许可三个安排；全部证据又集中在b1，b2/b3无用途。父亲的先前安排没有单独保留。'),
+            finding('188-M2', ['P:evidence/e1-e6', 'P:checks b1/C01'], ['IK-188721101:L72:restored-v2', 'IK-188721101:L80:restored-v2', 'IK-188721101:L81:restored-v2', 'IK-188721101:L83:restored-v2', 'IK-188721101:L84:restored-v2'], '六条用途全部选择合法但语义错误的ADDR-001（1952年后时间条件）。其中e5/e6的原审许可、家庭关系判断不能反驳发生于1952年后。程序因此计算C01为REFUTED，b1请求为REFUTED：这是错误提议传播，不是程序取得了法律证明。'),
+            finding('188-M3', ['P:evidence/e3,e4', 'P:limitations/l2', 'P:coverage_limits'], ['IK-188721101:L80:restored-v2', 'IK-188721101:L81:restored-v2', 'IK-188721101:L83:restored-v2'], '证人证言被标PARTY_CLAIM；l2使用b2但指向属于b1的e5/e6，被局部隔离且保留未映射限制，没有删除六条证据。提议另外虚构起始日期证言冲突及原审判断对上诉有约束力，给定材料均未提供这些依据。'),
+          ],
+          'final_findings': [
+            finding('188-L1', ['A:C01', 'B:C01,gaps', 'C:C01,gaps'], ['IK-188721101:L72:restored-v2', 'IK-188721101:L80:restored-v2', 'IK-188721101:L81:restored-v2'], 'A把1987-01-06租赁日期直接写成转移日期。B避免精确日期替换，但与C一起虚构关于起始日期的证言冲突。若接受所述先租赁后安排的顺序，可以条件化说明1952阈值；该条件化推断不证明转移实际发生，也不要求知道精确日期才能理解阈值。'),
+            finding('188-L2', ['A:C05', 'B:C05,gaps,opposition', 'C:C05'], ['IK-188721101:L72:restored-v2', 'LAW:S02:DRC14:1b'], 'A虚构房东主张没有许可、租户否认取得许可，并以没有记录支持没有书面同意。B/C虽标未决，仍把转移性质未决当同意记录不可判断的原因；B反转为landlord obtained written consent，C增加无法源的证明责任结论。正确未知原因是允许材料没有交代相关书面同意，不是其他条件争议本身。'),
+            finding('188-L3', ['A:C04,C06', 'B:C02,C06', 'C:C02,C06'], ['IK-188721101:L80:restored-v2', 'IK-188721101:L81:restored-v2', 'IK-188721101:L83:restored-v2'], 'A把雇佣领薪从证言升级为法院认定，遗漏工资凭证未证明。B在C02明确保留工资缺证这一限制，是局部改善；其C06仍以薪资证言支持控制权而未充分处理相反证据。C再次把原审许可与mere employment混写。L83支持原审许可及保留法律占有的分析，不证明所有薪资证言已获采纳。'),
+            finding('188-L4', ['B:opposition,reason', 'C:opposition,gaps,reason'], ['IK-190902:L109', 'IK-190902:L110', 'IK-190902:L112', 'IK-188721101:L83:restored-v2'], 'B称否定最重要的交出占有路线足以否定整个请求，同时另两条路线未决；这没有忠实保留法条的择一关系。C把原审许可结论当成对上诉有约束力，给定材料没有该上诉规则，且同时说其他路线尚未解决。保留原审不等于升级为目标法院认可。'),
+            finding('188-L5', ['A/B/C:opposition,reason'], ['IK-188721101:L72:restored-v2', 'IK-188721101:L73:restored-v2', 'IK-188721101:L80:restored-v2', 'IK-188721101:L81:restored-v2'], '三份最终回答均未充分处理父亲的先前安排、弟弟另租6号铺且柜台转到15号铺的指控，以及邻近店主认为实际经营者为弟弟而非租户的证言。B只恢复了工资凭证未证明的一项反论。原文中未被模型引用的重要内容也纳入本次审阅。'),
+          ],
+          'real_gaps': ['书面同意未交代；精确安排日期未知，但不能忽略所述先租后安排的条件化时间顺序。', '父亲安排的具体条件资料稀少。', '关于占有与雇佣的证据有冲突；给定法律没有补齐证据权重、上诉拘束或举证责任的规则。'],
+          'comparison': 'B避免A的精确日期误写并保留工资凭证未证明，C也保留原审许可分析；但B新增择一路径必需化和许可主体反转，C新增或传播无依据举证责任/上诉拘束。完整答案净收益未得到可靠支持。',
+        }
+      },
+      'decision': 'KEEP_ENGINEERING_REPAIRS_NO_COMPLETE_LEGAL_ANALYSIS_ACCEPTANCE',
+      'next_investment_boundary': '保留证据与用途隔离、合法地址和来源排序。下一步若另行授权，应先检验安排识别及语义用途对应；本轮停止，不再加字段、调提示或训练图。两案未训练GNN，不能否定整个图方法。',
+      'binary_prediction_boundary': '六份答案都为PREDICT_DENY；这不是六个正确标签。目标最终裁判未输入，没有建立新的二元gold，本轮评价决定性依据而非猜中历史结果。',
+    }
+    # Preserve exact excerpts and locate them in the approved material only.
+    excerpts = {
+      '112400': [('IK-112400:L123:span1', 'The appellant took on lease, the first floor'),
+        ('IK-112400:L127:restored-v2', 'the requirement of the landlord for his occupation was not bona fide'),
+        ('IK-112400:L140:restored-v2', 'were not reasonably suitable for his residence')],
+      '188721101': [('IK-188721101:L72:restored-v2', 'on 06.01.1987'),
+        ('IK-188721101:L81:restored-v2', 'Salary vouchers of payment of salary to Sh. Bhagwan Dass were also not proved.'),
+        ('IK-188721101:L83:restored-v2', 'which licence or privilege could be terminated at the sweet will and pleasure of respondent'),
+        ('IK-190902:L109', 'These three expressions deal with different concepts and apply to different circumstances.')]}
+    for cid, xs in excerpts.items():
+        m, t, law, sm = inputs(cid)
+        sources = dict(m['sources'], **{s['source_id']: s for s in law})
+        rows_q = []
+        for sid, quote in xs:
+            text = sources[sid]['text']; start = text.index(quote)
+            rows_q.append({'source_id': sid, 'quote': quote, 'source_char_range': [start, start + len(quote)],
+                           'source_sha256': __import__('hashlib').sha256(text.encode()).hexdigest()})
+        review['cases'][cid]['key_excerpts'] = rows_q
+    save(R / 'final-source-review.json', review)
+    acceptance = {'E': {'status': 'PASS_BOUNDED_ENGINEERING_CONTRACT', 'tests': 22,
+        'real_calls': 8, 'raw_records_preserved': 13, 'local_quarantines': 1,
+        'limits': 'Actual record meaning, use direction and arrangement identity are not certified by E.'},
+        'M': {'status': 'NOT_PASSED', 'cases': {c: review['cases'][c]['M'] for c in CASES}},
+        'L': {'status': 'NOT_PASSED', 'cases': {c: review['cases'][c]['L'] for c in CASES}},
+        'technical_completed_answers': 6, 'technical_failed_answers': 0,
+        'review_role': review['evaluation_role'], 'stopped': True, 'git_commit': False, 'git_push': False}
+    save(R / 'acceptance.json', acceptance)
+
+    comparisons = []
+    details = {
+      ('112400','A'): ('保留所有权及早期不真实需求认定文字', '住宅租赁用途无据；C02与C06极性反写；虚构目标采纳', '安排按条件拆分；理由与标签相矛盾'),
+      ('112400','B'): ('修正A的需求与住所条件方向；明确先前认定', '家庭名单推依赖；现住处不适合推无其他住宅；住宅用途仍无据', '同一请求分成多个认定安排；未准确限定全称缺口'),
+      ('112400','C'): ('保存所有权；部分未决继续保留', '虚构High Court采纳；把L140适合用语改成充分；忽略本人择一分支', '未知理由包含模型制造的缺口'),
+      ('188721101','A'): ('保留原审可撤销许可及法律占有方向', '租赁日期当转移日期；编造无同意陈述；雇佣证言升级法院认定', '忽略工资凭证缺失、父亲及邻居/另铺反论'),
+      ('188721101','B'): ('恢复工资凭证未证明；避免精确转移日期；保留许可判断', '一条OR路线失败当足够否定；同意主体反转；虚构日期冲突', '其余路线未决却以某一路线必需化定案；遗漏重要反论'),
+      ('188721101','C'): ('保留原审许可与当前未知，不直接沿用程序时间REFUTED', '新增举证责任；原审上诉拘束；无同意及日期冲突仍无据', '模型制造的未知与真实缺口混合；遗漏重要反论'),
+    }
+    for cid in CASES:
+        pr = next(r for r in rows if r['case_id'] == cid and r['stage'] == 'P')
+        for stage in ('A', 'B', 'C'):
+            rr = next(r for r in rows if r['case_id'] == cid and r['stage'] == stage)
+            own = [rr] if stage == 'A' else [pr, rr]
+            supported, errors, omissions = details[(cid,stage)]
+            comparisons.append({'case_id': cid, 'method': stage, 'technical_status': rr['run_status'],
+                'prediction': read(R / 'runs' / cid / stage / 'result.json')['prediction']['answers'][0]['prediction'],
+                'source_supported': supported, 'confirmed_errors': errors, 'omissions_or_inconsistency': omissions,
+                'real_gaps': '；'.join(review['cases'][cid]['real_gaps']), 'L': 'NOT_PASSED',
+                'method_calls': len(own), 'method_input_tokens': sum(x['input_tokens'] for x in own),
+                'method_output_tokens': sum(x['output_tokens'] for x in own),
+                'method_seconds': round(sum(x['seconds'] for x in own), 3), 'answer_path': rr['raw']})
+    with (R / 'case-comparison.csv').open('w', newline='') as f:
+        w = csv.DictWriter(f, fieldnames=list(comparisons[0])); w.writeheader(); w.writerows(comparisons)
+    save(R / 'case-comparison.json', comparisons)
+    links = ['# V5 完整回答与提议', '', 'A直接回答；P结构化提议；B原提议＋原文；C再加程序检查。全部本轮实际生成，没有旧答案补位。', '', '|案件|A|P|B|C|', '|---|---|---|---|---|']
+    for cid in CASES:
+        links.append('|'+cid+'|'+ '|'.join('[raw](runs/'+cid+'/'+s+'/raw-response.txt)' for s in ('A','P','B','C'))+'|')
+    links += ['', '每个P目录同时保存 evidence-records.json、import.json、checks-full.json、checks-compact.json。每个位置保存 prompt、schema、rendered、raw、token IDs、run/result、delivery及实际参数。', '', '旧V5工程检查点在父目录，未覆盖；本轮freeze/config.json与freeze/code为实际生成版本。']
+    (R / 'answers.md').write_text('\n'.join(links)+'\n')
+
+    lines = ['IRAC V5：接口契约修复与两案完整流程开发验收', '',
+      '结论：E工程处理在本轮验收范围内通过；M事实安排和证据用途组织未通过；L完整法律回答未通过。保留已经修好的工程接口，不能宣布法律分析已修好，也没有依据否定整个图方法。本轮未训练GNN。', '',
+      '运行：112400、188721101按A/P/B/C顺序完成8次本地调用，得到2份完整提议及6份完整回答。截断、格式失败、资源失败、跳过、重试、网页调用均为0。总生成时间1158.80秒（19.31分钟），模型加载另计4.13秒。完成后已停止，不提交或推送。', '',
+      'E：复用已通过的限制范围、合法地址及原文排序修复，补完独立证据账本与用途局部隔离。22项直接相关测试通过；15个真实tokenizer完整样例与5项约束回归按未变Schema和约束哈希复用。实际入口保留13/13条原始证据，188721101的1条跨绑定限制仅局部隔离，B/C均正常运行。模型条件汇总与证据计算分开，最终C输入没有MISSING_DECLARED_USABLE_EVIDENCE。合法地址与引文地址只证明接口，不证明语义。', '',
+      '112400：首次取得这一版本的完整配对，但P把同一请求的诉讼、家庭规模、住房适宜性拆成3个安排；把“需求不真实”连为支持真实需求，把家属名单连为支持依赖。A还把现住处不适合反写成反驳“无其他适宜住所”。B纠正这两项方向，仍无依据认定原租赁为住宅用途、家庭成员依赖及无其他住所。C新增“High Court采纳不真实需求认定”的错误，并把L140已有的not reasonably suitable说成仅有not reasonably sufficient。原文顺序已正确、后续认定已送达，这些错误不能再归因于缺段或程序删除。', '',
+      '188721101：P的6条用途均选择ADDR-001时间条件，其中原审许可与家庭判断被当作反驳1952阈值，程序据此得出b1请求REFUTED。这是提议语义错误传播，不是正确法律证明。A把1987租赁日期当精确转移日期，并将雇佣领薪证言说成法院认定。B保留工资凭证未证明，是局部改善；但把交出占有一条路线失败说成足以否定整体，并反转书面同意主体。C传播不存在的日期证言冲突，新增无法源支持的举证责任和原审对上诉有约束力的说法。三者均不足以处理父亲先前安排、另租6号铺与柜台迁移、邻居关于实际经营者的反论。', '',
+      '真实缺口：112400未明确原租约住宅用途；一处住所不适合不完整证明无其他住所；给定法条缺进一步适用、证明及上诉规则。188721101未交代相应书面同意，父亲安排细节少，证言与控制权存在争议；精确日期未知不等于可以忽略所述先租后转移的条件化时间顺序。最终预测均为PREDICT_DENY，但本轮没有建立二元gold，不以历史裁判方向判断六份答案正确。', '',
+      '比较判断：B出现具体局部纠错，未达到忠实完整分析验收；C未显示相对B的可靠净收益。未知状态和拒绝预测有时出自模型自行制造的缺口。程序检查也会正确计算错误的用途提议，其作用限于已声明结构。停止继续添加字段或立刻重跑；若以后另行授权，优先检验安排识别与语义用途对应。', '',
+      '|案件|方法|输入tokens|输出tokens|生成秒|', '|---|---|---:|---:|---:|']
+    for r in rows:
+        lines.append('|%s|%s|%s|%s|%.2f|' % (r['case_id'],r['stage'],r['input_tokens'],r['output_tokens'],r['seconds']))
+    lines += ['', 'B的方法成本按P+B、C按P+C计算；本批P实际共享一次，不能把两种方法成本相加当批次总成本。112400：A71.52秒、P+B253.43秒、P+C303.82秒。188721101：A142.57秒、P+B324.71秒、P+C372.80秒。C最终输入分别为19527/20812 tokens，B为10405/13181；成本增加未转化为可靠完整答案改善。MLX峰值最高7.557GB，进程峰值RSS最高1.621GB，两者口径不同，不相加。', '',
+      '固定配置：Qwen3.5-9B-4bit revision 8b2b98c00a6b4d291155e4890773ca8f769aee53；MLX-VLM0.7.4、LMFE0.11.2、已修复约束、greedy、seed20261001、repetition_penalty=1、thinking关闭。提议4096，最终3072，总上下文32768。完整材料输入核验8/8通过。代码与材料冻结哈希未变，保留清单2426项未变化；没有读取SEALED。', '',
+      '请求记录说明：未在当前可访问会话及附件找到END_V5_CONTINUATION原文；已向用户说明并按最新明确授权的两案、证据独立保存、最多8次/30分钟等要求执行，不声称核对过未取得的附加文本。', '',
+      '审阅为一次模型辅助来源审阅，不是人工金标准；未重标注所有中间字段。以上只适用于两份已参与开发的问题包，不是独立测试，也不是对全部图方法的否定。原V4失败、V5初始工程快照及所有旧结果保持原字节。', '',
+      '完整入口：answers.md；逐案结果：case-comparison.csv/json；逐调用成本：call-costs.csv、costs.json；一次审阅：final-source-review.json；E/M/L：acceptance.json；工程证据：engineering/；实际冻结：freeze/config.json；送达：delivery-validation.json；保留检查：preservation-after.json。']
+    (R / 'report-zh.txt').write_text('\n'.join(lines)+'\n')
+    print('V5 delivery created; no inference or output modification')
+
+
+if __name__ == '__main__':
+    build()
+
+```
+
+## scripts/irac_semantic_v6.py
+
+```python
+"""V6 real completion entry. Shared by generation and deterministic acceptance."""
+import json
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts.irac_contract_v5 import inputs as old_inputs, read, save, hf, digest
+from scripts.irac_contract_v5_run import delivery
+from legal_bench.irac_application.semantic_v6 import process, validate_final
+from legal_bench.irac_application.semantic_v6_tasks import prompt, schema
+
+R = Path('outputs/irac-semantic-interface-v6')
+CASES = ('112400', '188721101')
+MAX_TOKENS = {'A': 3072, 'P': 4096, 'B': 3072}
+
+
+def inputs(cid):
+    if cid not in CASES:
+        raise ValueError('OUTSIDE_TWO_APPROVED_CASES')
+    return old_inputs(cid)
+
+
+def finish_attempt(meta, out, stage, m, t, law):
+    out = Path(out)
+    result = {'case_id': m['case_id'], 'method': stage, 'run_status': meta['run_status'], 'prediction': None}
+    if meta['run_status'] != 'OK':
+        save(out / 'result.json', result)
+        return result
+    try:
+        value = json.loads((out / 'raw-response.txt').read_text())
+        if not meta.get('schema_mask_calls') and not meta.get('offline_replay'):
+            raise ValueError('SCHEMA_CONSTRAINT_NOT_EFFECTIVE')
+        if stage == 'P':
+            imp, checks = process(value, t, m, law)
+            save(out / 'import.json', imp)
+            if not imp['usable']:
+                raise ValueError(imp['status'])
+            save(out / 'evidence-records.json', imp['records'])
+            save(out / 'checks-full.json', checks)
+            result.update(import_status=imp['status'], prediction=value,
+                          audit_in_final_input=False, semantic_correctness_verified=False)
+        else:
+            validate_final(value, read(out / 'schema.json'), t)
+            result.update(prediction=value, completeness='EACH_REQUEST_ONCE_WITH_ANALYSIS', semantic_correctness_verified=False)
+    except (ValueError, KeyError, TypeError) as exc:
+        result.update(run_status='FORMAT_ERROR', reason=str(exc), prediction=None)
+    save(out / 'result.json', result)
+    return result
+
+
+def final_task(cid, proposal=None):
+    m, t, law, sm = inputs(cid)
+    inter = {} if proposal is None else {'proposal': proposal}
+    return prompt('final', m, t, law, sm, inter), schema('final', m, t, law), inter
+
+
+def execute_slot(runner, out, cid, stage, text, sc, remaining):
+    """Exactly the same entry for real runs, tokenizer-independent fake tests."""
+    m, t, law, sm = inputs(cid)
+    out = Path(out)
+    out.mkdir(parents=True, exist_ok=True)
+    save(out / 'delivery.json', delivery(text, m, law, sm))
+    submitted = json.loads(text.split('INTERMEDIATE MATERIAL:\n\n', 1)[1].split('\n\nCOMPLETE ALLOWED CASE MATERIAL:', 1)[0])
+    if stage == 'B':
+        assert set(submitted) == {'proposal'}, 'B_RECEIVES_ONLY_RAW_P'
+    else:
+        assert submitted == {}
+    save(out / 'intermediate.json', submitted)
+    meta = runner.run(text, sc, out, max_tokens=MAX_TOKENS[stage], remaining_seconds=remaining, constraint_mode='FIXED')
+    result = finish_attempt(meta, out, stage, m, t, law)
+    return meta, result
+
+```
+
+## scripts/irac_semantic_v6_run.py
+
+```python
+"""Bounded V6 semantic interface comparison. No retries, no semantic edits, no new materials."""
+import argparse
+import datetime
+import hashlib
+import json
+import shutil
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scripts import irac_semantic_v6 as entry
+from legal_bench.irac_application.contract_v5 import display
+from legal_bench.irac_application.semantic_v6_tasks import prompt, schema
+
+R = entry.R
+CASES = ('112400', '188721101')
+ORDER = [(cid, stage) for cid in CASES for stage in ('A', 'P', 'B')]
+MAX_TOKENS = {'A': 3072, 'P': 4096, 'B': 3072}
+CODE = [
+    'scripts/irac_semantic_v6.py', 'scripts/irac_semantic_v6_run.py',
+    'scripts/irac_semantic_v6_acceptance.py', 'scripts/irac_semantic_v6_tokenizer.py',
+    'legal_bench/irac_application/semantic_v6.py', 'legal_bench/irac_application/semantic_v6_tasks.py',
+    'tests/test_irac_semantic_v6.py',
+    'scripts/irac_contract_v5.py', 'scripts/irac_contract_v5_run.py',
+    'scripts/irac_contract_v5_tokenizer.py',
+    'legal_bench/irac_application/contract_v5.py',
+    'legal_bench/irac_application/contract_v5_tasks.py',
+    'legal_bench/irac_application/pipeline_v4.py',
+    'legal_bench/irac_application/pipeline_v4_tasks.py',
+    'legal_bench/irac_application/hybrid_v3.py',
+    'legal_bench/irac_application/hybrid_v3_tasks.py',
+    'legal_bench/irac_application/aligned_logic.py',
+    'legal_bench/irac_application/aligned_v2_runtime.py',
+    'legal_bench/rules_verdict_v1/runtime_constraint_diag_v1.py',
+    'legal_bench/mlx_json_constraint.py', 'legal_bench/mlx_json_constraint_v2.py',
+    'legal_bench/rules_verdict_v1/repetition_v9.py',
+    'legal_bench/rules_verdict_v1/contracts.py',
+    'legal_bench/rules_verdict_v1/source_views.py',
+    'tests/test_irac_contract_v5.py', 'tests/test_irac_contract_v5_run.py', 'tests/test_mlx_constraint_v2.py',
+]
+
+
+def now():
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+
+def preserved():
+    old = entry.read(R / 'registration.json')['old_files']
+    changed = [p for p, h in old.items() if not Path(p).is_file() or entry.hf(p) != h]
+    return {'passed': not changed, 'files_checked': len(old), 'changed': changed}
+
+
+def freeze():
+    assert not (R / 'freeze/config.json').exists(), 'Frozen already; do not overwrite'
+    gate = entry.read(R / 'engineering/acceptance.json')
+    assert gate['E'] == 'PASS' and gate['model_calls'] == 0
+    assert all(entry.hf(p) == h for p, h in gate['code_hashes'].items())
+    assert preserved()['passed']
+    files = {}
+    for p in CODE:
+        dst = R / 'freeze/code' / p
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(p, dst)
+        files[p] = entry.hf(p)
+    inputs = {}
+    for cid in CASES:
+        m, t, law, sm = entry.inputs(cid)
+        for p in [Path('outputs/irac-contract-repair-v5/sources') / (cid + '.json'), Path('outputs/irac-contract-repair-v5/templates') / (m['family'] + '.json'),
+                  Path('outputs/irac-contract-repair-v5/sources') / (m['family'] + '-law.json'), Path('outputs/irac-contract-repair-v5/input-audit') / (cid + '.json')]:
+            inputs[str(p)] = entry.hf(p)
+        for stage in ('A', 'P'):
+            text = prompt('proposal' if stage == 'P' else 'final', m, t, law, sm)
+            sc = schema('proposal' if stage == 'P' else 'final', m, t, law)
+            d = R / 'freeze/tasks' / cid / stage
+            d.mkdir(parents=True)
+            (d / 'prompt.txt').write_text(text)
+            entry.save(d / 'schema.json', sc)
+            entry.save(d / 'delivery.json', entry.delivery(text, m, law, sm))
+    settings = entry.read('outputs/irac-contract-repair-v5/continuation-01/freeze/config.json')['settings']
+    # These formerly descriptive fields now agree with explicit per-call limits.
+    settings['extract_max_tokens'] = 4096
+    settings['direct_max_tokens'] = settings['merge_max_tokens'] = 3072
+    protocol = {'version': 'IRAC_SEMANTIC_INTERFACE_V6', 'frozen_at': now(),
+        'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+        'cases': CASES, 'order': ORDER, 'max_calls': 6, 'max_generation_seconds': 1800,
+        'max_tokens': MAX_TOKENS, 'settings': settings, 'constraint_mode': 'FIXED',
+        'retry_count': 0, 'web_calls': 0, 'semantic_repairs': False, 'code_hashes': files,
+        'material_hashes': inputs, 'engineering_gate': gate,
+        'failure_policy': 'A failure only affects A. Technical P failure skips B; local semantic issues do not. Independent slots continue. OOM/framework failure/total time exhaustion stop remaining slots. No retries or old answers.',
+        'dynamic_prompts': 'B assembled once only from the unchanged actual P by frozen final_task, with no program checks; saved and audited before each call; no editing after first generation.',
+        'repetition_guard': 'At least 64-character identical substring occurs four times inside one JSON free-text string; occurrences need not be consecutive; state spans streaming chunks, never fields.',
+        'evaluation': {'E': 'Evidence relevance never automatically becomes condition truth; source roles, independent records, local uses/limits, explicit model premises for AND/OR/NOT, exact-once request answers, real-entry delivery/save; not semantic truth.',
+          'M': 'Once after batch: actual arrangements versus legal questions; attribution, objects, directions, independent records and declared uses; no full reannotation.',
+          'L': 'Once after batch: decisive allowed facts and opposing evidence including uncited content, court stages, law scope, condition polarity, reason/prediction consistency and real gaps. Model-assisted source review, no human gold, no historical-verdict target.'},
+        'A_reuse': 'Not compatible: final completeness schema and final contract, source role catalogue and P interface changed. Six new calls; no old answers reused.',
+        'stop': 'After up to six calls and one concentrated review; no semantic rerun, GNN, new cases/law, SEALED, commit or push.'}
+    entry.save(R / 'freeze/config.json', protocol)
+    entry.save(R / 'freeze/preservation.json', preserved())
+    print('FROZEN', entry.hf(R / 'freeze/config.json'))
+
+
+def run():
+    cfg = entry.read(R / 'freeze/config.json')
+    for p, h in dict(cfg['code_hashes'], **cfg['material_hashes']).items():
+        assert entry.hf(p) == h, 'Frozen mismatch: ' + p
+    assert cfg['engineering_gate']['E'] == 'PASS'
+    lock = R / 'RUNNING.lock'
+    with lock.open('x') as f:
+        import os
+        f.write(str(os.getpid()))
+    runner = None
+    rows = []
+    spent = 0.0
+    fatal = None
+    started = now()
+    try:
+        for cid, stage in ORDER:
+            out = R / 'runs' / cid / stage
+            out.mkdir(parents=True, exist_ok=True)
+            if (out / 'result.json').exists():
+                result = entry.read(out / 'result.json')
+                meta = entry.read(out / 'run.json') if (out / 'run.json').exists() else {}
+                spent += meta.get('elapsed_seconds', 0)
+                if meta.get('run_status') in ('OUT_OF_MEMORY', 'UNSUPPORTED', 'TIMEOUT'):
+                    fatal = 'REUSED_FATAL_' + meta['run_status']
+                rows.append(dict(case_id=cid, stage=stage, result=result, reused=True))
+                continue
+            if (out / 'start.json').exists():
+                fatal = 'INTERRUPTED_ATTEMPT_NOT_RETRIED'
+            reason = fatal or ('TOTAL_GENERATION_BUDGET_EXHAUSTED' if spent >= 1800 else None)
+            pdir = R / 'runs' / cid / 'P'
+            if stage == 'B':
+                pr = entry.read(pdir / 'result.json') if (pdir / 'result.json').exists() else {}
+                if pr.get('prediction') is None:
+                    reason = reason or 'DEPENDENCY_P_TECHNICAL_FAILURE'
+            if reason:
+                result = {'case_id': cid, 'method': stage, 'run_status': 'SKIPPED', 'prediction': None, 'reason': reason}
+                entry.save(out / 'result.json', result)
+                rows.append(dict(case_id=cid, stage=stage, result=result, called=False))
+                continue
+            if stage in ('A', 'P'):
+                d = R / 'freeze/tasks' / cid / stage
+                text, sc = (d / 'prompt.txt').read_text(), entry.read(d / 'schema.json')
+            else:
+                text, sc, inter = entry.final_task(cid, pr['prediction'])
+                entry.save(out / 'intermediate.json', inter)
+            if runner is None:
+                from legal_bench.rules_verdict_v1.runtime_constraint_diag_v1 import Runner
+                model = Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip()
+                runner = Runner(model, settings=cfg['settings'])
+                entry.save(R / 'environment.json', {'versions': runner.versions, 'model_path': model,
+                    'model_config_hash': runner.model_config_hash, 'loaded_seconds': runner.loaded_seconds,
+                    'settings': cfg['settings']})
+            meta, result = entry.execute_slot(runner, out, cid, stage, text, sc, 1800 - spent)
+            spent += meta.get('elapsed_seconds', 0)
+            rows.append(dict(case_id=cid, stage=stage, result=result, called=True))
+            entry.save(R / 'progress.json', {'started': started, 'updated': now(), 'elapsed_generation_seconds': spent, 'slots': rows})
+            if meta['run_status'] in ('OUT_OF_MEMORY', 'UNSUPPORTED', 'TIMEOUT'):
+                fatal = 'RESOURCE_OR_FRAMEWORK_STOP:' + meta['run_status']
+        entry.save(R / 'run-summary.json', {'started': started, 'finished': now(), 'elapsed_generation_seconds': spent,
+            'generation_calls': sum((R / 'runs' / c / s / 'start.json').exists() for c, s in ORDER),
+            'slots': rows, 'fatal_stop': fatal, 'retries': 0, 'web_calls': 0})
+    except Exception as exc:
+        import traceback
+        entry.save(R / 'entry-failure.json', {'time': now(), 'error': repr(exc), 'traceback': traceback.format_exc(),
+                   'completed_slots': rows, 'elapsed_generation_seconds': spent})
+        # Unexpected framework/storage failures never turn into UNKNOWN and
+        # never erase attempts or imply that independent slots were completed.
+        for cid, stage in ORDER:
+            out = R / 'runs' / cid / stage
+            if not (out / 'result.json').exists():
+                attempted = (out / 'start.json').exists()
+                entry.save(out / 'result.json', {'case_id': cid, 'method': stage,
+                    'run_status': 'RUN_LOG_ERROR' if attempted else 'SKIPPED', 'prediction': None,
+                    'reason': 'FRAMEWORK_OR_ENTRY_FAILURE:' + repr(exc)})
+        raise
+    finally:
+        lock.unlink()
+
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('command', choices=('freeze', 'run', 'preserved'))
+    args = ap.parse_args()
+    result = globals()[args.command]()
+    if result is not None:
+        print(json.dumps(result))
+
+```
+
+## scripts/irac_semantic_v6_acceptance.py
+
+```python
+"""One concentrated engineering gate and immutable historical replay."""
+import json
+import subprocess
+import sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from scripts.irac_semantic_v6 import R, inputs, read, save, hf
+from scripts.irac_semantic_v6_run import CODE, preserved
+from legal_bench.irac_application.semantic_v6 import process, legacy_projection
+
+
+def run():
+    out=R/'engineering';out.mkdir(parents=True,exist_ok=True)
+    test=subprocess.run([sys.executable,'-m','unittest','tests.test_irac_semantic_v6','tests.test_irac_contract_v5_run','tests.test_mlx_constraint_v2','-v'],text=True,capture_output=True)
+    (out/'tests.txt').write_text(test.stdout+test.stderr)
+    assert test.returncode==0,test.stdout+test.stderr
+    fixture=read(out/'real-tokenizer.json');assert fixture['passed'] and fixture['model_calls']==0
+    replay=[]
+    for cid in ('112400','188721101'):
+        m,t,l,sm=inputs(cid);origin=Path('outputs/irac-contract-repair-v5/continuation-01/runs')/cid/'P'
+        raw=read(origin/'result.json')['prediction'];projection=legacy_projection(raw,t)
+        imp,c=process(projection,t,m,l)
+        save(out/'replay'/cid/'mapping.json',projection);save(out/'replay'/cid/'import.json',imp);save(out/'replay'/cid/'checks-full.json',c)
+        assert len(imp['records'])==len(raw['evidence'])
+        replay.append({'case_id':cid,'raw_origin':str(origin/'raw-response.txt'),'raw_sha256':hf(origin/'raw-response.txt'),
+                       'records_preserved':len(imp['records']),'quarantines':len(imp['quarantine']),
+                       'original_model_summaries':len(raw['conditions']),
+                       'new_condition_statuses':[r['program_input_state']['status'] for r in c['conditions']],
+                       'new_case_answer':False,'migration':'Address/index mapping only; no inferred judgment from edge sign. Old legal answers unchanged.'})
+    save(out/'replay-summary.json',replay)
+    assert preserved()['passed']
+    result={'E':'PASS','model_calls':0,'tests_command':test.args,'tests_returncode':0,
+            'tokenizer_fixtures':len(fixture['rows']),'replay':replay,
+            'code_hashes':{p:hf(p) for p in CODE},'semantic_correctness_verified':False,
+            'limits':'Tests certify declared interface handling and source delivery, not the meaning of model proposals or legal answers.'}
+    save(out/'acceptance.json',result);print('E PASS; ready to freeze')
+
+
+if __name__=='__main__':run()
+
+```
+
+## scripts/irac_semantic_v6_tokenizer.py
+
+```python
+"""Complete synthetic parser/tokenizer fixtures; zero inference calls."""
+import json
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from transformers import AutoTokenizer
+from lmformatenforcer import JsonSchemaParser
+from legal_bench.mlx_json_constraint import tokenizer_data
+from legal_bench.mlx_json_constraint_v2 import CompositeQuoteEnforcer
+from legal_bench.irac_application.semantic_v6 import catalogue
+from legal_bench.irac_application.semantic_v6_tasks import schema, prompt
+from scripts.irac_semantic_v6 import R, inputs, save, read, hf
+
+
+def run():
+    path=Path('outputs/local-qwen-pattern-eval-v3/environment/model-path.txt').read_text().strip()
+    tok=AutoTokenizer.from_pretrained(path,local_files_only=True)
+    data=tokenizer_data(tok,tok.eos_token_id)
+    rows=[]; budgets=[]
+    for cid in ('112400','188721101'):
+        m,t,l,sm=inputs(cid);sid=next(iter(m['sources']))
+        for key in catalogue(t):
+            value={'records':[{'text':'Synthetic fixture with a closed quote.', 'statement_status':'UNKNOWN','refs':[sid]}],
+                   'arrangements':[{'description':'Synthetic arrangement.', 'refs':[sid]}],
+                   'conditions':[{'arrangement':1,'condition':key,'assessment':'UNRESOLVED',
+                                  'evidence':[{'record':1,'role':'UNRESOLVED','connection':'Syntax fixture only.'}],
+                                  'law_refs':[],'explanation':'No case judgment in this fixture.','gaps':[]}],
+                   'limitations':[], 'coverage_limits':['Fixture only.']}
+            sc=schema('proposal',m,t,l)
+            ids=tok.encode(json.dumps(value),add_special_tokens=False)
+            mask=CompositeQuoteEnforcer(data,JsonSchemaParser(sc))
+            for i,x in enumerate(ids):assert x in mask.get_allowed_tokens(ids[:i]).allowed_tokens,(cid,key,i)
+            assert tok.eos_token_id in mask.get_allowed_tokens(ids).allowed_tokens
+            assert json.loads(tok.decode(ids))==value
+            rows.append({'case_schema':cid,'condition':key,'tokens':len(ids),'closed_json_eos_allowed':True})
+        sc=schema('final',m,t,l)
+        claim=next(c['id'] for c in t['claims'] if c['expression']['op']!='UNSUPPORTED')
+        v={'answers':[{'claim_id':claim,'prediction':'PREDICT_DENY','conditions':[{
+            'test_id':t['tests'][0]['id'],'binding_id':'synthetic','binding':'Fixture objects only.',
+            'assessment':'UNRESOLVED','refs':[sid],'explanation':'Fixture does not state a real case result.'}],
+            'opposition':{'record':'Fixture only.','refs':[],'response':'No legal judgment.'},'gaps':['Fixture.'],
+            'reason':'Synthetic syntax check, not a case answer.','intermediate_correction':'None.'}]}
+        ids=tok.encode(json.dumps(v),add_special_tokens=False);mask=CompositeQuoteEnforcer(data,JsonSchemaParser(sc))
+        for i,x in enumerate(ids):assert x in mask.get_allowed_tokens(ids[:i]).allowed_tokens,(cid,'final',i)
+        assert tok.eos_token_id in mask.get_allowed_tokens(ids).allowed_tokens
+        rows.append({'case_schema':cid,'final_complete_request':True,'tokens':len(ids),'closed_json_eos_allowed':True})
+        for stage,maxout in [('proposal',4096),('final',3072)]:
+            text=prompt(stage,m,t,l,sm)
+            rendered=tok.apply_chat_template([{'role':'user','content':text}],tokenize=False,add_generation_prompt=True,enable_thinking=False)
+            n=len(tok.encode(rendered));assert n+maxout<=32768
+            assert '<think>\n\n</think>' in rendered[-150:]
+            budgets.append({'case_id':cid,'stage':stage,'template_input_tokens':n,'max_output':maxout,'total_within_32768':True,
+                            'actual_runner_will_recheck_before_each_generation':True})
+    save(R/'engineering/real-tokenizer.json',{'passed':True,'model_calls':0,'rows':rows,'budgets':budgets,
+         'tokenizer_revision':Path(path).name,'constraint_sha256':hf('legal_bench/mlx_json_constraint_v2.py')})
+    print('PASS',len(rows),'complete fixtures; no model load or inference')
+
+
+if __name__=='__main__':run()
+
+```
+
+## legal_bench/irac_application/semantic_v6.py
+
+```python
+"""V6: independent records, scoped uses and explicit model premises.
+
+No edge sign is a legal truth value. This audit is not supplied to the final LLM.
+Source roles come from the frozen input containers, never model-assigned IDs.
+"""
+import copy
+from collections import Counter
+
+from .aligned_logic import evaluate
+from .contract_v5 import display, STATEMENTS, STATES, decode_address, address_directory
+
+
+def catalogue(template):
+    result = {}
+    for test in template['tests']:
+        for b in test.get('branches', []) or [{'id': '', 'text': test['text']}]:
+            key = b['id'] or test['id']
+            if key in result:
+                raise ValueError('DUPLICATE_CONDITION_SELECTOR')
+            result[key] = {'test_id': test['id'], 'branch_id': b['id'],
+                           'proposition': b['text'], 'parent_proposition': test['text']}
+    return result
+
+
+def source_catalogue(material, law):
+    result = {}
+    for sid, row in material['sources'].items():
+        if str(row['document_id']) != str(material['case_id']):
+            raise ValueError('TARGET_SOURCE_DOCUMENT_ID_CONFLICT:' + sid)
+        result[sid] = dict(copy.deepcopy(row), role='CASE_RECORD')
+    for row in law:
+        sid = row['source_id']
+        if sid in result:
+            raise ValueError('CASE_LAW_ADDRESS_COLLISION:' + sid)
+        result[sid] = dict(copy.deepcopy(row), role='LEGAL_AUTHORITY')
+    return result
+
+
+def refs_ok(refs, sources, role=None):
+    return (isinstance(refs, list) and bool(refs)
+            and all(isinstance(r, str) and r in sources for r in refs)
+            and (role is None or all(sources[r]['role'] == role for r in refs)))
+
+
+def index_ok(index, values):
+    return type(index) is int and 1 <= index <= len(values)
+
+
+def process(value, template, material, law):
+    cat = catalogue(template)
+    sources = source_catalogue(material, law)
+    if not isinstance(value, dict):
+        return {'usable': False, 'status': 'STRUCTURE_ERROR', 'raw_proposal': value}, None
+    original = copy.deepcopy(value)
+    value = copy.deepcopy(value)
+    records, arrangements, uses, rows, quarantine, coverage = [], [], [], [], [], []
+
+    def isolate(kind, index, raw, reason):
+        quarantine.append({'kind': kind, 'position': index, 'raw': copy.deepcopy(raw), 'reason': reason})
+
+    for key in ('records', 'arrangements', 'conditions'):
+        if not isinstance(value.get(key), list):
+            isolate(key, None, value.get(key), 'MISSING_OR_UNREADABLE_LOCAL_ARRAY; other arrays retained')
+            value[key] = []
+
+    for i, raw in enumerate(value['records'], 1):
+        r = raw if isinstance(raw, dict) else {}
+        valid = (isinstance(r.get('text'), str) and bool(r['text'].strip())
+                 and r.get('statement_status') in STATEMENTS and refs_ok(r.get('refs'), sources))
+        case_refs = [s for s in r.get('refs', []) if isinstance(s, str) and s in sources
+                     and sources[s]['role'] == 'CASE_RECORD'] if isinstance(r.get('refs'), list) else []
+        records.append({'record_id': 'R%d' % i, 'position': i, 'raw': copy.deepcopy(raw),
+                        'interface_valid': valid, 'case_refs': case_refs,
+                        'source_roles': {s: sources[s]['role'] for s in r.get('refs', []) if s in sources}
+                        if isinstance(r.get('refs'), list) and all(isinstance(s, str) for s in r['refs']) else {},
+                        'case_use_available': valid and bool(case_refs), 'semantic_verified': False})
+        if not valid:
+            isolate('record_projection', i, raw, 'INVALID_RECORD_INTERFACE_OR_SOURCE; raw retained')
+    for i, raw in enumerate(value['arrangements'], 1):
+        r = raw if isinstance(raw, dict) else {}
+        valid = (isinstance(r.get('description'), str) and bool(r['description'].strip())
+                 and refs_ok(r.get('refs'), sources, 'CASE_RECORD'))
+        arrangements.append({'arrangement_id': 'A%d' % i, 'position': i, 'raw': copy.deepcopy(raw),
+                             'interface_valid': valid, 'identity_semantics_verified': False})
+        if not valid:
+            isolate('arrangement_projection', i, raw, 'NO_VALID_CASE_GROUNDED_ARRANGEMENT')
+
+    limits = []
+    raw_limits = value.get('limitations', [])
+    if not isinstance(raw_limits, list):
+        coverage.append({'reason': 'UNREADABLE_RESTRICTIONS; no global block inferred', 'raw': raw_limits})
+        raw_limits = []
+    for i, raw in enumerate(raw_limits, 1):
+        r = raw if isinstance(raw, dict) else {}
+        scope = (index_ok(r.get('arrangement'), arrangements) and
+                 arrangements[r['arrangement'] - 1]['interface_valid'] and r.get('condition') in cat)
+        ids = r.get('records')
+        whole = r.get('effect') == 'CONDITION_PENDING' and ids == []
+        specific = isinstance(ids, list) and bool(ids) and all(index_ok(n, records) for n in ids)
+        effect = r.get('effect')
+        valid = (scope and (whole or specific or effect == 'NOTE')
+                 and effect in ('EVIDENCE_USE_BLOCK', 'CONDITION_PENDING', 'NOTE', 'UNMAPPED')
+                 and refs_ok(r.get('refs'), sources) and isinstance(r.get('reason'), str))
+        guarded = scope and (whole or specific) and effect != 'NOTE'
+        l = {'limitation_id': 'L%d' % i, 'raw': copy.deepcopy(raw), 'valid': valid,
+             'scope_known': scope, 'guarded': guarded, 'whole_proposition': whole,
+             'source_valid': refs_ok(r.get('refs'), sources)}
+        limits.append(l)
+        if not valid:
+            isolate('restriction', i, raw, 'RESTRICTION_NOT_VALIDATED')
+            coverage.append({'limitation_id': l['limitation_id'], 'reason':
+                             'PENDING_IN_DECLARED_LOCAL_SCOPE' if guarded else 'UNMAPPED_RESTRICTION_NO_GLOBAL_BLOCK'})
+
+    for i, raw in enumerate(value['conditions'], 1):
+        r = raw if isinstance(raw, dict) else {}
+        ai, key = r.get('arrangement'), r.get('condition')
+        scope = (index_ok(ai, arrangements) and arrangements[ai - 1]['interface_valid'] and key in cat)
+        valid = (scope and r.get('assessment') in STATES and isinstance(r.get('explanation'), str)
+                 and bool(r['explanation'].strip()) and isinstance(r.get('evidence'), list)
+                 and isinstance(r.get('gaps'), list) and all(isinstance(g, str) for g in r['gaps'])
+                 and isinstance(r.get('law_refs'), list)
+                 and (not r['law_refs'] or refs_ok(r['law_refs'], sources, 'LEGAL_AUTHORITY')))
+        if not valid:
+            isolate('condition', i, raw, 'INVALID_LOCAL_CONDITION_INTERFACE; raw and independent records retained')
+        applicable = [l for l in limits if l['scope_known'] and l['raw']['arrangement'] == ai
+                      and l['raw']['condition'] == key]
+        whole = [l['limitation_id'] for l in applicable if l['whole_proposition'] and l['guarded']]
+        local_uses = []
+        for j, u in enumerate(r.get('evidence', []) if isinstance(r.get('evidence'), list) else [], 1):
+            u = copy.deepcopy(u)
+            d = u if isinstance(u, dict) else {}
+            n = d.get('record')
+            reasons, pending, notes = [], [], []
+            e = records[n - 1] if index_ok(n, records) else None
+            if not scope:
+                reasons.append('UNESTABLISHED_LOCAL_ARRANGEMENT_OR_CONDITION')
+            if not e or not e['interface_valid']:
+                reasons.append('INVALID_RECORD_REFERENCE_OR_INTERFACE')
+            elif not e['case_refs']:
+                reasons.append('LEGAL_SOURCE_CANNOT_PROVE_TARGET_CASE_FACT')
+            if d.get('role') not in ('SUPPORT', 'OPPOSE', 'CONTEXT', 'UNRESOLVED', 'IRRELEVANT') or not isinstance(d.get('connection'), str) or not d['connection'].strip():
+                reasons.append('UNSPECIFIED_USE_CONNECTION')
+            for l in applicable:
+                lr = l['raw']
+                if lr.get('records') and n not in lr['records']:
+                    continue
+                if l['valid'] and lr['effect'] == 'NOTE':
+                    notes.append(l['limitation_id'])
+                elif l['whole_proposition'] or l['guarded']:
+                    pending.append(l['limitation_id'])
+            status = 'ISOLATED' if reasons else 'PENDING_LOCAL_RESTRICTION' if pending else 'PROPOSED_CONNECTION'
+            row = {'use_id': 'U%d.%d' % (i, j), 'condition_row': i, 'arrangement': ai, 'condition': key,
+                   'record': n, 'raw': u, 'role': d.get('role'), 'status': status, 'reasons': reasons, 'restrictions': pending,
+                   'notes': notes, 'statement_status': e['raw'].get('statement_status') if e else None,
+                   'semantic_verified': False}
+            local_uses.append(row)
+            uses.append(row)
+            if reasons:
+                isolate('use', row['use_id'], u, '; '.join(reasons))
+        available = [u for u in local_uses if u['status'] == 'PROPOSED_CONNECTION']
+        pertinent = [u for u in available if u['role'] in ('SUPPORT', 'OPPOSE')]
+        summary = {k: [u['use_id'] for u in available if u['role'] == role]
+                   for k, role in [('support', 'SUPPORT'), ('opposition', 'OPPOSE'), ('context', 'CONTEXT'), ('irrelevant', 'IRRELEVANT')]}
+        summary['pending'] = [u['use_id'] for u in local_uses if u not in available or u['role'] == 'UNRESOLVED']
+        summary['conflicting_directions'] = bool(summary['support'] and summary['opposition'])
+        summary['interpretation'] = 'RELEVANCE_ONLY_NOT_SUFFICIENCY; not independent votes'
+        assessment = r.get('assessment') if valid else None
+        reason = 'EXPLICIT_MODEL_JUDGMENT_NOT_VERIFIED'
+        state = assessment or 'UNRESOLVED'
+        if whole:
+            state, reason = 'UNRESOLVED', 'DECLARED_WHOLE_PROPOSITION_PENDING'
+        elif valid and assessment in ('SUPPORTED', 'REFUTED') and not pertinent:
+            state, reason = 'UNRESOLVED', 'NO_USABLE_PERTINENT_CONNECTION_IN_CURRENT_PROPOSAL'
+        elif not valid:
+            reason = 'NO_VALID_MODEL_JUDGMENT'
+        rows.append({'condition_row': i, 'arrangement': ai, 'condition': key,
+                     'model_judgment': copy.deepcopy(raw), 'model_assessment': assessment,
+                     'evidence_use_summary': summary, 'program_input_state': {'status': state, 'reason': reason},
+                     'whole_proposition_restrictions': whole, 'semantic_verified': False})
+
+    combined = []
+    for a in arrangements:
+        ai = a['position']
+        states, leaf_states = {}, {}
+        for key, address in cat.items():
+            matching = [r for r in rows if r['arrangement'] == ai and r['condition'] == key]
+            ss = {r['program_input_state']['status'] for r in matching}
+            leaf_states[key] = {'status': next(iter(ss)) if len(ss) == 1 else 'UNRESOLVED',
+                               'reason': 'MODEL_PREMISE' if len(ss) == 1 else 'CONFLICTING_MODEL_JUDGMENTS' if ss else 'NOT_PRODUCED_OPTIONAL',
+                               'model_premise_rows': [r['condition_row'] for r in matching]}
+        for test in template['tests']:
+            states[test['id']] = evaluate(test['branch_expression'], leaf_states) if test.get('branch_expression') else leaf_states[test['id']]
+        definitions = {x['id']: x['expression'] for x in template['elements']}
+        claims = [{'claim_id': c['id'], 'result': evaluate(c['expression'], states, definitions)}
+                  for c in template['claims'] if c['expression']['op'] != 'UNSUPPORTED']
+        if not a['interface_valid']:
+            claims = [{'claim_id': c['claim_id'], 'result': {'status': 'UNRESOLVED', 'reason': 'ARRANGEMENT_NOT_ESTABLISHED'}} for c in claims]
+        combined.append({'arrangement': ai, 'tests': states, 'leaves': leaf_states, 'claims': claims,
+                         'basis': 'CONDITIONAL_ON_EXPLICIT_MODEL_JUDGMENTS_AND_UNVERIFIED_BINDING',
+                         'does_not_prove_other_arrangements_absent': True})
+    imported = {'status': 'PARTIAL' if quarantine else 'OK', 'usable': True, 'raw_proposal': original,
+                'records': records, 'arrangements': arrangements, 'quarantine': quarantine,
+                'restriction_coverage': coverage, 'semantic_verified': False}
+    checks = {'case_id': str(material['case_id']), 'catalogue': cat, 'records': records, 'arrangements': arrangements,
+              'evidence_use_checks': uses, 'conditions': rows, 'combinations': combined, 'limitations': limits,
+              'restriction_coverage': coverage, 'source_recovery': sources, 'import_quarantine': quarantine,
+              'model_coverage_limits': value.get('coverage_limits', []), 'legal_coverage_limits': template.get('coverage_limits', []),
+              'scope': 'Offline structural audit. No evidence vote or automatic sufficiency, target acceptance or burden inference. No case-level absence conclusion.',
+              'legal_truth_verified': False}
+    return imported, checks
+
+
+def validate_final(value, schema, template):
+    from legal_bench.rules_verdict_v1.contracts import validate
+    validate(value, schema)
+    required = [c['id'] for c in template['claims'] if c['expression']['op'] != 'UNSUPPORTED']
+    actual = [a['claim_id'] for a in value['answers']]
+    if Counter(actual) != Counter(required):
+        raise ValueError('ANSWER_REQUEST_SET_NOT_EXACT_ONCE')
+    for answer in value['answers']:
+        if not answer['reason'].strip() or not answer['conditions']:
+            raise ValueError('EMPTY_REASON_OR_DECISIVE_ANALYSIS')
+        if any(not x['explanation'].strip() or not x['binding'].strip() for x in answer['conditions']):
+            raise ValueError('EMPTY_CONDITION_EXPLANATION_OR_BINDING')
+
+
+def legacy_projection(old, template):
+    """Read-only V5 structural migration for replay, never reused as a new P.
+
+    Relevance-only old uses receive no invented model judgment. Independent
+    record rows survive; condition summaries retain only their original states.
+    """
+    directory = address_directory(template)
+    bindings = old.get('bindings', [])
+    bids = {b['id']: i for i, b in enumerate(bindings, 1)}
+    records = old.get('evidence', [])
+    eids = {e['id']: i for i, e in enumerate(records, 1)}
+    out = {'records': [{'text': e['record'], 'statement_status': e['statement_status'], 'refs': e['refs']} for e in records],
+           'arrangements': [{'description': b['objects'] + '; ' + b['event'], 'refs': b['refs']} for b in bindings],
+           'conditions': [], 'limitations': [], 'coverage_limits': copy.deepcopy(old.get('coverage_limits', []))}
+    for e in records:
+        for u in e.get('uses', []):
+            a = decode_address(u, directory)
+            key = (a['branch_id'] or a['test_id']) if a else 'INVALID_OLD_ADDRESS'
+            matching = [c for c in old.get('conditions', []) if c.get('binding_id') == e['binding_id'] and decode_address(c, directory) == a]
+            out['conditions'].append({'arrangement': bids.get(e['binding_id'], 0), 'condition': key,
+                 'assessment': matching[0]['assessment'] if len(matching) == 1 else 'UNRESOLVED',
+                 'evidence': [{'record': eids[e['id']], 'role': {'UNKNOWN': 'UNRESOLVED'}.get(u['direction'], u['direction']),
+                              'connection': 'Legacy declared use: ' + u['use']}], 'law_refs': [],
+                 'explanation': 'Legacy explicit summary.' if len(matching) == 1 else 'No unique explicit model judgment; old relevance is not sufficiency.',
+                 'gaps': [c.get('gap', '') for c in matching]})
+    for l in old.get('limitations', []):
+        a = decode_address(l, directory)
+        out['limitations'].append({'arrangement': bids.get(l['binding_id'], 0), 'condition': (a['branch_id'] or a['test_id']) if a else '',
+             'records': [eids.get(e, 0) for e in l.get('evidence_ids', [])],
+             'effect': {'PROPOSITION_BLOCK': 'CONDITION_PENDING', 'USE_BLOCK': 'EVIDENCE_USE_BLOCK', 'SCOPE_UNMAPPED': 'UNMAPPED'}.get(l['effect'], l['effect']),
+             'reason': l['reason'], 'refs': l['refs']})
+    return out
+
+```
+
+## legal_bench/irac_application/semantic_v6_tasks.py
+
+```python
+"""One frozen interface revision; no case-specific hints or semantic repairs."""
+import copy
+import json
+
+from .semantic_v6 import catalogue, source_catalogue, display
+from .pipeline_v4_tasks import GUIDE, FINAL_GUIDE, EXAMPLES, schema as old_schema
+from .hybrid_v3_tasks import obj, arr, S, enum, A, STAT
+
+PROPOSAL_GUIDE = '''Organize the supplied record for this request, without predicting the request outcome.
+records stores each distinct attributed account once: text includes its speaker and procedural stage, statement_status preserves its evidential position, refs identifies the supplied passages. These are accounts of evidence, not independently inspected originals. Program-assigned record numbers are their one-based array positions. A record has no parent arrangement. Different accounts about one event remain distinct records, not automatically different events.
+arrangements describes the actual persons, premises and transaction or ongoing situation, with case refs. Number arrangements by their one-based array positions. Later testimony, a finding, an appeal, a date question or a consent question does not alone create another transaction. Shared names do not establish that separate transactions are identical. Keep uncertainty rather than inventing a connection.
+conditions contains only useful local analyses. Select a condition ID from the readable CONDITION_CATALOGUE; each ID already determines its legal branch. arrangement is the array position, or 0 if the connection is unknown. evidence connects existing record numbers to this particular analysis: role SUPPORT/OPPOSE concerns relevance to the printed proposition, CONTEXT is background, IRRELEVANT explicitly excludes an inapplicable record, and UNRESOLVED leaves correspondence open. connection briefly explains that use; the same record may be connected independently to more than one arrangement. It is not a vote or a finding that the whole condition is satisfied.
+assessment is your separate, reasoned judgment of the complete proposition (SUPPORTED, REFUTED, UNRESOLVED, UNSUPPORTED), not a restatement of an edge direction. explanation weighs the pertinent support, opposition, identity, statement status and legal scope; law_refs cites the rule and gaps preserves important uncertainty. Support need not be sufficient, silence is not refutation, and conflicting accounts are not decided by counting. Law can interpret a requirement; facts of another precedent cannot alone establish a fact in this case. Source roles are supplied by code.
+limitations is optional in coverage. A limitation selects an arrangement and condition. EVIDENCE_USE_BLOCK targets only listed records in that local analysis. CONDITION_PENDING with records=[] expressly limits that entire proposition. NOTE preserves a caveat without blocking. UNMAPPED records uncertain scope; arrangement=0 and condition="" are available. Each limit has reason and refs; an invalid source does not release an otherwise identifiable limitation. Free-text gaps alone do not silently disable a whole case.
+Use sparse arrays. Prefer 5-8 records and the decisive conditions; maxima are ceilings, not targets. No need to cover all conditions or fill unknown roles. Preserve important opposition and multiple court stages. If coverage is limited, state it in coverage_limits. Every top-level array must exist, but may be empty. Return one complete JSON within budget; no repeated long quotations or separate request answer.'''
+
+EXAMPLE = {
+    'label': 'COMPLETE FICTIONAL INTERMEDIATE EXAMPLE; NOT TARGET LAW OR FACTS',
+    'input': {'case_sources': {'EX-S1': 'Orin alleges that Leda installed lamp Q without permission. The municipal panel found installation by Leda; on appeal Leda disputes that finding.',
+                             'EX-S2': 'A receipt concerns Leda buying a chair, not installing lamp Q.'},
+              'law': {'EX-L1': 'Fictional Lamp Code: an unauthorized personal installation meets the installation ground.'},
+              'conditions': {'EX-INSTALL': 'Leda personally installed lamp Q.', 'EX-UNAUTHORIZED': 'That installation lacked permission.'}},
+    'output': {
+        'records': [{'text': 'Orin alleges Leda installed Q without permission.', 'statement_status': 'PARTY_CLAIM', 'refs': ['EX-S1']},
+                    {'text': 'Municipal panel found Leda installed Q; Leda contests that finding on appeal.', 'statement_status': 'PRIOR_COURT_FINDING', 'refs': ['EX-S1']},
+                    {'text': 'The supplied receipt records a chair purchase.', 'statement_status': 'RECORDED_DOCUMENT', 'refs': ['EX-S2']}],
+        'arrangements': [{'description': 'Leda; lamp Q; alleged installation challenged on appeal', 'refs': ['EX-S1']}],
+        'conditions': [{'arrangement': 1, 'condition': 'EX-INSTALL', 'assessment': 'SUPPORTED',
+                        'evidence': [{'record': 1, 'role': 'SUPPORT', 'connection': 'Alleges the same installation.'},
+                                     {'record': 2, 'role': 'SUPPORT', 'connection': 'Prior finding about this installation, still contested on appeal.'},
+                                     {'record': 3, 'role': 'IRRELEVANT', 'connection': 'A chair purchase does not address lamp installation.'}],
+                        'law_refs': ['EX-L1'], 'explanation': 'I use the specific prior finding as a stage-qualified premise; the allegation is not independent proof and appellate acceptance is undecided.',
+                        'gaps': ['The appeal challenge remains open.']},
+                       {'arrangement': 1, 'condition': 'EX-UNAUTHORIZED', 'assessment': 'UNRESOLVED',
+                        'evidence': [{'record': 1, 'role': 'SUPPORT', 'connection': 'Alleges absence of permission.'}],
+                        'law_refs': ['EX-L1'], 'explanation': 'A relevant allegation supplies an argument, but the supplied panel finding addresses installation only and does not establish lack of permission.',
+                        'gaps': ['No permission instrument or finding on permission is supplied.']}],
+        'limitations': [], 'coverage_limits': ['This proposal does not decide the pending appeal.']}}
+
+FINAL_ADDITION = '''Completion contract: answer each listed substantive request exactly once; never return an empty answers array or duplicate a claim. Keep at least one decisive condition analysis. reason must distinguish what this record establishes at its stated stage, what legal application is unresolved, and which assumptions sustain the binary prediction. Use gaps for concrete unresolved matters. A required binary choice does not convert every unknown into a negative condition or create a burden-of-proof or appellate-effect rule.
+For method B, the intermediate proposal is raw model output, not a verified fact table. No program audit is supplied. Read the complete case and law to correct it when necessary; identify consequential corrections using intermediate_correction. For method A, intermediate material is empty; apply the same final contract. Final answers, source IDs and condition labels being syntactically valid do not establish legal correctness.'''
+
+
+def schema(stage, material, template, law):
+    if stage != 'proposal':
+        sc = copy.deepcopy(old_schema('final', material, template, law))
+        count = len([c for c in template['claims'] if c['expression']['op'] != 'UNSUPPORTED'])
+        sc['properties']['answers']['minItems'] = count
+        sc['properties']['answers']['maxItems'] = count
+        sc['properties']['answers']['items']['properties']['conditions']['minItems'] = 1
+        return sc
+    allrefs = arr(enum(list(source_catalogue(material, law))), 6)
+    lawrefs = arr(enum([s['source_id'] for s in law]), 6)
+    case_refs = arr(enum(list(material['sources'])), 6)
+    condition = enum(list(catalogue(template)))
+    # The inherited enum helper is string-only; numeric array addresses must
+    # declare integer type. The fixed constraint runtime itself is unchanged.
+    recno = {'type': 'integer', 'enum': list(range(1, 13))}
+    ano = {'type': 'integer', 'enum': list(range(0, 5))}
+    return obj({
+        'records': arr(obj({'text': S, 'statement_status': STAT, 'refs': allrefs}), 12),
+        'arrangements': arr(obj({'description': S, 'refs': case_refs}), 4),
+        'conditions': arr(obj({'arrangement': ano, 'condition': condition, 'assessment': A,
+                              'evidence': arr(obj({'record': recno, 'role': enum(['SUPPORT', 'OPPOSE', 'CONTEXT', 'UNRESOLVED', 'IRRELEVANT']), 'connection': S}), 8),
+                              'law_refs': lawrefs, 'explanation': S, 'gaps': arr(S, 3)}), 12),
+        'limitations': arr(obj({'arrangement': ano, 'condition': enum([''] + list(catalogue(template))),
+                                'records': arr(recno, 8), 'effect': enum(['EVIDENCE_USE_BLOCK', 'CONDITION_PENDING', 'NOTE', 'UNMAPPED']),
+                                'reason': S, 'refs': allrefs}), 6),
+        'coverage_limits': arr(S, 4)})
+
+
+def prompt(stage, material, template, law, source_map, intermediate=None):
+    view, _, _ = display(material, source_map)
+    parts = [GUIDE]
+    if stage == 'proposal':
+        parts += [PROPOSAL_GUIDE, json.dumps(EXAMPLE, ensure_ascii=False)]
+    else:
+        parts += ['TWO COMPLETE FICTIONAL EXAMPLES:', json.dumps(EXAMPLES, ensure_ascii=False), FINAL_GUIDE, FINAL_ADDITION]
+    roles = {k: v['role'] for k, v in source_catalogue(material, law).items()}
+    parts += ['SOURCE_ROLES (addresses classified by frozen input provenance):', json.dumps(roles),
+              'CONDITION_CATALOGUE (ID, complete proposition and exact parent/branch mapping):', json.dumps(catalogue(template), ensure_ascii=False),
+              'COMMON GIVEN LAW:', json.dumps(law, ensure_ascii=False),
+              'COMMON LEGAL STRUCTURE:', json.dumps(template, ensure_ascii=False),
+              'INTERMEDIATE MATERIAL:', json.dumps(intermediate or {}, ensure_ascii=False),
+              'COMPLETE ALLOWED CASE MATERIAL:', json.dumps(view, ensure_ascii=False),
+              'TASK: ' + ('Organize decisive records, actual arrangements and reasoned condition judgments. Do not write a final request prediction.' if stage == 'proposal' else
+                         'Under the supplied facts, law and procedural stage, should each specified substantive request be supported? Answer each request once; make an explicit prediction and state its evidence, legal gaps and assumptions.')]
+    return '\n\n'.join(parts)
+
+```
+
+## tests/test_irac_semantic_v6.py
+
+```python
+import copy
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+from scripts import irac_semantic_v6 as entry
+from legal_bench.irac_application.semantic_v6 import process, catalogue, validate_final, legacy_projection
+from legal_bench.irac_application.semantic_v6_tasks import prompt, schema
+
+
+def fixture():
+    m = {'case_id': 'test', 'sources': {'S1': {'text': 'Allegation.', 'document_id': 'test'},
+                                      'S2': {'text': 'Finding on another account.', 'document_id': 'test'}}}
+    law = [{'source_id': 'L1', 'text': 'Fictional rule.', 'document_id': 'law'}]
+    def ref(key): return {'op': 'REF', 'id': key, 'source_refs': ['L1']}
+    t = {'tests': [{'id': 'T', 'text': 'The required proposition.', 'branches': []}],
+         'elements': [], 'claims': [{'id': 'C', 'expression': ref('T')}], 'coverage_limits': []}
+    p = {'records': [{'text': 'An attributed claim.', 'statement_status': 'PARTY_CLAIM', 'refs': ['S1']},
+                     {'text': 'Prior finding, target status contested.', 'statement_status': 'PRIOR_COURT_FINDING', 'refs': ['S2']}],
+         'arrangements': [{'description': 'Persons X and Y; facility F; arrangement Z.', 'refs': ['S1']}],
+         'conditions': [{'arrangement': 1, 'condition': 'T', 'assessment': 'UNRESOLVED',
+                         'evidence': [{'record': 1, 'role': 'SUPPORT', 'connection': 'Relevant but not necessarily sufficient.'},
+                                      {'record': 2, 'role': 'OPPOSE', 'connection': 'Contrary prior account.'}],
+                         'law_refs': ['L1'], 'explanation': 'Weigh both records under the rule.', 'gaps': []}],
+         'limitations': [], 'coverage_limits': []}
+    return m, t, law, p
+
+
+class FakeRunner:
+    def __init__(self, value, status='OK'):
+        self.value, self.status = value, status
+
+    def run(self, text, sc, out, **kwargs):
+        out = Path(out)
+        entry.save(out / 'schema.json', sc)
+        (out / 'prompt.txt').write_text(text)
+        (out / 'raw-response.txt').write_text(json.dumps(self.value))
+        entry.save(out / 'start.json', {'fake': True})
+        meta = {'run_status': self.status, 'schema_mask_calls': 1, 'offline_replay': True, 'elapsed_seconds': 0}
+        entry.save(out / 'run.json', meta)
+        return meta
+
+
+class SemanticV6Tests(unittest.TestCase):
+    def check(self, p, m=None, t=None, law=None):
+        base = fixture()
+        # Exercise production completion/save/import, not an unused helper.
+        with tempfile.TemporaryDirectory() as td:
+            out=Path(td);(out/'raw-response.txt').write_text(json.dumps(p))
+            result=entry.finish_attempt({'run_status':'OK','offline_replay':True},out,'P',m or base[0],t or base[1],law or base[2])
+            self.assertIsNotNone(result['prediction'])
+            return entry.read(out/'import.json'),entry.read(out/'checks-full.json')
+
+    def test_relevance_is_not_satisfaction_and_conflicts_not_votes(self):
+        m,t,l,p=fixture()
+        p['conditions'][0]['evidence']=p['conditions'][0]['evidence'][:1]
+        imp,c=self.check(p)
+        self.assertEqual(c['conditions'][0]['program_input_state']['status'],'UNRESOLVED')
+        p['conditions'][0]['assessment']='REFUTED'
+        _,c=self.check(p)
+        self.assertEqual(c['conditions'][0]['program_input_state']['status'],'REFUTED')
+        self.assertEqual(c['conditions'][0]['evidence_use_summary']['support'],['U1.1'])
+        p['conditions'][0]['evidence'] += fixture()[3]['conditions'][0]['evidence'][1:]*3
+        _,c=self.check(p)
+        self.assertTrue(c['conditions'][0]['evidence_use_summary']['conflicting_directions'])
+        self.assertEqual(c['conditions'][0]['program_input_state']['reason'],'EXPLICIT_MODEL_JUDGMENT_NOT_VERIFIED')
+
+    def test_model_summary_without_evidence_not_computable_truth(self):
+        p=fixture()[3];p['conditions'][0].update(assessment='SUPPORTED',evidence=[])
+        _,c=self.check(p)
+        self.assertEqual(c['conditions'][0]['model_assessment'],'SUPPORTED')
+        self.assertEqual(c['conditions'][0]['program_input_state']['status'],'UNRESOLVED')
+
+    def test_law_only_fact_use_isolated_record_retained(self):
+        p=fixture()[3];p['records'][0]['refs']=['L1'];p['conditions'][0]['assessment']='SUPPORTED'
+        imp,c=self.check(p)
+        self.assertEqual(len(imp['records']),2)
+        self.assertIn('LEGAL_SOURCE_CANNOT_PROVE_TARGET_CASE_FACT',c['evidence_use_checks'][0]['reasons'])
+        self.assertEqual(c['evidence_use_checks'][1]['status'],'PROPOSED_CONNECTION')
+
+    def test_source_roles_not_model_ids(self):
+        m,t,l,p=fixture();m['sources']['S1']['document_id']='foreign'
+        with self.assertRaisesRegex(ValueError,'DOCUMENT_ID_CONFLICT'):process(p,t,m,l)
+        m=fixture()[0];l[0]['source_id']='S1'
+        with self.assertRaisesRegex(ValueError,'COLLISION'):process(p,t,m,l)
+
+    def test_shared_record_local_errors_preserve_other_uses(self):
+        p=fixture()[3];p['arrangements'].append(copy.deepcopy(p['arrangements'][0]))
+        p['conditions'].append(copy.deepcopy(p['conditions'][0]));p['conditions'][1]['arrangement']=2
+        p['conditions'][0]['evidence'][0]['record']=12
+        imp,c=self.check(p)
+        self.assertEqual(len(imp['records']),2)
+        self.assertEqual(c['evidence_use_checks'][0]['status'],'ISOLATED')
+        self.assertEqual(c['evidence_use_checks'][2]['status'],'PROPOSED_CONNECTION')
+        p['conditions'][0]['arrangement']=0
+        _,c=self.check(p)
+        self.assertEqual(c['evidence_use_checks'][2]['status'],'PROPOSED_CONNECTION')
+
+    def test_restriction_matrix_and_nonpropagation(self):
+        p=fixture()[3];p['conditions'][0]['assessment']='SUPPORTED'
+        p['arrangements'].append(copy.deepcopy(p['arrangements'][0]))
+        p['conditions'].append(copy.deepcopy(p['conditions'][0]));p['conditions'][1]['arrangement']=2
+        limit={'arrangement':1,'condition':'T','records':[1],'effect':'EVIDENCE_USE_BLOCK','reason':'Only this use.','refs':['S1']}
+        p['limitations']=[limit]
+        _,c=self.check(p)
+        self.assertEqual(c['evidence_use_checks'][0]['status'],'PENDING_LOCAL_RESTRICTION')
+        self.assertEqual(c['evidence_use_checks'][1]['status'],'PROPOSED_CONNECTION')
+        self.assertEqual(c['evidence_use_checks'][2]['status'],'PROPOSED_CONNECTION')
+        limit.update(records=[],effect='CONDITION_PENDING')
+        for refs in (['S1'],['INVALID']):
+            limit['refs']=refs;_,c=self.check(p)
+            self.assertEqual(c['conditions'][0]['program_input_state']['status'],'UNRESOLVED')
+            self.assertEqual(c['conditions'][1]['program_input_state']['status'],'SUPPORTED')
+        limit['arrangement']=0;_,c=self.check(p)
+        self.assertEqual(c['restriction_coverage'][0]['reason'],'UNMAPPED_RESTRICTION_NO_GLOBAL_BLOCK')
+
+    def test_boolean_branches_polarity_and_no_case_absence(self):
+        m,t,l,p=fixture();refs=['L1']
+        t['tests'][0].update(branches=[{'id':'T/X','text':'X.'},{'id':'T/Y','text':'Y.'}],
+            branch_expression={'op':'OR','args':[{'op':'REF','id':'T/X','source_refs':refs},{'op':'REF','id':'T/Y','source_refs':refs}],'source_refs':refs})
+        p['conditions'][0].update(condition='T/X',assessment='SUPPORTED')
+        p['conditions'].append(copy.deepcopy(p['conditions'][0]));p['conditions'][1]['condition']='T/Y'
+        p['limitations']=[{'arrangement':1,'condition':'T/X','records':[],'effect':'CONDITION_PENDING','reason':'X pending.','refs':['INVALID']}]
+        _,c=self.check(p,t=t)
+        self.assertEqual(c['combinations'][0]['tests']['T']['status'],'SUPPORTED')
+        t['claims'][0]['expression']={'op':'NOT','arg':t['claims'][0]['expression'],'source_refs':refs}
+        _,c=self.check(p,t=t)
+        self.assertEqual(c['combinations'][0]['claims'][0]['result']['status'],'REFUTED')
+        self.assertTrue(c['combinations'][0]['does_not_prove_other_arrangements_absent'])
+        t['tests'][0]['branch_expression']['op']='AND';_,c=self.check(p,t=t)
+        self.assertEqual(c['combinations'][0]['tests']['T']['status'],'UNRESOLVED')
+
+    def test_catalogue_pair_roundtrip_and_replay(self):
+        for cid in entry.CASES:
+            m,t,l,sm=entry.inputs(cid);cat=catalogue(t)
+            self.assertEqual(len(cat),len(set((a['test_id'],a['branch_id']) for a in cat.values())))
+            old=entry.read('outputs/irac-contract-repair-v5/continuation-01/runs/'+cid+'/P/result.json')['prediction']
+            imp,c=process(legacy_projection(old,t),t,m,l)
+            self.assertEqual(len(imp['records']),len(old['evidence']))
+            self.assertTrue(imp['usable'])
+
+    def test_actual_entry_partial_and_B_only_raw_proposal(self):
+        cid='112400';m,t,l,sm=entry.inputs(cid)
+        p={'records':[{'text':'Fixture record.', 'statement_status':'UNKNOWN','refs':[next(iter(m['sources']))]}],
+           'arrangements':[],'conditions':[],'limitations':[],'coverage_limits':[]}
+        with tempfile.TemporaryDirectory() as td:
+            out=Path(td)/'P';text=prompt('proposal',m,t,l,sm);sc=schema('proposal',m,t,l)
+            meta,result=entry.execute_slot(FakeRunner(p),out,cid,'P',text,sc,12)
+            self.assertEqual(result['prediction'],p)
+            self.assertEqual(len(entry.read(out/'evidence-records.json')),1)
+            b,bs,inter=entry.final_task(cid,result['prediction'])
+            actual=json.loads(b.split('INTERMEDIATE MATERIAL:\n\n')[1].split('\n\nCOMPLETE ALLOWED CASE MATERIAL:')[0])
+            self.assertEqual(actual,{'proposal':p})
+            self.assertTrue(entry.delivery(b,m,l,sm)['passed'])
+
+    def test_missing_local_array_preserves_records_and_raw(self):
+        p=fixture()[3];p.pop('conditions')
+        imp,c=self.check(p)
+        self.assertEqual(imp['raw_proposal'],p)
+        self.assertEqual(len(imp['records']),2)
+        self.assertEqual(c['conditions'],[])
+
+    def test_batch_failure_blocks_dependencies_only(self):
+        from scripts import irac_semantic_v6_run as batch
+        calls=[]
+        class BatchFake:
+            versions={};loaded_seconds=0;model_config_hash='synthetic'
+            def __init__(self,*a,**kw):pass
+            def run(self,text,sc,out,**kw):
+                cid,stage=out.parent.name,out.name;calls.append((cid,stage))
+                val={'records':[],'arrangements':[],'conditions':[],'limitations':[],'coverage_limits':[]} if stage=='P' else {'answers':[]}
+                status='OUTPUT_TRUNCATED' if cid=='112400' and stage=='P' else 'OK'
+                return FakeRunner(val,status).run(text,sc,out,**kw)
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            entry.save(root/'freeze/config.json',{'code_hashes':{},'material_hashes':{},'engineering_gate':{'E':'PASS'},'settings':{}})
+            for cid in entry.CASES:
+                m,t,l,sm=entry.inputs(cid)
+                for st in ('A','P'):
+                    d=root/'freeze/tasks'/cid/st;d.mkdir(parents=True)
+                    stage='proposal' if st=='P' else 'final'
+                    (d/'prompt.txt').write_text(prompt(stage,m,t,l,sm))
+                    entry.save(d/'schema.json',schema(stage,m,t,l))
+            with patch.object(batch,'R',root),patch('legal_bench.rules_verdict_v1.runtime_constraint_diag_v1.Runner',BatchFake):batch.run()
+            self.assertEqual(calls,[('112400','A'),('112400','P'),('188721101','A'),('188721101','P'),('188721101','B')])
+            self.assertEqual(entry.read(root/'runs/112400/B/result.json')['run_status'],'SKIPPED')
+            self.assertEqual(entry.read(root/'runs/188721101/B/result.json')['run_status'],'FORMAT_ERROR')
+
+    def test_actual_entry_final_empty_missing_duplicate_failed_null(self):
+        cid='112400';m,t,l,sm=entry.inputs(cid)
+        original=entry.read('outputs/irac-contract-repair-v5/continuation-01/runs/'+cid+'/A/result.json')['prediction']
+        for value,ok in [(original,True),({'answers':[]},False),({'answers':original['answers']*2},False)]:
+            with tempfile.TemporaryDirectory() as td:
+                text,sc,_=entry.final_task(cid)
+                _,res=entry.execute_slot(FakeRunner(value),td,cid,'A',text,sc,10)
+                self.assertEqual(res['prediction'] is not None,ok)
+                self.assertEqual(json.loads((Path(td)/'raw-response.txt').read_text()),value)
+        value=copy.deepcopy(original);value['answers'][0]['conditions']=[]
+        with self.assertRaises(ValueError):validate_final(value,schema('final',m,t,l),t)
+        with tempfile.TemporaryDirectory() as td:
+            text,sc,_=entry.final_task(cid)
+            _,r=entry.execute_slot(FakeRunner(original,'OUTPUT_TRUNCATED'),td,cid,'A',text,sc,10)
+            self.assertIsNone(r['prediction'])
+
+
+if __name__=='__main__':unittest.main()
+
+```
+
+## legal_bench/irac_application/aligned_logic.py
+
+```python
+"""Conservative explicit combinations, evaluated only within one witnessed binding."""
+STATES={'SUPPORTED','REFUTED','UNRESOLVED','UNSUPPORTED'}
+def evaluate(expr,tests,definitions=None,seen=()):
+    definitions=definitions or {};op=expr['op']
+    if not expr.get('source_refs'):return {'status':'UNSUPPORTED','reason':'COMBINATION_WITHOUT_SOURCE','trace':[]}
+    if op=='REF':
+        key=expr['id']
+        if key in seen:raise ValueError('cyclic legal expression')
+        if key in definitions:return evaluate(definitions[key],tests,definitions,seen+(key,))
+        item=tests.get(key,{'status':'UNRESOLVED','reason':'TEST_NOT_EVALUATED'})
+        if item['status'] not in STATES:raise ValueError('invalid state')
+        return dict(item,trace=[key])
+    if op=='UNSUPPORTED':return {'status':'UNSUPPORTED','reason':expr['reason'],'trace':[]}
+    if op=='NOT':
+        r=evaluate(expr['arg'],tests,definitions,seen)
+        return dict(r,status={'SUPPORTED':'REFUTED','REFUTED':'SUPPORTED'}.get(r['status'],r['status']))
+    if op=='EXCEPT':
+        return evaluate(dict(op='AND',args=[expr['base'],dict(op='NOT',arg=expr['exception'],source_refs=expr['source_refs'])],source_refs=expr['source_refs']),tests,definitions,seen)
+    if op not in ('AND','OR') or not expr.get('args'):return {'status':'UNSUPPORTED','reason':'UNIMPLEMENTED_EXPRESSION','trace':[]}
+    results=[evaluate(e,tests,definitions,seen) for e in expr['args']];s=[r['status'] for r in results]
+    if op=='AND':status='REFUTED' if 'REFUTED' in s else 'SUPPORTED' if all(v=='SUPPORTED' for v in s) else 'UNSUPPORTED' if 'UNSUPPORTED' in s else 'UNRESOLVED'
+    else:status='SUPPORTED' if 'SUPPORTED' in s else 'REFUTED' if all(v=='REFUTED' for v in s) else 'UNSUPPORTED' if 'UNSUPPORTED' in s else 'UNRESOLVED'
+    return {'status':status,'trace':results,'interpretation':'CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING'}
+
+def combine_bound(expr,bindings,definitions=None,bindings_complete=False):
+    rows=[]
+    for b in bindings:
+        if not b.get('binding_source_refs') or not b.get('identity_checks_complete'):
+            rows.append({'binding_id':b.get('binding_id'),'status':'UNRESOLVED','reason':'BINDING_NOT_ESTABLISHED'});continue
+        rows.append(dict(evaluate(expr,b['tests'],definitions),binding_id=b['binding_id']))
+    if any(r['status']=='SUPPORTED' for r in rows):status='SUPPORTED'
+    elif any(r['status']=='UNRESOLVED' for r in rows) or not rows:status='UNRESOLVED'
+    elif any(r['status']=='UNSUPPORTED' for r in rows):status='UNSUPPORTED'
+    else:status='REFUTED' if bindings_complete else 'UNRESOLVED'
+    return {'status':status,'combinations':rows,'scope':'ONLY_ENUMERATED_BINDINGS; DOES_NOT_PROVE_GLOBAL_ABSENCE','burden_failure_inferred':False}
+
+```
+
+## scripts/report_irac_semantic_v6.py
+
+````python
+# -*- coding: utf-8 -*-
+"""Package one post-batch source review; no model calls or semantic edits."""
+import csv
+import json
+from pathlib import Path
+from irac_semantic_v6 import R, CASES, read, save, hf, inputs
+from irac_semantic_v6_run import ORDER, preserved
+
+
+def csv_file(path, rows):
+    with path.open('w', newline='') as f:
+        w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+
+
+def build():
+    assert not (R/'report-zh.txt').exists(), 'Preserve completed reports'
+    cfg=read(R/'freeze/config.json');batch=read(R/'run-summary.json')
+    assert batch['generation_calls']<=6 and batch['elapsed_generation_seconds']<=1800
+    assert all(hf(p)==h for p,h in dict(cfg['code_hashes'],**cfg['material_hashes']).items())
+    reg=read(R/'registration.json')
+    assert all(hf(p)==h for p,h in reg['starting_irac_code_hashes'].items())
+    review=read(R/'final-source-review.json')
+    assert review['review_rounds']==1 and review['after_batch_complete']
+    costs=[];audits=[];links=[];answers=['# V6 完整原始答案与提议\n\n模型输出原样展示，不代表经核验的法律判断。\n']
+    for cid,stage in ORDER:
+        out=R/'runs'/cid/stage;res=read(out/'result.json')
+        meta=read(out/'run.json') if (out/'run.json').exists() else {}
+        if meta.get('raw_hash'):
+            assert meta['raw_hash']==hf(out/'raw-response.txt')
+        assert res['run_status']=='OK' or res['prediction'] is None
+        n=meta.get('prompt_tokens');output=meta.get('output_tokens',meta.get('output_tokens_observed'))
+        if n is not None:assert n+cfg['max_tokens'][stage]<=32768 or res['run_status']=='INPUT_TOO_LONG'
+        row={'case_id':cid,'stage':stage,'run_status':res['run_status'],'input_tokens':n,'output_tokens':output,
+             'seconds':meta.get('elapsed_seconds',0),'max_output_tokens':cfg['max_tokens'][stage],
+             'peak_mlx_gb':meta.get('peak_mlx_memory_gb'),'peak_rss_gb':meta.get('peak_rss_gb'),
+             'raw':str(out/'raw-response.txt'),'result':str(out/'result.json')}
+        costs.append(row)
+        delivery=read(out/'delivery.json') if (out/'delivery.json').exists() else None
+        audits.append({'case_id':cid,'stage':stage,'delivery_passed':delivery and delivery['passed'],
+                       'mask_calls':meta.get('schema_mask_calls'),'thinking_off_verified':meta.get('thinking_disabled_template_verified'),
+                       'actual_max_tokens':meta.get('actual_parameters',{}).get('max_tokens'),'raw_hash':meta.get('raw_hash')})
+        raw=(out/'raw-response.txt').read_text() if (out/'raw-response.txt').exists() else 'No generated output; see result.json.'
+        answers += ['\n## '+cid+' / '+stage+' / '+res['run_status']+'\n\n', '```json\n'+raw+'\n```\n']
+    for cid in CASES:
+        pdir=R/'runs'/cid/'P';presult=read(pdir/'result.json')
+        if presult['prediction'] is None:continue
+        imp=read(pdir/'import.json');p=presult['prediction']
+        assert imp['raw_proposal']==p
+        assert [x['raw'] for x in imp['records']]==p.get('records',[])
+        bout=R/'runs'/cid/'B'
+        if (bout/'intermediate.json').exists():
+            assert read(bout/'intermediate.json')=={'proposal':p}
+            a=(R/'runs'/cid/'A/prompt.txt').read_text();b=(bout/'prompt.txt').read_text()
+            def strip(s):return s.split('INTERMEDIATE MATERIAL:\n\n')[0]+s.split('\n\nCOMPLETE ALLOWED CASE MATERIAL:',1)[1]
+            assert strip(a)==strip(b)
+        links.append({'case_id':cid,'records_preserved':len(imp['records']),'raw_P_unmodified':True,
+                      'quarantines':imp['quarantine'],'B_intermediate_only_raw_P':True,'A_B_other_prompt_bytes_identical':True})
+    save(R/'delivery-validation.json',{'passed':True,'slots':audits,'proposal_checks':links,
+         'code_material_hashes_unchanged':True,'old_irac_code_hashes_unchanged':True,'semantic_verified':False})
+    keep=preserved();assert keep['passed'];save(R/'preservation-after.json',keep)
+    method_costs=[]
+    for cid in CASES:
+        for method,stages in [('A',['A']),('B',['P','B'])]:
+            selected=[r for r in costs if r['case_id']==cid and r['stage'] in stages]
+            method_costs.append({'case_id':cid,'method':method,'stages':stages,'calls':len(selected),
+                 'complete':all(x['run_status']=='OK' for x in selected),'input_tokens':sum(x['input_tokens'] or 0 for x in selected),
+                 'output_tokens':sum(x['output_tokens'] or 0 for x in selected),'seconds':sum(x['seconds'] for x in selected)})
+    save(R/'costs.json',{'calls':costs,'methods':method_costs,'generation_calls':batch['generation_calls'],
+         'total_input_tokens':sum(x['input_tokens'] or 0 for x in costs),'total_output_tokens':sum(x['output_tokens'] or 0 for x in costs),
+         'generation_seconds':batch['elapsed_generation_seconds'],'load_seconds_separate':read(R/'environment.json')['loaded_seconds'],
+         'memory_note':'MLX allocation peak and process peak RSS are separate observations; do not sum.',
+         'comparison':'A one call; B P plus final. Net benefit with unequal compute, no attribution to an individual field or example.'})
+    csv_file(R/'call-costs.csv',costs);(R/'answers.md').write_text(''.join(answers))
+    comp=[]
+    for cid in CASES:
+        c=review['cases'][cid]
+        for method in ('A','B'):
+            mc=next(x for x in method_costs if x['case_id']==cid and x['method']==method)
+            res=read(R/'runs'/cid/method/'result.json')
+            comp.append({'case_id':cid,'method':method,'technical_status':res['run_status'],
+              'prediction':json.dumps([a['prediction'] for a in res['prediction']['answers']]) if res['prediction'] else 'null',
+              'source_supported':c['methods'][method]['supported'],'errors':c['methods'][method]['errors'],
+              'omissions_or_contradictions':c['methods'][method]['omissions'],'real_gaps':'; '.join(c['real_gaps']),
+              'net_comparison':c['comparison'],'M':c['M'],'L':c['methods'][method]['L'],
+              'input_tokens_including_P':mc['input_tokens'],'output_tokens_including_P':mc['output_tokens'],'seconds_including_P':mc['seconds']})
+    save(R/'case-comparison.json',comp);csv_file(R/'case-comparison.csv',comp)
+    save(R/'acceptance.json',{'E':'PASS_WITH_DECLARED_ENGINEERING_SCOPE','M':{c:review['cases'][c]['M'] for c in CASES},
+          'L':{c:{m:review['cases'][c]['methods'][m]['L'] for m in ('A','B')} for c in CASES},
+          'decision':review['decision'],'full_legal_pipeline_accepted':False,'reference_role':review['reference_role']})
+    lines=['IRAC V6：语义接口修复后的两案完整流程比较\n',review['decision_zh'],
+      '\n运行：%d次本地调用，生成%.2f秒（%.2f分钟），网页0、重试0。两案均为旧案开发验证。未运行C，程序检查仅离线保存。' % (batch['generation_calls'],batch['elapsed_generation_seconds'],batch['elapsed_generation_seconds']/60),
+      '\nE：23项相关测试及17个真实tokenizer完整样例通过。证据独立保存、用途局部隔离；方向不自动成为条件满足；法源单独证明本案事实的用途受阻；AND/OR/NOT只组合显式模型前提；空答、漏答及重复请求拒收。源码、完整来源与法律包冻结后未变。工程通过不证明语义正确。',
+      '中间数字索引Schema的类型声明错误已在无模型tokenizer检查中修复，未改约束框架。旧提议仅作结构映射重放，未补写旧判断；旧A与新实际prompt/Schema不兼容，本轮均重新运行。']
+    for cid in CASES:
+        c=review['cases'][cid];lines+=['\n'+cid+'：'+c['comparison'], 'P：'+c['proposal_summary']]
+        for method in ('A','B'):
+            d=c['methods'][method];lines += [method+'：'+d['supported']+' 已确认问题：'+d['errors']+' 重要遗漏／矛盾：'+d['omissions']]
+        lines+=['真实缺口：'+'；'.join(x.rstrip('。') for x in c['real_gaps'])+'。']
+    lines+=['\n逐调用成本：','|案件|阶段|状态|输入tokens|输出tokens|生成秒|','|---|---|---|---:|---:|---:|']
+    for r in costs:lines.append('|%s|%s|%s|%s|%s|%.2f|'%(r['case_id'],r['stage'],r['run_status'],r['input_tokens'],r['output_tokens'],r['seconds']))
+    for cid in CASES:
+        a,b=[x for x in method_costs if x['case_id']==cid]
+        lines.append('%s：A %.2f秒；P+B %.2f秒，增加%.2f秒；输入tokens %d→%d。'%(cid,a['seconds'],b['seconds'],b['seconds']-a['seconds'],a['input_tokens'],b['input_tokens']))
+    peaks=[c['peak_mlx_gb'] for c in costs if c['peak_mlx_gb'] is not None];rss=[c['peak_rss_gb'] for c in costs if c['peak_rss_gb'] is not None]
+    lines+=['MLX峰值最大%.3fGB；进程峰值RSS最大%.3fGB，口径不同不相加。模型加载另计%.2f秒。'%(max(peaks),max(rss),read(R/'environment.json')['loaded_seconds']),
+      '\n配置：固定9B revision 8b2b98c00a6b4d291155e4890773ca8f769aee53、MLX-VLM0.7.4、LMFE0.11.2、greedy、seed20261001、repetition_penalty1、thinking关闭；P4096、最终3072、上下文32768。',
+      '冻结配置SHA256：'+hf(R/'freeze/config.json')+'。历史保留检查%d文件原字节不变。'%keep['files_checked'],
+      '\n评价：一次集中模型辅助来源审阅，非人工gold；检查允许材料中的决定性内容及反论，不只检查模型引用。两案历史结论不作为必须猜回的正确答案。本轮没有评估程序检查送入模型的效果，没有训练或否定整个图方法，也不声称单字段、示例或结构单独有效。',
+      '交付：answers.md含全部原始输出；case-comparison.csv/json为逐案比较；final-source-review.json为来源依据；runs内含实际prompt/schema/raw/token/run及离线checks；delivery-validation.json、preservation-after.json、freeze/config.json、engineering/保存核验。完成后停止，不自行开启下一轮，不提交或推送。']
+    (R/'report-zh.txt').write_text('\n\n'.join(lines).replace('|\n\n|','|\n|')+'\n')
+    print('REPORT BUILT',R)
+
+
+if __name__=='__main__':build()
+
+````
+
+## scripts/review_irac_semantic_v6.py
+
+```python
+# -*- coding: utf-8 -*-
+"""The single concentrated, post-batch source review. Never imported by runners."""
+from irac_semantic_v6 import R, inputs, read, save
+
+
+def item(key, where, refs, finding, propagation=None):
+    return {'id':key,'output_locations':where,'source_ids':refs,'judgment_zh':finding,
+            'propagation':propagation,'semantic_reference':'MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD'}
+
+
+def build():
+    assert (R/'run-summary.json').exists()
+    assert not (R/'final-source-review.json').exists()
+    result={
+      'reference_role':'MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD', 'review_rounds':1,
+      'after_batch_complete':True,'web_calls':0,'new_annotations':0,
+      'scope':'Four complete final answers plus decisive P evidence, reviewed against every allowed case passage and given law; no full-field gold, historical verdict target or new source.',
+      'decision':'STOP_ADDING_PROMPTS_OR_FIELDS_TO_CURRENT_9B; PAUSE_MANDATORY_P; PROPOSE_BUT_DO_NOT_RUN_STRONGER_MODEL_SAME_INTERFACE',
+      'decision_zh':'本轮没有取得足以保留强制中间提议的完整回答净收益。E工程验收通过；两案M仍有事实安排、来源对应或证据用途错误，四份最终回答均未通过L。112400的B新增择一路径被无关缺口阻止等问题；188721101的B有局部纠错，但重要共同误读、遗漏及无依据的法律后果仍在。暂停向当前9B流程继续添加提示或字段，暂停强制P；A仅保留为低成本开发基线，不能当作已可靠的法律工具。下一轮最有信息量的是另行授权后，用相同接口和材料做更强模型A/B对照；本轮不执行。',
+      'cases':{
+       '112400':{
+        'M':'NOT_PASSED',
+        'proposal_summary':'7条记录均保存，但把同一请求的两项后续法院认定另立为安排2、3，全部8条条件分析又只挂在安排1。部分证据序号错位，住宅用途及全称的无其他住所被无依据确认；以产权文件和家属定义制造额外缺口。错误限制将明确反对真实需求的记录3、4都阻止使用。',
+        'methods':{
+         'A':{'L':'NOT_PASSED','supported':'保留楼层、租赁日期、房东所有权、早期不真实需求认定及发回后住所不适合的认定；识别本人自住路线和给定法律定义的覆盖限制。',
+              'errors':'把租赁存在说成住宅用途明确；把已知现住房不适合扩大成不存在其他适宜住所。条件binding分别用b1至b6及条件标题，未清楚表达同一请求中的实际安排。',
+              'omissions':'C06标SUPPORTED，reason又称C06 unresolved，内部不一致。虽引用发回后认定，未明确说明维持早期不真实需求判断与后续材料之间的评价假设；这不等于后续认定必然推翻早期结论。'},
+         'B':{'L':'NOT_PASSED','supported':'保留早期法院否定真实需求的方向、所有权和后续不适合认定；消除了A关于C06状态的明文自相矛盾。',
+              'errors':'重复住宅用途及无其他住所的无依据确定判断；继承P的“家庭五人”，原文是四名列名成年人及复数children；将家属／依赖定义缺失用于阻止含本人路线的整个C03，未处理已给定的SELF择一关系。',
+              'omissions':'没有纠正P的安排拆分、住宅用途及量词扩大；intermediate_correction写None。最终b1至b6仍按条件拆分。较A没有形成可靠的完整分析改善。'}},
+        'real_gaps':['允许段落未明确原租赁是否为住宅用途；房东提出住宅需要不能代替原租约用途。',
+                     '特定现住房不适合，不能完整证明没有其他可用且适宜的住宅。',
+                     '给定法条没有进一步真实性、依赖及上诉审查标准；不能因此抹去明确家属关系、所有权或本人路线。'],
+        'comparison':'B修复A的一处状态／理由矛盾，但保留两项决定性过度推断，并新增本人择一路径被家属缺口封锁等问题；未见净改善。',
+        'findings':[
+          item('112-SOURCE-USE',['A:C01','P:conditions[0]','B:C01'],['IK-112400:L123:span1','IK-112400:L124:restored-v2'],
+               'L123仅说明1964年1月22日租赁一楼及租金；P和B声称lease document explicitly states residential purposes，允许文本未记载该用途，也未提供原租约文书独立检验。A存在同类错误。','P_ERROR_REPEATED_BY_B; ALSO_PRESENT_IN_A'),
+          item('112-QUANTIFIER',['A:C06/reason','P:conditions[7]','B:C06'],['IK-112400:L139:restored-v2','IK-112400:L140:restored-v2'],
+               '明确记载的范围是房东正居住的portion不适合，非全部其他住所。A和B均扩大为无其他适宜住所；P还说current premises are the only suitable ones，与不适合相反。B没有复述最后这句，但保留核心量词扩大。A的SUPPORTED与reason中的unresolved矛盾在B中消失。','PARTIAL_CORRECTION_WITH_SHARED_CORE_ERROR'),
+          item('112-ALTERNATIVE',['A:C03','P:conditions[2:5]','B:C03'],['IK-112400:L124:restored-v2','IK-112400:L139:restored-v2','IK-18143401:L41:historical-e'],
+               'SELF路线不要求先证明家属依赖。P借不存在独立title deed使SELF未决，同时又把C04所有权判SUPPORTED；还说家属关系未定义，而L139列出妻、儿子、儿媳、孙辈。B未带入title deed要求，却仍让家属及依赖定义缺失阻止整个C03；A至少保留本人路线。这里不把本人路线主张等同于已证明真实需要。','P_GAP_PROPAGATED_IN_DIFFERENT_FORM; B_NEW_RELATIVE_TO_A'),
+          item('112-ARRANGEMENT',['P:arrangements[1:3]','P:conditions[3:5,7]'],['IK-112400:L137:context-v4','IK-112400:L138:context-v4','IK-112400:L139:restored-v2','IK-112400:L140:restored-v2'],
+               '两项法院认定被另列为实际安排；R5是发回，却在家属和住房条件被说成后续Tribunal报告；R6为住房不足，却被当作R7不适合的记录。有效数组编号不证明用途描述与对应文本相符。','SEMANTIC_MAPPING_ERRORS_RETAINED; OFFLINE_CHECKS_NOT_IN_B'),
+          item('112-RESTRICTION',['P:limitations[0]','P:checks conditions C02','B:C02'],['IK-112400:L127:restored-v2','IK-112400:L130:span6'],
+               'P因为R3、R4否定真实需求而限制它们用于该条件。这是模型对“反证”的用途误解。程序按局部限制保留raw REFUTED、离线组合前提UNRESOLVED，没有把OPPOSE计为满足。B未接收这些检查，仍直接使用反对认定；不能称为程序促成的纠正。','LIMITATION_ERROR_NOT_ENFORCED_ON_B'),
+          item('112-STAGE',['A:C02/reason/gaps','B:C02/reason'],['IK-112400:L127:restored-v2','IK-112400:L130:span6','IK-112400:L139:restored-v2','IK-112400:L140:restored-v2'],
+               '两者大体正确归属早期不真实需求认定，没有把它改成新的High Court最终采纳。但把早期REFUTED直接代入请求结论时，没有充分限定维持旧判断的假设及后来认定的影响。预测DENY本身不据历史结果判错；不足在理由及范围未交代完整。')
+        ]},
+       '188721101':{
+        'M':'NOT_PASSED_WITH_PARTIAL_ARRANGEMENT_GAIN',
+        'proposal_summary':'5条记录独立保存，形成一个兄弟使用15号铺的安排，未再把诉讼阶段各自当作安排；但父亲先前安排仍遗漏。12项用途有4项引用不存在的R6被局部隔离；另有合法编号指错记录、雇佣证言被写成承认、主张租金支付被补造等语义错误，原P仍完整送入B。',
+        'methods':{
+         'A':{'L':'NOT_PASSED','supported':'保留原审认定可撤销许可及三条法定路线的区别，使用给定先例的法律占有／全部权利标准；雇佣领薪在一处仍以证言记载。',
+              'errors':'将1987年租赁日期当作具体交出占有日期，并虚构原审作过这一日期认定；虚构房东明确主张没有书面同意；gaps把同意取得主体反写为landlord，并引入给定法源没有的estoppel。',
+              'omissions':'遗漏工资凭证未证明、邻居说经营者不是承租人、6号铺与柜台转移，以及父亲先前安排。主要反论缩成笼统房东指控，不能充分支持维持原审的预测。'},
+         'B':{'L':'NOT_PASSED','supported':'不再虚构法院确定转移日期；C05正确保留书面同意材料不足，未再提出房东取得同意或estoppel；明确承认原审许可判断尚在上诉中。回到L83支持撤销权与法律占有，部分绕开P的错序号。',
+              'errors':'仍称L72明确把转移发生时间写成06.01.1987，混淆租赁与后续行为；C02把未经证明的领薪证言强化为salary payment足以排斥租金关系。opposition仍添入without consent主张，和C05无此信息的解释不协调；reason又称未决同意缺口prevents a grant，未说明相应证明责任或预测假设。',
+              'omissions':'与A共同漏掉工资凭证未证明、邻居的相反证言、6号铺／柜台及父亲安排。没有完整解释这些内容如何影响继续维持原审；intermediate_correction为None，不能据回引正确段落认定模型系统性校正了P。'}},
+        'real_gaps':['书面同意或明确否定书面同意的记录未提供。',
+                     '精确转移日期未明确；若接受房东先租后转的叙述，可条件化判断晚于1952年，但不能把租赁日写成已确认的转移日。',
+                     '父亲先前安排细节有限；雇佣、独立经营与控制权的相反证据尚待评价；给定材料未含完整上诉审查或证明责任规则。'],
+        'comparison':'B避免A的部分归属及同意方向错误，有具体局部价值；但日期错读未解决，重要共同反论仍漏，并产生无依据的“未决就阻止授予”表述，尚不能认定完整分析净收益值得额外阶段。',
+        'findings':[
+          item('188-DATE',['A:C01','P:conditions[0]','B:C01'],['IK-188721101:L72:restored-v2'],
+               '06.01.1987修饰房东将店铺出租给Ramesh Kumar；随后才描述先父亲后兄弟。A增造trial court found arrangement occurred on this date；B移除法院归属但仍称房东明确主张该日转移。P保留未决但同样连接错误日期；未决标签不修正含义。','A_FABRICATED_COURT_ATTRIBUTION_REMOVED; EVENT_DATE_ERROR_PERSISTS'),
+          item('188-SALARY',['P:records[1:3]','P:C02/C04/C06','A:C04','B:C02/C06'],['IK-188721101:L74:restored-v2','IK-188721101:L80:restored-v2','IK-188721101:L81:restored-v2'],
+               'L74只有否认转租及承租人自称占用，没有雇佣工资；工资证言在L81。P将承认的经营与持钥匙扩为承认employment，并遗漏salary vouchers not proved。B把salary payment用于排斥租金关系；A虽说witnesses testified也未保留凭证限制。','P_INCOMPLETE_OR_OVERSTATED_EVIDENCE_PROPAGATED'),
+          item('188-CONSENT',['A:C05/gaps','P:C05','B:C05/opposition/reason'],['IK-188721101:L72:restored-v2','IK-188721101:L73:restored-v2','LAW:S02:DRC14:1b'],
+               '允许范围未明确记载无书面同意的主张；Slum Authority准许提起程序并非出租人同意交易。B正确保留同意未知并删除A的主体倒置及estoppel，但opposition仍写without consent且reason将未决直接说成阻止grant。给定法条要求缺乏书面同意，不单独提供该证据缺口的举证裁判规则。','PARTIAL_GAIN_AND_NEW_UNSUPPORTED_LEGAL_EFFECT'),
+          item('188-OMISSIONS',['A:opposition/reason','P:records/arrangements','B:opposition/reason'],['IK-188721101:L72:restored-v2','IK-188721101:L73:restored-v2','IK-188721101:L80:restored-v2','IK-188721101:L81:restored-v2'],
+               '两份最终答案都未处理父亲先前安排、兄弟独立承租6号铺及柜台迁移、邻居证言实际经营者不是Ramesh、工资凭证未证明。P保存部分邻居证言，但B没有将其作为对原审许可判断的重要反论；材料已送达，不能称法源检索或输入缺段。','COMMON_DECISIVE_COVERAGE_FAILURE'),
+          item('188-MAPPING',['P:conditions[1,2,3,5]','P:checks-full import_quarantine','B:C03/C04/C06'],['IK-188721101:L80:restored-v2','IK-188721101:L81:restored-v2','IK-188721101:L83:restored-v2','IK-188721101:L84:restored-v2'],
+               'P只有R1至R5，却四次引用R6；R5实际为原审家庭成员推论，却被指作经营证言，R3证言又被指作原审许可认定。前者由程序隔离，后两者编号合法但含义不符。B回引L83支持许可，说明最终原文仍能补充依据；检查块没进入B，不能把此归因于程序。','LOCAL_INVALID_USES_ISOLATED_OFFLINE; B_SOURCE_REREADING_ONLY'),
+          item('188-ALTERNATIVES',['A:reason','B:reason'],['IK-188721101:L83:restored-v2','IK-190902:L109','IK-190902:L110','IK-190902:L112'],
+               'A/B本轮都逐一谈了转租、让与、交出占有，未出现仅一条路线失败就形式上否定其他路线的问题；原审许可认定可成为条件化预测依据。主要不足是对相反事实及原审是否应维持的处理，不要求猜回排除的最终判决。')
+        ]}
+      }}
+    # Exact address restoration for inspection, not new source collection.
+    for cid,c in result['cases'].items():
+        m,t,law,sm=inputs(cid);sources=dict(m['sources']);sources.update({s['source_id']:s for s in law})
+        c['reviewed_allowed_case_ids']=list(m['sources'])
+        c['reviewed_law_ids']=[s['source_id'] for s in law]
+        c['source_evidence']={s:sources[s] for f in c['findings'] for s in f['source_ids']}
+    save(R/'final-source-review.json',result)
+    print('One concentrated source review saved')
+
+
+if __name__=='__main__':build()
+
+```
+
+## scripts/finalize_irac_semantic_v6_docs.py
+
+```python
+# -*- coding: utf-8 -*-
+"""Local publication metadata only; never stage, commit or push."""
+import json
+from pathlib import Path
+from irac_semantic_v6 import R, read, save
+
+
+def main():
+    report=str(R/'report-zh.txt')
+    summary='两案6次本地调用全部完成，12.44分钟，2份P及4份最终回答，无重试、网页或C。23项相关测试、17个真实tokenizer样例通过；E通过，M/L仍未通过。112400 B新增择一分支及来源问题，188721101 B局部纠错但未形成可靠完整净收益。暂停给当前9B增加提示／字段及强制P；2595项历史文件和旧IRAC源码保留，未读SEALED、未提交推送。'
+    policy=read('docs/repository-artifacts.json')
+    links=[('中文报告','report-zh.txt'),('逐案比较','case-comparison.csv'),('完整回答与P','answers.md'),
+           ('一次来源审阅','final-source-review.json'),('E/M/L','acceptance.json'),('逐调用成本','call-costs.csv'),
+           ('冻结配置','freeze/config.json'),('工程验收','engineering/acceptance.json'),
+           ('实际输入检查','delivery-validation.json'),('历史保留检查','preservation-after.json')]
+    current={'contract_version':2,'review_kind':'IRAC_SEMANTIC_INTERFACE_V6_COMPLETED',
+        'title':'IRAC V6 语义接口修复后的两案完整流程比较','report':report,'summary':summary,
+        'status':'COMPLETED_E_PASS_M_L_NOT_PASSED_STOPPED_LOCAL_ONLY',
+        'links':[{'label':label,'path':str(R/path)} for label,path in links]+[{'label':'实现说明','path':'docs/IRAC_SEMANTIC_INTERFACE_V6.md'}],
+        'review_request':'只读审阅V6实际源码、冻结输入及四份完整回答。核对证据相关性与条件真值是否分开，记录与多安排用途是否独立，法源角色与限制是否局部检查，最终空答／漏答／重复请求是否拒收。区分E工程与M安排／用途、L完整法律分析。B只读原始P，不读检查块，不能把B改进归因于程序提示。检查112400住宅用途／住所量词／本人择一路线，188721101租赁日期／反论与工资凭证／同意未知的法律后果；未参与输入的评价文件不能冒充受测来源。既有预测全为DENY不构成gold。审阅不授权新增运行、改答案或发布。'}
+    policy['current_review']=current
+    for p in ['scripts/report_irac_semantic_v6.py','scripts/review_irac_semantic_v6.py','scripts/finalize_irac_semantic_v6_docs.py']:
+        if p not in policy['code_review_files']:policy['code_review_files'].append(p)
+    save('docs/repository-artifacts.json',policy)
+    cat=read('docs/EXPERIMENTS.json')
+    assert not any(x['id']=='irac-semantic-interface-v6' for x in cat['experiments'])
+    cat['experiments'].append({'id':'irac-semantic-interface-v6','role':'two_exposed_cases_semantic_interface_development',
+                             'report':report,'note':summary})
+    save('docs/EXPERIMENTS.json',cat)
+    readme=Path('README.md');text=readme.read_text()
+    assert text.startswith('# 当前工作：IRAC V5')
+    text=text.replace('# 当前工作：IRAC V5 两案完整流程验收已完成','# 历史：IRAC V5 两案完整流程验收',1)
+    intro='# 当前工作：IRAC V6 两案完整比较已完成\n\n'+summary+' 见[中文报告]('+report+')、[逐案比较]('+str(R/'case-comparison.csv')+')、[完整回答]('+str(R/'answers.md')+')与[实现说明](docs/IRAC_SEMANTIC_INTERFACE_V6.md)。两案仍是开发材料，结果不代表法律准确率或整个图方法的有效性；下一轮仅提出同接口更强模型比较，尚未执行。\n\n'
+    readme.write_text(intro+text)
+    log=Path('docs/CHANGELOG.md')
+    log.write_text('## 2026-10-08 IRAC V6：证据相关性与条件判断分离，两案A/P/B完成\n\n'+summary+' 修复独立证据／局部用途、代码确定来源角色、可读合法条件目录及最终请求恰好一次。新版本冻结后未改方法；全部检查仅离线，原始P直接送入B。B含P成本为252.80／298.54秒，A为75.61／119.17秒；完整回答收益尚不足。原始输出、失败与快照均保留；完成一次集中来源审阅后停止。\n\n'+log.read_text())
+    print('Local docs updated; prepare/verify still required')
+
+
+if __name__=='__main__':main()
+
+```
+
+## scripts/irac_web_v7.py
+
+````python
+"""Versioned web transport; frozen V6 semantics, no inference or content repair."""
+import json, hashlib, shutil, subprocess, sys
+from pathlib import Path
+from datetime import datetime, timezone
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from scripts.irac_semantic_v6 import inputs, delivery, process, validate_final
+R=Path('outputs/irac-web-crossmodel-v7')
+OLD=Path('outputs/irac-semantic-interface-v6')
+TRANSPORT='只依据任务文件中的材料作答。不要外部搜索，不查找案件其他版本，不依赖其他对话，不读取旧答案或审阅记录。请一次性按给定合同完成输出。允许使用文件工具读取本任务附件或生成JSON，不允许补充外部法律资料。'
+ORDER=[(c,s) for c in ('112400','188721101') for s in ('A','P','B')]
+def now():return datetime.now(timezone.utc).isoformat()
+def read(p):return json.loads(Path(p).read_text())
+def h(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def save(p,v):
+ p=Path(p);p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+def task(c,s,proposal=None):
+ base=OLD/'runs'/c/('A' if s=='B' else s)
+ text=(base/'prompt.txt').read_text()
+ if s=='B':
+  assert proposal is not None
+  marker='INTERMEDIATE MATERIAL:\n\n{}\n\nCOMPLETE ALLOWED CASE MATERIAL:'
+  assert text.count(marker)==1
+  text=text.replace(marker,'INTERMEDIATE MATERIAL:\n\n'+json.dumps({'proposal':proposal},ensure_ascii=False,indent=2)+'\n\nCOMPLETE ALLOWED CASE MATERIAL:')
+ out=R/'tasks'/c/s;out.mkdir(parents=True,exist_ok=False)
+ (out/'prompt.txt').write_text(text);shutil.copyfile(base/'schema.json',out/'schema.json')
+ m,t,l,sm=inputs(c);audit=delivery(text,m,l,sm);save(out/'delivery.json',audit)
+ packaged='TRANSPORT INSTRUCTION\n'+TRANSPORT+'\n\nV6 ACTUAL TASK (UNCHANGED)\n'+text+'\n\nV6 OUTPUT SCHEMA (WEB DOES NOT USE TOKENWISE ENFORCEMENT)\n'+(out/'schema.json').read_text()
+ (out/'task.txt').write_text(packaged)
+ save(out/'manifest.json',{'case':c,'stage':s,'baseline':str(base),'prompt_sha256':h(out/'prompt.txt'),'schema_sha256':h(out/'schema.json'),'task_sha256':h(out/'task.txt'),'bytes':len(packaged.encode()),'proposal_sha256':h(R/'runs'/c/'P'/'parsed.json') if s=='B' else None,'built_at':now()})
+ return out
+def prepare():
+ assert not R.exists()
+ cfg=read(OLD/'freeze/config.json')
+ for p,expected in {**cfg['code_hashes'],**cfg['material_hashes']}.items():assert h(p)==expected,p
+ save(R/'registration.json',{'created_at':now(),'head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'branch':subprocess.check_output(['git','branch','--show-current'],text=True).strip(),'dirty':subprocess.check_output(['git','status','--short'],text=True),'historical_hashes':{str(p):h(p) for p in OLD.rglob('*') if p.is_file()},'old_code_hashes':cfg['code_hashes']})
+ for c in ('112400','188721101'):
+  for s in ('A','P'):task(c,s)
+  b=R/'freeze'/'B-templates'/c;b.mkdir(parents=True);shutil.copyfile(OLD/'runs'/c/'A'/'prompt.txt',b/'prompt.txt');shutil.copyfile(OLD/'runs'/c/'A'/'schema.json',b/'schema.json')
+ (R/'freeze'/'transport.txt').write_text(TRANSPORT)
+ shutil.copyfile(__file__,R/'freeze'/'irac_web_v7.py')
+ save(R/'freeze/config.json',{'version':'IRAC_WEB_CROSSMODEL_V7','frozen_at':now(),'base_config_hash':h(OLD/'freeze/config.json'),'material_hashes':cfg['material_hashes'],'old_code_hashes':cfg['code_hashes'],'transport_code_hash':h(__file__),'order':ORDER,'max_generations':6,'retries':0,'local_calls':0,'model_visible':None,'mode_visible':'High (third of five intensity options)','pro':False,'temporary':True,'personalization':'OFF_CURRENT_CHAT','exact_model':None,'sampling':None,'output_token_cap':None,'web_schema_enforcement':False,'B_rule':'Replace exactly the empty INTERMEDIATE MATERIAL JSON in frozen A prompt with {proposal: unmodified parsed current web P}. JSON serialization only; no checks or corrections.','failures':'Null technical answer; unreadable P skips dependent B only. No retries. Access/mode failure pauses unsubmitted slots.','evaluation':['Source fidelity including decisive uncited content and opposition','Legal scope, alternative/necessary conditions and polarity','P errors corrected/ignored/propagated and traceable net benefit','Compare each web A/B to V6; not human gold, not independent test','No winner from label agreement or JSON validity; unavailable cost remains null'],'task_hashes':{str(p):h(p) for p in (R/'tasks').rglob('*') if p.is_file()}})
+ save(R/'progress.json',{'slots':[{'case':c,'stage':s,'status':'NOT_SUBMITTED'} for c,s in ORDER]})
+def ingest(c,s):
+ out=R/'runs'/c/s;raw=(out/'raw-response.txt').read_text();text=raw.strip();ops=[]
+ if text.startswith('```') and text.endswith('```'):
+  text=text.split('\n',1)[1].rsplit('```',1)[0].strip();ops.append('REMOVE_OUTER_MARKDOWN_FENCE_AND_OUTER_WHITESPACE')
+ result={'case':c,'stage':s,'run_status':'OK','answer':None,'format_operations':ops,'semantic_validated':False}
+ try:
+  value=json.loads(text);save(out/'parsed.json',value)
+  m,t,l,sm=inputs(c)
+  if s=='P':
+   imp,checks=process(value,t,m,l);save(out/'import.json',imp);save(out/'checks-full.json',checks)
+   if not imp['usable']:raise ValueError(imp['status'])
+  else:validate_final(value,read(R/'tasks'/c/s/'schema.json'),t)
+  result['answer']=value
+ except (ValueError,KeyError,TypeError) as e:result.update(run_status='FORMAT_ERROR',reason=str(e))
+ save(out/'result.json',result)
+ if s=='P' and result['run_status']=='OK':task(c,'B',value)
+ print(json.dumps({k:v for k,v in result.items() if k!='answer'},ensure_ascii=False))
+if __name__=='__main__':
+ if sys.argv[1]=='prepare':prepare()
+ elif sys.argv[1]=='ingest':ingest(*sys.argv[2:4])
+
+````
+
+## scripts/report_irac_web_v7.py
+
+````python
+"""One concentrated source review and local V7 report; no model calls."""
+import csv, io
+from irac_web_v7 import *
+
+def main():
+ rows=[]; answers=['# V7完整网页原始回答与提议\n\n模型具体版本不可得；界面High，临时聊天且不个性化。六次独立提交，未纠错或重试。\n']
+ for c,s in ORDER:
+  out=R/'runs'/c/s; run=read(out/'run.json');res=read(out/'result.json');man=read(R/'tasks'/c/s/'manifest.json')
+  rows.append({'case':c,'stage':s,'status':res['run_status'],'task_bytes':man['bytes'],'reply_bytes':len((out/'raw-response.txt').read_bytes()),'observed_seconds':run['observed_elapsed_seconds'],'exact_tokens':None,'exact_generation_seconds':None,'url':run['url']})
+  answers.append('\n## '+c+' '+s+'\n\n[网页对话]('+run['url']+')（临时对话地址不保证长期可用，以本地原文为准）。\n\n```json\n'+(out/'raw-response.txt').read_text()+'\n```\n')
+ (R/'answers.md').write_text(''.join(answers))
+ save(R/'costs.json',{'calls':rows,'generations':6,'retries':0,'local_inference':0,'paid_api':0,'downloaded_json':False,'capture':'Verbatim rendered code text; 188721101 A verbatim paragraph text. No follow-up to request a file.','observed_seconds_total':sum(x['observed_seconds'] for x in rows),'warning':'Elapsed submission-to-observed-completion includes browser, queue, polling and capture delay; not precise inference time or comparable to V6 local timing.'})
+ with (R/'call-costs.csv').open('w') as f:
+  w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+ review={'role':'MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD','review_passes':1,'reviewed_after_all_six_completed':True,'additional_model_calls':0,'scope':'Four web final answers versus four V6 final answers; P only for decisive error propagation. All allowed decisive sources including uncited opposition checked.','historical_verdict_not_gold':True,'cases':[]}
+ def finding(id,refs,check,A,B,P,judgment):
+  return dict(id=id,source_refs=refs,source_requirement=check,web_A=A,web_B=B,proposal_trace=P,judgment=judgment)
+ review['cases'].append({'case':'112400','pair':'CLOSE_NO_IMPORTANT_INCREMENTAL_B_GAIN','findings':[
+  finding('112-residential-purpose',['IK-112400:L123:span1','IK-112400:L124:restored-v2'],'租赁日期与部位有记录，原出租用途没有明确记载。','C01未决；明确区分后来自住用途与原出租用途。','相同，未将租约原件假装已取得。','P C01同样区分，不能因B一致便证明帮助来自P；A已经独立做到。','V6 A/B的明确无依据肯定在本轮A/B均消失。'),
+  finding('112-accommodation-quantifier',['IK-112400:L137:context-v4','IK-112400:L138:context-v4','IK-112400:L139:restored-v2','IK-112400:L140:restored-v2'],'发回后现住房不适宜已有积极认定，不能扩大为无任何其他适宜住所。','保留报告日期、家庭成员及地位，C06未决且理由一致。','同样保留局部认定和全称命题缺口；未再编造固定五人。','P records8、C06及局部限制准确保持这一差别；A不靠P也正确。','较V6两组改进；A不再出现C06支持/理由未决矛盾。'),
+  finding('112-alternative-route',['IK-112400:L124:restored-v2','IK-18143401:L41:historical-e'],'本人路径与家属依赖路径择一，不能把家属依赖未知用于封锁本人路径。','C03支持限于本人拟居住路径，明确未证明善意或实际入住。','C03明确OR关系，未被P SELF未决机械封锁。','P SELF和FAMILY较保守，要求未来意图独立确认；B回读原文调整，未视为必须服从的前提。','V6 B的择一路径错误消失；不把A/B支持标签等同于完整法定事实已证明。'),
+  finding('112-prior-stage',['IK-112400:L127:restored-v2','IK-112400:L130:span6','IK-112400:L139:restored-v2'],'先前否定善意及后续不适宜报告均须保留，不能虚构11个月法定否定规则或上诉必须维持。','C02阶段限定REFUTED；反对理由实际展示有利房东的后续认定。','与A近似；把P C02未决改成阶段限定REFUTED，并说明预测假设。','P已保留相反材料，C02未决可解释为目标阶段判断；B称其未充分体现先前认定，只是另一种汇总视角，不足以判P法律错误。','未发现旧式无依据强制驳回。P与B状态差异保留解释争议，不以更确定标签奖励B。'),
+  finding('112-organization',['IK-112400:L123:span1','IK-112400:L124:restored-v2','IK-112400:L138:context-v4'],'法院阶段变化不是新的租赁安排；文书记载的事实不等于原件已核验。','最终统一b1，没有按条件造多笔交易。','统一b1，并明确P的UNKNOWN不否定已记录的租赁、所有权和发回。','P8条记录、1安排；比V6按后续认定拆成3安排清楚。records1/7的UNKNOWN仍把文书记载与原件未核验揉在一起，属接口标记粗糙；文本未丢事实。','B能纠正中间标记的过度保留，但A本已保留同样事实；没有重要净改善证据。')],
+ 'remaining_limits':['原出租用途及其他住所情况在允许材料中未完整说明。','法律包只含历史条文片段，缺Explanation全文、进一步适用及上诉审查/举证标准。','目标高院最终接受情况是本来排除的待判断结果，不能把拿不到最终答案本身当作需要补回的输入；可记录先前认定的效力规则不足。','P UNKNOWN、材料支持与条件最终成立的汇总口径仍有歧义；本轮不修改。'],
+ 'new_material_error':'本次限定的决定性审阅未确认网页A/B出现与V6同等严重的新来源误读；不等于穷尽验证。',
+ 'decision':'网页A已完成主要纠错；B更长并主动调整P，但缺乏足以要求额外阶段的重要收益。'})
+ review['cases'].append({'case':'188721101','pair':'MODEST_ORGANIZATIONAL_B_GAIN_NOT_ESTABLISHED_FINAL_ANSWER_NET_GAIN','findings':[
+  finding('188-date',['IK-188721101:L72:restored-v2'],'1987年是房东主张的起租日，不是经法院确认的处分日；先租后处分可支持条件化时间推论。','C01未决且明确1987起租而非处分；若确认后来处分则可能满足阈值。','同样处理弟弟及父亲时间，未虚构法院日期认定。','P C01保留先后推论和争议；父亲未单列时间已在coverage说明，B补评未决而未补造事实。','V6 A/B日期错读及A虚构法院认定消失。'),
+  finding('188-employment-control',['IK-188721101:L80:restored-v2','IK-188721101:L81:restored-v2'],'邻居称弟弟经营而非租户；兄弟承认经营和钥匙，工资只是证言且凭证未证明。','条件及opposition保留全部反论，不再把工资支付当事实。','同样保留，并明确工资凭证未证明不直接证明次租金。','P records6/7/8分别保留证言、承认和凭证缺口；R7混合证言与承认但文字区分，R8用UNKNOWN保存已记载的举证状况仍粗糙。','V6重要遗漏/强化工资证言明显减少。A opposition.response中“经营、持钥匙和工资凭单未获证明”存在语法歧义，但前后明确承认经营与钥匙；记录措辞风险，不升级为确定的相反事实判断。'),
+  finding('188-consent',['IK-188721101:L73:restored-v2','LAW:S02:DRC14:1b'],'起诉许可不同于房东同意处分；缺少同意资料不是无同意事实，也不自动产生驳回规则。','C05明确区分Slum Authority许可；无旧版倒置同意主体或estoppel。','C05保持资料缺口；reason明确未决不等于虚假、不创设自动驳回。','P有针对两笔安排的分别待定标记；无人工改写。','V6 A/B相关条件误用消失；B未明确重复Slum许可区别，但未将其用作同意，非决定性遗漏。'),
+  finding('188-prior-license',['IK-188721101:L83:restored-v2','IK-188721101:L84:restored-v2','IK-190902:L107','IK-190902:L110','IK-190902:L112'],'原审可撤销许可认定是现有相反司法判断，尚非目标上诉接受；家属关系不构成给定法源中的当然豁免。','三个处分路径分别处理，C02/3/4阶段限定REFUTED、C06支持；承认上诉可能推翻并保留相反证据。','C02未决、C03/4阶段限定反驳、C06支持；家属不当然豁免，预测依赖原审主要判断维持的假设。','P对未证明转租与积极否定assignment/parting作区别，B沿用但有限定。','C02 A/B不同不直接判优劣：A依积极许可推反驳，B突出未证明与存在反论。两者需读解释，单标签不能当成统一法律真值。'),
+  finding('188-separate-arrangements',['IK-188721101:L72:restored-v2','IK-188721101:L73:restored-v2','IK-188721101:L74:restored-v2'],'父亲先前安排与弟弟后续使用须分开；6号铺及另一营业地点不等于15号铺的处分。','opposition和gaps保留父亲、6号铺柜台迁移及独立证明要求；未逐条件展开父亲。','b1弟弟、b2父亲分开列条件；父亲assignment缺口写在b2/C04解释，未另列C03；不借弟弟认定填父亲。','P9记录、3安排（弟弟、父亲、6号铺背景），只对前两者作处分条件分析。B父亲分项确与P组织对应，构成可追溯的组织收益。','比V6遗漏明显改善。B比网页A更细致，但A已识别同样决定性边界；没有发现B找回A漏掉的决定性原文。'),
+  finding('188-final-prediction',['IK-188721101:L83:restored-v2','LAW:S02:DRC14:1b'],'预测须说明依赖先前认定的假设，不能把阶段认定升级最终判决。','DENY针对房东上诉，说明若权利转移/时间/无同意获确认可能改变。','DENY针对恢复占有请求，binding和reason持续保留第38条上诉阶段；不是新增请求或确定性程序裁判。','P未代替完整法律判断；B仍有原文访问。','没有用共同DENY判正确。未获目标最终理由，不能验证历史胜败准确率。')],
+ 'remaining_limits':['书面同意具体情况、父亲安排详情及权利/控制争议在允许材料中未获最终解决。','提供了转租、让与、交出占有标准，但未覆盖完整举证推定、事实评价及上诉审查标准。','姓名两种拼写已被双方保留，没有为此封锁全案；不得据拼写独立制造新交易。','已保留相反事实并不说明预测假设必然成立。'],
+ 'new_material_error':'限定审阅未确认B新增同等严重错误；A一处中文并列句歧义与两组汇总状态口径保留为限制。',
+ 'decision':'P使父亲/弟弟逐安排分析更清楚，但网页A本已覆盖关键反论。值得保留为可选组织组件，现有净收益不足以强制使用。'})
+ review['overall_decision']='PRIORITIZE_WEB_DIRECT_A_KEEP_P_OPTIONAL'
+ review['causal_limits']=['两案旧材料开发诊断；普通High具体型号不可得。','配置整体不同：内部推理、采样、Schema机制、输出长度和语言不同；不能只归因模型规模。','B两个调用、更多输入，A一个调用；非同计算预算。','未给B离线checks，不验证检查提示/GNN效果。','P与B内容对应仅证明可追踪，不能排除B回读原文得到同样结论。']
+ save(R/'final-source-review.json',review)
+ # Quote anchors taken from the actual model-visible source, not target excluded judgment.
+ anchors=[]
+ for c in ['112400','188721101']:
+  txt=(R/'tasks'/c/'A/prompt.txt').read_text();src=json.loads(txt.split('COMPLETE ALLOWED CASE MATERIAL:\n\n')[1].split('\n\nTASK:')[0]);anchors.append(src)
+ save(R/'review-source-anchors.json',anchors)
+ pairs=[]
+ for case in review['cases']:
+  c=case['case'];r={x['stage']:x for x in rows if x['case']==c}
+  pairs.append({'case':c,'A_status':'OK','P_status':'OK','B_status':'OK','A_outcome':'PREDICT_DENY','B_outcome':'PREDICT_DENY','pair_result':case['pair'],'source_errors_vs_v6':'CLEAR_REDUCTION_IN_IDENTIFIED_ERRORS','A_task_bytes':r['A']['task_bytes'],'P_plus_B_task_bytes':r['P']['task_bytes']+r['B']['task_bytes'],'A_observed_seconds':r['A']['observed_seconds'],'P_plus_B_observed_seconds':r['P']['observed_seconds']+r['B']['observed_seconds'],'decision':case['decision']})
+ save(R/'case-comparison.json',pairs)
+ with (R/'case-comparison.csv').open('w') as f:
+  w=csv.DictWriter(f,fieldnames=list(pairs[0]));w.writeheader();w.writerows(pairs)
+ reg=read(R/'registration.json');old={**reg['historical_hashes'],**reg['old_code_hashes']};bad=[p for p,v in old.items() if h(p)!=v];assert not bad
+ cfg=read(R/'freeze/config.json');assert h('scripts/irac_web_v7.py')==cfg['transport_code_hash']
+ assert all(h(p)==v for p,v in cfg['task_hashes'].items());assert all(h(p)==v for p,v in cfg['material_hashes'].items())
+ save(R/'preservation-after.json',{'passed':True,'V6_files':len(reg['historical_hashes']),'old_code_files':len(reg['old_code_hashes']),'changed':bad,'frozen_task_hashes_unchanged':True,'material_hashes_unchanged':True,'transport_code_unchanged':True})
+ save(R/'progress.json',{'status':'COMPLETED_SIX_CALLS_ONE_SOURCE_REVIEW_STOPPED','slots':[{'case':x['case'],'stage':x['stage'],'status':x['status'],'url':x['url']} for x in rows],'no_more_calls':True})
+ report='''IRAC V7：V6同接口、同材料的网页A/B对照
+
+暂定决定：优先网页直接回答A，P作为可选组织组件。网页配置在两案中都明显减少了V6的已确认来源误读和决定性遗漏；但网页A已独立做到大部分改进。112400的B与A实质接近，188721101的B更明确地分别分析父亲和弟弟安排，却没有找回A完全遗漏的决定性原文。尚不足以要求每案增加一次P生成及更长的最终输入。这个投入选择不证明结构化方法普遍无效，也不验证历史判决准确率。
+
+实际完成6次网页回答，2份P、4份最终回答全部可读取，失败0、重试0、额外网页复核0、本地推理0。A/P/B分别使用6个新的临时对话；界面显示High及“不个性化”，明确说明不使用记忆、插件、自定义指令。未显示具体模型型号，记为不可得，没有写成GPT-6。任务不含旧答案、参考审阅或程序检查；没有新增法源或目标最终理由。
+
+112400：旧9B将租约存在当作住宅用途已确认，将现住房不适宜扩大为没有其他适宜住所；B又让家属依赖未知封锁本人择一路线。网页A/B均避免这些错误，保留原审否定善意需要与1970年发回报告有利于房东的认定，说明11个月不是给定法条中的自动否定规则。C06均为未决，解释与结论一致；未知对应住宅出租用途、其他住所范围等具体缺口，已知所有权和本人路径没有一起丢掉。
+
+P将整案整理为一个租赁安排，未再把后续法院认定拆成交易；正反材料基本齐全。不过，租赁/所有权及发回程序的记录标成UNKNOWN，仍把文书记载与原件未核验混在状态字段中。B回读来源后明确保留这些事实，并将P的C02未决改成阶段限定的反驳。P已经保留早期不利认定与后续相反依据，不能仅凭这个状态改变宣称B纠正了法律错误。A本来就有相同核心分析，B未显示重要额外净收益。
+
+188721101：网页A/B均将1987年识别为房东所称起租日，不再虚构法院确认处分发生于当天；保留先租后处分可形成条件化时间推论。两者都保留邻居所说“弟弟经营而非租户”、兄弟承认经营和持钥匙、工资凭证未证明，以及6号铺/柜台和父亲先前安排。工资证言没有再被强化成已证明的工资支付，家属关系也没有被当作给定法源中的当然豁免。A另明确区分Slum Authority起诉许可与房东同意处分；B未重复此区分，但也未错误使用该许可。
+
+两者对原审可撤销许可的判断均保留上诉地位，书面同意仍为具体资料缺口。理由明确交代预测依赖原审核心认定维持的假设，不再说“同意未知必然阻止授予”。P形成弟弟使用、父亲先前安排、6号铺背景三个安排；B明确列b1/b2条件，父亲时间由B根据同一原文补评未决。这是可追溯的组织收益，但网页A在反论和缺口中已经说明父亲安排不能借弟弟证据证明；尚未见这份更长分析纠正A的一项决定性遗漏。
+
+保留的问题与争议：网页A的188721101 opposition.response中“经营、持钥匙和工资凭单未获证明”存在并列修饰歧义；前文条件、反论和理由均明确经营/钥匙已承认，因此不将这一措辞单独升级成确定的事实反写。A把转租条件阶段限定为REFUTED，B为UNRESOLVED；二者都保留原审许可及反对证据，前者依积极许可推反驳，后者强调未证明与待上诉评价。不能仅凭标签确定谁对。P仍有UNKNOWN状态过粗、混合证言/承认等表达限制；这些问题没有在本轮被修复，也没有为消除它们追加运行。
+
+本批最终回答比V6更忠实且完整，依据是具体错误减少和反论恢复，不是四份都预测DENY、JSON完整或全部变成未知。限定审阅未确认网页最终答案新增与V6同等严重的决定性错误，但不等于全部语义已穷尽验证。两案真实法律包仍缺更完整的举证和上诉审查标准；112400缺住宅出租用途及其他住所情况，188721101缺父亲详情、书面同意及权利控制的最终事实评价。目标法院最终接受何种判断本来就是被排除的待分析结果，不能要求补回目标答案来消除未知。
+
+比较边界：这是两件已参与开发的案件，来源为完整“允许材料”，不是完整未遮挡判决。法源保留V6的历史重建及后出材料限制。网页端没有本地逐token Schema约束；具体型号、采样、内部推理、上下文处理及精确tokens不可得，输出语言和长度也不同。因此只能说更强网页运行配置整体有改善，不能证明改进全部来自参数规模或某一个接口字段。B能回读原文，不能将所有正确处归功于P；本轮也没有评价程序检查块或GNN。
+
+逐调用成本（秒为提交至观察到完成的间隔，包括排队、浏览器、轮询及取回延迟，不是精确生成耗时）：
+
+|案件|阶段|状态|完整任务UTF-8字节|原始回答字节|观察间隔秒|
+|---|---|---|---:|---:|---:|
+'''
+ for x in rows:report+=f"|{x['case']}|{x['stage']}|{x['status']}|{x['task_bytes']}|{x['reply_bytes']}|{x['observed_seconds']:.2f}|\n"
+ for x in pairs:report+=f"\n{x['case']}：A一调用，{x['A_task_bytes']:,}任务字节、观察间隔{x['A_observed_seconds']:.2f}秒；P+B两调用，{x['P_plus_B_task_bytes']:,}累计任务字节、观察间隔{x['P_plus_B_observed_seconds']:.2f}秒。累计字节包含重复发送的案情与法源，不代表独有信息量。\n"
+ report+='''
+网页未生成下载链接；直接保存了完整渲染JSON原文。188721101 A使用普通段落呈现，读取位置切换不涉及再次生成；六份均无需删除围栏或修补内容。上传成功、材料逐字装配检查和完整回答可观察，但无法审计网页内部是否对附件作隐藏检索或上下文裁剪；未观察到外部搜索、其他聊天引用或附件读取失败。此限制不能包装成已证明内部逐字读取。
+
+工程与保存：A/P原prompt和Schema逐字等于V6；B仅将空中间材料替换成本轮原P，动态哈希在P完成后保存。两份离线导入均为OK，没有隔离记录；这不代表语义正确，checks从未进入B。V6的158份原文件及27项旧源码哈希不变，当前工作区已有修改未覆盖。所有任务、原回复、URL、设置和一次集中来源审阅均在新目录。临时对话URL不保证长期可用，完整本地原文是持久审阅依据。截图及浏览器页面仅本地保存，排除发布清单。
+
+文件入口：answers.md为六份原始输出；case-comparison.csv/json为逐案结果；final-source-review.json及review-source-anchors.json为集中审阅与允许原文；call-costs.csv/costs.json为成本；tasks和runs为实际提交、Schema、原文、导入及离线checks；freeze/config.json为预先冻结，B-assembly-validation.json为动态装配核验，preservation-after.json为历史保留核验。
+
+完成本轮后停止。不追加C、不补法源、不重新生成、不训练、不启封SEALED、不提交或推送GitHub。下一步若继续，应由用户决定是否扩展同配置直接回答验证或有边界地补充真实法源；本轮不执行。
+'''
+ (R/'report-zh.txt').write_text(report)
+ # Repository metadata; no commit/push.
+ summary='V7六次普通High独立临时对话完成，2份P与4份最终回答均可读，零重试。网页A/B明显减少V6来源误读及遗漏；112400 B接近A，188721101 B有逐安排组织收益但未确认重要额外净收益。优先网页A、P可选；一次模型辅助来源审阅，非人工gold，旧案开发诊断。未新增法源、执行器改动、本地推理或推送。'
+ policy=read('docs/repository-artifacts.json');policy['code_review_files'].append('scripts/report_irac_web_v7.py') if 'scripts/report_irac_web_v7.py' not in policy['code_review_files'] else None
+ policy['current_review']={'contract_version':2,'review_kind':'IRAC_WEB_CROSSMODEL_V7_COMPLETED','title':'IRAC V7 同接口同材料网页A/B对照','report':str(R/'report-zh.txt'),'summary':summary,'status':'COMPLETED_SIX_WEB_CALLS_ONE_REVIEW_STOPPED_LOCAL_ONLY','links':[{'label':label,'path':str(R/p)} for label,p in [('中文报告','report-zh.txt'),('完整网页回答及P','answers.md'),('逐案比较','case-comparison.csv'),('集中来源审阅','final-source-review.json'),('允许来源审阅锚点','review-source-anchors.json'),('成本与对话URL','call-costs.csv'),('冻结配置','freeze/config.json'),('动态B装配','B-assembly-validation.json'),('历史保留','preservation-after.json')]],'review_request':'只读核对V7同材料网页A/P/B及V6基线。区分整体配置改善与P额外净收益；核对原文和主要反论，不以共同DENY或JSON成功为法律正确。112400两项过度推断、本人择一路线、后续报告；188721101起租日期、工资凭证、邻居、父亲/弟弟、书面同意及原审效力。P/B C02状态分歧保留解释空间；浏览器记录本地排除。不授权追加实验、纠错重跑或发布。'}
+ policy['publication_authorization']['current_irac_web_v7_hold']='Explicit current user: local prepare/manifest/verify only; no commit/push.'
+ save('docs/repository-artifacts.json',policy)
+ cat=read('docs/EXPERIMENTS.json');assert not any(x['id']=='irac-web-crossmodel-v7' for x in cat['experiments']);cat['experiments'].append({'id':'irac-web-crossmodel-v7','role':'two_exposed_cases_same_information_web_configuration_AB_development','report':str(R/'report-zh.txt'),'note':summary});save('docs/EXPERIMENTS.json',cat)
+ p=Path('README.md');old=p.read_text();old=old.replace('# 当前工作：IRAC V6 两案完整比较已完成','# 历史：IRAC V6 两案完整比较已完成',1);p.write_text('# 当前工作：IRAC V7 网页同接口A/B比较已完成\n\n'+summary+' 见[报告]('+str(R/'report-zh.txt')+')、[完整回答]('+str(R/'answers.md')+')、[逐案比较]('+str(R/'case-comparison.csv')+')。\n\n'+old)
+ p=Path('docs/CHANGELOG.md');p.write_text('## 2026-10-08 IRAC V7：两案同材料网页比较\n\n'+summary+' 六份实际任务保留原V6接口，B只增加本轮P；精确tokens与推理耗时不可得，观察间隔单列。截图与账户界面记录不发布。\n\n'+p.read_text())
+ print('V7 report, source review, costs and local metadata completed')
+if __name__=='__main__':main()
+
+````

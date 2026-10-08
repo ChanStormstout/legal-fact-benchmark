@@ -1,0 +1,1530 @@
+{
+  "case_id": "489898",
+  "units": [
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C01|489898-B1",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C01",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.55,
+          0.1,
+          0.35
+        ]
+      },
+      "program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L1:0",
+              "LINK:L3:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "statement_status"
+            ],
+            "reason": "The asserted post-1952 creation date and lack of written consent are appellant allegations. The same sentence connects the alleged transaction, date, and consent assertion, but neither proposition is a court finding.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+              }
+            ]
+          },
+          {
+            "original_ids": [
+              "LINK:L6:0",
+              "LINK:L9:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant.identity",
+              "disposition_identity"
+            ],
+            "reason": "The source explicitly identifies Onkar Nath as the inducted tenant. Nevertheless, pre-existing occupation by the named persons cannot be equated with a later subletting or tenant-caused disposition merely because the same tenancy is discussed.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+              },
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "the sub-tenancy was created after 9/06/1952."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L9:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01"
+            ],
+            "fields": [
+              "date"
+            ],
+            "reason": "The respondent's account supplies relative chronology, not a calendar date by which the 9 June 1952 cutoff can be evaluated. The pre-tenancy occupation event remains recorded.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "combination_status"
+            ],
+            "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "The appellant alleged that the tenant sub-let the premises"
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L1",
+        "L9"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C02|489898-B1",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C02",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.2,
+          0.15,
+          0.65
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "subletting.relationship",
+              "subletting.transfer_of_interest",
+              "subletting.rent",
+              "subletting.right_to_possession"
+            ],
+            "reason": "The labels 'sub-let' and 'sub-tenants', together with an asserted right of occupation, do not separately provide the landlord-subtenant relationship, estate-interest transfer, rent, and right-to-possession incidents required by C02.",
+            "origin_ids": [
+              "LINK:L2:0",
+              "LINK:L5:0",
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:1"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L2:1",
+              "LINK:L5:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant.identity",
+              "subtenant.identity"
+            ],
+            "reason": "Restored L45 identifies Onkar Nath as the inducted tenant and L46 identifies two occupants. This clarifies the roles omitted from the old link entity lists but does not establish that each named occupant was the recipient of the appellant's alleged post-1952 disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "Shri Onkar Nath was inducted as tenant"
+              },
+              {
+                "source_id": "IK-489898:L46:restored-v2",
+                "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "combination_status"
+            ],
+            "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "The appellant alleged that the tenant sub-let the premises"
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L2",
+        "L5"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C03|489898-B1",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C03",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.125,
+          0.1875,
+          0.6875
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C04|489898-B1",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C04",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.1,
+          0.15,
+          0.75
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L2:1",
+              "LINK:L5:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant.identity",
+              "subtenant.identity"
+            ],
+            "reason": "Restored L45 identifies Onkar Nath as the inducted tenant and L46 identifies two occupants. This clarifies the roles omitted from the old link entity lists but does not establish that each named occupant was the recipient of the appellant's alleged post-1952 disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "Shri Onkar Nath was inducted as tenant"
+              },
+              {
+                "source_id": "IK-489898:L46:restored-v2",
+                "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L6:0",
+              "LINK:L9:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant.identity",
+              "disposition_identity"
+            ],
+            "reason": "The source explicitly identifies Onkar Nath as the inducted tenant. Nevertheless, pre-existing occupation by the named persons cannot be equated with a later subletting or tenant-caused disposition merely because the same tenancy is discussed.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+              },
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "the sub-tenancy was created after 9/06/1952."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L6:1",
+              "LINK:L7:1"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "parting_with_possession.legal_possession",
+              "parting_with_possession.later_divestment"
+            ],
+            "reason": "Occupation before or at tenancy creation is a physical-occupation chronology. It does not establish whether the tenant later vested legal possession in another or abandoned his right to possession.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+              },
+              {
+                "source_id": "IK-489898:L48:span5",
+                "quote": "were admittedly in possession on the date of creation of tenancy"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L7:0",
+              "LINK:L8:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "other_person.identity",
+              "tenant.identity",
+              "disposition_identity",
+              "landlord.identity",
+              "premises.identity"
+            ],
+            "reason": "The restored L48 passage refers to persons claiming rights through two subtenants. The supplied material does not establish that those two predecessors are identical to Kirori Mal and Dewan Chand Gupta, or that the reported consent concerned the appellant's alleged post-1952 disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:restored-v2",
+                "quote": "these persons claimed their right through two subtenants"
+              },
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L6",
+        "L7"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C05|489898-B1",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C05",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.2,
+          0.1,
+          0.7
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L1:0",
+              "LINK:L3:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "statement_status"
+            ],
+            "reason": "The asserted post-1952 creation date and lack of written consent are appellant allegations. The same sentence connects the alleged transaction, date, and consent assertion, but neither proposition is a court finding.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+              }
+            ]
+          },
+          {
+            "original_ids": [
+              "LINK:L7:0",
+              "LINK:L8:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "other_person.identity",
+              "tenant.identity",
+              "disposition_identity",
+              "landlord.identity",
+              "premises.identity"
+            ],
+            "reason": "The restored L48 passage refers to persons claiming rights through two subtenants. The supplied material does not establish that those two predecessors are identical to Kirori Mal and Dewan Chand Gupta, or that the reported consent concerned the appellant's alleged post-1952 disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:restored-v2",
+                "quote": "these persons claimed their right through two subtenants"
+              },
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L8:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "consent.form"
+            ],
+            "reason": "The prior-court passage records landlord consent to earlier possession but does not state that the consent was written. This uncertainty is limited to the written-consent inquiry.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:span5",
+                "quote": "the same was with the consent of the landlord."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "combination_status"
+            ],
+            "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "The appellant alleged that the tenant sub-let the premises"
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L3",
+        "L8"
+      ],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C06|489898-B1",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C06",
+      "prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          0.15,
+          0.1,
+          0.75
+        ]
+      },
+      "program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [],
+      "source_semantics_verified": false
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C07|489898-B1",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "test_id": "DRC_SUBLETTING_C07",
+      "prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.8,
+          0.1,
+          0.1
+        ]
+      },
+      "program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L4:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "premises.identity",
+              "premises.part"
+            ],
+            "reason": "The restored parent identifies the building, resolving the previously missing general premises description. It does not identify the precise portion associated with each alleged disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "combination_status"
+            ],
+            "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "The appellant alleged that the tenant sub-let the premises"
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "candidate_link_ids": [
+        "L4"
+      ],
+      "source_semantics_verified": false
+    }
+  ],
+  "bindings": [
+    {
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "objects": [
+        {
+          "role": "inducted_tenant",
+          "mention": "Shri Onkar Nath",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:restored-v2",
+              "quote": "Shri Onkar Nath was inducted as tenant"
+            }
+          ]
+        },
+        {
+          "role": "then_owner_landlord",
+          "mention": "Shri Inder Narain",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L46:span3",
+              "quote": "the then owner/landlord Shri Inder Narain"
+            }
+          ]
+        },
+        {
+          "role": "appellant_claiming_no_consent",
+          "mention": "the appellant",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:span1",
+              "quote": "The appellant alleged"
+            }
+          ]
+        },
+        {
+          "role": "named_prior_occupant",
+          "mention": "Shri Kirori Mal",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L46:span3",
+              "quote": "Shri Kirori Mal"
+            }
+          ]
+        },
+        {
+          "role": "named_prior_occupant",
+          "mention": "Shri Dewan Chand Gupta",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L46:span3",
+              "quote": "Shri Dewan Chand Gupta"
+            }
+          ]
+        },
+        {
+          "role": "earlier_unnamed_subtenant_pair",
+          "mention": "two subtenants whose identity relative to the named pair is unresolved",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L48:restored-v2",
+              "quote": "two subtenants who were admittedly in possession"
+            }
+          ]
+        },
+        {
+          "role": "other_alleged_subtenant",
+          "mention": null,
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:span2",
+              "quote": "sub-tenants already occupying the premises as of right."
+            }
+          ]
+        },
+        {
+          "role": "premises",
+          "mention": "Building No. 1194, Ward V, Maliwara, Nai Sarak, Delhi",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:restored-v2",
+              "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+            }
+          ]
+        }
+      ],
+      "identity_refs": [
+        {
+          "source_id": "IK-489898:L45:restored-v2",
+          "quote": "Shri Onkar Nath was inducted as tenant of the whole of the building"
+        },
+        {
+          "source_id": "IK-489898:L45:span1",
+          "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writing"
+        },
+        {
+          "source_id": "IK-489898:L46:span3",
+          "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+        },
+        {
+          "source_id": "IK-489898:L48:restored-v2",
+          "quote": "these persons claimed their right through two subtenants"
+        }
+      ],
+      "join_limits": [
+        {
+          "kind": "BINDING",
+          "affected_tests": [
+            "DRC_SUBLETTING_C01",
+            "DRC_SUBLETTING_C02",
+            "DRC_SUBLETTING_C07"
+          ],
+          "reason": "The appellant's pleaded post-1952 allegation links conduct, timing and the identified building within one asserted arrangement. The named occupants in the respondent's account are described as occupying the premises before Onkar Nath's tenancy. The supplied passages do not establish that these persons were recipients of the appellant's alleged later disposition or identify the same specific part of the building. Consequently, the respondent's earlier-occupation account cannot automatically be merged into the appellant's alleged transaction for date, subtenancy-incident or part-specific premises evaluation. The internal links within the appellant's allegation remain preserved.",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:restored-v2",
+              "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+            },
+            {
+              "source_id": "IK-489898:L46:span3",
+              "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+            },
+            {
+              "source_id": "IK-489898:L45:restored-v2",
+              "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+            }
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "affected_tests": [
+            "DRC_SUBLETTING_C01",
+            "DRC_SUBLETTING_C04",
+            "DRC_SUBLETTING_C05"
+          ],
+          "reason": "The later passage describes persons claiming through two subtenants who were in possession when the tenancy was created. The material does not establish that this predecessor pair is identical to Kirori Mal and Dewan Chand Gupta, or that the earlier possession and reported landlord consent concern the appellant's alleged post-1952 disposition. Prior occupation cannot automatically be treated as a later tenant-caused divestment, and consent to earlier possession cannot automatically be joined to the later alleged transaction. The distinct accounts and the original restrictions remain available without assuming their transaction identity.",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L48:restored-v2",
+              "quote": "these persons claimed their right through two subtenants who were admittedly in possession on the date of creation of tenancy"
+            },
+            {
+              "source_id": "IK-489898:L48:span5",
+              "quote": "the same was with the consent of the landlord."
+            },
+            {
+              "source_id": "IK-489898:L46:span3",
+              "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta"
+            },
+            {
+              "source_id": "IK-489898:L45:span1",
+              "quote": "the sub-tenancy was created after 9/06/1952."
+            }
+          ]
+        },
+        {
+          "kind": "RULE_SCOPE",
+          "affected_tests": [
+            "DRC_SUBLETTING_C02",
+            "DRC_SUBLETTING_C03",
+            "DRC_SUBLETTING_C04",
+            "DRC_SUBLETTING_C06"
+          ],
+          "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L48:restored-v2",
+              "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+            },
+            {
+              "source_id": "IK-190902:L109",
+              "quote": "These three expressions deal with different concepts and apply to different circumstances."
+            },
+            {
+              "source_id": "IK-190902:L110",
+              "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+            },
+            {
+              "source_id": "IK-190902:L112",
+              "quote": "The divestment or abandonment of the right to possession is necessary"
+            }
+          ]
+        },
+        {
+          "kind": "BINDING",
+          "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+          "affected_tests": [
+            "DRC_SUBLETTING_C01",
+            "DRC_SUBLETTING_C02",
+            "DRC_SUBLETTING_C05",
+            "DRC_SUBLETTING_C07"
+          ]
+        }
+      ],
+      "tests": {
+        "DRC_SUBLETTING_C01": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C02": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C03": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "RULE_SCOPE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C06"
+            ],
+            "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:restored-v2",
+                "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+              },
+              {
+                "source_id": "IK-190902:L109",
+                "quote": "These three expressions deal with different concepts and apply to different circumstances."
+              },
+              {
+                "source_id": "IK-190902:L110",
+                "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+              },
+              {
+                "source_id": "IK-190902:L112",
+                "quote": "The divestment or abandonment of the right to possession is necessary"
+              }
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C04": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "RULE_SCOPE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C06"
+            ],
+            "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:restored-v2",
+                "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+              },
+              {
+                "source_id": "IK-190902:L109",
+                "quote": "These three expressions deal with different concepts and apply to different circumstances."
+              },
+              {
+                "source_id": "IK-190902:L110",
+                "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+              },
+              {
+                "source_id": "IK-190902:L112",
+                "quote": "The divestment or abandonment of the right to possession is necessary"
+              }
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C05": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C06": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "RULE_SCOPE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C06"
+            ],
+            "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:restored-v2",
+                "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+              },
+              {
+                "source_id": "IK-190902:L109",
+                "quote": "These three expressions deal with different concepts and apply to different circumstances."
+              },
+              {
+                "source_id": "IK-190902:L110",
+                "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+              },
+              {
+                "source_id": "IK-190902:L112",
+                "quote": "The divestment or abandonment of the right to possession is necessary"
+              }
+            ]
+          }
+        },
+        "DRC_SUBLETTING_C07": {
+          "status": "UNRESOLVED",
+          "reason": {
+            "kind": "BINDING",
+            "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        }
+      },
+      "elements": [
+        {
+          "element_id": "DRC_SUBLETTING_E01",
+          "result": {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C01"
+            ]
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E02",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C02"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "RULE_SCOPE",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C03",
+                    "DRC_SUBLETTING_C04",
+                    "DRC_SUBLETTING_C06"
+                  ],
+                  "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-489898:L48:restored-v2",
+                      "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                    },
+                    {
+                      "source_id": "IK-190902:L109",
+                      "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                    },
+                    {
+                      "source_id": "IK-190902:L110",
+                      "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                    },
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "The divestment or abandonment of the right to possession is necessary"
+                    }
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C03"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "RULE_SCOPE",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C03",
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ],
+                      "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-489898:L48:restored-v2",
+                          "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                        },
+                        {
+                          "source_id": "IK-190902:L109",
+                          "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                        },
+                        {
+                          "source_id": "IK-190902:L110",
+                          "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The divestment or abandonment of the right to possession is necessary"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C04"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "RULE_SCOPE",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C03",
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ],
+                      "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-489898:L48:restored-v2",
+                          "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                        },
+                        {
+                          "source_id": "IK-190902:L109",
+                          "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                        },
+                        {
+                          "source_id": "IK-190902:L110",
+                          "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The divestment or abandonment of the right to possession is necessary"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C06"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E03",
+          "result": {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C07"
+            ]
+          }
+        },
+        {
+          "element_id": "DRC_SUBLETTING_E04",
+          "result": {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        }
+      ],
+      "result": {
+        "status": "UNRESOLVED",
+        "trace": [
+          {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C01"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C07"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C02"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "RULE_SCOPE",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C03",
+                    "DRC_SUBLETTING_C04",
+                    "DRC_SUBLETTING_C06"
+                  ],
+                  "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-489898:L48:restored-v2",
+                      "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                    },
+                    {
+                      "source_id": "IK-190902:L109",
+                      "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                    },
+                    {
+                      "source_id": "IK-190902:L110",
+                      "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                    },
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "The divestment or abandonment of the right to possession is necessary"
+                    }
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C03"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "RULE_SCOPE",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C03",
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ],
+                      "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-489898:L48:restored-v2",
+                          "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                        },
+                        {
+                          "source_id": "IK-190902:L109",
+                          "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                        },
+                        {
+                          "source_id": "IK-190902:L110",
+                          "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The divestment or abandonment of the right to possession is necessary"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C04"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "RULE_SCOPE",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C03",
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ],
+                      "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-489898:L48:restored-v2",
+                          "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                        },
+                        {
+                          "source_id": "IK-190902:L109",
+                          "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                        },
+                        {
+                          "source_id": "IK-190902:L110",
+                          "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The divestment or abandonment of the right to possession is necessary"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C06"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          },
+          {
+            "status": "UNRESOLVED",
+            "reason": {
+              "kind": "BINDING",
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ]
+            },
+            "trace": [
+              "DRC_SUBLETTING_C05"
+            ]
+          }
+        ],
+        "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+      },
+      "all_limits_removed": false
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "status": "UNRESOLVED",
+      "binding_results": [
+        {
+          "binding_id": "489898-B1",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C01"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C07"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C01",
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C05",
+                        "DRC_SUBLETTING_C07"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C02"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "RULE_SCOPE",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C03",
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ],
+                      "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-489898:L48:restored-v2",
+                          "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                        },
+                        {
+                          "source_id": "IK-190902:L109",
+                          "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                        },
+                        {
+                          "source_id": "IK-190902:L110",
+                          "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The divestment or abandonment of the right to possession is necessary"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C03"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "trace": [
+                      {
+                        "status": "UNRESOLVED",
+                        "reason": {
+                          "kind": "RULE_SCOPE",
+                          "affected_tests": [
+                            "DRC_SUBLETTING_C02",
+                            "DRC_SUBLETTING_C03",
+                            "DRC_SUBLETTING_C04",
+                            "DRC_SUBLETTING_C06"
+                          ],
+                          "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                          "source_refs": [
+                            {
+                              "source_id": "IK-489898:L48:restored-v2",
+                              "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                            },
+                            {
+                              "source_id": "IK-190902:L109",
+                              "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                            },
+                            {
+                              "source_id": "IK-190902:L110",
+                              "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                            },
+                            {
+                              "source_id": "IK-190902:L112",
+                              "quote": "The divestment or abandonment of the right to possession is necessary"
+                            }
+                          ]
+                        },
+                        "trace": [
+                          "DRC_SUBLETTING_C04"
+                        ]
+                      },
+                      {
+                        "status": "UNRESOLVED",
+                        "reason": {
+                          "kind": "RULE_SCOPE",
+                          "affected_tests": [
+                            "DRC_SUBLETTING_C02",
+                            "DRC_SUBLETTING_C03",
+                            "DRC_SUBLETTING_C04",
+                            "DRC_SUBLETTING_C06"
+                          ],
+                          "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                          "source_refs": [
+                            {
+                              "source_id": "IK-489898:L48:restored-v2",
+                              "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                            },
+                            {
+                              "source_id": "IK-190902:L109",
+                              "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                            },
+                            {
+                              "source_id": "IK-190902:L110",
+                              "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                            },
+                            {
+                              "source_id": "IK-190902:L112",
+                              "quote": "The divestment or abandonment of the right to possession is necessary"
+                            }
+                          ]
+                        },
+                        "trace": [
+                          "DRC_SUBLETTING_C06"
+                        ]
+                      }
+                    ],
+                    "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C05"
+                ]
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        }
+      ],
+      "reason": "Existential support uses a complete bound expression; all enumerated bindings refuted does not prove exhaustive case absence.",
+      "burden_failure_inferred": false
+    }
+  ],
+  "burdens": [
+    {
+      "id": "DRC_SUBLETTING_B01",
+      "proposition": "Allocation and standard of proof for the overall s14(1)(b) ground.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    },
+    {
+      "id": "DRC_SUBLETTING_B02",
+      "proposition": "Allocation, standard, or burden shift concerning written consent or any disposition route.",
+      "bearer": null,
+      "standard": null,
+      "shift_trigger": null,
+      "source_refs": [],
+      "coverage_status": "NOT_COVERED"
+    }
+  ],
+  "scope": "Delhi, India; s14(1)(b) of the statute identified in the proposed framing as the Delhi Rent Control Act, 1958. Reusable research structure limited to the supplied statutory excerpt and supplied interpretive opinion excerpts; the quoted law text does not independently establish enactment-year, amendment/version, or decision-date metadata.",
+  "coverage_limits": [
+    "Retrospective model-proposed decomposition only; no case-specific answer or legal advice.",
+    "All supplied law records are marked PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; this does not prove prospective historical availability.",
+    "The quoted law text does not independently state the statute's enactment year, amendment/version date, or the decision date of document 190902; those metadata are not established by the supplied law excerpts.",
+    "No burden allocation, proof standard, burden shift, evidentiary presumption, or additional consent doctrine is supplied.",
+    "No separate affirmative defense is supplied; retained legal possession and concurrent use are only qualifications to the parting-with-possession route.",
+    "Compatibility with other statutes, jurisdictions, procedural stages, fact patterns, or later authorities is not presumed.",
+    "Expressions organize source propositions but do not make open-text legal judgments self-executing booleans.",
+    "Support for any one test proposition does not itself establish eviction; the full claim expression and identity bindings must be satisfied."
+  ],
+  "attribution": "CANDIDATE_SOURCES_NOT_FAITHFUL_MODEL_EXPLANATION",
+  "historical_outcome_scored": false
+}

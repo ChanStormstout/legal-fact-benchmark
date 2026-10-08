@@ -1,0 +1,52 @@
+{
+  "cases": [
+    "1114159",
+    "112400",
+    "188721101",
+    "52547606",
+    "55384096",
+    "68065690"
+  ],
+  "order": [
+    "1114159/A",
+    "1114159/proposal",
+    "1114159/B",
+    "1114159/C",
+    "112400/A",
+    "112400/proposal",
+    "112400/B",
+    "112400/C",
+    "188721101/A",
+    "188721101/proposal",
+    "188721101/B",
+    "188721101/C",
+    "52547606/A",
+    "52547606/proposal",
+    "52547606/B",
+    "52547606/C",
+    "55384096/A",
+    "55384096/proposal",
+    "55384096/B",
+    "55384096/C",
+    "68065690/A",
+    "68065690/proposal",
+    "68065690/B",
+    "68065690/C"
+  ],
+  "max_calls": 24,
+  "max_tokens": 3072,
+  "context": 32768,
+  "generation_seconds_budget": 5400,
+  "web": 0,
+  "training": 0,
+  "retries": 0,
+  "source_role": "Exposed development; same complete allowed v2 material, no target final reasoning",
+  "conditions": {
+    "A": "direct explicit prediction",
+    "B": "same source plus new semantic proposal",
+    "C": "same proposal plus deterministic full checks"
+  },
+  "failure": "A or B independent failure does not block others. Proposal interface failure skips B/C. OOM/framework or total generation budget stops remainder. No retry.",
+  "evaluation": "One six-case source review after all attempts. Existing definite compatible references are secondary; unresolved references never converted to binary. No target outcome score. No target-specific evaluation hints in prompts.",
+  "stop": "Deliver after one replay and <=24 calls; no next round, commit or push"
+}

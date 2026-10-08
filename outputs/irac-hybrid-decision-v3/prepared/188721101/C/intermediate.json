@@ -1,0 +1,967 @@
+{
+  "proposal": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Ramesh Kumar; Bhagwan Dass; Shop No. 15",
+        "event": "Alleged subletting/assignment/parting with possession",
+        "stage": "Landlord's appeal (Target)",
+        "refs": [
+          "IK-188721101:L72:restored-v2",
+          "IK-188721101:L80:restored-v2",
+          "IK-188721101:L81:restored-v2",
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Landlord alleges tenant parted with possession via sublet/assignment to brother Bhagwan Dass.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C01",
+            "branch_id": "DRC_SUBLETTING_E01",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C05",
+            "branch_id": "DRC_SUBLETTING_E04",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Tenant denies subletting to brother; alleges brother is employee/helper.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L74:restored-v2",
+          "IK-188721101:L75:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b1",
+        "record": "Witnesses deposed brother running shop; tenant admitted brother had key/operated shop.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L80:restored-v2",
+          "IK-188721101:L81:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b1",
+        "record": "Trial court found arrangement was a license/privilege, not subletting/assignment/parting with possession.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C05",
+            "branch_id": "DRC_SUBLETTING_E04",
+            "direction": "UNKNOWN",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "id": "l1",
+        "evidence_ids": [
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding negates subletting/assignment; appeal cannot overturn factual finding without new evidence.",
+        "refs": [
+          "IK-188721101:L83:restored-v2"
+        ]
+      },
+      {
+        "id": "l2",
+        "evidence_ids": [
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding negates parting with possession; appeal cannot overturn factual finding without new evidence.",
+        "refs": [
+          "IK-188721101:L83:restored-v2"
+        ]
+      },
+      {
+        "id": "l3",
+        "evidence_ids": [
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "DRC_SUBLETTING_E04",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding implies consent existed or disposition was not prohibited; appeal cannot establish lack of consent against prior finding.",
+        "refs": [
+          "IK-188721101:L83:restored-v2"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "DRC_SUBLETTING_E01",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e1",
+          "e4"
+        ],
+        "gap": "Date of disposition not established; prior finding does not confirm post-9-June-1952 timeline."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Subletting requires transfer of interest, rent, and right to possession; evidence shows salary and no rent, but prior finding blocks acceptance."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Assignment requires divestment of all rights; prior finding blocks acceptance; evidence suggests concurrent user."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Parting with possession requires divestment of right to possession; prior finding blocks acceptance; evidence shows tenant retained legal possession via family relationship."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "DRC_SUBLETTING_E04",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e1",
+          "e4"
+        ],
+        "gap": "Written consent not proven; prior finding implies consent or lack of prohibited disposition."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Prior finding supports license nature; evidence confirms family relationship and concurrent use."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "DRC_SUBLETTING_E03",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Premises scope confirmed by landlord's description of Shop No. 15."
+      }
+    ],
+    "coverage_limits": [
+      "Prior court finding on factual nature of arrangement (license vs subletting) blocks direct acceptance of subletting/assignment/parting routes on appeal.",
+      "No new evidence supplied to overturn prior finding on possession divestment or consent status.",
+      "Date requirement (post-9-June-1952) not independently verified against prior finding's timeline."
+    ]
+  },
+  "program_checks": {
+    "case_id": "188721101",
+    "evidence_use_checks": [
+      {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "DRC_SUBLETTING_E01",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PARTY_CLAIM",
+        "record_retained": "Landlord alleges tenant parted with possession via sublet/assignment to brother Bhagwan Dass.",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L72"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PARTY_CLAIM",
+        "record_retained": "Landlord alleges tenant parted with possession via sublet/assignment to brother Bhagwan Dass.",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L72"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "DRC_SUBLETTING_E04",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PARTY_CLAIM",
+        "record_retained": "Landlord alleges tenant parted with possession via sublet/assignment to brother Bhagwan Dass.",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L72"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e2",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "CONDITION_INFERENCE",
+        "direction": "OPPOSE",
+        "statement_status": "PARTY_CLAIM",
+        "record_retained": "Tenant denies subletting to brother; alleges brother is employee/helper.",
+        "refs": [
+          "IK-188721101:L74:restored-v2",
+          "IK-188721101:L75:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L74",
+          "IK-188721101:L75"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e2",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "CONDITION_INFERENCE",
+        "direction": "OPPOSE",
+        "statement_status": "PARTY_CLAIM",
+        "record_retained": "Tenant denies subletting to brother; alleges brother is employee/helper.",
+        "refs": [
+          "IK-188721101:L74:restored-v2",
+          "IK-188721101:L75:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L74",
+          "IK-188721101:L75"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e3",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PARTY_CLAIM",
+        "record_retained": "Witnesses deposed brother running shop; tenant admitted brother had key/operated shop.",
+        "refs": [
+          "IK-188721101:L80:restored-v2",
+          "IK-188721101:L81:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L80",
+          "IK-188721101:L81"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e3",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "CONDITION_INFERENCE",
+        "direction": "OPPOSE",
+        "statement_status": "PARTY_CLAIM",
+        "record_retained": "Witnesses deposed brother running shop; tenant admitted brother had key/operated shop.",
+        "refs": [
+          "IK-188721101:L80:restored-v2",
+          "IK-188721101:L81:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L80",
+          "IK-188721101:L81"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e4",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "CONDITION_INFERENCE",
+        "direction": "OPPOSE",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Trial court found arrangement was a license/privilege, not subletting/assignment/parting with possession.",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L83",
+          "IK-188721101:L84"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e4",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "CONDITION_INFERENCE",
+        "direction": "OPPOSE",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Trial court found arrangement was a license/privilege, not subletting/assignment/parting with possession.",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L83",
+          "IK-188721101:L84"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e4",
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "DRC_SUBLETTING_E04",
+        "use": "CONDITION_INFERENCE",
+        "direction": "UNKNOWN",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Trial court found arrangement was a license/privilege, not subletting/assignment/parting with possession.",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-188721101:L83",
+          "IK-188721101:L84"
+        ],
+        "semantic_truth_verified": false
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_SUBLETTING_C01",
+            "branch_id": "DRC_SUBLETTING_E01",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "UNRESOLVED",
+            "evidence_ids": [
+              "e1",
+              "e4"
+            ],
+            "gap": "Date of disposition not established; prior finding does not confirm post-9-June-1952 timeline."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "UNRESOLVED",
+            "evidence_ids": [
+              "e1",
+              "e2",
+              "e3",
+              "e4"
+            ],
+            "gap": "Subletting requires transfer of interest, rent, and right to possession; evidence shows salary and no rent, but prior finding blocks acceptance."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_SUBLETTING_C03",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "UNRESOLVED",
+            "evidence_ids": [
+              "e2",
+              "e3",
+              "e4"
+            ],
+            "gap": "Assignment requires divestment of all rights; prior finding blocks acceptance; evidence suggests concurrent user."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "UNRESOLVED",
+            "evidence_ids": [
+              "e2",
+              "e3",
+              "e4"
+            ],
+            "gap": "Parting with possession requires divestment of right to possession; prior finding blocks acceptance; evidence shows tenant retained legal possession via family relationship."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_SUBLETTING_C05",
+            "branch_id": "DRC_SUBLETTING_E04",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "UNRESOLVED",
+            "evidence_ids": [
+              "e1",
+              "e4"
+            ],
+            "gap": "Written consent not proven; prior finding implies consent or lack of prohibited disposition."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "evidence_ids": [
+              "e2",
+              "e3",
+              "e4"
+            ],
+            "gap": "Prior finding supports license nature; evidence confirms family relationship and concurrent use."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_SUBLETTING_C07",
+            "branch_id": "DRC_SUBLETTING_E03",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "evidence_ids": [
+              "e1",
+              "e2",
+              "e3",
+              "e4"
+            ],
+            "gap": "Premises scope confirmed by landlord's description of Shop No. 15."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      }
+    ],
+    "bindings": [
+      {
+        "binding_id": "b1",
+        "event": "Alleged subletting/assignment/parting with possession",
+        "objects": "Ramesh Kumar; Bhagwan Dass; Shop No. 15",
+        "stage": "Landlord's appeal (Target)",
+        "tests": {
+          "DRC_SUBLETTING_C01": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_SUBLETTING_C02": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_SUBLETTING_C03": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_SUBLETTING_C04": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_SUBLETTING_C05": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_SUBLETTING_C06": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_SUBLETTING_C07": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          }
+        },
+        "branches": {},
+        "claims": [
+          {
+            "claim_id": "DRC_SUBLETTING_CLAIM_01",
+            "result": {
+              "status": "UNRESOLVED",
+              "trace": [
+                {
+                  "status": "UNRESOLVED",
+                  "supports": [],
+                  "opposes": [],
+                  "conflict": false,
+                  "pending_uses": [],
+                  "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                  "trace": [
+                    "DRC_SUBLETTING_C01"
+                  ]
+                },
+                {
+                  "status": "UNRESOLVED",
+                  "supports": [],
+                  "opposes": [],
+                  "conflict": false,
+                  "pending_uses": [],
+                  "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                  "trace": [
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                {
+                  "status": "UNRESOLVED",
+                  "trace": [
+                    {
+                      "status": "UNRESOLVED",
+                      "supports": [],
+                      "opposes": [],
+                      "conflict": false,
+                      "pending_uses": [],
+                      "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                      "trace": [
+                        "DRC_SUBLETTING_C02"
+                      ]
+                    },
+                    {
+                      "status": "UNRESOLVED",
+                      "supports": [],
+                      "opposes": [],
+                      "conflict": false,
+                      "pending_uses": [],
+                      "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                      "trace": [
+                        "DRC_SUBLETTING_C03"
+                      ]
+                    },
+                    {
+                      "status": "UNRESOLVED",
+                      "trace": [
+                        {
+                          "status": "UNRESOLVED",
+                          "supports": [],
+                          "opposes": [],
+                          "conflict": false,
+                          "pending_uses": [],
+                          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                          "trace": [
+                            "DRC_SUBLETTING_C04"
+                          ]
+                        },
+                        {
+                          "status": "UNRESOLVED",
+                          "supports": [],
+                          "opposes": [],
+                          "conflict": false,
+                          "pending_uses": [],
+                          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                          "trace": [
+                            "DRC_SUBLETTING_C06"
+                          ]
+                        }
+                      ],
+                      "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                    }
+                  ],
+                  "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                },
+                {
+                  "status": "UNRESOLVED",
+                  "supports": [],
+                  "opposes": [],
+                  "conflict": false,
+                  "pending_uses": [],
+                  "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                  "trace": [
+                    "DRC_SUBLETTING_C05"
+                  ]
+                }
+              ],
+              "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+            }
+          }
+        ]
+      }
+    ],
+    "unapplied_limits": [
+      {
+        "limitation_id": "l1",
+        "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+      },
+      {
+        "limitation_id": "l2",
+        "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+      },
+      {
+        "limitation_id": "l3",
+        "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+      }
+    ],
+    "coverage_limits": [
+      "Retrospective model-proposed decomposition only; no case-specific answer or legal advice.",
+      "All supplied law records are marked PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; this does not prove prospective historical availability.",
+      "The quoted law text does not independently state the statute's enactment year, amendment/version date, or the decision date of document 190902; those metadata are not established by the supplied law excerpts.",
+      "No burden allocation, proof standard, burden shift, evidentiary presumption, or additional consent doctrine is supplied.",
+      "No separate affirmative defense is supplied; retained legal possession and concurrent use are only qualifications to the parting-with-possession route.",
+      "Compatibility with other statutes, jurisdictions, procedural stages, fact patterns, or later authorities is not presumed.",
+      "Expressions organize source propositions but do not make open-text legal judgments self-executing booleans.",
+      "Support for any one test proposition does not itself establish eviction; the full claim expression and identity bindings must be satisfied.",
+      "Prior court finding on factual nature of arrangement (license vs subletting) blocks direct acceptance of subletting/assignment/parting routes on appeal.",
+      "No new evidence supplied to overturn prior finding on possession divestment or consent status.",
+      "Date requirement (post-9-June-1952) not independently verified against prior finding's timeline."
+    ],
+    "burdens": [
+      {
+        "id": "DRC_SUBLETTING_B01",
+        "proposition": "Allocation and standard of proof for the overall s14(1)(b) ground.",
+        "bearer": null,
+        "standard": null,
+        "shift_trigger": null,
+        "source_refs": [],
+        "coverage_status": "NOT_COVERED"
+      },
+      {
+        "id": "DRC_SUBLETTING_B02",
+        "proposition": "Allocation, standard, or burden shift concerning written consent or any disposition route.",
+        "bearer": null,
+        "standard": null,
+        "shift_trigger": null,
+        "source_refs": [],
+        "coverage_status": "NOT_COVERED"
+      }
+    ],
+    "scope": "Delhi, India; s14(1)(b) of the statute identified in the proposed framing as the Delhi Rent Control Act, 1958. Reusable research structure limited to the supplied statutory excerpt and supplied interpretive opinion excerpts; the quoted law text does not independently establish enactment-year, amendment/version, or decision-date metadata.",
+    "legal_truth_verified": false,
+    "scope_of_checks": "Source addresses and declared within-binding uses/boolean combinations only; no claim of semantic or identity proof. UNKNOWN is not negative; no burden failure inferred."
+  }
+}

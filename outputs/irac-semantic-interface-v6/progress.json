@@ -1,0 +1,946 @@
+{
+  "started": "2026-10-08T10:19:40.525563+00:00",
+  "updated": "2026-10-08T10:32:14.147567+00:00",
+  "elapsed_generation_seconds": 746.1218504169956,
+  "slots": [
+    {
+      "case_id": "112400",
+      "stage": "A",
+      "result": {
+        "case_id": "112400",
+        "method": "A",
+        "run_status": "OK",
+        "prediction": {
+          "answers": [
+            {
+              "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+              "prediction": "PREDICT_DENY",
+              "conditions": [
+                {
+                  "test_id": "DRC_BONA_FIDE-C01",
+                  "binding_id": "b1",
+                  "binding": "Premises let for residential purposes; January 22, 1964 lease",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-112400:L123:span1"
+                  ],
+                  "explanation": "The record explicitly states the appellant took a lease on January 22, 1964, establishing the premises were let for residential purposes."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C02",
+                  "binding_id": "b2",
+                  "binding": "Requirement for bona fide occupation by landlord; November 26, 1964 application",
+                  "assessment": "REFUTED",
+                  "refs": [
+                    "IK-112400:L124:restored-v2",
+                    "IK-112400:L127:restored-v2",
+                    "IK-112400:L130:span6"
+                  ],
+                  "explanation": "The Rent Controller explicitly accepted the tenant's plea that the landlord's requirement was not bona fide, a finding preserved by the Tribunal and now before the High Court."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C03",
+                  "binding_id": "b3",
+                  "binding": "Occupation by landlord himself or dependent family member",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-112400:L124:restored-v2",
+                    "IK-112400:L139:restored-v2"
+                  ],
+                  "explanation": "The landlord occupied the ground floor and the family members (wife, son, etc.) lived there, satisfying the 'himself or family' route."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C04",
+                  "binding_id": "b4",
+                  "binding": "Landlord is the owner of the premises",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-112400:L124:restored-v2",
+                    "IK-112400:L139:restored-v2"
+                  ],
+                  "explanation": "The record identifies the respondent as the owner of the entire premises, satisfying the ownership condition for the landlord route."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C05",
+                  "binding_id": "b5",
+                  "binding": "Occupation by person for whose benefit premises are held",
+                  "assessment": "UNRESOLVED",
+                  "refs": [],
+                  "explanation": "No evidence establishes the landlord held the premises for another person's benefit; the facts support the landlord's own occupation route instead."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C06",
+                  "binding_id": "b6",
+                  "binding": "Landlord has no other reasonably suitable residential accommodation",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-112400:L139:restored-v2",
+                    "IK-112400:L140:restored-v2"
+                  ],
+                  "explanation": "The Tribunal found the landlord's portion was not reasonably sufficient for his family size, implying no other suitable accommodation existed."
+                }
+              ],
+              "opposition": {
+                "record": "Tenant contends requirement was not bona fide; joint request to remand on suitability question.",
+                "refs": [
+                  "IK-112400:L127:restored-v2",
+                  "IK-112400:L137:context-v4",
+                  "IK-112400:L138:context-v4"
+                ],
+                "response": "The claim fails because the bona fide requirement (C02) is explicitly refuted by prior findings, regardless of the unresolved suitability question."
+              },
+              "gaps": [
+                "Target court acceptance of the remand finding on 'reasonably suitable accommodation' is not yet recorded in the final judgment.",
+                "The precise definition of 'bona fide' and 'reasonably suitable' remains open-text interpretation without specific judicial standards in the supplied law."
+              ],
+              "reason": "The claim requires all four elements (C01-C04, C06) to be satisfied. While C01, C03, C04, and C06 are supported by the record, C02 (bona fide requirement) is explicitly refuted by the Rent Controller's finding that the landlord's need was not bona fide. Since the legal structure uses an AND operator for the claim, one refuted condition denies the entire claim. The unresolved status of C06 does not alter this outcome.",
+              "intermediate_correction": "None."
+            }
+          ]
+        },
+        "completeness": "EACH_REQUEST_ONCE_WITH_ANALYSIS",
+        "semantic_correctness_verified": false
+      },
+      "called": true
+    },
+    {
+      "case_id": "112400",
+      "stage": "P",
+      "result": {
+        "case_id": "112400",
+        "method": "P",
+        "run_status": "OK",
+        "prediction": {
+          "records": [
+            {
+              "text": "Appellant took lease of first floor from Respondent (landlord) on Jan 22, 1964.",
+              "statement_status": "RECORDED_DOCUMENT",
+              "refs": [
+                "IK-112400:L123:span1"
+              ]
+            },
+            {
+              "text": "Respondent (landlord/owner) applied for eviction on grounds of subletting and bona fide requirement for self/family.",
+              "statement_status": "PARTY_CLAIM",
+              "refs": [
+                "IK-112400:L124:restored-v2"
+              ]
+            },
+            {
+              "text": "Tenant denied subletting and bona fide requirement; Rent Controller accepted tenant's plea that requirement was not bona fide.",
+              "statement_status": "PRIOR_COURT_FINDING",
+              "refs": [
+                "IK-112400:L127:restored-v2"
+              ]
+            },
+            {
+              "text": "Tribunal view: Eviction within ~11 months of letting precludes bona fide requirement.",
+              "statement_status": "PRIOR_COURT_FINDING",
+              "refs": [
+                "IK-112400:L130:span6"
+              ]
+            },
+            {
+              "text": "High Court remanded case to Tribunal for finding on 'reasonably suitable residential accommodation'.",
+              "statement_status": "PRIOR_COURT_FINDING",
+              "refs": [
+                "IK-112400:L137:context-v4",
+                "IK-112400:L138:context-v4"
+              ]
+            },
+            {
+              "text": "Tribunal held landlord's portion was not reasonably sufficient for his family (5 members).",
+              "statement_status": "PRIOR_COURT_FINDING",
+              "refs": [
+                "IK-112400:L139:restored-v2"
+              ]
+            },
+            {
+              "text": "Tribunal recorded finding that premises in respondent's occupation were not reasonably suitable for his residence.",
+              "statement_status": "PRIOR_COURT_FINDING",
+              "refs": [
+                "IK-112400:L140:restored-v2"
+              ]
+            }
+          ],
+          "arrangements": [
+            {
+              "description": "Respondent (landlord/owner) seeking eviction of Appellant from first floor based on bona fide residential requirement for himself and family.",
+              "refs": [
+                "IK-112400:L123:span1",
+                "IK-112400:L124:restored-v2",
+                "IK-112400:L127:restored-v2",
+                "IK-112400:L130:span6",
+                "IK-112400:L137:context-v4",
+                "IK-112400:L138:context-v4"
+              ]
+            },
+            {
+              "description": "Tribunal finding that landlord's portion is not reasonably suitable for his family of five.",
+              "refs": [
+                "IK-112400:L139:restored-v2"
+              ]
+            },
+            {
+              "description": "Tribunal finding that premises in respondent's occupation are not reasonably suitable for his residence.",
+              "refs": [
+                "IK-112400:L140:restored-v2"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C01",
+              "assessment": "SUPPORTED",
+              "evidence": [
+                {
+                  "record": 1,
+                  "role": "SUPPORT",
+                  "connection": "Establishes the premises were let for residential purposes (lease of first floor)."
+                }
+              ],
+              "law_refs": [
+                "IK-18143401:L41:historical-e"
+              ],
+              "explanation": "The lease document explicitly states the premises were let for residential purposes, satisfying the first element of the clause.",
+              "gaps": [
+                "No evidence suggests the purpose was anything other than residential."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C02",
+              "assessment": "REFUTED",
+              "evidence": [
+                {
+                  "record": 3,
+                  "role": "OPPOSE",
+                  "connection": "Rent Controller explicitly found the landlord's requirement was not bona fide."
+                },
+                {
+                  "record": 4,
+                  "role": "SUPPORT",
+                  "connection": "Tribunal rule states eviction within 11 months precludes bona fide requirement."
+                }
+              ],
+              "law_refs": [
+                "IK-18143401:L41:historical-e"
+              ],
+              "explanation": "The Rent Controller's finding directly contradicts the bona fide requirement. The Tribunal's temporal rule reinforces this by deeming the short duration (11 months) as incompatible with bona fide necessity.",
+              "gaps": [
+                "The specific factual basis for the 'not bona fide' finding (e.g., lack of necessity vs. mere convenience) is not detailed in the supplied text, but the negative finding is clear."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C03/SELF",
+              "assessment": "UNRESOLVED",
+              "evidence": [
+                {
+                  "record": 2,
+                  "role": "SUPPORT",
+                  "connection": "Respondent is identified as the 'owner' and 'landlord' seeking occupation for 'himself'."
+                }
+              ],
+              "law_refs": [
+                "IK-18143401:L41:historical-e"
+              ],
+              "explanation": "The text identifies the Respondent as the landlord and states he required the premises for his own occupation. However, the specific identity of the 'landlord' versus the 'person for whose benefit' is not fully disentangled in the text, and the 'owner' status is asserted but not independently verified against a title deed in the supplied snippets.",
+              "gaps": [
+                "The text conflates 'Respondent' and 'Landlord' and asserts ownership, but does not provide a separate title deed or registration to independently prove the Respondent is the legal owner distinct from the landlord role."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C03/FAMILY",
+              "assessment": "UNRESOLVED",
+              "evidence": [
+                {
+                  "record": 5,
+                  "role": "SUPPORT",
+                  "connection": "Tribunal report mentions 'family members living with the latter' (landlord)."
+                }
+              ],
+              "law_refs": [
+                "IK-18143401:L41:historical-e"
+              ],
+              "explanation": "The Tribunal's report mentions family members, but does not explicitly define them as 'members of the landlord's family' or establish the dependency relationship required by the statute.",
+              "gaps": [
+                "No evidence defines the relationship between the landlord and the family members (e.g., wife, children) or proves their dependency on him."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C03/DEPENDENT",
+              "assessment": "UNRESOLVED",
+              "evidence": [
+                {
+                  "record": 5,
+                  "role": "SUPPORT",
+                  "connection": "Tribunal report lists family members living with the landlord."
+                }
+              ],
+              "law_refs": [
+                "IK-18143401:L41:historical-e"
+              ],
+              "explanation": "While the Tribunal noted family members, the supplied text does not contain the specific finding that these members are 'dependent' on the landlord, which is a required sub-condition.",
+              "gaps": [
+                "The text does not state the degree of dependency (financial, emotional, etc.) required by the statute."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C04",
+              "assessment": "SUPPORTED",
+              "evidence": [
+                {
+                  "record": 2,
+                  "role": "SUPPORT",
+                  "connection": "Respondent is explicitly described as 'the owner of the entire premises'."
+                }
+              ],
+              "law_refs": [
+                "IK-18143401:L41:historical-e"
+              ],
+              "explanation": "The text explicitly states the Respondent was the owner. This satisfies the ownership condition for the landlord branch of the occupation route.",
+              "gaps": [
+                "None regarding the ownership fact itself, though the link to the 'landlord' role is textually asserted."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C05",
+              "assessment": "UNRESOLVED",
+              "evidence": [
+                {
+                  "record": 1,
+                  "role": "SUPPORT",
+                  "connection": "Appellant took lease of first floor; Respondent occupied ground floor."
+                }
+              ],
+              "law_refs": [
+                "IK-18143401:L41:historical-e"
+              ],
+              "explanation": "The text shows the Appellant occupies the first floor and the Respondent the ground floor. It does not establish that the premises were held for the benefit of a third party ('such person') distinct from the landlord.",
+              "gaps": [
+                "No evidence identifies a third party for whose benefit the premises are held, nor the nature of that benefit."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C06",
+              "assessment": "SUPPORTED",
+              "evidence": [
+                {
+                  "record": 5,
+                  "role": "SUPPORT",
+                  "connection": "Tribunal held the portion was 'not reasonably sufficient' for the family."
+                },
+                {
+                  "record": 6,
+                  "role": "SUPPORT",
+                  "connection": "Tribunal recorded finding that premises were 'not reasonably suitable' for the respondent's residence."
+                }
+              ],
+              "law_refs": [
+                "IK-18143401:L41:historical-e"
+              ],
+              "explanation": "The Tribunal explicitly found the accommodation was not 'reasonably suitable' or 'reasonably sufficient' for the landlord's residence/family. This directly supports the negative condition of having 'no other reasonably suitable residential accommodation' (i.e., the current premises are the only suitable ones).",
+              "gaps": [
+                "The text does not detail the specific criteria used by the Tribunal to determine 'reasonably suitable' (e.g., size, number of rooms), but the final holding is clear."
+              ]
+            }
+          ],
+          "limitations": [
+            {
+              "arrangement": 1,
+              "condition": "DRC_BONA_FIDE-C02",
+              "reason": "The 'bona fide' requirement is explicitly negated by the Rent Controller and Tribunal findings.",
+              "refs": [
+                "IK-112400:L127:restored-v2",
+                "IK-112400:L130:span6"
+              ],
+              "effect": "EVIDENCE_USE_BLOCK",
+              "records": [
+                3,
+                4
+              ]
+            }
+          ],
+          "coverage_limits": [
+            "The definition of 'bona fide' is not supplied in the law or facts.",
+            "The definition of 'dependent' family members is not supplied.",
+            "The definition of 'reasonably suitable residential accommodation' is not supplied, though the Tribunal's finding on sufficiency is recorded.",
+            "The distinction between 'landlord' and 'owner' is asserted but not independently proven by separate title evidence."
+          ]
+        },
+        "import_status": "OK",
+        "audit_in_final_input": false,
+        "semantic_correctness_verified": false
+      },
+      "called": true
+    },
+    {
+      "case_id": "112400",
+      "stage": "B",
+      "result": {
+        "case_id": "112400",
+        "method": "B",
+        "run_status": "OK",
+        "prediction": {
+          "answers": [
+            {
+              "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+              "prediction": "PREDICT_DENY",
+              "conditions": [
+                {
+                  "test_id": "DRC_BONA_FIDE-C01",
+                  "binding_id": "b1",
+                  "binding": "Premises let for residential purposes; first floor lease",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-112400:L123:span1",
+                    "IK-18143401:L41:historical-e"
+                  ],
+                  "explanation": "The lease document explicitly states the premises were let for residential purposes, satisfying the first element of the clause."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C02",
+                  "binding_id": "b2",
+                  "binding": "Premises required bona fide by landlord for residence",
+                  "assessment": "REFUTED",
+                  "refs": [
+                    "IK-112400:L127:restored-v2",
+                    "IK-112400:L130:span6",
+                    "IK-18143401:L41:historical-e"
+                  ],
+                  "explanation": "The Rent Controller explicitly found the landlord's requirement was not bona fide, and the Tribunal reinforced this by ruling that eviction within 11 months precludes a bona fide claim."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C03",
+                  "binding_id": "b3",
+                  "binding": "Qualifying occupation route (Landlord/Dependent Family or Beneficiary)",
+                  "assessment": "UNRESOLVED",
+                  "refs": [
+                    "IK-112400:L124:restored-v2",
+                    "IK-112400:L139:restored-v2",
+                    "IK-18143401:L41:historical-e"
+                  ],
+                  "explanation": "While the landlord seeks occupation for himself and family, the specific legal definitions of 'member of family' and 'dependent' are not supplied in the text, leaving the qualification of this route technically unresolved."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C04",
+                  "binding_id": "b4",
+                  "binding": "Landlord is owner of premises",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-112400:L124:restored-v2",
+                    "IK-18143401:L41:historical-e"
+                  ],
+                  "explanation": "The respondent is explicitly described as the 'owner of the entire premises' in the application text, satisfying the ownership condition for the landlord branch."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C05",
+                  "binding_id": "b5",
+                  "binding": "Premises held for benefit of another person",
+                  "assessment": "UNRESOLVED",
+                  "refs": [
+                    "IK-112400:L124:restored-v2",
+                    "IK-18143401:L41:historical-e"
+                  ],
+                  "explanation": "The text states the landlord occupied the ground floor, but does not establish that the premises were held for the benefit of a third party distinct from the landlord."
+                },
+                {
+                  "test_id": "DRC_BONA_FIDE-C06",
+                  "binding_id": "b6",
+                  "binding": "No other reasonably suitable residential accommodation",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-112400:L139:restored-v2",
+                    "IK-112400:L140:restored-v2",
+                    "IK-18143401:L41:historical-e"
+                  ],
+                  "explanation": "The Tribunal explicitly found the landlord's portion was not reasonably sufficient for his family of five, directly supporting the condition that he has no other suitable accommodation."
+                }
+              ],
+              "opposition": {
+                "record": "Tenant denied the bona fide requirement; Tribunal noted short duration of tenancy.",
+                "refs": [
+                  "IK-112400:L127:restored-v2",
+                  "IK-112400:L130:span6"
+                ],
+                "response": "The opposition evidence directly negates the 'bona fide' element, which is a mandatory condition for the claim."
+              },
+              "gaps": [
+                "The precise definition of 'bona fide' is not supplied in the law.",
+                "The definition of 'dependent' family members is not supplied.",
+                "The definition of 'reasonably suitable residential accommodation' is not supplied, though the Tribunal's finding on sufficiency is recorded."
+              ],
+              "reason": "The claim is denied because the 'bona fide' requirement (C02) is explicitly refuted by prior court findings. Even if the other conditions were met, the failure of one mandatory element in an AND-structured claim prevents satisfaction.",
+              "intermediate_correction": "None."
+            }
+          ]
+        },
+        "completeness": "EACH_REQUEST_ONCE_WITH_ANALYSIS",
+        "semantic_correctness_verified": false
+      },
+      "called": true
+    },
+    {
+      "case_id": "188721101",
+      "stage": "A",
+      "result": {
+        "case_id": "188721101",
+        "method": "A",
+        "run_status": "OK",
+        "prediction": {
+          "answers": [
+            {
+              "claim_id": "DRC_SUBLETTING_CLAIM_01",
+              "prediction": "PREDICT_DENY",
+              "conditions": [
+                {
+                  "test_id": "DRC_SUBLETTING_C01",
+                  "binding_id": "b1",
+                  "binding": "Premises 4415; Date 06.01.1987; Route: Parting with possession",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-188721101:L72:restored-v2"
+                  ],
+                  "explanation": "The landlord's case establishes the lease date (06.01.1987) is after 9 June 1952. The trial court found the arrangement occurred on this date, satisfying the temporal element."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C02",
+                  "binding_id": "b2",
+                  "binding": "Premises 4415; Parties: Ramesh Kumar and Bhagwan Dass; Route: Subletting",
+                  "assessment": "REFUTED",
+                  "refs": [
+                    "IK-188721101:L83:restored-v2",
+                    "IK-188721101:L84:restored-v2",
+                    "IK-190902:L110"
+                  ],
+                  "explanation": "The trial court explicitly rejected the subletting claim, finding no transfer of interest or tenancy incidents, but rather a revocable license to a family member. The law requires specific tenancy incidents for subletting."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C03",
+                  "binding_id": "b3",
+                  "binding": "Premises 4415; Parties: Ramesh Kumar and Bhagwan Dass; Route: Assignment",
+                  "assessment": "REFUTED",
+                  "refs": [
+                    "IK-188721101:L83:restored-v2",
+                    "IK-188721101:L84:restored-v2",
+                    "IK-190902:L110"
+                  ],
+                  "explanation": "The trial court held the tenant did not divest himself of all rights, characterizing the arrangement as a license. Assignment requires total divestment of tenancy rights."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C04",
+                  "binding_id": "b4",
+                  "binding": "Premises 4415; Parties: Ramesh Kumar and Bhagwan Dass; Route: Parting with possession",
+                  "assessment": "REFUTED",
+                  "refs": [
+                    "IK-188721101:L81:restored-v2",
+                    "IK-188721101:L83:restored-v2",
+                    "IK-190902:L107",
+                    "IK-190902:L112"
+                  ],
+                  "explanation": "Witnesses testified Bhagwan Dass was an employee drawing a salary, not a sub-tenant. The trial court found the tenant retained legal possession and the right to terminate the privilege at will, negating the 'divestment of right to possession' required for parting with possession."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C05",
+                  "binding_id": "b5",
+                  "binding": "Premises 4415; Parties: Ramesh Kumar and Bhagwan Dass; Route: All dispositions",
+                  "assessment": "UNRESOLVED",
+                  "refs": [
+                    "IK-188721101:L72:restored-v2"
+                  ],
+                  "explanation": "The landlord alleges no written consent was obtained. However, the trial court's finding that the arrangement was a revocable license (not a tenancy) means the statutory requirement for 'written consent' regarding a tenancy disposition does not apply to this specific arrangement."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C06",
+                  "binding_id": "b6",
+                  "binding": "Premises 4415; Parties: Ramesh Kumar and Bhagwan Dass; Route: Parting with possession",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-188721101:L81:restored-v2",
+                    "IK-190902:L107",
+                    "IK-190902:L112"
+                  ],
+                  "explanation": "The trial court found the tenant retained legal possession and the arrangement was terminable at will. The law states that mere user or concurrent possession while the tenant retains legal possession is not parting with possession."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C07",
+                  "binding_id": "b7",
+                  "binding": "Premises 4415; Route: All dispositions",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-188721101:L72:restored-v2"
+                  ],
+                  "explanation": "The lease was for Shop No. 15 within Property No. 4415. The disposition concerns a part of the premises, satisfying the scope requirement."
+                }
+              ],
+              "opposition": {
+                "record": "Landlord alleges subletting/assignment without consent; Trial court found no subletting/assignment.",
+                "refs": [
+                  "IK-188721101:L72:restored-v2",
+                  "IK-188721101:L83:restored-v2"
+                ],
+                "response": "The trial court's finding that the arrangement is a revocable license defeats the statutory grounds for eviction under s14(1)(b), as the statute protects tenants from eviction unless specific tenancy-based grounds are met."
+              },
+              "gaps": [
+                "Whether the landlord can prove the arrangement was a tenancy (subletting/assignment) rather than a license despite the trial court's finding.",
+                "Whether the landlord obtained any form of consent (written or otherwise) that might estop the tenant or satisfy a different legal ground not covered by s14(1)(b)."
+              ],
+              "reason": "The prediction is DENY because the trial court found the arrangement to be a revocable license, not a tenancy. The law requires specific tenancy incidents (subletting, assignment) or total divestment (parting with possession) for eviction. Since the trial court found the tenant retained legal possession and the right to terminate, the 'parting with possession' route is also refuted by the nature of the license. The temporal and scope requirements are met, but the core disposition elements fail.",
+              "intermediate_correction": "None."
+            }
+          ]
+        },
+        "completeness": "EACH_REQUEST_ONCE_WITH_ANALYSIS",
+        "semantic_correctness_verified": false
+      },
+      "called": true
+    },
+    {
+      "case_id": "188721101",
+      "stage": "P",
+      "result": {
+        "case_id": "188721101",
+        "method": "P",
+        "run_status": "OK",
+        "prediction": {
+          "records": [
+            {
+              "text": "Landlord alleges tenant Ramesh Kumar sub-let, assigned, and parted with possession of Shop No. 15 to brother Bhagwan Dass.",
+              "statement_status": "PARTY_CLAIM",
+              "refs": [
+                "IK-188721101:L72:restored-v2"
+              ]
+            },
+            {
+              "text": "Tenant Ramesh Kumar denies sub-letting; alleges Bhagwan Dass is an employee drawing a salary.",
+              "statement_status": "PARTY_CLAIM",
+              "refs": [
+                "IK-188721101:L74:restored-v2"
+              ]
+            },
+            {
+              "text": "Witnesses (shopkeepers) testify Bhagwan Dass ran the shop; Tenant witnesses admit Bhagwan Dass had key and worked as employee.",
+              "statement_status": "TESTIMONY",
+              "refs": [
+                "IK-188721101:L80:restored-v2",
+                "IK-188721101:L81:restored-v2"
+              ]
+            },
+            {
+              "text": "Trial Court finds no sub-tenancy established; characterizes arrangement as revocable license/privilege; denies parting with possession.",
+              "statement_status": "PRIOR_COURT_FINDING",
+              "refs": [
+                "IK-188721101:L83:restored-v2"
+              ]
+            },
+            {
+              "text": "Trial Court notes Bhagwan Dass is a family member, precluding inference of sub-letting.",
+              "statement_status": "PRIOR_COURT_FINDING",
+              "refs": [
+                "IK-188721101:L84:restored-v2"
+              ]
+            }
+          ],
+          "arrangements": [
+            {
+              "description": "Tenancy of Shop No. 15 by Ramesh Kumar; alleged family arrangement involving Bhagwan Dass.",
+              "refs": [
+                "IK-188721101:L72:restored-v2"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "arrangement": 1,
+              "condition": "DRC_SUBLETTING_C01",
+              "assessment": "UNRESOLVED",
+              "evidence": [
+                {
+                  "record": 1,
+                  "role": "SUPPORT",
+                  "connection": "Alleges date 06.01.1987, which is after 9 June 1952."
+                }
+              ],
+              "law_refs": [
+                "LAW:S02:DRC14:1b"
+              ],
+              "explanation": "The alleged date satisfies the statutory temporal requirement, but the existence of the disposition itself is contested and not yet proven by the court.",
+              "gaps": [
+                "The actual date of the alleged sub-letting or parting with possession is not independently established by the court."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_SUBLETTING_C02",
+              "assessment": "UNRESOLVED",
+              "evidence": [
+                {
+                  "record": 1,
+                  "role": "SUPPORT",
+                  "connection": "Landlord alleges transfer of interest and rent payment to Bhagwan Dass."
+                },
+                {
+                  "record": 2,
+                  "role": "OPPOSE",
+                  "connection": "Tenant denies sub-letting; alleges employment relationship."
+                },
+                {
+                  "record": 5,
+                  "role": "SUPPORT",
+                  "connection": "Witnesses confirm Bhagwan Dass operated the shop, suggesting control."
+                },
+                {
+                  "record": 6,
+                  "role": "OPPOSE",
+                  "connection": "Tenant witnesses confirm Bhagwan Dass was an employee drawing salary, contradicting tenancy incidents."
+                }
+              ],
+              "law_refs": [
+                "IK-190902:L110"
+              ],
+              "explanation": "While the landlord alleges tenancy incidents, the tenant's evidence of salary and the trial court's finding of a revocable license negate the required incidents of tenancy (transfer of interest, right to possession).",
+              "gaps": [
+                "No evidence of rent payment or exclusive right to possession against the tenant is established."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_SUBLETTING_C03",
+              "assessment": "UNRESOLVED",
+              "evidence": [
+                {
+                  "record": 1,
+                  "role": "SUPPORT",
+                  "connection": "Landlord alleges assignment to Bhagwan Dass."
+                },
+                {
+                  "record": 6,
+                  "role": "OPPOSE",
+                  "connection": "Tenant evidence shows Bhagwan Dass was an employee, not a successor to all tenant rights."
+                }
+              ],
+              "law_refs": [
+                "IK-190902:L110"
+              ],
+              "explanation": "Assignment requires divestment of all tenant rights. The evidence of employment and the trial court's finding of a license suggest rights were retained, not divested.",
+              "gaps": [
+                "No proof that the tenant divested all rights; the nature of the relationship remains disputed."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_SUBLETTING_C04",
+              "assessment": "REFUTED",
+              "evidence": [
+                {
+                  "record": 6,
+                  "role": "SUPPORT",
+                  "connection": "Tenant and witnesses establish Bhagwan Dass was an employee drawing salary, retaining legal possession."
+                },
+                {
+                  "record": 3,
+                  "role": "SUPPORT",
+                  "connection": "Trial Court explicitly finds the arrangement was a revocable license, not parting with possession."
+                }
+              ],
+              "law_refs": [
+                "IK-190902:L107",
+                "IK-190902:L112"
+              ],
+              "explanation": "The law defines parting with possession as divestment of physical and legal possession. The evidence shows the tenant retained legal possession (license) and the trial court found no divestment occurred.",
+              "gaps": [
+                "None; the factual findings directly contradict the legal requirements for parting with possession."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_SUBLETTING_C05",
+              "assessment": "UNRESOLVED",
+              "evidence": [],
+              "law_refs": [
+                "LAW:S02:DRC14:1b"
+              ],
+              "explanation": "No record provides specific evidence regarding the existence or absence of written consent from the landlord for the alleged disposition.",
+              "gaps": [
+                "No instrument of consent or denial of consent is supplied in the records."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_SUBLETTING_C06",
+              "assessment": "SUPPORTED",
+              "evidence": [
+                {
+                  "record": 6,
+                  "role": "SUPPORT",
+                  "connection": "Evidence confirms Bhagwan Dass was an employee drawing salary, indicating concurrent user or mere use."
+                },
+                {
+                  "record": 3,
+                  "role": "SUPPORT",
+                  "connection": "Trial Court characterizes the arrangement as a license/privilege, implying retained possession."
+                }
+              ],
+              "law_refs": [
+                "IK-190902:L107",
+                "IK-190902:L112"
+              ],
+              "explanation": "The law states mere user or concurrent use without ousting the tenant is not parting with possession. The evidence of employment and the court's finding of a license support this negative proposition.",
+              "gaps": [
+                "None; the evidence aligns with the legal definition of non-parting-with-possession."
+              ]
+            },
+            {
+              "arrangement": 1,
+              "condition": "DRC_SUBLETTING_C07",
+              "assessment": "SUPPORTED",
+              "evidence": [
+                {
+                  "record": 1,
+                  "role": "SUPPORT",
+                  "connection": "Landlord alleges disposition concerns Shop No. 15, which is part of the premises."
+                }
+              ],
+              "law_refs": [
+                "LAW:S02:DRC14:1b"
+              ],
+              "explanation": "The law requires the disposition to concern the whole or any part of the premises. The allegation that Shop No. 15 was sub-let or assigned satisfies this scope requirement.",
+              "gaps": [
+                "None; the specific shop is identified as part of the property."
+              ]
+            }
+          ],
+          "limitations": [],
+          "coverage_limits": [
+            "The trial court's finding on the nature of the relationship (license vs tenancy) is a prior court finding, not a final appellate determination, leaving the ultimate ground for eviction under s14(1)(b) pending appeal resolution.",
+            "Written consent (DRC_SUBLETTING_C05) cannot be resolved as no evidence regarding landlord consent is provided in the supplied records."
+          ]
+        },
+        "import_status": "PARTIAL",
+        "audit_in_final_input": false,
+        "semantic_correctness_verified": false
+      },
+      "called": true
+    },
+    {
+      "case_id": "188721101",
+      "stage": "B",
+      "result": {
+        "case_id": "188721101",
+        "method": "B",
+        "run_status": "OK",
+        "prediction": {
+          "answers": [
+            {
+              "claim_id": "DRC_SUBLETTING_CLAIM_01",
+              "prediction": "PREDICT_DENY",
+              "conditions": [
+                {
+                  "test_id": "DRC_SUBLETTING_C01",
+                  "binding_id": "b1",
+                  "binding": "Ramesh Kumar; Shop No. 15; disposition alleged 06.01.1987",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-188721101:L72:restored-v2"
+                  ],
+                  "explanation": "The landlord's case explicitly alleges the disposition occurred on 06.01.1987, which satisfies the 'on or after 9 June 1952' requirement. This date is recorded in the case text."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C02",
+                  "binding_id": "b2",
+                  "binding": "Ramesh Kumar; Bhagwan Dass; alleged sub-letting of Shop No. 15",
+                  "assessment": "REFUTED",
+                  "refs": [
+                    "IK-188721101:L74:restored-v2",
+                    "IK-188721101:L81:restored-v2",
+                    "IK-188721101:L83:restored-v2"
+                  ],
+                  "explanation": "The trial court found the arrangement was a revocable license, not a tenancy, meaning the required incidents of letting (transfer of interest, right to possession) are absent. The tenant's evidence of salary payment contradicts the rent requirement."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C03",
+                  "binding_id": "b3",
+                  "binding": "Ramesh Kumar; Bhagwan Dass; alleged assignment of Shop No. 15",
+                  "assessment": "REFUTED",
+                  "refs": [
+                    "IK-188721101:L81:restored-v2",
+                    "IK-188721101:L83:restored-v2"
+                  ],
+                  "explanation": "Assignment requires divestment of all tenant rights. The trial court found the tenant retained the right to terminate the privilege at will, indicating he did not divest all rights."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C04",
+                  "binding_id": "b4",
+                  "binding": "Ramesh Kumar; Bhagwan Dass; alleged parting with possession of Shop No. 15",
+                  "assessment": "REFUTED",
+                  "refs": [
+                    "IK-188721101:L81:restored-v2",
+                    "IK-188721101:L83:restored-v2",
+                    "IK-190902:L107",
+                    "IK-190902:L112"
+                  ],
+                  "explanation": "The trial court characterized the arrangement as a license where the tenant retained legal possession. The law states mere user or concurrent use without ousting the tenant is not parting with possession."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C05",
+                  "binding_id": "b5",
+                  "binding": "Ramesh Kumar; Shop No. 15; alleged disposition",
+                  "assessment": "UNRESOLVED",
+                  "refs": [],
+                  "explanation": "No record provides specific evidence regarding the existence or absence of written consent from the landlord for the alleged disposition."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C06",
+                  "binding_id": "b6",
+                  "binding": "Ramesh Kumar; Bhagwan Dass; concurrent user of Shop No. 15",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-188721101:L81:restored-v2",
+                    "IK-188721101:L83:restored-v2",
+                    "IK-190902:L107",
+                    "IK-190902:L112"
+                  ],
+                  "explanation": "Witnesses testified Bhagwan Dass was an employee drawing a salary, and the trial court found the arrangement was a revocable license. This supports the proposition that the tenant retained legal possession."
+                },
+                {
+                  "test_id": "DRC_SUBLETTING_C07",
+                  "binding_id": "b7",
+                  "binding": "Shop No. 15; Property No. 4415; disposition of Shop No. 15",
+                  "assessment": "SUPPORTED",
+                  "refs": [
+                    "IK-188721101:L72:restored-v2",
+                    "LAW:S02:DRC14:1b"
+                  ],
+                  "explanation": "The landlord alleges the disposition concerns Shop No. 15, which is part of the premises (Property No. 4415), satisfying the requirement that the disposition concerns the whole or any part of the premises."
+                }
+              ],
+              "opposition": {
+                "record": "Landlord alleges sub-letting, assignment, and parting with possession without consent.",
+                "refs": [
+                  "IK-188721101:L72:restored-v2"
+                ],
+                "response": "The landlord's claim relies on unproven allegations of sub-letting and assignment. The trial court's finding of a license negates the sub-letting and assignment routes. The parting with possession route is defeated by the finding of retained legal possession."
+              },
+              "gaps": [
+                "The absence of written consent (DRC_SUBLETTING_C05) remains unresolved as no evidence of consent or lack thereof is in the record.",
+                "The ultimate appellate determination of the trial court's finding on the nature of the relationship (license vs tenancy) is pending."
+              ],
+              "reason": "I predict denial because the decisive conditions for the sub-letting and assignment routes are refuted by the trial court's finding of a license, and the parting with possession route is refuted by the finding of retained legal possession. The unresolved consent gap prevents a grant, but the existing evidence strongly supports denial of the eviction ground.",
+              "intermediate_correction": "None."
+            }
+          ]
+        },
+        "completeness": "EACH_REQUEST_ONCE_WITH_ANALYSIS",
+        "semantic_correctness_verified": false
+      },
+      "called": true
+    }
+  ]
+}

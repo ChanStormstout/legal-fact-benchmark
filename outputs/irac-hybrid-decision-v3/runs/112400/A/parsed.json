@@ -1,0 +1,88 @@
+{
+  "answers": [
+    {
+      "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+      "prediction": "PREDICT_DENY",
+      "conditions": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "binding": "Premises let for residential purposes",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": [
+            "IK-112400:L123:span1",
+            "IK-112400:L124:restored-v2"
+          ],
+          "explanation": "The lease document explicitly states the premises were let for residential purposes on a monthly rent, satisfying the residential-letting requirement."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "binding": "Premises required bona fide by landlord for residence",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "REFUTED",
+          "refs": [
+            "IK-112400:L127:span5",
+            "IK-112400:L130:span6"
+          ],
+          "explanation": "The prior court finding explicitly states that when eviction is sought within about 11 months of letting, the landlord's claim of bona fide requirement cannot be considered bona fide, and this specific finding was recorded."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C03",
+          "binding": "Qualifying occupation route (Landlord/Dependent or Beneficiary)",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": [
+            "IK-112400:L124:restored-v2",
+            "IK-112400:L127:restored-v2"
+          ],
+          "explanation": "The landlord occupied the ground floor while the tenant occupied the first floor; the text does not establish that the landlord occupied the specific premises in question or that the tenant was a dependent family member, leaving the occupation route unproven."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C04",
+          "binding": "Landlord ownership of premises",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": [
+            "IK-112400:L124:restored-v2"
+          ],
+          "explanation": "The record states the respondent was the owner of the entire premises, satisfying the ownership condition for the landlord branch."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C05",
+          "binding": "Premises held for another's benefit",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": [
+            "IK-112400:L124:restored-v2"
+          ],
+          "explanation": "The text indicates the premises were held for the landlord's own occupation ('himself and his family members'), not for a third party for whose benefit they were held."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "binding": "No other reasonably suitable accommodation",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "REFUTED",
+          "refs": [
+            "IK-112400:L139:restored-v2",
+            "IK-112400:L140:restored-v2"
+          ],
+          "explanation": "The prior court findings explicitly held that the portion of premises in the landlord's occupation was not reasonably sufficient for his family and that the premises in the respondent's occupation were not reasonably suitable for his residence."
+        }
+      ],
+      "opposition": {
+        "record": "The landlord claims bona fide requirement for himself and family, and asserts ownership.",
+        "refs": [
+          "IK-112400:L124:restored-v2",
+          "IK-112400:L127:restored-v2"
+        ],
+        "response": "While the landlord asserts bona fide requirement and ownership, the prior court findings explicitly refute the bona fide nature of the requirement due to the short time elapsed since letting, and the tenant's plea regarding the landlord's lack of bona fide requirement was accepted."
+      },
+      "gaps": [
+        "The specific identity of the 'landlord' in the occupation element versus the 'respondent' in the accommodation element is not explicitly linked in the text, though they appear to be the same person based on context.",
+        "The definition of 'dependent family member' is not provided, making the determination of whether the tenant's family members qualify as dependent on the landlord uncertain."
+      ],
+      "reason": "The claim requires all elements to be supported. While the residential letting, landlord ownership, and lack of suitable accommodation are supported or strongly indicated by prior findings, the bona fide requirement is explicitly refuted by the prior court finding regarding the short duration of the tenancy. Since one element (bona fide) is refuted, the overall AND condition fails.",
+      "intermediate_correction": "No intermediate material supplied."
+    }
+  ]
+}

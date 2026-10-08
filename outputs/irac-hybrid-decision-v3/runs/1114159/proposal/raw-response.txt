@@ -1,0 +1,235 @@
+{
+  "bindings": [
+    {
+      "id": "b1",
+      "claim_ids": ["DRC_BONA_FIDE-CLAIM-01"],
+      "objects": "Appellant; Respondent; Premises",
+      "event": "Eviction ground satisfaction under clause (e)",
+      "stage": "Supreme Court civil appeal",
+      "refs": ["IK-1114159:L238:restored-v2", "IK-1114159:L239:restored-v2", "IK-1114159:L244:restored-v2"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "binding_id": "b1",
+      "record": "Respondent is daughter of original landlord who let premises to appellant on 1.10.1961; Respondent purchased property from father on 27th June 1964 and stepped into shoes as landlord.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": ["IK-1114159:L238:restored-v2"],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C04",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "binding_id": "b1",
+      "record": "Statutory authorities found premises let for residential purposes but also used incidentally for commercial purposes.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-1114159:L239:restored-v2"],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e3",
+      "binding_id": "b1",
+      "record": "High Court found no evidence for conclusion regarding commercial use; Tenant contended she never parted with exclusive possession and students were paying guests not tenants.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-1114159:L240:span3", "IK-1114159:L244:restored-v2"],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "branch_id": "",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e4",
+      "binding_id": "b1",
+      "record": "Authorities excluded clause (e) because premises were used for commercial purposes.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": ["IK-1114159:L239:restored-v2"],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "branch_id": "",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "branch_id": "",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "id": "l1",
+      "evidence_ids": ["e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C01",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior finding that premises were used for commercial purposes directly opposes the residential purpose requirement; this finding is not overridden by the appeal record.",
+      "refs": ["IK-1114159:L239:restored-v2"]
+    },
+    {
+      "id": "l2",
+      "evidence_ids": ["e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior finding that premises were used for commercial purposes negates the bona fide residential requirement; no evidence supports the contrary.",
+      "refs": ["IK-1114159:L239:restored-v2"]
+    },
+    {
+      "id": "l3",
+      "evidence_ids": ["e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior finding that premises were used for commercial purposes negates the occupation route for the landlord himself; no evidence supports exclusive residential occupation by the landlord.",
+      "refs": ["IK-1114159:L239:restored-v2"]
+    },
+    {
+      "id": "l4",
+      "evidence_ids": ["e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior finding that premises were used for commercial purposes negates the occupation route for a dependent family member; no evidence supports residential occupation by a dependent family member.",
+      "refs": ["IK-1114159:L239:restored-v2"]
+    },
+    {
+      "id": "l5",
+      "evidence_ids": ["e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior finding that premises were used for commercial purposes negates the occupation route for a dependent family member; no evidence supports residential occupation by a dependent family member.",
+      "refs": ["IK-1114159:L239:restored-v2"]
+    },
+    {
+      "id": "l6",
+      "evidence_ids": ["e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C05",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior finding that premises were used for commercial purposes negates the alternative route for a person for whose benefit premises are held; no evidence supports residential occupation for another's benefit.",
+      "refs": ["IK-1114159:L239:restored-v2"]
+    },
+    {
+      "id": "l7",
+      "evidence_ids": ["e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior finding that premises were used for commercial purposes negates the absence of other reasonably suitable residential accommodation; no evidence supports the absence of alternative accommodation.",
+      "refs": ["IK-1114159:L239:restored-v2"]
+    }
+  ],
+  "conditions": [
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C01",
+      "branch_id": "",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "Prior finding of commercial use is not overridden; party claim of residential purpose is contradicted by the final prior finding."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "Prior finding of commercial use negates bona fide residential requirement; no evidence supports bona fide residential requirement."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "Prior finding of commercial use negates occupation by landlord himself; no evidence supports occupation by landlord himself."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "Prior finding of commercial use negates occupation by family member; no evidence supports occupation by family member."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "Prior finding of commercial use negates occupation by dependent family member; no evidence supports occupation by dependent family member."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C05",
+      "branch_id": "",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "Prior finding of commercial use negates occupation for person for whose benefit premises are held; no evidence supports occupation for another's benefit."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "Prior finding of commercial use negates absence of other reasonably suitable residential accommodation; no evidence supports absence of alternative accommodation."
+    }
+  ],
+  "coverage_limits": [
+    "The supplied law does not define 'bona fide', 'dependent', or 'reasonably suitable', limiting the ability to resolve these elements definitively.",
+    "The prior finding of commercial use is a retrospective reconstruction; its finality on appeal is not explicitly established as binding beyond the High Court stage.",
+    "The party claim of residential purpose is contradicted by the prior finding, creating a conflict that cannot be resolved without new evidence."
+  ]
+}

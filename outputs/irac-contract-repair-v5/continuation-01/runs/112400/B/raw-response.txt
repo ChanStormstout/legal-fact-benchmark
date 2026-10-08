@@ -1,0 +1,69 @@
+{
+  "answers": [
+    {
+      "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+      "prediction": "PREDICT_DENY",
+      "conditions": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "binding_id": "b1",
+          "binding": "Premises in question; Landlord (Respondent); Appellant (Tenant); Eviction proceedings under s. 14(1) proviso (e); Delhi High Court appeal (post-remand)",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L123:span1", "IK-112400:L124:restored-v2"],
+          "explanation": "The records establish the premises were let for residential purposes on January 22, 1964, satisfying the residential letting requirement."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "binding_id": "b1",
+          "binding": "Premises in question; Landlord (Respondent); Appellant (Tenant); Eviction proceedings under s. 14(1) proviso (e); Delhi High Court appeal (post-remand)",
+          "assessment": "REFUTED",
+          "refs": ["IK-112400:L124:restored-v2", "IK-112400:L127:restored-v2", "IK-112400:L130:span6"],
+          "explanation": "The Tribunal explicitly found the landlord's requirement was not bona fide because eviction was sought within 11 months of letting, which contradicts the landlord's claim and the tenant's denial."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C03",
+          "binding_id": "b2",
+          "binding": "Landlord (Respondent); Family members (Wife, Son, Son's wife, Children); Tribunal finding on family size vs. premises extent; Rent Control Tribunal (May 4, 1970)",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L139:restored-v2"],
+          "explanation": "The Tribunal found the portion occupied by the landlord was not reasonably sufficient for the specific family members listed, supporting the route of occupation by a dependent family member."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C04",
+          "binding_id": "b2",
+          "binding": "Landlord (Respondent); Family members (Wife, Son, Son's wife, Children); Tribunal finding on family size vs. premises extent; Rent Control Tribunal (May 4, 1970)",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L124:restored-v2", "IK-112400:L139:restored-v2"],
+          "explanation": "The records confirm the landlord was the owner of the entire premises, satisfying the ownership condition for the landlord-or-dependent-family branch."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C05",
+          "binding_id": "b1",
+          "binding": "Premises in question; Landlord (Respondent); Appellant (Tenant); Eviction proceedings under s. 14(1) proviso (e); Delhi High Court appeal (post-remand)",
+          "assessment": "UNRESOLVED",
+          "refs": [],
+          "explanation": "No evidence exists to determine if the premises are held for the benefit of a person other than the landlord, as the facts focus on the landlord's own occupation."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "binding_id": "b3",
+          "binding": "Premises in occupation; Landlord (Respondent); Tribunal finding on suitability of alternative accommodation; Rent Control Tribunal (May 4, 1970)",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L140:restored-v2"],
+          "explanation": "The Tribunal recorded a finding that the premises in the landlord's occupation were not reasonably suitable for his residence, which supports the absence of other reasonably suitable accommodation."
+        }
+      ],
+      "opposition": {
+        "record": "The tenant contended that the landlord's requirement for his occupation was not bona fide.",
+        "refs": ["IK-112400:L127:restored-v2"],
+        "response": "The Tribunal's prior finding that the requirement was not bona fide overrides the landlord's assertion, negating a necessary condition for the claim."
+      },
+      "gaps": [
+        "The definition of 'bona fide' and the precise legal equivalence between 'reasonably sufficient' and 'reasonably suitable' remain open-text interpretations not fully resolved by the supplied statute.",
+        "The dependency status of the family members is inferred from the Tribunal's finding on sufficiency but not explicitly adjudicated as a separate legal element."
+      ],
+      "reason": "I predict denial because the 'bona fide' requirement (C02) is explicitly refuted by the Tribunal's finding that the eviction was premature, breaking the AND chain of the claim. The other conditions (C01, C03, C04, C06) are supported or resolved in favor of the landlord, but the failure of one decisive element prevents overall satisfaction.",
+      "intermediate_correction": "None."
+    }
+  ]
+}

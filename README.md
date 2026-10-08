@@ -1,4 +1,34 @@
-最新[GNN-IRAC第二轮有限修复报告](outputs/gnn-irac-feasibility-02/report-zh.txt)：GNN-IRAC第二轮有限修复完成：固定8个旧TRAIN、13次普通High、语义重试0。阶段许可覆盖711项，五案132条input-only候选绑定先于target冻结；1106992的目标关系和来源隔离。最终来源审阅2案语义READY、3案REFERENCE_ONLY、3案GAP；冻结准入0/8 READY，NO_GO。14项不连续拼接引文、范围错配、目标阶段和悬空对象/跳过绑定仍保留。组内真实canonical NOT_AVAILABLE；未训练、启封SEALED、生成完整法律回答、提交或推送。
+# 当前工作：IRAC V7 网页同接口A/B比较已完成
+
+V7六次普通High独立临时对话完成，2份P与4份最终回答均可读，零重试。网页A/B明显减少V6来源误读及遗漏；112400 B接近A，188721101 B有逐安排组织收益但未确认重要额外净收益。优先网页A、P可选；一次模型辅助来源审阅，非人工gold，旧案开发诊断。未新增法源、执行器改动、本地推理或推送。 见[报告](outputs/irac-web-crossmodel-v7/report-zh.txt)、[完整回答](outputs/irac-web-crossmodel-v7/answers.md)、[逐案比较](outputs/irac-web-crossmodel-v7/case-comparison.csv)。
+
+# 历史：IRAC V6 两案完整比较已完成
+
+两案6次本地调用全部完成，12.44分钟，2份P及4份最终回答，无重试、网页或C。23项相关测试、17个真实tokenizer样例通过；E通过，M/L仍未通过。112400 B新增择一分支及来源问题，188721101 B局部纠错但未形成可靠完整净收益。暂停给当前9B增加提示／字段及强制P；2595项历史文件和旧IRAC源码保留，未读SEALED、未提交推送。 见[中文报告](outputs/irac-semantic-interface-v6/report-zh.txt)、[逐案比较](outputs/irac-semantic-interface-v6/case-comparison.csv)、[完整回答](outputs/irac-semantic-interface-v6/answers.md)与[实现说明](docs/IRAC_SEMANTIC_INTERFACE_V6.md)。两案仍是开发材料，结果不代表法律准确率或整个图方法的有效性；下一轮仅提出同接口更强模型比较，尚未执行。
+
+# 历史：IRAC V5 两案完整流程验收
+
+两案8次本地调用完成，19.31分钟，2份提议、6份完整回答，无截断或重试。22项相关测试通过，E工程验收通过；M仍有安排拆分、错误用途，L仍有极性、来源归属与法律组合问题。B局部纠错但无完整验收，C无可靠额外收益。2426项旧文件未变；未读取SEALED、提交或推送。 见[中文报告](outputs/irac-contract-repair-v5/continuation-01/report-zh.txt)、[E/M/L验收](outputs/irac-contract-repair-v5/continuation-01/acceptance.json)、[完整回答](outputs/irac-contract-repair-v5/continuation-01/answers.md)和[逐案比较](outputs/irac-contract-repair-v5/continuation-01/case-comparison.csv)。这是旧案例开发验证，不是独立法律准确率测试。原[V5工程检查点](outputs/irac-contract-repair-v5/report-zh.txt)原样保留。
+
+# 历史：IRAC 流程集中修复与有界恢复 v4
+
+局部导入、分支目录和来源组织修复完成；16次本地调用、2409.5秒，10份最终回答与两诊断完整，112400提议截断致B/C跳过。52547606 B有局部收益，其他配对传播或新增错误，C无稳定净收益；保留工程修复，暂停增加字段与图组件。未读取SEALED、训练、提交或推送。 见[报告](outputs/irac-pipeline-repair-v4/report-zh.txt)、[比较表](outputs/irac-pipeline-repair-v4/case-comparison.csv)、[来源审阅](outputs/irac-pipeline-repair-v4/final-source-review.json)和[实现说明](docs/IRAC_PIPELINE_REPAIR_V4.md)。这是材料与接口共同修改后的开发验证，不是独立测试。
+
+## 历史：IRAC 局部依赖与明确决策 v3
+
+六案16次本地调用完成：10最终回答均预测拒绝，8位置依赖失败跳过。局部用途和OR修复接通，但两份提议因覆盖门槛失败、两份截断；两完整配对仍有极性／来源误读，188721101全部用途分支地址错误。暂不增加组件，不宣称完整分析已修好。 17包旧预测重放不修改概率；未读取SEALED、未新训GNN、未调用网页、未提交推送。见[报告](outputs/irac-hybrid-decision-v3/report-zh.txt)、[六案比较](outputs/irac-hybrid-decision-v3/case-comparison.csv)、[完整答案入口](outputs/irac-hybrid-decision-v3/final-answer-slots.md)和[实现说明](docs/IRAC_HYBRID_DECISION_V3.md)。这是已暴露材料上的开发验证，来源审阅为模型辅助判断。
+
+## 历史：IRAC 对齐 v2
+
+本轮已完成17包、16次普通High、24次真实拟合及六包集中来源审阅。绑定读出、保存入口、划分与法律元数据已修复；局部限制跨见证及择一分支仍有过度阻止，完整分析未验收为已修好。四种学习方法均未稳定超过条件先验，暂停扩大GNN，保留来源与绑定接口。见[本轮报告](outputs/gnn-irac-aligned-v2/report-zh.txt)、[逐案比较](outputs/gnn-irac-aligned-v2/case-comparison.csv)、[集中来源审阅](outputs/gnn-irac-aligned-v2/final-source-review.json)及[实现说明](docs/IRAC_ALIGNED_V2.md)。旧结果、SEALED和GitHub均未改动。
+
+历史[老师方案对齐版报告](outputs/gnn-irac-aligned-v1/report-zh.txt)：17包、58次普通High、96/117项材料参考；36拟合已保存预测但权重/训练日志导出失败，原失败保留，未重训。该轮未显示Flat/R-GCN及ANCO超过条件先验；请求级门槛及训练覆盖问题限制了结论，不能视为充分的图方法有效性检验。保留来源接口，暂停扩大图。非独立测试、非人工gold，SEALED未读，未提交推送。 [逐案审阅](outputs/gnn-irac-aligned-v1/case-comparison.csv)与[实现对应](docs/IRAC_ALIGNED_V1.md)。
+
+历史[给定规则的条件适用开发报告](outputs/gnn-irac-application-development-01/report-zh.txt)：完成17个真实问题图、8组13项条件弱监督和18次Flat/R-GCN拟合。Flat三个种子全猜成立，Graph未识别三个不成立，概率损失明显差于条件先验；本轮没有图传播额外收益证据。保留接口，暂停扩大图。监督覆盖13/102，第三类无样本，反例集中于同一折；不宣称法律准确率或独立泛化。34次普通High，SEALED未读，未提交推送。
+
+历史[IRAC-native候选发现与图接口报告](outputs/gnn-irac-native-data-01/report-zh.txt)：固定16个新候选、4次普通High筛查完成：1 SUITABLE、3模型认可BORDERLINE、12 REJECT。即使全部暂计边界案也只有4案，未达到六案construction门槛，IRAC_NATIVE_DISCOVERY_NO_GO。新input schema及target-free图builder实现，33相关测试通过；真实链/图/READY均0，未训练、未启封SEALED、未提交推送。
+
+历史[GNN-IRAC第二轮有限修复报告](outputs/gnn-irac-feasibility-02/report-zh.txt)：GNN-IRAC第二轮有限修复完成：固定8个旧TRAIN、13次普通High、语义重试0。阶段许可覆盖711项，五案132条input-only候选绑定先于target冻结；1106992的目标关系和来源隔离。最终来源审阅2案语义READY、3案REFERENCE_ONLY、3案GAP；冻结准入0/8 READY，NO_GO。14项不连续拼接引文、范围错配、目标阶段和悬空对象/跳过绑定仍保留。组内真实canonical NOT_AVAILABLE；未训练、启封SEALED、生成完整法律回答、提交或推送。
 
 历史[GNN-IRAC数据可行性报告](outputs/gnn-irac-feasibility-01/report-zh.txt)：GNN-IRAC数据可行性完成：固定8个旧TRAIN，8次提议＋2次独立High来源审阅，无语义重试。1案有较完整回顾性链，7案缺决定性测试、证据内容或阶段明确的target；1106992发现目标FOUND关系残留。通用关系guard离线隔离两条，不覆盖冻结输入。真实组内canonical仅有合成接口检查，没有八案上游产物；NO_GO，未训练、未启封SEALED、未生成法律回答或发布。保留S并暂停扩大排序R-GCN。
 

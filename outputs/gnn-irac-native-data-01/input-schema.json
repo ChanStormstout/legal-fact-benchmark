@@ -1,0 +1,66 @@
+{
+  "version": "IRAC_NATIVE_V1",
+  "input_keys": [
+    "blind_bindings",
+    "case_id",
+    "conditions",
+    "entities",
+    "evidence",
+    "facts",
+    "issue",
+    "prospective_availability",
+    "provenance",
+    "relations",
+    "rules",
+    "stage_metadata"
+  ],
+  "forbidden_keys": [
+    "conclusion",
+    "element_targets",
+    "final_source_review",
+    "issue_target",
+    "losing",
+    "oracle_selection_basis",
+    "source_reviews",
+    "target",
+    "target_court_accepted",
+    "target_court_rejected",
+    "target_outcome",
+    "target_provenance",
+    "target_reasoning",
+    "target_reasoning_embedding",
+    "target_sources",
+    "targets",
+    "winning"
+  ],
+  "allowed_stages": [
+    "PRE_TARGET_RECORD",
+    "PRIOR_COURT_FINDING",
+    "TARGET_STAGE_PARTY_ARGUMENT"
+  ],
+  "availability": [
+    "DIRECT_PRE_TARGET_SOURCE",
+    "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+    "UNKNOWN"
+  ],
+  "statement_status": [
+    "ADMITTED",
+    "CLAIMED",
+    "DENIED",
+    "DOCUMENT_RECORDED",
+    "PRIOR_FOUND",
+    "UNKNOWN"
+  ],
+  "quotes": "array of separately contiguous {source_id,quote}; no concatenation repair",
+  "unknown_is_not_false": true,
+  "basis_kind": [
+    "AMBIGUOUS_REASONING",
+    "BURDEN_NOT_CARRIED",
+    "FACT_ACCEPTED",
+    "FACT_FALSE",
+    "INSUFFICIENT_RECORD",
+    "LEGAL_INTERPRETATION",
+    "NOT_DECIDED"
+  ],
+  "targets_are_separate": true
+}

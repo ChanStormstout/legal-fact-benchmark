@@ -1,0 +1,269 @@
+你说：
+粘贴的文本 (1)(20261007-132738).txt
+文档
+思考了 1m 6s
+已分析
+ChatGPT 说：
+
+已按附件中的限定执行：仅使用所给材料，不引入外部事实，并按指定 {case_id,additional_facts,links,combinations,coverage_limits} 结构输出。
+粘贴的文本 (1)
+
+JSON
+{
+  "case_id": "1114159",
+  "additional_facts": [],
+  "links": [
+    {
+      "id": "L1",
+      "instance_id": "F3",
+      "test_id": "DRC_BONA_FIDE-C01",
+      "direction": "SUPPORT",
+      "proposition": "The premises were let for residential purposes.",
+      "binding": [],
+      "source_refs": [
+        {
+          "source_id": "IK-1114159:L239:span2",
+          "quote": "both the statutory authorities found that the premises which had been let out for residential purposes to the appellant had also been used incidentally for commercial purposes"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "statement_status",
+            "court_level",
+            "adjudicative_weight"
+          ],
+          "reason": "This is preserved as a PRIOR_FOUND finding by the statutory authorities. It supports the literal residential-letting proposition as a recorded prior finding, but it is not converted into an independently established Supreme Court-stage fact and does not support any other clause-(e) test.",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L239:span2",
+              "quote": "both the statutory authorities found that the premises which had been let out for residential purposes to the appellant had also been used incidentally for commercial purposes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "instance_id": "F2",
+      "test_id": "DRC_BONA_FIDE-C01",
+      "direction": "UNKNOWN",
+      "proposition": "The premises were let for residential purposes.",
+      "binding": [
+        {
+          "role": "landlord",
+          "entity_id": "E2",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L238:span1",
+              "quote": "the original landlord who had let out the premises"
+            }
+          ]
+        },
+        {
+          "role": "tenant_at_letting",
+          "entity_id": "E3",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L238:span1",
+              "quote": "had let out the premises to the appellant on 1.10.1961"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-1114159:L238:span1",
+          "quote": "The respondent is the daughter of the original landlord who had let out the premises to the appellant on 1.10.1961."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "letting_purpose"
+          ],
+          "reason": "The fact establishes a letting event and date but does not state the purpose for which the premises were let. It therefore cannot itself support or oppose the residential-purpose requirement.",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L238:span1",
+              "quote": "had let out the premises to the appellant on 1.10.1961"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "instance_id": "F4",
+      "test_id": "DRC_BONA_FIDE-C01",
+      "direction": "IRRELEVANT",
+      "proposition": "The premises were let for residential purposes.",
+      "binding": [],
+      "source_refs": [
+        {
+          "source_id": "IK-1114159:L240:span3",
+          "quote": "This High Court found that there was no evidence for the statutory authorities to come to the conclusion, which they did, as regards the premises having been used for commercial purpose."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "letting_purpose",
+            "use_after_letting"
+          ],
+          "reason": "The High Court's negative finding concerns evidentiary support for commercial use, not the purpose for which the premises were originally let. Negative evidence about commercial use is not treated as opposition to, or affirmative proof of, the residential-letting proposition.",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L240:span3",
+              "quote": "there was no evidence for the statutory authorities to come to the conclusion, which they did, as regards the premises having been used for commercial purpose"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "instance_id": "F5",
+      "test_id": "DRC_BONA_FIDE-C01",
+      "direction": "IRRELEVANT",
+      "proposition": "The premises were let for residential purposes.",
+      "binding": [],
+      "source_refs": [
+        {
+          "source_id": "IK-1114159:L241:span4",
+          "quote": "No documentary evidence has been brought on record to hold that the premises were ever used for boarding and lodging foreign students"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "letting_purpose",
+            "boarding_or_lodging_use"
+          ],
+          "reason": "The statement addresses absence of documentary evidence of a later alleged use. It does not state the purpose of the original letting and therefore is not evidence for or against C01.",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L241:span4",
+              "quote": "No documentary evidence has been brought on record to hold that the premises were ever used for boarding and lodging foreign students"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "instance_id": "F1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "direction": "UNKNOWN",
+      "proposition": "One qualifying occupation route is occupation by the landlord himself or by a member of his family dependent on him.",
+      "binding": [
+        {
+          "role": "original_landlord",
+          "entity_id": "E2",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L238:span1",
+              "quote": "the original landlord"
+            }
+          ]
+        },
+        {
+          "role": "family_member",
+          "entity_id": "E1",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L238:span1",
+              "quote": "The respondent is the daughter of the original landlord"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-1114159:L238:span1",
+          "quote": "The respondent is the daughter of the original landlord who had let out the premises to the appellant on 1.10.1961."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "occupation",
+            "dependency",
+            "target_landlord_identity"
+          ],
+          "reason": "The source establishes a daughter-parent relationship to the original landlord only. It does not state that the respondent is dependent on the original landlord, that occupation is sought for either person, or that the original landlord is the landlord whose claimed bona fide requirement is at issue at the target stage.",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L238:span1",
+              "quote": "The respondent is the daughter of the original landlord"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "instance_id": "F2",
+      "test_id": "DRC_BONA_FIDE-C04",
+      "direction": "UNKNOWN",
+      "proposition": "For the landlord-or-dependent-family occupation branch, the landlord is the owner of the premises.",
+      "binding": [
+        {
+          "role": "landlord",
+          "entity_id": "E2",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L238:span1",
+              "quote": "the original landlord who had let out the premises"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-1114159:L238:span1",
+          "quote": "The respondent is the daughter of the original landlord who had let out the premises to the appellant on 1.10.1961."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "ownership"
+          ],
+          "reason": "The source calls E2 the original landlord and records that E2 let the premises, but the supplied law treats ownership as a separate qualification and the allowed sources do not state that E2 owned the premises. Landlord status is not upgraded into ownership.",
+          "source_refs": [
+            {
+              "source_id": "IK-1114159:L238:span1",
+              "quote": "the original landlord who had let out the premises"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "combinations": [],
+  "coverage_limits": [
+    "The supplied material permits a direct SUPPORT link only for DRC_BONA_FIDE-C01 through F3, preserved as a prior finding of the statutory authorities rather than an independently established Supreme Court-stage fact.",
+    "No allowed source states that the premises are required bona fide by the landlord for residential occupation, so no source-grounded link is proposed for DRC_BONA_FIDE-C02.",
+    "F1 establishes that the respondent is the daughter of the original landlord, but the allowed sources do not establish dependency, intended occupation, or that the original landlord is the relevant claimant-landlord at the target stage. The resulting DRC_BONA_FIDE-C03 link remains UNKNOWN.",
+    "F2 establishes that the original landlord let the premises to the appellant on 1.10.1961, but no allowed source states ownership. The DRC_BONA_FIDE-C04 link therefore remains UNKNOWN and landlord status is not treated as proof of ownership.",
+    "No allowed source states that the premises are held for the benefit of another person, so no source-grounded link is proposed for DRC_BONA_FIDE-C05.",
+    "No allowed source states whether the landlord or any relevant 'such person' has other reasonably suitable residential accommodation, so no source-grounded link is proposed for DRC_BONA_FIDE-C06.",
+    "F4 and F5 are preserved as negative evidence but are mapped IRRELEVANT to C01 because they concern evidence of commercial use or boarding/lodging use rather than the purpose of the original letting. They are not converted into opposition or support by implication.",
+    "F6, F7 and F8 concern alleged parting with possession, paying-guest status and denial of tenancy of foreign students. None of the supplied DRC_BONA_FIDE tests addresses those propositions, so no link is manufactured from those facts.",
+    "The supplied allowed sources do not establish a complete clause-(e) object chain across the mandatory residential-letting, bona fide residential-requirement, qualifying occupation/ownership-or-beneficiary route, and alternative-accommodation requirements. Accordingly, combinations is empty rather than presenting a partial chain as complete.",
+    "Because no combination is proposed, no cross-fact identity witness is required. Entity IDs are used only within source-grounded individual links and do not create unstated identities between the respondent, the original landlord, the appellant and the tenant.",
+    "The overall compatibility of the supplied factual excerpts with the full DRC_BONA_FIDE claim is not established by the excerpts themselves. The local C01 link can be assessed, but the absence of source material on C02, C05 and C06 and the unresolved C03/C04 predicates blocks a complete compatible chain at the target stage.",
+    "The supplied independent law does not provide operational standards for 'bona fide', 'dependent', ownership proof, or 'reasonably suitable residential accommodation'; no such standards are inferred in the links.",
+    "All source statements are used with their supplied semantic-stage, statement-status and prospective-availability character. A judgment's description of evidence is not treated as an independently inspected original evidence record."
+  ]
+}
+DRC_BONA_FIDE_1114159_links.json
+代码
+ChatGPT 可能会出错。请核查重要信息。
+最新一条回复
+
+
+
+
+High

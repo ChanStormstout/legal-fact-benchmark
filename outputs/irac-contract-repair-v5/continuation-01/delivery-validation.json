@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "slots": [
+    {
+      "case_id": "112400",
+      "stage": "A",
+      "delivery": "outputs/irac-contract-repair-v5/continuation-01/runs/112400/A/delivery.json",
+      "mask_calls": 1048,
+      "raw_sha256": "ed56e37517e2576f4b45d5726d6e556d904667b677983cf4a2bb3851ea901b86",
+      "actual_max_tokens": 3072,
+      "checked": true
+    },
+    {
+      "case_id": "112400",
+      "stage": "P",
+      "delivery": "outputs/irac-contract-repair-v5/continuation-01/runs/112400/P/delivery.json",
+      "mask_calls": 2337,
+      "raw_sha256": "9825d78733dfb526ff97fc4972c6ef27a5e1bf05489f40ffb60177b1323e0d35",
+      "actual_max_tokens": 4096,
+      "checked": true
+    },
+    {
+      "case_id": "112400",
+      "stage": "B",
+      "delivery": "outputs/irac-contract-repair-v5/continuation-01/runs/112400/B/delivery.json",
+      "mask_calls": 1293,
+      "raw_sha256": "14ccf47abf771eebec9b98343f29bd072dd5f291d6f185a7e42c52e5179323e6",
+      "actual_max_tokens": 3072,
+      "checked": true
+    },
+    {
+      "case_id": "112400",
+      "stage": "C",
+      "delivery": "outputs/irac-contract-repair-v5/continuation-01/runs/112400/C/delivery.json",
+      "mask_calls": 1408,
+      "raw_sha256": "4c3b20b701fbf40d13a43b3cb14ae3b4b74a01f8d7416160c23acc70d9801aee",
+      "actual_max_tokens": 3072,
+      "checked": true
+    },
+    {
+      "case_id": "188721101",
+      "stage": "A",
+      "delivery": "outputs/irac-contract-repair-v5/continuation-01/runs/188721101/A/delivery.json",
+      "mask_calls": 1484,
+      "raw_sha256": "adbeb9e28f77960efbba725bd52f9378b010067ae0e261ee965c577d0a4b976f",
+      "actual_max_tokens": 3072,
+      "checked": true
+    },
+    {
+      "case_id": "188721101",
+      "stage": "P",
+      "delivery": "outputs/irac-contract-repair-v5/continuation-01/runs/188721101/P/delivery.json",
+      "mask_calls": 1839,
+      "raw_sha256": "baece90609d2b54725dcc08b8024e95d97cadc5ab3d78b36188f861768f2d3db",
+      "actual_max_tokens": 4096,
+      "checked": true
+    },
+    {
+      "case_id": "188721101",
+      "stage": "B",
+      "delivery": "outputs/irac-contract-repair-v5/continuation-01/runs/188721101/B/delivery.json",
+      "mask_calls": 1470,
+      "raw_sha256": "0a27f087e026d874e280404f493077fc5153ca3bf3102ef9f896af955044c3cd",
+      "actual_max_tokens": 3072,
+      "checked": true
+    },
+    {
+      "case_id": "188721101",
+      "stage": "C",
+      "delivery": "outputs/irac-contract-repair-v5/continuation-01/runs/188721101/C/delivery.json",
+      "mask_calls": 1537,
+      "raw_sha256": "ed982145f516742bcf06d85fa969215587479aae59ef99630d382c3481c1930c",
+      "actual_max_tokens": 3072,
+      "checked": true
+    }
+  ],
+  "proposals": [
+    {
+      "case_id": "112400",
+      "record_count": 7,
+      "record_exact": true,
+      "projection_record_count": 7,
+      "computable_uses": 7,
+      "quarantines": [],
+      "import_status": "OK",
+      "B_C_share_exact_P": true
+    },
+    {
+      "case_id": "188721101",
+      "record_count": 6,
+      "record_exact": true,
+      "projection_record_count": 6,
+      "computable_uses": 6,
+      "quarantines": [
+        {
+          "kind": "limitations",
+          "position": 1,
+          "record": {
+            "id": "l2",
+            "evidence_ids": [
+              "e5",
+              "e6"
+            ],
+            "binding_id": "b2",
+            "condition_address": "ADDR-001",
+            "use": "TARGET_ACCEPTANCE",
+            "effect": "USE_BLOCK",
+            "reason": "The prior court finding explicitly negates the existence of sub-letting/assignment/parting with possession for the specific arrangement in question, blocking the ground under s14(1)(b).",
+            "refs": [
+              "IK-188721101:L83:restored-v2",
+              "IK-188721101:L84:restored-v2"
+            ]
+          },
+          "reason": "INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE"
+        }
+      ],
+      "import_status": "PARTIAL",
+      "B_C_share_exact_P": true
+    }
+  ],
+  "code_and_material_hashes_unchanged": true,
+  "scope": "Delivery and execution checks, not legal correctness."
+}

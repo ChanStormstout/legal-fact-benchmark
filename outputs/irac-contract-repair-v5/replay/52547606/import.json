@@ -1,0 +1,475 @@
+{
+  "status": "OK",
+  "usable": true,
+  "raw_proposal": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Mohan Lal; Anand Parkash; Parkash Trading Corporation; Premises",
+        "event": "Tenancy and alleged subletting/assignment/parting with possession",
+        "stage": "Delhi High Court decision in CM(M) 642/2010",
+        "refs": [
+          "IK-52547606:L74:span1",
+          "IK-52547606:L75:span2",
+          "IK-52547606:L78:span3",
+          "IK-52547606:L79:span4",
+          "IK-52547606:L81:span5",
+          "IK-52547606:L82:context-v4"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Landlord admitted tenant took premises for son's business from inception; son used premises from inception.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-52547606:L75:span2",
+          "IK-52547606:L93:span8"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Prior court found tenant was deceased Mohan Lal; no inference of parting with possession/subletting/assignment by him in favor of son.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L82:context-v4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b1",
+        "record": "Prior court found tenant was Mohan Lal; he parted with possession in favor of son Anand Parkash; subletting ground confirmed.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b1",
+        "record": "Electricity connection and rent receipt in name of Mohan Lal.",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L78:span3"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e5",
+        "binding_id": "b1",
+        "record": "Telephone record shows Parkash Trading Corporation had telephone installed in premises until 21.05.1963.",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L79:span4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "id": "l1",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e2) establishes tenant retained legal possession; mere user by others (e1, e4) does not constitute parting with possession per supplied law.",
+        "refs": [
+          "IK-52547606:L82:context-v4",
+          "IK-52547606:L75:span2",
+          "IK-52547606:L78:span3"
+        ]
+      },
+      {
+        "id": "l2",
+        "evidence_ids": [
+          "e3"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e3) confirms subletting route; however, it conflicts with the stronger prior finding (e2) regarding retention of legal possession which negates the 'parting' element required for any ground under s14(1)(b).",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ]
+      },
+      {
+        "id": "l3",
+        "evidence_ids": [
+          "e3"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e3) confirms parting with possession route; however, it conflicts with the stronger prior finding (e2) regarding retention of legal possession which negates the 'parting' element required for any ground under s14(1)(b).",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "gap": "Target court acceptance of the 'retained legal possession' finding remains to be determined in the final judgment."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3"
+        ],
+        "gap": "Conflict with prior finding on retention of legal possession; subletting requires divestment of right to possession which is negated by the finding of concurrent user."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3"
+        ],
+        "gap": "Conflict with prior finding on retention of legal possession; parting with possession requires divestment of right to possession which is negated by the finding of concurrent user."
+      }
+    ],
+    "coverage_limits": [
+      "The supplied prior court findings (e2 vs e3) present a direct conflict regarding the nature of the tenancy arrangement (retention vs parting).",
+      "The target court's resolution of this conflict is not provided in the supplied records; only the lower court's contradictory findings are available.",
+      "Evidence regarding the dissolution of the partnership firm (e5) is recorded but its specific impact on the 'parting with possession' timeline relative to the 9 June 1952 threshold is not fully analyzed in the provided text."
+    ]
+  },
+  "projection": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Mohan Lal; Anand Parkash; Parkash Trading Corporation; Premises",
+        "event": "Tenancy and alleged subletting/assignment/parting with possession",
+        "stage": "Delhi High Court decision in CM(M) 642/2010",
+        "refs": [
+          "IK-52547606:L74:span1",
+          "IK-52547606:L75:span2",
+          "IK-52547606:L78:span3",
+          "IK-52547606:L79:span4",
+          "IK-52547606:L81:span5",
+          "IK-52547606:L82:context-v4"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Landlord admitted tenant took premises for son's business from inception; son used premises from inception.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-52547606:L75:span2",
+          "IK-52547606:L93:span8"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Prior court found tenant was deceased Mohan Lal; no inference of parting with possession/subletting/assignment by him in favor of son.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L82:context-v4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b1",
+        "record": "Prior court found tenant was Mohan Lal; he parted with possession in favor of son Anand Parkash; subletting ground confirmed.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b1",
+        "record": "Electricity connection and rent receipt in name of Mohan Lal.",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L78:span3"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e5",
+        "binding_id": "b1",
+        "record": "Telephone record shows Parkash Trading Corporation had telephone installed in premises until 21.05.1963.",
+        "statement_status": "RECORDED_DOCUMENT",
+        "refs": [
+          "IK-52547606:L79:span4"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "binding_id": "b1",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "id": "l1",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e2) establishes tenant retained legal possession; mere user by others (e1, e4) does not constitute parting with possession per supplied law.",
+        "refs": [
+          "IK-52547606:L82:context-v4",
+          "IK-52547606:L75:span2",
+          "IK-52547606:L78:span3"
+        ]
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "binding_id": "b1",
+        "evidence_ids": [
+          "e3"
+        ],
+        "id": "l2",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e3) confirms subletting route; however, it conflicts with the stronger prior finding (e2) regarding retention of legal possession which negates the 'parting' element required for any ground under s14(1)(b).",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ]
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "binding_id": "b1",
+        "evidence_ids": [
+          "e3"
+        ],
+        "id": "l3",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding (e3) confirms parting with possession route; however, it conflicts with the stronger prior finding (e2) regarding retention of legal possession which negates the 'parting' element required for any ground under s14(1)(b).",
+        "refs": [
+          "IK-52547606:L84:context-v4"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "binding_id": "b1",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e4"
+        ],
+        "assessment": "SUPPORTED",
+        "gap": "Target court acceptance of the 'retained legal possession' finding remains to be determined in the final judgment."
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "binding_id": "b1",
+        "evidence_ids": [
+          "e3"
+        ],
+        "assessment": "REFUTED",
+        "gap": "Conflict with prior finding on retention of legal possession; subletting requires divestment of right to possession which is negated by the finding of concurrent user."
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "binding_id": "b1",
+        "evidence_ids": [
+          "e3"
+        ],
+        "assessment": "REFUTED",
+        "gap": "Conflict with prior finding on retention of legal possession; parting with possession requires divestment of right to possession which is negated by the finding of concurrent user."
+      }
+    ],
+    "coverage_limits": [
+      "The supplied prior court findings (e2 vs e3) present a direct conflict regarding the nature of the tenancy arrangement (retention vs parting).",
+      "The target court's resolution of this conflict is not provided in the supplied records; only the lower court's contradictory findings are available.",
+      "Evidence regarding the dissolution of the partnership firm (e5) is recorded but its specific impact on the 'parting with possession' timeline relative to the 9 June 1952 threshold is not fully analyzed in the provided text."
+    ]
+  },
+  "quarantine": [],
+  "restriction_coverage": [],
+  "safeguards": [],
+  "address_directory": {
+    "ADDR-001": {
+      "test_id": "DRC_SUBLETTING_C01",
+      "branch_id": "",
+      "test_text": "The relevant subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+      "branch_text": ""
+    },
+    "ADDR-002": {
+      "test_id": "DRC_SUBLETTING_C02",
+      "branch_id": "",
+      "test_text": "For subletting, a landlord-and-tenant relationship exists between tenant and sub-tenant and the incidents of letting or tenancy identified by the supplied opinion are present: transfer of an interest in the estate, payment of rent, and the right to possession as against the tenant in respect of the premises sublet.",
+      "branch_text": ""
+    },
+    "ADDR-003": {
+      "test_id": "DRC_SUBLETTING_C03",
+      "branch_id": "",
+      "test_text": "For assignment, the tenant divests himself of all rights that he has as a tenant.",
+      "branch_text": ""
+    },
+    "ADDR-004": {
+      "test_id": "DRC_SUBLETTING_C04",
+      "branch_id": "",
+      "test_text": "For parting with possession, possession is vested by the tenant in another person by divesting the tenant of physical possession and the right to possession; divestment or abandonment of the right to possession is required.",
+      "branch_text": ""
+    },
+    "ADDR-005": {
+      "test_id": "DRC_SUBLETTING_C05",
+      "branch_id": "",
+      "test_text": "The tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+      "branch_text": ""
+    },
+    "ADDR-006": {
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "",
+      "test_text": "For the parting-with-possession route, the tenant retains legal possession of the relevant part where there is concurrent user or mere use by others without wholly ousting the tenant from legal possession of that part.",
+      "branch_text": ""
+    },
+    "ADDR-007": {
+      "test_id": "DRC_SUBLETTING_C07",
+      "branch_id": "",
+      "test_text": "The relevant disposition concerns the whole or any part of the premises.",
+      "branch_text": ""
+    }
+  },
+  "condition_summary_required": false,
+  "semantic_certification": false
+}

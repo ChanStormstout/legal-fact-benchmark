@@ -1,0 +1,2212 @@
+{
+  "reference_status": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "review_timing": "One concentrated main-session review after entire frozen batch. No added agent, no web call, no rescore against historical outcome.",
+  "cases": {
+    "112400": {
+      "source_ids": [
+        "IK-112400:L123:span1",
+        "IK-112400:L124:restored-v2",
+        "IK-112400:L127:restored-v2",
+        "IK-112400:L130:span6",
+        "IK-112400:L137:context-v4",
+        "IK-112400:L138:context-v4",
+        "IK-112400:L139:restored-v2",
+        "IK-112400:L140:restored-v2"
+      ],
+      "findings": [
+        {
+          "id": "112-Q",
+          "methods": [
+            "D-short",
+            "A"
+          ],
+          "answer_location": "C06 assessment/explanation",
+          "source_ids": [
+            "IK-112400:L139:restored-v2",
+            "IK-112400:L140:restored-v2"
+          ],
+          "observation": "短诊断directly satisfies、A implying no other suitable accommodation：把现住房不适合全家扩大成其他合适住房都不存在。原文确有Tribunal针对当前住房的认定，但提供片段未说明已经穷尽全部替代住房。",
+          "origin": "RAW_MODEL_OUTPUT",
+          "qualification": "可支持当前住房不合适；对完整C06的最终法律解读保留范围争议，不能反向标成REFUTED。"
+        },
+        {
+          "id": "112-OMIT",
+          "methods": [
+            "D-full"
+          ],
+          "answer_location": "explanation",
+          "source_ids": [
+            "IK-112400:L137:context-v4",
+            "IK-112400:L138:context-v4",
+            "IK-112400:L139:restored-v2",
+            "IK-112400:L140:restored-v2"
+          ],
+          "observation": "完整诊断说没有任何关于适合性的既有裁判事实，仅抓住发回前未认定，遗漏同输入中的发回后报告和认定。UNRESOLVED标签不能掩盖错误理由。",
+          "origin": "RAW_MODEL_OUTPUT_INTEGRATION",
+          "qualification": ""
+        },
+        {
+          "id": "112-LEASE",
+          "methods": [
+            "A"
+          ],
+          "answer_location": "C01",
+          "source_ids": [
+            "IK-112400:L123:span1",
+            "IK-112400:L124:restored-v2"
+          ],
+          "observation": "声称原文explicitly states let for residential purposes；提供文本只写出租一层及房东之后提出自住请求，没有明确原租赁用途。",
+          "origin": "RAW_MODEL_OUTPUT",
+          "qualification": ""
+        },
+        {
+          "id": "112-BIND",
+          "methods": [
+            "A"
+          ],
+          "answer_location": "C03/binding and C02/reason",
+          "source_ids": [
+            "IK-112400:L124:restored-v2",
+            "IK-112400:L127:restored-v2",
+            "IK-112400:L130:span6",
+            "IK-112400:L139:restored-v2"
+          ],
+          "observation": "保留本人路线和所有权是可支持部分；但以现住楼层和全家共同居住直接满足拟收回楼层的路线，且每个条件另造b1至b5。先前不善意认定有来源，仍应保留其正被复核的阶段。",
+          "origin": "RAW_MODEL_OUTPUT",
+          "qualification": "预测拒绝可以是一种不确定选择；不按被排除的历史结论判错。"
+        }
+      ],
+      "A": "保留所有权、既有不善意认定和本人路线；却臆称租赁用途明确，并把当前住房不适合扩成全局无替代住房。",
+      "B": "SKIPPED：P在4096 tokens截断，答案null。",
+      "C": "SKIPPED：同一提议失败，答案null。",
+      "B_vs_A": "无法配对；不把缺失答案记成法律未知。",
+      "C_vs_B": "无法配对。",
+      "real_gaps": "完整替代住房范围、原租赁目的以及善意标准的详细法源；当前住房不适合已有明确来源，不能说其缺失。",
+      "evidence": {
+        "IK-112400:L123:span1": {
+          "text": "The appellant took on lease, the first floor of the premises in question from the respondent on January 22, 1964 on a monthly rent of Rs. 250.",
+          "provenance": [],
+          "input_positions": {
+            "D-full": {
+              "display_id": "IK-112400:L123:span1",
+              "prompt_char_range": [
+                12804,
+                12948
+              ],
+              "rendered_char_range": [
+                12821,
+                12965
+              ],
+              "aliases": {},
+              "text_sha256": "3beb76ef3440b4060ac6c469cc78dfc285bb8421f966266f7b6a19a59841c37e",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "A": {
+              "display_id": "IK-112400:L123:span1",
+              "prompt_char_range": [
+                26588,
+                26732
+              ],
+              "rendered_char_range": [
+                26605,
+                26749
+              ],
+              "aliases": {},
+              "text_sha256": "3beb76ef3440b4060ac6c469cc78dfc285bb8421f966266f7b6a19a59841c37e",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-112400:L124:restored-v2": {
+          "text": "The respondent who was the owner of the entire premises was then occupying the ground floor. The landlord filed an application, before the Rent Controller on November 26.1964 for eviction of the appellant from the portion in his occupation as lessee, on two grounds; (a) that the tenant has sub-let a part of the premises, and (b) that he required the premises bona fide for his occupation as a residence himself and his family members. The latter claim was based under cl.",
+          "provenance": [
+            {
+              "document_id": "112400",
+              "url": "https://indiankanoon.org/doc/112400/",
+              "response_index": 0,
+              "raw_path": "outputs/gnn-irac-native-data-01/sources/raw/single-112400-0.txt",
+              "raw_sha256": "2f55c737f8adc62ef9b2c02318832655798836be5dd3ee577edf57fb6d401a48",
+              "raw_char_range": [
+                5891,
+                6364
+              ],
+              "raw_byte_range": [
+                6081,
+                6554
+              ],
+              "raw_physical_line": 119,
+              "original_line": 124
+            }
+          ],
+          "input_positions": {
+            "D-short": {
+              "display_id": "IK-112400:L124:restored-v2",
+              "prompt_char_range": [
+                12810,
+                13285
+              ],
+              "rendered_char_range": [
+                12827,
+                13302
+              ],
+              "aliases": {},
+              "text_sha256": "eb73bd24f4d6055d0fa3f1e18c7797c0fe3488f38905285612f37aa7f35c609e",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "D-full": {
+              "display_id": "IK-112400:L124:restored-v2",
+              "prompt_char_range": [
+                13140,
+                13615
+              ],
+              "rendered_char_range": [
+                13157,
+                13632
+              ],
+              "aliases": {
+                "IK-112400:L124:span2": [
+                  0,
+                  92
+                ],
+                "IK-112400:L124:span3": [
+                  331,
+                  436
+                ]
+              },
+              "text_sha256": "eb73bd24f4d6055d0fa3f1e18c7797c0fe3488f38905285612f37aa7f35c609e",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "A": {
+              "display_id": "IK-112400:L124:restored-v2",
+              "prompt_char_range": [
+                26924,
+                27399
+              ],
+              "rendered_char_range": [
+                26941,
+                27416
+              ],
+              "aliases": {
+                "IK-112400:L124:span2": [
+                  0,
+                  92
+                ],
+                "IK-112400:L124:span3": [
+                  331,
+                  436
+                ]
+              },
+              "text_sha256": "eb73bd24f4d6055d0fa3f1e18c7797c0fe3488f38905285612f37aa7f35c609e",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-112400:L127:restored-v2": {
+          "text": "The tenant opposed the claim of the landlord on both the grounds. He denied the allegation of sub-letting. He also contended that the landlord's requirement for his occupation was not bonafide. The tenant's plea was that the portion of the premises in his occupation was sufficient for his purpose. The Rent Controller accepted the plea of the tenant that there was no subletting. He also accepted his plea that the requirement of the landlord for his occupation was not bona fide.",
+          "provenance": [
+            {
+              "document_id": "112400",
+              "url": "https://indiankanoon.org/doc/112400/",
+              "response_index": 0,
+              "raw_path": "outputs/gnn-irac-native-data-01/sources/raw/single-112400-0.txt",
+              "raw_sha256": "2f55c737f8adc62ef9b2c02318832655798836be5dd3ee577edf57fb6d401a48",
+              "raw_char_range": [
+                6839,
+                7320
+              ],
+              "raw_byte_range": [
+                7037,
+                7518
+              ],
+              "raw_physical_line": 122,
+              "original_line": 127
+            }
+          ],
+          "input_positions": {
+            "D-full": {
+              "display_id": "IK-112400:L127:restored-v2",
+              "prompt_char_range": [
+                13810,
+                14293
+              ],
+              "rendered_char_range": [
+                13827,
+                14310
+              ],
+              "aliases": {
+                "IK-112400:L127:span4": [
+                  107,
+                  193
+                ],
+                "IK-112400:L127:span5": [
+                  381,
+                  481
+                ]
+              },
+              "text_sha256": "ace0fa19937422f4f282eed2b0bd21cdcce51c7ec36c376fe9ccb9bd9ee1f49a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "A": {
+              "display_id": "IK-112400:L127:restored-v2",
+              "prompt_char_range": [
+                27594,
+                28077
+              ],
+              "rendered_char_range": [
+                27611,
+                28094
+              ],
+              "aliases": {
+                "IK-112400:L127:span4": [
+                  107,
+                  193
+                ],
+                "IK-112400:L127:span5": [
+                  381,
+                  481
+                ]
+              },
+              "text_sha256": "ace0fa19937422f4f282eed2b0bd21cdcce51c7ec36c376fe9ccb9bd9ee1f49a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-112400:L130:span6": {
+          "text": "It is the view of both the Tribunals that when eviction is asked for within about I I months of the letting, the claim of the landlord cannot be considered to be bonafide.",
+          "provenance": [],
+          "input_positions": {
+            "D-full": {
+              "display_id": "IK-112400:L130:span6",
+              "prompt_char_range": [
+                14414,
+                14587
+              ],
+              "rendered_char_range": [
+                14431,
+                14604
+              ],
+              "aliases": {},
+              "text_sha256": "6179f55e047ea428b1211045e0e77bb07c5608e961ce847eefc3c003607d9968",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "A": {
+              "display_id": "IK-112400:L130:span6",
+              "prompt_char_range": [
+                28198,
+                28371
+              ],
+              "rendered_char_range": [
+                28215,
+                28388
+              ],
+              "aliases": {},
+              "text_sha256": "6179f55e047ea428b1211045e0e77bb07c5608e961ce847eefc3c003607d9968",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-112400:L137:context-v4": {
+          "text": "Before the High Court, counsel for both parties made a representation that the Rent Control Tribunal has not recorded a finding on the question whether the premises avaiable with the landlord can be considered to be \"reasonably suitable residential accommodation\" as contemplated by cl.",
+          "provenance": [
+            {
+              "raw_path": "outputs/gnn-irac-native-data-01/sources/raw/single-112400-0.txt",
+              "raw_sha256": "2f55c737f8adc62ef9b2c02318832655798836be5dd3ee577edf57fb6d401a48",
+              "raw_char_range": [
+                9002,
+                9288
+              ],
+              "original_line": 137,
+              "document_id": "112400",
+              "url": "https://indiankanoon.org/doc/112400/"
+            }
+          ],
+          "input_positions": {
+            "D-short": {
+              "display_id": "IK-112400:L137:context-v4",
+              "prompt_char_range": [
+                14249,
+                14539
+              ],
+              "rendered_char_range": [
+                14266,
+                14556
+              ],
+              "aliases": {},
+              "text_sha256": "5323c6014a55aa7120a75f7b223cab858af317107a37a2a1836ba72f102bfb5a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "D-full": {
+              "display_id": "IK-112400:L137:context-v4",
+              "prompt_char_range": [
+                15618,
+                15908
+              ],
+              "rendered_char_range": [
+                15635,
+                15925
+              ],
+              "aliases": {},
+              "text_sha256": "5323c6014a55aa7120a75f7b223cab858af317107a37a2a1836ba72f102bfb5a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "A": {
+              "display_id": "IK-112400:L137:context-v4",
+              "prompt_char_range": [
+                29402,
+                29692
+              ],
+              "rendered_char_range": [
+                29419,
+                29709
+              ],
+              "aliases": {},
+              "text_sha256": "5323c6014a55aa7120a75f7b223cab858af317107a37a2a1836ba72f102bfb5a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-112400:L138:context-v4": {
+          "text": "(e) of the proviso to cite13†s. 14 (1) . Hence they made a joint request to remand the case to the Tribunal for a finding on the said question on the basis of the evidence already on record. Accepting this joint request, the learned Judge remanded the case to the Tribunal.",
+          "provenance": [
+            {
+              "raw_path": "outputs/gnn-irac-native-data-01/sources/raw/single-112400-0.txt",
+              "raw_sha256": "2f55c737f8adc62ef9b2c02318832655798836be5dd3ee577edf57fb6d401a48",
+              "raw_char_range": [
+                9295,
+                9571
+              ],
+              "original_line": 138,
+              "document_id": "112400",
+              "url": "https://indiankanoon.org/doc/112400/"
+            }
+          ],
+          "input_positions": {
+            "D-short": {
+              "display_id": "IK-112400:L138:context-v4",
+              "prompt_char_range": [
+                14663,
+                14941
+              ],
+              "rendered_char_range": [
+                14680,
+                14958
+              ],
+              "aliases": {},
+              "text_sha256": "5c22dc962dcb3dfec1b18abce61f3acf7c7b4e33652a110e6a60c183ae6000a5",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "D-full": {
+              "display_id": "IK-112400:L138:context-v4",
+              "prompt_char_range": [
+                16032,
+                16310
+              ],
+              "rendered_char_range": [
+                16049,
+                16327
+              ],
+              "aliases": {},
+              "text_sha256": "5c22dc962dcb3dfec1b18abce61f3acf7c7b4e33652a110e6a60c183ae6000a5",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "A": {
+              "display_id": "IK-112400:L138:context-v4",
+              "prompt_char_range": [
+                29816,
+                30094
+              ],
+              "rendered_char_range": [
+                29833,
+                30111
+              ],
+              "aliases": {},
+              "text_sha256": "5c22dc962dcb3dfec1b18abce61f3acf7c7b4e33652a110e6a60c183ae6000a5",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-112400:L139:restored-v2": {
+          "text": "The latter, after a consideration of the materials on record as well as the extent of the premises in the occupation of the landlord and also having due regard to the number of family members living with the latter, held, in his report dated May 4, 1970, that the portion of the premises in the occupation of the landlord was not reaso- nably sufficient for a family consisting of the landlord, his wife, his son, son's wife and their children.",
+          "provenance": [
+            {
+              "document_id": "112400",
+              "url": "https://indiankanoon.org/doc/112400/",
+              "response_index": 0,
+              "raw_path": "outputs/gnn-irac-native-data-01/sources/raw/single-112400-0.txt",
+              "raw_sha256": "2f55c737f8adc62ef9b2c02318832655798836be5dd3ee577edf57fb6d401a48",
+              "raw_char_range": [
+                9578,
+                10022
+              ],
+              "raw_byte_range": [
+                9800,
+                10244
+              ],
+              "raw_physical_line": 134,
+              "original_line": 139
+            }
+          ],
+          "input_positions": {
+            "D-short": {
+              "display_id": "IK-112400:L139:restored-v2",
+              "prompt_char_range": [
+                13412,
+                13858
+              ],
+              "rendered_char_range": [
+                13429,
+                13875
+              ],
+              "aliases": {},
+              "text_sha256": "aadf2db970f1a650b74af708fde6dfc96963081c0f02e38aaaf27d95073ab641",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "D-full": {
+              "display_id": "IK-112400:L139:restored-v2",
+              "prompt_char_range": [
+                14748,
+                15194
+              ],
+              "rendered_char_range": [
+                14765,
+                15211
+              ],
+              "aliases": {
+                "IK-112400:L139:span7": [
+                  260,
+                  444
+                ]
+              },
+              "text_sha256": "aadf2db970f1a650b74af708fde6dfc96963081c0f02e38aaaf27d95073ab641",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "A": {
+              "display_id": "IK-112400:L139:restored-v2",
+              "prompt_char_range": [
+                28532,
+                28978
+              ],
+              "rendered_char_range": [
+                28549,
+                28995
+              ],
+              "aliases": {
+                "IK-112400:L139:span7": [
+                  260,
+                  444
+                ]
+              },
+              "text_sha256": "aadf2db970f1a650b74af708fde6dfc96963081c0f02e38aaaf27d95073ab641",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-112400:L140:restored-v2": {
+          "text": "On this basis, he recorded a finding that the premises in the occupation of the respondent were not reasonably suitable for his residence.",
+          "provenance": [
+            {
+              "document_id": "112400",
+              "url": "https://indiankanoon.org/doc/112400/",
+              "response_index": 0,
+              "raw_path": "outputs/gnn-irac-native-data-01/sources/raw/single-112400-0.txt",
+              "raw_sha256": "2f55c737f8adc62ef9b2c02318832655798836be5dd3ee577edf57fb6d401a48",
+              "raw_char_range": [
+                10029,
+                10167
+              ],
+              "raw_byte_range": [
+                10251,
+                10389
+              ],
+              "raw_physical_line": 135,
+              "original_line": 140
+            }
+          ],
+          "input_positions": {
+            "D-short": {
+              "display_id": "IK-112400:L140:restored-v2",
+              "prompt_char_range": [
+                13985,
+                14125
+              ],
+              "rendered_char_range": [
+                14002,
+                14142
+              ],
+              "aliases": {},
+              "text_sha256": "e1c2061a699b80ec86c844af4f5d0642d1aca4020ce246e15345345cb95097af",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "D-full": {
+              "display_id": "IK-112400:L140:restored-v2",
+              "prompt_char_range": [
+                15354,
+                15494
+              ],
+              "rendered_char_range": [
+                15371,
+                15511
+              ],
+              "aliases": {
+                "IK-112400:L140:span8": [
+                  42,
+                  138
+                ]
+              },
+              "text_sha256": "e1c2061a699b80ec86c844af4f5d0642d1aca4020ce246e15345345cb95097af",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "A": {
+              "display_id": "IK-112400:L140:restored-v2",
+              "prompt_char_range": [
+                29138,
+                29278
+              ],
+              "rendered_char_range": [
+                29155,
+                29295
+              ],
+              "aliases": {
+                "IK-112400:L140:span8": [
+                  42,
+                  138
+                ]
+              },
+              "text_sha256": "e1c2061a699b80ec86c844af4f5d0642d1aca4020ce246e15345345cb95097af",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        }
+      },
+      "raw_paths": {
+        "A": "outputs/irac-pipeline-repair-v4/runs/112400/A/raw-response.txt",
+        "B": null,
+        "C": null
+      }
+    },
+    "188721101": {
+      "source_ids": [
+        "IK-188721101:L72:restored-v2",
+        "IK-188721101:L73:restored-v2",
+        "IK-188721101:L80:restored-v2",
+        "IK-188721101:L81:restored-v2",
+        "IK-188721101:L83:restored-v2",
+        "IK-188721101:L84:restored-v2"
+      ],
+      "findings": [
+        {
+          "id": "188-DATE",
+          "methods": [
+            "A",
+            "B",
+            "C"
+          ],
+          "answer_location": "C01",
+          "source_ids": [
+            "IK-188721101:L72:restored-v2"
+          ],
+          "observation": "A绑定将06.01.1987写成disposition date，P/e5同样把起租日写成转移日。B/C叙述回到tenancy began但没有解释其与转移的条件性时间链。",
+          "origin": "P_AND_FINAL_MODEL",
+          "qualification": "若采用房东所述先租后转移，1987可提供1952之后的下界；日期阈值不一定应判未知，但不能伪称精确转移日在原文。"
+        },
+        {
+          "id": "188-POLARITY",
+          "methods": [
+            "B",
+            "C"
+          ],
+          "answer_location": "C04; reason",
+          "source_ids": [
+            "IK-188721101:L83:restored-v2"
+          ],
+          "observation": "C04命题是交出占有，B/C标SUPPORTED，解释却是可撤销许可、保留占有、否定交出。P conditions中已出现同样矛盾；程序没有修改最终标签。",
+          "origin": "P_ORIGINAL_THEN_FINAL_PROPAGATION",
+          "qualification": ""
+        },
+        {
+          "id": "188-WAGE",
+          "methods": [
+            "B",
+            "C"
+          ],
+          "answer_location": "C02/C03/C06",
+          "source_ids": [
+            "IK-188721101:L81:restored-v2",
+            "IK-188721101:L80:restored-v2"
+          ],
+          "observation": "把两名被告证人关于雇员/工资的说法写成已确立事实，遗漏工资凭证未被证明及附近店主反向证言。A仍有family/key holder支持保留占有的错误简化。",
+          "origin": "P_OMISSION_AND_FINAL_SOURCE_USE",
+          "qualification": ""
+        },
+        {
+          "id": "188-CONSENT",
+          "methods": [
+            "B",
+            "C"
+          ],
+          "answer_location": "C05/gaps",
+          "source_ids": [
+            "IK-188721101:L72:restored-v2"
+          ],
+          "observation": "声称房东明确主张无书面同意；所引L72没有该陈述，P/e6先产生了这条不存在的表述。仍将同意状态留未决是有边界的部分。",
+          "origin": "P_HALLUCINATION_PROPAGATED",
+          "qualification": ""
+        },
+        {
+          "id": "188-FATHER",
+          "methods": [
+            "A",
+            "B",
+            "C"
+          ],
+          "answer_location": "whole answer coverage",
+          "source_ids": [
+            "IK-188721101:L72:restored-v2"
+          ],
+          "observation": "原文先父亲Ghanshyam Dass再弟弟Bhagwan Dass；三份回答均未单独处理父亲安排，却给出整个请求预测。A反论还把顺序写成brother and subsequent sub-lessee。",
+          "origin": "COMMON_OMISSION",
+          "qualification": "不能据弟弟这一组合失败宣称父亲组合不存在；父亲细节在允许材料中确实不足。"
+        }
+      ],
+      "A": "保留可撤销许可的下级认定、三种转移路线及同意未决；误把起租日写作转移日，反论和父亲安排覆盖不足。",
+      "B": "继承提议C04极性矛盾、工资叙述升级及虚构无同意主张；未比A改善。",
+      "C": "明确此前认定的上诉地位，但保留B的决定性错误；程序检查未纠正C04矛盾。",
+      "B_vs_A": "未见净收益；新增明显的C04标签与解释冲突。",
+      "C_vs_B": "基本相同，无可核查的决定性纠错收益。",
+      "real_gaps": "父亲安排细节、书面同意及目标审理如何处理争议证据；不能抹去已有下级许可认定或相反证言。",
+      "evidence": {
+        "IK-188721101:L72:restored-v2": {
+          "text": "2. It was the case of the eviction petitioner - landlord that she had rented out the premises bearing Shop No. 15, in property no. 4415, Gali Bahuji, Pahari Dheeraj, Delhi-110006 to one Sh. Ramesh Kumar on 06.01.1987. However, the said tenant Sh. Ramesh Kumar had parted with possession and sub-let and assigned the same initially to one Sh. Ghanshyam Dass and subsequently to Sh. Bhagwan Dass, who were his father and brother respectively.",
+          "provenance": [
+            {
+              "document_id": "188721101",
+              "url": "https://indiankanoon.org/doc/188721101/",
+              "response_index": 0,
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-188721101-0.txt",
+              "raw_sha256": "9f24acff31fcdb4e628f40dc375c31b2f4910478a5d98db6f0709b972515c208",
+              "raw_char_range": [
+                2900,
+                3340
+              ],
+              "raw_byte_range": [
+                3034,
+                3474
+              ],
+              "raw_physical_line": 70,
+              "original_line": 72
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-188721101:L72:restored-v2",
+              "prompt_char_range": [
+                34719,
+                35161
+              ],
+              "rendered_char_range": [
+                34736,
+                35178
+              ],
+              "aliases": {
+                "IK-188721101:L72:span1": [
+                  227,
+                  440
+                ]
+              },
+              "text_sha256": "62ed2b5b9af5b9427d8bfcda849136498ba4da7bd74023c52cb47261581c3c5d",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-188721101:L72:restored-v2",
+              "prompt_char_range": [
+                49162,
+                49604
+              ],
+              "rendered_char_range": [
+                49179,
+                49621
+              ],
+              "aliases": {
+                "IK-188721101:L72:span1": [
+                  227,
+                  440
+                ]
+              },
+              "text_sha256": "62ed2b5b9af5b9427d8bfcda849136498ba4da7bd74023c52cb47261581c3c5d",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-188721101:L72:restored-v2",
+              "prompt_char_range": [
+                80923,
+                81365
+              ],
+              "rendered_char_range": [
+                80940,
+                81382
+              ],
+              "aliases": {
+                "IK-188721101:L72:span1": [
+                  227,
+                  440
+                ]
+              },
+              "text_sha256": "62ed2b5b9af5b9427d8bfcda849136498ba4da7bd74023c52cb47261581c3c5d",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-188721101:L73:restored-v2": {
+          "text": "The current sub-lessee Bhagwant Dass was pleaded to be opening and closing the shop and dealing with the customers. It was also pleaded that the aforesaid Sh. Bhagwan Dass was a tenant in his independent rights of the petitioner in shop no. 6 in the same property and was using the shop no. 6 as godown and had shifted the counter from shop no. 6 to shop no. 15. Necessary permission for institution of eviction petition from the competent Slum Authority had been taken.",
+          "provenance": [
+            {
+              "document_id": "188721101",
+              "url": "https://indiankanoon.org/doc/188721101/",
+              "response_index": 0,
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-188721101-0.txt",
+              "raw_sha256": "9f24acff31fcdb4e628f40dc375c31b2f4910478a5d98db6f0709b972515c208",
+              "raw_char_range": [
+                3346,
+                3816
+              ],
+              "raw_byte_range": [
+                3480,
+                3950
+              ],
+              "raw_physical_line": 71,
+              "original_line": 73
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-188721101:L73:restored-v2",
+              "prompt_char_range": [
+                35325,
+                35797
+              ],
+              "rendered_char_range": [
+                35342,
+                35814
+              ],
+              "aliases": {
+                "IK-188721101:L73:span2": [
+                  0,
+                  115
+                ]
+              },
+              "text_sha256": "f2a695953763b76f0615335e0e2d2d09da9c0df3c79090443fb1261ebb70f1c7",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-188721101:L73:restored-v2",
+              "prompt_char_range": [
+                49768,
+                50240
+              ],
+              "rendered_char_range": [
+                49785,
+                50257
+              ],
+              "aliases": {
+                "IK-188721101:L73:span2": [
+                  0,
+                  115
+                ]
+              },
+              "text_sha256": "f2a695953763b76f0615335e0e2d2d09da9c0df3c79090443fb1261ebb70f1c7",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-188721101:L73:restored-v2",
+              "prompt_char_range": [
+                81529,
+                82001
+              ],
+              "rendered_char_range": [
+                81546,
+                82018
+              ],
+              "aliases": {
+                "IK-188721101:L73:span2": [
+                  0,
+                  115
+                ]
+              },
+              "text_sha256": "f2a695953763b76f0615335e0e2d2d09da9c0df3c79090443fb1261ebb70f1c7",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-188721101:L80:restored-v2": {
+          "text": "3. Petitioner in support of her case examined her attorney, Sh. M.L. Jain as PW-1, who supported the petition. Petitioner also examined two other witnesses, who were shopkeepers having their shops in the vicinity. Both the witnesses deposed that Sh. Bhagwan Dass was running the shop and not respondent Sh. Ramesh Kumar.",
+          "provenance": [
+            {
+              "document_id": "188721101",
+              "url": "https://indiankanoon.org/doc/188721101/",
+              "response_index": 0,
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-188721101-0.txt",
+              "raw_sha256": "9f24acff31fcdb4e628f40dc375c31b2f4910478a5d98db6f0709b972515c208",
+              "raw_char_range": [
+                4720,
+                5040
+              ],
+              "raw_byte_range": [
+                4854,
+                5174
+              ],
+              "raw_physical_line": 78,
+              "original_line": 80
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-188721101:L80:restored-v2",
+              "prompt_char_range": [
+                37005,
+                37327
+              ],
+              "rendered_char_range": [
+                37022,
+                37344
+              ],
+              "aliases": {
+                "IK-188721101:L80:span5": [
+                  214,
+                  320
+                ]
+              },
+              "text_sha256": "be89c7e97140b1391bf0f78d5ea19aa808b2de2729b72b02633cb6eaeb266202",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-188721101:L80:restored-v2",
+              "prompt_char_range": [
+                51448,
+                51770
+              ],
+              "rendered_char_range": [
+                51465,
+                51787
+              ],
+              "aliases": {
+                "IK-188721101:L80:span5": [
+                  214,
+                  320
+                ]
+              },
+              "text_sha256": "be89c7e97140b1391bf0f78d5ea19aa808b2de2729b72b02633cb6eaeb266202",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-188721101:L80:restored-v2",
+              "prompt_char_range": [
+                83209,
+                83531
+              ],
+              "rendered_char_range": [
+                83226,
+                83548
+              ],
+              "aliases": {
+                "IK-188721101:L80:span5": [
+                  214,
+                  320
+                ]
+              },
+              "text_sha256": "be89c7e97140b1391bf0f78d5ea19aa808b2de2729b72b02633cb6eaeb266202",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-188721101:L81:restored-v2": {
+          "text": "4. Respondent in support of his case examined himself as RW-1 and his brother Sh. Bhagwan Dass, the alleged sub-lessee, as RW-2. Both the witnesses deposed that Sh. Bhagwan Dass was working as an employee and drawing a salary of Rs. 10,000/- per month. The fact of Sh. Bhagwan Dass operating the shop and being in possession of key thereof was admitted. No proof of any other employee was produced. Salary vouchers of payment of salary to Sh. Bhagwan Dass were also not proved.",
+          "provenance": [
+            {
+              "document_id": "188721101",
+              "url": "https://indiankanoon.org/doc/188721101/",
+              "response_index": 0,
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-188721101-0.txt",
+              "raw_sha256": "9f24acff31fcdb4e628f40dc375c31b2f4910478a5d98db6f0709b972515c208",
+              "raw_char_range": [
+                5046,
+                5523
+              ],
+              "raw_byte_range": [
+                5180,
+                5657
+              ],
+              "raw_physical_line": 79,
+              "original_line": 81
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-188721101:L81:restored-v2",
+              "prompt_char_range": [
+                37531,
+                38010
+              ],
+              "rendered_char_range": [
+                37548,
+                38027
+              ],
+              "aliases": {
+                "IK-188721101:L81:span6": [
+                  129,
+                  252
+                ],
+                "IK-188721101:L81:span7": [
+                  253,
+                  353
+                ]
+              },
+              "text_sha256": "476e5a82e72bacb45e84565c23b02140332f2ac612164755296e5e52af8e7868",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-188721101:L81:restored-v2",
+              "prompt_char_range": [
+                51974,
+                52453
+              ],
+              "rendered_char_range": [
+                51991,
+                52470
+              ],
+              "aliases": {
+                "IK-188721101:L81:span6": [
+                  129,
+                  252
+                ],
+                "IK-188721101:L81:span7": [
+                  253,
+                  353
+                ]
+              },
+              "text_sha256": "476e5a82e72bacb45e84565c23b02140332f2ac612164755296e5e52af8e7868",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-188721101:L81:restored-v2",
+              "prompt_char_range": [
+                83735,
+                84214
+              ],
+              "rendered_char_range": [
+                83752,
+                84231
+              ],
+              "aliases": {
+                "IK-188721101:L81:span6": [
+                  129,
+                  252
+                ],
+                "IK-188721101:L81:span7": [
+                  253,
+                  353
+                ]
+              },
+              "text_sha256": "476e5a82e72bacb45e84565c23b02140332f2ac612164755296e5e52af8e7868",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-188721101:L83:restored-v2": {
+          "text": "5. Trial Court by the impugned judgment took the view that the fact of sub tenancy was not established. Trial court held that it was only a privilege or a licence by the tenant in favour of his brother to use the premises, which licence or privilege could be terminated at the sweet will and pleasure of respondent. Therefore, the arrangement did not amount to assignment or parting with the possession.",
+          "provenance": [
+            {
+              "document_id": "188721101",
+              "url": "https://indiankanoon.org/doc/188721101/",
+              "response_index": 0,
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-188721101-0.txt",
+              "raw_sha256": "9f24acff31fcdb4e628f40dc375c31b2f4910478a5d98db6f0709b972515c208",
+              "raw_char_range": [
+                5586,
+                5989
+              ],
+              "raw_byte_range": [
+                5720,
+                6123
+              ],
+              "raw_physical_line": 81,
+              "original_line": 83
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-188721101:L83:restored-v2",
+              "prompt_char_range": [
+                38178,
+                38583
+              ],
+              "rendered_char_range": [
+                38195,
+                38600
+              ],
+              "aliases": {
+                "IK-188721101:L83:span8": [
+                  104,
+                  315
+                ]
+              },
+              "text_sha256": "8d4c94a18906de532a2ced368b5722b3a710128999fbf2044a126157a6855c98",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-188721101:L83:restored-v2",
+              "prompt_char_range": [
+                52621,
+                53026
+              ],
+              "rendered_char_range": [
+                52638,
+                53043
+              ],
+              "aliases": {
+                "IK-188721101:L83:span8": [
+                  104,
+                  315
+                ]
+              },
+              "text_sha256": "8d4c94a18906de532a2ced368b5722b3a710128999fbf2044a126157a6855c98",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-188721101:L83:restored-v2",
+              "prompt_char_range": [
+                84382,
+                84787
+              ],
+              "rendered_char_range": [
+                84399,
+                84804
+              ],
+              "aliases": {
+                "IK-188721101:L83:span8": [
+                  104,
+                  315
+                ]
+              },
+              "text_sha256": "8d4c94a18906de532a2ced368b5722b3a710128999fbf2044a126157a6855c98",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-188721101:L84:restored-v2": {
+          "text": "Further, it was the trial court's view that Bhagwan Dass was not a stranger or outsider but a family member of the respondent, therefore, sub-letting cannot be inferred.",
+          "provenance": [
+            {
+              "document_id": "188721101",
+              "url": "https://indiankanoon.org/doc/188721101/",
+              "response_index": 0,
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-188721101-0.txt",
+              "raw_sha256": "9f24acff31fcdb4e628f40dc375c31b2f4910478a5d98db6f0709b972515c208",
+              "raw_char_range": [
+                5995,
+                6164
+              ],
+              "raw_byte_range": [
+                6129,
+                6298
+              ],
+              "raw_physical_line": 82,
+              "original_line": 84
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-188721101:L84:restored-v2",
+              "prompt_char_range": [
+                38749,
+                38920
+              ],
+              "rendered_char_range": [
+                38766,
+                38937
+              ],
+              "aliases": {
+                "IK-188721101:L84:span9": [
+                  0,
+                  169
+                ]
+              },
+              "text_sha256": "21653f107200285b3bcd85a79ba8883b5f7c9c4cd8fab226c825a87452196d70",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-188721101:L84:restored-v2",
+              "prompt_char_range": [
+                53192,
+                53363
+              ],
+              "rendered_char_range": [
+                53209,
+                53380
+              ],
+              "aliases": {
+                "IK-188721101:L84:span9": [
+                  0,
+                  169
+                ]
+              },
+              "text_sha256": "21653f107200285b3bcd85a79ba8883b5f7c9c4cd8fab226c825a87452196d70",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-188721101:L84:restored-v2",
+              "prompt_char_range": [
+                84953,
+                85124
+              ],
+              "rendered_char_range": [
+                84970,
+                85141
+              ],
+              "aliases": {
+                "IK-188721101:L84:span9": [
+                  0,
+                  169
+                ]
+              },
+              "text_sha256": "21653f107200285b3bcd85a79ba8883b5f7c9c4cd8fab226c825a87452196d70",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        }
+      },
+      "raw_paths": {
+        "A": "outputs/irac-pipeline-repair-v4/runs/188721101/A/raw-response.txt",
+        "B": "outputs/irac-pipeline-repair-v4/runs/188721101/B/raw-response.txt",
+        "C": "outputs/irac-pipeline-repair-v4/runs/188721101/C/raw-response.txt"
+      }
+    },
+    "55384096": {
+      "source_ids": [
+        "IK-55384096:L67:span1",
+        "IK-55384096:L70:span3",
+        "IK-55384096:L71:span4",
+        "IK-55384096:L76:context-v4",
+        "IK-55384096:L77:context-v4",
+        "IK-55384096:L79:span7",
+        "IK-55384096:L80:span8"
+      ],
+      "findings": [
+        {
+          "id": "553-ATTR",
+          "methods": [
+            "B",
+            "C"
+          ],
+          "answer_location": "C04/opposition",
+          "source_ids": [
+            "IK-55384096:L67:span1",
+            "IK-55384096:L70:span3"
+          ],
+          "observation": "将The case of the petitioner was这一房东主张改称prior court finding of complete divestment。P/e2先标PRIOR_COURT_FINDING；结构检查仅确认地址，保留这一错误。",
+          "origin": "P_MISATTRIBUTION_PROPAGATED",
+          "qualification": ""
+        },
+        {
+          "id": "553-CONSENT",
+          "methods": [
+            "B",
+            "C"
+          ],
+          "answer_location": "C05",
+          "source_ids": [
+            "IK-55384096:L71:span4"
+          ],
+          "observation": "没有同意文件不等于证明无书面同意。B/C标SUPPORTED，C还宣称举证责任在租户；给定模板明确该责任未覆盖。A同意状态保留未知，但反论段自己也编造租户证明责任。",
+          "origin": "P_AND_FINAL_MODEL_UNSUPPORTED_RULE",
+          "qualification": ""
+        },
+        {
+          "id": "553-POLARITY",
+          "methods": [
+            "C"
+          ],
+          "answer_location": "C06 and reason",
+          "source_ids": [
+            "IK-55384096:L77:context-v4"
+          ],
+          "observation": "C06命题是保留法律占有，C标REFUTED，解释却说保留占有并因此拒绝请求。B为SUPPORTED；程序在b2也输出SUPPORTED，并未要求这一反向标签。",
+          "origin": "FINAL_C_NEW_ERROR",
+          "qualification": "C相对B变化不能单独归因检查文本的长度或权威感；只是提供整个检查块后的净变化。"
+        },
+        {
+          "id": "553-SUPPORT",
+          "methods": [
+            "A",
+            "B",
+            "C"
+          ],
+          "answer_location": "C01/C04/C06",
+          "source_ids": [
+            "IK-55384096:L70:span3",
+            "IK-55384096:L71:span4",
+            "IK-55384096:L77:context-v4",
+            "IK-55384096:L79:span7",
+            "IK-55384096:L80:span8"
+          ],
+          "observation": "共同将合伙契约/同住/病弱扩大为已证明的转移日期或保留法律占有；未充分保留遗孀证言地位与伪造争议。A/C同时说法律占有明确与法律效果未决，B/C又同时肯定完全剥夺及保留同一占有。",
+          "origin": "COMMON_INFERENCE_OVERREACH",
+          "qualification": "1983契约是相关安排的时间证据，不单独证明法律上的交出已经发生。"
+        }
+      ],
+      "A": "正确保留部分租赁要素和同意缺口、提到伪造争议；但从家庭协助推得保留法律占有过强，并编造证明责任。",
+      "B": "新增把房东主张升级为法院认定和无文件即无同意；同一占有既完全剥夺又保留，未处理冲突。",
+      "C": "保留B错误，新增C06反向标签及租户举证责任断言。",
+      "B_vs_A": "变差；新增决定性来源归属错误。",
+      "C_vs_B": "变差；没有消除旧错误且新增明显内部矛盾。",
+      "real_gaps": "合伙契约真伪、法律占有性质、书面同意及其举证规则未充分确定。遗孀身份与所述内容已提供，不属来源缺失。",
+      "evidence": {
+        "IK-55384096:L67:span1": {
+          "text": "The case of the petitioner was that a shop on the ground floor of property bearing no.95, Main Bazar, Najafgarh, Delhi which had been let out to the original tenant Hakim Rai and which had since been sublet by him in favour of his son-in-law Raj Kumar; Hakim Rai had divested himself completely from the suit property.",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-55384096:L67:span1",
+              "prompt_char_range": [
+                34634,
+                34954
+              ],
+              "rendered_char_range": [
+                34651,
+                34971
+              ],
+              "aliases": {},
+              "text_sha256": "7a3a7d4e57f065f451fbf4d3d96b714eae97440a0647e8dc6604da4cd1055191",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-55384096:L67:span1",
+              "prompt_char_range": [
+                42875,
+                43195
+              ],
+              "rendered_char_range": [
+                42892,
+                43212
+              ],
+              "aliases": {},
+              "text_sha256": "7a3a7d4e57f065f451fbf4d3d96b714eae97440a0647e8dc6604da4cd1055191",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-55384096:L67:span1",
+              "prompt_char_range": [
+                61190,
+                61510
+              ],
+              "rendered_char_range": [
+                61207,
+                61527
+              ],
+              "aliases": {},
+              "text_sha256": "7a3a7d4e57f065f451fbf4d3d96b714eae97440a0647e8dc6604da4cd1055191",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-55384096:L70:span3": {
+          "text": "A partnership deed dated 20.11.1983 (Ex.AW-3/13) has been executed between the father-in-law, Hakim Rai and his son-in-law, Raj Kumar to the aforenoted effect wherein the parties had agreed that the business under the said partnership would be conducted from the suit premises.",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-55384096:L70:span3",
+              "prompt_char_range": [
+                35397,
+                35676
+              ],
+              "rendered_char_range": [
+                35414,
+                35693
+              ],
+              "aliases": {},
+              "text_sha256": "32a4f5aab975d8f31a84b9349b44a46302a4621961cb94d460a41435b1c6e7be",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-55384096:L70:span3",
+              "prompt_char_range": [
+                43638,
+                43917
+              ],
+              "rendered_char_range": [
+                43655,
+                43934
+              ],
+              "aliases": {},
+              "text_sha256": "32a4f5aab975d8f31a84b9349b44a46302a4621961cb94d460a41435b1c6e7be",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-55384096:L70:span3",
+              "prompt_char_range": [
+                61953,
+                62232
+              ],
+              "rendered_char_range": [
+                61970,
+                62249
+              ],
+              "aliases": {},
+              "text_sha256": "32a4f5aab975d8f31a84b9349b44a46302a4621961cb94d460a41435b1c6e7be",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-55384096:L71:span4": {
+          "text": "contention of the landlord, however, is that this partnership deed was a fake CM(M) No.1574/2010 Page 2 of 10 and forged document and had been created only as a sham defence to the present eviction petition under cite12†Section 14(1)(b) of the DRCA",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-55384096:L71:span4",
+              "prompt_char_range": [
+                35798,
+                36051
+              ],
+              "rendered_char_range": [
+                35815,
+                36068
+              ],
+              "aliases": {},
+              "text_sha256": "340373f850849a403239f3634c48dac55e3287226a0ffd27b488c2a2e5450a3c",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-55384096:L71:span4",
+              "prompt_char_range": [
+                44039,
+                44292
+              ],
+              "rendered_char_range": [
+                44056,
+                44309
+              ],
+              "aliases": {},
+              "text_sha256": "340373f850849a403239f3634c48dac55e3287226a0ffd27b488c2a2e5450a3c",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-55384096:L71:span4",
+              "prompt_char_range": [
+                62354,
+                62607
+              ],
+              "rendered_char_range": [
+                62371,
+                62624
+              ],
+              "aliases": {},
+              "text_sha256": "340373f850849a403239f3634c48dac55e3287226a0ffd27b488c2a2e5450a3c",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-55384096:L76:context-v4": {
+          "text": "RW-1 Sumitra Devi was the widow of Hakim Rai, the original tenant.",
+          "provenance": [
+            {
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-55384096-0.txt",
+              "raw_sha256": "ca0f57613679a647f1d6d66560c75cf1891a4281038b9bbecd925257180311d7",
+              "raw_char_range": [
+                6524,
+                6590
+              ],
+              "original_line": 76,
+              "document_id": "55384096",
+              "url": "https://indiankanoon.org/doc/55384096/"
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-55384096:L76:context-v4",
+              "prompt_char_range": [
+                37730,
+                37798
+              ],
+              "rendered_char_range": [
+                37747,
+                37815
+              ],
+              "aliases": {},
+              "text_sha256": "0d96e71dd8c96736fd15a98f41e3b3e565d803d1a5016d2e5c38c8cfea192392",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-55384096:L76:context-v4",
+              "prompt_char_range": [
+                45971,
+                46039
+              ],
+              "rendered_char_range": [
+                45988,
+                46056
+              ],
+              "aliases": {},
+              "text_sha256": "0d96e71dd8c96736fd15a98f41e3b3e565d803d1a5016d2e5c38c8cfea192392",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-55384096:L76:context-v4",
+              "prompt_char_range": [
+                64286,
+                64354
+              ],
+              "rendered_char_range": [
+                64303,
+                64371
+              ],
+              "aliases": {},
+              "text_sha256": "0d96e71dd8c96736fd15a98f41e3b3e565d803d1a5016d2e5c38c8cfea192392",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-55384096:L77:context-v4": {
+          "text": "Her testimony is to the effect that her husband was initially running the business from the demised shop; she also used to sit in the shop and was running the business from the shop; her son-in-law was a partner in the business of the shop; she denied the CM(M) No.1574/2010 Page 4 of 10 suggestion that her husband was no longer in possession or in the business after the induction of Raj Kumar; she admitted that she was not aware as to whether her husband had deposited the rent; she had also admitted that Raj Kumar was partner in the business of her husband in the demised shop; she had also admitted that her husband lost his sight about one and half years prior to his death and had become blind.",
+          "provenance": [
+            {
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-55384096-0.txt",
+              "raw_sha256": "ca0f57613679a647f1d6d66560c75cf1891a4281038b9bbecd925257180311d7",
+              "raw_char_range": [
+                6596,
+                7299
+              ],
+              "original_line": 77,
+              "document_id": "55384096",
+              "url": "https://indiankanoon.org/doc/55384096/"
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-55384096:L77:context-v4",
+              "prompt_char_range": [
+                36250,
+                36955
+              ],
+              "rendered_char_range": [
+                36267,
+                36972
+              ],
+              "aliases": {
+                "IK-55384096:L77:span5": [
+                  241,
+                  395
+                ],
+                "IK-55384096:L77:span6": [
+                  483,
+                  582
+                ]
+              },
+              "text_sha256": "a148188adec50a2e4aba8d9e065a4384da1be05fdae93e5aaaf3bdaeeb806389",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-55384096:L77:context-v4",
+              "prompt_char_range": [
+                44491,
+                45196
+              ],
+              "rendered_char_range": [
+                44508,
+                45213
+              ],
+              "aliases": {
+                "IK-55384096:L77:span5": [
+                  241,
+                  395
+                ],
+                "IK-55384096:L77:span6": [
+                  483,
+                  582
+                ]
+              },
+              "text_sha256": "a148188adec50a2e4aba8d9e065a4384da1be05fdae93e5aaaf3bdaeeb806389",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-55384096:L77:context-v4",
+              "prompt_char_range": [
+                62806,
+                63511
+              ],
+              "rendered_char_range": [
+                62823,
+                63528
+              ],
+              "aliases": {
+                "IK-55384096:L77:span5": [
+                  241,
+                  395
+                ],
+                "IK-55384096:L77:span6": [
+                  483,
+                  582
+                ]
+              },
+              "text_sha256": "a148188adec50a2e4aba8d9e065a4384da1be05fdae93e5aaaf3bdaeeb806389",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-55384096:L79:span7": {
+          "text": "the son-in- law (Raj Kumar) and father-in-law (Hakim Rai) are residing in the same premises and ration card of Raj Kumar has been obtained at the same address. The partnership deed Ex.AW-3/13 had been executed between the parties in November, 1983",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-55384096:L79:span7",
+              "prompt_char_range": [
+                37077,
+                37326
+              ],
+              "rendered_char_range": [
+                37094,
+                37343
+              ],
+              "aliases": {},
+              "text_sha256": "88004701dfb889b7b836782368b24a08d27e3badfdd3b11facf07714cb45b7fd",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-55384096:L79:span7",
+              "prompt_char_range": [
+                45318,
+                45567
+              ],
+              "rendered_char_range": [
+                45335,
+                45584
+              ],
+              "aliases": {},
+              "text_sha256": "88004701dfb889b7b836782368b24a08d27e3badfdd3b11facf07714cb45b7fd",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-55384096:L79:span7",
+              "prompt_char_range": [
+                63633,
+                63882
+              ],
+              "rendered_char_range": [
+                63650,
+                63899
+              ],
+              "aliases": {},
+              "text_sha256": "88004701dfb889b7b836782368b24a08d27e3badfdd3b11facf07714cb45b7fd",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-55384096:L80:span8": {
+          "text": "The attorney of the landlord PW-3 has also admitted that the respondent Hakim Rai is an old man; he has very poor eyesight and cannot even walk properly.",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-55384096:L80:span8",
+              "prompt_char_range": [
+                37448,
+                37603
+              ],
+              "rendered_char_range": [
+                37465,
+                37620
+              ],
+              "aliases": {},
+              "text_sha256": "7df2dbe22322d30f166f90d982312ec1562f16151bc76513cabf8b1f72ca23b3",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-55384096:L80:span8",
+              "prompt_char_range": [
+                45689,
+                45844
+              ],
+              "rendered_char_range": [
+                45706,
+                45861
+              ],
+              "aliases": {},
+              "text_sha256": "7df2dbe22322d30f166f90d982312ec1562f16151bc76513cabf8b1f72ca23b3",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-55384096:L80:span8",
+              "prompt_char_range": [
+                64004,
+                64159
+              ],
+              "rendered_char_range": [
+                64021,
+                64176
+              ],
+              "aliases": {},
+              "text_sha256": "7df2dbe22322d30f166f90d982312ec1562f16151bc76513cabf8b1f72ca23b3",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        }
+      },
+      "raw_paths": {
+        "A": "outputs/irac-pipeline-repair-v4/runs/55384096/A/raw-response.txt",
+        "B": "outputs/irac-pipeline-repair-v4/runs/55384096/B/raw-response.txt",
+        "C": "outputs/irac-pipeline-repair-v4/runs/55384096/C/raw-response.txt"
+      }
+    },
+    "52547606": {
+      "source_ids": [
+        "IK-52547606:L74:span1",
+        "IK-52547606:L75:span2",
+        "IK-52547606:L78:span3",
+        "IK-52547606:L79:span4",
+        "IK-52547606:L81:span5",
+        "IK-52547606:L82:context-v4",
+        "IK-52547606:L84:context-v4",
+        "IK-52547606:L93:span8"
+      ],
+      "findings": [
+        {
+          "id": "525-COURTS",
+          "methods": [
+            "A",
+            "B",
+            "C"
+          ],
+          "answer_location": "opposition and C02/C04",
+          "source_ids": [
+            "IK-52547606:L82:context-v4",
+            "IK-52547606:L84:context-v4"
+          ],
+          "observation": "A遗漏ARCT已作相反认定。B在反论明确ARCT，在缺口并列ARC与ARCT，这是具体覆盖改善；C提及两个冲突认定，但反论又退为房东主张。B/C无所给规则支持地说较早认定更强、outweighs相反认定，未解释程序层级。",
+          "origin": "A_OMISSION_B_PARTIAL_RECOVERY_C_INCOMPLETE_INTEGRATION",
+          "qualification": ""
+        },
+        {
+          "id": "525-DATE",
+          "methods": [
+            "A",
+            "B",
+            "C"
+          ],
+          "answer_location": "C01",
+          "source_ids": [
+            "IK-52547606:L79:span4",
+            "IK-52547606:L82:context-v4"
+          ],
+          "observation": "A用从租赁开始使用直接推出1952之后，允许材料没有起租日；电话使用截至1963只能给上界，不能证明开始晚于1952。B/C保留时间未决，比A可靠。",
+          "origin": "B_AND_C_IMPROVE_A_INFERENCE",
+          "qualification": ""
+        },
+        {
+          "id": "525-SCOPE",
+          "methods": [
+            "B",
+            "C"
+          ],
+          "answer_location": "C07",
+          "source_ids": [
+            "IK-52547606:L74:span1",
+            "IK-52547606:L75:span2"
+          ],
+          "observation": "新增scope不明，理由是未划定whole或part。但规则whole OR any part覆盖两者，主张明确指这些租赁房屋；没有说明必须精确分割才适用的依据。可以保留是否发生转移的未知，不能把二者混成房产范围不明。",
+          "origin": "FINAL_MODEL_AND_MISSING_PROPOSAL_USE",
+          "qualification": "这是相对给定规则的缺口误置，不宣称整项法律事实已经成立。"
+        },
+        {
+          "id": "525-CONSENT",
+          "methods": [
+            "A",
+            "B",
+            "C"
+          ],
+          "answer_location": "C05",
+          "source_ids": [
+            "IK-52547606:L75:span2",
+            "IK-52547606:L93:span8"
+          ],
+          "observation": "B正确指出知悉不等于书面同意。A/C说房东已承认consent，L93仅承认为儿子业务承租和儿子自始使用；L75中的consent是租户主张。",
+          "origin": "B_IMPROVES_A_C_REINTRODUCES_ATTRIBUTION",
+          "qualification": ""
+        },
+        {
+          "id": "525-ROUTES",
+          "methods": [
+            "A",
+            "B",
+            "C"
+          ],
+          "answer_location": "C02/C03/C04/C06 and reason",
+          "source_ids": [
+            "IK-52547606:L78:span3",
+            "IK-52547606:L81:span5",
+            "IK-52547606:L82:context-v4",
+            "IK-52547606:L84:context-v4"
+          ],
+          "observation": "共同把家庭/公司使用、租户名下票据过强地等同保留法律占有，并将只针对parting的concurrent-user资格扩用于三种路线。B虽恢复反论仍用未经论证的强弱排序。C把assignment留未知是局部改善，但不能抵销范围和反论问题。",
+          "origin": "COMMON_SCOPE_AND_INTEGRATION_ERROR",
+          "qualification": "儿子与公司的不同安排仍混用一个绑定；未据单一组合否定其他组合。"
+        }
+      ],
+      "A": "保留原租户身份和租户抗辩；遗漏ARCT相反认定，日期无依据判满足，混同知悉与同意。",
+      "B": "恢复两法院冲突，日期与书面同意处理更谨慎；仍无依据偏选ARC，新增房产范围假缺口。",
+      "C": "保留日期未知，assignment改未决；重新混淆同意归属，未更好处理ARCT反论与法律路线。",
+      "B_vs_A": "有具体局部收益，但未形成可靠完整分析，不能认定整体胜出。",
+      "C_vs_B": "混合变化，没有明确净收益。",
+      "real_gaps": "起租或处置相对1952的日期、是否取得书面同意、两阶段认定冲突的目标审理处理；房产属于这些租赁 premises 有来源。",
+      "evidence": {
+        "IK-52547606:L74:span1": {
+          "text": "contention was that the tenant Mohan Lal has sublet these premises to Anand Parkash and others including 'Parkash Trading Corporation' through Ram Parkash",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-52547606:L74:span1",
+              "prompt_char_range": [
+                34647,
+                34803
+              ],
+              "rendered_char_range": [
+                34664,
+                34820
+              ],
+              "aliases": {},
+              "text_sha256": "c566274b07b9f70566122a635370502fc7bf80bca645af97422c0266cd837e82",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-52547606:L74:span1",
+              "prompt_char_range": [
+                40662,
+                40818
+              ],
+              "rendered_char_range": [
+                40679,
+                40835
+              ],
+              "aliases": {},
+              "text_sha256": "c566274b07b9f70566122a635370502fc7bf80bca645af97422c0266cd837e82",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-52547606:L74:span1",
+              "prompt_char_range": [
+                53052,
+                53208
+              ],
+              "rendered_char_range": [
+                53069,
+                53225
+              ],
+              "aliases": {},
+              "text_sha256": "c566274b07b9f70566122a635370502fc7bf80bca645af97422c0266cd837e82",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-52547606:L75:span2": {
+          "text": "this contention was denied; stand of the tenant was that the premises in question had been taken on rent by Mohan Lal only for his son Anand Parkash and this was with the consent of the landlord who was living in the same premises and who was fully aware of the fact that Anand Parkash is carrying on the business from the said premises; there was no subletting.",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-52547606:L75:span2",
+              "prompt_char_range": [
+                34925,
+                35289
+              ],
+              "rendered_char_range": [
+                34942,
+                35306
+              ],
+              "aliases": {},
+              "text_sha256": "c3d906382998b8c8924bf448a1c25a6737719f2c62d0ce7243c04d0240f5182a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-52547606:L75:span2",
+              "prompt_char_range": [
+                40940,
+                41304
+              ],
+              "rendered_char_range": [
+                40957,
+                41321
+              ],
+              "aliases": {},
+              "text_sha256": "c3d906382998b8c8924bf448a1c25a6737719f2c62d0ce7243c04d0240f5182a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-52547606:L75:span2",
+              "prompt_char_range": [
+                53330,
+                53694
+              ],
+              "rendered_char_range": [
+                53347,
+                53711
+              ],
+              "aliases": {},
+              "text_sha256": "c3d906382998b8c8924bf448a1c25a6737719f2c62d0ce7243c04d0240f5182a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-52547606:L78:span3": {
+          "text": "AW-4 had proved the electricity connection in the name of Mohan Lal; rent receipt was also in favour of Mohan Lal.",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-52547606:L78:span3",
+              "prompt_char_range": [
+                35411,
+                35527
+              ],
+              "rendered_char_range": [
+                35428,
+                35544
+              ],
+              "aliases": {},
+              "text_sha256": "e9d303e629e90591d85d3840f266e995422283d4878337804094e9b75b70eace",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-52547606:L78:span3",
+              "prompt_char_range": [
+                41426,
+                41542
+              ],
+              "rendered_char_range": [
+                41443,
+                41559
+              ],
+              "aliases": {},
+              "text_sha256": "e9d303e629e90591d85d3840f266e995422283d4878337804094e9b75b70eace",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-52547606:L78:span3",
+              "prompt_char_range": [
+                53816,
+                53932
+              ],
+              "rendered_char_range": [
+                53833,
+                53949
+              ],
+              "aliases": {},
+              "text_sha256": "e9d303e629e90591d85d3840f266e995422283d4878337804094e9b75b70eace",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-52547606:L79:span4": {
+          "text": "AW-5 had proved the telephone record to show that M/s Parkash Trading Corporation had a telephone installed in the disputed premises up to 21.05.1963 whereafter the firm was dissolved and the telephone was thereafter shifted from the said premises.",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-52547606:L79:span4",
+              "prompt_char_range": [
+                35649,
+                35899
+              ],
+              "rendered_char_range": [
+                35666,
+                35916
+              ],
+              "aliases": {},
+              "text_sha256": "cc37018022a4add8e0dfc1916549a71f380652323f43d1648ddbcbe19093e34a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-52547606:L79:span4",
+              "prompt_char_range": [
+                41664,
+                41914
+              ],
+              "rendered_char_range": [
+                41681,
+                41931
+              ],
+              "aliases": {},
+              "text_sha256": "cc37018022a4add8e0dfc1916549a71f380652323f43d1648ddbcbe19093e34a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-52547606:L79:span4",
+              "prompt_char_range": [
+                54054,
+                54304
+              ],
+              "rendered_char_range": [
+                54071,
+                54321
+              ],
+              "aliases": {},
+              "text_sha256": "cc37018022a4add8e0dfc1916549a71f380652323f43d1648ddbcbe19093e34a",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-52547606:L81:span5": {
+          "text": "Partnership deed of M/s Parkash Trading Corporation Ex. RW-5/X13 was proved substantiating the averment that Anand Parkash was a partner in the said firm; thereafter this firm was dissolved and another partnership deed was executed Ex.RW-5/X15.",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-52547606:L81:span5",
+              "prompt_char_range": [
+                36021,
+                36267
+              ],
+              "rendered_char_range": [
+                36038,
+                36284
+              ],
+              "aliases": {},
+              "text_sha256": "e1a991f9b359a2ec109f3381a7fcb7b885260ecc8ded70be0bf81afa37a1642c",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-52547606:L81:span5",
+              "prompt_char_range": [
+                42036,
+                42282
+              ],
+              "rendered_char_range": [
+                42053,
+                42299
+              ],
+              "aliases": {},
+              "text_sha256": "e1a991f9b359a2ec109f3381a7fcb7b885260ecc8ded70be0bf81afa37a1642c",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-52547606:L81:span5",
+              "prompt_char_range": [
+                54426,
+                54672
+              ],
+              "rendered_char_range": [
+                54443,
+                54689
+              ],
+              "aliases": {},
+              "text_sha256": "e1a991f9b359a2ec109f3381a7fcb7b885260ecc8ded70be0bf81afa37a1642c",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-52547606:L82:context-v4": {
+          "text": "8 The ARC on the basis of the oral and documentary evidence had returned a finding that it was the deceased Mohan Lal who was the tenant in the premises but since Anand Parkash was carrying on business in these premises from the very beginning which was also admitted by the landlord, no inference of parting with possession/subletting/assignment by Mohan Lal in favour of Anand Parkash could be made",
+          "provenance": [
+            {
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-52547606-0.txt",
+              "raw_sha256": "75c31dbe86863b97adc3a89abb2747ca4c32e80a31788856e67bd2386463beae",
+              "raw_char_range": [
+                7718,
+                8118
+              ],
+              "original_line": 82,
+              "document_id": "52547606",
+              "url": "https://indiankanoon.org/doc/52547606/"
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-52547606:L82:context-v4",
+              "prompt_char_range": [
+                36430,
+                36832
+              ],
+              "rendered_char_range": [
+                36447,
+                36849
+              ],
+              "aliases": {
+                "IK-52547606:L82:span6": [
+                  88,
+                  400
+                ]
+              },
+              "text_sha256": "dc40a1122e9e8fd37ee4dd9efe1e517b8689c331071fce3a4d3f26d3bc3bebd3",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-52547606:L82:context-v4",
+              "prompt_char_range": [
+                42445,
+                42847
+              ],
+              "rendered_char_range": [
+                42462,
+                42864
+              ],
+              "aliases": {
+                "IK-52547606:L82:span6": [
+                  88,
+                  400
+                ]
+              },
+              "text_sha256": "dc40a1122e9e8fd37ee4dd9efe1e517b8689c331071fce3a4d3f26d3bc3bebd3",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-52547606:L82:context-v4",
+              "prompt_char_range": [
+                54835,
+                55237
+              ],
+              "rendered_char_range": [
+                54852,
+                55254
+              ],
+              "aliases": {
+                "IK-52547606:L82:span6": [
+                  88,
+                  400
+                ]
+              },
+              "text_sha256": "dc40a1122e9e8fd37ee4dd9efe1e517b8689c331071fce3a4d3f26d3bc3bebd3",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-52547606:L84:context-v4": {
+          "text": "The ARCT had examined oral and documentary evidence and drew a conclusion that the tenant was Mohan Lal; he had parted with possession of the premises in favour of his son Anand Parkash who was carrying on business in the same premises; ground of subletting under cite10†Section 14 (1)(b) stood confirmed in favour of the landlord.",
+          "provenance": [
+            {
+              "raw_path": "outputs/rgcn-data-expansion-09/continuation-01/open-52547606-0.txt",
+              "raw_sha256": "75c31dbe86863b97adc3a89abb2747ca4c32e80a31788856e67bd2386463beae",
+              "raw_char_range": [
+                8523,
+                8857
+              ],
+              "original_line": 84,
+              "document_id": "52547606",
+              "url": "https://indiankanoon.org/doc/52547606/"
+            }
+          ],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-52547606:L84:context-v4",
+              "prompt_char_range": [
+                36996,
+                37332
+              ],
+              "rendered_char_range": [
+                37013,
+                37349
+              ],
+              "aliases": {
+                "IK-52547606:L84:span7": [
+                  105,
+                  334
+                ]
+              },
+              "text_sha256": "f3858f99af723ee2709007d7a0c02f6ff9e967a50310089c7c16d6bb6ef59085",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-52547606:L84:context-v4",
+              "prompt_char_range": [
+                43011,
+                43347
+              ],
+              "rendered_char_range": [
+                43028,
+                43364
+              ],
+              "aliases": {
+                "IK-52547606:L84:span7": [
+                  105,
+                  334
+                ]
+              },
+              "text_sha256": "f3858f99af723ee2709007d7a0c02f6ff9e967a50310089c7c16d6bb6ef59085",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-52547606:L84:context-v4",
+              "prompt_char_range": [
+                55401,
+                55737
+              ],
+              "rendered_char_range": [
+                55418,
+                55754
+              ],
+              "aliases": {
+                "IK-52547606:L84:span7": [
+                  105,
+                  334
+                ]
+              },
+              "text_sha256": "f3858f99af723ee2709007d7a0c02f6ff9e967a50310089c7c16d6bb6ef59085",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        },
+        "IK-52547606:L93:span8": {
+          "text": "The landlord Maheshwar Dayal had been examined as AW-7 wherein in his cross-examination he has admitted that Mohan Lal had taken the premises for the business of his son Anand Parkash; further that Anand Parkash right from the inception of the tenancy was using these premises.",
+          "provenance": [],
+          "input_positions": {
+            "A": {
+              "display_id": "IK-52547606:L93:span8",
+              "prompt_char_range": [
+                37454,
+                37733
+              ],
+              "rendered_char_range": [
+                37471,
+                37750
+              ],
+              "aliases": {},
+              "text_sha256": "9713c1751bbf602f09f13d35a1357eec927d8c8abbf4c3a374e050ecc9bdd3e9",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "B": {
+              "display_id": "IK-52547606:L93:span8",
+              "prompt_char_range": [
+                43469,
+                43748
+              ],
+              "rendered_char_range": [
+                43486,
+                43765
+              ],
+              "aliases": {},
+              "text_sha256": "9713c1751bbf602f09f13d35a1357eec927d8c8abbf4c3a374e050ecc9bdd3e9",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            },
+            "C": {
+              "display_id": "IK-52547606:L93:span8",
+              "prompt_char_range": [
+                55859,
+                56138
+              ],
+              "rendered_char_range": [
+                55876,
+                56155
+              ],
+              "aliases": {},
+              "text_sha256": "9713c1751bbf602f09f13d35a1357eec927d8c8abbf4c3a374e050ecc9bdd3e9",
+              "encoding": "JSON string including quotes; decoding exactly recovers source text"
+            }
+          }
+        }
+      },
+      "raw_paths": {
+        "A": "outputs/irac-pipeline-repair-v4/runs/52547606/A/raw-response.txt",
+        "B": "outputs/irac-pipeline-repair-v4/runs/52547606/B/raw-response.txt",
+        "C": "outputs/irac-pipeline-repair-v4/runs/52547606/C/raw-response.txt"
+      }
+    }
+  },
+  "common_limits": [
+    "Limited development sources, prior findings and retrospective stage reconstruction. No independent test.",
+    "No target historical outcome required. All ten final DENY predictions are not legal accuracy evidence.",
+    "No source/address test verifies legal meaning. Checks compute declared directions; they do not validate witnesses or undo proposition-level semantic contradictions.",
+    "Source order retains old chosen-record order, so newly appended context is available but not globally reorganized chronologically. This may contribute to integration difficulty; not established as sole cause.",
+    "Program condition trace label program_placeholder_origin is tied to model condition-row absence, not actual evidence absence: e.g.55384096 b2/C06 supported evidence yet MISSING_DECLARED_USABLE_EVIDENCE. This display-origin label is inaccurate; model_output_status NOT_PRODUCED is correct. States/records were preserved, not silently rewritten after freeze."
+  ],
+  "decision": "保留局部导入与来源追溯修复；暂停增加字段、检查和GNN。当前模型反复误读已送达内容，强制结构化未显示稳定完整答案收益。建议下一轮固定材料和合同做更强模型/更小明确任务的有界比较，须用户另行决定。"
+}

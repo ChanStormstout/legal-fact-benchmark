@@ -1,0 +1,34 @@
+{
+  "version": "IRAC_INPUT_GRAPH_V1",
+  "node_types": [
+    "Issue",
+    "Entity",
+    "Rule",
+    "Condition",
+    "Fact",
+    "Evidence"
+  ],
+  "edge_types": [
+    "EVIDENCE_SUPPORTS_FACT",
+    "FACT_DEFEATS_CONDITION",
+    "FACT_RELATES_TO_ENTITY",
+    "FACT_RELEVANT_TO_CONDITION",
+    "FACT_SUPPORTS_CONDITION",
+    "ISSUE_GOVERNED_BY_RULE",
+    "PARTY_ASSERTS_FACT",
+    "PRIOR_COURT_FOUND_FACT",
+    "RULE_HAS_CONDITION"
+  ],
+  "features": [
+    "statement_status",
+    "semantic_stage",
+    "party_side",
+    "court_level",
+    "polarity",
+    "prospective_availability",
+    "source_grounded",
+    "text"
+  ],
+  "target_free_api": "build_input_graph(input_record)",
+  "training": false
+}

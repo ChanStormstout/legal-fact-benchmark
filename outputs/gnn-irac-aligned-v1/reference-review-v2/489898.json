@@ -1,0 +1,211 @@
+{
+  "case_id": "489898",
+  "basis": "ALLOWED_SOURCES_AND_GIVEN_LAW",
+  "kind": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "source_review_notes": "两名既有占有人早于该租赁且经房东同意；日期、同意形式及租户后续处分未交代。物业范围与处分是否发生须分开，C07另行复核。",
+  "raw_reference_sha256": "6f32175393da3f4049eda1212545a7bda2cb238eeda448d8562875dbda43b2fe",
+  "source_sha256": "aa49c577f203c7be8c24d29194c54548be0dc92c6a5902486af53aa68235d923",
+  "tests": [
+    {
+      "test_id": "DRC_SUBLETTING_C01",
+      "decision": "ADMIT",
+      "reason": "两名既有占有人早于该租赁且经房东同意；日期、同意形式及租户后续处分未交代。物业范围与处分是否发生须分开，C07另行复核。"
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C02",
+      "decision": "ADMIT",
+      "reason": "两名既有占有人早于该租赁且经房东同意；日期、同意形式及租户后续处分未交代。物业范围与处分是否发生须分开，C07另行复核。"
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C03",
+      "decision": "MASK",
+      "reason": "两名既有占有人早于该租赁且经房东同意；日期、同意形式及租户后续处分未交代。物业范围与处分是否发生须分开，C07另行复核。 Unsupported is retained separately, not relabeled negative or unresolved."
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C04",
+      "decision": "ADMIT",
+      "reason": "两名既有占有人早于该租赁且经房东同意；日期、同意形式及租户后续处分未交代。物业范围与处分是否发生须分开，C07另行复核。"
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C05",
+      "decision": "ADMIT",
+      "reason": "两名既有占有人早于该租赁且经房东同意；日期、同意形式及租户后续处分未交代。物业范围与处分是否发生须分开，C07另行复核。"
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C06",
+      "decision": "ADMIT",
+      "reason": "两名既有占有人早于该租赁且经房东同意；日期、同意形式及租户后续处分未交代。物业范围与处分是否发生须分开，C07另行复核。"
+    },
+    {
+      "test_id": "DRC_SUBLETTING_C07",
+      "decision": "ADMIT",
+      "reason": "The original UNRESOLVED label conflates two distinct questions. The supplied sources expressly describe the challenged subletting as involving 'the premises,' which is enough to support the literal whole-or-any-part scope proposition. Whether a legally qualifying disposition actually occurred remains separate and unresolved by this row. C07 should therefore be SUPPORTED for scope only, without implying that subletting, assignment, or parting with possession was proved."
+    }
+  ],
+  "corrections": [
+    {
+      "test_id": "DRC_SUBLETTING_C07",
+      "before": {
+        "test_id": "DRC_SUBLETTING_C07",
+        "status": "UNRESOLVED",
+        "bindings": [
+          {
+            "role": "premises",
+            "mention": "the premises referred to in the appellant's subletting allegation and respondent's occupation plea",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+              },
+              {
+                "source_id": "IK-489898:L45:span2",
+                "quote": "The respondent took the plea that sub-tenants already occupying the premises as of right."
+              }
+            ]
+          },
+          {
+            "role": "occupant_1",
+            "mention": "Shri Kirori Mal",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta were in occupation prior to the creation to tenancy in favour of Onkar Nath by the then owner/landlord Shri Inder Narain."
+              }
+            ]
+          },
+          {
+            "role": "occupant_2",
+            "mention": "Shri Dewan Chand Gupta",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta were in occupation prior to the creation to tenancy in favour of Onkar Nath by the then owner/landlord Shri Inder Narain."
+              }
+            ]
+          }
+        ],
+        "support_refs": [
+          {
+            "source_id": "IK-489898:L45:span1",
+            "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+          },
+          {
+            "source_id": "IK-489898:L45:span2",
+            "quote": "The respondent took the plea that sub-tenants already occupying the premises as of right."
+          }
+        ],
+        "opposition_refs": [],
+        "gap_reason": "The supplied allegations and pleas concern 'the premises,' but the factual excerpts do not identify what whole or specific part was the object of any legally qualifying disposition, and the existence of such a disposition is itself unresolved.",
+        "other_combinations": [
+          "The two named occupants could have occupied different parts of the premises; the supplied record does not delineate those parts.",
+          "Because the statute covers either the whole or any part, exact dimensions are not necessarily required by the quoted law, but some connection between a proven disposition and the subject premises or part remains necessary."
+        ],
+        "reason": "The factual dispute is plainly connected to the premises in issue, but the literal test refers to the object of the qualifying disposition. Since no qualifying disposition is established and no relevant part is identified, the premises-scope test is unresolved rather than treated as proven solely from the pleadings.",
+        "automatic_check_errors": [],
+        "supervision_mask": false,
+        "admission": "PENDING_CONCENTRATED_SOURCE_REVIEW"
+      },
+      "after": {
+        "test_id": "DRC_SUBLETTING_C07",
+        "status": "SUPPORTED",
+        "bindings": [
+          {
+            "role": "premises",
+            "mention": "the premises referred to in the appellant's subletting allegation and respondent's occupation plea",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+              },
+              {
+                "source_id": "IK-489898:L45:span2",
+                "quote": "The respondent took the plea that sub-tenants already occupying the premises as of right."
+              }
+            ]
+          },
+          {
+            "role": "occupant_1",
+            "mention": "Shri Kirori Mal",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta were in occupation prior to the creation to tenancy in favour of Onkar Nath by the then owner/landlord Shri Inder Narain."
+              }
+            ]
+          },
+          {
+            "role": "occupant_2",
+            "mention": "Shri Dewan Chand Gupta",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta were in occupation prior to the creation to tenancy in favour of Onkar Nath by the then owner/landlord Shri Inder Narain."
+              }
+            ]
+          }
+        ],
+        "support_refs": [
+          {
+            "source_id": "IK-489898:L45:span1",
+            "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+          },
+          {
+            "source_id": "IK-489898:L45:span2",
+            "quote": "The respondent took the plea that sub-tenants already occupying the premises as of right."
+          }
+        ],
+        "opposition_refs": [],
+        "gap_reason": null,
+        "other_combinations": [
+          "The two named occupants could have occupied different parts of the premises; the supplied record does not delineate those parts, but C07 requires only that the challenged disposition concern the whole or any part of the premises.",
+          "Support for C07 concerns the scope of the arrangement as alleged. It does not establish that a legally qualifying subletting, assignment, or parting with possession actually occurred; that distinct question belongs to the disposition tests."
+        ],
+        "reason": "DRC_SUBLETTING_C07 is a premises-scope test, not a test of whether the alleged disposition actually occurred. The appellant's allegation expressly states that the tenant 'sub-let the premises,' and the respondent's plea likewise places the alleged sub-tenants in 'the premises.' Those sources support that the challenged arrangement, as alleged, concerns the premises within the whole-or-any-part formulation. Treating C07 as UNRESOLVED solely because the underlying disposition is not established conflates scope with occurrence."
+      },
+      "review": "outputs/gnn-irac-aligned-v1/web/review-01.json"
+    }
+  ],
+  "audit": {
+    "rows": [
+      {
+        "test_id": "DRC_SUBLETTING_C01",
+        "errors": [],
+        "semantic_review_required": true
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C02",
+        "errors": [],
+        "semantic_review_required": true
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C03",
+        "errors": [],
+        "semantic_review_required": true
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C04",
+        "errors": [],
+        "semantic_review_required": true
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C05",
+        "errors": [],
+        "semantic_review_required": true
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C06",
+        "errors": [],
+        "semantic_review_required": true
+      },
+      {
+        "test_id": "DRC_SUBLETTING_C07",
+        "errors": [],
+        "semantic_review_required": true
+      }
+    ],
+    "missing_tests": [],
+    "complete_address_check": true,
+    "semantic_correctness_established": false
+  },
+  "scope": "one concentrated pre-training review; no model-fit results read"
+}

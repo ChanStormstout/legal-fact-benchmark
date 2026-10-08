@@ -1,0 +1,617 @@
+{
+  "proposal": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Sh. Ramesh Kumar; Shop No. 15; disposition to Sh. Bhagwan Dass",
+        "event": "Alleged subletting/assignment/parting with possession",
+        "stage": "Landlord's appeal (Target)",
+        "refs": [
+          "IK-188721101:L72:restored-v2",
+          "IK-188721101:L74:restored-v2"
+        ]
+      },
+      {
+        "id": "b2",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Sh. Ramesh Kumar; Shop No. 15; date of 06.01.1987",
+        "event": "Temporal requirement for s14(1)(b)",
+        "stage": "Landlord's appeal (Target)",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ]
+      },
+      {
+        "id": "b3",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Sh. Ramesh Kumar; Shop No. 15; consent status",
+        "event": "Written consent inquiry",
+        "stage": "Landlord's appeal (Target)",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ]
+      },
+      {
+        "id": "b4",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Sh. Ramesh Kumar; Shop No. 15; possession status",
+        "event": "Retention of legal possession / Concurrent user",
+        "stage": "Landlord's appeal (Target)",
+        "refs": [
+          "IK-188721101:L74:restored-v2",
+          "IK-188721101:L81:restored-v2"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Landlord pleaded tenant parted with possession via sublet/assignment to brother; tenant denied subletting.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L72:restored-v2",
+          "IK-188721101:L74:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Landlord's witness PW-1 and shopkeepers testified Bhagwan Dass ran the shop.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L80:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b1",
+        "record": "Tenant's witnesses RW-1 and RW-2 testified Bhagwan Dass was an employee drawing salary; possession of key admitted.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L81:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b1",
+        "record": "Trial Court found sub-tenancy not established; held arrangement was revocable license/privilege; tenant retained possession.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "PROVEN_FACT"
+          }
+        ]
+      },
+      {
+        "id": "e5",
+        "binding_id": "b2",
+        "record": "Landlord pleaded disposition occurred on 06.01.1987.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C01",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e6",
+        "binding_id": "b3",
+        "record": "Landlord's pleading states no permission was obtained from petitioner.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C05",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "id": "l1",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4",
+          "e5",
+          "e6"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Subletting requires transfer of interest, rent, and right to possession; current record shows salary payment and no proof of rent transfer, failing to establish tenancy incidents.",
+        "refs": [
+          "IK-188721101:L81:restored-v2"
+        ]
+      },
+      {
+        "id": "l2",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4",
+          "e5",
+          "e6"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Parting with possession requires divestment of right to possession; Trial Court found tenant retained legal possession via license/privilege, and witnesses confirmed tenant retained control.",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2",
+          "IK-188721101:L81:restored-v2"
+        ]
+      },
+      {
+        "id": "l3",
+        "evidence_ids": [
+          "e5"
+        ],
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Date 06.01.1987 is after 9 June 1952, satisfying temporal element, but this is a party assertion not independently verified by the target court record.",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ]
+      },
+      {
+        "id": "l4",
+        "evidence_ids": [
+          "e6"
+        ],
+        "binding_id": "b3",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Absence of written consent is alleged by landlord but not proven by independent record; burden of proof on consent is not allocated in supplied law.",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ]
+      },
+      {
+        "id": "l5",
+        "evidence_ids": [
+          "e4"
+        ],
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "PROPOSITION_BLOCK",
+        "reason": "Trial Court explicitly found arrangement was a revocable license where tenant retained possession, negating 'parting with possession' under s14(1)(b).",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e1",
+          "e2"
+        ],
+        "gap": "Subletting requires specific tenancy incidents (rent, interest transfer) not found in evidence; salary payment contradicts subletting definition."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e1",
+          "e3"
+        ],
+        "gap": "Assignment requires divestment of all tenant rights; evidence shows tenant retained rights and paid salary, not divested."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e3",
+          "e4"
+        ],
+        "gap": "Trial Court finding of retained legal possession supports 'no parting' conclusion, but appeal status remains open."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e3",
+          "e4"
+        ],
+        "gap": "Trial Court finding of retained possession and license nature directly supports the negative test; no conflicting prior finding exists."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e5"
+        ],
+        "gap": "Date 06.01.1987 satisfies 'on or after 9 June 1952'; no dispute on date calculation in supplied record."
+      },
+      {
+        "binding_id": "b3",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e6"
+        ],
+        "gap": "Landlord alleges no consent; no independent record proves absence of consent or establishes burden of proof."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e3",
+          "e4"
+        ],
+        "gap": "Trial Court finding of retained possession is decisive; witness testimony of employee status reinforces lack of divestment."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1"
+        ],
+        "gap": "Premises (Shop No. 15) are part of the property; disposition concerns a specific part, satisfying 'whole or any part'."
+      }
+    ],
+    "coverage_limits": [
+      "Written consent status (b3) relies solely on landlord's allegation without independent verification; cannot be definitively resolved.",
+      "Subletting (b1/C02) and Assignment (b1/C03) are refuted by lack of tenancy incidents (rent/interest) in the record.",
+      "Parting with possession (b1/C04, C06) is supported by Trial Court finding of retained legal possession and witness testimony of employment relationship.",
+      "Temporal requirement (b2/C01) is supported by the pleaded date falling after 1952."
+    ]
+  },
+  "import_coverage": {
+    "status": "PARTIAL",
+    "quarantine": [
+      {
+        "kind": "conditions",
+        "position": 6,
+        "record": {
+          "binding_id": "b4",
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "",
+          "assessment": "SUPPORTED",
+          "evidence_ids": [
+            "e3",
+            "e4"
+          ],
+          "gap": "Trial Court finding of retained possession is decisive; witness testimony of employee status reinforces lack of divestment."
+        },
+        "reason": "INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE"
+      },
+      {
+        "kind": "conditions",
+        "position": 7,
+        "record": {
+          "binding_id": "b4",
+          "test_id": "DRC_SUBLETTING_C07",
+          "branch_id": "",
+          "assessment": "SUPPORTED",
+          "evidence_ids": [
+            "e1"
+          ],
+          "gap": "Premises (Shop No. 15) are part of the property; disposition concerns a specific part, satisfying 'whole or any part'."
+        },
+        "reason": "INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE"
+      },
+      {
+        "kind": "limitations",
+        "position": 0,
+        "record": {
+          "id": "l1",
+          "evidence_ids": [
+            "e1",
+            "e2",
+            "e3",
+            "e4",
+            "e5",
+            "e6"
+          ],
+          "binding_id": "b1",
+          "test_id": "DRC_SUBLETTING_C02",
+          "branch_id": "",
+          "use": "TARGET_ACCEPTANCE",
+          "effect": "USE_BLOCK",
+          "reason": "Subletting requires transfer of interest, rent, and right to possession; current record shows salary payment and no proof of rent transfer, failing to establish tenancy incidents.",
+          "refs": [
+            "IK-188721101:L81:restored-v2"
+          ]
+        },
+        "reason": "INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE"
+      },
+      {
+        "kind": "limitations",
+        "position": 1,
+        "record": {
+          "id": "l2",
+          "evidence_ids": [
+            "e1",
+            "e2",
+            "e3",
+            "e4",
+            "e5",
+            "e6"
+          ],
+          "binding_id": "b1",
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "",
+          "use": "TARGET_ACCEPTANCE",
+          "effect": "USE_BLOCK",
+          "reason": "Parting with possession requires divestment of right to possession; Trial Court found tenant retained legal possession via license/privilege, and witnesses confirmed tenant retained control.",
+          "refs": [
+            "IK-188721101:L83:restored-v2",
+            "IK-188721101:L84:restored-v2",
+            "IK-188721101:L81:restored-v2"
+          ]
+        },
+        "reason": "INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE"
+      },
+      {
+        "kind": "limitations",
+        "position": 4,
+        "record": {
+          "id": "l5",
+          "evidence_ids": [
+            "e4"
+          ],
+          "binding_id": "b4",
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "",
+          "use": "TARGET_ACCEPTANCE",
+          "effect": "PROPOSITION_BLOCK",
+          "reason": "Trial Court explicitly found arrangement was a revocable license where tenant retained possession, negating 'parting with possession' under s14(1)(b).",
+          "refs": [
+            "IK-188721101:L83:restored-v2",
+            "IK-188721101:L84:restored-v2"
+          ]
+        },
+        "reason": "INVALID_LOCAL_STRUCTURE_ADDRESS_OR_REFERENCE"
+      }
+    ],
+    "missing": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b2",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b3",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b3",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b3",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b3",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b3",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b3",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      },
+      {
+        "binding_id": "b4",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "",
+        "status": "NOT_PRODUCED",
+        "reason": "No valid model condition row; not a model UNKNOWN or negative judgment."
+      }
+    ]
+  }
+}

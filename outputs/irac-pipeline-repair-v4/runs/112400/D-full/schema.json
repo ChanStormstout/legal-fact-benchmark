@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "test_id": {
+      "type": "string",
+      "enum": [
+        "DRC_BONA_FIDE-C06"
+      ]
+    },
+    "assessment": {
+      "type": "string",
+      "enum": [
+        "SUPPORTED",
+        "REFUTED",
+        "UNRESOLVED",
+        "UNSUPPORTED"
+      ]
+    },
+    "binding": {
+      "type": "string"
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "IK-112400:L123:span1",
+          "IK-112400:L124:span2",
+          "IK-112400:L124:span3",
+          "IK-112400:L127:span4",
+          "IK-112400:L127:span5",
+          "IK-112400:L130:span6",
+          "IK-112400:L139:span7",
+          "IK-112400:L140:span8",
+          "IK-112400:L124:restored-v2",
+          "IK-112400:L127:restored-v2",
+          "IK-112400:L139:restored-v2",
+          "IK-112400:L140:restored-v2",
+          "IK-112400:L137:context-v4",
+          "IK-112400:L138:context-v4",
+          "IK-18143401:L41:historical-e"
+        ]
+      },
+      "maxItems": 6
+    },
+    "explanation": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "test_id",
+    "assessment",
+    "binding",
+    "refs",
+    "explanation"
+  ],
+  "additionalProperties": false
+}

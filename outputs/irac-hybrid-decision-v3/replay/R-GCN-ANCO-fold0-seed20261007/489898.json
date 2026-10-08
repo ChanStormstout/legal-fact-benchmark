@@ -1,0 +1,2788 @@
+{
+  "case_id": "489898",
+  "units": [
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C01|489898-B1",
+      "test_id": "DRC_SUBLETTING_C01",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "raw_prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.9998078942298889,
+          6.141455397459157e-17,
+          0.00019215696374885738
+        ]
+      },
+      "v2_program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L1:0",
+              "LINK:L3:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "statement_status"
+            ],
+            "reason": "The asserted post-1952 creation date and lack of written consent are appellant allegations. The same sentence connects the alleged transaction, date, and consent assertion, but neither proposition is a court finding.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+              }
+            ]
+          },
+          {
+            "original_ids": [
+              "LINK:L6:0",
+              "LINK:L9:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant.identity",
+              "disposition_identity"
+            ],
+            "reason": "The source explicitly identifies Onkar Nath as the inducted tenant. Nevertheless, pre-existing occupation by the named persons cannot be equated with a later subletting or tenant-caused disposition merely because the same tenancy is discussed.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+              },
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "the sub-tenancy was created after 9/06/1952."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L9:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01"
+            ],
+            "fields": [
+              "date"
+            ],
+            "reason": "The respondent's account supplies relative chronology, not a calendar date by which the 9 June 1952 cutoff can be evaluated. The pre-tenancy occupation event remains recorded.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "combination_status"
+            ],
+            "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "The appellant alleged that the tenant sub-let the premises"
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "v3_prediction_preserved": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.9998078942298889,
+          6.141455397459157e-17,
+          0.00019215696374885738
+        ]
+      },
+      "evidence_records": [
+        {
+          "link_id": "L1",
+          "record": "The appellant alleged that the sub-tenancy was created after 9 June 1952, which supports the temporal proposition for the alleged subletting only at the level of a party allegation.",
+          "direction": "SUPPORT",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:span1",
+              "quote": "the sub-tenancy was created after 9/06/1952."
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "LINK:L6:0",
+                "LINK:L9:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04"
+              ],
+              "fields": [
+                "tenant.identity",
+                "disposition_identity"
+              ],
+              "reason": "The source explicitly identifies Onkar Nath as the inducted tenant. Nevertheless, pre-existing occupation by the named persons cannot be equated with a later subletting or tenant-caused disposition merely because the same tenancy is discussed.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:0",
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:2"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "disposition_identity",
+                "tenant.identity",
+                "subtenant.identity",
+                "premises.identity"
+              ],
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C07"
+              ],
+              "reason": "The appellant's pleaded post-1952 allegation links conduct, timing and the identified building within one asserted arrangement. The named occupants in the respondent's account are described as occupying the premises before Onkar Nath's tenancy. The supplied passages do not establish that these persons were recipients of the appellant's alleged later disposition or identify the same specific part of the building. Consequently, the respondent's earlier-occupation account cannot automatically be merged into the appellant's alleged transaction for date, subtenancy-incident or part-specific premises evaluation. The internal links within the appellant's allegation remain preserved.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "reason": "The later passage describes persons claiming through two subtenants who were in possession when the tenancy was created. The material does not establish that this predecessor pair is identical to Kirori Mal and Dewan Chand Gupta, or that the earlier possession and reported landlord consent concern the appellant's alleged post-1952 disposition. Prior occupation cannot automatically be treated as a later tenant-caused divestment, and consent to earlier possession cannot automatically be joined to the later alleged transaction. The distinct accounts and the original restrictions remain available without assuming their transaction identity.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants who were admittedly in possession on the date of creation of tenancy"
+                },
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "the same was with the consent of the landlord."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [
+            {
+              "original_ids": [
+                "LINK:L1:0",
+                "LINK:L3:0"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C05"
+              ],
+              "fields": [
+                "statement_status"
+              ],
+              "reason": "The asserted post-1952 creation date and lack of written consent are appellant allegations. The same sentence connects the alleged transaction, date, and consent assertion, but neither proposition is a court finding.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "combination_status"
+              ],
+              "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises"
+                }
+              ]
+            }
+          ],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        },
+        {
+          "link_id": "L9",
+          "record": "The respondent's account places Shri Kirori Mal and Shri Dewan Chand Gupta in occupation before the tenancy in favour of Onkar Nath, but it supplies no calendar date from which the on-or-after-9-June-1952 temporal test can be evaluated.",
+          "direction": "UNKNOWN",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L46:span3",
+              "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "LINK:L6:0",
+                "LINK:L9:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04"
+              ],
+              "fields": [
+                "tenant.identity",
+                "disposition_identity"
+              ],
+              "reason": "The source explicitly identifies Onkar Nath as the inducted tenant. Nevertheless, pre-existing occupation by the named persons cannot be equated with a later subletting or tenant-caused disposition merely because the same tenancy is discussed.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "LINK:L9:0"
+              ],
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01"
+              ],
+              "fields": [
+                "date"
+              ],
+              "reason": "The respondent's account supplies relative chronology, not a calendar date by which the 9 June 1952 cutoff can be evaluated. The pre-tenancy occupation event remains recorded.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C07"
+              ],
+              "reason": "The appellant's pleaded post-1952 allegation links conduct, timing and the identified building within one asserted arrangement. The named occupants in the respondent's account are described as occupying the premises before Onkar Nath's tenancy. The supplied passages do not establish that these persons were recipients of the appellant's alleged later disposition or identify the same specific part of the building. Consequently, the respondent's earlier-occupation account cannot automatically be merged into the appellant's alleged transaction for date, subtenancy-incident or part-specific premises evaluation. The internal links within the appellant's allegation remain preserved.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "reason": "The later passage describes persons claiming through two subtenants who were in possession when the tenancy was created. The material does not establish that this predecessor pair is identical to Kirori Mal and Dewan Chand Gupta, or that the earlier possession and reported landlord consent concern the appellant's alleged post-1952 disposition. Prior occupation cannot automatically be treated as a later tenant-caused divestment, and consent to earlier possession cannot automatically be joined to the later alleged transaction. The distinct accounts and the original restrictions remain available without assuming their transaction identity.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants who were admittedly in possession on the date of creation of tenancy"
+                },
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "the same was with the consent of the landlord."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [
+            {
+              "original_ids": [
+                "LINK:L1:0",
+                "LINK:L3:0"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C05"
+              ],
+              "fields": [
+                "statement_status"
+              ],
+              "reason": "The asserted post-1952 creation date and lack of written consent are appellant allegations. The same sentence connects the alleged transaction, date, and consent assertion, but neither proposition is a court finding.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "combination_status"
+              ],
+              "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises"
+                }
+              ]
+            }
+          ],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        }
+      ],
+      "restriction_application": "SOURCE_USE_AUDIT_ONLY; no ID prefix controls effect",
+      "replay_status": "WITNESS_ATTRIBUTION_UNAVAILABLE",
+      "branch_predictions": null,
+      "v3_proof_state": "UNRESOLVED",
+      "reason": "Old aggregate prediction is not an attributed evidence assessment; retain it without claiming new proof."
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C02|489898-B1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "raw_prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          1.3165875500931179e-08,
+          3.0657889873600003e-24,
+          1.0
+        ]
+      },
+      "v2_program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [
+          {
+            "kind": "FIELD",
+            "fields": [
+              "subletting.relationship",
+              "subletting.transfer_of_interest",
+              "subletting.rent",
+              "subletting.right_to_possession"
+            ],
+            "reason": "The labels 'sub-let' and 'sub-tenants', together with an asserted right of occupation, do not separately provide the landlord-subtenant relationship, estate-interest transfer, rent, and right-to-possession incidents required by C02.",
+            "origin_ids": [
+              "LINK:L2:0",
+              "LINK:L5:0",
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:1"
+            ],
+            "address_errors": []
+          }
+        ],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L2:1",
+              "LINK:L5:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant.identity",
+              "subtenant.identity"
+            ],
+            "reason": "Restored L45 identifies Onkar Nath as the inducted tenant and L46 identifies two occupants. This clarifies the roles omitted from the old link entity lists but does not establish that each named occupant was the recipient of the appellant's alleged post-1952 disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "Shri Onkar Nath was inducted as tenant"
+              },
+              {
+                "source_id": "IK-489898:L46:restored-v2",
+                "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "combination_status"
+            ],
+            "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "The appellant alleged that the tenant sub-let the premises"
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "v3_prediction_preserved": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          1.3165875500931179e-08,
+          3.0657889873600003e-24,
+          1.0
+        ]
+      },
+      "evidence_records": [
+        {
+          "link_id": "L2",
+          "record": "The appellant characterized the tenant's conduct as subletting, but the supplied fact does not state the specific incidents required by the literal subletting test: landlord-and-tenant relationship between tenant and sub-tenant, transfer of an interest in the estate, payment of rent, and a right to possession as against the tenant.",
+          "direction": "UNKNOWN",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:span1",
+              "quote": "The appellant alleged that the tenant sub-let the premises"
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "LINK:L2:0",
+                "LINK:L5:0",
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:1"
+              ],
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02"
+              ],
+              "fields": [
+                "subletting.relationship",
+                "subletting.transfer_of_interest",
+                "subletting.rent",
+                "subletting.right_to_possession"
+              ],
+              "reason": "The labels 'sub-let' and 'sub-tenants', together with an asserted right of occupation, do not separately provide the landlord-subtenant relationship, estate-interest transfer, rent, and right-to-possession incidents required by C02.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the tenant sub-let the premises"
+                },
+                {
+                  "source_id": "IK-489898:L45:span2",
+                  "quote": "sub-tenants already occupying the premises as of right."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "LINK:L2:1",
+                "LINK:L5:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C04"
+              ],
+              "fields": [
+                "tenant.identity",
+                "subtenant.identity"
+              ],
+              "reason": "Restored L45 identifies Onkar Nath as the inducted tenant and L46 identifies two occupants. This clarifies the roles omitted from the old link entity lists but does not establish that each named occupant was the recipient of the appellant's alleged post-1952 disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "Shri Onkar Nath was inducted as tenant"
+                },
+                {
+                  "source_id": "IK-489898:L46:restored-v2",
+                  "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:0",
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:2"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "disposition_identity",
+                "tenant.identity",
+                "subtenant.identity",
+                "premises.identity"
+              ],
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C07"
+              ],
+              "reason": "The appellant's pleaded post-1952 allegation links conduct, timing and the identified building within one asserted arrangement. The named occupants in the respondent's account are described as occupying the premises before Onkar Nath's tenancy. The supplied passages do not establish that these persons were recipients of the appellant's alleged later disposition or identify the same specific part of the building. Consequently, the respondent's earlier-occupation account cannot automatically be merged into the appellant's alleged transaction for date, subtenancy-incident or part-specific premises evaluation. The internal links within the appellant's allegation remain preserved.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "combination_status"
+              ],
+              "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises"
+                }
+              ]
+            }
+          ],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        },
+        {
+          "link_id": "L5",
+          "record": "The respondent referred to persons occupying the premises as 'sub-tenants' and said they were already occupying as of right, but that terminology does not establish the specific tenancy incidents required by the literal subletting test.",
+          "direction": "UNKNOWN",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:span2",
+              "quote": "The respondent took the plea that sub-tenants already occupying the premises as of right."
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "LINK:L2:0",
+                "LINK:L5:0",
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:1"
+              ],
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02"
+              ],
+              "fields": [
+                "subletting.relationship",
+                "subletting.transfer_of_interest",
+                "subletting.rent",
+                "subletting.right_to_possession"
+              ],
+              "reason": "The labels 'sub-let' and 'sub-tenants', together with an asserted right of occupation, do not separately provide the landlord-subtenant relationship, estate-interest transfer, rent, and right-to-possession incidents required by C02.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the tenant sub-let the premises"
+                },
+                {
+                  "source_id": "IK-489898:L45:span2",
+                  "quote": "sub-tenants already occupying the premises as of right."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "LINK:L2:1",
+                "LINK:L5:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C04"
+              ],
+              "fields": [
+                "tenant.identity",
+                "subtenant.identity"
+              ],
+              "reason": "Restored L45 identifies Onkar Nath as the inducted tenant and L46 identifies two occupants. This clarifies the roles omitted from the old link entity lists but does not establish that each named occupant was the recipient of the appellant's alleged post-1952 disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "Shri Onkar Nath was inducted as tenant"
+                },
+                {
+                  "source_id": "IK-489898:L46:restored-v2",
+                  "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:0",
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:2"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "disposition_identity",
+                "tenant.identity",
+                "subtenant.identity",
+                "premises.identity"
+              ],
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C07"
+              ],
+              "reason": "The appellant's pleaded post-1952 allegation links conduct, timing and the identified building within one asserted arrangement. The named occupants in the respondent's account are described as occupying the premises before Onkar Nath's tenancy. The supplied passages do not establish that these persons were recipients of the appellant's alleged later disposition or identify the same specific part of the building. Consequently, the respondent's earlier-occupation account cannot automatically be merged into the appellant's alleged transaction for date, subtenancy-incident or part-specific premises evaluation. The internal links within the appellant's allegation remain preserved.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "combination_status"
+              ],
+              "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises"
+                }
+              ]
+            }
+          ],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        }
+      ],
+      "restriction_application": "SOURCE_USE_AUDIT_ONLY; no ID prefix controls effect",
+      "replay_status": "WITNESS_ATTRIBUTION_UNAVAILABLE",
+      "branch_predictions": null,
+      "v3_proof_state": "UNRESOLVED",
+      "reason": "Old aggregate prediction is not an attributed evidence assessment; retain it without claiming new proof."
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C03|489898-B1",
+      "test_id": "DRC_SUBLETTING_C03",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "raw_prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          2.2134052368727453e-09,
+          5.368745929497209e-24,
+          1.0
+        ]
+      },
+      "v2_program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "v3_prediction_preserved": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          2.2134052368727453e-09,
+          5.368745929497209e-24,
+          1.0
+        ]
+      },
+      "evidence_records": [],
+      "restriction_application": "SOURCE_USE_AUDIT_ONLY; no ID prefix controls effect",
+      "replay_status": "WITNESS_ATTRIBUTION_UNAVAILABLE",
+      "branch_predictions": null,
+      "v3_proof_state": "UNRESOLVED",
+      "reason": "Old aggregate prediction is not an attributed evidence assessment; retain it without claiming new proof."
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C04|489898-B1",
+      "test_id": "DRC_SUBLETTING_C04",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "raw_prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          7.535835955252423e-09,
+          1.4558987111020348e-24,
+          1.0
+        ]
+      },
+      "v2_program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L2:1",
+              "LINK:L5:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant.identity",
+              "subtenant.identity"
+            ],
+            "reason": "Restored L45 identifies Onkar Nath as the inducted tenant and L46 identifies two occupants. This clarifies the roles omitted from the old link entity lists but does not establish that each named occupant was the recipient of the appellant's alleged post-1952 disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "Shri Onkar Nath was inducted as tenant"
+              },
+              {
+                "source_id": "IK-489898:L46:restored-v2",
+                "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L6:0",
+              "LINK:L9:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "tenant.identity",
+              "disposition_identity"
+            ],
+            "reason": "The source explicitly identifies Onkar Nath as the inducted tenant. Nevertheless, pre-existing occupation by the named persons cannot be equated with a later subletting or tenant-caused disposition merely because the same tenancy is discussed.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+              },
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "the sub-tenancy was created after 9/06/1952."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L6:1",
+              "LINK:L7:1"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04"
+            ],
+            "fields": [
+              "parting_with_possession.legal_possession",
+              "parting_with_possession.later_divestment"
+            ],
+            "reason": "Occupation before or at tenancy creation is a physical-occupation chronology. It does not establish whether the tenant later vested legal possession in another or abandoned his right to possession.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+              },
+              {
+                "source_id": "IK-489898:L48:span5",
+                "quote": "were admittedly in possession on the date of creation of tenancy"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L7:0",
+              "LINK:L8:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "other_person.identity",
+              "tenant.identity",
+              "disposition_identity",
+              "landlord.identity",
+              "premises.identity"
+            ],
+            "reason": "The restored L48 passage refers to persons claiming rights through two subtenants. The supplied material does not establish that those two predecessors are identical to Kirori Mal and Dewan Chand Gupta, or that the reported consent concerned the appellant's alleged post-1952 disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:restored-v2",
+                "quote": "these persons claimed their right through two subtenants"
+              },
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "v3_prediction_preserved": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          7.535835955252423e-09,
+          1.4558987111020348e-24,
+          1.0
+        ]
+      },
+      "evidence_records": [
+        {
+          "link_id": "L6",
+          "record": "According to the respondent's account, Shri Kirori Mal and Shri Dewan Chand Gupta were already in occupation before the tenancy in favour of Onkar Nath was created. If Onkar Nath is the tenant and those two persons are the relevant other persons for the focal parting-with-possession theory, that chronology bears against tenant-caused initial vesting of their possession; the supplied material does not establish those cross-fact identities or whether a later divestment occurred.",
+          "direction": "UNKNOWN",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L46:span3",
+              "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta were in occupation prior to the creation to tenancy in favour of Onkar Nath by the then owner/landlord Shri Inder Narain."
+            },
+            {
+              "source_id": "IK-489898:L46:span4",
+              "quote": "This fact, according to the respondent"
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "LINK:L2:1",
+                "LINK:L5:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C04"
+              ],
+              "fields": [
+                "tenant.identity",
+                "subtenant.identity"
+              ],
+              "reason": "Restored L45 identifies Onkar Nath as the inducted tenant and L46 identifies two occupants. This clarifies the roles omitted from the old link entity lists but does not establish that each named occupant was the recipient of the appellant's alleged post-1952 disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "Shri Onkar Nath was inducted as tenant"
+                },
+                {
+                  "source_id": "IK-489898:L46:restored-v2",
+                  "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "LINK:L6:0",
+                "LINK:L9:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04"
+              ],
+              "fields": [
+                "tenant.identity",
+                "disposition_identity"
+              ],
+              "reason": "The source explicitly identifies Onkar Nath as the inducted tenant. Nevertheless, pre-existing occupation by the named persons cannot be equated with a later subletting or tenant-caused disposition merely because the same tenancy is discussed.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "LINK:L6:1",
+                "LINK:L7:1"
+              ],
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C04"
+              ],
+              "fields": [
+                "parting_with_possession.legal_possession",
+                "parting_with_possession.later_divestment"
+              ],
+              "reason": "Occupation before or at tenancy creation is a physical-occupation chronology. It does not establish whether the tenant later vested legal possession in another or abandoned his right to possession.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "were admittedly in possession on the date of creation of tenancy"
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "LINK:L7:0",
+                "LINK:L8:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "fields": [
+                "other_person.identity",
+                "tenant.identity",
+                "disposition_identity",
+                "landlord.identity",
+                "premises.identity"
+              ],
+              "reason": "The restored L48 passage refers to persons claiming rights through two subtenants. The supplied material does not establish that those two predecessors are identical to Kirori Mal and Dewan Chand Gupta, or that the reported consent concerned the appellant's alleged post-1952 disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants"
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "reason": "The later passage describes persons claiming through two subtenants who were in possession when the tenancy was created. The material does not establish that this predecessor pair is identical to Kirori Mal and Dewan Chand Gupta, or that the earlier possession and reported landlord consent concern the appellant's alleged post-1952 disposition. Prior occupation cannot automatically be treated as a later tenant-caused divestment, and consent to earlier possession cannot automatically be joined to the later alleged transaction. The distinct accounts and the original restrictions remain available without assuming their transaction identity.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants who were admittedly in possession on the date of creation of tenancy"
+                },
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "the same was with the consent of the landlord."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        },
+        {
+          "link_id": "L7",
+          "record": "A prior court found that two sub-tenants were already in possession on the date the tenancy was created. That finding could bear against a theory of tenant-caused initial vesting of possession, but the supplied legacy fact does not identify the two persons or the tenant and does not exclude a later divestment of legal possession.",
+          "direction": "UNKNOWN",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L48:span5",
+              "quote": "two subtenants who were admittedly in possession on the date of creation of tenancy"
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "LINK:L6:1",
+                "LINK:L7:1"
+              ],
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C04"
+              ],
+              "fields": [
+                "parting_with_possession.legal_possession",
+                "parting_with_possession.later_divestment"
+              ],
+              "reason": "Occupation before or at tenancy creation is a physical-occupation chronology. It does not establish whether the tenant later vested legal possession in another or abandoned his right to possession.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "were admittedly in possession on the date of creation of tenancy"
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "LINK:L7:0",
+                "LINK:L8:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "fields": [
+                "other_person.identity",
+                "tenant.identity",
+                "disposition_identity",
+                "landlord.identity",
+                "premises.identity"
+              ],
+              "reason": "The restored L48 passage refers to persons claiming rights through two subtenants. The supplied material does not establish that those two predecessors are identical to Kirori Mal and Dewan Chand Gupta, or that the reported consent concerned the appellant's alleged post-1952 disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants"
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "reason": "The later passage describes persons claiming through two subtenants who were in possession when the tenancy was created. The material does not establish that this predecessor pair is identical to Kirori Mal and Dewan Chand Gupta, or that the earlier possession and reported landlord consent concern the appellant's alleged post-1952 disposition. Prior occupation cannot automatically be treated as a later tenant-caused divestment, and consent to earlier possession cannot automatically be joined to the later alleged transaction. The distinct accounts and the original restrictions remain available without assuming their transaction identity.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants who were admittedly in possession on the date of creation of tenancy"
+                },
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "the same was with the consent of the landlord."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "kind": "RULE_SCOPE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C03",
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C06"
+              ],
+              "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                },
+                {
+                  "source_id": "IK-190902:L109",
+                  "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                },
+                {
+                  "source_id": "IK-190902:L110",
+                  "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                },
+                {
+                  "source_id": "IK-190902:L112",
+                  "quote": "The divestment or abandonment of the right to possession is necessary"
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        }
+      ],
+      "restriction_application": "SOURCE_USE_AUDIT_ONLY; no ID prefix controls effect",
+      "replay_status": "WITNESS_ATTRIBUTION_UNAVAILABLE",
+      "branch_predictions": null,
+      "v3_proof_state": "UNRESOLVED",
+      "reason": "Old aggregate prediction is not an attributed evidence assessment; retain it without claiming new proof."
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C05|489898-B1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "raw_prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.9961571097373962,
+          2.2752969912387454e-16,
+          0.0038429282139986753
+        ]
+      },
+      "v2_program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L1:0",
+              "LINK:L3:0"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "statement_status"
+            ],
+            "reason": "The asserted post-1952 creation date and lack of written consent are appellant allegations. The same sentence connects the alleged transaction, date, and consent assertion, but neither proposition is a court finding.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:span1",
+                "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+              }
+            ]
+          },
+          {
+            "original_ids": [
+              "LINK:L7:0",
+              "LINK:L8:1"
+            ],
+            "kind": "BINDING",
+            "affected_tests": [
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "other_person.identity",
+              "tenant.identity",
+              "disposition_identity",
+              "landlord.identity",
+              "premises.identity"
+            ],
+            "reason": "The restored L48 passage refers to persons claiming rights through two subtenants. The supplied material does not establish that those two predecessors are identical to Kirori Mal and Dewan Chand Gupta, or that the reported consent concerned the appellant's alleged post-1952 disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:restored-v2",
+                "quote": "these persons claimed their right through two subtenants"
+              },
+              {
+                "source_id": "IK-489898:L46:span3",
+                "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "LINK:L8:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C05"
+            ],
+            "fields": [
+              "consent.form"
+            ],
+            "reason": "The prior-court passage records landlord consent to earlier possession but does not state that the consent was written. This uncertainty is limited to the written-consent inquiry.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L48:span5",
+                "quote": "the same was with the consent of the landlord."
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "combination_status"
+            ],
+            "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "The appellant alleged that the tenant sub-let the premises"
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "v3_prediction_preserved": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.9961571097373962,
+          2.2752969912387454e-16,
+          0.0038429282139986753
+        ]
+      },
+      "evidence_records": [
+        {
+          "link_id": "L3",
+          "record": "The appellant alleged that the alleged subletting occurred without her consent in writing, supporting the literal no-written-consent proposition only as a party allegation.",
+          "direction": "SUPPORT",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:span1",
+              "quote": "without her consent in writing"
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:0",
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:2"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "disposition_identity",
+                "tenant.identity",
+                "subtenant.identity",
+                "premises.identity"
+              ],
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "reason": "The later passage describes persons claiming through two subtenants who were in possession when the tenancy was created. The material does not establish that this predecessor pair is identical to Kirori Mal and Dewan Chand Gupta, or that the earlier possession and reported landlord consent concern the appellant's alleged post-1952 disposition. Prior occupation cannot automatically be treated as a later tenant-caused divestment, and consent to earlier possession cannot automatically be joined to the later alleged transaction. The distinct accounts and the original restrictions remain available without assuming their transaction identity.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants who were admittedly in possession on the date of creation of tenancy"
+                },
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "the same was with the consent of the landlord."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [
+            {
+              "original_ids": [
+                "LINK:L1:0",
+                "LINK:L3:0"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C05"
+              ],
+              "fields": [
+                "statement_status"
+              ],
+              "reason": "The asserted post-1952 creation date and lack of written consent are appellant allegations. The same sentence connects the alleged transaction, date, and consent assertion, but neither proposition is a court finding.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "combination_status"
+              ],
+              "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises"
+                }
+              ]
+            }
+          ],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        },
+        {
+          "link_id": "L8",
+          "record": "A prior court found that the possession of the two sub-tenants was with the landlord's consent, but the source does not say that the consent was in writing or bind that consent to the same disposition and premises targeted by DRC_SUBLETTING_C05.",
+          "direction": "UNKNOWN",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L48:span5",
+              "quote": "the same was with the consent of the landlord."
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "LINK:L7:0",
+                "LINK:L8:1"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "fields": [
+                "other_person.identity",
+                "tenant.identity",
+                "disposition_identity",
+                "landlord.identity",
+                "premises.identity"
+              ],
+              "reason": "The restored L48 passage refers to persons claiming rights through two subtenants. The supplied material does not establish that those two predecessors are identical to Kirori Mal and Dewan Chand Gupta, or that the reported consent concerned the appellant's alleged post-1952 disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants"
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Shri Kirori Mal and Shri Dewan Chand Gupta"
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "LINK:L8:0"
+              ],
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C05"
+              ],
+              "fields": [
+                "consent.form"
+              ],
+              "reason": "The prior-court passage records landlord consent to earlier possession but does not state that the consent was written. This uncertainty is limited to the written-consent inquiry.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "the same was with the consent of the landlord."
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C04",
+                "DRC_SUBLETTING_C05"
+              ],
+              "reason": "The later passage describes persons claiming through two subtenants who were in possession when the tenancy was created. The material does not establish that this predecessor pair is identical to Kirori Mal and Dewan Chand Gupta, or that the earlier possession and reported landlord consent concern the appellant's alleged post-1952 disposition. Prior occupation cannot automatically be treated as a later tenant-caused divestment, and consent to earlier possession cannot automatically be joined to the later alleged transaction. The distinct accounts and the original restrictions remain available without assuming their transaction identity.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L48:restored-v2",
+                  "quote": "these persons claimed their right through two subtenants who were admittedly in possession on the date of creation of tenancy"
+                },
+                {
+                  "source_id": "IK-489898:L48:span5",
+                  "quote": "the same was with the consent of the landlord."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "Two of the sub-tenants, namely, Shri Kirori Mal and Shri Dewan Chand Gupta"
+                },
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [
+            {
+              "original_ids": [
+                "LINK:L1:0",
+                "LINK:L3:0"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C05"
+              ],
+              "fields": [
+                "statement_status"
+              ],
+              "reason": "The asserted post-1952 creation date and lack of written consent are appellant allegations. The same sentence connects the alleged transaction, date, and consent assertion, but neither proposition is a court finding.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:span1",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "combination_status"
+              ],
+              "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises"
+                }
+              ]
+            }
+          ],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        }
+      ],
+      "restriction_application": "SOURCE_USE_AUDIT_ONLY; no ID prefix controls effect",
+      "replay_status": "WITNESS_ATTRIBUTION_UNAVAILABLE",
+      "branch_predictions": null,
+      "v3_proof_state": "UNRESOLVED",
+      "reason": "Old aggregate prediction is not an attributed evidence assessment; retain it without claiming new proof."
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C06|489898-B1",
+      "test_id": "DRC_SUBLETTING_C06",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "raw_prediction": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          3.086311761713034e-10,
+          2.878372251662304e-25,
+          1.0
+        ]
+      },
+      "v2_program_state": {
+        "status": "UNRESOLVED",
+        "blocking": [],
+        "notes": [],
+        "prediction_not_proof": true
+      },
+      "v3_prediction_preserved": {
+        "status": "UNRESOLVED",
+        "probabilities": [
+          3.086311761713034e-10,
+          2.878372251662304e-25,
+          1.0
+        ]
+      },
+      "evidence_records": [],
+      "restriction_application": "SOURCE_USE_AUDIT_ONLY; no ID prefix controls effect",
+      "replay_status": "WITNESS_ATTRIBUTION_UNAVAILABLE",
+      "branch_predictions": null,
+      "v3_proof_state": "UNRESOLVED",
+      "reason": "Old aggregate prediction is not an attributed evidence assessment; retain it without claiming new proof."
+    },
+    {
+      "unit_id": "489898|DRC_SUBLETTING_CLAIM_01|DRC_SUBLETTING_GIVEN_RULE_V2@22f606aadd86|DRC_SUBLETTING_C07|489898-B1",
+      "test_id": "DRC_SUBLETTING_C07",
+      "binding_id": "489898-B1",
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "raw_prediction": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.999997615814209,
+          9.433884043965199e-18,
+          2.401636720605893e-06
+        ]
+      },
+      "v2_program_state": {
+        "status": "SUPPORTED",
+        "blocking": [],
+        "notes": [
+          {
+            "original_ids": [
+              "LINK:L4:0"
+            ],
+            "kind": "FIELD",
+            "affected_tests": [
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "premises.identity",
+              "premises.part"
+            ],
+            "reason": "The restored parent identifies the building, resolving the previously missing general premises description. It does not identify the precise portion associated with each alleged disposition.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+              }
+            ],
+            "application": "LOCAL_LINK_LIMIT_NOT_WHOLE_TEST"
+          },
+          {
+            "original_ids": [
+              "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+            ],
+            "kind": "NOTE",
+            "affected_tests": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C07"
+            ],
+            "fields": [
+              "combination_status"
+            ],
+            "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+            "source_refs": [
+              {
+                "source_id": "IK-489898:L45:restored-v2",
+                "quote": "The appellant alleged that the tenant sub-let the premises"
+              }
+            ]
+          }
+        ],
+        "prediction_not_proof": true
+      },
+      "v3_prediction_preserved": {
+        "status": "SUPPORTED",
+        "probabilities": [
+          0.999997615814209,
+          9.433884043965199e-18,
+          2.401636720605893e-06
+        ]
+      },
+      "evidence_records": [
+        {
+          "link_id": "L4",
+          "record": "The appellant's alleged subletting expressly concerns 'the premises', supporting the premises-scope proposition for that alleged disposition.",
+          "direction": "SUPPORT",
+          "source_refs": [
+            {
+              "source_id": "IK-489898:L45:span1",
+              "quote": "the tenant sub-let the premises"
+            }
+          ],
+          "record_retained": true,
+          "target_acceptance_inferred": false,
+          "limitations_for_this_source_use": [
+            {
+              "original_ids": [
+                "LINK:L4:0"
+              ],
+              "kind": "FIELD",
+              "affected_tests": [
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "premises.identity",
+                "premises.part"
+              ],
+              "reason": "The restored parent identifies the building, resolving the previously missing general premises description. It does not identify the precise portion associated with each alleged disposition.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+                }
+              ]
+            },
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:0",
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:2"
+              ],
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "disposition_identity",
+                "tenant.identity",
+                "subtenant.identity",
+                "premises.identity"
+              ],
+              "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                }
+              ]
+            },
+            {
+              "kind": "BINDING",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C07"
+              ],
+              "reason": "The appellant's pleaded post-1952 allegation links conduct, timing and the identified building within one asserted arrangement. The named occupants in the respondent's account are described as occupying the premises before Onkar Nath's tenancy. The supplied passages do not establish that these persons were recipients of the appellant's alleged later disposition or identify the same specific part of the building. Consequently, the respondent's earlier-occupation account cannot automatically be merged into the appellant's alleged transaction for date, subtenancy-incident or part-specific premises evaluation. The internal links within the appellant's allegation remain preserved.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises without her consent in writingwhich, was a requirement of law, as the sub-tenancy was created after 9/06/1952."
+                },
+                {
+                  "source_id": "IK-489898:L46:span3",
+                  "quote": "were in occupation prior to the creation to tenancy in favour of Onkar Nath"
+                },
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "building bearing No. 1194,Ward No., V, Maliwara, Nai Sarak, Delhi"
+                }
+              ]
+            }
+          ],
+          "unmapped_limits": [],
+          "notes": [
+            {
+              "original_ids": [
+                "COMBO:COMB1_APPELLANT_ALLEGED_SUBLETTING:3"
+              ],
+              "kind": "NOTE",
+              "affected_tests": [
+                "DRC_SUBLETTING_C01",
+                "DRC_SUBLETTING_C02",
+                "DRC_SUBLETTING_C05",
+                "DRC_SUBLETTING_C07"
+              ],
+              "fields": [
+                "combination_status"
+              ],
+              "reason": "The linked allegations remain a contested candidate. Connecting their propositions within one sentence does not promote them to findings or establish the statutory ground.",
+              "source_refs": [
+                {
+                  "source_id": "IK-489898:L45:restored-v2",
+                  "quote": "The appellant alleged that the tenant sub-let the premises"
+                }
+              ]
+            }
+          ],
+          "use_assessment": "LEGACY_USE_DETAIL_UNAVAILABLE"
+        }
+      ],
+      "restriction_application": "SOURCE_USE_AUDIT_ONLY; no ID prefix controls effect",
+      "replay_status": "WITNESS_ATTRIBUTION_UNAVAILABLE",
+      "branch_predictions": null,
+      "v3_proof_state": "UNRESOLVED",
+      "reason": "Old aggregate prediction is not an attributed evidence assessment; retain it without claiming new proof."
+    }
+  ],
+  "old_claims": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "status": "UNRESOLVED",
+      "binding_results": [
+        {
+          "binding_id": "489898-B1",
+          "result": {
+            "status": "UNRESOLVED",
+            "trace": [
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C01"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C07"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "BINDING",
+                      "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C01",
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C05",
+                        "DRC_SUBLETTING_C07"
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C02"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "reason": {
+                      "kind": "RULE_SCOPE",
+                      "affected_tests": [
+                        "DRC_SUBLETTING_C02",
+                        "DRC_SUBLETTING_C03",
+                        "DRC_SUBLETTING_C04",
+                        "DRC_SUBLETTING_C06"
+                      ],
+                      "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-489898:L48:restored-v2",
+                          "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                        },
+                        {
+                          "source_id": "IK-190902:L109",
+                          "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                        },
+                        {
+                          "source_id": "IK-190902:L110",
+                          "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The divestment or abandonment of the right to possession is necessary"
+                        }
+                      ]
+                    },
+                    "trace": [
+                      "DRC_SUBLETTING_C03"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "trace": [
+                      {
+                        "status": "UNRESOLVED",
+                        "reason": {
+                          "kind": "RULE_SCOPE",
+                          "affected_tests": [
+                            "DRC_SUBLETTING_C02",
+                            "DRC_SUBLETTING_C03",
+                            "DRC_SUBLETTING_C04",
+                            "DRC_SUBLETTING_C06"
+                          ],
+                          "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                          "source_refs": [
+                            {
+                              "source_id": "IK-489898:L48:restored-v2",
+                              "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                            },
+                            {
+                              "source_id": "IK-190902:L109",
+                              "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                            },
+                            {
+                              "source_id": "IK-190902:L110",
+                              "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                            },
+                            {
+                              "source_id": "IK-190902:L112",
+                              "quote": "The divestment or abandonment of the right to possession is necessary"
+                            }
+                          ]
+                        },
+                        "trace": [
+                          "DRC_SUBLETTING_C04"
+                        ]
+                      },
+                      {
+                        "status": "UNRESOLVED",
+                        "reason": {
+                          "kind": "RULE_SCOPE",
+                          "affected_tests": [
+                            "DRC_SUBLETTING_C02",
+                            "DRC_SUBLETTING_C03",
+                            "DRC_SUBLETTING_C04",
+                            "DRC_SUBLETTING_C06"
+                          ],
+                          "reason": "The independent opinion supplying the detailed interpretive rules does not establish its decision date or exact historical availability at the earlier proceedings described in this case. That uncertainty remains with the opinion-derived disposition tests. It does not negate the express Delhi section 14(1)(b) subject matter, and the proceedings at the High Court stage do not independently require a separate substantive version of each test. No determination is made about whether the earlier or later arrangements satisfy any disposition route.",
+                          "source_refs": [
+                            {
+                              "source_id": "IK-489898:L48:restored-v2",
+                              "quote": "Learned Arc, however, held that since the tenancy by these persons as sub-tenants was violative of Clause (b)"
+                            },
+                            {
+                              "source_id": "IK-190902:L109",
+                              "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                            },
+                            {
+                              "source_id": "IK-190902:L110",
+                              "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant"
+                            },
+                            {
+                              "source_id": "IK-190902:L112",
+                              "quote": "The divestment or abandonment of the right to possession is necessary"
+                            }
+                          ]
+                        },
+                        "trace": [
+                          "DRC_SUBLETTING_C06"
+                        ]
+                      }
+                    ],
+                    "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              },
+              {
+                "status": "UNRESOLVED",
+                "reason": {
+                  "kind": "BINDING",
+                  "reason": "The single allegation connects time, conduct, premises and consent, and the restored parent identifies Onkar Nath and the building. The shared claimant identifier E1 does not independently identify an individual subtenant or demonstrate continuity with the earlier occupation account.",
+                  "affected_tests": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "trace": [
+                  "DRC_SUBLETTING_C05"
+                ]
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          }
+        }
+      ],
+      "reason": "Existential support uses a complete bound expression; all enumerated bindings refuted does not prove exhaustive case absence.",
+      "burden_failure_inferred": false
+    }
+  ],
+  "new_claims": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "status": "UNRESOLVED",
+      "reason": "LEGACY_WITNESS_OR_BRANCH_DETAIL_UNAVAILABLE; no invented sublabels"
+    }
+  ],
+  "legal_structure": {
+    "template_id": "DRC_SUBLETTING_GIVEN_RULE_V2",
+    "family": "DRC_SUBLETTING",
+    "scope": "Delhi, India; s14(1)(b) of the statute identified in the proposed framing as the Delhi Rent Control Act, 1958. Reusable research structure limited to the supplied statutory excerpt and supplied interpretive opinion excerpts; the quoted law text does not independently establish enactment-year, amendment/version, or decision-date metadata.",
+    "coverage_limits": [
+      "Retrospective model-proposed decomposition only; no case-specific answer or legal advice.",
+      "All supplied law records are marked PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; this does not prove prospective historical availability.",
+      "The quoted law text does not independently state the statute's enactment year, amendment/version date, or the decision date of document 190902; those metadata are not established by the supplied law excerpts.",
+      "No burden allocation, proof standard, burden shift, evidentiary presumption, or additional consent doctrine is supplied.",
+      "No separate affirmative defense is supplied; retained legal possession and concurrent use are only qualifications to the parting-with-possession route.",
+      "Compatibility with other statutes, jurisdictions, procedural stages, fact patterns, or later authorities is not presumed.",
+      "Expressions organize source propositions but do not make open-text legal judgments self-executing booleans.",
+      "Support for any one test proposition does not itself establish eviction; the full claim expression and identity bindings must be satisfied."
+    ],
+    "claims": [
+      {
+        "id": "DRC_SUBLETTING_CLAIM_01",
+        "text": "Section 14(1)(b) ground: on or after 9 June 1952, the tenant sub-let, assigned, or otherwise parted with possession of the whole or any part of the premises without the landlord's written consent.",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;"
+          }
+        ],
+        "source_status": "STATUTE",
+        "expression": {
+          "op": "AND",
+          "args": [
+            {
+              "op": "REF",
+              "id": "DRC_SUBLETTING_C01",
+              "source_refs": [
+                {
+                  "source_id": "LAW:S02:DRC14:1b",
+                  "quote": "on or after the 9th day of June, 1952"
+                }
+              ],
+              "status": "SOURCE_EXPLICIT"
+            },
+            {
+              "op": "REF",
+              "id": "DRC_SUBLETTING_C07",
+              "source_refs": [
+                {
+                  "source_id": "LAW:S02:DRC14:1b",
+                  "quote": "the whole or any part of the premises"
+                }
+              ],
+              "status": "SOURCE_EXPLICIT"
+            },
+            {
+              "op": "OR",
+              "args": [
+                {
+                  "op": "REF",
+                  "id": "DRC_SUBLETTING_C02",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-190902:L110",
+                      "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet."
+                    }
+                  ],
+                  "status": "SOURCE_EXPLICIT"
+                },
+                {
+                  "op": "REF",
+                  "id": "DRC_SUBLETTING_C03",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-190902:L110",
+                      "quote": "In assignment the tenant has to divest himself of all the rights that he has as a tenant."
+                    }
+                  ],
+                  "status": "SOURCE_EXPLICIT"
+                },
+                {
+                  "op": "AND",
+                  "args": [
+                    {
+                      "op": "REF",
+                      "id": "DRC_SUBLETTING_C04",
+                      "source_refs": [
+                        {
+                          "source_id": "IK-190902:L111",
+                          "quote": "\"parting with possession\" must have been by the tenant."
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+                        }
+                      ],
+                      "status": "SOURCE_EXPLICIT"
+                    },
+                    {
+                      "op": "NOT",
+                      "arg": {
+                        "op": "REF",
+                        "id": "DRC_SUBLETTING_C06",
+                        "source_refs": [
+                          {
+                            "source_id": "IK-190902:L107",
+                            "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+                          },
+                          {
+                            "source_id": "IK-190902:L112",
+                            "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+                          }
+                        ],
+                        "status": "SOURCE_EXPLICIT"
+                      },
+                      "source_refs": [
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+                        },
+                        {
+                          "source_id": "IK-190902:L107",
+                          "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+                        },
+                        {
+                          "source_id": "IK-190902:L112",
+                          "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+                        }
+                      ],
+                      "status": "RESEARCHER_TRANSLATION"
+                    }
+                  ],
+                  "source_refs": [
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+                    },
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+                    },
+                    {
+                      "source_id": "IK-190902:L107",
+                      "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+                    },
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+                    }
+                  ],
+                  "status": "RESEARCHER_TRANSLATION"
+                }
+              ],
+              "source_refs": [
+                {
+                  "source_id": "LAW:S02:DRC14:1b",
+                  "quote": "sub-let, assigned or otherwise parted with the possession"
+                },
+                {
+                  "source_id": "IK-190902:L109",
+                  "quote": "These three expressions deal with different concepts and apply to different circumstances."
+                }
+              ],
+              "status": "RESEARCHER_TRANSLATION"
+            },
+            {
+              "op": "REF",
+              "id": "DRC_SUBLETTING_C05",
+              "source_refs": [
+                {
+                  "source_id": "LAW:S02:DRC14:1b",
+                  "quote": "without obtaining the consent in writing of the landlord;"
+                }
+              ],
+              "status": "SOURCE_EXPLICIT"
+            }
+          ],
+          "source_refs": [
+            {
+              "source_id": "LAW:S02:DRC14:1b",
+              "quote": "that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;"
+            },
+            {
+              "source_id": "IK-190902:L109",
+              "quote": "These three expressions deal with different concepts and apply to different circumstances."
+            }
+          ],
+          "status": "RESEARCHER_TRANSLATION"
+        }
+      }
+    ],
+    "elements": [
+      {
+        "id": "DRC_SUBLETTING_E01",
+        "text": "Temporal requirement: the relevant disposition occurred on or after 9 June 1952.",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "on or after the 9th day of June, 1952"
+          }
+        ],
+        "source_status": "RESEARCHER_TRANSLATION",
+        "binding_requirements": [
+          "The date must concern the same disposition transaction or arrangement used for the disposition element."
+        ],
+        "expression": {
+          "op": "REF",
+          "id": "DRC_SUBLETTING_C01",
+          "source_refs": [
+            {
+              "source_id": "LAW:S02:DRC14:1b",
+              "quote": "on or after the 9th day of June, 1952"
+            }
+          ],
+          "status": "SOURCE_EXPLICIT"
+        }
+      },
+      {
+        "id": "DRC_SUBLETTING_E02",
+        "text": "Disposition requirement: the tenant's conduct fits subletting, assignment, or otherwise parting with possession, with the retained-possession qualification applied to the third route.",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "sub-let, assigned or otherwise parted with the possession"
+          },
+          {
+            "source_id": "IK-190902:L109",
+            "quote": "These three expressions deal with different concepts and apply to different circumstances."
+          },
+          {
+            "source_id": "IK-190902:L110",
+            "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet."
+          },
+          {
+            "source_id": "IK-190902:L110",
+            "quote": "In assignment the tenant has to divest himself of all the rights that he has as a tenant."
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+          },
+          {
+            "source_id": "IK-190902:L107",
+            "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+          }
+        ],
+        "source_status": "RESEARCHER_TRANSLATION",
+        "binding_requirements": [
+          "Tests combined for a selected route must concern the same tenant, relevant other person, arrangement, and whole or part of the premises.",
+          "For subletting, the relationship, transfer of interest, rent, and right to possession must concern the same purported subtenancy.",
+          "For parting with possession, divestment and any retained legal possession or concurrent use must concern the same arrangement and same part of the premises."
+        ],
+        "expression": {
+          "op": "OR",
+          "args": [
+            {
+              "op": "REF",
+              "id": "DRC_SUBLETTING_C02",
+              "source_refs": [
+                {
+                  "source_id": "IK-190902:L110",
+                  "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet."
+                }
+              ],
+              "status": "SOURCE_EXPLICIT"
+            },
+            {
+              "op": "REF",
+              "id": "DRC_SUBLETTING_C03",
+              "source_refs": [
+                {
+                  "source_id": "IK-190902:L110",
+                  "quote": "In assignment the tenant has to divest himself of all the rights that he has as a tenant."
+                }
+              ],
+              "status": "SOURCE_EXPLICIT"
+            },
+            {
+              "op": "AND",
+              "args": [
+                {
+                  "op": "REF",
+                  "id": "DRC_SUBLETTING_C04",
+                  "source_refs": [
+                    {
+                      "source_id": "IK-190902:L111",
+                      "quote": "\"parting with possession\" must have been by the tenant."
+                    },
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+                    },
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+                    }
+                  ],
+                  "status": "SOURCE_EXPLICIT"
+                },
+                {
+                  "op": "NOT",
+                  "arg": {
+                    "op": "REF",
+                    "id": "DRC_SUBLETTING_C06",
+                    "source_refs": [
+                      {
+                        "source_id": "IK-190902:L107",
+                        "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+                      },
+                      {
+                        "source_id": "IK-190902:L112",
+                        "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+                      }
+                    ],
+                    "status": "SOURCE_EXPLICIT"
+                  },
+                  "source_refs": [
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+                    },
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+                    },
+                    {
+                      "source_id": "IK-190902:L107",
+                      "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+                    },
+                    {
+                      "source_id": "IK-190902:L112",
+                      "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+                    }
+                  ],
+                  "status": "RESEARCHER_TRANSLATION"
+                }
+              ],
+              "source_refs": [
+                {
+                  "source_id": "IK-190902:L112",
+                  "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+                },
+                {
+                  "source_id": "IK-190902:L112",
+                  "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+                },
+                {
+                  "source_id": "IK-190902:L107",
+                  "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+                },
+                {
+                  "source_id": "IK-190902:L112",
+                  "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+                }
+              ],
+              "status": "RESEARCHER_TRANSLATION"
+            }
+          ],
+          "source_refs": [
+            {
+              "source_id": "LAW:S02:DRC14:1b",
+              "quote": "sub-let, assigned or otherwise parted with the possession"
+            },
+            {
+              "source_id": "IK-190902:L109",
+              "quote": "These three expressions deal with different concepts and apply to different circumstances."
+            }
+          ],
+          "status": "RESEARCHER_TRANSLATION"
+        }
+      },
+      {
+        "id": "DRC_SUBLETTING_E03",
+        "text": "Premises-scope requirement: the disposition concerns the whole or any part of the premises.",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "the whole or any part of the premises"
+          }
+        ],
+        "source_status": "RESEARCHER_TRANSLATION",
+        "binding_requirements": [
+          "The premises or part must be the same premises or part used for the selected disposition route and written-consent inquiry."
+        ],
+        "expression": {
+          "op": "REF",
+          "id": "DRC_SUBLETTING_C07",
+          "source_refs": [
+            {
+              "source_id": "LAW:S02:DRC14:1b",
+              "quote": "the whole or any part of the premises"
+            }
+          ],
+          "status": "SOURCE_EXPLICIT"
+        }
+      },
+      {
+        "id": "DRC_SUBLETTING_E04",
+        "text": "Written-consent requirement: the tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "without obtaining the consent in writing of the landlord;"
+          }
+        ],
+        "source_status": "RESEARCHER_TRANSLATION",
+        "binding_requirements": [
+          "The consent inquiry must concern the same disposition and the same whole or part of the premises as the other elements."
+        ],
+        "expression": {
+          "op": "REF",
+          "id": "DRC_SUBLETTING_C05",
+          "source_refs": [
+            {
+              "source_id": "LAW:S02:DRC14:1b",
+              "quote": "without obtaining the consent in writing of the landlord;"
+            }
+          ],
+          "status": "SOURCE_EXPLICIT"
+        }
+      }
+    ],
+    "tests": [
+      {
+        "id": "DRC_SUBLETTING_C01",
+        "element_id": "DRC_SUBLETTING_E01",
+        "text": "The relevant subletting, assignment, or parting with possession occurred on or after 9 June 1952.",
+        "polarity": "POSITIVE",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "on or after the 9th day of June, 1952"
+          }
+        ],
+        "source_status": "STATUTE",
+        "interpretation_limits": [
+          "The supplied materials do not state how the relevant date is proved or how continuing arrangements are dated."
+        ]
+      },
+      {
+        "id": "DRC_SUBLETTING_C02",
+        "element_id": "DRC_SUBLETTING_E02",
+        "text": "For subletting, a landlord-and-tenant relationship exists between tenant and sub-tenant and the incidents of letting or tenancy identified by the supplied opinion are present: transfer of an interest in the estate, payment of rent, and the right to possession as against the tenant in respect of the premises sublet.",
+        "polarity": "POSITIVE",
+        "source_refs": [
+          {
+            "source_id": "IK-190902:L110",
+            "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet."
+          }
+        ],
+        "source_status": "COURT_ADOPTED",
+        "interpretation_limits": [
+          "No additional supplied rule explains how those incidents are proved or qualified."
+        ]
+      },
+      {
+        "id": "DRC_SUBLETTING_C03",
+        "element_id": "DRC_SUBLETTING_E02",
+        "text": "For assignment, the tenant divests himself of all rights that he has as a tenant.",
+        "polarity": "POSITIVE",
+        "source_refs": [
+          {
+            "source_id": "IK-190902:L110",
+            "quote": "In assignment the tenant has to divest himself of all the rights that he has as a tenant."
+          }
+        ],
+        "source_status": "COURT_ADOPTED",
+        "interpretation_limits": [
+          "The supplied law does not further define the mechanics, duration, or interaction of 'all the rights' with a disposition of part of the premises."
+        ]
+      },
+      {
+        "id": "DRC_SUBLETTING_C04",
+        "element_id": "DRC_SUBLETTING_E02",
+        "text": "For parting with possession, possession is vested by the tenant in another person by divesting the tenant of physical possession and the right to possession; divestment or abandonment of the right to possession is required.",
+        "polarity": "POSITIVE",
+        "source_refs": [
+          {
+            "source_id": "IK-190902:L111",
+            "quote": "\"parting with possession\" must have been by the tenant."
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+          }
+        ],
+        "source_status": "COURT_ADOPTED",
+        "interpretation_limits": [
+          "In a license setting, the supplied opinion also states that the tenant is not said to part with possession unless the arrangement wholly ousts the tenant from legal possession of that part.",
+          "The supplied law does not state whether that license formulation is exhaustive for every possible arrangement."
+        ]
+      },
+      {
+        "id": "DRC_SUBLETTING_C05",
+        "element_id": "DRC_SUBLETTING_E04",
+        "text": "The tenant did not obtain the landlord's consent in writing for the relevant disposition.",
+        "polarity": "POSITIVE",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "without obtaining the consent in writing of the landlord;"
+          }
+        ],
+        "source_status": "STATUTE",
+        "interpretation_limits": [
+          "The supplied materials do not allocate the burden concerning written consent or define its form, timing, scope, waiver, estoppel, or implied variants."
+        ]
+      },
+      {
+        "id": "DRC_SUBLETTING_C06",
+        "element_id": "DRC_SUBLETTING_E02",
+        "text": "For the parting-with-possession route, the tenant retains legal possession of the relevant part where there is concurrent user or mere use by others without wholly ousting the tenant from legal possession of that part.",
+        "polarity": "NEGATIVE",
+        "source_refs": [
+          {
+            "source_id": "IK-190902:L107",
+            "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+          },
+          {
+            "source_id": "IK-190902:L107",
+            "quote": "A tenant cannot be said to part with the possession of any part of the premises unless his agreement with the license wholly ousts him from the legal possession of that part."
+          }
+        ],
+        "source_status": "COURT_ADOPTED",
+        "interpretation_limits": [
+          "This is a defeating qualification only for the parting-with-possession route; the supplied material does not say it independently resolves subletting or assignment.",
+          "The supplied material does not define every factual circumstance in which legal possession is retained."
+        ]
+      },
+      {
+        "id": "DRC_SUBLETTING_C07",
+        "element_id": "DRC_SUBLETTING_E03",
+        "text": "The relevant disposition concerns the whole or any part of the premises.",
+        "polarity": "POSITIVE",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "the whole or any part of the premises"
+          }
+        ],
+        "source_status": "STATUTE",
+        "interpretation_limits": [
+          "The supplied materials do not define how a relevant part of the premises is delineated or proved."
+        ]
+      }
+    ],
+    "burdens": [
+      {
+        "id": "DRC_SUBLETTING_B01",
+        "proposition": "Allocation and standard of proof for the overall s14(1)(b) ground.",
+        "bearer": null,
+        "standard": null,
+        "shift_trigger": null,
+        "source_refs": [],
+        "coverage_status": "NOT_COVERED"
+      },
+      {
+        "id": "DRC_SUBLETTING_B02",
+        "proposition": "Allocation, standard, or burden shift concerning written consent or any disposition route.",
+        "bearer": null,
+        "standard": null,
+        "shift_trigger": null,
+        "source_refs": [],
+        "coverage_status": "NOT_COVERED"
+      }
+    ],
+    "rules": [
+      {
+        "id": "DRC_SUBLETTING_R01",
+        "text": "Notwithstanding contrary law or contract, the supplied statute states a baseline against recovery of possession, with the Controller able to order recovery on a prescribed application and specified grounds only.",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "Notwithstanding anything to the contrary contained in any other law or contract, no order or decree for the recovery of possession of any premises shall be made by any court or Controller in favour of the landlord against a tenant"
+          },
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "the Controller may, on an application made to him in the prescribed manner, make an order for the recovery of possession of the premises on one or more of the following grounds only"
+          }
+        ],
+        "source_status": "STATUTE"
+      },
+      {
+        "id": "DRC_SUBLETTING_R02",
+        "text": "A supplied s14(1)(b) ground is post-9-June-1952 subletting, assignment, or other parting with possession of the whole or any part of the premises without the landlord's written consent.",
+        "source_refs": [
+          {
+            "source_id": "LAW:S02:DRC14:1b",
+            "quote": "that the tenant has, on or after the 9th day of June, 1952, sub-let, assigned or otherwise parted with the possession of the whole or any part of the premises without obtaining the consent in writing of the landlord;"
+          }
+        ],
+        "source_status": "STATUTE"
+      },
+      {
+        "id": "DRC_SUBLETTING_R03",
+        "text": "Subletting, assignment, and otherwise parting with possession are distinct concepts applying to different circumstances.",
+        "source_refs": [
+          {
+            "source_id": "IK-190902:L109",
+            "quote": "These three expressions deal with different concepts and apply to different circumstances."
+          }
+        ],
+        "source_status": "COURT_ADOPTED"
+      },
+      {
+        "id": "DRC_SUBLETTING_R04",
+        "text": "Subletting requires the landlord-and-tenant relationship and tenancy incidents identified in the supplied opinion.",
+        "source_refs": [
+          {
+            "source_id": "IK-190902:L110",
+            "quote": "In subletting there exists the relationship of landlord and tenant as between the tenant and his sub-tenant and all the incidents of letting or tenancy have to be found, namely the transfer of an interest in the estate payment of rent, and the right to possession as against the tenant in respect of the Premises sublet."
+          }
+        ],
+        "source_status": "COURT_ADOPTED"
+      },
+      {
+        "id": "DRC_SUBLETTING_R05",
+        "text": "Assignment requires the tenant to divest himself of all rights held as tenant.",
+        "source_refs": [
+          {
+            "source_id": "IK-190902:L110",
+            "quote": "In assignment the tenant has to divest himself of all the rights that he has as a tenant."
+          }
+        ],
+        "source_status": "COURT_ADOPTED"
+      },
+      {
+        "id": "DRC_SUBLETTING_R06",
+        "text": "Parting with possession requires tenant-caused vesting of possession in another with divestment or abandonment of the tenant's right to possession; mere or concurrent use while the tenant retains legal possession does not itself amount to parting.",
+        "source_refs": [
+          {
+            "source_id": "IK-190902:L111",
+            "quote": "\"parting with possession\" must have been by the tenant."
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "there must be vesting of possession by the tenant in another person by divesting himself not only of physical possession but also of the right to possession"
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "The divestment or abandonment of the right to possession is necessary in order to invoke the clause of parting with possession"
+          },
+          {
+            "source_id": "IK-190902:L107",
+            "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+          },
+          {
+            "source_id": "IK-190902:L112",
+            "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+          }
+        ],
+        "source_status": "COURT_ADOPTED"
+      }
+    ]
+  },
+  "new_model_calls": 0,
+  "probabilities_changed": false
+}

@@ -1,0 +1,35 @@
+{
+  "version": "aligned-v1",
+  "task": "material-supported-analysis",
+  "historical_labels": "separate auxiliary only",
+  "web_limit": 60,
+  "fit_limit": 36,
+  "new_target_cases": 0,
+  "sealed_access": false,
+  "reference_independent_of_proposal": true,
+  "seed": 20261007,
+  "anco": {
+    "formula": "x=abs_degree(A)^-1 A y; y=abs_degree(A.T)^-1 A.T x",
+    "initialization": "ones",
+    "max_iterations": 1000,
+    "tolerance": 1e-08
+  },
+  "training": {
+    "hidden": 64,
+    "bases": 4,
+    "layers": 2,
+    "encoder": "existing fixed E5",
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.1,
+    "epochs": 100,
+    "patience": 10,
+    "seeds": [
+      20261007,
+      20261008,
+      20261009
+    ],
+    "max_folds": 3
+  },
+  "stop": "one frozen comparison then source review; no extra tuning; no publish"
+}

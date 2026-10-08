@@ -1,0 +1,359 @@
+{
+  "type": "object",
+  "properties": {
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "DRC_SUBLETTING_CLAIM_01"
+              ]
+            },
+            "maxItems": 2
+          },
+          "objects": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-188721101:L72:span1",
+                "IK-188721101:L73:span2",
+                "IK-188721101:L74:span3",
+                "IK-188721101:L75:span4",
+                "IK-188721101:L80:span5",
+                "IK-188721101:L81:span6",
+                "IK-188721101:L81:span7",
+                "IK-188721101:L83:span8",
+                "IK-188721101:L84:span9",
+                "IK-188721101:L72:restored-v2",
+                "IK-188721101:L73:restored-v2",
+                "IK-188721101:L74:restored-v2",
+                "IK-188721101:L75:restored-v2",
+                "IK-188721101:L80:restored-v2",
+                "IK-188721101:L81:restored-v2",
+                "IK-188721101:L83:restored-v2",
+                "IK-188721101:L84:restored-v2",
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "id",
+          "claim_ids",
+          "objects",
+          "event",
+          "stage",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 4
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "binding_id": {
+            "type": "string"
+          },
+          "record": {
+            "type": "string"
+          },
+          "statement_status": {
+            "type": "string",
+            "enum": [
+              "PARTY_CLAIM",
+              "DENIAL",
+              "ADMISSION",
+              "TESTIMONY",
+              "PRIOR_COURT_FINDING",
+              "RECORDED_DOCUMENT",
+              "UNKNOWN"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-188721101:L72:span1",
+                "IK-188721101:L73:span2",
+                "IK-188721101:L74:span3",
+                "IK-188721101:L75:span4",
+                "IK-188721101:L80:span5",
+                "IK-188721101:L81:span6",
+                "IK-188721101:L81:span7",
+                "IK-188721101:L83:span8",
+                "IK-188721101:L84:span9",
+                "IK-188721101:L72:restored-v2",
+                "IK-188721101:L73:restored-v2",
+                "IK-188721101:L74:restored-v2",
+                "IK-188721101:L75:restored-v2",
+                "IK-188721101:L80:restored-v2",
+                "IK-188721101:L81:restored-v2",
+                "IK-188721101:L83:restored-v2",
+                "IK-188721101:L84:restored-v2",
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          },
+          "uses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "condition_address": {
+                  "type": "string",
+                  "enum": [
+                    "ADDR-001",
+                    "ADDR-002",
+                    "ADDR-003",
+                    "ADDR-004",
+                    "ADDR-005",
+                    "ADDR-006",
+                    "ADDR-007"
+                  ]
+                },
+                "direction": {
+                  "type": "string",
+                  "enum": [
+                    "SUPPORT",
+                    "OPPOSE",
+                    "UNKNOWN"
+                  ]
+                },
+                "use": {
+                  "type": "string",
+                  "enum": [
+                    "CONDITION_INFERENCE",
+                    "RECORD_EXISTENCE",
+                    "PROVEN_FACT",
+                    "TARGET_ACCEPTANCE"
+                  ]
+                }
+              },
+              "required": [
+                "condition_address",
+                "direction",
+                "use"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "id",
+          "binding_id",
+          "record",
+          "statement_status",
+          "refs",
+          "uses"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 10
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "binding_id": {
+            "type": "string"
+          },
+          "condition_address": {
+            "type": "string",
+            "enum": [
+              "ADDR-001",
+              "ADDR-002",
+              "ADDR-003",
+              "ADDR-004",
+              "ADDR-005",
+              "ADDR-006",
+              "ADDR-007"
+            ]
+          },
+          "use": {
+            "type": "string",
+            "enum": [
+              "CONDITION_INFERENCE",
+              "RECORD_EXISTENCE",
+              "PROVEN_FACT",
+              "TARGET_ACCEPTANCE"
+            ]
+          },
+          "effect": {
+            "type": "string",
+            "enum": [
+              "USE_BLOCK",
+              "PROPOSITION_BLOCK",
+              "NOTE",
+              "SCOPE_UNMAPPED"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-188721101:L72:span1",
+                "IK-188721101:L73:span2",
+                "IK-188721101:L74:span3",
+                "IK-188721101:L75:span4",
+                "IK-188721101:L80:span5",
+                "IK-188721101:L81:span6",
+                "IK-188721101:L81:span7",
+                "IK-188721101:L83:span8",
+                "IK-188721101:L84:span9",
+                "IK-188721101:L72:restored-v2",
+                "IK-188721101:L73:restored-v2",
+                "IK-188721101:L74:restored-v2",
+                "IK-188721101:L75:restored-v2",
+                "IK-188721101:L80:restored-v2",
+                "IK-188721101:L81:restored-v2",
+                "IK-188721101:L83:restored-v2",
+                "IK-188721101:L84:restored-v2",
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "id",
+          "evidence_ids",
+          "binding_id",
+          "condition_address",
+          "use",
+          "effect",
+          "reason",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 8
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "binding_id": {
+            "type": "string"
+          },
+          "condition_address": {
+            "type": "string",
+            "enum": [
+              "ADDR-001",
+              "ADDR-002",
+              "ADDR-003",
+              "ADDR-004",
+              "ADDR-005",
+              "ADDR-006",
+              "ADDR-007"
+            ]
+          },
+          "assessment": {
+            "type": "string",
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNRESOLVED",
+              "UNSUPPORTED"
+            ]
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "gap": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "binding_id",
+          "condition_address",
+          "assessment",
+          "evidence_ids",
+          "gap"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 24
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4
+    }
+  },
+  "required": [
+    "bindings",
+    "evidence",
+    "limitations",
+    "conditions",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,90 @@
+{
+  "case_id": "112400",
+  "method": "B",
+  "run_status": "OK",
+  "prediction": {
+    "answers": [
+      {
+        "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+        "prediction": "PREDICT_DENY",
+        "conditions": [
+          {
+            "test_id": "DRC_BONA_FIDE-C01",
+            "binding": "Premises let for residential purposes",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L124:restored-v2",
+              "IK-112400:L127:restored-v2"
+            ],
+            "explanation": "The record establishes the premises were let for residential purposes, satisfying the first element of the claim."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C02",
+            "binding": "Premises required bona fide by landlord",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "REFUTED",
+            "refs": [
+              "IK-112400:L130:span6",
+              "IK-112400:L127:restored-v2"
+            ],
+            "explanation": "The Tribunal explicitly found the requirement was not bona fide due to timing, and the tenant admitted this finding, negating the condition."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C03",
+            "binding": "Qualifying occupation route (Self/Family/Dependent)",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L124:restored-v2",
+              "IK-112400:L127:restored-v2"
+            ],
+            "explanation": "The record confirms the landlord occupied the premises for himself and his family, satisfying the self-occupation and family-occupation branches."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C04",
+            "binding": "Landlord ownership",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-112400:L124:restored-v2"
+            ],
+            "explanation": "The record states the respondent was the owner of the entire premises, satisfying the ownership requirement for the landlord branch."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C05",
+            "binding": "Person for whose benefit",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "UNRESOLVED",
+            "refs": [],
+            "explanation": "No evidence is supplied regarding premises held for a third party's benefit; however, this branch is not required as the landlord/self branch is established."
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C06",
+            "binding": "No other reasonably suitable accommodation",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "REFUTED",
+            "refs": [
+              "IK-112400:L139:restored-v2",
+              "IK-112400:L140:restored-v2"
+            ],
+            "explanation": "The Tribunal found the portion in the landlord's occupation was not reasonably sufficient for his family, and the premises in the respondent's occupation were not reasonably suitable for his residence."
+          }
+        ],
+        "opposition": {
+          "record": "The claim relies on the landlord's bona fide requirement and lack of alternative accommodation.",
+          "refs": [
+            "IK-112400:L124:restored-v2"
+          ],
+          "response": "While the landlord claimed bona fide requirement and lack of alternative accommodation, the Tribunal's findings explicitly negate both the bona fide nature of the requirement and the suitability of alternative accommodation."
+        },
+        "gaps": [
+          "The 'person for whose benefit' branch (C05) lacks evidentiary support, but this does not affect the outcome as the landlord/self branch is sufficient for the claim structure."
+        ],
+        "reason": "The claim requires all elements to be supported. While residential letting and qualifying occupation routes are supported, the bona fide requirement and absence of alternative accommodation are refuted by prior court findings. Since the claim uses an AND operator for the main ground, the refutation of any element leads to denial.",
+        "intermediate_correction": "None; the intermediate material provides the necessary prior findings to resolve the bona fide and accommodation elements."
+      }
+    ]
+  },
+  "raw_run": "run.json"
+}

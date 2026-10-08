@@ -68,7 +68,16 @@
     "outputs/rgcn-dev-contract-repair-10",
     "outputs/rgcn-sbc-finalization-11",
     "outputs/gnn-irac-feasibility-01",
-    "outputs/gnn-irac-feasibility-02"
+    "outputs/gnn-irac-feasibility-02",
+    "outputs/gnn-irac-native-data-01",
+    "outputs/gnn-irac-application-development-01",
+    "outputs/gnn-irac-aligned-v1",
+    "outputs/gnn-irac-aligned-v2",
+    "outputs/irac-hybrid-decision-v3",
+    "outputs/irac-pipeline-repair-v4",
+    "outputs/irac-contract-repair-v5",
+    "outputs/irac-semantic-interface-v6",
+    "outputs/irac-web-crossmodel-v7"
   ],
   "exclude_globs": [
     "*/__pycache__/*",
@@ -142,7 +151,23 @@
     "outputs/gnn-irac-feasibility-01/group-repo/**",
     "outputs/gnn-irac-feasibility-02/browser/**",
     "outputs/gnn-irac-feasibility-02/web/*.snapshot.txt",
-    "outputs/gnn-irac-feasibility-02/web/*.response.txt"
+    "outputs/gnn-irac-feasibility-02/web/*.response.txt",
+    "outputs/gnn-irac-native-data-01/browser/**",
+    "outputs/gnn-irac-native-data-01/web/*.snapshot.txt",
+    "outputs/gnn-irac-native-data-01/web/*.response.txt",
+    "outputs/gnn-irac-application-development-01/browser/**",
+    "outputs/gnn-irac-application-development-01/web/*.snapshot.txt",
+    "outputs/gnn-irac-application-development-01/web/*.response.txt",
+    "outputs/gnn-irac-application-development-01/weights/**",
+    "outputs/gnn-irac-application-development-01/text-cache/*.npz",
+    "outputs/gnn-irac-application-development-01/engineering/*.npz",
+    "outputs/gnn-irac-aligned-v1/browser/*",
+    "outputs/gnn-irac-aligned-v1/weights/*",
+    "outputs/gnn-irac-aligned-v1/text-cache/*.npz",
+    "outputs/gnn-irac-aligned-v2/browser/*",
+    "outputs/gnn-irac-aligned-v2/weights/*",
+    "outputs/gnn-irac-aligned-v2/text-cache/*.npz",
+    "outputs/irac-web-crossmodel-v7/browser/**"
   ],
   "artifact_suffixes": [
     ".py",
@@ -367,7 +392,80 @@
     "scripts/irac02_review_rules.py",
     "scripts/irac02_rules.py",
     "scripts/irac02_stage.py",
-    "tests/test_irac_gate_v2.py"
+    "tests/test_irac_gate_v2.py",
+    "legal_bench/rules_verdict_v1/irac_native_schema_v1.py",
+    "legal_bench/rules_verdict_v1/irac_graph_builder_v1.py",
+    "scripts/irac_native01_prepare.py",
+    "scripts/irac_native01_sources.py",
+    "scripts/irac_native01_screen.py",
+    "scripts/irac_native01_import_screen.py",
+    "scripts/irac_native_graph.py",
+    "tests/test_irac_native_v1.py",
+    "scripts/irac_native01_finish.py",
+    "legal_bench/irac_application/rule_templates.py",
+    "legal_bench/irac_application/target_adapter.py",
+    "legal_bench/irac_application/data_tasks.py",
+    "legal_bench/irac_application/corpus_inventory.py",
+    "legal_bench/irac_application/__init__.py",
+    "legal_bench/irac_application/artifact_reader.py",
+    "legal_bench/irac_application/application_models.py",
+    "legal_bench/irac_application/rendered_quotes.py",
+    "legal_bench/irac_application/graph_builder.py",
+    "legal_bench/irac_application/text_cache.py",
+    "legal_bench/irac_application/train_eval.py",
+    "legal_bench/irac_application/input_partition.py",
+    "scripts/irac_application_study.py",
+    "scripts/irac_application_smoke.py",
+    "scripts/report_irac_application.py",
+    "tests/test_irac_application.py",
+    "legal_bench/irac_application/aligned_v2.py",
+    "legal_bench/irac_application/aligned_v2_train.py",
+    "legal_bench/irac_application/aligned_v2_models.py",
+    "legal_bench/irac_application/aligned_v2_split.py",
+    "legal_bench/irac_application/aligned_v2_runtime.py",
+    "scripts/irac_aligned_v2_review_tasks.py",
+    "scripts/irac_aligned_v2_encode.py",
+    "scripts/irac_aligned_v2_admit.py",
+    "scripts/irac_aligned_v2_train.py",
+    "scripts/irac_aligned_v2_data.py",
+    "scripts/irac_aligned_v2_prepare.py",
+    "scripts/irac_aligned_v2_freeze.py",
+    "scripts/report_irac_aligned_v2.py",
+    "tests/test_irac_aligned_v2.py",
+    "tests/test_irac_aligned_v2_mlx.py",
+    "tests/test_irac_bridge_current.py",
+    "legal_bench/irac_application/hybrid_v3.py",
+    "legal_bench/irac_application/hybrid_v3_tasks.py",
+    "scripts/irac_hybrid_v3.py",
+    "scripts/report_irac_hybrid_v3.py",
+    "tests/test_irac_hybrid_v3.py",
+    "legal_bench/irac_application/pipeline_v4.py",
+    "legal_bench/irac_application/pipeline_v4_tasks.py",
+    "scripts/irac_pipeline_v4.py",
+    "scripts/irac_pipeline_v4_tokenizer.py",
+    "scripts/report_irac_pipeline_v4.py",
+    "tests/test_irac_pipeline_v4.py",
+    "legal_bench/irac_application/contract_v5.py",
+    "legal_bench/irac_application/contract_v5_tasks.py",
+    "scripts/irac_contract_v5.py",
+    "scripts/irac_contract_v5_tokenizer.py",
+    "tests/test_irac_contract_v5.py",
+    "scripts/irac_contract_v5_run.py",
+    "tests/test_irac_contract_v5_run.py",
+    "scripts/report_irac_contract_v5.py",
+    "scripts/irac_semantic_v6.py",
+    "scripts/irac_semantic_v6_run.py",
+    "scripts/irac_semantic_v6_acceptance.py",
+    "scripts/irac_semantic_v6_tokenizer.py",
+    "legal_bench/irac_application/semantic_v6.py",
+    "legal_bench/irac_application/semantic_v6_tasks.py",
+    "tests/test_irac_semantic_v6.py",
+    "legal_bench/irac_application/aligned_logic.py",
+    "scripts/report_irac_semantic_v6.py",
+    "scripts/review_irac_semantic_v6.py",
+    "scripts/finalize_irac_semantic_v6_docs.py",
+    "scripts/irac_web_v7.py",
+    "scripts/report_irac_web_v7.py"
   ],
   "development_follow_up": {
     "latest_run": "outputs/local-qwen-pattern-eval-v10",
@@ -477,6 +575,19 @@
       ],
       "training": 0,
       "no_commit_no_push": true
+    },
+    "gnn_irac_native_data_01": {
+      "title": "IRAC-native Dataset v1: bounded discovery NO_GO, input graph implemented",
+      "report": "outputs/gnn-irac-native-data-01/report-zh.txt",
+      "summary": "固定16个新候选、4次普通High筛查完成：1 SUITABLE、3模型认可BORDERLINE、12 REJECT。即使全部暂计边界案也只有4案，未达到六案construction门槛，IRAC_NATIVE_DISCOVERY_NO_GO。新input schema及target-free图builder实现，33相关测试通过；真实链/图/READY均0，未训练、未启封SEALED、未提交推送。",
+      "review_kind": "IRAC_NATIVE_DATA",
+      "candidate_count": 16,
+      "eligible_screen_upper_bound": 4,
+      "formal_READY_cases": 0,
+      "ordinary_High_calls": 4,
+      "no_training": true,
+      "stopped": true,
+      "publication": "LOCAL_ONLY_NO_COMMIT_NO_PUSH"
     }
   },
   "research_objective": {
@@ -1155,18 +1266,51 @@
   },
   "development_base_commit": "9ddc35d0a3b4b60fde11b3f669139ed38469aac3",
   "current_review": {
-    "title": "GNN-IRAC finite repair 02: NO_GO, blind bindings frozen before targets",
-    "report": "outputs/gnn-irac-feasibility-02/report-zh.txt",
-    "summary": "GNN-IRAC第二轮有限修复完成：固定8个旧TRAIN、13次普通High、语义重试0。阶段许可覆盖711项，五案132条input-only候选绑定先于target冻结；1106992的目标关系和来源隔离。最终来源审阅2案语义READY、3案REFERENCE_ONLY、3案GAP；冻结准入0/8 READY，NO_GO。14项不连续拼接引文、范围错配、目标阶段和悬空对象/跳过绑定仍保留。组内真实canonical NOT_AVAILABLE；未训练、启封SEALED、生成完整法律回答、提交或推送。",
-    "review_kind": "IRAC_DATA_REPAIR",
-    "stage_description": "Independent rule-only decomposition, universal semantic-stage grants and new input-only bindings; target reconstruction after complete blind freeze. Active address-only v2 fixed before first blind call; all original snapshots retained. Model source-review recommendations and formal gate separated. Local only.",
-    "feasibility_decision": "NO_GO",
-    "formal_READY_cases": 0,
-    "source_review_READY_cases": 2,
-    "actual_cases": 8,
-    "ordinary_High_calls": 13,
-    "no_training": true,
-    "stopped": true
+    "contract_version": 2,
+    "review_kind": "IRAC_WEB_CROSSMODEL_V7_COMPLETED",
+    "title": "IRAC V7 同接口同材料网页A/B对照",
+    "report": "outputs/irac-web-crossmodel-v7/report-zh.txt",
+    "summary": "V7六次普通High独立临时对话完成，2份P与4份最终回答均可读，零重试。网页A/B明显减少V6来源误读及遗漏；112400 B接近A，188721101 B有逐安排组织收益但未确认重要额外净收益。优先网页A、P可选；一次模型辅助来源审阅，非人工gold，旧案开发诊断。未新增法源、执行器改动、本地推理或推送。",
+    "status": "COMPLETED_SIX_WEB_CALLS_ONE_REVIEW_STOPPED_LOCAL_ONLY",
+    "links": [
+      {
+        "label": "中文报告",
+        "path": "outputs/irac-web-crossmodel-v7/report-zh.txt"
+      },
+      {
+        "label": "完整网页回答及P",
+        "path": "outputs/irac-web-crossmodel-v7/answers.md"
+      },
+      {
+        "label": "逐案比较",
+        "path": "outputs/irac-web-crossmodel-v7/case-comparison.csv"
+      },
+      {
+        "label": "集中来源审阅",
+        "path": "outputs/irac-web-crossmodel-v7/final-source-review.json"
+      },
+      {
+        "label": "允许来源审阅锚点",
+        "path": "outputs/irac-web-crossmodel-v7/review-source-anchors.json"
+      },
+      {
+        "label": "成本与对话URL",
+        "path": "outputs/irac-web-crossmodel-v7/call-costs.csv"
+      },
+      {
+        "label": "冻结配置",
+        "path": "outputs/irac-web-crossmodel-v7/freeze/config.json"
+      },
+      {
+        "label": "动态B装配",
+        "path": "outputs/irac-web-crossmodel-v7/B-assembly-validation.json"
+      },
+      {
+        "label": "历史保留",
+        "path": "outputs/irac-web-crossmodel-v7/preservation-after.json"
+      }
+    ],
+    "review_request": "只读核对V7同材料网页A/P/B及V6基线。区分整体配置改善与P额外净收益；核对原文和主要反论，不以共同DENY或JSON成功为法律正确。112400两项过度推断、本人择一路线、后续报告；188721101起租日期、工资凭证、邻居、父亲/弟弟、书面同意及原审效力。P/B C02状态分歧保留解释空间；浏览器记录本地排除。不授权追加实验、纠错重跑或发布。"
   },
   "publication_authorization": {
     "source": "Direct user request: 每次运行完要推送上去",
@@ -1196,7 +1340,10 @@
     "current_study04_hold": "Local preparation and authorized bounded comparison only; no automatic commit or push.",
     "current_rgcn05_hold": "No automatic commit or push; bounded feasibility and local package only.",
     "current_irac01_hold": "Direct user request: local feasibility artifacts and review only; no training, SEALED, automatic commit or push.",
-    "current_irac02_hold": "Direct request: bounded three-blocker repair, local prepare/manifest/verify only; no training, SEALED, legal answers, commit or push."
+    "current_irac02_hold": "Direct request: bounded three-blocker repair, local prepare/manifest/verify only; no training, SEALED, legal answers, commit or push.",
+    "current_irac_v4_hold": "Current explicit request: local prepare, manifest inspection and verify only; no commit/push, no new round.",
+    "current_irac_v5_hold": "Direct latest instruction: finish V5 bounded local delivery and stop; do not commit or push.",
+    "current_irac_web_v7_hold": "Explicit current user: local prepare/manifest/verify only; no commit/push."
   },
   "frozen_method_snapshots": {
     "outputs/local-qwen-pattern-eval-v3": {

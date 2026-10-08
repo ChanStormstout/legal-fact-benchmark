@@ -1,0 +1,319 @@
+{
+  "evaluation_role": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "review_rounds": 1,
+  "web_calls": 0,
+  "after_all_eight_calls": true,
+  "coverage": "Six full final answers and decisive proposal/check evidence, compared with all allowed source records including unquoted opposing material. No full-field annotation or inferred historical gold.",
+  "cases": {
+    "112400": {
+      "M": "NOT_PASSED",
+      "L": "NOT_PASSED",
+      "supported_parts": "原文明确租赁楼上、房东拥有整处房产并占用楼下；早期Rent Controller与Tribunal否定真实需求；发回后Tribunal于1970-05-04认定现住房不适合家庭居住。这些已提供内容应保留各自阶段。",
+      "proposal_findings": [
+        {
+          "id": "112-M1",
+          "output_locations": [
+            "P:bindings/b1,b2,b3"
+          ],
+          "source_ids": [
+            "IK-112400:L124:restored-v2",
+            "IK-112400:L139:restored-v2",
+            "IK-112400:L140:restored-v2"
+          ],
+          "judgment_zh": "同一自住请求的诉讼、家庭人数认定、居住适宜性认定被拆成三个安排。认定的阶段应保留，但不因此成为三个彼此独立的实质安排；程序没有擅自合并。"
+        },
+        {
+          "id": "112-M2",
+          "output_locations": [
+            "P:evidence/e4",
+            "P:checks b1/C02"
+          ],
+          "source_ids": [
+            "IK-112400:L127:restored-v2"
+          ],
+          "judgment_zh": "e4文本正确记载not bona fide，却以SUPPORT连接表示bona fide的ADDR-002。程序按提议与e2支持、e3反对形成冲突；它没有验证自然语言极性。"
+        },
+        {
+          "id": "112-M3",
+          "output_locations": [
+            "P:evidence/e6",
+            "P:limitations/l3"
+          ],
+          "source_ids": [
+            "IK-112400:L139:restored-v2"
+          ],
+          "judgment_zh": "家庭人数及房屋不足被连接为SUPPORT依赖关系ADDR-005。原文没有独立确认家庭成员对房东的依赖；l3只限制TARGET_ACCEPTANCE，没有改变PROVEN_FACT用途。"
+        },
+        {
+          "id": "112-M4",
+          "output_locations": [
+            "P:limitations/l2,l4",
+            "P:evidence/e7"
+          ],
+          "source_ids": [
+            "IK-112400:L137:context-v4",
+            "IK-112400:L138:context-v4",
+            "IK-112400:L139:restored-v2",
+            "IK-112400:L140:restored-v2"
+          ],
+          "judgment_zh": "提议保存了后续认定，却又从此前发回推称不存在可用认定；l4把L140的not reasonably suitable转述为not reasonably sufficient，并制造措辞不一致缺口。L140正有suitable用语。"
+        }
+      ],
+      "final_findings": [
+        {
+          "id": "112-L1",
+          "output_locations": [
+            "A:C01",
+            "B:C01",
+            "C:C01"
+          ],
+          "source_ids": [
+            "IK-112400:L123:span1",
+            "IK-112400:L124:restored-v2"
+          ],
+          "judgment_zh": "三者均声称租赁明确用于住宅；L123只说明楼层、日期、租金，L124说明房东拟自住，不等于原租约用途。C标签UNRESOLVED但理由仍虚构住宅用途已记载，仅以目标法院尚未接受为理由保留未知。"
+        },
+        {
+          "id": "112-L2",
+          "output_locations": [
+            "A:C02,reason",
+            "B:C02,reason",
+            "C:C02,opposition"
+          ],
+          "source_ids": [
+            "IK-112400:L127:restored-v2",
+            "IK-112400:L130:span6"
+          ],
+          "judgment_zh": "A将否定真实需求的早期认定标为SUPPORTED真实需求，标签与解释矛盾，并虚构目标法院接受。B/C修正C02极性为REFUTED；C又称High Court接受该认定，允许材料只记载发回，不能支持这一归属。B的“contradicts ... tenant denial”措辞也与租户反对需求的立场不符。"
+        },
+        {
+          "id": "112-L3",
+          "output_locations": [
+            "A:C06,reason",
+            "B:C06",
+            "C:C06"
+          ],
+          "source_ids": [
+            "IK-112400:L139:restored-v2",
+            "IK-112400:L140:restored-v2"
+          ],
+          "judgment_zh": "A把现住处不适合误作反驳无其他适宜住所，方向相反。B修正该方向，但把已知一处不适合扩大为全称的无其他住所SUPPORTED。C保留未知却重复虚假的sufficient/suitable区别；正确缺口应限定其他可用住所与目标阶段法律效果，不应抹去已记载的不适合认定。"
+        },
+        {
+          "id": "112-L4",
+          "output_locations": [
+            "B:C03,gaps",
+            "C:C03,gaps"
+          ],
+          "source_ids": [
+            "IK-112400:L124:restored-v2",
+            "IK-112400:L139:restored-v2",
+            "IK-18143401:L41:historical-e"
+          ],
+          "judgment_zh": "B以家庭名单推依赖，同时在gaps承认未确认。C指出依赖未明，却未处理房东本人自住这条择一路径；不能让家庭依赖缺口封锁本人路径。本人自住系已提出的用途主张，不等于已证明真实需求。"
+        }
+      ],
+      "real_gaps": [
+        "原租赁住宅用途没有明确说明。",
+        "现住处不适合不完整证明不存在其他适宜住宅。",
+        "给定法条未提供bona fide的进一步适用标准或证明责任、审查标准；目标最终裁判仍排除。"
+      ],
+      "comparison": "B较A纠正了两个重要极性错误，但仍有用途、依赖与全称判断过度推断。C没有稳定增益，并引入明确的High Court采纳归属错误及虚假缺口。均不能作为完整法律分析通过。",
+      "key_excerpts": [
+        {
+          "source_id": "IK-112400:L123:span1",
+          "quote": "The appellant took on lease, the first floor",
+          "source_char_range": [
+            0,
+            44
+          ],
+          "source_sha256": "3beb76ef3440b4060ac6c469cc78dfc285bb8421f966266f7b6a19a59841c37e"
+        },
+        {
+          "source_id": "IK-112400:L127:restored-v2",
+          "quote": "the requirement of the landlord for his occupation was not bona fide",
+          "source_char_range": [
+            412,
+            480
+          ],
+          "source_sha256": "ace0fa19937422f4f282eed2b0bd21cdcce51c7ec36c376fe9ccb9bd9ee1f49a"
+        },
+        {
+          "source_id": "IK-112400:L140:restored-v2",
+          "quote": "were not reasonably suitable for his residence",
+          "source_char_range": [
+            91,
+            137
+          ],
+          "source_sha256": "e1c2061a699b80ec86c844af4f5d0642d1aca4020ce246e15345345cb95097af"
+        }
+      ]
+    },
+    "188721101": {
+      "M": "NOT_PASSED",
+      "L": "NOT_PASSED",
+      "supported_parts": "L72是房东所述租赁及先父亲、后弟弟安排；L80为邻近店主证言；L81为租户与弟弟证言、钥匙承认及工资凭证未证明；L83是可撤销许可且不构成让与/交出占有的原审判断；L84家庭关系推理也仅为原审意见。",
+      "proposal_findings": [
+        {
+          "id": "188-M1",
+          "output_locations": [
+            "P:bindings/b1,b2,b3",
+            "P:evidence/e1-e6"
+          ],
+          "source_ids": [
+            "IK-188721101:L72:restored-v2",
+            "IK-188721101:L81:restored-v2",
+            "IK-188721101:L83:restored-v2"
+          ],
+          "judgment_zh": "弟弟使用店铺的争议被拆为指控、原审占有、雇佣/许可三个安排；全部证据又集中在b1，b2/b3无用途。父亲的先前安排没有单独保留。"
+        },
+        {
+          "id": "188-M2",
+          "output_locations": [
+            "P:evidence/e1-e6",
+            "P:checks b1/C01"
+          ],
+          "source_ids": [
+            "IK-188721101:L72:restored-v2",
+            "IK-188721101:L80:restored-v2",
+            "IK-188721101:L81:restored-v2",
+            "IK-188721101:L83:restored-v2",
+            "IK-188721101:L84:restored-v2"
+          ],
+          "judgment_zh": "六条用途全部选择合法但语义错误的ADDR-001（1952年后时间条件）。其中e5/e6的原审许可、家庭关系判断不能反驳发生于1952年后。程序因此计算C01为REFUTED，b1请求为REFUTED：这是错误提议传播，不是程序取得了法律证明。"
+        },
+        {
+          "id": "188-M3",
+          "output_locations": [
+            "P:evidence/e3,e4",
+            "P:limitations/l2",
+            "P:coverage_limits"
+          ],
+          "source_ids": [
+            "IK-188721101:L80:restored-v2",
+            "IK-188721101:L81:restored-v2",
+            "IK-188721101:L83:restored-v2"
+          ],
+          "judgment_zh": "证人证言被标PARTY_CLAIM；l2使用b2但指向属于b1的e5/e6，被局部隔离且保留未映射限制，没有删除六条证据。提议另外虚构起始日期证言冲突及原审判断对上诉有约束力，给定材料均未提供这些依据。"
+        }
+      ],
+      "final_findings": [
+        {
+          "id": "188-L1",
+          "output_locations": [
+            "A:C01",
+            "B:C01,gaps",
+            "C:C01,gaps"
+          ],
+          "source_ids": [
+            "IK-188721101:L72:restored-v2",
+            "IK-188721101:L80:restored-v2",
+            "IK-188721101:L81:restored-v2"
+          ],
+          "judgment_zh": "A把1987-01-06租赁日期直接写成转移日期。B避免精确日期替换，但与C一起虚构关于起始日期的证言冲突。若接受所述先租赁后安排的顺序，可以条件化说明1952阈值；该条件化推断不证明转移实际发生，也不要求知道精确日期才能理解阈值。"
+        },
+        {
+          "id": "188-L2",
+          "output_locations": [
+            "A:C05",
+            "B:C05,gaps,opposition",
+            "C:C05"
+          ],
+          "source_ids": [
+            "IK-188721101:L72:restored-v2",
+            "LAW:S02:DRC14:1b"
+          ],
+          "judgment_zh": "A虚构房东主张没有许可、租户否认取得许可，并以没有记录支持没有书面同意。B/C虽标未决，仍把转移性质未决当同意记录不可判断的原因；B反转为landlord obtained written consent，C增加无法源的证明责任结论。正确未知原因是允许材料没有交代相关书面同意，不是其他条件争议本身。"
+        },
+        {
+          "id": "188-L3",
+          "output_locations": [
+            "A:C04,C06",
+            "B:C02,C06",
+            "C:C02,C06"
+          ],
+          "source_ids": [
+            "IK-188721101:L80:restored-v2",
+            "IK-188721101:L81:restored-v2",
+            "IK-188721101:L83:restored-v2"
+          ],
+          "judgment_zh": "A把雇佣领薪从证言升级为法院认定，遗漏工资凭证未证明。B在C02明确保留工资缺证这一限制，是局部改善；其C06仍以薪资证言支持控制权而未充分处理相反证据。C再次把原审许可与mere employment混写。L83支持原审许可及保留法律占有的分析，不证明所有薪资证言已获采纳。"
+        },
+        {
+          "id": "188-L4",
+          "output_locations": [
+            "B:opposition,reason",
+            "C:opposition,gaps,reason"
+          ],
+          "source_ids": [
+            "IK-190902:L109",
+            "IK-190902:L110",
+            "IK-190902:L112",
+            "IK-188721101:L83:restored-v2"
+          ],
+          "judgment_zh": "B称否定最重要的交出占有路线足以否定整个请求，同时另两条路线未决；这没有忠实保留法条的择一关系。C把原审许可结论当成对上诉有约束力，给定材料没有该上诉规则，且同时说其他路线尚未解决。保留原审不等于升级为目标法院认可。"
+        },
+        {
+          "id": "188-L5",
+          "output_locations": [
+            "A/B/C:opposition,reason"
+          ],
+          "source_ids": [
+            "IK-188721101:L72:restored-v2",
+            "IK-188721101:L73:restored-v2",
+            "IK-188721101:L80:restored-v2",
+            "IK-188721101:L81:restored-v2"
+          ],
+          "judgment_zh": "三份最终回答均未充分处理父亲的先前安排、弟弟另租6号铺且柜台转到15号铺的指控，以及邻近店主认为实际经营者为弟弟而非租户的证言。B只恢复了工资凭证未证明的一项反论。原文中未被模型引用的重要内容也纳入本次审阅。"
+        }
+      ],
+      "real_gaps": [
+        "书面同意未交代；精确安排日期未知，但不能忽略所述先租后安排的条件化时间顺序。",
+        "父亲安排的具体条件资料稀少。",
+        "关于占有与雇佣的证据有冲突；给定法律没有补齐证据权重、上诉拘束或举证责任的规则。"
+      ],
+      "comparison": "B避免A的精确日期误写并保留工资凭证未证明，C也保留原审许可分析；但B新增择一路径必需化和许可主体反转，C新增或传播无依据举证责任/上诉拘束。完整答案净收益未得到可靠支持。",
+      "key_excerpts": [
+        {
+          "source_id": "IK-188721101:L72:restored-v2",
+          "quote": "on 06.01.1987",
+          "source_char_range": [
+            203,
+            216
+          ],
+          "source_sha256": "62ed2b5b9af5b9427d8bfcda849136498ba4da7bd74023c52cb47261581c3c5d"
+        },
+        {
+          "source_id": "IK-188721101:L81:restored-v2",
+          "quote": "Salary vouchers of payment of salary to Sh. Bhagwan Dass were also not proved.",
+          "source_char_range": [
+            399,
+            477
+          ],
+          "source_sha256": "476e5a82e72bacb45e84565c23b02140332f2ac612164755296e5e52af8e7868"
+        },
+        {
+          "source_id": "IK-188721101:L83:restored-v2",
+          "quote": "which licence or privilege could be terminated at the sweet will and pleasure of respondent",
+          "source_char_range": [
+            223,
+            314
+          ],
+          "source_sha256": "8d4c94a18906de532a2ced368b5722b3a710128999fbf2044a126157a6855c98"
+        },
+        {
+          "source_id": "IK-190902:L109",
+          "quote": "These three expressions deal with different concepts and apply to different circumstances.",
+          "source_char_range": [
+            247,
+            337
+          ],
+          "source_sha256": "dc581cad3087d8d1cebae1edabc8a5427a76a17421f8fdb9f222093c993038a0"
+        }
+      ]
+    }
+  },
+  "decision": "KEEP_ENGINEERING_REPAIRS_NO_COMPLETE_LEGAL_ANALYSIS_ACCEPTANCE",
+  "next_investment_boundary": "保留证据与用途隔离、合法地址和来源排序。下一步若另行授权，应先检验安排识别及语义用途对应；本轮停止，不再加字段、调提示或训练图。两案未训练GNN，不能否定整个图方法。",
+  "binary_prediction_boundary": "六份答案都为PREDICT_DENY；这不是六个正确标签。目标最终裁判未输入，没有建立新的二元gold，本轮评价决定性依据而非猜中历史结果。"
+}

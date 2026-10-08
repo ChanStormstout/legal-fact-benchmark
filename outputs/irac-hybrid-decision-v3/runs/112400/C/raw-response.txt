@@ -1,0 +1,68 @@
+{
+  "answers": [
+    {
+      "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+      "prediction": "PREDICT_DENY",
+      "conditions": [
+        {
+          "test_id": "DRC_BONA_FIDE-C01",
+          "binding": "Premises let for residential purposes",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L124:restored-v2", "IK-112400:L127:restored-v2"],
+          "explanation": "The record establishes the premises were let for residential purposes and the landlord required them for his own residence."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "binding": "Bona fide residential requirement",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "REFUTED",
+          "refs": ["IK-112400:L130:span6", "IK-112400:L127:restored-v2"],
+          "explanation": "The Tribunal found the requirement not bona fide due to timing (11 months), and the tenant admitted this finding, creating a decisive block."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C03",
+          "binding": "Qualifying occupation route (Self/Family/Dependent)",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L124:restored-v2", "IK-112400:L127:restored-v2"],
+          "explanation": "The record confirms the landlord occupied the ground floor and his family members lived there, satisfying the self/family/dependent branch."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C04",
+          "binding": "Landlord ownership (for Self/Family branch)",
+          "prediction": "PREDICT_SUPPORTED",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-112400:L124:restored-v2"],
+          "explanation": "The record explicitly states the respondent was the owner of the entire premises, satisfying the ownership condition for the landlord branch."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C05",
+          "binding": "Alternative route (Person for whose benefit)",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "UNRESOLVED",
+          "refs": [],
+          "explanation": "No evidence is supplied to establish premises held for another person's benefit; however, this branch is not required as the landlord branch is established."
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "binding": "No other reasonably suitable accommodation",
+          "prediction": "PREDICT_REFUTED",
+          "assessment": "REFUTED",
+          "refs": ["IK-112400:L139:restored-v2", "IK-112400:L140:restored-v2"],
+          "explanation": "The Tribunal found the portion in the landlord's occupation was not reasonably sufficient for his family, and the respondent's own premises were not suitable."
+        }
+      ],
+      "opposition": {
+        "record": "The landlord argues the requirement was bona fide and premises were suitable for his family.",
+        "refs": ["IK-112400:L124:restored-v2", "IK-112400:L127:restored-v2"],
+        "response": "While the landlord asserts bona fide intent, the Tribunal's finding and the tenant's admission negate this element, which is a mandatory condition for the claim."
+      },
+      "gaps": [
+        "The definition of 'bona fide' and the specific test for 'reasonably suitable' are not defined in the supplied law, but the prior court findings provide specific factual negations that resolve these elements for this case."
+      ],
+      "reason": "The claim requires all elements to be supported. While the residential letting and occupation route are supported, the bona fide requirement and the absence of other accommodation are explicitly refuted by prior court findings. Since the claim is an AND structure, the refutation of any element leads to denial.",
+      "intermediate_correction": "None; the intermediate material correctly identifies the blocking limitations based on prior findings."
+    }
+  ]
+}

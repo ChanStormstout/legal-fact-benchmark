@@ -1,0 +1,41 @@
+{
+  "rows": [
+    {
+      "field": "coverage_status",
+      "stored": "template and node features",
+      "shown": "request burdens/coverage limits and unit trace",
+      "model": "explicit one-hot plus source-backed template text",
+      "program": "unsupported expression or specific scope limit; NOT_COVERED burden alone does not negate facts"
+    },
+    {
+      "field": "jurisdiction/version/stage",
+      "stored": "legal_structure.scope and binding source stage",
+      "shown": "scope and original source attribution",
+      "model": "LEGAL_CONTEXT text and query node text plus stage metadata",
+      "program": "reviewed per-test scope restrictions; unbounded legal scope only limits full application"
+    },
+    {
+      "field": "polarity AND/OR/EXCEPT",
+      "stored": "tests and explicit expressions",
+      "shown": "nested trace",
+      "model": "definition text, Logic nodes, directed relations, polarity features",
+      "program": "aligned_logic.evaluate with cited expression"
+    },
+    {
+      "field": "burden",
+      "stored": "38 original NOT_COVERED definitions retained",
+      "shown": "burdens list with no claimed rule",
+      "model": "NOT_COVERED one-hot and full definition text; shared attention can see isolated node",
+      "program": "no burden shift/failure inferred; no fabricated edge"
+    },
+    {
+      "field": "binding/unknown",
+      "stored": "source-grounded input proposal plus original limitation mapping and dependency review",
+      "shown": "unit IDs, scoped restrictions, candidate source pointers",
+      "model": "separate query nodes and explicit metadata/text",
+      "program": "uses only same binding state; empty identity not equality"
+    }
+  ],
+  "reference_labels_not_features": true,
+  "faithfulness_limit": "Source addresses and predicted states are not proof of semantic correctness or faithful GNN explanation."
+}

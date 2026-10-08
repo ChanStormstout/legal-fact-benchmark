@@ -1,0 +1,394 @@
+{
+  "bindings": [
+    {
+      "id": "b1",
+      "claim_ids": [
+        "DRC_BONA_FIDE-CLAIM-01"
+      ],
+      "objects": "Premises; Landlord; Family members; Residential purposes",
+      "event": "Eviction application and Tribunal finding on bona fide status",
+      "stage": "PRE_TARGET_RECORD",
+      "refs": [
+        "IK-112400:L124:restored-v2",
+        "IK-112400:L127:restored-v2",
+        "IK-112400:L139:restored-v2",
+        "IK-112400:L140:restored-v2"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "binding_id": "b1",
+      "record": "Respondent was owner of entire premises and occupied ground floor; required premises bona fide for himself and family members.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": [
+        "IK-112400:L124:restored-v2"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C03",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C04",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "binding_id": "b1",
+      "record": "Tenant contended landlord's requirement was not bona fide; Tribunal accepted this plea.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-112400:L127:restored-v2"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C02",
+          "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e3",
+      "binding_id": "b1",
+      "record": "Tribunal held premises in landlord's occupation were not reasonably sufficient for family of 5 members.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-112400:L139:restored-v2"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e4",
+      "binding_id": "b1",
+      "record": "Tribunal remanded case to itself for finding on reasonably suitable residential accommodation; no finding recorded yet.",
+      "statement_status": "PRIOR_COURT_FINDING",
+      "refs": [
+        "IK-112400:L137:context-v4",
+        "IK-112400:L138:context-v4"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "OPPOSE",
+          "use": "TARGET_ACCEPTANCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+          "direction": "OPPOSE",
+          "use": "TARGET_ACCEPTANCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+          "direction": "OPPOSE",
+          "use": "TARGET_ACCEPTANCE"
+        },
+        {
+          "test_id": "DRC_BONA_FIDE-C06",
+          "branch_id": "DRC_BONA_FIDE-C03/SELF",
+          "direction": "OPPOSE",
+          "use": "TARGET_ACCEPTANCE"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "id": "l1",
+      "evidence_ids": [
+        "e1"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "use": "CONDITION_INFERENCE",
+      "effect": "USE_BLOCK",
+      "reason": "Conflicting prior finding (e2) negates bona fide status; prior finding does not establish appellate acceptance.",
+      "refs": [
+        "IK-112400:L124:restored-v2",
+        "IK-112400:L127:restored-v2"
+      ]
+    },
+    {
+      "id": "l2",
+      "evidence_ids": [
+        "e3"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "use": "CONDITION_INFERENCE",
+      "effect": "USE_BLOCK",
+      "reason": "Conflicting remand order (e4) indicates no final determination on suitability exists at target stage.",
+      "refs": [
+        "IK-112400:L139:restored-v2",
+        "IK-112400:L137:context-v4"
+      ]
+    },
+    {
+      "id": "l3",
+      "evidence_ids": [
+        "e2"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "use": "CONDITION_INFERENCE",
+      "effect": "USE_BLOCK",
+      "reason": "Prior finding addresses 'himself' and 'family members' collectively; specific dependency status of individual members is not resolved.",
+      "refs": [
+        "IK-112400:L127:restored-v2"
+      ]
+    },
+    {
+      "id": "l4",
+      "evidence_ids": [
+        "e1"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "use": "CONDITION_INFERENCE",
+      "effect": "USE_BLOCK",
+      "reason": "Claim states 'family members' generally; no evidence supplied proving specific members are 'dependent' on the landlord.",
+      "refs": [
+        "IK-112400:L124:restored-v2"
+      ]
+    },
+    {
+      "id": "l5",
+      "evidence_ids": [
+        "e4"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Remand order explicitly states no finding was recorded on suitability; prior finding on 'reasonably sufficient' does not equate to 'reasonably suitable' without further definition.",
+      "refs": [
+        "IK-112400:L137:context-v4"
+      ]
+    },
+    {
+      "id": "l6",
+      "evidence_ids": [
+        "e4"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Remand order explicitly states no finding was recorded on suitability; prior finding on 'reasonably sufficient' does not equate to 'reasonably suitable' without further definition.",
+      "refs": [
+        "IK-112400:L137:context-v4"
+      ]
+    },
+    {
+      "id": "l7",
+      "evidence_ids": [
+        "e4"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Remand order explicitly states no finding was recorded on suitability; prior finding on 'reasonably sufficient' does not equate to 'reasonably suitable' without further definition.",
+      "refs": [
+        "IK-112400:L137:context-v4"
+      ]
+    },
+    {
+      "id": "l8",
+      "evidence_ids": [
+        "e4"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C06",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Remand order explicitly states no finding was recorded on suitability; prior finding on 'reasonably sufficient' does not equate to 'reasonably suitable' without further definition.",
+      "refs": [
+        "IK-112400:L137:context-v4"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C01",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [],
+      "gap": "No evidence supplied regarding the specific purpose for which the premises were let."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e2"
+      ],
+      "gap": "Prior finding negates bona fide status; no appellate acceptance established."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e2"
+      ],
+      "gap": "Prior finding negates bona fide status for family members; no appellate acceptance established."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C02",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e2"
+      ],
+      "gap": "Prior finding negates bona fide status generally; specific dependency status of individual members is not resolved."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "Ownership qualification (C04) and alternative routes remain to be evaluated."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "Dependency status of specific family members not established; alternative routes remain to be evaluated."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C03",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "No evidence supplied proving specific members are 'dependent' on the landlord."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C04",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "Ownership status of landlord confirmed; no conflict with prior finding on bona fide status."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C04",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [],
+      "gap": "Ownership status of landlord confirmed, but binding requirement for family branch (same landlord) creates ambiguity without explicit 'such person' identity."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C04",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [],
+      "gap": "Ownership status of landlord confirmed, but binding requirement for family branch (same landlord) creates ambiguity without explicit 'such person' identity."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C05",
+      "branch_id": "DRC_BONA_FIDE-C03/SELF",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "Premises held for landlord himself, not for another person for whose benefit they are held."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C05",
+      "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "Premises held for landlord himself, not for another person for whose benefit they are held."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_BONA_FIDE-C05",
+      "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+      "assessment": "REFUTED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "Premises held for landlord himself, not for another person for whose benefit they are held."
+    },
+    {
+     

@@ -1,0 +1,42 @@
+{
+  "task": "Retrospective rule-given prediction of target-court substantive condition disposition",
+  "candidate_max": 48,
+  "problem_package_target": 24,
+  "family_target": "2-3 based on actual sources, not quota",
+  "ordinary_High_max": 56,
+  "Pro": 0,
+  "paid_api": 0,
+  "semantic_revision_max": 1,
+  "synthetic_optimizer_required": true,
+  "training_model": [
+    "P",
+    "Flat",
+    "Graph"
+  ],
+  "seeds": [
+    20261006,
+    20261007,
+    20261008
+  ],
+  "folds": 3,
+  "hidden": 64,
+  "layers": 2,
+  "bases": 4,
+  "dropout": 0.1,
+  "optimizer": "AdamW",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "batch_problem_packages": 4,
+  "max_epochs": 100,
+  "patience": 10,
+  "split_unit": "dispute_group",
+  "loss_weighting": "conditions within package; packages within dispute; disputes equally weighted",
+  "encoder": "intfloat/e5-small-v2 frozen, separate environment",
+  "supervision_mask_not_input": true,
+  "NOT_DECIDED_target": null,
+  "signed_edges_main": false,
+  "sealed_body_read": false,
+  "no_minimum_whole_case_READY_gate": true,
+  "historical_exposed_cases": "TRAIN/DEVELOPMENT only",
+  "stop": "one budgeted preparation, one frozen grouped development comparison, one source case study; no automatic next round"
+}

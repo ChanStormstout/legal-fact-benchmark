@@ -1,0 +1,40 @@
+IRAC-native Dataset v1：有限候选发现停止，输入图接口完成
+
+本轮结果为 IRAC_NATIVE_DISCOVERY_NO_GO。固定16案完成4次独立普通High筛查：1案SUITABLE、3案模型认可的BORDERLINE、12案REJECT。即使暂时全部计入边界案例，候选也只有4案，低于启动完整construction的6案门槛。因此没有构建真实INPUT、TARGET或图，没有READY链，没有训练协议，也没有训练。停止发生在候选发现关口，不是完整数据构建后的质量评定。
+
+起点与保留
+当前分支research/rules-and-verdict，实际HEAD与审查父提交eeda90c1dbf5ac3345f10f08b1152b12b04a612a一致。原有.playwright-mcp/和legal_bench/local_chunk_v11.py未改动。S/B/C收尾、IRAC feasibility-01/02的790个父提交文件及本地历史文件复核保持原字节；四份筛查任务和16份文书的冻结哈希也保持。旧8案不修复、不凑数，SEALED正文未读取。
+
+固定16案怎样产生
+使用当前项目权威入口outputs/benchmark-pilot/data/cases.sqlite，共6,954条记录，数据库哈希见database-source-manifest.json。仅以历史摘要字段定位候选，字段全部标记candidate_discovery_only；它们没有成为未来图输入。排除旧IRAC八案、DEV、SEALED以及当前S/B/C TRAIN，再按Delhi rent、subletting/parting possession及14(1)(b)排版匹配定位。36个定位命中按标题去重后35个，按法条在facts/issues出现、reasoning中的相关行为讨论量、数据库行顺序固定前16个。未按胜败、模型表现或机制多样性选择。
+
+依次为：114533、1187427、845417、1887042、444449、569555、277181、923000、1954254、614998、191666286、1063933、1870868、280457、112400、1114159。具体标题、排位、来源和发现字段见candidate-cohort-16.json。取得各案网页文书后，按明确响应边界与行号恢复完整渲染文本，冻结后才筛查。所有候选没有替换。完整渲染文本不代表已经独立核验官方PDF或全部纠纷关联；历史法源使用未完全排除，不能称从未暴露的随机样本。
+
+筛查结论与边界
+114533（Krishnawati）是唯一SUITABLE：目标争点直接涉及转租，有实际证据与推断讨论。IK-114533:L167说明房东没有提出相应证明，L174提出应否从现有证据推断转租的问题；这是值得进一步构建的候选，不等于其规则已独立取得、所有条件已有监督或该案READY。
+
+三个BORDERLINE不能视为已确认属于主任务。569555包含1952/1958法过渡及多数/异议区别，L220的1958条款分析是条件性讨论，L387来自异议意见。614998正式处理第17、18条次租户保护；L241及L298涉及书面同意，但不能把相邻条文直接当作第14(1)(b)主张的完整应用。1063933是民事诉讼中的许可/租赁性质及第16(2)条同意问题，L77明确其许可与租赁争议，L144讨论同意；这也不自动提供本轮固定请求的完整监督。原始模型边界判断保留，不作语义修补；三案即使全部暂计仍不足六案，所以不需要通过放宽法律范围改变停止决定。
+
+十二个REJECT主要是实际争点不符、1952法制度不符、管辖/过渡/程序处理，或者目标裁判没有实体要件应用。典型如1187427的实体分析在14A/25B，845417处理修法与案件延续，1870868把转租视为已成立背景而处理租约终止，112400和1114159主要处理14(1)(e)。逐案十项标准、理由及出处全部保存在suitability-screening.json和feasibility-table.csv，不以裁判总结果倒推要件。
+
+264个独立source_ref通过连续或空白等价定位，0个定位错误；四份下载JSON直接导入，未改引文或补内容。这不认证筛查法律含义，筛查仍是模型参考，非人工金标准。没有进入construction，所以没有独立最终来源审阅；final-source-review及各冻结文件明确NOT_RUN，不以筛查冒充最终审阅。
+
+实现交付
+irac_native_schema_v1.py实现独立input校验、source_ref定位、统一阶段许可、递归端点排除、绑定来源与陈述状态检查，以及单独的target审计。允许记录为主张、下级认定或未知；SUPPORTS只表示候选支持方向，不表示事实真实或法院采纳。举证失败不自动成为事实为假。
+
+irac_graph_builder_v1.py的入口只接受build_input_graph(input_record)，拒绝包含target的对象。生成Issue、Rule、Condition、Fact、Evidence、Entity节点以及明示的有来源关系边，保存输入和图哈希。目标变化不影响图哈希的测试通过；target文本也不得以其他任意字段改名塞入输入。字段、阶段和地址检查不能发现伪装为获准文本的全部语义泄漏，这仍需要真实构建后的来源审阅。条件逻辑保存在input的conditions中，本轮没有实现法律聚合或编码/训练模型。
+
+可运行入口：PYTHONPATH=. python3 scripts/irac_native_graph.py validate INPUT；build INPUT --output PATH。合成fixture只是接口实例，不计入真实样本。24项新接口测试加复用的5项阶段gate及4项adapter测试，共33项通过、0跳过，日志与源码哈希见graph-builder-validation-final.json。初次工程检查原样保留，不冒充最后版本结果。
+
+组内canonical检查
+LatentWeaver/legal-ai的main仍为88ff082cce05b948119fcd54f6ef8fe8540baedb。轻量树检查未找到真实已发布Prompt2 canonical输出；状态NOT_AVAILABLE。没有调用ASU API、重跑Prompt1/2或修改组内仓库。此缺口没有阻止本地接口实现。
+
+能回答什么，不能回答什么
+本批完整IRAC链0、真实input graph0、READY0，训练门槛未达到。新案件的独立Rule/Test完整性、element target监督可靠性、blind binding可行性与实际语义泄漏均未进入评估；不能沿用旧8案结论替代新案证据。本轮确认的是固定发现规则仍选进大量相邻法律问题或程序性案件。它支持改进数据来源与选案入口，不证明整个Delhi §14(1)(b)案件库缺少IRAC-native案例，也不证明GNN无效。
+
+下一步需要先改变数据入口，而不是继续修这16案：若用户另行批准，可选择实体审理更集中的Delhi High Court或Rent Controller/ARC来源，并在冻结候选前确认实际14(1)(b)争点与实体application。现有最高法院摘要库中的法条/行为词频只适合定位，不能可靠替代实体应用资格判断。范围仍须保持同一claim family；不为训练数量改用其他请求。本轮不执行该建议，不扩第二批，不生成第17案，不训练。
+
+成本与停止
+4次普通High、0次Pro、0次本地模型、0次付费API、0次语义或技术重试。界面只显示High/高，具体型号不可得，不自行标成GPT-6。可见思考时长为6m24s、7m23s、6m50s、6m28s；这不是精确生成耗时。提交时间、观察完成时间、任务字节、回复字节、URL和哈希见cost.json与web目录；精确tokens及生成时间记null。
+
+本轮按发现门槛结束，未进行梯度训练、完整法律回答、pattern mining、法源检索实验、提交或推送。代码及本地审阅包可供下一次决策审查，不能当成已经在GitHub发布。

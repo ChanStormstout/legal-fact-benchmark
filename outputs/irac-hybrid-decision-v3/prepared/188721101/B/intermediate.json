@@ -1,0 +1,276 @@
+{
+  "proposal": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_SUBLETTING_CLAIM_01"
+        ],
+        "objects": "Ramesh Kumar; Bhagwan Dass; Shop No. 15",
+        "event": "Alleged subletting/assignment/parting with possession",
+        "stage": "Landlord's appeal (Target)",
+        "refs": [
+          "IK-188721101:L72:restored-v2",
+          "IK-188721101:L80:restored-v2",
+          "IK-188721101:L81:restored-v2",
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Landlord alleges tenant parted with possession via sublet/assignment to brother Bhagwan Dass.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L72:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C01",
+            "branch_id": "DRC_SUBLETTING_E01",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C05",
+            "branch_id": "DRC_SUBLETTING_E04",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Tenant denies subletting to brother; alleges brother is employee/helper.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L74:restored-v2",
+          "IK-188721101:L75:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b1",
+        "record": "Witnesses deposed brother running shop; tenant admitted brother had key/operated shop.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-188721101:L80:restored-v2",
+          "IK-188721101:L81:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C06",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b1",
+        "record": "Trial court found arrangement was a license/privilege, not subletting/assignment/parting with possession.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-188721101:L83:restored-v2",
+          "IK-188721101:L84:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "branch_id": "DRC_SUBLETTING_E02",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C05",
+            "branch_id": "DRC_SUBLETTING_E04",
+            "direction": "UNKNOWN",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "id": "l1",
+        "evidence_ids": [
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding negates subletting/assignment; appeal cannot overturn factual finding without new evidence.",
+        "refs": [
+          "IK-188721101:L83:restored-v2"
+        ]
+      },
+      {
+        "id": "l2",
+        "evidence_ids": [
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding negates parting with possession; appeal cannot overturn factual finding without new evidence.",
+        "refs": [
+          "IK-188721101:L83:restored-v2"
+        ]
+      },
+      {
+        "id": "l3",
+        "evidence_ids": [
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "DRC_SUBLETTING_E04",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior finding implies consent existed or disposition was not prohibited; appeal cannot establish lack of consent against prior finding.",
+        "refs": [
+          "IK-188721101:L83:restored-v2"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C01",
+        "branch_id": "DRC_SUBLETTING_E01",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e1",
+          "e4"
+        ],
+        "gap": "Date of disposition not established; prior finding does not confirm post-9-June-1952 timeline."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C02",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Subletting requires transfer of interest, rent, and right to possession; evidence shows salary and no rent, but prior finding blocks acceptance."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C03",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Assignment requires divestment of all rights; prior finding blocks acceptance; evidence suggests concurrent user."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C04",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Parting with possession requires divestment of right to possession; prior finding blocks acceptance; evidence shows tenant retained legal possession via family relationship."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C05",
+        "branch_id": "DRC_SUBLETTING_E04",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [
+          "e1",
+          "e4"
+        ],
+        "gap": "Written consent not proven; prior finding implies consent or lack of prohibited disposition."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C06",
+        "branch_id": "DRC_SUBLETTING_E02",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Prior finding supports license nature; evidence confirms family relationship and concurrent use."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_SUBLETTING_C07",
+        "branch_id": "DRC_SUBLETTING_E03",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "gap": "Premises scope confirmed by landlord's description of Shop No. 15."
+      }
+    ],
+    "coverage_limits": [
+      "Prior court finding on factual nature of arrangement (license vs subletting) blocks direct acceptance of subletting/assignment/parting routes on appeal.",
+      "No new evidence supplied to overturn prior finding on possession divestment or consent status.",
+      "Date requirement (post-9-June-1952) not independently verified against prior finding's timeline."
+    ]
+  }
+}

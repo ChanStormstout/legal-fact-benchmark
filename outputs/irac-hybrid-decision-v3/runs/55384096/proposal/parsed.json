@@ -1,0 +1,256 @@
+{
+  "bindings": [
+    {
+      "id": "b1",
+      "claim_ids": [
+        "DRC_SUBLETTING_CLAIM_01"
+      ],
+      "objects": "Hakim Rai; Raj Kumar; the shop at 95 Main Bazar Najafgarh",
+      "event": "Partnership formation and alleged subletting",
+      "stage": "Delhi High Court review of ARCT order",
+      "refs": [
+        "IK-55384096:L67:span1",
+        "IK-55384096:L70:span3",
+        "IK-55384096:L71:span4",
+        "IK-55384096:L79:span7"
+      ]
+    },
+    {
+      "id": "b2",
+      "claim_ids": [
+        "DRC_SUBLETTING_CLAIM_01"
+      ],
+      "objects": "Hakim Rai; Raj Kumar; the shop at 95 Main Bazar Najafgarh",
+      "event": "Tenant retention of legal possession via concurrent user",
+      "stage": "Delhi High Court review of ARCT order",
+      "refs": [
+        "IK-55384096:L69:span2",
+        "IK-55384096:L77:span5",
+        "IK-55384096:L80:span8"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "binding_id": "b1",
+      "record": "Petitioner claims tenant divested himself completely of possession by subletting to son-in-law via partnership deed dated 20.11.1983.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": [
+        "IK-55384096:L67:span1",
+        "IK-55384096:L70:span3"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C01",
+          "branch_id": "DRC_SUBLETTING_E01",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "branch_id": "DRC_SUBLETTING_E02",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "DRC_SUBLETTING_E02",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C05",
+          "branch_id": "DRC_SUBLETTING_E04",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "binding_id": "b1",
+      "record": "Landlord alleges partnership deed is forged and tenant retained possession; tenant admits son-in-law is partner but denies divestment of possession.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": [
+        "IK-55384096:L71:span4",
+        "IK-55384096:L77:span5",
+        "IK-55384096:L77:span6",
+        "IK-55384096:L79:span7"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C05",
+          "branch_id": "DRC_SUBLETTING_E04",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "DRC_SUBLETTING_E02",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e3",
+      "binding_id": "b2",
+      "record": "Tenant admits son-in-law is partner and resides in same premises; landlord admits tenant is old, ailing, and has poor eyesight.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": [
+        "IK-55384096:L69:span2",
+        "IK-55384096:L77:span5",
+        "IK-55384096:L77:span6",
+        "IK-55384096:L80:span8"
+      ],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "DRC_SUBLETTING_E02",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "id": "l1",
+      "evidence_ids": [
+        "e1"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "branch_id": "DRC_SUBLETTING_E02",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Subletting requires strict proof of tenancy incidents (rent, transfer of interest, right to possession) which are not established by the partnership deed alone.",
+      "refs": [
+        "IK-55384096:L70:span3"
+      ]
+    },
+    {
+      "id": "l2",
+      "evidence_ids": [
+        "e1"
+      ],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C04",
+      "branch_id": "DRC_SUBLETTING_E02",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Parting with possession requires divestment of the right to possession, which the tenant explicitly denies and which is not proven by the contested deed.",
+      "refs": [
+        "IK-55384096:L71:span4",
+        "IK-55384096:L77:span5"
+      ]
+    },
+    {
+      "id": "l3",
+      "evidence_ids": [
+        "e2",
+        "e3"
+      ],
+      "binding_id": "b2",
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "DRC_SUBLETTING_E02",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "While concurrent user is alleged, the statutory ground requires proof that the tenant parted with possession; mere concurrent use negates parting but does not affirm the primary ground of subletting or assignment.",
+      "refs": [
+        "IK-55384096:L69:span2",
+        "IK-55384096:L77:span5"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C01",
+      "branch_id": "DRC_SUBLETTING_E01",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "gap": "Date is established (1983), but the specific disposition transaction is contested."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "branch_id": "DRC_SUBLETTING_E02",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "No evidence proves the specific tenancy incidents (rent, transfer of interest) required for subletting; partnership deed is alleged to be forged."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C03",
+      "branch_id": "DRC_SUBLETTING_E02",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [
+        "e1"
+      ],
+      "gap": "No evidence shows divestment of all tenant rights; tenant admits continued involvement."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C04",
+      "branch_id": "DRC_SUBLETTING_E02",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "gap": "Tenant denies divestment of right to possession; landlord alleges forgery; mere concurrent use does not prove parting with possession."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "branch_id": "DRC_SUBLETTING_E04",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "gap": "No written consent is alleged, but the lack of consent is secondary to the failure to prove the disposition itself."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "DRC_SUBLETTING_E02",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e2",
+        "e3"
+      ],
+      "gap": "Concurrent user negates parting with possession, but this defeats the 'parting' route, not the 'subletting' route which requires different proof."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C07",
+      "branch_id": "DRC_SUBLETTING_E03",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": [
+        "e1",
+        "e2"
+      ],
+      "gap": "Premises are clearly identified in the record."
+    }
+  ],
+  "coverage_limits": [
+    "The burden of proving the specific incidents of subletting (rent, transfer of interest) is not supplied in the law or facts.",
+    "The authenticity of the partnership deed is disputed and not independently verified by the court record provided."
+  ]
+}

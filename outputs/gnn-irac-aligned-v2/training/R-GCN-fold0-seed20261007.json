@@ -1,0 +1,56 @@
+{
+  "spec": {
+    "id": "R-GCN-fold0-seed20261007",
+    "method": "R-GCN",
+    "kind": "Graph",
+    "anco": false,
+    "seed": 20261007,
+    "fold": 0,
+    "epochs": 100,
+    "early_stopping": false,
+    "optimizer": "AdamW",
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.1,
+    "hidden": 64,
+    "layers": 2,
+    "bases": 4,
+    "batch_size": 4
+  },
+  "status": "OK",
+  "stages": {
+    "fit": {
+      "status": "OK",
+      "seconds": 1.3386650839820504,
+      "result": {
+        "log_file": "training/R-GCN-fold0-seed20261007-fit.json"
+      }
+    },
+    "prediction": {
+      "status": "OK",
+      "seconds": 0.01064945780672133,
+      "result": {
+        "prediction_file": "predictions/R-GCN-fold0-seed20261007.json"
+      }
+    },
+    "weight_export": {
+      "status": "OK",
+      "seconds": 0.0007108340505510569,
+      "result": {
+        "weights": "outputs/gnn-irac-aligned-v2/weights/R-GCN-fold0-seed20261007.safetensors"
+      }
+    },
+    "weight_readback": {
+      "status": "OK",
+      "seconds": 0.0061333749908953905,
+      "result": {
+        "sha256": "6f9a9f65ee50934ee4f77519fe0d3bc5f4129d7febd9035064b96dfa5c0e2b8b",
+        "max_probability_difference": 0.0,
+        "readable": true
+      }
+    }
+  },
+  "started": 1791415210.195132,
+  "answer": "predictions file",
+  "finished": 1791415211.5525591
+}

@@ -1,0 +1,225 @@
+{
+  "bindings": [
+    {
+      "id": "b1",
+      "claim_ids": ["DRC_SUBLETTING_CLAIM_01"],
+      "objects": "Respondent; Kapil Luthra; Shop in question",
+      "event": "Alleged subletting arrangement",
+      "stage": "Fresh findings by Additional Rent Controller",
+      "refs": ["IK-68065690:L76:span1", "IK-68065690:L82:span3", "IK-68065690:L84:span5", "IK-68065690:L174:span6", "IK-68065690:L176:span7", "IK-68065690:L181:span8"]
+    },
+    {
+      "id": "b2",
+      "claim_ids": ["DRC_SUBLETTING_CLAIM_01"],
+      "objects": "Respondent; Kapil Luthra; Shop in question",
+      "event": "Alleged parting with possession (exclusive use)",
+      "stage": "Fresh findings by Additional Rent Controller",
+      "refs": ["IK-68065690:L76:span1", "IK-68065690:L82:span3", "IK-68065690:L83:span4", "IK-68065690:L174:span6", "IK-68065690:L181:span8"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "binding_id": "b1",
+      "record": "Petitioner alleges respondent sublet shop to Kapil Luthra at Rs.5500 p.m. without consent; alleges sub-lee took exclusive possession.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": ["IK-68065690:L76:span1"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_SUBLET",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "binding_id": "b1",
+      "record": "Respondent denies subletting to Kapil Luthra; denies exclusive possession by Kapil Luthra.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": ["IK-68065690:L82:span3"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_SUBLET",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e3",
+      "binding_id": "b1",
+      "record": "Respondent states Kapil Luthra is nephew helping in family business; no rent received; no partnership deed; tenant retains possession.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": ["IK-68065690:L84:span5", "IK-68065690:L174:span6", "IK-68065690:L176:span7", "IK-68065690:L181:span8"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_SUBLET",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "e4",
+      "binding_id": "b1",
+      "record": "Petitioner alleges sub-lee used shop as Godown and took exclusive possession.",
+      "statement_status": "PARTY_CLAIM",
+      "refs": ["IK-68065690:L82:span3"],
+      "uses": [
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+          "direction": "SUPPORT",
+          "use": "CONDITION_INFERENCE"
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+          "direction": "OPPOSE",
+          "use": "CONDITION_INFERENCE"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "id": "l1",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C01",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "No evidence establishes the disposition occurred on or after 9 June 1952; all supplied records are pre-target reconstructions without specific dates.",
+      "refs": ["IK-68065690:L76:span1", "IK-68065690:L82:span3", "IK-68065690:L83:span4", "IK-68065690:L84:span5", "IK-68065690:L174:span6", "IK-68065690:L176:span7"]
+    },
+    {
+      "id": "l2",
+      "evidence_ids": ["e3"],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "branch_id": "DRC_SUBLETTING_E02/ROUTE_SUBLET",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Respondent denies subletting; no evidence proves transfer of interest, payment of rent, or right to possession against tenant as required for subletting.",
+      "refs": ["IK-68065690:L84:span5", "IK-68065690:L174:span6", "IK-68065690:L176:span7"]
+    },
+    {
+      "id": "l3",
+      "evidence_ids": ["e3"],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C04",
+      "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "While respondent claims vesting of possession, the lack of a specific date for the alleged parting (blocked by l1) prevents acceptance of this element at the target stage.",
+      "refs": ["IK-68065690:L174:span6", "IK-68065690:L181:span8"]
+    },
+    {
+      "id": "l4",
+      "evidence_ids": ["e3"],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "Respondent asserts concurrent user/family help and retention of legal possession, which negates the 'parting with possession' element even if other elements were proven.",
+      "refs": ["IK-68065690:L174:span6", "IK-68065690:L181:span8"]
+    },
+    {
+      "id": "l5",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "branch_id": "",
+      "use": "TARGET_ACCEPTANCE",
+      "effect": "USE_BLOCK",
+      "reason": "No evidence establishes the absence of written consent; the burden of proving lack of consent is not met by mere allegation.",
+      "refs": ["IK-68065690:L76:span1"]
+    }
+  ],
+  "conditions": [
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C01",
+      "branch_id": "",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "No date evidence supplied to establish post-9-June-1952 timing."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "branch_id": "DRC_SUBLETTING_E02/ROUTE_SUBLET",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3"],
+      "gap": "Respondent denies subletting; no proof of tenancy incidents (rent, interest transfer) supplied."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C03",
+      "branch_id": "DRC_SUBLETTING_E02/ROUTE_ASSIGNMENT",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "No evidence shows tenant divested all rights; respondent claims family business continuity."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C04",
+      "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "Date unknown; respondent asserts concurrent user negates parting; mere use by family member does not equal parting."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "branch_id": "",
+      "prediction": "PREDICT_REFUTED",
+      "assessment": "UNRESOLVED",
+      "evidence_ids": ["e1", "e2", "e3", "e4"],
+      "gap": "No evidence of written consent or lack thereof; burden not met."
+    },
+    {
+      "binding_id": "b1",
+      "test_id": "DRC_SUBLETTING_C06",
+      "branch_id": "DRC_SUBLETTING_E02/ROUTE_PARTING",
+      "prediction": "PREDICT_SUPPORTED",
+      "assessment": "SUPPORTED",
+      "evidence_ids": ["e3"],
+      "gap": "This is a defeating qualification; supported by respondent's claim of family help and retained possession."
+    },
+    {
+      "binding_id

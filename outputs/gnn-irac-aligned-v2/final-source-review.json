@@ -1,0 +1,156 @@
+{
+  "role": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "selection_file": "source-review-selection.json",
+  "case_count": 6,
+  "scope": "one concentrated review of decisive source statements, binding judgments and request gates; not all fields",
+  "reference_revisions": 0,
+  "no_retraining": true,
+  "findings": [
+    {
+      "case_id": "14884716",
+      "source_ids": [
+        "IK-14884716:L67:restored-v2",
+        "IK-14884716:L69:restored-v2",
+        "IK-14884716:L78:restored-v2",
+        "IK-14884716:L90:restored-v2",
+        "IK-14884716:L99:restored-v2",
+        "IK-14884716:L134:restored-v2"
+      ],
+      "findings": [
+        "Tribunal明确认定转租且未取得书面同意；1944年是申请人的说法，不能混成法院确认的日期。未举出1952年前证据也不自动证明每个个体安排发生于1952后。",
+        "所有方法普遍把若干个体绑定的时间检验预测为支持，缺乏个体日期依据。Flat保留部分无书面同意判断，GNN常改成未决；个别GNN种子识别先前转租认定，但不稳定。",
+        "集体、未具名申请人与五个具名主体可能重叠；七个候选绑定不是七个已证明不同交易。把集体既往认定分配给每个人的程度存在解释争议，不能把这些模型参考称作精确真值。"
+      ],
+      "causes": [
+        "MODEL_TEMPORAL_OVERREACH",
+        "INPUT_BINDING_OVERLAP",
+        "REFERENCE_SCOPE_DISPUTE"
+      ],
+      "reference_change": "NO_DEFINITE_SOURCE_ERROR_CORRECTED; dispute retained",
+      "decision": "不支持GNN稳定优于Flat，部分连接和参考仍有归属边界。"
+    },
+    {
+      "case_id": "188721101",
+      "source_ids": [
+        "IK-188721101:L72:restored-v2",
+        "IK-188721101:L75:restored-v2",
+        "IK-188721101:L80:restored-v2",
+        "IK-188721101:L81:restored-v2",
+        "IK-188721101:L83:restored-v2",
+        "IK-188721101:L84:restored-v2"
+      ],
+      "findings": [
+        "父亲Ghanshyam Dass与弟弟Bhagwan Dass是两个安排。L83明确保存原审关于弟弟可撤销许可、无让与／交出占有的判断，不能移给父亲，也不能抹去。",
+        "弟弟C04参考反驳，GNN三个种子分别未决、反驳、支持；C06保留法律占有的参考支持，所有方法仍预测未决。说明同一绑定可以不同预测，但模型没有稳定保留决定性原审认定。",
+        "R-GCN seed20261008的C04反驳被程序改成未决，理由仅为经营和钥匙证言不能证明权利丧失；这不足以否定另一来源中明确的原审反驳判断。C07房产范围也因确切移交面积不明被阻止，尽管Shop15身份明确。"
+      ],
+      "causes": [
+        "MODEL_OMISSION",
+        "LOCAL_RESTRICTION_STILL_TOO_BROAD",
+        "PRIOR_FINDING_WEIGHT_VS_EXISTENCE_CONFUSION"
+      ],
+      "reference_change": "NONE",
+      "decision": "绑定粒度修复成立，但限制的语义对应尚未完全修好。不得因程序未决否认材料中已有认定。"
+    },
+    {
+      "case_id": "52547606",
+      "source_ids": [
+        "IK-52547606:L74:span1",
+        "IK-52547606:L75:span2",
+        "IK-52547606:L79:span4",
+        "IK-52547606:L81:span5",
+        "IK-52547606:L82:span6",
+        "IK-52547606:L84:span7",
+        "IK-52547606:L93:span8"
+      ],
+      "findings": [
+        "Anand本人和Parkash Trading Corporation分别保留。电话使用至1963年只给出电话记录终点，不能给公司处分确定起点。",
+        "公司的时间检验，R-GCN-ANCO三个种子保持未决，Flat三个种子支持，属于一个具体局部改善。但在Anand绑定中，后续既往交出占有认定与更早相反认定同时存在；所有方法都没有识别该支持项。",
+        "Flat对两个绑定均把缺少书面同意写作支持，材料仅记载知情／同意主张，没有单独说明是否书面，存在越界。程序将该项保留未决有依据。",
+        "片段中的he和两次先前处理的层级说明仍不足完整；不能为得到完整结论自动把后者当最终法院已认可。"
+      ],
+      "causes": [
+        "MODEL_DATE_AND_CONSENT_ERROR",
+        "MODEL_PRIOR_FINDING_OMISSION",
+        "SOURCE_FRAGMENT_LIMIT"
+      ],
+      "reference_change": "NONE; procedural-weight uncertainty retained",
+      "decision": "存在局部图判断改善，也存在共同遗漏；未形成完整请求分析净收益。"
+    },
+    {
+      "case_id": "55384096",
+      "source_ids": [
+        "IK-55384096:L67:span1",
+        "IK-55384096:L69:span2",
+        "IK-55384096:L70:span3",
+        "IK-55384096:L71:span4",
+        "IK-55384096:L77:span5",
+        "IK-55384096:L77:span6",
+        "IK-55384096:L79:span7",
+        "IK-55384096:L80:span8"
+      ],
+      "findings": [
+        "Hakim Rai与Raj Kumar的1983年帮助／合伙安排有明确日期；真实性受房东质疑。模型不能因此直接确认全部让与或交出占有条件。",
+        "R-GCN-ANCO全部种子未保留B1的已记载日期条件，且两个种子把未决让与／交出占有预测为支持；这是相对于Flat的新增错误。",
+        "B2来自证人对丈夫与同一Raj Kumar经营关系的描述。它可能是同一安排的另一叙述，并无充分材料证明是独立交易。输入生成仍有把归属未明的证言分裂成新绑定的问题。"
+      ],
+      "causes": [
+        "MODEL_OVERASSERTION",
+        "MODEL_DATE_OMISSION",
+        "POSSIBLE_DUPLICATE_BINDING"
+      ],
+      "reference_change": "NONE; binding distinctness disputed",
+      "decision": "不把更细的绑定数量称为更准确的分析。"
+    },
+    {
+      "case_id": "68065690",
+      "source_ids": [
+        "IK-68065690:L76:span1",
+        "IK-68065690:L80:span2",
+        "IK-68065690:L82:span3",
+        "IK-68065690:L83:span4",
+        "IK-68065690:L84:span5",
+        "IK-68065690:L174:span6",
+        "IK-68065690:L176:span7",
+        "IK-68065690:L181:span8"
+      ],
+      "findings": [
+        "Rs5500租金和独占是房东主张，被对方明确否认；家庭帮助和1975年口头合伙又是不同陈述。不能把1975自动当成被诉转租日期。",
+        "GNN在B1的时间和书面同意检验保持未决，Flat有一个种子作出无足够依据的支持；两边大部分关键法律条件都仍未决，这里未决有真实证据冲突。",
+        "B2的my client未具名，不足以证明与B1是不同交易；归属缺口不能包装成发现了第二个独立事件。"
+      ],
+      "causes": [
+        "GENUINE_STATEMENT_CONFLICT",
+        "MODEL_CONNECTION_ERROR_IN_ONE_SEED",
+        "INPUT_SPEAKER_FRAGMENTATION"
+      ],
+      "reference_change": "NONE",
+      "decision": "有局部保守性改善，但不能证明GNN完整分析更好。"
+    },
+    {
+      "case_id": "112400",
+      "source_ids": [
+        "IK-112400:L123:span1",
+        "IK-112400:L124:restored-v2",
+        "IK-112400:L127:restored-v2",
+        "IK-112400:L130:span6",
+        "IK-112400:L139:restored-v2",
+        "IK-112400:L140:restored-v2"
+      ],
+      "findings": [
+        "既往Rent Controller及Tribunal认为不属真实自住需要；后来的专员认为现住所不适合，应保留两者的不同命题和阶段。Flat三个种子把C02预测为支持，GNN均未决，均未识别参考中的既往反驳。",
+        "所有权明确，房东声称自己居住的路线明确；家庭成员是否依赖不是该自住路线的必要条件。R-GCN已经支持C03，但程序仍因家属依赖不明改为未决。限制字段虽局部化到C03，却未进一步区分其择一分支，属于尚未解决的组合粒度问题。",
+        "现居底层不适合，并不证明没有任何其他适合住房；C06仍有真实范围缺口。旧法版本和说明条款不足限制法律应用，但不应抹去来源中的所有权和自住主张。"
+      ],
+      "causes": [
+        "MODEL_PRIOR_FINDING_OMISSION",
+        "UNRESOLVED_OR_BRANCH_DEPENDENCY",
+        "LAW_VERSION_COVERAGE",
+        "GENUINE_ALTERNATIVE_ACCOMMODATION_GAP"
+      ],
+      "reference_change": "NONE",
+      "decision": "自住仅两组，作为覆盖外诊断；仍存在明确的过度阻止，不宣称全链已修好。"
+    }
+  ],
+  "overall": "Engineering and query granularity repaired; learned methods do not stably exceed prior. Scope annotations and branch/alternative witness application remain imperfect. Full request-level benefit is not established."
+}

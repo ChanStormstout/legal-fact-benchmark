@@ -1,0 +1,77 @@
+{
+  "answers": [
+    {
+      "claim_id": "DRC_SUBLETTING_CLAIM_01",
+      "prediction": "PREDICT_DENY",
+      "conditions": [
+        {
+          "test_id": "DRC_SUBLETTING_C01",
+          "binding_id": "b1",
+          "binding": "Ramesh Kumar; Shop No. 15; disposition alleged 06.01.1987",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-188721101:L72:restored-v2"],
+          "explanation": "The landlord's case explicitly alleges the disposition occurred on 06.01.1987, which satisfies the 'on or after 9 June 1952' requirement. This date is recorded in the case text."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C02",
+          "binding_id": "b2",
+          "binding": "Ramesh Kumar; Bhagwan Dass; alleged sub-letting of Shop No. 15",
+          "assessment": "REFUTED",
+          "refs": ["IK-188721101:L74:restored-v2", "IK-188721101:L81:restored-v2", "IK-188721101:L83:restored-v2"],
+          "explanation": "The trial court found the arrangement was a revocable license, not a tenancy, meaning the required incidents of letting (transfer of interest, right to possession) are absent. The tenant's evidence of salary payment contradicts the rent requirement."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C03",
+          "binding_id": "b3",
+          "binding": "Ramesh Kumar; Bhagwan Dass; alleged assignment of Shop No. 15",
+          "assessment": "REFUTED",
+          "refs": ["IK-188721101:L81:restored-v2", "IK-188721101:L83:restored-v2"],
+          "explanation": "Assignment requires divestment of all tenant rights. The trial court found the tenant retained the right to terminate the privilege at will, indicating he did not divest all rights."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C04",
+          "binding_id": "b4",
+          "binding": "Ramesh Kumar; Bhagwan Dass; alleged parting with possession of Shop No. 15",
+          "assessment": "REFUTED",
+          "refs": ["IK-188721101:L81:restored-v2", "IK-188721101:L83:restored-v2", "IK-190902:L107", "IK-190902:L112"],
+          "explanation": "The trial court characterized the arrangement as a license where the tenant retained legal possession. The law states mere user or concurrent use without ousting the tenant is not parting with possession."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C05",
+          "binding_id": "b5",
+          "binding": "Ramesh Kumar; Shop No. 15; alleged disposition",
+          "assessment": "UNRESOLVED",
+          "refs": [],
+          "explanation": "No record provides specific evidence regarding the existence or absence of written consent from the landlord for the alleged disposition."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C06",
+          "binding_id": "b6",
+          "binding": "Ramesh Kumar; Bhagwan Dass; concurrent user of Shop No. 15",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-188721101:L81:restored-v2", "IK-188721101:L83:restored-v2", "IK-190902:L107", "IK-190902:L112"],
+          "explanation": "Witnesses testified Bhagwan Dass was an employee drawing a salary, and the trial court found the arrangement was a revocable license. This supports the proposition that the tenant retained legal possession."
+        },
+        {
+          "test_id": "DRC_SUBLETTING_C07",
+          "binding_id": "b7",
+          "binding": "Shop No. 15; Property No. 4415; disposition of Shop No. 15",
+          "assessment": "SUPPORTED",
+          "refs": ["IK-188721101:L72:restored-v2", "LAW:S02:DRC14:1b"],
+          "explanation": "The landlord alleges the disposition concerns Shop No. 15, which is part of the premises (Property No. 4415), satisfying the requirement that the disposition concerns the whole or any part of the premises."
+        }
+      ],
+      "opposition": {
+        "record": "Landlord alleges sub-letting, assignment, and parting with possession without consent.",
+        "refs": ["IK-188721101:L72:restored-v2"],
+        "response": "The landlord's claim relies on unproven allegations of sub-letting and assignment. The trial court's finding of a license negates the sub-letting and assignment routes. The parting with possession route is defeated by the finding of retained legal possession."
+      },
+      "gaps": [
+        "The absence of written consent (DRC_SUBLETTING_C05) remains unresolved as no evidence of consent or lack thereof is in the record.",
+        "The ultimate appellate determination of the trial court's finding on the nature of the relationship (license vs tenancy) is pending."
+      ],
+      "reason": "I predict denial because the decisive conditions for the sub-letting and assignment routes are refuted by the trial court's finding of a license, and the parting with possession route is refuted by the finding of retained legal possession. The unresolved consent gap prevents a grant, but the existing evidence strongly supports denial of the eviction ground.",
+      "intermediate_correction": "None."
+    }
+  ]
+}

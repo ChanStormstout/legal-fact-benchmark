@@ -1,0 +1,56 @@
+{
+  "short": {
+    "test_id": "DRC_BONA_FIDE-C06",
+    "assessment": "SUPPORTED",
+    "binding": "Landlord; Respondent; Premises in occupation of Respondent; May 4, 1970 finding",
+    "refs": [
+      "IK-112400:L139:restored-v2",
+      "IK-112400:L140:restored-v2"
+    ],
+    "explanation": "The prior court finding explicitly states that the portion of premises occupied by the landlord was not reasonably sufficient for his family, which directly satisfies the predicate that the landlord has no other reasonably suitable residential accommodation. This finding is a recorded judicial determination from the Rent Control Tribunal, not a mere party assertion, and the target court accepts the remand based on this specific issue."
+  },
+  "full": {
+    "test_id": "DRC_BONA_FIDE-C06",
+    "assessment": "UNRESOLVED",
+    "binding": "Landlord; family members; alternative accommodation status",
+    "refs": [
+      "IK-112400:L137:context-v4",
+      "IK-112400:L138:context-v4"
+    ],
+    "explanation": "The supplied legal structure defines the test as whether the landlord has 'no other reasonably suitable residential accommodation.' However, the complete case records provided explicitly state that the prior Tribunal did not record a finding on this specific question, noting the need for a remand. While the records confirm the landlord's current occupation and family size, they contain no adjudicative fact regarding the suitability of his alternative accommodation, leaving the core element of the test without a binding prior finding to evaluate."
+  },
+  "findings": [
+    {
+      "id": "112-Q",
+      "methods": [
+        "D-short",
+        "A"
+      ],
+      "answer_location": "C06 assessment/explanation",
+      "source_ids": [
+        "IK-112400:L139:restored-v2",
+        "IK-112400:L140:restored-v2"
+      ],
+      "observation": "短诊断directly satisfies、A implying no other suitable accommodation：把现住房不适合全家扩大成其他合适住房都不存在。原文确有Tribunal针对当前住房的认定，但提供片段未说明已经穷尽全部替代住房。",
+      "origin": "RAW_MODEL_OUTPUT",
+      "qualification": "可支持当前住房不合适；对完整C06的最终法律解读保留范围争议，不能反向标成REFUTED。"
+    },
+    {
+      "id": "112-OMIT",
+      "methods": [
+        "D-full"
+      ],
+      "answer_location": "explanation",
+      "source_ids": [
+        "IK-112400:L137:context-v4",
+        "IK-112400:L138:context-v4",
+        "IK-112400:L139:restored-v2",
+        "IK-112400:L140:restored-v2"
+      ],
+      "observation": "完整诊断说没有任何关于适合性的既有裁判事实，仅抓住发回前未认定，遗漏同输入中的发回后报告和认定。UNRESOLVED标签不能掩盖错误理由。",
+      "origin": "RAW_MODEL_OUTPUT_INTEGRATION",
+      "qualification": ""
+    }
+  ],
+  "conclusion": "未复现旧版直接把C06标成REFUTED，但短任务仍量词过度推断、完整任务遗漏已送达后续认定；不是单纯后处理翻转，也不能只归因为长文本。两输入信息范围不同，短段仍不足以证明穷尽其他住所。"
+}

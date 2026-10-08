@@ -1,0 +1,359 @@
+{
+  "type": "object",
+  "properties": {
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "DRC_SUBLETTING_CLAIM_01"
+              ]
+            },
+            "maxItems": 2
+          },
+          "objects": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-55384096:L67:span1",
+                "IK-55384096:L69:span2",
+                "IK-55384096:L70:span3",
+                "IK-55384096:L71:span4",
+                "IK-55384096:L77:span5",
+                "IK-55384096:L77:span6",
+                "IK-55384096:L79:span7",
+                "IK-55384096:L80:span8",
+                "IK-55384096:L76:context-v4",
+                "IK-55384096:L77:context-v4",
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "id",
+          "claim_ids",
+          "objects",
+          "event",
+          "stage",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 4
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "binding_id": {
+            "type": "string"
+          },
+          "record": {
+            "type": "string"
+          },
+          "statement_status": {
+            "type": "string",
+            "enum": [
+              "PARTY_CLAIM",
+              "DENIAL",
+              "ADMISSION",
+              "TESTIMONY",
+              "PRIOR_COURT_FINDING",
+              "RECORDED_DOCUMENT",
+              "UNKNOWN"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-55384096:L67:span1",
+                "IK-55384096:L69:span2",
+                "IK-55384096:L70:span3",
+                "IK-55384096:L71:span4",
+                "IK-55384096:L77:span5",
+                "IK-55384096:L77:span6",
+                "IK-55384096:L79:span7",
+                "IK-55384096:L80:span8",
+                "IK-55384096:L76:context-v4",
+                "IK-55384096:L77:context-v4",
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          },
+          "uses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "test_id": {
+                  "type": "string",
+                  "enum": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C03",
+                    "DRC_SUBLETTING_C04",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C06",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "branch_id": {
+                  "type": "string",
+                  "enum": [
+                    ""
+                  ]
+                },
+                "direction": {
+                  "type": "string",
+                  "enum": [
+                    "SUPPORT",
+                    "OPPOSE",
+                    "UNKNOWN"
+                  ]
+                },
+                "use": {
+                  "type": "string",
+                  "enum": [
+                    "CONDITION_INFERENCE",
+                    "RECORD_EXISTENCE",
+                    "PROVEN_FACT",
+                    "TARGET_ACCEPTANCE"
+                  ]
+                }
+              },
+              "required": [
+                "test_id",
+                "branch_id",
+                "direction",
+                "use"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "id",
+          "binding_id",
+          "record",
+          "statement_status",
+          "refs",
+          "uses"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 10
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "binding_id": {
+            "type": "string"
+          },
+          "test_id": {
+            "type": "string",
+            "enum": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C06",
+              "DRC_SUBLETTING_C07"
+            ]
+          },
+          "branch_id": {
+            "type": "string",
+            "enum": [
+              ""
+            ]
+          },
+          "use": {
+            "type": "string",
+            "enum": [
+              "CONDITION_INFERENCE",
+              "RECORD_EXISTENCE",
+              "PROVEN_FACT",
+              "TARGET_ACCEPTANCE"
+            ]
+          },
+          "effect": {
+            "type": "string",
+            "enum": [
+              "USE_BLOCK",
+              "PROPOSITION_BLOCK",
+              "NOTE",
+              "SCOPE_UNMAPPED"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-55384096:L67:span1",
+                "IK-55384096:L69:span2",
+                "IK-55384096:L70:span3",
+                "IK-55384096:L71:span4",
+                "IK-55384096:L77:span5",
+                "IK-55384096:L77:span6",
+                "IK-55384096:L79:span7",
+                "IK-55384096:L80:span8",
+                "IK-55384096:L76:context-v4",
+                "IK-55384096:L77:context-v4",
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "id",
+          "evidence_ids",
+          "binding_id",
+          "test_id",
+          "branch_id",
+          "use",
+          "effect",
+          "reason",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 8
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "binding_id": {
+            "type": "string"
+          },
+          "test_id": {
+            "type": "string",
+            "enum": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C06",
+              "DRC_SUBLETTING_C07"
+            ]
+          },
+          "branch_id": {
+            "type": "string",
+            "enum": [
+              ""
+            ]
+          },
+          "assessment": {
+            "type": "string",
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNRESOLVED",
+              "UNSUPPORTED"
+            ]
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6
+          },
+          "gap": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "binding_id",
+          "test_id",
+          "branch_id",
+          "assessment",
+          "evidence_ids",
+          "gap"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 24
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4
+    }
+  },
+  "required": [
+    "bindings",
+    "evidence",
+    "limitations",
+    "conditions",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

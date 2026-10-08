@@ -1,0 +1,17 @@
+............./Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/tests/test_irac_pipeline_v4.py:59: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/mj/y8050r2j7sl6g1p26gcydbmr0000gn/T/tmprk12c528/input-delivery.json' mode='r' encoding='UTF-8'>
+  r,_=entry.complete_slot(Fake(),'112400','A',txt,schema('final',m,t,l),1,Path(d));self.assertIsNone(r['prediction']);self.assertTrue(json.load(open(Path(d)/'input-delivery.json'))['rendered_matches'])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.........F......
+======================================================================
+FAIL: test_real_553_other_binding_not_gate (tests.test_irac_pipeline_v4.Repairs.test_real_553_other_binding_not_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/tests/test_irac_pipeline_v4.py", line 16, in test_real_553_other_binding_not_gate
+    m,t,l,s=self.load('55384096');i,c=process(self.old('55384096'),t,s,'55384096');self.assertTrue(i['usable']);self.assertTrue(any(x['binding_id']=='b1' for x in i['projection']['conditions']));self.assertTrue(any(x['binding_id']=='b2' for x in i['missing']))
+                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.089s
+
+FAILED (failures=1)

@@ -1,0 +1,908 @@
+你说：
+粘贴的文本 (1)(20261007-132832).txt
+文档
+思考了 2m 39s
+已分析
+分析出错
+已分析
+已分析
+已分析
+ChatGPT 说：
+
+已按附件中的任务约束执行：仅使用所提供材料，针对 case 114533 的指定 Supreme Court 程序阶段生成 source-grounded TEST links，并保留事实状态、程序阶段、不确定性及缺失条件。
+粘贴的文本 (1)
+ 
+粘贴的文本 (1)
+
+JSON
+{
+  "case_id": "114533",
+  "additional_facts": [
+    {
+      "id": "114533-AF1",
+      "text": "A prior court found that, because Sohan Singh and the appellant were living together as husband and wife, there was no question of subletting by the appellant.",
+      "entity_ids": [
+        "114533-E1",
+        "114533-E3"
+      ],
+      "statement_status": "PRIOR_FOUND",
+      "semantic_stage": "PRIOR_COURT_FINDING",
+      "court_level": "UNKNOWN",
+      "party_side": "NEUTRAL",
+      "polarity": "NEGATIVE",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L150:span7",
+          "quote": "Sohan Singh and the appellant were living together as husband and wife and, therefore, there was no question of any sub--letting by the appellant of the premises."
+        }
+      ]
+    },
+    {
+      "id": "114533-AF2",
+      "text": "The Rent Control Tribunal, Delhi confirmed the prior finding that there was no question of subletting by the appellant.",
+      "entity_ids": [
+        "114533-E1",
+        "114533-E3",
+        "114533-E4"
+      ],
+      "statement_status": "PRIOR_FOUND",
+      "semantic_stage": "PRIOR_COURT_FINDING",
+      "court_level": "TRIBUNAL",
+      "party_side": "NEUTRAL",
+      "polarity": "NEGATIVE",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET",
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L150:span7",
+          "quote": "Sohan Singh and the appellant were living together as husband and wife and, therefore, there was no question of any sub--letting by the appellant of the premises."
+        },
+        {
+          "source_id": "IK-114533:L150:span8",
+          "quote": "That finding was confirmed in appeal by the Rent Control Tribunal, Delhi."
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "id": "114533-L01",
+      "instance_id": "114533-F1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "SUPPORT",
+      "proposition": "The respondent's pleaded allegation that the appellant sub-let the entire premises to Sohan Singh supports the subletting test at the level of a claimant allegation.",
+      "binding": [
+        {
+          "role": "tenant_alleged_sublessor",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "alleged_subtenant",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "one Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L148:span1",
+          "quote": "the respondent applied under cite16†section 14 of the above Act to the Rent Controller, Delhi for evicting the appellant on the ground that she had sub-let the entire premises to one Sohan Singh who, according to the respondent, was running a business under the name of Royal Dispensing Chemists and Druggists in the shop."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.relationship",
+            "subletting.transfer_of_interest",
+            "subletting.payment_of_rent",
+            "subletting.right_to_possession"
+          ],
+          "reason": "This is a claimant allegation of subletting. It does not itself separately establish all incidents required by the supplied C02 test.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "on the ground that she had sub-let the entire premises to one Sohan Singh"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L02",
+      "instance_id": "114533-F1",
+      "test_id": "DRC_SUBLETTING_C07",
+      "direction": "SUPPORT",
+      "proposition": "The respondent's allegation expressly places the alleged subletting on the entire premises, supporting the premises-scope proposition.",
+      "binding": [
+        {
+          "role": "tenant_alleged_sublessor",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "alleged_subtenant",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "one Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L148:span1",
+          "quote": "she had sub-let the entire premises to one Sohan Singh"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "premises_scope.proof_status"
+          ],
+          "reason": "The scope statement is part of the respondent's allegation and is not converted here into an admitted or independently established fact.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "on the ground that she had sub-let the entire premises to one Sohan Singh"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L03",
+      "instance_id": "114533-F1",
+      "test_id": "DRC_SUBLETTING_C01",
+      "direction": "UNKNOWN",
+      "proposition": "The alleged subletting transaction is not dated in the supplied allegation, so this fact does not resolve whether it occurred on or after 9 June 1952.",
+      "binding": [
+        {
+          "role": "tenant_alleged_sublessor",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "alleged_subtenant",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "one Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L148:span1",
+          "quote": "she had sub-let the entire premises to one Sohan Singh"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "disposition.date"
+          ],
+          "reason": "No date of the alleged subletting appears in the supplied source.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "she had sub-let the entire premises to one Sohan Singh"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L04",
+      "instance_id": "114533-F1",
+      "test_id": "DRC_SUBLETTING_C05",
+      "direction": "UNKNOWN",
+      "proposition": "The supplied allegation of subletting does not state whether the landlord's written consent was obtained, so it does not resolve C05.",
+      "binding": [
+        {
+          "role": "tenant_alleged_sublessor",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "alleged_subtenant",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "one Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L148:span1",
+          "quote": "she had sub-let the entire premises to one Sohan Singh"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "written_consent"
+          ],
+          "reason": "The supplied case source does not state that written consent was absent, present, requested, or refused.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L148:span1",
+              "quote": "she had sub-let the entire premises to one Sohan Singh"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L05",
+      "instance_id": "114533-F2",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "SUPPORT",
+      "proposition": "The respondent's allegation that the appellant charged Sohan Singh rent supports the payment-of-rent incident within the supplied subletting test.",
+      "binding": [
+        {
+          "role": "alleged_sublessor",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span2",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "alleged_subtenant",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span2",
+              "quote": "her sub-tenant Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L149:span2",
+          "quote": "It was further alleged that the appellant was charging a fabulous amount as rent from her sub-tenant Sohan Singh."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.payment_of_rent"
+          ],
+          "reason": "The rent point is expressly alleged, not admitted or independently established in the supplied record.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span2",
+              "quote": "It was further alleged that the appellant was charging a fabulous amount as rent from her sub-tenant Sohan Singh."
+            }
+          ]
+        },
+        {
+          "fields": [
+            "subletting.relationship",
+            "subletting.transfer_of_interest",
+            "subletting.right_to_possession"
+          ],
+          "reason": "Even if the rent allegation is credited, this source does not establish the remaining incidents required by C02.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span2",
+              "quote": "charging a fabulous amount as rent from her sub-tenant Sohan Singh"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L06",
+      "instance_id": "114533-F3",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "SUPPORT",
+      "proposition": "The appellant's admission of the tenancy supports her identification as the tenant whose alleged subletting is at issue, but does not establish a subtenancy between her and Sohan Singh.",
+      "binding": [
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span3",
+              "quote": "The appellant in her written statement admitted the tenancy"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L149:span3",
+          "quote": "The appellant in her written statement admitted the tenancy"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.relationship",
+            "subletting.transfer_of_interest",
+            "subletting.payment_of_rent",
+            "subletting.right_to_possession"
+          ],
+          "reason": "Admission of the appellant's underlying tenancy does not establish the separate landlord-and-tenant relationship or tenancy incidents between the appellant and Sohan Singh required by C02.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span3",
+              "quote": "admitted the tenancy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L07",
+      "instance_id": "114533-F4",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "OPPOSE",
+      "proposition": "The appellant expressly denied subletting, opposing the C02 proposition at the pleading level.",
+      "binding": [
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span4",
+              "quote": "denied sub- letting."
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L149:span4",
+          "quote": "denied sub- letting."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.proof_status"
+          ],
+          "reason": "This is a party denial and is not treated as an adjudicated fact or proof that the C02 incidents are absent.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span4",
+              "quote": "denied sub- letting."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L08",
+      "instance_id": "114533-F5",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "UNKNOWN",
+      "proposition": "The appellant's assertion that Sohan Singh was her husband does not, under the supplied C02 rule alone, establish or negate the required subletting relationship and tenancy incidents.",
+      "binding": [
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span5",
+              "quote": "She"
+            }
+          ]
+        },
+        {
+          "role": "other_person",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span5",
+              "quote": "Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L149:span5",
+          "quote": "She alleged that Sohan Singh was her husband"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.relationship",
+            "subletting.transfer_of_interest",
+            "subletting.payment_of_rent",
+            "subletting.right_to_possession"
+          ],
+          "reason": "The supplied law does not state that a marital relationship by itself determines whether subletting exists.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span5",
+              "quote": "Sohan Singh was her husband"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L09",
+      "instance_id": "114533-F6",
+      "test_id": "DRC_SUBLETTING_C06",
+      "direction": "SUPPORT",
+      "proposition": "The appellant's assertion that she occasionally helped run the chemist business in the premises supports a factual possibility of concurrent use rather than total factual exclusion.",
+      "binding": [
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span6",
+              "quote": "she also occasionally helped him in the running of the business"
+            }
+          ]
+        },
+        {
+          "role": "other_user",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span6",
+              "quote": "the business of a Chemist was being run there in the premises by her husband"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L149:span6",
+          "quote": "from the time of the lease the business of a Chemist was being run there in the premises by her husband and she also occasionally helped him in the running of the business."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "retained_legal_possession",
+            "right_to_concurrent_user",
+            "wholly_ousted"
+          ],
+          "reason": "Occasional assistance in the business is evidence of some participation, but the source does not establish the appellant's legal possession, a right to concurrent user, or that she was not wholly ousted from legal possession.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span6",
+              "quote": "she also occasionally helped him in the running of the business."
+            }
+          ]
+        },
+        {
+          "fields": [
+            "statement_status"
+          ],
+          "reason": "This proposition is the appellant's assertion and is not treated as an admitted or independently established fact.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L149:span6",
+              "quote": "from the time of the lease the business of a Chemist was being run there in the premises by her husband and she also occasionally helped him in the running of the business."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L10",
+      "instance_id": "114533-F7",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "UNKNOWN",
+      "proposition": "The prior finding that Sohan Singh and the appellant were living together as husband and wife does not by itself resolve the specific C02 incidents of subletting under the supplied law.",
+      "binding": [
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "other_person",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L150:span7",
+          "quote": "Sohan Singh and the appellant were living together as husband and wife"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.relationship",
+            "subletting.transfer_of_interest",
+            "subletting.payment_of_rent",
+            "subletting.right_to_possession"
+          ],
+          "reason": "The supplied legal test does not make husband-wife status itself dispositive of subletting.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "Sohan Singh and the appellant were living together as husband and wife"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L11",
+      "instance_id": "114533-F8",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "UNKNOWN",
+      "proposition": "The respondent's admission that he made no personal inquiry into whether Sohan Singh and the appellant were husband and wife does not establish or negate the C02 subletting incidents.",
+      "binding": [
+        {
+          "role": "claimant_respondent",
+          "entity_id": "114533-E2",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L169:span9",
+              "quote": "The respondent himself"
+            }
+          ]
+        },
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L169:span9",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "other_person",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L169:span9",
+              "quote": "Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L169:span9",
+          "quote": "The respondent himself in his testimony admitted that he had never himself made any enquiry as to whether Sohan Singh and the appellant are husband and wife or not."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.relationship",
+            "subletting.transfer_of_interest",
+            "subletting.payment_of_rent",
+            "subletting.right_to_possession"
+          ],
+          "reason": "Lack of personal inquiry into marital status does not itself prove any C02 incident, and the supplied law does not make marital status dispositive.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L169:span9",
+              "quote": "had never himself made any enquiry as to whether Sohan Singh and the appellant are husband and wife or not."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L12",
+      "instance_id": "114533-EV1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "UNKNOWN",
+      "proposition": "The recorded testimony that the speaker did not personally witness talks regarding subletting or payment of rent is negative evidence but does not establish that no subletting agreement or rent payment existed.",
+      "binding": [],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L170:span10",
+          "quote": "Neither any talks regarding sub-letting took place in my presence, nor the rent was paid in my presence,"
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.relationship",
+            "subletting.payment_of_rent"
+          ],
+          "reason": "Absence of events in the speaker's presence is not equivalent to proof that the events never occurred.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L170:span10",
+              "quote": "Neither any talks regarding sub-letting took place in my presence, nor the rent was paid in my presence,"
+            }
+          ]
+        },
+        {
+          "fields": [
+            "evidence_status"
+          ],
+          "reason": "This is an EVIDENCE_RECORD described by the judgment; the underlying testimony was not independently inspected.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L170:span10",
+              "quote": "Neither any talks regarding sub-letting took place in my presence, nor the rent was paid in my presence,"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L13",
+      "instance_id": "114533-EV3",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "UNKNOWN",
+      "proposition": "The described true copy records the appellant as accepted as Sohan Singh's wife, but that marital-status evidence does not by itself resolve the C02 subletting incidents.",
+      "binding": [
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L171:span12",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "other_person",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L171:span12",
+              "quote": "Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L171:span12",
+          "quote": "The true copy disclosed that the appellant was accepted as the wife of Sohan Singh."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "subletting.relationship",
+            "subletting.transfer_of_interest",
+            "subletting.payment_of_rent",
+            "subletting.right_to_possession"
+          ],
+          "reason": "The supplied law does not state that marital status alone establishes or defeats subletting.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L171:span12",
+              "quote": "the appellant was accepted as the wife of Sohan Singh."
+            }
+          ]
+        },
+        {
+          "fields": [
+            "evidence_status"
+          ],
+          "reason": "This is an EVIDENCE_RECORD described by the judgment; the underlying document was not independently inspected.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L171:span12",
+              "quote": "The true copy disclosed that the appellant was accepted as the wife of Sohan Singh."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L14",
+      "instance_id": "114533-AF1",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "OPPOSE",
+      "proposition": "A prior court expressly concluded that there was no question of subletting by the appellant, opposing the C02 proposition as a prior-court finding.",
+      "binding": [
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "other_person",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "Sohan Singh"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L150:span7",
+          "quote": "Sohan Singh and the appellant were living together as husband and wife and, therefore, there was no question of any sub--letting by the appellant of the premises."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "procedural_status"
+          ],
+          "reason": "This is a prior-court finding, not treated as a Supreme Court finding at the focal stage.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "there was no question of any sub--letting by the appellant of the premises."
+            }
+          ]
+        },
+        {
+          "fields": [
+            "legal_basis"
+          ],
+          "reason": "The supplied C02 rule does not state that husband-wife status itself is dispositive, so the prior court's reasoning is preserved without converting it into an additional legal test.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "living together as husband and wife and, therefore, there was no question of any sub--letting"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "114533-L15",
+      "instance_id": "114533-AF2",
+      "test_id": "DRC_SUBLETTING_C02",
+      "direction": "OPPOSE",
+      "proposition": "The Rent Control Tribunal's confirmation preserves the prior no-subletting finding as opposition to C02 at the prior appellate stage.",
+      "binding": [
+        {
+          "role": "tenant",
+          "entity_id": "114533-E1",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "the appellant"
+            }
+          ]
+        },
+        {
+          "role": "other_person",
+          "entity_id": "114533-E3",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "Sohan Singh"
+            }
+          ]
+        },
+        {
+          "role": "confirming_tribunal",
+          "entity_id": "114533-E4",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span8",
+              "quote": "Rent Control Tribunal, Delhi"
+            }
+          ]
+        }
+      ],
+      "source_refs": [
+        {
+          "source_id": "IK-114533:L150:span7",
+          "quote": "there was no question of any sub--letting by the appellant of the premises."
+        },
+        {
+          "source_id": "IK-114533:L150:span8",
+          "quote": "That finding was confirmed in appeal by the Rent Control Tribunal, Delhi."
+        }
+      ],
+      "limitations": [
+        {
+          "fields": [
+            "procedural_status"
+          ],
+          "reason": "The Tribunal confirmation is a prior-stage finding and is not treated as the Supreme Court's own resolution of C02.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span8",
+              "quote": "That finding was confirmed in appeal by the Rent Control Tribunal, Delhi."
+            }
+          ]
+        },
+        {
+          "fields": [
+            "legal_basis"
+          ],
+          "reason": "The supplied C02 rule does not make husband-wife status dispositive; the confirmed prior finding is preserved as contested procedural history rather than a new legal rule.",
+          "source_refs": [
+            {
+              "source_id": "IK-114533:L150:span7",
+              "quote": "living together as husband and wife and, therefore, there was no question of any sub--letting"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "combinations": [],
+  "coverage_limits": [
+    "Only the supplied case sources, supplied law, template, legacy facts, and legacy evidence were used; no external search, project history, or other conversation material was used.",
+    "Link direction measures whether the cited instance supports, opposes, or leaves unresolved the literal referenced TEST proposition. SUPPORT does not mean that eviction is established.",
+    "The supplied case record gives no date for the alleged subletting transaction, so DRC_SUBLETTING_C01 remains unresolved; date uncertainty blocks the temporal requirement but is not treated as opposition.",
+    "The supplied case record does not state whether landlord written consent was obtained, so DRC_SUBLETTING_C05 remains unresolved; absence of a consent statement is not treated as proof of no consent.",
+    "The rent allegation supports only the payment-of-rent incident within DRC_SUBLETTING_C02. The supplied case material does not separately establish transfer of an interest in the estate and the right to possession as against the tenant, so C02 is not treated as fully satisfied.",
+    "No supplied case fact expressly establishes assignment under DRC_SUBLETTING_C03 or tenant-caused divestment of physical possession and the right to possession under DRC_SUBLETTING_C04.",
+    "The appellant's asserted occasional assistance in the business is linked as support for the factual possibility relevant to DRC_SUBLETTING_C06, but it does not establish retained legal possession, a legal right of concurrent user, or absence of whole ouster.",
+    "Marital status and cohabitation are preserved because they were asserted, evidenced, and used in prior-court reasoning, but the supplied legal tests do not make husband-wife status itself dispositive of subletting.",
+    "The no-subletting conclusion and its Tribunal confirmation are preserved as prior-court findings only. They are not converted into Supreme Court findings at the focal stage.",
+    "Legacy evidence records are treated as EVIDENCE_RECORD descriptions in the judgment, not as independently inspected underlying testimony or documents.",
+    "The typed-copy authentication record 114533-EV2 is not linked directly to a legal TEST because it authenticates the described copy rather than independently addressing a test proposition; 114533-EV3 preserves the copy's marital-status content with its evidentiary limitation.",
+    "No explicit complete-object combination is proposed. The record lacks source-grounded resolution of the temporal and written-consent requirements and does not supply a complete C02 incident chain; therefore no full claim chain can be assembled without inference.",
+    "Because no complete-object combination is proposed, no cross-fact identity_witness chain is fabricated. Individual link bindings use only source-grounded named entities.",
+    "Burden allocation, proof standard, burden shifting, evidentiary presumptions, and any additional consent doctrine are not supplied and are not inferred."
+  ]
+}
+case_114533_source_grounded_links.json
+代码
+ChatGPT 可能会出错。请核查重要信息。
+最新一条回复
+
+
+
+
+High

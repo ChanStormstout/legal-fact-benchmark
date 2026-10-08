@@ -1,0 +1,129 @@
+{
+  "templates": [
+    {
+      "family": "DRC_SUBLETTING",
+      "rule_decision": "SUPPORTED",
+      "conditions": [
+        {
+          "condition_id": "DRC_SUBLETTING_C01",
+          "decision": "SUPPORTED",
+          "reason": "The supplied statutory text expressly limits the relevant conduct to subletting, assignment, or parting with possession occurring on or after 9 June 1952. The proposed condition preserves that timing requirement as a positive necessary condition."
+        },
+        {
+          "condition_id": "DRC_SUBLETTING_C02",
+          "decision": "SUPPORTED",
+          "reason": "The supplied interpretation expressly states that subletting involves a landlord-and-tenant relationship between tenant and sub-tenant and identifies the incidents of letting or tenancy. Treating this as the positive subletting-route alternative is supported."
+        },
+        {
+          "condition_id": "DRC_SUBLETTING_C03",
+          "decision": "SUPPORTED",
+          "reason": "The supplied interpretation expressly states that, in assignment, the tenant must divest himself of all rights held as tenant. Treating this as the positive assignment-route alternative is supported."
+        },
+        {
+          "condition_id": "DRC_SUBLETTING_C04",
+          "decision": "SUPPORTED",
+          "reason": "The supplied interpretation states that parting with possession requires giving or vesting possession in another person and divestment or abandonment of the tenant's right to possession. The proposed positive alternative accurately confines this proposition to the parting-with-possession route."
+        },
+        {
+          "condition_id": "DRC_SUBLETTING_C05",
+          "decision": "SUPPORTED",
+          "reason": "The statutory excerpt expressly requires that the relevant subletting, assignment, or parting with possession occur without the landlord's consent in writing. The negative polarity and necessary role are supported."
+        },
+        {
+          "condition_id": "DRC_SUBLETTING_C06",
+          "decision": "SUPPORTED",
+          "reason": "The supplied interpretation expressly provides that concurrent use or mere use by others does not amount to parting with possession while the tenant retains legal possession. The negative polarity and qualification role are supported, and the wording is properly limited to the parting-with-possession route."
+        }
+      ],
+      "dependencies": [
+        {
+          "dependent_condition_id": "DRC_SUBLETTING_C06",
+          "condition_id": "DRC_SUBLETTING_C04",
+          "operator": "QUALIFICATION",
+          "source_refs": [
+            {
+              "source_id": "IK-190902:L107",
+              "quote": "If there is anything in the nature of a right to concurrent user there is no parting with possession"
+            },
+            {
+              "source_id": "IK-190902:L112",
+              "quote": "The mere user by other persons is no parting with Possession so long as the tenant retains the legal possession himself"
+            }
+          ],
+          "reason": "C06 qualifies only the parting-with-possession route represented by C04: retained legal possession or concurrent user negates that route. The supplied law does not support extending this qualification automatically to the distinct subletting or assignment routes."
+        }
+      ],
+      "scope_limitations": [
+        "Review is limited to the supplied DRC1958 s14(1)(b) statutory excerpt and the supplied 1975 interpretive-precedent excerpts; the historical statutory text/version and historical reproduction are not independently verified.",
+        "The proposal is a partial given-rule decomposition. No additional burden rule, evidentiary factor, later qualification, exception, or complete decisive test is supplied or implied.",
+        "The statutory text presents subletting, assignment, and parting with possession as distinct alternative routes, but the supplied dependency interface contains only condition-to-condition links and no rule node. No pairwise OR dependency among C02, C03, and C04, and no rule-level AND structure with C01 and C05, is invented.",
+        "The possession-retention interpretation in C06 is confined to the parting-with-possession route and is not treated as automatically governing the distinct subletting or assignment routes.",
+        "This is a model-reviewed rule reference, not human gold, and no target facts are supplied."
+      ],
+      "dependency_errors": [
+        "DRC_SUBLETTING_C06 originally listed the bare dependency ID DRC_SUBLETTING_C04 without an operator or encoded direction (DEPENDENCY_INVALID). The review formalizes only the source-supported C06 -> C04 QUALIFICATION relationship."
+      ]
+    },
+    {
+      "family": "DRC_BONA_FIDE",
+      "rule_decision": "SUPPORTED",
+      "conditions": [
+        {
+          "condition_id": "DRC_BONA_FIDE-C01",
+          "decision": "SUPPORTED",
+          "reason": "The supplied historical statutory excerpt expressly refers to premises let for residential purposes. The proposed positive necessary condition is supported within the stated pre-2008 residential scope."
+        },
+        {
+          "condition_id": "DRC_BONA_FIDE-C02",
+          "decision": "SUPPORTED",
+          "reason": "The supplied excerpt expressly requires that the premises be required bona fide for occupation as a residence. The proposed positive necessary condition is supported."
+        },
+        {
+          "condition_id": "DRC_BONA_FIDE-C03",
+          "decision": "SUPPORTED",
+          "reason": "The supplied excerpt expressly identifies occupation by the landlord himself or by a member of his family dependent on him. Treating this as one positive alternative occupation route is supported."
+        },
+        {
+          "condition_id": "DRC_BONA_FIDE-C04",
+          "decision": "SUPPORTED",
+          "reason": "The supplied excerpt places the ownership phrase 'if he is the owner thereof' immediately on the landlord-or-dependent-family route. Treating ownership as a positive qualification of C03 is supported by the supplied wording."
+        },
+        {
+          "condition_id": "DRC_BONA_FIDE-C05",
+          "decision": "SUPPORTED",
+          "reason": "The supplied excerpt expressly provides the alternative route of occupation by a person for whose benefit the premises are held. The positive alternative role is supported."
+        },
+        {
+          "condition_id": "DRC_BONA_FIDE-C06",
+          "decision": "SUPPORTED",
+          "reason": "The supplied excerpt expressly adds that the landlord or such person has no other reasonably suitable residential accommodation. The negative polarity and necessary role are supported within the supplied wording."
+        }
+      ],
+      "dependencies": [
+        {
+          "dependent_condition_id": "DRC_BONA_FIDE-C04",
+          "condition_id": "DRC_BONA_FIDE-C03",
+          "operator": "QUALIFICATION",
+          "source_refs": [
+            {
+              "source_id": "IK-18143401:L41:historical-e",
+              "quote": "(e) that the premises let for residential purposes are required bona fide by the landlord for occupation as a residence for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held and that the landlord or such person has no other reasonably suitable residential accommodation.Explanation."
+            }
+          ],
+          "reason": "The ownership clause qualifies the landlord-or-dependent-family occupation route represented by C03. The supplied wording supports that qualification relationship and does not support treating C04 as a free-standing alternative route."
+        }
+      ],
+      "scope_limitations": [
+        "Review is limited to the supplied pre-2008 residential wording of DRC1958 s14(1)(e); the post-2008 extension is not applied.",
+        "The supplied historical source is retrospectively reconstructed pre-target material, and historical/version uncertainty is retained rather than resolved.",
+        "The supplied excerpt ends at 'Explanation.' and does not provide the explanation text, so no proposition from the omitted explanation is added or inferred.",
+        "The proposal is a partial given-rule decomposition from the supplied excerpt only and does not claim complete interpretation coverage or a complete decisive test.",
+        "C03 and C05 are alternative occupation routes in the supplied statutory wording, but the condition-to-condition dependency interface has no rule node. No pairwise OR dependency between them, and no rule-level AND structure with C01, C02, and C06, is invented.",
+        "This is a model-reviewed rule reference, not human gold, and no target facts are supplied."
+      ],
+      "dependency_errors": [
+        "DRC_BONA_FIDE-C04 originally listed the bare dependency ID DRC_BONA_FIDE-C03 without an operator or encoded direction (DEPENDENCY_INVALID). The review formalizes only the source-supported C04 -> C03 QUALIFICATION relationship."
+      ]
+    }
+  ]
+}

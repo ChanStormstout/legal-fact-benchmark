@@ -1,0 +1,163 @@
+{
+  "schema_version": "IRAC_INPUT_GRAPH_V1",
+  "case_id": "synthetic",
+  "nodes": [
+    {
+      "id": "C1",
+      "type": "Condition",
+      "features": {
+        "statement_status": "DOCUMENT_RECORDED",
+        "semantic_stage": "PRE_TARGET_RECORD",
+        "party_side": null,
+        "court_level": "NONE",
+        "polarity": null,
+        "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+      },
+      "source_grounded": true,
+      "text": "Exclusive possession",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Exclusive possession is necessary."
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "type": "Condition",
+      "features": {
+        "statement_status": "DOCUMENT_RECORDED",
+        "semantic_stage": "PRE_TARGET_RECORD",
+        "party_side": null,
+        "court_level": "NONE",
+        "polarity": null,
+        "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+      },
+      "source_grounded": true,
+      "text": "Mere use insufficient",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Mere use is insufficient."
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "type": "Fact",
+      "features": {
+        "statement_status": "CLAIMED",
+        "semantic_stage": "PRE_TARGET_RECORD",
+        "party_side": null,
+        "court_level": "NONE",
+        "polarity": null,
+        "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+      },
+      "source_grounded": true,
+      "text": "Guest merely uses Room",
+      "source_refs": [
+        {
+          "source_id": "CASE:1",
+          "quote": "Tenant alleges that Guest merely uses Room."
+        }
+      ]
+    },
+    {
+      "id": "I",
+      "type": "Issue",
+      "features": {
+        "statement_status": "DOCUMENT_RECORDED",
+        "semantic_stage": "PRE_TARGET_RECORD",
+        "party_side": null,
+        "court_level": "NONE",
+        "polarity": null,
+        "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+      },
+      "source_grounded": true,
+      "text": "Does Guest have exclusive possession?",
+      "source_refs": [
+        {
+          "source_id": "CASE:1",
+          "quote": "Tenant alleges that Guest merely uses Room."
+        }
+      ]
+    },
+    {
+      "id": "R",
+      "type": "Rule",
+      "features": {
+        "statement_status": "DOCUMENT_RECORDED",
+        "semantic_stage": "PRE_TARGET_RECORD",
+        "party_side": null,
+        "court_level": "NONE",
+        "polarity": null,
+        "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+      },
+      "source_grounded": true,
+      "text": "Exclusive possession test",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Exclusive possession is necessary. Mere use is insufficient."
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "F",
+      "target": "C1",
+      "type": "FACT_RELEVANT_TO_CONDITION",
+      "source_refs": [
+        {
+          "source_id": "CASE:1",
+          "quote": "Tenant alleges that Guest merely uses Room."
+        }
+      ],
+      "provenance_record_id": "B",
+      "candidate_relation_not_truth": true
+    },
+    {
+      "source": "I",
+      "target": "R",
+      "type": "ISSUE_GOVERNED_BY_RULE",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Exclusive possession is necessary. Mere use is insufficient."
+        }
+      ],
+      "provenance_record_id": "R",
+      "candidate_relation_not_truth": false
+    },
+    {
+      "source": "R",
+      "target": "C1",
+      "type": "RULE_HAS_CONDITION",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Exclusive possession is necessary."
+        }
+      ],
+      "provenance_record_id": "C1",
+      "candidate_relation_not_truth": false
+    },
+    {
+      "source": "R",
+      "target": "C2",
+      "type": "RULE_HAS_CONDITION",
+      "source_refs": [
+        {
+          "source_id": "LAW:1",
+          "quote": "Mere use is insufficient."
+        }
+      ],
+      "provenance_record_id": "C2",
+      "candidate_relation_not_truth": false
+    }
+  ],
+  "input_hash": "2c29fa013bb7be317b3433e9595c581c35feed12052e6498f505690c02b7cdf0",
+  "semantics": "Directional model-proposed bindings preserve record status; no target, label, automatic identity or truth inference.",
+  "graph_hash": "c34e732a62aa344bf0a8bbb3f691f97c4746ef097a76082dc892548b451a92dd"
+}

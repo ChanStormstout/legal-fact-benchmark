@@ -1,0 +1,967 @@
+{
+  "proposal": {
+    "bindings": [
+      {
+        "id": "b1",
+        "claim_ids": [
+          "DRC_BONA_FIDE-CLAIM-01"
+        ],
+        "objects": "Respondent; Premises; Landlord",
+        "event": "Eviction under clause (e) ground",
+        "stage": "Delhi High Court appeal",
+        "refs": [
+          "IK-112400:L124:restored-v2",
+          "IK-112400:L127:restored-v2",
+          "IK-112400:L139:restored-v2",
+          "IK-112400:L140:restored-v2"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e1",
+        "binding_id": "b1",
+        "record": "Respondent was owner of entire premises and occupied ground floor; required premises bona fide for himself and family.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-112400:L124:restored-v2",
+          "IK-112400:L127:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_BONA_FIDE-C01",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C02",
+            "branch_id": "",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C03",
+            "branch_id": "DRC_BONA_FIDE-C03/SELF",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          },
+          {
+            "test_id": "DRC_BONA_FIDE-C04",
+            "branch_id": "DRC_BONA_FIDE-C03/SELF",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "binding_id": "b1",
+        "record": "Tribunal found landlord's requirement was not bona fide because eviction sought within 11 months of letting.",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-112400:L130:span6"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_BONA_FIDE-C02",
+            "branch_id": "",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "binding_id": "b1",
+        "record": "Tribunal found portion in landlord's occupation was not reasonably sufficient for his family (5+ members).",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "refs": [
+          "IK-112400:L139:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_BONA_FIDE-C06",
+            "branch_id": "DRC_BONA_FIDE-C06",
+            "direction": "SUPPORT",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      },
+      {
+        "id": "e4",
+        "binding_id": "b1",
+        "record": "Tenant accepted Tribunal's finding that landlord's requirement was not bona fide.",
+        "statement_status": "PARTY_CLAIM",
+        "refs": [
+          "IK-112400:L127:restored-v2"
+        ],
+        "uses": [
+          {
+            "test_id": "DRC_BONA_FIDE-C02",
+            "branch_id": "",
+            "direction": "OPPOSE",
+            "use": "CONDITION_INFERENCE"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      {
+        "id": "l1",
+        "evidence_ids": [
+          "e2",
+          "e4"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C02",
+        "branch_id": "",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior court finding explicitly negates bona fide requirement; tenant admission reinforces this negation.",
+        "refs": [
+          "IK-112400:L130:span6",
+          "IK-112400:L127:restored-v2"
+        ]
+      },
+      {
+        "id": "l2",
+        "evidence_ids": [
+          "e3"
+        ],
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C06",
+        "branch_id": "DRC_BONA_FIDE-C06",
+        "use": "TARGET_ACCEPTANCE",
+        "effect": "USE_BLOCK",
+        "reason": "Prior court finding explicitly negates reasonably suitable accommodation for landlord's family.",
+        "refs": [
+          "IK-112400:L139:restored-v2"
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C01",
+        "branch_id": "",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1"
+        ],
+        "gap": "None; prior finding is unchallenged on residential letting."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C02",
+        "branch_id": "",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e2",
+          "e4"
+        ],
+        "gap": "None; prior finding and tenant admission align to negate bona fide requirement."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C03",
+        "branch_id": "DRC_BONA_FIDE-C03/SELF",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1"
+        ],
+        "gap": "None; prior finding establishes landlord self-occupation."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C03",
+        "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1"
+        ],
+        "gap": "None; prior finding establishes family occupation."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C03",
+        "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1"
+        ],
+        "gap": "None; prior finding establishes dependency."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C04",
+        "branch_id": "DRC_BONA_FIDE-C03/SELF",
+        "prediction": "PREDICT_SUPPORTED",
+        "assessment": "SUPPORTED",
+        "evidence_ids": [
+          "e1"
+        ],
+        "gap": "None; prior finding establishes landlord ownership."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C05",
+        "branch_id": "",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "UNRESOLVED",
+        "evidence_ids": [],
+        "gap": "No evidence supplied regarding premises held for another person's benefit."
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C06",
+        "branch_id": "DRC_BONA_FIDE-C06",
+        "prediction": "PREDICT_REFUTED",
+        "assessment": "REFUTED",
+        "evidence_ids": [
+          "e3"
+        ],
+        "gap": "None; prior finding explicitly negates reasonable suitability for landlord's family."
+      }
+    ],
+    "coverage_limits": [
+      "The 'person for whose benefit' branch (C05) lacks evidentiary support but is not required as the landlord/dependent route is established and sufficient for the claim."
+    ]
+  },
+  "program_checks": {
+    "case_id": "112400",
+    "evidence_use_checks": [
+      {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C01",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Respondent was owner of entire premises and occupied ground floor; required premises bona fide for himself and family.",
+        "refs": [
+          "IK-112400:L124:restored-v2",
+          "IK-112400:L127:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-112400:L124",
+          "IK-112400:L127"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C02",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Respondent was owner of entire premises and occupied ground floor; required premises bona fide for himself and family.",
+        "refs": [
+          "IK-112400:L124:restored-v2",
+          "IK-112400:L127:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-112400:L124",
+          "IK-112400:L127"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C03",
+        "branch_id": "DRC_BONA_FIDE-C03/SELF",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Respondent was owner of entire premises and occupied ground floor; required premises bona fide for himself and family.",
+        "refs": [
+          "IK-112400:L124:restored-v2",
+          "IK-112400:L127:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-112400:L124",
+          "IK-112400:L127"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e1",
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C04",
+        "branch_id": "DRC_BONA_FIDE-C03/SELF",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Respondent was owner of entire premises and occupied ground floor; required premises bona fide for himself and family.",
+        "refs": [
+          "IK-112400:L124:restored-v2",
+          "IK-112400:L127:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-112400:L124",
+          "IK-112400:L127"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e2",
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C02",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "OPPOSE",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Tribunal found landlord's requirement was not bona fide because eviction sought within 11 months of letting.",
+        "refs": [
+          "IK-112400:L130:span6"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-112400:L130"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e3",
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C06",
+        "branch_id": "DRC_BONA_FIDE-C06",
+        "use": "CONDITION_INFERENCE",
+        "direction": "SUPPORT",
+        "statement_status": "PRIOR_COURT_FINDING",
+        "record_retained": "Tribunal found portion in landlord's occupation was not reasonably sufficient for his family (5+ members).",
+        "refs": [
+          "IK-112400:L139:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "BLOCKED",
+        "blocked_by": [
+          "UNKNOWN_TEST_OR_BRANCH"
+        ],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-112400:L139"
+        ],
+        "semantic_truth_verified": false
+      },
+      {
+        "evidence_id": "e4",
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C02",
+        "branch_id": "",
+        "use": "CONDITION_INFERENCE",
+        "direction": "OPPOSE",
+        "statement_status": "PARTY_CLAIM",
+        "record_retained": "Tenant accepted Tribunal's finding that landlord's requirement was not bona fide.",
+        "refs": [
+          "IK-112400:L127:restored-v2"
+        ],
+        "record_address_valid": true,
+        "address_errors": [],
+        "use_status": "USABLE_AS_MODEL_PROPOSED",
+        "blocked_by": [],
+        "mapping_questions": [],
+        "notes": [],
+        "independence_group": [
+          "IK-112400:L127"
+        ],
+        "semantic_truth_verified": false
+      }
+    ],
+    "conditions": [
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C01",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_BONA_FIDE-C01",
+            "branch_id": "",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "evidence_ids": [
+              "e1"
+            ],
+            "gap": "None; prior finding is unchallenged on residential letting."
+          }
+        ],
+        "program_assessment": {
+          "status": "SUPPORTED",
+          "supports": [
+            "e1"
+          ],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C02",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_BONA_FIDE-C02",
+            "branch_id": "",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "REFUTED",
+            "evidence_ids": [
+              "e2",
+              "e4"
+            ],
+            "gap": "None; prior finding and tenant admission align to negate bona fide requirement."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [
+            "e1"
+          ],
+          "opposes": [
+            "e2",
+            "e4"
+          ],
+          "conflict": true,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C03",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_BONA_FIDE-C03",
+            "branch_id": "DRC_BONA_FIDE-C03/SELF",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "evidence_ids": [
+              "e1"
+            ],
+            "gap": "None; prior finding establishes landlord self-occupation."
+          },
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_BONA_FIDE-C03",
+            "branch_id": "DRC_BONA_FIDE-C03/FAMILY",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "evidence_ids": [
+              "e1"
+            ],
+            "gap": "None; prior finding establishes family occupation."
+          },
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_BONA_FIDE-C03",
+            "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "evidence_ids": [
+              "e1"
+            ],
+            "gap": "None; prior finding establishes dependency."
+          }
+        ],
+        "program_assessment": {
+          "status": "SUPPORTED",
+          "trace": [
+            {
+              "status": "SUPPORTED",
+              "supports": [
+                "e1"
+              ],
+              "opposes": [],
+              "conflict": false,
+              "pending_uses": [],
+              "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+              "trace": [
+                "DRC_BONA_FIDE-C03/SELF"
+              ]
+            },
+            {
+              "status": "UNRESOLVED",
+              "trace": [
+                {
+                  "status": "UNRESOLVED",
+                  "supports": [],
+                  "opposes": [],
+                  "conflict": false,
+                  "pending_uses": [],
+                  "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                  "trace": [
+                    "DRC_BONA_FIDE-C03/FAMILY"
+                  ]
+                },
+                {
+                  "status": "UNRESOLVED",
+                  "supports": [],
+                  "opposes": [],
+                  "conflict": false,
+                  "pending_uses": [],
+                  "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                  "trace": [
+                    "DRC_BONA_FIDE-C03/DEPENDENT"
+                  ]
+                }
+              ],
+              "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+            }
+          ],
+          "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+        },
+        "branches": {
+          "DRC_BONA_FIDE-C03/SELF": {
+            "status": "SUPPORTED",
+            "supports": [
+              "e1"
+            ],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_BONA_FIDE-C03/FAMILY": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_BONA_FIDE-C03/DEPENDENT": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          }
+        },
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C04",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_BONA_FIDE-C04",
+            "branch_id": "DRC_BONA_FIDE-C03/SELF",
+            "prediction": "PREDICT_SUPPORTED",
+            "assessment": "SUPPORTED",
+            "evidence_ids": [
+              "e1"
+            ],
+            "gap": "None; prior finding establishes landlord ownership."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C05",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_BONA_FIDE-C05",
+            "branch_id": "",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "UNRESOLVED",
+            "evidence_ids": [],
+            "gap": "No evidence supplied regarding premises held for another person's benefit."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      },
+      {
+        "binding_id": "b1",
+        "test_id": "DRC_BONA_FIDE-C06",
+        "model_predictions": [
+          {
+            "binding_id": "b1",
+            "test_id": "DRC_BONA_FIDE-C06",
+            "branch_id": "DRC_BONA_FIDE-C06",
+            "prediction": "PREDICT_REFUTED",
+            "assessment": "REFUTED",
+            "evidence_ids": [
+              "e3"
+            ],
+            "gap": "None; prior finding explicitly negates reasonable suitability for landlord's family."
+          }
+        ],
+        "program_assessment": {
+          "status": "UNRESOLVED",
+          "supports": [],
+          "opposes": [],
+          "conflict": false,
+          "pending_uses": [],
+          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+        },
+        "branches": {},
+        "prediction_not_overwritten": true
+      }
+    ],
+    "bindings": [
+      {
+        "binding_id": "b1",
+        "event": "Eviction under clause (e) ground",
+        "objects": "Respondent; Premises; Landlord",
+        "stage": "Delhi High Court appeal",
+        "tests": {
+          "DRC_BONA_FIDE-C01": {
+            "status": "SUPPORTED",
+            "supports": [
+              "e1"
+            ],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_BONA_FIDE-C02": {
+            "status": "UNRESOLVED",
+            "supports": [
+              "e1"
+            ],
+            "opposes": [
+              "e2",
+              "e4"
+            ],
+            "conflict": true,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_BONA_FIDE-C03": {
+            "status": "SUPPORTED",
+            "trace": [
+              {
+                "status": "SUPPORTED",
+                "supports": [
+                  "e1"
+                ],
+                "opposes": [],
+                "conflict": false,
+                "pending_uses": [],
+                "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                "trace": [
+                  "DRC_BONA_FIDE-C03/SELF"
+                ]
+              },
+              {
+                "status": "UNRESOLVED",
+                "trace": [
+                  {
+                    "status": "UNRESOLVED",
+                    "supports": [],
+                    "opposes": [],
+                    "conflict": false,
+                    "pending_uses": [],
+                    "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                    "trace": [
+                      "DRC_BONA_FIDE-C03/FAMILY"
+                    ]
+                  },
+                  {
+                    "status": "UNRESOLVED",
+                    "supports": [],
+                    "opposes": [],
+                    "conflict": false,
+                    "pending_uses": [],
+                    "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                    "trace": [
+                      "DRC_BONA_FIDE-C03/DEPENDENT"
+                    ]
+                  }
+                ],
+                "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+              }
+            ],
+            "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+          },
+          "DRC_BONA_FIDE-C04": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_BONA_FIDE-C05": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          },
+          "DRC_BONA_FIDE-C06": {
+            "status": "UNRESOLVED",
+            "supports": [],
+            "opposes": [],
+            "conflict": false,
+            "pending_uses": [],
+            "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+          }
+        },
+        "branches": {
+          "DRC_BONA_FIDE-C03": {
+            "DRC_BONA_FIDE-C03/SELF": {
+              "status": "SUPPORTED",
+              "supports": [
+                "e1"
+              ],
+              "opposes": [],
+              "conflict": false,
+              "pending_uses": [],
+              "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+            },
+            "DRC_BONA_FIDE-C03/FAMILY": {
+              "status": "UNRESOLVED",
+              "supports": [],
+              "opposes": [],
+              "conflict": false,
+              "pending_uses": [],
+              "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+            },
+            "DRC_BONA_FIDE-C03/DEPENDENT": {
+              "status": "UNRESOLVED",
+              "supports": [],
+              "opposes": [],
+              "conflict": false,
+              "pending_uses": [],
+              "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes"
+            }
+          }
+        },
+        "claims": [
+          {
+            "claim_id": "DRC_BONA_FIDE-CLAIM-01",
+            "result": {
+              "status": "UNRESOLVED",
+              "trace": [
+                {
+                  "status": "SUPPORTED",
+                  "supports": [
+                    "e1"
+                  ],
+                  "opposes": [],
+                  "conflict": false,
+                  "pending_uses": [],
+                  "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                  "trace": [
+                    "DRC_BONA_FIDE-C01"
+                  ]
+                },
+                {
+                  "status": "UNRESOLVED",
+                  "supports": [
+                    "e1"
+                  ],
+                  "opposes": [
+                    "e2",
+                    "e4"
+                  ],
+                  "conflict": true,
+                  "pending_uses": [],
+                  "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                  "trace": [
+                    "DRC_BONA_FIDE-C02"
+                  ]
+                },
+                {
+                  "status": "UNRESOLVED",
+                  "trace": [
+                    {
+                      "status": "UNRESOLVED",
+                      "trace": [
+                        {
+                          "status": "SUPPORTED",
+                          "trace": [
+                            "DRC_BONA_FIDE-C03"
+                          ],
+                          "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                        },
+                        {
+                          "status": "UNRESOLVED",
+                          "supports": [],
+                          "opposes": [],
+                          "conflict": false,
+                          "pending_uses": [],
+                          "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                          "trace": [
+                            "DRC_BONA_FIDE-C04"
+                          ]
+                        }
+                      ],
+                      "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                    },
+                    {
+                      "status": "UNRESOLVED",
+                      "supports": [],
+                      "opposes": [],
+                      "conflict": false,
+                      "pending_uses": [],
+                      "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                      "trace": [
+                        "DRC_BONA_FIDE-C05"
+                      ]
+                    }
+                  ],
+                  "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+                },
+                {
+                  "status": "UNRESOLVED",
+                  "supports": [],
+                  "opposes": [],
+                  "conflict": false,
+                  "pending_uses": [],
+                  "basis": "DECLARED_USE_ONLY_NOT_VERIFIED_PROOF; no majority vote; shared paragraphs not independent votes",
+                  "trace": [
+                    "DRC_BONA_FIDE-C06"
+                  ]
+                }
+              ],
+              "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+            }
+          }
+        ]
+      }
+    ],
+    "unapplied_limits": [
+      {
+        "limitation_id": "l1",
+        "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+      },
+      {
+        "limitation_id": "l2",
+        "reason": "NO_MATCHING_DECLARED_USE; retained, not applied globally"
+      }
+    ],
+    "coverage_limits": [
+      "Only the single supplied statutory excerpt is treated as independent law. The proposed template is reviewed only as a candidate structure and does not itself supply legal propositions.",
+      "The excerpt ends with the word 'Explanation.' but does not supply the explanation text. No proposition from the missing explanation is inferred or executed.",
+      "No supplied material states a separate defense, burden bearer, burden-shifting rule, evidentiary standard, definition of 'bona fide', definition of 'dependent', test for ownership, or operational standard for 'reasonably suitable residential accommodation'. Those matters remain NOT_COVERED or open-text interpretation limits.",
+      "No supplied contrary rule, exception, later amendment text, post-amendment expansion, or interpretive authority is included.",
+      "The grammatical relationship among 'landlord', 'such person', the alternative occupation routes, ownership, and alternative accommodation is preserved without adding external interpretation. The ownership grouping used in DRC_BONA_FIDE-E03 follows the placement and punctuation of the supplied wording only; no external authority validating the full grammatical reach is supplied.",
+      "The phrase 'such person' is not expanded into 'such qualifying person', 'dependent family member', or any other category beyond the wording supplied.",
+      "Open-text statutory terms such as 'bona fide', 'dependent', and 'reasonably suitable' are not converted into additional executable subtests beyond the statutory language supplied.",
+      "DRC_BONA_FIDE-C01 through DRC_BONA_FIDE-C06 are retained as direct textual predicate checks linked to the elements; they are not treated as separate judicial or evidentiary standards.",
+      "The 'person for whose benefit' branch (C05) lacks evidentiary support but is not required as the landlord/dependent route is established and sufficient for the claim."
+    ],
+    "burdens": [
+      {
+        "id": "DRC_BONA_FIDE-B01",
+        "proposition": "Overall satisfaction of the supplied clause (e) ground.",
+        "bearer": null,
+        "standard": null,
+        "shift_trigger": null,
+        "source_refs": [],
+        "coverage_status": "NOT_COVERED"
+      },
+      {
+        "id": "DRC_BONA_FIDE-B02",
+        "proposition": "Bona fide residential requirement.",
+        "bearer": null,
+        "standard": null,
+        "shift_trigger": null,
+        "source_refs": [],
+        "coverage_status": "NOT_COVERED"
+      },
+      {
+        "id": "DRC_BONA_FIDE-B03",
+        "proposition": "Qualifying occupation route, including any applicable ownership qualification.",
+        "bearer": null,
+        "standard": null,
+        "shift_trigger": null,
+        "source_refs": [],
+        "coverage_status": "NOT_COVERED"
+      },
+      {
+        "id": "DRC_BONA_FIDE-B04",
+        "proposition": "Absence of other reasonably suitable residential accommodation.",
+        "bearer": null,
+        "standard": null,
+        "shift_trigger": null,
+        "source_refs": [],
+        "coverage_status": "NOT_COVERED"
+      }
+    ],
+    "scope": {
+      "text": "Reusable rule structure limited to the single supplied clause-(e) excerpt concerning premises let for residential purposes, bona fide residential occupation, the stated ownership/beneficiary route language, and absence of other reasonably suitable residential accommodation. It contains no case-specific application or outcome.",
+      "jurisdiction": "NOT_COVERED. The supplied independent statutory excerpt does not state the statute title, enactment year, court, or territorial jurisdiction. The retained DRC_BONA_FIDE identifiers are structural labels only and do not independently establish jurisdiction.",
+      "statute_version": "NOT_COVERED as a legally identified version. The supplied source_id is labelled 'historical-e', but the excerpt does not state an enactment date, amendment date, version date, or 'pre-2008' status.",
+      "stage_restrictions": "No adjudicative-stage restriction is stated in the statutory excerpt. Supplied source metadata marks the source as PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; those labels are provenance metadata, not a substantive stage rule.",
+      "source_stage": "PRE_TARGET_RECORD",
+      "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"
+    },
+    "legal_truth_verified": false,
+    "scope_of_checks": "Source addresses and declared within-binding uses/boolean combinations only; no claim of semantic or identity proof. UNKNOWN is not negative; no burden failure inferred."
+  }
+}
