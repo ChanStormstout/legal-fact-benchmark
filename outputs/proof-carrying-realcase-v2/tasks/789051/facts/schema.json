@@ -1,0 +1,207 @@
+{
+  "type": "object",
+  "properties": {
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "label",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 30
+    },
+    "premises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "predicate": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "bindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "enum": [
+                    "subject",
+                    "opponent",
+                    "property",
+                    "transaction"
+                  ]
+                },
+                "entity": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "entity"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          },
+          "time_scope": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "statement_status": {
+            "enum": [
+              "PARTY_CLAIM",
+              "TESTIMONY",
+              "RECORDED_DOCUMENT",
+              "LOWER_COURT_FINDING",
+              "TARGET_COURT_FINDING",
+              "PROCEDURAL_RECORD",
+              "LEGAL_RULE",
+              "TARGET_DISPOSITION",
+              "UNKNOWN"
+            ]
+          },
+          "speaker": {
+            "type": "string"
+          },
+          "court_level": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "TRUE",
+              "FALSE",
+              "UNKNOWN",
+              "CONFLICTED"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          },
+          "quote": {
+            "type": "string"
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 12
+          }
+        },
+        "required": [
+          "id",
+          "predicate",
+          "text",
+          "bindings",
+          "time_scope",
+          "statement_status",
+          "speaker",
+          "court_level",
+          "stage",
+          "state",
+          "refs",
+          "quote",
+          "limitations"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 30
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "sign": {
+            "enum": [
+              "SUPPORT",
+              "OPPOSE",
+              "UNRESOLVED"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "from",
+          "to",
+          "sign",
+          "refs",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 40
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 15
+    }
+  },
+  "required": [
+    "entities",
+    "premises",
+    "relations",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

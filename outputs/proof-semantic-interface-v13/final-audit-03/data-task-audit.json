@@ -1,0 +1,999 @@
+{
+  "TRAIN_labels_byte_source_unchanged": true,
+  "TRAIN_disputes": 30,
+  "DEV_evaluable_disputes": 8,
+  "new_DEV_disputes": [
+    "885778",
+    "121775",
+    "396336",
+    "180091",
+    "907531",
+    "732701",
+    "594273"
+  ],
+  "coverage": [
+    {
+      "split": "DEV",
+      "mechanism": "AUTHORIZATION_SCOPE",
+      "disputes": 1,
+      "labels": {
+        "USABLE": 24,
+        "UNUSABLE": 1
+      }
+    },
+    {
+      "split": "DEV",
+      "mechanism": "POSSESSION_TITLE",
+      "disputes": 3,
+      "labels": {
+        "USABLE": 66,
+        "UNUSABLE": 6,
+        "UNRESOLVED": 1
+      }
+    },
+    {
+      "split": "DEV",
+      "mechanism": "STANDING_STAGE",
+      "disputes": 1,
+      "labels": {
+        "USABLE": 17,
+        "UNUSABLE": 5,
+        "UNRESOLVED": 2
+      }
+    },
+    {
+      "split": "DEV",
+      "mechanism": "STATEMENT_STATUS",
+      "disputes": 3,
+      "labels": {
+        "USABLE": 68,
+        "UNUSABLE": 3,
+        "UNRESOLVED": 2
+      }
+    },
+    {
+      "split": "TRAIN",
+      "mechanism": "AUTHORIZATION_SCOPE",
+      "disputes": 16,
+      "labels": {
+        "USABLE": 253,
+        "UNRESOLVED": 65,
+        "UNUSABLE": 62
+      }
+    },
+    {
+      "split": "TRAIN",
+      "mechanism": "POSSESSION_TITLE",
+      "disputes": 4,
+      "labels": {
+        "USABLE": 77,
+        "UNUSABLE": 17,
+        "UNRESOLVED": 4
+      }
+    },
+    {
+      "split": "TRAIN",
+      "mechanism": "STANDING_STAGE",
+      "disputes": 7,
+      "labels": {
+        "UNUSABLE": 26,
+        "USABLE": 109,
+        "UNRESOLVED": 35
+      }
+    },
+    {
+      "split": "TRAIN",
+      "mechanism": "STATEMENT_STATUS",
+      "disputes": 3,
+      "labels": {
+        "USABLE": 56,
+        "UNRESOLVED": 9,
+        "UNUSABLE": 9
+      }
+    }
+  ],
+  "baselines": {
+    "TRAIN": {
+      "n": 722,
+      "RAW_P_agree": 691,
+      "PRIOR_agree": 601,
+      "RAW_P_disagreements": [
+        {
+          "key": "569555::U4",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-569555:L278",
+            "IK-569555:L279"
+          ],
+          "basis": "F5 accurately records Pratap Chand's litigation contention, but the contention alone does not establish its underlying factual premise. The initial absence of consent is separately supported by the admissions at L279. The proposed reliance on F5 alone is insufficient, rather than affirmatively incompatible with the source."
+        },
+        {
+          "key": "280457::U03",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-280457:L54",
+            "IK-280457:L55",
+            "IK-280457:L72"
+          ],
+          "basis": "The source establishes that the appellant alleged subletting in the original eviction suit. It does not establish the actual possession-transfer event required by R2.P1. The respondents contested that allegation, and the Supreme Court found that the trial court never examined whether it was true. The allegation remains relevant evidence of the pleaded ground, but its factual truth is unresolved rather than affirmatively disproved."
+        },
+        {
+          "key": "280457::U05",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-280457:L53",
+            "IK-280457:L54",
+            "IK-280457:L67",
+            "IK-280457:L69"
+          ],
+          "basis": "The quoted date concerns creation of the original landlord-tenant relationship, not the date of any alleged transfer to the second respondent. Section 13(1)(b)(i) requires the specified conduct after commencement of the Act. The source does not date the alleged disposition or provide an independently established commencement date. Consequently, the temporal premise R2.P2 remains unresolved."
+        },
+        {
+          "key": "280457::U06",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-280457:L53",
+            "IK-280457:L54",
+            "IK-280457:L67"
+          ],
+          "basis": "The original lease contained a prohibition on subletting. That contractual restriction is relevant to the asserted eviction ground, but it does not establish whether the appellant subsequently provided written consent to any particular disposition. The statutory written-consent condition and the disputed historical transfer are separate matters. R2.P3 cannot be confirmed or negated from this evidence."
+        },
+        {
+          "key": "280457::U11",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-280457:L54",
+            "IK-280457:L55",
+            "IK-280457:L72"
+          ],
+          "basis": "The petition's omission is established and helps explain why the trial court lacked a demonstrated statutory basis for its decree. However, silence in a compromise petition cannot establish whether the underlying transfer occurred or did not occur. It is therefore insufficient to decide R2.P1, including the proposed negative inference from the omission. The Supreme Court resolved the court-satisfaction question, not the historical possession arrangement."
+        },
+        {
+          "key": "280457::U12",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-280457:L54",
+            "IK-280457:L55",
+            "IK-280457:L59",
+            "IK-280457:L60"
+          ],
+          "basis": "The later compromise is an established procedural event and is relevant to the second respondent's involvement with the premises. However, an agreement allowing time to vacate is not sufficient to establish that the first respondent previously sublet, assigned or otherwise parted with possession of the shop. The parties and stage of this second compromise differ from those of the original decree. R2.P1 remains unresolved rather than being established by an assumed admission of subtenancy."
+        },
+        {
+          "key": "280457::U21",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-280457:L53",
+            "IK-280457:L60",
+            "IK-280457:L67"
+          ],
+          "basis": "The later compromise establishes an agreed period for vacating, not whether the appellant had provided written consent to an earlier alleged subletting, assignment or other transfer. The record does not establish that the later compromise itself constituted written consent to a specified disposition. The statutory consent condition in R2.P3 therefore remains unresolved."
+        },
+        {
+          "key": "112400::U03",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-112400:L124",
+            "IK-112400:L127",
+            "IK-112400:L128",
+            "IK-112400:L148"
+          ],
+          "basis": "This is expressly presented as one of the grounds asserted in the landlord's eviction application. It establishes the existence and content of the claim, not independently the genuineness of the residential requirement. The original authorities rejected the requirement, while the High Court subsequently adjudicated it in the landlord's favour. Those stage-specific determinations do not turn the initial pleading into independent factual proof."
+        },
+        {
+          "key": "112400::U04",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-112400:L127",
+            "IK-112400:L139",
+            "IK-112400:L140",
+            "IK-112400:L148"
+          ],
+          "basis": "The source directly supports attribution of the tenant's contrary position. A tenant's objection does not independently establish that the landlord lacked bona fide residential need. The additional sentence about sufficient accommodation refers to a portion in the tenant's occupation and contains wording that should not be silently reassigned to the landlord's ground-floor residence. The later remand finding and High Court decision must also be preserved."
+        },
+        {
+          "key": "112400::U12",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-112400:L147",
+            "IK-112400:L148"
+          ],
+          "basis": "This observation was one of the circumstances considered in the High Court's reasoning, but it does not independently establish the landlord's bona fide residential need. The source concerns absence of a recorded finding, not affirmative proof that no rent demand occurred. It provides relevant context without sufficient standalone support for the complete genuine-need premise."
+        },
+        {
+          "key": "112400::U19",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-112400:L143",
+            "IK-112400:L144",
+            "IK-112400:L145",
+            "IK-112400:L146"
+          ],
+          "basis": "The quoted passage directly establishes the landlord's criticism of the original subordinate decisions. Standing alone, the party submission cannot establish that the case met the proper-case condition for High Court intervention. The source separately records judicial reasoning supporting that conclusion, particularly the High Court's assessment of overlooked relevant matters and erroneous sole rationale. Thus the assertion is relevant but independently insufficient."
+        },
+        {
+          "key": "114533::U3",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-114533:L161",
+            "IK-114533:L165",
+            "IK-114533:L167"
+          ],
+          "basis": "The source expressly attributes the absence-of-consent assertion to Hans Raj's eviction application. Section 14(1)(b) requires absence of written consent for the relevant transfer, but the judgment does not independently determine whether such consent existed in relation to an actual transfer. The pleaded assertion is relevant but insufficient to establish R1.P3. Because the judgment neither establishes consent nor affirmatively disproves its absence, this component remains unresolved rather than substantively false."
+        },
+        {
+          "key": "1870868::U24",
+          "P": "UNRESOLVED",
+          "reference": "UNUSABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-1870868:L270",
+            "IK-1870868:L279",
+            "IK-1870868:L280",
+            "IK-1870868:L281"
+          ],
+          "basis": "F23 is decisive evidence that the Supreme Court did not determine the direct statutory applicability question. It therefore cannot establish R8.P4 as worded, which requires that the amended Act have been authoritatively determined in this appeal to govern the lease. This is an explicit incompatibility between the proposed authoritative-determination premise and the source's procedural reservation. The distinction is important: whether this judgment made such a determination is answered negatively, while whether the Act substantively applied remains unresolved rather than disproved."
+        },
+        {
+          "key": "1066467::U18",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-1066467:L192",
+            "IK-1066467:L196",
+            "IK-1066467:L199",
+            "IK-1066467:L209",
+            "IK-1066467:L227"
+          ],
+          "basis": "The Tribunal's recorded condonation is relevant evidence that deposits were delayed, while Hem Chand's counsel's argument establishes a request for power to extend the statutory period. Neither, taken alone, precisely establishes which required arrears payment missed the original one-month deadline. The independently recorded payment chronology at L192 supplies that precision. The frozen proposal also discusses whether a valid extension existed, but R07.P1 concerns historical late payment, not the Controller's legal power to extend time. These materials are not incompatible with R07.P1, so insufficiency for that precise premise is more appropriate than rejecting them as factually false. Any inference that the Tribunal's condonation constituted a legally valid extension is expressly contradicted by the Supreme Court."
+        },
+        {
+          "key": "1066467::U23",
+          "P": "UNRESOLVED",
+          "reference": "UNUSABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-1066467:L189",
+            "IK-1066467:L223",
+            "IK-1066467:L228",
+            "IK-1066467:L230",
+            "IK-1066467:L235",
+            "IK-1066467:L236"
+          ],
+          "basis": "F21 concerns Civil Appeals Nos. 713-714 of 1976, not the specifically bound Hem Chand remand condition in R08.P1. The source also expressly states that the High Court had not determined whether striking out was proper in those companion appeals. Consequently, this evidence cannot establish the case-specific R08.P1 proposition that the High Court determined Hem Chand's defence was properly struck out. It remains relevant as an analogy supporting remand for an unresolved discretionary inquiry, but analogy does not satisfy the frozen premise's actor and proceeding requirements."
+        },
+        {
+          "key": "1187427::U5",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-1187427:L246",
+            "IK-1187427:L279",
+            "IK-1187427:L306"
+          ],
+          "basis": "Retirement is established, but termination of Government service does not itself establish termination of allotment, physical surrender or nonoccupation on 9 December 1975. Conversely, retirement alone does not affirmatively prove continued occupation. The proposed necessary inference about physical possession is unsupported rather than an expressly established contrary event."
+        },
+        {
+          "key": "1954254::U10",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-1954254:L59",
+            "IK-1954254:L60",
+            "IK-1954254:L61",
+            "IK-1954254:L114",
+            "IK-1954254:L134",
+            "IK-1954254:L145",
+            "IK-1954254:L165"
+          ],
+          "basis": "The landlord's pleading alleges default, while the tenant disputed the amount payable and deposited the claimed arrears during the proceedings. The Supreme Court explained the statutory notice-and-arrears condition and the need for appropriate rent determination but did not finally adjudicate the underlying default. The evidence is insufficient to establish whether all legally payable arrears were neither paid nor tendered within the prescribed period. This is unresolved, rather than disproved."
+        },
+        {
+          "key": "1954254::U21",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-1954254:L72",
+            "IK-1954254:L114",
+            "IK-1954254:L146",
+            "IK-1954254:L147",
+            "IK-1954254:L164"
+          ],
+          "basis": "The source establishes an initial deposit of claimed arrears, not payment of subsequently court-fixed standard rent by a specified deadline or regular continuing payment until final determination. The analogous precedent supplies legal conditions, not evidence that Kathpalia satisfied them. The evidence is insufficient rather than expressly incompatible with the premise; failure of proof must not be converted into a finding of actual noncompliance."
+        },
+        {
+          "key": "1114159::U05",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-1114159:L94",
+            "IK-1114159:L95",
+            "IK-1114159:L260"
+          ],
+          "basis": "The headnote attributes this denial to the tenant's defence. It is relevant evidence that bona fide need was disputed, but it does not establish the underlying absence of need. The Supreme Court neither adopted that denial as a factual finding nor finally resolved bona fide requirement. Insufficient proof is not an explicit contradiction warranting an UNUSABLE label for the attributed position."
+        },
+        {
+          "key": "1114159::U06",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-1114159:L258",
+            "IK-1114159:L260"
+          ],
+          "basis": "The quoted statutory provision makes the absence of other reasonably suitable residential accommodation a relevant condition. F03 records the eviction ground claimed but contains no established facts satisfying this separate condition. The judgment supplies no independent factual determination of alternative accommodation. Insufficiency is not proof that suitable accommodation existed."
+        },
+        {
+          "key": "1114159::U11",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-1114159:L248",
+            "IK-1114159:L250",
+            "IK-1114159:L272"
+          ],
+          "basis": "The excerpt is an attributed submission by respondent's counsel. Its narrow contention is that paying-guest presence alone does not automatically establish consent or business use. It supplies no affirmative evidence of actual non-consent. The Supreme Court's fuller evidentiary analysis found implied consent, but that does not require treating counsel's narrower logical distinction as an asserted historical fact or as categorically false."
+        },
+        {
+          "key": "845417::U3",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-845417:L84",
+            "IK-845417:L139"
+          ],
+          "basis": "The source establishes that the landlord alleged subletting in a statutory eviction petition. It does not establish that the tenant actually sublet, assigned or parted with possession. The judgment adjudicates the survival of the proceeding rather than the underlying eviction ground. The allegation is relevant evidence of what was pleaded, but insufficient evidence of the alleged occurrence. There is no affirmative finding that subletting did not occur."
+        },
+        {
+          "key": "845417::U4",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-845417:L84",
+            "IK-845417:L139"
+          ],
+          "basis": "The quoted language identifies the statutory condition under Section 14(1)(b). The landlord's filing on the ground of subletting does not independently establish whether written consent existed. The Supreme Court makes no target-case factual determination on consent. Accordingly, the proposed evidence is relevant to the asserted statutory ground but insufficient to establish this substantive premise."
+        },
+        {
+          "key": "845417::U21",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STANDING_STAGE",
+          "refs": [
+            "IK-845417:L84",
+            "IK-845417:L191",
+            "IK-845417:L194",
+            "IK-845417:L195",
+            "IK-845417:L196",
+            "IK-845417:L197"
+          ],
+          "basis": "The quoted contractual-forfeiture principle is drawn from Isha Valimohamad, a different dispute. The present judgment records only that the landlord alleged statutory subletting in the target tenancy. It does not supply the target contract's prohibition or establish an actual contractual breach. The precedent's own contractual facts cannot be transferred to these parties. Neither prohibition nor breach is affirmatively disproved."
+        },
+        {
+          "key": "1063933::U10",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STATEMENT_STATUS",
+          "refs": [
+            "IK-1063933:L71",
+            "IK-1063933:L72",
+            "IK-1063933:L143"
+          ],
+          "basis": "F05 establishes the defendant's asserted tenancy and sham-document defence, but does not state whether the written agreement included a fixed monthly rent clause. It therefore provides insufficient evidence for the precise documentary-content premise R3.P3. The Supreme Court separately establishes that premise in L143; the existence of that stronger evidence cannot be attributed to F05."
+        },
+        {
+          "key": "1063933::U13",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "STATEMENT_STATUS",
+          "refs": [
+            "IK-1063933:L97",
+            "IK-1063933:L144"
+          ],
+          "basis": "This statement appears in respondent counsel's submissions. Failure to demonstrate consent is not, by itself, equivalent to an affirmative finding that consent was absent. The Supreme Court independently states at L144 that absence of consent was admitted, making the whole R4.P2 premise supported by a different, stronger source. The specific use of F16 alone is insufficient to establish that premise at the required adjudicated status."
+        },
+        {
+          "key": "33810117::U15",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-33810117:L75",
+            "IK-33810117:L76",
+            "IK-33810117:L77",
+            "IK-33810117:L78"
+          ],
+          "basis": "F15 is the historical contractual text and includes language potentially supporting a partner-connected business exception. Standing alone, it does not determine whether that exception survived substitution of the original tenant or became unavailable to Censor Advertising Pvt. Ltd. Document-text evidence is not categorically incompatible with R3.P5, but this excerpt is insufficient to establish its post-substitution interpretation. The High Court resolved that legal question through additional reasoning."
+        },
+        {
+          "key": "68096693::U26",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-68096693:L101",
+            "IK-68096693:L102",
+            "IK-68096693:L108",
+            "IK-68096693:L198",
+            "IK-68096693:L200"
+          ],
+          "basis": "F07 and F08 concern attributed accounts of earlier civil litigation, an asserted injunction and withdrawals. These matters provide procedural background but do not independently establish the specific possession transfer required by R2.P1. The court's transfer finding is based on the evidentiary discussion in the present eviction case. Because the earlier proceedings do not affirmatively contradict the possibility of transfer but are insufficient to prove it, UNRESOLVED is more precise than treating insufficiency as an explicit factual incompatibility."
+        },
+        {
+          "key": "69998629::U04",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-69998629:L81",
+            "IK-69998629:L88",
+            "IK-69998629:L91",
+            "IK-69998629:L118"
+          ],
+          "basis": "The judgment records the dismissal of another section 14(1)(a) proceeding, but RW-1 denied the suggested prior determination of landlord and tenant identity. The dismissal itself does not establish what the earlier court decided. The source therefore leaves the suggested prior finding unresolved, rather than affirmatively disproving it. Surender Kumar's status in the present judgment must be grounded independently in the present court's findings."
+        },
+        {
+          "key": "69998629::U24",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-69998629:L91",
+            "IK-69998629:L92",
+            "IK-69998629:L118"
+          ],
+          "basis": "RW-1 admitted that operations under the Mukesh factory name had ceased since 2003 and that sales tax was presently deposited under Balaji Enterprises. These statements establish relevant business-name and tax-record changes, but do not independently establish continuous actual possession. Mere insufficiency is not an explicit source-grounded contradiction of continued possession. The court's separate affirmative finding at L118 supplies that conclusion, so F15 alone remains insufficient for the full R4.P3 premise."
+        },
+        {
+          "key": "983794::U14",
+          "P": "UNUSABLE",
+          "reference": "UNRESOLVED",
+          "mechanism": "POSSESSION_TITLE",
+          "refs": [
+            "IK-983794:L156",
+            "IK-983794:L163",
+            "IK-983794:L172"
+          ],
+          "basis": "The selected evidence establishes that Gnanambal asserted entitlement under the will, subject to payment to Alamelu. It is expressly presented as her defence, not independent proof of the testamentary terms. Her reported claim also does not set out the full beneficiary class of Gnanambal and her children. Thus F6 alone is insufficient for the complete premise R4.P3. Paragraph 5 independently establishes those terms, but that is different evidence."
+        }
+      ],
+      "unseen_families": 0
+    },
+    "DEV": {
+      "n": 195,
+      "RAW_P_agree": 173,
+      "PRIOR_agree": 174,
+      "RAW_P_disagreements": [
+        {
+          "key": "1870386::U13",
+          "P": "UNRESOLVED",
+          "reference": "UNUSABLE",
+          "mechanism": "POSSESSION_TITLE",
+          "refs": [
+            "IK-1870386:L181",
+            "IK-1870386:L126"
+          ],
+          "basis": "The quoted inference was counsel's, while subsequent dealings were separately recounted. Neither can establish R5.P2's legally sufficient consent: the Court explicitly rejected extending Nobokishore to a partial alienation on implied assent. Factual acceptance is not thereby disproved."
+        },
+        {
+          "key": "885778::U02",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L160",
+            "IK-885778:L164",
+            "IK-885778:L165"
+          ],
+          "basis": "Opposes R1.P1 as a specifically attributed High Court evidentiary conclusion. In second appeal, the Bombay High Court held that the correspondence summarized in the Government Resolution did not establish the written contract required by section 53-A. This is appropriate contrary material concerning the same proposed lease, but it is not a Supreme Court finding that the contractual writings were absent."
+        },
+        {
+          "key": "885778::U03",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L137",
+            "IK-885778:L148",
+            "IK-885778:L149"
+          ],
+          "basis": "Opposes R1.P1 through the trial court's assessment and provides context through the undisputed absence of an executed registered formal lease. The trial court inferred nonexistence from nonproduction of a written lease and questioned the showing of sanctioned authority for survey Nos. 223 and 225. That inference must remain attributed to the trial court. The missing formal lease deed is not identical to the underlying signed contractual correspondence."
+        },
+        {
+          "key": "885778::U05",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L164",
+            "IK-885778:L165"
+          ],
+          "basis": "Opposes R1.P2 as the Bombay High Court's express second-appeal assessment. The High Court regarded the Government Resolution and summarized correspondence as insufficient to establish the written lease and ascertain its terms. This is directly relevant contrary judicial reasoning, not an independently controlling factual determination."
+        },
+        {
+          "key": "885778::U06",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L143",
+            "IK-885778:L144",
+            "IK-885778:L145",
+            "IK-885778:L183"
+          ],
+          "basis": "Provides context and partial corroboration for R1.P2 by identifying the plaintiffs' acknowledgment of correspondence, negotiations, the survey-land subject matter, and the Rs. 290 annual rental. Their characterization of a fifty-year lease is a pleading account, not an established contractual construction. Their accompanying trespass allegation and objection to the missing registered instrument remain attributable to the plaintiffs."
+        },
+        {
+          "key": "885778::U08",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L131",
+            "IK-885778:L135",
+            "IK-885778:L186",
+            "IK-885778:L187"
+          ],
+          "basis": "Provides context and a reported contrary chronology for R1.P3. The Settlement Officer's letter states that permission to enter was given in anticipation of Government sanction; a later argument asserted actual possession before sanction. Both statements are relevant to the contested timing of possession, but the officer's assertion of permission does not by itself establish physical entry, and the party argument does not independently prove its factual premise."
+        },
+        {
+          "key": "885778::U14",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L146",
+            "IK-885778:L147",
+            "IK-885778:L155",
+            "IK-885778:L156",
+            "IK-885778:L168"
+          ],
+          "basis": "Provides context and opposition concerning the legal sufficiency of the claimant side of R1.P6. The defendant's pleading challenged the plaintiffs' acquired interests, while the Assistant Judge separately concluded that standing had not been established through the asserted ijaradar or mortgage-assignee capacities. These are a defence allegation and a first-appellate judicial determination, respectively. They do not establish that the plaintiffs never asserted enforcement or that no interest of any kind existed."
+        },
+        {
+          "key": "885778::U21",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L155",
+            "IK-885778:L161",
+            "IK-885778:L162",
+            "IK-885778:L163",
+            "IK-885778:L166",
+            "IK-885778:L168"
+          ],
+          "basis": "Supports R5.P2 strictly as reported Bombay High Court legal reasoning. The High Court considered the plaintiff firm's ijaradar and mortgage-assignee capacities, the defendant's rent payments and treatment of the firm as landlord, and Ginwalla's possible receiver capacity as alternative bases for maintaining ejectment. The evidence is usable for identifying that court's adopted view, not for attributing a definitive standing holding to the Supreme Court."
+        },
+        {
+          "key": "885778::U22",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L155",
+            "IK-885778:L156",
+            "IK-885778:L159",
+            "IK-885778:L161",
+            "IK-885778:L162",
+            "IK-885778:L163",
+            "IK-885778:L168"
+          ],
+          "basis": "Provides direct opposition and contrary judicial assessments concerning R5.P2. The Assistant Judge found the plaintiffs' claimed ijaradar and mortgage-assignee standing insufficient; the High Court later treated alternative capacities and acknowledged rent payments as sufficient. These are competing first-appellate and second-appellate legal views. Neither should be converted into a Supreme Court holding on standing."
+        },
+        {
+          "key": "885778::U24",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L135",
+            "IK-885778:L186",
+            "IK-885778:L187",
+            "IK-885778:L188"
+          ],
+          "basis": "Provides material chronological context for R1.P3. Existing tenants occupied the proposed lease lands during the negotiations, and the agreement contemplated their private settlement or possible ejectment notices before the prospective lessee could obtain possession. The Supreme Court used this circumstance to assess the claim of possession before Government sanction. Prior tenant occupation does not negate subsequent possession by Shah Manilal Maganlal."
+        },
+        {
+          "key": "885778::U25",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "AUTHORIZATION_SCOPE",
+          "refs": [
+            "IK-885778:L143",
+            "IK-885778:L144",
+            "IK-885778:L145",
+            "IK-885778:L183",
+            "IK-885778:L184",
+            "IK-885778:L185"
+          ],
+          "basis": "Provides context and partial corroboration for R1.P1. The plaintiffs' pleading acknowledged correspondence and negotiations involving the original prospective lessee, the Settlement Officer, the disputed survey lands, and the stated annual rent. This acknowledgment is relevant to the existence and subject matter of negotiations, but it is not itself proof that the transferor signed a binding agreement or possessed the requisite sanctioned authority. The pleading also challenged the officer's authority and asserted trespass based on absence of a registered lease."
+        },
+        {
+          "key": "396336::U15",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "STATEMENT_STATUS",
+          "refs": [
+            "IK-396336:L136",
+            "IK-396336:L140",
+            "IK-396336:L205",
+            "IK-396336:L206",
+            "IK-396336:L207",
+            "IK-396336:L208",
+            "IK-396336:L209"
+          ],
+          "basis": "Opposes the premise that Sumitra's prior statements reliably established continuing legal coparcenary between Ram Narain and Ram Saran. The Supreme Court evaluated the circumstances of the previous suit, Sumitra's limited knowledge, her apparent susceptibility to influence, and the earlier removal of Ramsawari as a party before compromise. The Court discounted Sumitra's evidence while noting that certain admissions about three houses and the timing of Imrit's separation were consistent with the wider-partition account."
+        },
+        {
+          "key": "396336::U16",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "STATEMENT_STATUS",
+          "refs": [
+            "IK-396336:L210",
+            "IK-396336:L211",
+            "IK-396336:L212",
+            "IK-396336:L218",
+            "IK-396336:L219",
+            "IK-396336:L220",
+            "IK-396336:L221",
+            "IK-396336:L222"
+          ],
+          "basis": "Opposes the premise that settlement and accounting records decisively proved an uninterrupted Mitakshara coparcenary. The settlement records contained a mixture of sole-name holdings, joint-name holdings and explicit equal shares. The Court regarded that pattern as inconsistent with the defendants' proposed arrangement under Ram Narain as karta. The account books included shared or family-associated expenditures, but the Court found them equivocal rather than decisive evidence of legal family status."
+        },
+        {
+          "key": "396336::U22",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "STATEMENT_STATUS",
+          "refs": [
+            "IK-396336:L226",
+            "IK-396336:L227",
+            "IK-396336:L228",
+            "IK-396336:L229",
+            "IK-396336:L230",
+            "IK-396336:L231",
+            "IK-396336:L232"
+          ],
+          "basis": "Opposes treating the premise of established item-specific recoverability as satisfied at the Supreme Court appellate stage, while providing essential context for its unresolved status. The defendants' pleaded objections challenged the schedules, valuations, existence of certain properties, limitation affecting debts, previously dismissed claims and entitlement to the entirety of jointly owned assets. Issue No. 7 addressed these matters but was not decided by the trial court or the High Court. Thus the evidence is usable to establish a material evidentiary and procedural gap, not to establish that every claim failed or that the defendants' objections were true."
+        },
+        {
+          "key": "180091::U04",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "STATEMENT_STATUS",
+          "refs": [
+            "IK-180091:L129",
+            "IK-180091:L130",
+            "IK-180091:L132",
+            "IK-180091:L134"
+          ],
+          "basis": "Provides context for R1.P3 by identifying the appellant's challenge to the concurrent findings. The evidence is an attributed appellate submission, not a Supreme Court finding that an exception existed. It is appropriate for assessing what the Supreme Court considered and rejected, but does not itself contradict the fact that the Court found no sufficient reason to intervene."
+        },
+        {
+          "key": "180091::U05",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "STATEMENT_STATUS",
+          "refs": [
+            "IK-180091:L115",
+            "IK-180091:L116",
+            "IK-180091:L121",
+            "IK-180091:L125"
+          ],
+          "basis": "Provides context for R2.P1 by identifying the contractual transaction asserted by the plaintiff. It establishes that the plaintiff alleged a sale agreement involving the defendants second party and their Gaya house, not that the plaintiff established the agreement by evidence. The asserted agreement is expressly reported as the plaintiff's case, and the courts' findings oppose the proposition that it was proved."
+        },
+        {
+          "key": "180091::U21",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "STATEMENT_STATUS",
+          "refs": [
+            "IK-180091:L145",
+            "IK-180091:L146"
+          ],
+          "basis": "Opposes establishment of R7.P3 and provides context for its unresolved factual and legal components. Counsel for the defendants second party asserted a tender through the July 1943 hundi, while the plaintiff denied receipt. The Supreme Court additionally expressed doubt about its legal effectiveness even on the hypothesis that the defendants' factual account was true. These materials are directly usable to assess the asserted tender but do not establish an actual and legally effective tender sufficient to defeat interest."
+        },
+        {
+          "key": "907531::U04",
+          "P": "UNRESOLVED",
+          "reference": "USABLE",
+          "mechanism": "POSSESSION_TITLE",
+          "refs": [
+            "IK-907531:L139",
+            "IK-907531:L140",
+            "IK-907531:L142",
+            "IK-907531:L148"
+          ],
+          "basis": "Provides context and a specific evidentiary limitation for R2.P1. The Supreme Court found that the Wazibularz alone could not resolve whether Dhar Dhura extended to sudden changes. This is relevant to evaluating the proposition's proof, but the document's ambiguity is not affirmative evidence that the historical custom excluded sudden changes."
+        },
+        {
+          "key": "907531::U05",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "POSSESSION_TITLE",
+          "refs": [
+            "IK-907531:L124",
+            "IK-907531:L129",
+            "IK-907531:L130",
+            "IK-907531:L134",
+            "IK-907531:L142",
+            "IK-907531:L148",
+            "IK-907531:L149"
+          ],
+          "basis": "Opposes R2.P1 as an attributed party position. The plaintiffs disputed extension of Dhar Dhura to sudden severance of recognizable land, making their submissions relevant contrary material. Their argument establishes that this narrower interpretation was advanced, not that historical usage actually had the asserted limitation."
+        },
+        {
+          "key": "907531::U12",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "POSSESSION_TITLE",
+          "refs": [
+            "IK-907531:L135",
+            "IK-907531:L150",
+            "IK-907531:L151",
+            "IK-907531:L152",
+            "IK-907531:L153"
+          ],
+          "basis": "Opposes R3.P3 as an attributed appellate submission. The appellants challenged the enforceability of Dhar Dhura even if its sudden-change scope were proved. The submission is properly considered as contrary legal argument, not as a judicial determination of invalidity."
+        },
+        {
+          "key": "907531::U18",
+          "P": "UNUSABLE",
+          "reference": "USABLE",
+          "mechanism": "POSSESSION_TITLE",
+          "refs": [
+            "IK-907531:L160",
+            "IK-907531:L161"
+          ],
+          "basis": "Opposes the sufficiency of the plaintiff's asserted original title under R5.P3, while providing context for the issue the Court had to resolve. Mr. Banerjee's argument challenged whether the plaintiff had shown an independent source of title once the defendants could no longer rely on the displaced stream. It establishes that this objection was advanced, not that the plaintiff lacked title."
+        },
+        {
+          "key": "907531::U20",
+          "P": "UNRESOLVED",
+          "reference": "UNUSABLE",
+          "mechanism": "POSSESSION_TITLE",
+          "refs": [
+            "IK-907531:L164",
+            "IK-907531:L165"
+          ],
+          "basis": "Provides context for a conditional future entitlement, but is unusable as evidence for the actual-return event asserted in R6.P1. Mr. Banerjee advanced a hypothetical legal consequence of a future return. He did not testify or establish that the river had in fact returned. The mismatch concerns event occurrence and temporal status, not the possible validity of the revival principle."
+        }
+      ],
+      "unseen_families": 192
+    }
+  },
+  "routes": [
+    {
+      "case_id": "136109",
+      "requests": 11,
+      "RAW_P_states": {
+        "UNKNOWN": 11
+      },
+      "oracle_states": {
+        "UNKNOWN": 11
+      },
+      "oracle_changed_requests": [],
+      "oracle_changed_root_step_states": [],
+      "usable_closed_root_steps": [],
+      "only_use_gate_pending_steps_diagnostic_not_sufficient_for_gate": [],
+      "operators": {
+        "OPEN_TEXT": 7
+      },
+      "other_pending": {
+        "ROLE_MAPPING_UNRESOLVED": 14,
+        "OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED": 5,
+        "STATEMENT_STATUS": 1,
+        "UNESTABLISHED_BINDING": 2
+      }
+    },
+    {
+      "case_id": "180091",
+      "requests": 11,
+      "RAW_P_states": {
+        "UNKNOWN": 11
+      },
+      "oracle_states": {
+        "UNKNOWN": 11
+      },
+      "oracle_changed_requests": [],
+      "oracle_changed_root_step_states": [],
+      "usable_closed_root_steps": [],
+      "only_use_gate_pending_steps_diagnostic_not_sufficient_for_gate": [],
+      "operators": {
+        "OPEN_TEXT": 8
+      },
+      "other_pending": {
+        "ROLE_MAPPING_UNRESOLVED": 25,
+        "OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED": 10
+      }
+    },
+    {
+      "case_id": "1870386",
+      "requests": 11,
+      "RAW_P_states": {
+        "UNKNOWN": 11
+      },
+      "oracle_states": {
+        "UNKNOWN": 11
+      },
+      "oracle_changed_requests": [],
+      "oracle_changed_root_step_states": [],
+      "usable_closed_root_steps": [],
+      "only_use_gate_pending_steps_diagnostic_not_sufficient_for_gate": [],
+      "operators": {
+        "OPEN_TEXT": 8
+      },
+      "other_pending": {
+        "UNESTABLISHED_BINDING": 53,
+        "R1.P3": 1,
+        "OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED": 10,
+        "ROLE_MAPPING_UNRESOLVED": 17,
+        "SOURCE": 2,
+        "STATEMENT_STATUS": 3
+      }
+    },
+    {
+      "case_id": "396336",
+      "requests": 13,
+      "RAW_P_states": {
+        "UNKNOWN": 13
+      },
+      "oracle_states": {
+        "UNKNOWN": 13
+      },
+      "oracle_changed_requests": [],
+      "oracle_changed_root_step_states": [],
+      "usable_closed_root_steps": [],
+      "only_use_gate_pending_steps_diagnostic_not_sufficient_for_gate": [],
+      "operators": {
+        "ALL": 4,
+        "OPEN_TEXT": 4
+      },
+      "other_pending": {
+        "ROLE_MAPPING_UNRESOLVED": 13,
+        "SOURCE": 8,
+        "OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED": 1
+      }
+    },
+    {
+      "case_id": "594273",
+      "requests": 10,
+      "RAW_P_states": {
+        "UNKNOWN": 10
+      },
+      "oracle_states": {
+        "UNKNOWN": 10
+      },
+      "oracle_changed_requests": [],
+      "oracle_changed_root_step_states": [],
+      "usable_closed_root_steps": [],
+      "only_use_gate_pending_steps_diagnostic_not_sufficient_for_gate": [],
+      "operators": {
+        "ALL": 2,
+        "OPEN_TEXT": 6
+      },
+      "other_pending": {
+        "ROLE_MAPPING_UNRESOLVED": 23,
+        "OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED": 7,
+        "STATEMENT_STATUS": 1
+      }
+    },
+    {
+      "case_id": "885778",
+      "requests": 9,
+      "RAW_P_states": {
+        "UNKNOWN": 9
+      },
+      "oracle_states": {
+        "UNKNOWN": 9
+      },
+      "oracle_changed_requests": [],
+      "oracle_changed_root_step_states": [],
+      "usable_closed_root_steps": [],
+      "only_use_gate_pending_steps_diagnostic_not_sufficient_for_gate": [],
+      "operators": {
+        "OPEN_TEXT": 6
+      },
+      "other_pending": {
+        "SOURCE": 4,
+        "ROLE_MAPPING_UNRESOLVED": 10,
+        "OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED": 6
+      }
+    },
+    {
+      "case_id": "907531",
+      "requests": 12,
+      "RAW_P_states": {
+        "UNKNOWN": 12
+      },
+      "oracle_states": {
+        "UNKNOWN": 12
+      },
+      "oracle_changed_requests": [],
+      "oracle_changed_root_step_states": [],
+      "usable_closed_root_steps": [],
+      "only_use_gate_pending_steps_diagnostic_not_sufficient_for_gate": [],
+      "operators": {
+        "ALL": 4,
+        "OPEN_TEXT": 3
+      },
+      "other_pending": {
+        "ROLE_MAPPING_UNRESOLVED": 25,
+        "OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED": 5,
+        "SOURCE": 1,
+        "STATEMENT_STATUS": 1
+      }
+    },
+    {
+      "case_id": "948916",
+      "requests": 9,
+      "RAW_P_states": {
+        "UNKNOWN": 9
+      },
+      "oracle_states": {
+        "UNKNOWN": 9
+      },
+      "oracle_changed_requests": [],
+      "oracle_changed_root_step_states": [],
+      "usable_closed_root_steps": [],
+      "only_use_gate_pending_steps_diagnostic_not_sufficient_for_gate": [],
+      "operators": {
+        "OPEN_TEXT": 3,
+        "ALL": 3,
+        "ANY": 1
+      },
+      "other_pending": {
+        "UNESTABLISHED_BINDING": 95,
+        "OBJECT_MISMATCH": 22,
+        "OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED": 7,
+        "STATEMENT_STATUS": 4
+      }
+    }
+  ],
+  "gates": {
+    "common_interface_tests": "SEE_ENGINEERING_RECEIPT",
+    "DEV_all_four_mechanisms": true,
+    "labels": "INTENDED_USE_CONTRACT_PRESERVED; OLD_P_VISIBLE_AND_NEW_BLIND_REFERENCE_MODES_DIFFER",
+    "real_downstream_use_class_influence": false,
+    "copy_space_disputes": 5
+  },
+  "data_gates_open": false,
+  "training_started": false,
+  "test_sealed_read": false,
+  "reference_kind": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "warning": "Reference replacement is diagnostic, not learner performance. Agreement is not legal truth. No learning model changes bindings, rule operator or premise truth."
+}

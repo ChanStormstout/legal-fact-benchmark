@@ -1,0 +1,813 @@
+{
+  "reviewed_at": "2026-10-09T08:14:41.433885+00:00",
+  "reference_status": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "qualified_legal_approval": false,
+  "new_model_review_calls": 0,
+  "scope": "One concentrated review of decisive source content, original rule/fact/derivation records and checks; no exhaustive gold annotation.",
+  "comparison_policy": "Same cached model proposals. Source-review policy decisions precede execution and are not discoveries made by the checker. Formal approval absence is never a detected error.",
+  "cases": [
+    {
+      "case": "789051",
+      "name": "Rame Gowda",
+      "question": "区分占有保护、所有权证明与后续权利主张。",
+      "source_fidelity": "主要区别得到保留：占有认定、双方未证明所有权、禁止干扰与未来产权诉讼不是同一结论。没有把所有权证明失败写成现实中没有所有权。",
+      "source_refs": [
+        "IK-789051:L65",
+        "IK-789051:L66",
+        "IK-789051:L67",
+        "IK-789051:L68",
+        "IK-789051:L69",
+        "IK-789051:L106",
+        "IK-789051:L107",
+        "IK-789051:L110",
+        "IK-789051:L111",
+        "IK-789051:L112",
+        "IK-789051:L113"
+      ],
+      "important_opposition": "被告关于未请求产权确认、原告未证明产权便应驳回的论点，以及边界和地块尺寸争议，保留为论点或不确定项；不能借占有保护确定边界或产权。",
+      "natural_issues": [
+        {
+          "id": "RG-EXEC-01",
+          "classification": [
+            "EXECUTION_COVERAGE",
+            "REPRESENTATION_CONTRACT"
+          ],
+          "records": [
+            "R2@1",
+            "S2",
+            "S3",
+            "S5",
+            "S6"
+          ],
+          "finding": "R2把开放性的稳定占有评价和对法院已经明确记载的稳定占有认定的承接合在一起。程序因此返回UNKNOWN；模型据原文给出的TRUE触发结果不匹配。应报告可执行范围不足，不能计作识别错误法律结论。"
+        },
+        {
+          "id": "RG-QUOTE-01",
+          "classification": [
+            "SOURCE_LOCATOR_OVERBLOCK"
+          ],
+          "records": [
+            "R4@1",
+            "S4"
+          ],
+          "finding": "L111的呈现文本在Londa与撇号之间有空格，模型引文省略该空格；法律含义有原文支持，但严格定位阻止了规则。S1保留，S2只显式更换为原文精确子串。"
+        },
+        {
+          "id": "RG-FACT-01",
+          "classification": [
+            "SEMANTIC_INFERENCE_LIMIT"
+          ],
+          "records": [
+            "F4"
+          ],
+          "finding": "非短暂占有的否定记录依赖法院稳定占有定性，不能另外解释成独立检查了所有取得占有过程。该限制不影响原文明确记载的稳定占有结论。"
+        }
+      ],
+      "before_after_interpretation": "原始四项请求的法律方向大体有来源支持，但凭据全部被程序阻止；这不是四项法律结论均错。S2保留可执行的S1前缀，并让开放性后续步骤明确未完成；S2不是新独立模型成绩。",
+      "remaining_gaps": [
+        "未实现稳定占有的开放性评价；未明确分离观察法院认定与独立法律定性。",
+        "边界、土地原件与被引先例原文未独立取得。",
+        "正式法律批准待确认。"
+      ],
+      "decision": "保留来源及版本机制；在下一版本优先分清法院已作判断的记录与仍需程序重算的判断。",
+      "original_step_results": {
+        "S1": {
+          "status": "VALID_UNDER_ASSUMPTIONS",
+          "state": "TRUE",
+          "errors": [],
+          "gaps": []
+        },
+        "S2": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ]
+        },
+        "S3": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S2"
+          ]
+        },
+        "S4": {
+          "status": "INVALID",
+          "state": null,
+          "errors": [
+            "QUOTE_NOT_LOCATED"
+          ],
+          "gaps": [
+            "RULE_SEMANTICS_NOT_ACCEPTED",
+            "DEPENDENCY_INVALID:S3"
+          ]
+        },
+        "S5": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S3"
+          ]
+        },
+        "S6": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S5"
+          ]
+        }
+      },
+      "original_request_results": [
+        {
+          "id": "Q1",
+          "text": "E1 has an independently supportable possessory ground for injunctive restraint against E2's interference with settled possession of E3, notwithstanding E1's failure to establish proprietary title. This conclusion depends on S3, which depends on S2's accepted judicial settled-possession classification and S1's preservation of possession despite title non-proof. It supports protection against interference without determining every independent requirement for injunctive relief or confirming ownership.",
+          "predicate": "POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S2"
+          ],
+          "step_id": "S3",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-789051:L66",
+            "IK-789051:L67",
+            "IK-789051:L79",
+            "IK-789051:L82",
+            "IK-789051:L83",
+            "IK-789051:L85",
+            "IK-789051:L86",
+            "IK-789051:L87",
+            "IK-789051:L106",
+            "IK-789051:L107",
+            "IK-789051:L112"
+          ]
+        },
+        {
+          "id": "Q2",
+          "text": "For the possessory injunction claim concerning E3, E2's asserted objection based on E1's failure to prove title and the alleged omission of a declaratory prayer does not itself require dismissal, because S3 supplies an independent possessory ground. This conclusion rejects only automatic dismissal on those grounds, not every conceivable objection to an injunction-only action.",
+          "predicate": "TITLE_DECLARATION_OBJECTION_NOT_AUTOMATIC_BAR",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "QUOTE_NOT_LOCATED",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "RULE_SEMANTICS_NOT_ACCEPTED",
+            "DEPENDENCY_INVALID:S3"
+          ],
+          "step_id": "S4",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-789051:L68",
+            "IK-789051:L69",
+            "IK-789051:L107",
+            "IK-789051:L108",
+            "IK-789051:L109",
+            "IK-789051:L110",
+            "IK-789051:L111",
+            "IK-789051:L112",
+            "IK-789051:L113"
+          ]
+        },
+        {
+          "id": "Q3",
+          "text": "The injunction ground protecting E1's possession of E3 against E2's interference does not, by itself, confirm E1's ownership or determine E2's competing proprietary claim. S5 depends on the possessory basis established through S3. Its conclusion is a non-entailment concerning proprietary title, not an affirmative finding that either litigant lacks ownership.",
+          "predicate": "POSSESSORY_RELIEF_DOES_NOT_CONFIRM_OWNERSHIP",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S3"
+          ],
+          "step_id": "S5",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-789051:L72",
+            "IK-789051:L73",
+            "IK-789051:L74",
+            "IK-789051:L75",
+            "IK-789051:L83",
+            "IK-789051:L87",
+            "IK-789051:L107",
+            "IK-789051:L111",
+            "IK-789051:L113"
+          ]
+        },
+        {
+          "id": "Q4",
+          "text": "Because possession-based protection does not determine ownership, the Supreme Court expressly reserved title, and E2 had not established the title needed to justify eviction in the reviewed proceedings, the parties may pursue competing proprietary claims in duly constituted proceedings. E2's prospective title-based eviction depends on establishing a better right to possession. The conclusion does not establish any present right of self-help eviction or predict the result of future litigation.",
+          "predicate": "SEPARATE_TITLE_ACTION_REMAINS_AVAILABLE",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S5"
+          ],
+          "step_id": "S6",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-789051:L86",
+            "IK-789051:L87",
+            "IK-789051:L106",
+            "IK-789051:L107",
+            "IK-789051:L113"
+          ]
+        }
+      ],
+      "source_review_file": "cases/789051/source-review-S1.json",
+      "independent_reference_file": "runs/789051/reference/parsed.json"
+    },
+    {
+      "case": "1418721",
+      "name": "Karnataka Board of Wakf",
+      "question": "区分积极所有权依据与未成立的逆权占有替代理由。",
+      "source_fidelity": "保存登记、CTS资料及证言的法院记载，也保存Wakf一方反对；没有以逆权占有不成立推导政府所有权不成立。",
+      "source_refs": [
+        "IK-1418721:L59",
+        "IK-1418721:L79",
+        "IK-1418721:L80",
+        "IK-1418721:L81",
+        "IK-1418721:L82",
+        "IK-1418721:L83",
+        "IK-1418721:L84",
+        "IK-1418721:L85",
+        "IK-1418721:L90",
+        "IK-1418721:L96",
+        "IK-1418721:L97",
+        "IK-1418721:L98",
+        "IK-1418721:L99",
+        "IK-1418721:L100",
+        "IK-1418721:L101"
+      ],
+      "important_opposition": "Wakf的权属主张与对取得过程的攻击需要同法院关于取得方式未受挑战的较窄表述共同保留。登记不是单独自动决定产权；替代主张的张力不等于一般禁止替代诉求。",
+      "natural_issues": [
+        {
+          "id": "WK-QUOTE-01",
+          "classification": [
+            "SOURCE_LOCATOR_OVERBLOCK"
+          ],
+          "records": [
+            "R1@1",
+            "S1"
+          ],
+          "finding": "源呈现为Act后空格再句点；引文为Act.，定位失败。规则的来源意义并未因此被否定。本案不补做第二次修正或模型调用。"
+        },
+        {
+          "id": "WK-EXEC-01",
+          "classification": [
+            "EXECUTION_COVERAGE"
+          ],
+          "records": [
+            "R2@1",
+            "R5@1",
+            "S2",
+            "S5",
+            "S6"
+          ],
+          "finding": "法院综合证据确认所有权及评价逆权占有要求属于OPEN_TEXT。源文支持所提结论方向，但程序没有重算这些评价的能力；不能把阻止结果当作正确纠错。"
+        },
+        {
+          "id": "WK-SCOPE-01",
+          "classification": [
+            "OBJECT_GRANULARITY_LIMIT",
+            "SOURCE_LIMIT"
+          ],
+          "records": [
+            "E4",
+            "F4",
+            "F17"
+          ],
+          "finding": "三处CTS物业只按判决的集合表述保存；不具备逐地块新断言。记录中的历史年代矛盾未擅自调和；未明确放弃原权利不等于确认未放弃。"
+        }
+      ],
+      "before_after_interpretation": "原始请求中仅“记录了重要主张与证明缺口”获得条件性有效轨迹。其他请求主要受严格引文和开放评价限制；有效S3/S4没有被其他分支失败抹去。",
+      "remaining_gaps": [
+        "综合证据和逆权占有的开放评价未实现。",
+        "证据原件、个别地块对应与历史日期未独立核验。",
+        "正式法律批准待确认。"
+      ],
+      "decision": "保留两条独立理由与局部结果，不把失败替代理由视为推翻独立所有权依据。",
+      "original_step_results": {
+        "S1": {
+          "status": "INVALID",
+          "state": null,
+          "errors": [
+            "QUOTE_NOT_LOCATED"
+          ],
+          "gaps": [
+            "RULE_SEMANTICS_NOT_ACCEPTED"
+          ]
+        },
+        "S2": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S1",
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ]
+        },
+        "S3": {
+          "status": "VALID_UNDER_ASSUMPTIONS",
+          "state": "TRUE",
+          "errors": [],
+          "gaps": []
+        },
+        "S4": {
+          "status": "VALID_UNDER_ASSUMPTIONS",
+          "state": "TRUE",
+          "errors": [],
+          "gaps": []
+        },
+        "S5": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ]
+        },
+        "S6": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S2",
+            "DEPENDENCY_INVALID:S5"
+          ]
+        }
+      },
+      "original_request_results": [
+        {
+          "id": "Q1",
+          "text": "At the Supreme Court merits stage, the government claimant's affirmative title to the collectively described suit properties is proposed as established on the court's combined assessment of acquisition-supporting documentary records, CTS entries, reported testimony, and insufficiently substantiated competing title evidence, independently of adverse possession.",
+          "predicate": "TITLE_ESTABLISHED_ON_RECORDED_EVIDENCE",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S1",
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ],
+          "step_id": "S2",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1418721:L69",
+            "IK-1418721:L70",
+            "IK-1418721:L72",
+            "IK-1418721:L73",
+            "IK-1418721:L80",
+            "IK-1418721:L81",
+            "IK-1418721:L82",
+            "IK-1418721:L83",
+            "IK-1418721:L84",
+            "IK-1418721:L85"
+          ]
+        },
+        {
+          "id": "Q2",
+          "text": "The Supreme Court record identifies material failures specifically to plead and prove hostile exclusive possession with the necessary animus, the appellant's supposed earlier title, and the relevant point of disposition or dispossession.",
+          "predicate": "MATERIAL_ADVERSE_PLEADING_GAPS_RECORDED",
+          "draft_status": "VALID_UNDER_ASSUMPTIONS",
+          "answer": "TRUE",
+          "errors": [],
+          "gaps": [],
+          "step_id": "S3",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1418721:L90",
+            "IK-1418721:L91",
+            "IK-1418721:L92",
+            "IK-1418721:L93",
+            "IK-1418721:L94",
+            "IK-1418721:L100",
+            "IK-1418721:L97"
+          ]
+        },
+        {
+          "id": "Q3",
+          "text": "The government claimant's alternative adverse-possession ground against the Karnataka Board of Wakf was not established under the Supreme Court's contextual pleading and proof requirements, without treating the absence of an independently established renunciation as an additional proven fact.",
+          "predicate": "ADVERSE_POSSESSION_GROUND_NOT_ESTABLISHED",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ],
+          "step_id": "S5",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1418721:L90",
+            "IK-1418721:L91",
+            "IK-1418721:L92",
+            "IK-1418721:L93",
+            "IK-1418721:L94",
+            "IK-1418721:L96",
+            "IK-1418721:L97",
+            "IK-1418721:L98",
+            "IK-1418721:L99",
+            "IK-1418721:L100",
+            "IK-1418721:L101",
+            "IK-1418721:L59",
+            "IK-1418721:L61",
+            "IK-1418721:L79",
+            "IK-1418721:L89",
+            "IK-1418721:L63",
+            "IK-1418721:L64",
+            "IK-1418721:L77"
+          ]
+        },
+        {
+          "id": "Q4",
+          "text": "For the government claimant and the collectively described Bijapur suit properties, rejection of the alternative adverse-possession basis does not itself negate the independently supported affirmative title basis. This limited conclusion does not independently determine the disposition of the appeals.",
+          "predicate": "INDEPENDENT_TITLE_GROUND_UNDIMINISHED_BY_FAILED_ADVERSE_PLEA",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S2",
+            "DEPENDENCY_INVALID:S5"
+          ],
+          "step_id": "S6",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1418721:L77",
+            "IK-1418721:L85",
+            "IK-1418721:L89",
+            "IK-1418721:L97",
+            "IK-1418721:L100",
+            "IK-1418721:L101"
+          ]
+        }
+      ],
+      "source_review_file": "cases/1418721/source-review-S1.json",
+      "independent_reference_file": "runs/1418721/reference/parsed.json"
+    },
+    {
+      "case": "1841885",
+      "name": "Sopan Sukhdeo Sable",
+      "question": "区分诉状筛查、租赁争议的审理范围及尚未裁断的占有实体问题。",
+      "source_fidelity": "提议保留下级法院驳回、最高法院对主争点的定性，以及双方对租期、强行夺占、缴款和退租的不同说法。没有把22/44名身份不明租户的退租推为原告已经退租。",
+      "source_refs": [
+        "IK-1841885:L68",
+        "IK-1841885:L69",
+        "IK-1841885:L73",
+        "IK-1841885:L75",
+        "IK-1841885:L79",
+        "IK-1841885:L80",
+        "IK-1841885:L81",
+        "IK-1841885:L98",
+        "IK-1841885:L109",
+        "IK-1841885:L114",
+        "IK-1841885:L129",
+        "IK-1841885:L133",
+        "IK-1841885:L134",
+        "IK-1841885:L135",
+        "IK-1841885:L136",
+        "IK-1841885:L137",
+        "IK-1841885:L138",
+        "IK-1841885:L151",
+        "IK-1841885:L152",
+        "IK-1841885:L153"
+      ],
+      "important_opposition": "关于无诉因、法定管辖、取得占有合法、租户自愿退出和未付欠款的反论均应按其提出者和阶段保存；程序继续不确认十一年租期、不直接授予禁令，也不认定夺占。",
+      "natural_issues": [
+        {
+          "id": "SS-RULE-01",
+          "classification": [
+            "RULE_TRANSLATION_SCOPE_ERROR"
+          ],
+          "records": [
+            "R6@1",
+            "rule_review:R6"
+          ],
+          "finding": "独立规则复核及原文L136/L151确认：R6的必须在审理中评估禁令实体权利表述过强。原文只准许当事人提出强行夺占，并在与继续的租赁争议相关时处理。程序生存不推出实体成立，也不应以UNKNOWN/CONFLICTED状态作为该不蕴含关系的必要前提。R6在研究快照暂停，原草案保存。"
+        },
+        {
+          "id": "SS-STATE-01",
+          "classification": [
+            "PROPOSITION_STATE_AMBIGUITY"
+          ],
+          "records": [
+            "F11"
+          ],
+          "finding": "F11把已知最高法院没有完成该实体判定与实体权利是否成立未知混在ADJUDICATED谓词的UNKNOWN中。原文叙述保留，但其类型化用途暂停；没有将未知改成否定权利。"
+        },
+        {
+          "id": "SS-BIND-01",
+          "classification": [
+            "ROLE_MAPPING_CONTRACT"
+          ],
+          "records": [
+            "F7",
+            "F8",
+            "R5@1"
+          ],
+          "finding": "双方关于同一争议事件的表述使用相反subject/opponent方向，R5却要求相同角色绑定。不能自动交换角色，也不能把这种接口不相容直接当作确有两个不同事件。原记录不改。"
+        },
+        {
+          "id": "SS-EXEC-01",
+          "classification": [
+            "EXECUTION_COVERAGE"
+          ],
+          "records": [
+            "R2@1"
+          ],
+          "finding": "给定原文明确记载最高法院对租赁争议的定性，但该接口仍要求开放性的全诉状法律判断，不能自动产生完整可执行结论。"
+        }
+      ],
+      "before_after_interpretation": "R6问题由独立来源复核发现并通过接受政策阻止；检查器只是实施该决定，不能把发现语义错误的能力归给程序。相反角色记录是否能合法接入同一规则，需要显式角色映射，不能由检查器猜测。",
+      "remaining_gaps": [
+        "未取得原始诉状、租约和临时禁令，事件日期与特定租户身份有真实缺口。",
+        "原判决明确没有裁断部分实体问题；不得要求重建补出这些结论。",
+        "规则翻译、角色映射和开放性解释仍有限制；正式批准待确认。"
+      ],
+      "decision": "保留程序与实体分离及反论；下一版本修正规则作用域和角色契约，禁止以诉状继续推定实体胜诉。",
+      "original_step_results": {
+        "S1": {
+          "status": "VALID_UNDER_ASSUMPTIONS",
+          "state": "TRUE",
+          "errors": [],
+          "gaps": []
+        },
+        "S2": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ]
+        },
+        "S3": {
+          "status": "VALID_UNDER_ASSUMPTIONS",
+          "state": "TRUE",
+          "errors": [],
+          "gaps": []
+        },
+        "S4": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S2"
+          ]
+        },
+        "S5": {
+          "status": "INVALID",
+          "state": null,
+          "errors": [
+            "CROSS_OBJECT_JOIN:trust_denial_recorded"
+          ],
+          "gaps": []
+        },
+        "S6": {
+          "status": "INVALID",
+          "state": "UNKNOWN",
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH"
+          ],
+          "gaps": [
+            "RULE_SEMANTICS_NOT_ACCEPTED",
+            "DEPENDENCY_INVALID:S4",
+            "DEPENDENCY_INVALID:S5",
+            "BINDING_UNKNOWN:settled_possession_proof",
+            "BINDING_UNKNOWN:unlawful_dispossession_proof",
+            "PREMISE_NOT_ACCEPTED:F11",
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ]
+        }
+      },
+      "original_request_results": [
+        {
+          "id": "Q1",
+          "text": "The Supreme Court's identified controversy over tenancy continuance, terms and duration is a subject for civil adjudication rather than determination as a Section 50 trust-affairs inquiry. This procedural subject-matter conclusion does not establish the existence, validity, duration or continued operation of the plaintiffs' asserted tenancy.",
+          "predicate": "TENANCY_SUBJECT_CIVIL_ADJUDICABLE",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ],
+          "step_id": "S2",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1841885:L68",
+            "IK-1841885:L78",
+            "IK-1841885:L130",
+            "IK-1841885:L133",
+            "IK-1841885:L134",
+            "IK-1841885:L135",
+            "IK-1841885:L136",
+            "IK-1841885:L85",
+            "IK-1841885:L87",
+            "IK-1841885:L92",
+            "IK-1841885:L98",
+            "IK-1841885:L101",
+            "IK-1841885:L102",
+            "IK-1841885:L103",
+            "IK-1841885:L104",
+            "IK-1841885:L105",
+            "IK-1841885:L109",
+            "IK-1841885:L110",
+            "IK-1841885:L111",
+            "IK-1841885:L112",
+            "IK-1841885:L113",
+            "IK-1841885:L114",
+            "IK-1841885:L69",
+            "IK-1841885:L82",
+            "IK-1841885:L61",
+            "IK-1841885:L62",
+            "IK-1841885:L63",
+            "IK-1841885:L64",
+            "IK-1841885:L65",
+            "IK-1841885:L67"
+          ]
+        },
+        {
+          "id": "Q2",
+          "text": "The distinct prayer for inquiry into alleged trust misconduct follows the Section 50 trust-affairs route and the applicable Section 51 consent regime. This classification neither proves trust misconduct nor establishes whether the required consent was sought or obtained.",
+          "predicate": "TRUST_AFFAIRS_INQUIRY_SPECIAL_ACT_ROUTE",
+          "draft_status": "VALID_UNDER_ASSUMPTIONS",
+          "answer": "TRUE",
+          "errors": [],
+          "gaps": [],
+          "step_id": "S3",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1841885:L67",
+            "IK-1841885:L133",
+            "IK-1841885:L134",
+            "IK-1841885:L135",
+            "IK-1841885:L61",
+            "IK-1841885:L62"
+          ]
+        },
+        {
+          "id": "Q3",
+          "text": "The presence of a special-Act trust-inquiry prayer alongside a civil-adjudicable tenancy controversy does not alone justify rejection of the whole plaint under Order VII Rule 11(a) or (d). This does not foreclose another properly established whole-plaint ground for rejection or prove that any requested remedy must be granted.",
+          "predicate": "MIXED_RELIEFS_NOT_ALONE_GROUND_FOR_WHOLE_REJECTION",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "DEPENDENCY_INVALID:S2"
+          ],
+          "step_id": "S4",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1841885:L105",
+            "IK-1841885:L111",
+            "IK-1841885:L112",
+            "IK-1841885:L113",
+            "IK-1841885:L114",
+            "IK-1841885:L117",
+            "IK-1841885:L118",
+            "IK-1841885:L129",
+            "IK-1841885:L130",
+            "IK-1841885:L131",
+            "IK-1841885:L132",
+            "IK-1841885:L133",
+            "IK-1841885:L134",
+            "IK-1841885:L135",
+            "IK-1841885:L136",
+            "IK-1841885:L137",
+            "IK-1841885:L85",
+            "IK-1841885:L87",
+            "IK-1841885:L92",
+            "IK-1841885:L98",
+            "IK-1841885:L101",
+            "IK-1841885:L102",
+            "IK-1841885:L103",
+            "IK-1841885:L104",
+            "IK-1841885:L109",
+            "IK-1841885:L110",
+            "IK-1841885:L68",
+            "IK-1841885:L69",
+            "IK-1841885:L82",
+            "IK-1841885:L61",
+            "IK-1841885:L62",
+            "IK-1841885:L63",
+            "IK-1841885:L64",
+            "IK-1841885:L65",
+            "IK-1841885:L67"
+          ]
+        },
+        {
+          "id": "Q4",
+          "text": "The plaintiffs' allegation of forcible eviction and the respondent trust's contrary assertion of lawful possession-taking are both recorded. Their opposition establishes neither actual unlawful dispossession nor voluntary surrender by these plaintiffs.",
+          "predicate": "OPPOSED_DISPOSSESSION_ASSERTIONS_RECORDED",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "CROSS_OBJECT_JOIN:trust_denial_recorded",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [],
+          "step_id": "S5",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1841885:L62",
+            "IK-1841885:L75",
+            "IK-1841885:L79",
+            "IK-1841885:L81",
+            "IK-1841885:L138",
+            "IK-1841885:L151",
+            "IK-1841885:L152",
+            "IK-1841885:L73",
+            "IK-1841885:L80"
+          ]
+        },
+        {
+          "id": "Q5",
+          "text": "The procedural availability of civil adjudication concerning tenancy does not establish forcible dispossession, a right to restoration under Section 6 of the Specific Relief Act, or entitlement to an injunction. The disputed possession event and the separate discretionary injunction questions remain matters for relevant evidence and appropriate merits assessment. This is an analytically supported distinction, not a completed mechanical evaluation or a substantive merits ruling.",
+          "predicate": "CONTINUATION_DISTINCT_FROM_POSSESSION_AND_INJUNCTION_MERITS",
+          "draft_status": "INVALID",
+          "answer": null,
+          "errors": [
+            "PROPOSED_RESULT_MISMATCH",
+            "REQUEST_STATE_MISMATCH"
+          ],
+          "gaps": [
+            "RULE_SEMANTICS_NOT_ACCEPTED",
+            "DEPENDENCY_INVALID:S4",
+            "DEPENDENCY_INVALID:S5",
+            "BINDING_UNKNOWN:settled_possession_proof",
+            "BINDING_UNKNOWN:unlawful_dispossession_proof",
+            "PREMISE_NOT_ACCEPTED:F11",
+            "OPEN_TEXT_NOT_IMPLEMENTED"
+          ],
+          "step_id": "S6",
+          "formal_status": "APPROVAL_PENDING",
+          "source_refs": [
+            "IK-1841885:L138",
+            "IK-1841885:L139",
+            "IK-1841885:L140",
+            "IK-1841885:L141",
+            "IK-1841885:L144",
+            "IK-1841885:L145",
+            "IK-1841885:L146",
+            "IK-1841885:L148",
+            "IK-1841885:L150",
+            "IK-1841885:L151",
+            "IK-1841885:L152",
+            "IK-1841885:L153",
+            "IK-1841885:L79",
+            "IK-1841885:L62",
+            "IK-1841885:L75"
+          ]
+        }
+      ],
+      "source_review_file": "cases/1841885/source-review-S1.json",
+      "independent_reference_file": "runs/1841885/reference/parsed.json"
+    }
+  ]
+}

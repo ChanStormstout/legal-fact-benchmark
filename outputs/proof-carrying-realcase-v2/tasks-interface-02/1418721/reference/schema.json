@@ -1,0 +1,106 @@
+{
+  "type": "object",
+  "properties": {
+    "judgments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "proposition": {
+            "type": "string"
+          },
+          "predicate": {
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "TRUE",
+              "FALSE",
+              "UNKNOWN",
+              "CONFLICTED"
+            ]
+          },
+          "objects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8
+          },
+          "statement_status": {
+            "enum": [
+              "PARTY_CLAIM",
+              "TESTIMONY",
+              "RECORDED_DOCUMENT",
+              "LOWER_COURT_FINDING",
+              "TARGET_COURT_FINDING",
+              "PROCEDURAL_RECORD",
+              "LEGAL_RULE",
+              "TARGET_DISPOSITION",
+              "UNKNOWN"
+            ]
+          },
+          "stage": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          },
+          "quote": {
+            "type": "string"
+          },
+          "opposition_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          },
+          "gap": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "proposition",
+          "predicate",
+          "state",
+          "objects",
+          "statement_status",
+          "stage",
+          "refs",
+          "quote",
+          "opposition_refs",
+          "gap"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 30
+    },
+    "decisive_counterarguments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 15
+    },
+    "conclusion_boundary": {
+      "type": "string"
+    },
+    "approval": {
+      "enum": [
+        "MODEL_REFERENCE_NOT_HUMAN_GOLD"
+      ]
+    }
+  },
+  "required": [
+    "judgments",
+    "decisive_counterarguments",
+    "conclusion_boundary",
+    "approval"
+  ],
+  "additionalProperties": false
+}

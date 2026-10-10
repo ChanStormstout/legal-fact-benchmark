@@ -1,0 +1,205 @@
+TRANSPORT INSTRUCTION
+Answer only from the materials in the task file. Do not search externally, look for other versions of the case, rely on other conversations, or read previous answers or review records. Complete the output once, following the supplied contract. You may use file tools to read this task attachment or create JSON, but must not add external legal materials. All generated free-text values must be in English. Preserve source quotations, proper names, source identifiers, JSON keys and enumerated values as supplied.
+
+V6 LEGAL TASK WITH ENGLISH LANGUAGE CONTRACT
+LANGUAGE CONTRACT: Write all generated free-text values in English. Preserve source quotations, proper names, source identifiers, JSON keys and enumerated values as supplied. Do not translate or alter the supplied sources.
+
+Use only supplied case and legal sources. This is retrospective development, not reconstruction of an excluded historical verdict. Distinguish a party assertion, denial, witness testimony, recorded instrument, prior court finding and target court acceptance. Keep conflicting evidence and its stage. A valid source ID or a program check does not certify meaning. Do not invent a proof burden or legal presumption from absent evidence.
+Each test_id denotes the complete proposition printed in the legal structure, including all negation and quantifiers. assessment evaluates that proposition, NOT which party it favors. SUPPORTED/REFUTED require pertinent evidence; missing support alone is UNRESOLVED, not REFUTED. UNSUPPORTED means a needed analysis is outside the supplied legal/method coverage. Uncertainty about one facility or event does not establish a universal statement about all others. Preserve known identity, dates and recorded findings independently of disputed meaning, authenticity or target acceptance. Evaluate AND/OR within the same arrangement; do not mix different people, contracts, events or stages. Shared sources are not independent votes.
+Return short complete JSON, no long quotation copies. A few sentences per explanation is a writing target, not a truncation rule. Preserve decisive opposition and limitations before optional detail. Never fill an array simply to reach its limit.
+
+
+TWO COMPLETE FICTIONAL EXAMPLES:
+
+[{"label": "FICTIONAL TEACHING INPUT AND OUTPUT; NEVER TARGET LAW", "input": {"sources": {"S1": "The district panel found that operator Mira installed beacon Z personally. An appeal challenges that finding.", "S2": "The claimant alleges an unidentified helper attended."}, "law": {"L1": "The fictional Beacon Code permits certification when the operator installs the beacon personally OR a registered technician installs it with operator permission."}, "tests": {"INSTALL": "Operator personally installed this beacon OR a registered technician installed it with operator permission."}, "request": "Certification for beacon Z"}, "output": {"answers": [{"claim_id": "CERTIFY", "prediction": "PREDICT_GRANT", "conditions": [{"test_id": "INSTALL", "binding_id": "b1", "binding": "Mira; beacon Z; installation reviewed on appeal", "assessment": "SUPPORTED", "refs": ["S1", "L1"], "explanation": "The prior panel found personal installation. I rely on that finding while preserving its contested appellate status; helper attendance does not itself negate personal installation."}], "opposition": {"record": "Claimant alleges a helper attended.", "refs": ["S2"], "response": "Attendance alone does not contradict the personal route. Technician registration is unknown but unnecessary on that route."}, "gaps": ["The appeal challenge remains undecided."], "reason": "I predict grant on the recorded personal-installation route, conditional on that finding surviving review.", "intermediate_correction": "None."}]}}, {"label": "FICTIONAL TEACHING INPUT AND OUTPUT; NEVER TARGET LAW", "input": {"sources": {"S3": "The district panel found that room A was unsafe, but that operator Neri had room B available and suitable for the proposed storage.", "S4": "Neri alleges room B is unavailable; no supporting record is supplied."}, "law": {"L2": "The fictional Storage Code permits emergency space only if no other suitable room is available to the applicant."}, "tests": {"NO_OTHER": "Neri has no other suitable room available for this storage."}, "request": "Emergency space for this storage"}, "output": {"answers": [{"claim_id": "EMERGENCY", "prediction": "PREDICT_DENY", "conditions": [{"test_id": "NO_OTHER", "binding_id": "b1", "binding": "Neri; rooms A and B; this storage request", "assessment": "REFUTED", "refs": ["S3", "L2"], "explanation": "The specific finding that B is available and suitable contradicts no-other-room. A being unsafe alone would establish neither existence nor absence of other suitable rooms."}], "opposition": {"record": "Neri alleges B is unavailable.", "refs": ["S4"], "response": "I retain the dispute but give the identified prior finding greater weight for this prediction, not because missing evidence proves the allegation false."}, "gaps": ["Target-stage acceptance and any changed availability remain unresolved."], "reason": "I predict denial based on affirmative contrary evidence concerning B. The choice could change if its availability is disproved.", "intermediate_correction": "None."}]}}]
+
+Return one answer per substantive request. Only request prediction is binary: PREDICT_GRANT or PREDICT_DENY. conditions is sparse: assess the decisive complete test propositions with four-state assessment, concrete binding_id and binding text identifying persons, premises, event/arrangement and stage; never put a test title in place of these objects. Reuse a binding_id only for the same sourced arrangement, and do not infer identity from similar text. References point to case and legal IDs. Describe decisive opposing evidence even if it weakens the chosen prediction.
+reason briefly identifies which known judgments and uncertain assumptions determine the prediction and how unresolved matters could change it. Choosing denial does not prove every necessary condition false. Do not invent legal mandatory-denial rules when the supplied law lacks them. Distinguish missing case facts, absent legal coverage and program limits.
+All intermediate material is model-proposed. Read the original sources; correct erroneous intermediate assertions with sources and note the correction. Structural program checks are not authoritative legal findings. Local quarantines do not erase original source text; do not rely on a flagged invalid address. Program-computed AND/OR applies only to its declared binding/premises, not other arrangements. Usually 4-7 decisive conditions suffice; do not duplicate an analysis in several fields.
+
+Completion contract: answer each listed substantive request exactly once; never return an empty answers array or duplicate a claim. Keep at least one decisive condition analysis. reason must distinguish what this record establishes at its stated stage, what legal application is unresolved, and which assumptions sustain the binary prediction. Use gaps for concrete unresolved matters. A required binary choice does not convert every unknown into a negative condition or create a burden-of-proof or appellate-effect rule.
+For method B, the intermediate proposal is raw model output, not a verified fact table. No program audit is supplied. Read the complete case and law to correct it when necessary; identify consequential corrections using intermediate_correction. For method A, intermediate material is empty; apply the same final contract. Final answers, source IDs and condition labels being syntactically valid do not establish legal correctness.
+
+SOURCE_ROLES (addresses classified by frozen input provenance):
+
+{"IK-1114159:L238:span1": "CASE_RECORD", "IK-1114159:L239:span2": "CASE_RECORD", "IK-1114159:L240:span3": "CASE_RECORD", "IK-1114159:L241:span4": "CASE_RECORD", "IK-1114159:L244:span5": "CASE_RECORD", "IK-1114159:L238:restored-v2": "CASE_RECORD", "IK-1114159:L239:restored-v2": "CASE_RECORD", "IK-1114159:L244:restored-v2": "CASE_RECORD", "IK-18143401:L41:historical-e": "LEGAL_AUTHORITY"}
+
+CONDITION_CATALOGUE (ID, complete proposition and exact parent/branch mapping):
+
+{"DRC_BONA_FIDE-C01": {"test_id": "DRC_BONA_FIDE-C01", "branch_id": "", "proposition": "The premises were let for residential purposes.", "parent_proposition": "The premises were let for residential purposes."}, "DRC_BONA_FIDE-C02": {"test_id": "DRC_BONA_FIDE-C02", "branch_id": "", "proposition": "The premises are required bona fide by the landlord for occupation as a residence.", "parent_proposition": "The premises are required bona fide by the landlord for occupation as a residence."}, "DRC_BONA_FIDE-C03/SELF": {"test_id": "DRC_BONA_FIDE-C03", "branch_id": "DRC_BONA_FIDE-C03/SELF", "proposition": "Occupation by the landlord himself.", "parent_proposition": "One qualifying occupation route is occupation by the landlord himself or by a member of his family dependent on him."}, "DRC_BONA_FIDE-C03/FAMILY": {"test_id": "DRC_BONA_FIDE-C03", "branch_id": "DRC_BONA_FIDE-C03/FAMILY", "proposition": "Occupation by a member of the landlord family.", "parent_proposition": "One qualifying occupation route is occupation by the landlord himself or by a member of his family dependent on him."}, "DRC_BONA_FIDE-C03/DEPENDENT": {"test_id": "DRC_BONA_FIDE-C03", "branch_id": "DRC_BONA_FIDE-C03/DEPENDENT", "proposition": "That family member is dependent on the landlord.", "parent_proposition": "One qualifying occupation route is occupation by the landlord himself or by a member of his family dependent on him."}, "DRC_BONA_FIDE-C04": {"test_id": "DRC_BONA_FIDE-C04", "branch_id": "", "proposition": "For the landlord-or-dependent-family occupation branch, the landlord is the owner of the premises.", "parent_proposition": "For the landlord-or-dependent-family occupation branch, the landlord is the owner of the premises."}, "DRC_BONA_FIDE-C05": {"test_id": "DRC_BONA_FIDE-C05", "branch_id": "", "proposition": "An alternative qualifying occupation route is occupation by a person for whose benefit the premises are held.", "parent_proposition": "An alternative qualifying occupation route is occupation by a person for whose benefit the premises are held."}, "DRC_BONA_FIDE-C06": {"test_id": "DRC_BONA_FIDE-C06", "branch_id": "", "proposition": "The landlord or such person has no other reasonably suitable residential accommodation.", "parent_proposition": "The landlord or such person has no other reasonably suitable residential accommodation."}}
+
+COMMON GIVEN LAW:
+
+[{"source_id": "IK-18143401:L41:historical-e", "text": "(e) that the premises let for residential purposes are required bona fide by the landlord for occupation as a residence for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held and that the landlord or such person has no other reasonably suitable residential accommodation.Explanation.", "document_id": "18143401", "url": "https://indiankanoon.org/doc/18143401/", "semantic_stage": "PRE_TARGET_RECORD", "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"}]
+
+COMMON LEGAL STRUCTURE:
+
+{"template_id": "DRC_BONA_FIDE-RULE-TEMPLATE", "family": "DRC_BONA_FIDE", "scope": {"text": "Reusable rule structure limited to the single supplied clause-(e) excerpt concerning premises let for residential purposes, bona fide residential occupation, the stated ownership/beneficiary route language, and absence of other reasonably suitable residential accommodation. It contains no case-specific application or outcome.", "jurisdiction": "NOT_COVERED. The supplied independent statutory excerpt does not state the statute title, enactment year, court, or territorial jurisdiction. The retained DRC_BONA_FIDE identifiers are structural labels only and do not independently establish jurisdiction.", "statute_version": "NOT_COVERED as a legally identified version. The supplied source_id is labelled 'historical-e', but the excerpt does not state an enactment date, amendment date, version date, or 'pre-2008' status.", "stage_restrictions": "No adjudicative-stage restriction is stated in the statutory excerpt. Supplied source metadata marks the source as PRE_TARGET_RECORD and RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET; those labels are provenance metadata, not a substantive stage rule.", "source_stage": "PRE_TARGET_RECORD", "prospective_availability": "RETROSPECTIVELY_RECONSTRUCTED_PRE_TARGET"}, "coverage_limits": ["Only the single supplied statutory excerpt is treated as independent law. The proposed template is reviewed only as a candidate structure and does not itself supply legal propositions.", "The excerpt ends with the word 'Explanation.' but does not supply the explanation text. No proposition from the missing explanation is inferred or executed.", "No supplied material states a separate defense, burden bearer, burden-shifting rule, evidentiary standard, definition of 'bona fide', definition of 'dependent', test for ownership, or operational standard for 'reasonably suitable residential accommodation'. Those matters remain NOT_COVERED or open-text interpretation limits.", "No supplied contrary rule, exception, later amendment text, post-amendment expansion, or interpretive authority is included.", "The grammatical relationship among 'landlord', 'such person', the alternative occupation routes, ownership, and alternative accommodation is preserved without adding external interpretation. The ownership grouping used in DRC_BONA_FIDE-E03 follows the placement and punctuation of the supplied wording only; no external authority validating the full grammatical reach is supplied.", "The phrase 'such person' is not expanded into 'such qualifying person', 'dependent family member', or any other category beyond the wording supplied.", "Open-text statutory terms such as 'bona fide', 'dependent', and 'reasonably suitable' are not converted into additional executable subtests beyond the statutory language supplied.", "DRC_BONA_FIDE-C01 through DRC_BONA_FIDE-C06 are retained as direct textual predicate checks linked to the elements; they are not treated as separate judicial or evidentiary standards."], "claims": [{"id": "DRC_BONA_FIDE-CLAIM-01", "role": "CLAIM", "text": "The supplied clause (e) ground is satisfied only if the residential-letting requirement, bona fide residential-requirement requirement, a qualifying occupation route with its stated qualification, and the stated absence of other reasonably suitable residential accommodation are all supported.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "(e) that the premises let for residential purposes are required bona fide by the landlord for occupation as a residence for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held and that the landlord or such person has no other reasonably suitable residential accommodation.Explanation."}], "source_status": "RESEARCHER_TRANSLATION", "expression": {"op": "AND", "args": [{"op": "REF", "id": "DRC_BONA_FIDE-E01", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "the premises let for residential purposes"}], "status": "RESEARCHER_TRANSLATION"}, {"op": "REF", "id": "DRC_BONA_FIDE-E02", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "are required bona fide by the landlord for occupation as a residence"}], "status": "RESEARCHER_TRANSLATION"}, {"op": "REF", "id": "DRC_BONA_FIDE-E03", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held"}], "status": "RESEARCHER_TRANSLATION"}, {"op": "REF", "id": "DRC_BONA_FIDE-E04", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "and that the landlord or such person has no other reasonably suitable residential accommodation."}], "status": "RESEARCHER_TRANSLATION"}], "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "(e) that the premises let for residential purposes are required bona fide by the landlord for occupation as a residence for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held and that the landlord or such person has no other reasonably suitable residential accommodation.Explanation."}], "status": "RESEARCHER_TRANSLATION"}}, {"id": "DRC_BONA_FIDE-DEFENSE-01", "role": "DEFENSE", "text": "No independent defense to the supplied clause (e) ground is stated in the supplied law.", "source_refs": [], "source_status": "RESEARCHER_TRANSLATION", "expression": {"op": "UNSUPPORTED", "reason": "The supplied law states the clause (e) requirements but provides no separate defense rule.", "source_refs": [], "status": "RESEARCHER_TRANSLATION"}}], "elements": [{"id": "DRC_BONA_FIDE-E01", "text": "The premises were let for residential purposes.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "the premises let for residential purposes"}], "source_status": "RESEARCHER_TRANSLATION", "binding_requirements": ["The premises evaluated under this element must be the same premises evaluated under the other elements of the claim."], "expression": {"op": "REF", "id": "DRC_BONA_FIDE-C01", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "the premises let for residential purposes"}], "status": "RESEARCHER_TRANSLATION"}}, {"id": "DRC_BONA_FIDE-E02", "text": "The premises are required bona fide by the landlord for occupation as a residence.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "are required bona fide by the landlord for occupation as a residence"}], "source_status": "RESEARCHER_TRANSLATION", "binding_requirements": ["The premises said to be required must be the same premises identified in the residential-letting element.", "The landlord referred to here must be the landlord whose qualifying occupation route is evaluated under DRC_BONA_FIDE-E03."], "expression": {"op": "REF", "id": "DRC_BONA_FIDE-C02", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "are required bona fide by the landlord for occupation as a residence"}], "status": "RESEARCHER_TRANSLATION"}}, {"id": "DRC_BONA_FIDE-E03", "text": "A qualifying occupation route exists under the supplied wording: either occupation for the landlord himself or a dependent family member, together with the stated ownership qualification, or occupation for a person for whose benefit the premises are held.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held"}], "source_status": "RESEARCHER_TRANSLATION", "binding_requirements": ["For the landlord/dependent-family branch, DRC_BONA_FIDE-C03 and DRC_BONA_FIDE-C04 must refer to the same landlord and the same premises.", "Within DRC_BONA_FIDE-C03, any dependent family member must be a member of the family of that same landlord.", "For the person-for-whose-benefit branch, the person in DRC_BONA_FIDE-C05 and the premises held for that person's benefit must be the same person and premises carried into the accommodation element to the extent the phrase 'such person' applies.", "No identity between the landlord and the person for whose benefit the premises are held is assumed."], "expression": {"op": "OR", "args": [{"op": "AND", "args": [{"op": "REF", "id": "DRC_BONA_FIDE-C03", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}], "status": "RESEARCHER_TRANSLATION"}, {"op": "REF", "id": "DRC_BONA_FIDE-C04", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "if he is the owner thereof"}], "status": "RESEARCHER_TRANSLATION"}], "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him, if he is the owner thereof"}], "status": "RESEARCHER_TRANSLATION"}, {"op": "REF", "id": "DRC_BONA_FIDE-C05", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "or for any person for whose benefit the premises are held"}], "status": "RESEARCHER_TRANSLATION"}], "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held"}], "status": "RESEARCHER_TRANSLATION"}}, {"id": "DRC_BONA_FIDE-E04", "text": "The landlord or such person has no other reasonably suitable residential accommodation.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "and that the landlord or such person has no other reasonably suitable residential accommodation."}], "source_status": "RESEARCHER_TRANSLATION", "binding_requirements": ["The subject phrase is preserved exactly at the statutory level as 'the landlord or such person'.", "The supplied excerpt does not independently resolve every antecedent or route-specific consequence of 'such person'; no broader identity binding is imposed.", "No additional criteria for determining whether other residential accommodation is 'reasonably suitable' are supplied."], "expression": {"op": "REF", "id": "DRC_BONA_FIDE-C06", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "and that the landlord or such person has no other reasonably suitable residential accommodation."}], "status": "RESEARCHER_TRANSLATION"}}], "tests": [{"id": "DRC_BONA_FIDE-C01", "element_id": "DRC_BONA_FIDE-E01", "text": "The premises were let for residential purposes.", "polarity": "POSITIVE", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "the premises let for residential purposes"}], "source_status": "RESEARCHER_TRANSLATION", "interpretation_limits": ["No supplied definition or test explains how the purpose for which premises were let is to be determined."]}, {"id": "DRC_BONA_FIDE-C02", "element_id": "DRC_BONA_FIDE-E02", "text": "The premises are required bona fide by the landlord for occupation as a residence.", "polarity": "POSITIVE", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "are required bona fide by the landlord for occupation as a residence"}], "source_status": "RESEARCHER_TRANSLATION", "interpretation_limits": ["The supplied law does not define 'bona fide' or state an operational standard for judging bona fide requirement.", "The supplied law does not state whether any additional necessity, reasonableness, comparative hardship, immediacy, or intention test applies."]}, {"id": "DRC_BONA_FIDE-C03", "element_id": "DRC_BONA_FIDE-E03", "text": "One qualifying occupation route is occupation by the landlord himself or by a member of his family dependent on him.", "polarity": "POSITIVE", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}], "source_status": "RESEARCHER_TRANSLATION", "interpretation_limits": ["The supplied law does not define 'member of his family' or 'dependent on him'.", "This test does not itself establish the separate ownership qualification in DRC_BONA_FIDE-C04."], "branches": [{"id": "DRC_BONA_FIDE-C03/SELF", "text": "Occupation by the landlord himself.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}]}, {"id": "DRC_BONA_FIDE-C03/FAMILY", "text": "Occupation by a member of the landlord family.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}]}, {"id": "DRC_BONA_FIDE-C03/DEPENDENT", "text": "That family member is dependent on the landlord.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}]}], "branch_expression": {"op": "OR", "args": [{"op": "REF", "id": "DRC_BONA_FIDE-C03/SELF", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}]}, {"op": "AND", "args": [{"op": "REF", "id": "DRC_BONA_FIDE-C03/FAMILY", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}]}, {"op": "REF", "id": "DRC_BONA_FIDE-C03/DEPENDENT", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}]}], "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}]}], "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him"}]}, "branch_origin": "RESEARCHER_EXPANSION_OF_GIVEN_TEXT; not case-specific; ownership remains separate"}, {"id": "DRC_BONA_FIDE-C04", "element_id": "DRC_BONA_FIDE-E03", "text": "For the landlord-or-dependent-family occupation branch, the landlord is the owner of the premises.", "polarity": "POSITIVE", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "if he is the owner thereof"}], "source_status": "RESEARCHER_TRANSLATION", "interpretation_limits": ["The supplied law does not define ownership or prescribe how ownership is proved.", "The placement and punctuation of 'if he is the owner thereof' support the grouping encoded in DRC_BONA_FIDE-E03, but the supplied law contains no separate interpretive authority establishing the clause's full grammatical reach. The qualification is not extended to the alternative person-for-whose-benefit branch."]}, {"id": "DRC_BONA_FIDE-C05", "element_id": "DRC_BONA_FIDE-E03", "text": "An alternative qualifying occupation route is occupation by a person for whose benefit the premises are held.", "polarity": "POSITIVE", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "or for any person for whose benefit the premises are held"}], "source_status": "RESEARCHER_TRANSLATION", "interpretation_limits": ["The supplied law does not define what it means for premises to be held for another person's benefit.", "No relationship between that person and the landlord is supplied beyond the statutory phrase."]}, {"id": "DRC_BONA_FIDE-C06", "element_id": "DRC_BONA_FIDE-E04", "text": "The landlord or such person has no other reasonably suitable residential accommodation.", "polarity": "POSITIVE", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "and that the landlord or such person has no other reasonably suitable residential accommodation."}], "source_status": "RESEARCHER_TRANSLATION", "interpretation_limits": ["The supplied law does not define 'reasonably suitable residential accommodation' or provide factors for determining suitability.", "The supplied law does not state geographic, temporal, ownership, possession, availability, size, quality, or household criteria for alternative accommodation.", "The precise antecedent and route-specific operation of 'such person' are not independently resolved by supplied interpretive authority, so this textual predicate is not decomposed into a broader subject rule."]}], "burdens": [{"id": "DRC_BONA_FIDE-B01", "proposition": "Overall satisfaction of the supplied clause (e) ground.", "bearer": null, "standard": null, "shift_trigger": null, "source_refs": [], "coverage_status": "NOT_COVERED"}, {"id": "DRC_BONA_FIDE-B02", "proposition": "Bona fide residential requirement.", "bearer": null, "standard": null, "shift_trigger": null, "source_refs": [], "coverage_status": "NOT_COVERED"}, {"id": "DRC_BONA_FIDE-B03", "proposition": "Qualifying occupation route, including any applicable ownership qualification.", "bearer": null, "standard": null, "shift_trigger": null, "source_refs": [], "coverage_status": "NOT_COVERED"}, {"id": "DRC_BONA_FIDE-B04", "proposition": "Absence of other reasonably suitable residential accommodation.", "bearer": null, "standard": null, "shift_trigger": null, "source_refs": [], "coverage_status": "NOT_COVERED"}], "rules": [{"id": "DRC_BONA_FIDE-RULE", "text": "(e) that the premises let for residential purposes are required bona fide by the landlord for occupation as a residence for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held and that the landlord or such person has no other reasonably suitable residential accommodation.Explanation.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "(e) that the premises let for residential purposes are required bona fide by the landlord for occupation as a residence for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held and that the landlord or such person has no other reasonably suitable residential accommodation.Explanation."}], "source_status": "STATUTE"}, {"id": "DRC_BONA_FIDE-RULE-QUAL-01", "text": "The supplied wording contains the express phrase 'if he is the owner thereof' after the landlord/dependent-family occupation language and before the alternative person-for-whose-benefit language.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "for himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held"}], "source_status": "RESEARCHER_TRANSLATION"}, {"id": "DRC_BONA_FIDE-RULE-ALT-01", "text": "The supplied wording states an alternative occupation route for a person for whose benefit the premises are held.", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "or for any person for whose benefit the premises are held"}], "source_status": "RESEARCHER_TRANSLATION"}, {"id": "DRC_BONA_FIDE-RULE-ACCOM-01", "text": "The supplied wording states that 'the landlord or such person has no other reasonably suitable residential accommodation.'", "source_refs": [{"source_id": "IK-18143401:L41:historical-e", "quote": "and that the landlord or such person has no other reasonably suitable residential accommodation."}], "source_status": "RESEARCHER_TRANSLATION"}]}
+
+INTERMEDIATE MATERIAL:
+
+{}
+
+COMPLETE ALLOWED CASE MATERIAL:
+
+{"case_id": "1114159", "target_stage": "Supreme Court civil appeal (Civil Appeal No. 1993 of 1982) from the Delhi High Court judgment in S.A.O. No. 59 of 1979.", "target_court": "Supreme Court of India", "records": [{"source_id": "IK-1114159:L238:restored-v2", "aliases": {"IK-1114159:L238:span1": [0, 115]}, "document_id": "1114159", "stage": "PRE_TARGET_RECORD", "text": "The respondent is the daughter of the original landlord who had let out the premises to the appellant on 1.10.1961. The present respondent purchased the property from her father on 27th June, 1964 and thus stepped into his shoes as the `landlord' as defined under cite13†section 2(e) of the Act."}, {"source_id": "IK-1114159:L239:restored-v2", "aliases": {"IK-1114159:L239:span2": [260, 435]}, "document_id": "1114159", "stage": "PRIOR_COURT_FINDING", "text": "Relying upon the Rent Note and the appellant's letters dated 7.10.1961 and 18.8.1962 addressed to the respondent's father and the earlier proceedings between them for eviction of the appellant on the ground of sub-letting the premises for commercial purposes, both the statutory authorities found that the premises which had been let out for residential purposes to the appellant had also been used incidentally for commercial purposes so as to exclude the application of cite12†section 14 (1) (e) read with the Explanation thereto."}, {"source_id": "IK-1114159:L240:span3", "aliases": {}, "document_id": "1114159", "stage": "PRIOR_COURT_FINDING", "text": "This High Court found that there was no evidence for the statutory authorities to come to the conclusion, which they did, as regards the premises having been used for commercial purpose."}, {"source_id": "IK-1114159:L241:span4", "aliases": {}, "document_id": "1114159", "stage": "PRIOR_COURT_FINDING", "text": "No documentary evidence has been brought on record to hold that the premises were ever used for boarding and lodging foreign students"}, {"source_id": "IK-1114159:L244:restored-v2", "aliases": {"IK-1114159:L244:span5": [0, 195]}, "document_id": "1114159", "stage": "PRE_TARGET_RECORD", "text": "The tenant contended that she had never parted with her exclusive possession of any part of the premises and the foreign students who were lodging were her paying guests and were not her tenants. The plea of sub-tenancy raised by the landlord was thus rejected on the ground that those who logged with her were not sub-tenants but only paying guests."}]}
+
+TASK: Under the supplied facts, law and procedural stage, should each specified substantive request be supported? Answer each request once; make an explicit prediction and state its evidence, legal gaps and assumptions.
+
+V6 OUTPUT SCHEMA (WEB DOES NOT USE TOKENWISE ENFORCEMENT)
+{
+  "type": "object",
+  "properties": {
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "enum": [
+              "DRC_BONA_FIDE-CLAIM-01"
+            ]
+          },
+          "prediction": {
+            "type": "string",
+            "enum": [
+              "PREDICT_GRANT",
+              "PREDICT_DENY"
+            ]
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "test_id": {
+                  "type": "string",
+                  "enum": [
+                    "DRC_BONA_FIDE-C01",
+                    "DRC_BONA_FIDE-C02",
+                    "DRC_BONA_FIDE-C03",
+                    "DRC_BONA_FIDE-C04",
+                    "DRC_BONA_FIDE-C05",
+                    "DRC_BONA_FIDE-C06"
+                  ]
+                },
+                "binding_id": {
+                  "type": "string"
+                },
+                "binding": {
+                  "type": "string"
+                },
+                "assessment": {
+                  "type": "string",
+                  "enum": [
+                    "SUPPORTED",
+                    "REFUTED",
+                    "UNRESOLVED",
+                    "UNSUPPORTED"
+                  ]
+                },
+                "refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "IK-1114159:L238:span1",
+                      "IK-1114159:L239:span2",
+                      "IK-1114159:L240:span3",
+                      "IK-1114159:L241:span4",
+                      "IK-1114159:L244:span5",
+                      "IK-1114159:L238:restored-v2",
+                      "IK-1114159:L239:restored-v2",
+                      "IK-1114159:L244:restored-v2",
+                      "IK-18143401:L41:historical-e"
+                    ]
+                  },
+                  "maxItems": 6
+                },
+                "explanation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "test_id",
+                "binding_id",
+                "binding",
+                "assessment",
+                "refs",
+                "explanation"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 12,
+            "minItems": 1
+          },
+          "opposition": {
+            "type": "object",
+            "properties": {
+              "record": {
+                "type": "string"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "IK-1114159:L238:span1",
+                    "IK-1114159:L239:span2",
+                    "IK-1114159:L240:span3",
+                    "IK-1114159:L241:span4",
+                    "IK-1114159:L244:span5",
+                    "IK-1114159:L238:restored-v2",
+                    "IK-1114159:L239:restored-v2",
+                    "IK-1114159:L244:restored-v2",
+                    "IK-18143401:L41:historical-e"
+                  ]
+                },
+                "maxItems": 6
+              },
+              "response": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "record",
+              "refs",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          "gaps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4
+          },
+          "reason": {
+            "type": "string"
+          },
+          "intermediate_correction": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "prediction",
+          "conditions",
+          "opposition",
+          "gaps",
+          "reason",
+          "intermediate_correction"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 1,
+      "minItems": 1
+    }
+  },
+  "required": [
+    "answers"
+  ],
+  "additionalProperties": false
+}

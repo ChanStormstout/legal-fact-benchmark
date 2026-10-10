@@ -1,0 +1,35 @@
+F...FF
+======================================================================
+FAIL: test_bundle_roles_and_exact_identity (tests.test_proof_semantic_v13.V13Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/tests/test_proof_semantic_v13.py", line 15, in test_bundle_roles_and_exact_identity
+    s,c,q=self.bundle();self.assertEqual(self.entry(s,c,q)['requests'][0]['answer'],'TRUE')
+AssertionError: 'UNKNOWN' != 'TRUE'
+- UNKNOWN
++ TRUE
+
+
+======================================================================
+FAIL: test_types_are_not_variables_and_local_pending (tests.test_proof_semantic_v13.V13Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/tests/test_proof_semantic_v13.py", line 23, in test_types_are_not_variables_and_local_pending
+    s,c,q=self.bundle();s['rules']['R@1']['operator']='ANY';s['contracts']['R@1']['unmapped_roles']={'b':{'unknown':'type'}};s['contracts']['R@1']['rule_hash']=content_hash(s['rules']['R@1']);self.assertEqual(self.entry(s,c,q)['requests'][0]['answer'],'TRUE')
+AssertionError: 'UNKNOWN' != 'TRUE'
+- UNKNOWN
++ TRUE
+
+
+======================================================================
+FAIL: test_usable_not_truth_open_and_failure (tests.test_proof_semantic_v13.V13Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/tests/test_proof_semantic_v13.py", line 32, in test_usable_not_truth_open_and_failure
+    s,c,q=self.bundle();s['rules']['R@1']['operator']='OPEN_TEXT';s['contracts']['R@1']['rule_hash']=content_hash(s['rules']['R@1']);out=self.entry(s,c,q);self.assertEqual(out['requests'][0]['answer'],'UNKNOWN');self.assertIn('OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED',json.dumps(out))
+AssertionError: 'OPEN_LEGAL_INTERPRETATION_NOT_EXECUTED' not found in '{"run_status": "OK", "requests": [{"id": "Q", "answer": "UNKNOWN", "scope": "CONDITIONAL_ON_UNVERIFIED_MODEL_SEMANTICS", "search_status": "EXHAUSTED_GIVEN_CANDIDATES", "alternatives": [{"step": "S-dc9bc31a3bafc995ad9c03a2", "state": null, "errors": ["RULE_SOURCE:QUOTE_NOT_A_STRING"], "pending": [], "assumptions": [{"use": "c::a", "facts": ["f", "g"], "status": "MODEL_SEMANTICS_UNVERIFIED", "premise_state": "TRUE", "basis": "unverified explicit judgment"}, {"use": "c::b", "facts": ["f"], "status": "MODEL_SEMANTICS_UNVERIFIED", "premise_state": "TRUE", "basis": "unverified explicit judgment"}], "legal_approval": false}], "formal_status": "NOT_LEGALLY_APPROVED"}], "steps": {"S-dc9bc31a3bafc995ad9c03a2": {"state": null, "errors": ["RULE_SOURCE:QUOTE_NOT_A_STRING"], "pending": [], "assumptions": [{"use": "c::a", "facts": ["f", "g"], "status": "MODEL_SEMANTICS_UNVERIFIED", "premise_state": "TRUE", "basis": "unverified explicit judgment"}, {"use": "c::b", "facts": ["f"], "status": "MODEL_SEMANTICS_UNVERIFIED", "premise_state": "TRUE", "basis": "unverified explicit judgment"}], "legal_approval": false}}, "all_opposition": [], "all_limitations": [], "reference_read": false, "semantic_verified": false}'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.971s
+
+FAILED (failures=3)

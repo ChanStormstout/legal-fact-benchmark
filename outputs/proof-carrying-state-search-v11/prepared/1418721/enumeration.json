@@ -1,0 +1,346 @@
+[
+  {
+    "rule_ref": "R1@1",
+    "pools": [
+      [
+        {
+          "slot": "register_owner_entry",
+          "kind": "PREMISE",
+          "id": "P12"
+        },
+        {
+          "slot": "register_owner_entry",
+          "kind": "PREMISE",
+          "id": "P13"
+        }
+      ],
+      [
+        {
+          "slot": "acquisition_method_unchallenged",
+          "kind": "PREMISE",
+          "id": "P13"
+        },
+        {
+          "slot": "acquisition_method_unchallenged",
+          "kind": "PREMISE",
+          "id": "P25"
+        }
+      ]
+    ],
+    "total": 4,
+    "enumerated": 4,
+    "omitted": 0,
+    "pool_sizes": [
+      2,
+      2
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R2@1",
+    "pools": [
+      [
+        {
+          "slot": "acquisition_register_support",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R1@1"
+        },
+        {
+          "slot": "acquisition_register_support",
+          "kind": "PREMISE",
+          "id": "P14"
+        },
+        {
+          "slot": "acquisition_register_support",
+          "kind": "PREMISE",
+          "id": "P12"
+        },
+        {
+          "slot": "acquisition_register_support",
+          "kind": "PREMISE",
+          "id": "P16"
+        }
+      ],
+      [
+        {
+          "slot": "survey_records",
+          "kind": "PREMISE",
+          "id": "P16"
+        },
+        {
+          "slot": "survey_records",
+          "kind": "PREMISE",
+          "id": "P08"
+        }
+      ],
+      [
+        {
+          "slot": "possession_testimony",
+          "kind": "PREMISE",
+          "id": "P17"
+        },
+        {
+          "slot": "possession_testimony",
+          "kind": "PREMISE",
+          "id": "P18"
+        },
+        {
+          "slot": "possession_testimony",
+          "kind": "PREMISE",
+          "id": "P12"
+        }
+      ],
+      [
+        {
+          "slot": "opposing_title_evidence",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "opposing_title_evidence",
+          "kind": "PREMISE",
+          "id": "P23"
+        }
+      ]
+    ],
+    "total": 48,
+    "enumerated": 12,
+    "omitted": 36,
+    "pool_sizes": [
+      4,
+      2,
+      3,
+      2
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": [],
+      "2": [],
+      "3": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": true
+  },
+  {
+    "rule_ref": "R3@1",
+    "pools": [
+      [
+        {
+          "slot": "hostile_exclusive_possession_gap",
+          "kind": "PREMISE",
+          "id": "P23"
+        },
+        {
+          "slot": "hostile_exclusive_possession_gap",
+          "kind": "PREMISE",
+          "id": "P25"
+        }
+      ],
+      [
+        {
+          "slot": "earlier_owner_title_gap",
+          "kind": "PREMISE",
+          "id": "P24"
+        },
+        {
+          "slot": "earlier_owner_title_gap",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "earlier_owner_title_gap",
+          "kind": "PREMISE",
+          "id": "P22"
+        }
+      ],
+      [
+        {
+          "slot": "dispossession_time_gap",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "dispossession_time_gap",
+          "kind": "PREMISE",
+          "id": "P26"
+        }
+      ]
+    ],
+    "total": 12,
+    "enumerated": 12,
+    "omitted": 0,
+    "pool_sizes": [
+      2,
+      3,
+      2
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": [],
+      "2": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R4@1",
+    "pools": [
+      [
+        {
+          "slot": "original_title_asserted",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "original_title_asserted",
+          "kind": "PREMISE",
+          "id": "P02"
+        },
+        {
+          "slot": "original_title_asserted",
+          "kind": "PREMISE",
+          "id": "P22"
+        }
+      ],
+      [
+        {
+          "slot": "alternative_adverse_possession_asserted",
+          "kind": "PREMISE",
+          "id": "P02"
+        },
+        {
+          "slot": "alternative_adverse_possession_asserted",
+          "kind": "PREMISE",
+          "id": "P04"
+        },
+        {
+          "slot": "alternative_adverse_possession_asserted",
+          "kind": "PREMISE",
+          "id": "P22"
+        }
+      ]
+    ],
+    "total": 9,
+    "enumerated": 9,
+    "omitted": 0,
+    "pool_sizes": [
+      3,
+      3
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R5@1",
+    "pools": [
+      [
+        {
+          "slot": "material_pleading_deficiencies",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R3@1"
+        },
+        {
+          "slot": "material_pleading_deficiencies",
+          "kind": "PREMISE",
+          "id": "P26"
+        },
+        {
+          "slot": "material_pleading_deficiencies",
+          "kind": "PREMISE",
+          "id": "P24"
+        }
+      ],
+      [
+        {
+          "slot": "inconsistent_title_theories",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R4@1"
+        },
+        {
+          "slot": "inconsistent_title_theories",
+          "kind": "PREMISE",
+          "id": "P22"
+        },
+        {
+          "slot": "inconsistent_title_theories",
+          "kind": "PREMISE",
+          "id": "P24"
+        }
+      ]
+    ],
+    "total": 9,
+    "enumerated": 9,
+    "omitted": 0,
+    "pool_sizes": [
+      3,
+      3
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R6@1",
+    "pools": [
+      [
+        {
+          "slot": "independent_title_ground",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R2@1"
+        },
+        {
+          "slot": "independent_title_ground",
+          "kind": "PREMISE",
+          "id": "P22"
+        },
+        {
+          "slot": "independent_title_ground",
+          "kind": "PREMISE",
+          "id": "P02"
+        }
+      ],
+      [
+        {
+          "slot": "alternative_adverse_ground",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R5@1"
+        },
+        {
+          "slot": "alternative_adverse_ground",
+          "kind": "PREMISE",
+          "id": "P22"
+        },
+        {
+          "slot": "alternative_adverse_ground",
+          "kind": "PREMISE",
+          "id": "P25"
+        }
+      ]
+    ],
+    "total": 9,
+    "enumerated": 9,
+    "omitted": 0,
+    "pool_sizes": [
+      3,
+      3
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  }
+]

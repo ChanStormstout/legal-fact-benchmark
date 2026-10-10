@@ -1,0 +1,161 @@
+{
+  "type": "object",
+  "properties": {
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "rule_ref": {
+            "type": "string"
+          },
+          "bindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "enum": [
+                    "subject",
+                    "opponent",
+                    "property",
+                    "transaction"
+                  ]
+                },
+                "entity": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "entity"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          },
+          "time_scope": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "slot": {
+                  "type": "string"
+                },
+                "kind": {
+                  "enum": [
+                    "PREMISE",
+                    "STEP"
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "slot",
+                "kind",
+                "id"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 30
+          },
+          "proposed_state": {
+            "enum": [
+              "TRUE",
+              "FALSE",
+              "UNKNOWN",
+              "CONFLICTED"
+            ]
+          },
+          "explanation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "rule_ref",
+          "bindings",
+          "time_scope",
+          "inputs",
+          "proposed_state",
+          "explanation"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 30
+    },
+    "requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "step_id": {
+            "type": "string"
+          },
+          "predicate": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "proposed_state": {
+            "enum": [
+              "TRUE",
+              "FALSE",
+              "UNKNOWN",
+              "CONFLICTED"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "step_id",
+          "predicate",
+          "text",
+          "proposed_state"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 10
+    },
+    "counterarguments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 15
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 15
+    }
+  },
+  "required": [
+    "steps",
+    "requests",
+    "counterarguments",
+    "gaps"
+  ],
+  "additionalProperties": false
+}

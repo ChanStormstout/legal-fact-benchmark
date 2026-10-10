@@ -103,8 +103,8 @@ def prepare_current(root, policy):
         if not (root/exp['report']).is_file():raise ValueError('Missing historical report: '+exp['report'])
     state={'active_research_run':run,'current_report':report,'current_review':cur,
            'latest_run':run,'historical_baseline_run':policy.get('latest_run'),
-           'reference_label':'MODEL_GENERATED_WITH_SOURCE_REVIEW_NOT_HUMAN_GOLD',
-           'sample_role':'DEVELOPMENT_VALIDATION','publication_target':{'repository':policy['repository'],'branch':policy['branch']},
+           'reference_label':cur.get('reference_label','MODEL_GENERATED_WITH_SOURCE_REVIEW_NOT_HUMAN_GOLD'),
+           'sample_role':cur.get('sample_role','DEVELOPMENT_VALIDATION'),'publication_target':{'repository':policy['repository'],'branch':policy['branch']},
            'status':cur.get('status','SEE_CURRENT_REPORT'),'no_new_experiment_started_by_publication':True}
     save(root,'docs/PROJECT_STATE.json',state)
     table='# 实验索引\n\n| 版本 | 角色 | 报告 | 解释 |\n| --- | --- | --- | --- |\n'

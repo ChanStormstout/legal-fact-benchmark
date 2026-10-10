@@ -1,0 +1,101 @@
+{
+  "case_id": "188721101",
+  "method": "A",
+  "run_status": "OK",
+  "prediction": {
+    "answers": [
+      {
+        "claim_id": "DRC_SUBLETTING_CLAIM_01",
+        "prediction": "PREDICT_DENY",
+        "conditions": [
+          {
+            "test_id": "DRC_SUBLETTING_C01",
+            "binding_id": "b1",
+            "binding": "Ramesh Kumar; Shop No. 15; disposition alleged post-06.01.1987",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-188721101:L72:restored-v2",
+              "LAW:S02:DRC14:1b"
+            ],
+            "explanation": "The landlord alleges the disposition occurred on 06.01.1987, which satisfies the post-9-June-1952 requirement."
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C07",
+            "binding_id": "b2",
+            "binding": "Ramesh Kumar; Shop No. 15; whole or part of premises",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-188721101:L72:restored-v2",
+              "LAW:S02:DRC14:1b"
+            ],
+            "explanation": "The alleged disposition concerns Shop No. 15, which is a part of the demised premises."
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C05",
+            "binding_id": "b3",
+            "binding": "Ramesh Kumar; Bhagwan Dass; alleged subletting/assignment",
+            "assessment": "SUPPORTED",
+            "refs": [
+              "IK-188721101:L72:restored-v2",
+              "LAW:S02:DRC14:1b"
+            ],
+            "explanation": "The landlord alleges no written consent was obtained; the tenant denies the disposition entirely, so no consent exists."
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C02",
+            "binding_id": "b4",
+            "binding": "Ramesh Kumar; Bhagwan Dass; alleged subletting of Shop No. 15",
+            "assessment": "REFUTED",
+            "refs": [
+              "IK-188721101:L83:restored-v2",
+              "IK-188721101:L84:restored-v2",
+              "IK-190902:L110"
+            ],
+            "explanation": "The trial court found the arrangement was a license/privilege, not a subletting, because there was no transfer of interest, payment of rent, or right to possession as against the tenant."
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C03",
+            "binding_id": "b5",
+            "binding": "Ramesh Kumar; Bhagwan Dass; alleged assignment of Shop No. 15",
+            "assessment": "REFUTED",
+            "refs": [
+              "IK-188721101:L83:restored-v2",
+              "IK-188721101:L84:restored-v2",
+              "IK-190902:L110"
+            ],
+            "explanation": "The trial court held the tenant did not divest himself of all rights, characterizing the arrangement as a revocable license rather than an assignment."
+          },
+          {
+            "test_id": "DRC_SUBLETTING_C04",
+            "binding_id": "b6",
+            "binding": "Ramesh Kumar; Bhagwan Dass; alleged parting with possession of Shop No. 15",
+            "assessment": "REFUTED",
+            "refs": [
+              "IK-188721101:L81:restored-v2",
+              "IK-188721101:L83:restored-v2",
+              "IK-190902:L107",
+              "IK-190902:L112"
+            ],
+            "explanation": "The trial court found Bhagwan Dass was an employee drawing a salary, and the tenant retained legal possession; mere use by a family member/employee does not constitute parting with possession."
+          }
+        ],
+        "opposition": {
+          "record": "Landlord alleges Bhagwan Dass was running the shop and acting as a sub-tenant; witnesses testified he was not the respondent.",
+          "refs": [
+            "IK-188721101:L73:restored-v2",
+            "IK-188721101:L80:restored-v2"
+          ],
+          "response": "The trial court rejected this evidence, finding Bhagwan Dass was an employee drawing a salary and the tenant retained control; the appellate court must respect the trial court's factual finding on the nature of the relationship."
+        },
+        "gaps": [
+          "Target court acceptance of the trial court's factual findings regarding the nature of the relationship (license vs. tenancy) remains unresolved.",
+          "Whether the salary arrangement constitutes a 'transfer of interest' or 'payment of rent' under the subletting definition is legally unresolved."
+        ],
+        "reason": "I predict denial because the trial court explicitly found the arrangement was a license, not a subletting, assignment, or parting with possession. The statutory ground requires one of these specific acts; the trial court's finding that the tenant retained legal possession and the arrangement was revocable refutes the necessary conditions for eviction under s14(1)(b).",
+        "intermediate_correction": "None."
+      }
+    ]
+  },
+  "completeness": "EACH_REQUEST_ONCE_WITH_ANALYSIS",
+  "semantic_correctness_verified": false
+}

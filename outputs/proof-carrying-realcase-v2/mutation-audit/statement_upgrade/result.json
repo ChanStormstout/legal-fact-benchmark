@@ -1,0 +1,76 @@
+{
+  "status": "COMPLETED",
+  "task": "JUDGMENT_REASONING_RECONSTRUCTION",
+  "snapshot_id": "789051-S1",
+  "requests": [
+    {
+      "id": "Q1",
+      "text": "Established possession remains available as an independent basis for evaluating possessory protection notwithstanding the possessor's failure to prove ownership.",
+      "predicate": "POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF",
+      "draft_status": "INVALID",
+      "answer": null,
+      "errors": [
+        "STATEMENT_STATUS_UPGRADE:F1",
+        "REQUEST_STATE_MISMATCH"
+      ],
+      "gaps": [],
+      "step_id": "T1",
+      "formal_status": "APPROVAL_PENDING",
+      "source_refs": [
+        "IK-789051:L66",
+        "IK-789051:L67",
+        "IK-789051:L69",
+        "IK-789051:L106",
+        "IK-789051:L107"
+      ]
+    }
+  ],
+  "steps": {
+    "T1": {
+      "id": "T1",
+      "status": "INVALID",
+      "state": null,
+      "errors": [
+        "STATEMENT_STATUS_UPGRADE:F1"
+      ],
+      "gaps": [],
+      "dependencies": [
+        {
+          "slot": "possession_established",
+          "kind": "PREMISE",
+          "id": "F1"
+        },
+        {
+          "slot": "ownership_not_proved",
+          "kind": "PREMISE",
+          "id": "F2"
+        }
+      ],
+      "sources": [
+        "IK-789051:L66",
+        "IK-789051:L67",
+        "IK-789051:L69",
+        "IK-789051:L106",
+        "IK-789051:L107"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "E1"
+        },
+        {
+          "role": "property",
+          "entity": "E3"
+        }
+      ],
+      "time_scope": null,
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    }
+  },
+  "legal_approval": false,
+  "interpretation": "Formal dependency checks under model-assisted, explicitly unapproved research premises and rules. No semantic or legal certification."
+}

@@ -1,0 +1,68 @@
+{
+  "label": "EVALUATION_ONLY_NOT_DEPLOYABLE",
+  "selected": [
+    "APP-26cda10ce29b6f43",
+    "APP-6ac6374e8d232f9f",
+    "APP-953bdc623440903e",
+    "APP-ac51a56e55efcd61",
+    "APP-f4cfca3e24562960"
+  ],
+  "covered_requests": [
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4"
+  ],
+  "valid_paths": [
+    {
+      "request": "Q1",
+      "step_id": "APP-26cda10ce29b6f43~0",
+      "members": [
+        "APP-26cda10ce29b6f43",
+        "APP-6ac6374e8d232f9f"
+      ],
+      "assumptions": [
+        "ASSESS-APP-26cda10ce29b6f43~0"
+      ]
+    },
+    {
+      "request": "Q2",
+      "step_id": "APP-953bdc623440903e~0",
+      "members": [
+        "APP-953bdc623440903e"
+      ],
+      "assumptions": []
+    },
+    {
+      "request": "Q3",
+      "step_id": "APP-f4cfca3e24562960~0",
+      "members": [
+        "APP-953bdc623440903e",
+        "APP-f4cfca3e24562960"
+      ],
+      "assumptions": [
+        "ASSESS-APP-f4cfca3e24562960~0"
+      ]
+    },
+    {
+      "request": "Q4",
+      "step_id": "APP-ac51a56e55efcd61~0",
+      "members": [
+        "APP-26cda10ce29b6f43",
+        "APP-6ac6374e8d232f9f",
+        "APP-953bdc623440903e",
+        "APP-ac51a56e55efcd61",
+        "APP-f4cfca3e24562960"
+      ],
+      "assumptions": [
+        "ASSESS-APP-26cda10ce29b6f43~0",
+        "ASSESS-APP-f4cfca3e24562960~0"
+      ]
+    }
+  ],
+  "states_examined": 7,
+  "frontier_capped": false,
+  "budget": 6,
+  "exact_over_enumerated_paths": true,
+  "not_full_legal_oracle": true
+}

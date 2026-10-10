@@ -1,0 +1,106 @@
+{
+  "snapshot_id": "S1",
+  "nodes": [
+    {
+      "id": "P1",
+      "type": "PROPOSITION",
+      "assessment": "TRUE",
+      "review_id": "REVIEW-P1"
+    },
+    {
+      "id": "demo_message_1",
+      "type": "SYNTHETIC_EVIDENCE"
+    },
+    {
+      "id": "AUTHORIZATION",
+      "type": "CANONICAL_PREDICATE"
+    },
+    {
+      "id": "P2",
+      "type": "PROPOSITION",
+      "assessment": "TRUE",
+      "review_id": "REVIEW-P2"
+    },
+    {
+      "id": "demo_entry_record_2",
+      "type": "SYNTHETIC_EVIDENCE"
+    },
+    {
+      "id": "ENTRY",
+      "type": "CANONICAL_PREDICATE"
+    },
+    {
+      "id": "COVERAGE_DEMO@1",
+      "type": "TEST_RULE"
+    }
+  ],
+  "edges": [
+    {
+      "id": "demo_message_1--P1",
+      "source": "demo_message_1",
+      "target": "P1",
+      "type": "SUPPORTS",
+      "sign": "SUPPORT",
+      "weight": 1,
+      "source_refs": [
+        "demo_message_1"
+      ],
+      "review_status": "EXERCISE_SUPPLIED",
+      "legal_approved": false
+    },
+    {
+      "id": "P1--AUTHORIZATION",
+      "source": "P1",
+      "target": "AUTHORIZATION",
+      "type": "INSTANTIATES",
+      "source_refs": [
+        "demo_message_1"
+      ],
+      "sign": null
+    },
+    {
+      "id": "demo_entry_record_2--P2",
+      "source": "demo_entry_record_2",
+      "target": "P2",
+      "type": "SUPPORTS",
+      "sign": "SUPPORT",
+      "weight": 1,
+      "source_refs": [
+        "demo_entry_record_2"
+      ],
+      "review_status": "EXERCISE_SUPPLIED",
+      "legal_approved": false
+    },
+    {
+      "id": "P2--ENTRY",
+      "source": "P2",
+      "target": "ENTRY",
+      "type": "INSTANTIATES",
+      "source_refs": [
+        "demo_entry_record_2"
+      ],
+      "sign": null
+    },
+    {
+      "id": "requires-AUTHORIZATION",
+      "source": "COVERAGE_DEMO@1",
+      "target": "AUTHORIZATION",
+      "type": "REQUIRES",
+      "sign": null,
+      "source_refs": [],
+      "guide_page": 9,
+      "provenance_kind": "INSTRUCTIONAL_RULE_DEPENDENCY"
+    },
+    {
+      "id": "requires-ENTRY",
+      "source": "COVERAGE_DEMO@1",
+      "target": "ENTRY",
+      "type": "REQUIRES",
+      "sign": null,
+      "source_refs": [],
+      "guide_page": 9,
+      "provenance_kind": "INSTRUCTIONAL_RULE_DEPENDENCY"
+    }
+  ],
+  "note": "No opposing party invented. Separate numeric fixtures illustrate conflict, not case evidence."
+}

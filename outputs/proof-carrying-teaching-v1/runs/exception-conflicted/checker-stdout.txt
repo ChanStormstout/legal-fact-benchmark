@@ -1,0 +1,146 @@
+{
+  "certificate_id": "C1",
+  "status": "CONDITIONAL",
+  "legal_approved": false,
+  "steps": [
+    {
+      "step_id": "T1",
+      "status": "CONDITIONAL",
+      "result": "CONFLICTED",
+      "claim": "DEMO_ISSUE_CONDITION_MET",
+      "rule_ref": "OR_GATE_DEMO@1",
+      "premise_ids": [
+        "LEFT",
+        "RIGHT",
+        "EXCEPTION"
+      ],
+      "bindings": {
+        "person": "Person_A",
+        "property": "Parcel_P"
+      },
+      "trace": [
+        {
+          "expression": {
+            "op": "REF",
+            "role": "left"
+          },
+          "result": "TRUE"
+        },
+        {
+          "expression": {
+            "op": "REF",
+            "role": "right"
+          },
+          "result": "UNKNOWN"
+        },
+        {
+          "expression": {
+            "op": "OR",
+            "args": [
+              {
+                "op": "REF",
+                "role": "left"
+              },
+              {
+                "op": "REF",
+                "role": "right"
+              }
+            ]
+          },
+          "result": "TRUE"
+        },
+        {
+          "expression": {
+            "op": "REF",
+            "role": "exception"
+          },
+          "result": "CONFLICTED"
+        },
+        {
+          "expression": {
+            "op": "NOT",
+            "arg": {
+              "op": "REF",
+              "role": "exception"
+            }
+          },
+          "result": "CONFLICTED"
+        },
+        {
+          "expression": {
+            "op": "AND",
+            "args": [
+              {
+                "op": "OR",
+                "args": [
+                  {
+                    "op": "REF",
+                    "role": "left"
+                  },
+                  {
+                    "op": "REF",
+                    "role": "right"
+                  }
+                ]
+              },
+              {
+                "op": "NOT",
+                "arg": {
+                  "op": "REF",
+                  "role": "exception"
+                }
+              }
+            ]
+          },
+          "result": "CONFLICTED"
+        }
+      ],
+      "unresolved_inputs": [
+        "RIGHT",
+        "EXCEPTION"
+      ],
+      "exception_gate_pending": true,
+      "source_trace": [
+        {
+          "source_ref": "synthetic-LEFT",
+          "document_id": "LEFT",
+          "start": 0,
+          "end": 37,
+          "exact_text": "Synthetic test assessment LEFT: TRUE.",
+          "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+          "semantic_support_inferred_from_locator": false
+        },
+        {
+          "source_ref": "synthetic-RIGHT",
+          "document_id": "RIGHT",
+          "start": 0,
+          "end": 41,
+          "exact_text": "Synthetic test assessment RIGHT: UNKNOWN.",
+          "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+          "semantic_support_inferred_from_locator": false
+        },
+        {
+          "source_ref": "synthetic-EXCEPTION",
+          "document_id": "EXCEPTION",
+          "start": 0,
+          "end": 43,
+          "exact_text": "Synthetic test assessment EXCEPTION: FALSE.",
+          "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+          "semantic_support_inferred_from_locator": false
+        }
+      ],
+      "verification_scope": "SYNTHETIC_TEACHING_POLICY_ONLY"
+    }
+  ],
+  "requests": [
+    {
+      "status": "CONDITIONAL",
+      "result": "CONFLICTED",
+      "step_id": "T1",
+      "request_id": "Q1",
+      "claim": "DEMO_ISSUE_CONDITION_MET"
+    }
+  ],
+  "trust_boundary": "Caller-controlled manifest and review process; no cryptographic reviewer identity attestation.",
+  "historical_snapshot_validated": "GATE"
+}

@@ -1,0 +1,64 @@
+{
+  "task": "REQUEST_PARTIAL_SELECTION_NEXT_APPLICATION_DEVELOPMENT",
+  "cases": [
+    "789051",
+    "1418721",
+    "1841885",
+    "840688",
+    "161859415",
+    "74028",
+    "522414",
+    "1144022"
+  ],
+  "new_cases": 0,
+  "new_llm_calls": 0,
+  "candidate_policy": "retain existing pool plus balanced per-slot coverage enumeration; at least12 up to64 new combinations per rule, budget raised only to longest pool; never use references",
+  "budgets": [
+    6,
+    "ALL_ELIGIBLE"
+  ],
+  "scheduler": "stable round-robin requests with pending goal rules; request and selected candidates are explicit state",
+  "supervision": "positive action on a checked attributed route still feasible from state; negative only migrated source-reviewed concrete slot non-applicability; unknown masked; no complement negatives",
+  "pair_loss": "mean softplus(negative_score-positive_score) within same state",
+  "folds": [
+    [
+      "789051",
+      "1841885",
+      "161859415",
+      "522414"
+    ],
+    [
+      "1418721",
+      "840688",
+      "74028",
+      "1144022"
+    ]
+  ],
+  "seeds": [
+    20261001,
+    20261002,
+    20261003
+  ],
+  "models": [
+    "Simple",
+    "Flat",
+    "RGCN"
+  ],
+  "hidden": 64,
+  "layers": 2,
+  "bases": 4,
+  "dropout": 0.1,
+  "optimizer": "AdamW",
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "epochs": 30,
+  "epoch_selection": "fixed last epoch, no heldout tuning",
+  "max_fits": 12,
+  "training_wall_budget_seconds": 1800,
+  "states_per_request": 32,
+  "pairs_per_state": 16,
+  "route_limit_per_candidate": 64,
+  "graph": "same fact/rule/application/request relations; computational reverse edges not legal inference",
+  "encoder": "cached frozen V8 E5 vectors; no new text model; composite average of available component vectors",
+  "stop": "one frozen comparison, no result-driven repair/refit, no push. If no supervised comparisons or no selection headroom report instead of inventing negatives. No generalization claim on exposed eight disputes."
+}

@@ -1,0 +1,150 @@
+{
+  "type": "object",
+  "properties": {
+    "certificate_id": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "snapshot_id": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "snapshot_sha256": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "registry_sha256": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "policy_sha256": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "mode": {
+      "enum": [
+        "TEACHING",
+        "LEGAL"
+      ]
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "rule_ref": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "premise_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 240
+            },
+            "maxItems": 32
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 240
+            },
+            "maxItems": 32
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "person": {
+                "type": "string",
+                "maxLength": 240
+              },
+              "property": {
+                "type": "string",
+                "maxLength": 240
+              }
+            },
+            "required": [
+              "person",
+              "property"
+            ],
+            "additionalProperties": false
+          },
+          "proposed_result": {
+            "enum": [
+              "TRUE",
+              "FALSE",
+              "UNKNOWN",
+              "CONFLICTED"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "rule_ref",
+          "premise_ids",
+          "depends_on",
+          "bindings",
+          "proposed_result"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 64
+    },
+    "requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "step_id": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "claim": {
+            "enum": [
+              "SPECIFIC_AUTHORIZATION_COVERS_ENTRY",
+              "NO_AUTHORIZATION_EXISTS",
+              "FINAL_LIABILITY",
+              "DEMO_ISSUE_CONDITION_MET"
+            ]
+          },
+          "proposed_result": {
+            "enum": [
+              "TRUE",
+              "FALSE",
+              "UNKNOWN",
+              "CONFLICTED"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "step_id",
+          "claim",
+          "proposed_result"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 64
+    }
+  },
+  "required": [
+    "certificate_id",
+    "snapshot_id",
+    "snapshot_sha256",
+    "registry_sha256",
+    "policy_sha256",
+    "mode",
+    "steps",
+    "requests"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,297 @@
+{
+  "steps": [
+    {
+      "id": "APP-6ac6374e8d232f9f~0",
+      "rule_ref": "R1@1",
+      "bindings": [
+        {
+          "role": "property",
+          "entity": "E04"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        }
+      ],
+      "time_scope": null,
+      "inputs": [
+        {
+          "slot": "register_owner_entry",
+          "kind": "PREMISE",
+          "id": "P12"
+        },
+        {
+          "slot": "acquisition_method_unchallenged",
+          "kind": "PREMISE",
+          "id": "P13"
+        }
+      ],
+      "proposed_state": "TRUE",
+      "explanation": "Untrusted route proposal; every selected alternative is independently checked."
+    },
+    {
+      "id": "APP-d3cd0726c28f3265~0",
+      "rule_ref": "R2@1",
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E04"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        }
+      ],
+      "time_scope": null,
+      "inputs": [
+        {
+          "slot": "acquisition_register_support",
+          "kind": "STEP",
+          "id": "APP-6ac6374e8d232f9f~0"
+        },
+        {
+          "slot": "survey_records",
+          "kind": "PREMISE",
+          "id": "P16"
+        },
+        {
+          "slot": "possession_testimony",
+          "kind": "PREMISE",
+          "id": "P18"
+        },
+        {
+          "slot": "opposing_title_evidence",
+          "kind": "PREMISE",
+          "id": "P11"
+        }
+      ],
+      "proposed_state": "TRUE",
+      "explanation": "Untrusted route proposal; every selected alternative is independently checked."
+    },
+    {
+      "id": "APP-953bdc623440903e~0",
+      "rule_ref": "R3@1",
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E04"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        }
+      ],
+      "time_scope": null,
+      "inputs": [
+        {
+          "slot": "hostile_exclusive_possession_gap",
+          "kind": "PREMISE",
+          "id": "P23"
+        },
+        {
+          "slot": "earlier_owner_title_gap",
+          "kind": "PREMISE",
+          "id": "P24"
+        },
+        {
+          "slot": "dispossession_time_gap",
+          "kind": "PREMISE",
+          "id": "P25"
+        }
+      ],
+      "proposed_state": "TRUE",
+      "explanation": "Untrusted route proposal; every selected alternative is independently checked."
+    },
+    {
+      "id": "APP-f4cfca3e24562960~0",
+      "rule_ref": "R5@1",
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E04"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        }
+      ],
+      "time_scope": null,
+      "inputs": [
+        {
+          "slot": "material_pleading_deficiencies",
+          "kind": "STEP",
+          "id": "APP-953bdc623440903e~0"
+        },
+        {
+          "slot": "inconsistent_title_theories",
+          "kind": "PREMISE",
+          "id": "P22"
+        }
+      ],
+      "proposed_state": "TRUE",
+      "explanation": "Untrusted route proposal; every selected alternative is independently checked."
+    },
+    {
+      "id": "APP-a6f4c03c173e77f6~0",
+      "rule_ref": "R5@1",
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E04"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        }
+      ],
+      "time_scope": null,
+      "inputs": [
+        {
+          "slot": "material_pleading_deficiencies",
+          "kind": "STEP",
+          "id": "APP-953bdc623440903e~0"
+        }
+      ],
+      "proposed_state": "TRUE",
+      "explanation": "Untrusted route proposal; every selected alternative is independently checked."
+    },
+    {
+      "id": "APP-ac51a56e55efcd61~0",
+      "rule_ref": "R6@1",
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E04"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        }
+      ],
+      "time_scope": null,
+      "inputs": [
+        {
+          "slot": "independent_title_ground",
+          "kind": "STEP",
+          "id": "APP-d3cd0726c28f3265~0"
+        },
+        {
+          "slot": "alternative_adverse_ground",
+          "kind": "STEP",
+          "id": "APP-f4cfca3e24562960~0"
+        }
+      ],
+      "proposed_state": "TRUE",
+      "explanation": "Untrusted route proposal; every selected alternative is independently checked."
+    },
+    {
+      "id": "APP-ac51a56e55efcd61~1",
+      "rule_ref": "R6@1",
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E04"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        }
+      ],
+      "time_scope": null,
+      "inputs": [
+        {
+          "slot": "independent_title_ground",
+          "kind": "STEP",
+          "id": "APP-d3cd0726c28f3265~0"
+        },
+        {
+          "slot": "alternative_adverse_ground",
+          "kind": "STEP",
+          "id": "APP-a6f4c03c173e77f6~0"
+        }
+      ],
+      "proposed_state": "TRUE",
+      "explanation": "Untrusted route proposal; every selected alternative is independently checked."
+    }
+  ],
+  "requests": [
+    {
+      "id": "Q1~0",
+      "predicate": "TITLE_ESTABLISHED_ON_RECORDED_EVIDENCE",
+      "text": "At the Supreme Court merits stage, the government claimant's affirmative title to the collectively described suit properties is proposed as established on the court's combined assessment of acquisition-supporting documentary records, CTS entries, reported testimony, and insufficiently substantiated competing title evidence, independently of adverse possession.",
+      "step_id": "APP-d3cd0726c28f3265~0",
+      "proposed_state": "TRUE"
+    },
+    {
+      "id": "Q2~1",
+      "predicate": "MATERIAL_ADVERSE_PLEADING_GAPS_RECORDED",
+      "text": "The Supreme Court record identifies material failures specifically to plead and prove hostile exclusive possession with the necessary animus, the appellant's supposed earlier title, and the relevant point of disposition or dispossession.",
+      "step_id": "APP-953bdc623440903e~0",
+      "proposed_state": "TRUE"
+    },
+    {
+      "id": "Q3~2",
+      "predicate": "ADVERSE_POSSESSION_GROUND_NOT_ESTABLISHED",
+      "text": "The government claimant's alternative adverse-possession ground against the Karnataka Board of Wakf was not established under the Supreme Court's contextual pleading and proof requirements, without treating the absence of an independently established renunciation as an additional proven fact.",
+      "step_id": "APP-f4cfca3e24562960~0",
+      "proposed_state": "TRUE"
+    },
+    {
+      "id": "Q3~3",
+      "predicate": "ADVERSE_POSSESSION_GROUND_NOT_ESTABLISHED",
+      "text": "The government claimant's alternative adverse-possession ground against the Karnataka Board of Wakf was not established under the Supreme Court's contextual pleading and proof requirements, without treating the absence of an independently established renunciation as an additional proven fact.",
+      "step_id": "APP-a6f4c03c173e77f6~0",
+      "proposed_state": "TRUE"
+    },
+    {
+      "id": "Q4~4",
+      "predicate": "INDEPENDENT_TITLE_GROUND_UNDIMINISHED_BY_FAILED_ADVERSE_PLEA",
+      "text": "For the government claimant and the collectively described Bijapur suit properties, rejection of the alternative adverse-possession basis does not itself negate the independently supported affirmative title basis. This limited conclusion does not independently determine the disposition of the appeals.",
+      "step_id": "APP-ac51a56e55efcd61~0",
+      "proposed_state": "TRUE"
+    },
+    {
+      "id": "Q4~5",
+      "predicate": "INDEPENDENT_TITLE_GROUND_UNDIMINISHED_BY_FAILED_ADVERSE_PLEA",
+      "text": "For the government claimant and the collectively described Bijapur suit properties, rejection of the alternative adverse-possession basis does not itself negate the independently supported affirmative title basis. This limited conclusion does not independently determine the disposition of the appeals.",
+      "step_id": "APP-ac51a56e55efcd61~1",
+      "proposed_state": "TRUE"
+    }
+  ],
+  "counterarguments": [
+    "IK-1418721:L65-L68, L78-L79: The Wakf Board and other defendants claimed historical religious ownership, sanads, Wakf Register status, official notifications, Gazette publication and a section 67 enquiry; their assertions oppose Government title but were not accepted as substantiated title proof (L80-L81).",
+    "IK-1418721:L79 versus L83: The Board called the Government’s acquisition story concocted even though the court stated that the manner of acquisition was not challenged; the narrower statement must not erase the broader contested title.",
+    "IK-1418721:L70 versus L61: The Trial Court attributed acquisition to approximately 1900, whereas the Government pleaded acquisition under the 1904 Act; no unprovided transaction history resolves the apparent chronology.",
+    "IK-1418721:L83: Acquisition and assumption of guardianship are distinct means of gaining possession; the court’s statement cannot transform guardianship into statutory acquisition of ownership.",
+    "IK-1418721:L72-L76: The Board requested to introduce further documents, but the request was rejected, with documents unspecified and earlier opportunities available; this explains the record limit without demonstrating those documents could not support its claims.",
+    "IK-1418721:L77, L89, L101: The High Court relied on adverse possession as an additional title ground, whereas the Supreme Court found that reliance unwarranted; the two procedural determinations must remain separate.",
+    "IK-1418721:L90-L94, L100: Approximately a century of Government possession (L85) cannot replace evidence of hostile exclusion, animus, the opponent’s earlier title or a point of dispossession.",
+    "IK-1418721:L97-L100: The reported original-title/adverse-possession inconsistency calls for renunciation analysis, yet a renunciation event or time is not proved; the Supreme Court’s rejection rests on identified pleading and proof gaps, not a presumed absence of renunciation.",
+    "IK-1418721:L85, L100-L102: Independent title was affirmatively evaluated before rejection of adverse possession; the eventual dismissal of the appeals is an outcome, never a premise for either legal ground."
+  ],
+  "gaps": []
+}

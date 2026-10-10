@@ -1,0 +1,303 @@
+[
+  {
+    "rule_ref": "R1@1",
+    "pools": [
+      [
+        {
+          "slot": "possession_established",
+          "kind": "PREMISE",
+          "id": "F03"
+        },
+        {
+          "slot": "possession_established",
+          "kind": "PREMISE",
+          "id": "L01"
+        },
+        {
+          "slot": "possession_established",
+          "kind": "PREMISE",
+          "id": "L03"
+        }
+      ],
+      [
+        {
+          "slot": "ownership_not_proved",
+          "kind": "PREMISE",
+          "id": "F04"
+        },
+        {
+          "slot": "ownership_not_proved",
+          "kind": "PREMISE",
+          "id": "F02"
+        },
+        {
+          "slot": "ownership_not_proved",
+          "kind": "PREMISE",
+          "id": "F05"
+        }
+      ]
+    ],
+    "total": 9,
+    "enumerated": 9,
+    "omitted": 0,
+    "pool_sizes": [
+      3,
+      3
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R2@1",
+    "pools": [
+      [
+        {
+          "slot": "independent_possession_basis",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R1@1"
+        },
+        {
+          "slot": "independent_possession_basis",
+          "kind": "PREMISE",
+          "id": "L01"
+        },
+        {
+          "slot": "independent_possession_basis",
+          "kind": "PREMISE",
+          "id": "L05"
+        }
+      ],
+      [
+        {
+          "slot": "judicial_finding_of_settled_possession",
+          "kind": "PREMISE",
+          "id": "F05"
+        },
+        {
+          "slot": "judicial_finding_of_settled_possession",
+          "kind": "PREMISE",
+          "id": "L01"
+        }
+      ],
+      [
+        {
+          "slot": "transient_trespass_exception",
+          "kind": "PREMISE",
+          "id": "F14"
+        },
+        {
+          "slot": "transient_trespass_exception",
+          "kind": "PREMISE",
+          "id": "L01"
+        }
+      ]
+    ],
+    "total": 12,
+    "enumerated": 12,
+    "omitted": 0,
+    "pool_sizes": [
+      3,
+      2,
+      2
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": [],
+      "2": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R3@1",
+    "pools": [
+      [
+        {
+          "slot": "protectable_settled_possession",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R2@1"
+        },
+        {
+          "slot": "protectable_settled_possession",
+          "kind": "PREMISE",
+          "id": "L02"
+        },
+        {
+          "slot": "protectable_settled_possession",
+          "kind": "PREMISE",
+          "id": "L03"
+        }
+      ],
+      [
+        {
+          "slot": "opponent_attempted_interference",
+          "kind": "PREMISE",
+          "id": "F06"
+        },
+        {
+          "slot": "opponent_attempted_interference",
+          "kind": "PREMISE",
+          "id": "F07"
+        }
+      ]
+    ],
+    "total": 6,
+    "enumerated": 6,
+    "omitted": 0,
+    "pool_sizes": [
+      3,
+      2
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R4@1",
+    "pools": [
+      [
+        {
+          "slot": "independent_possessory_injunction_basis",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R3@1"
+        },
+        {
+          "slot": "independent_possessory_injunction_basis",
+          "kind": "PREMISE",
+          "id": "L03"
+        },
+        {
+          "slot": "independent_possessory_injunction_basis",
+          "kind": "PREMISE",
+          "id": "L05"
+        }
+      ],
+      [
+        {
+          "slot": "appellant_raised_title_based_objection",
+          "kind": "PREMISE",
+          "id": "F08"
+        },
+        {
+          "slot": "appellant_raised_title_based_objection",
+          "kind": "PREMISE",
+          "id": "F09"
+        }
+      ]
+    ],
+    "total": 6,
+    "enumerated": 6,
+    "omitted": 0,
+    "pool_sizes": [
+      3,
+      2
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R5@1",
+    "pools": [
+      [
+        {
+          "slot": "injunction_supported_by_possession",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R3@1"
+        },
+        {
+          "slot": "injunction_supported_by_possession",
+          "kind": "PREMISE",
+          "id": "L03"
+        },
+        {
+          "slot": "injunction_supported_by_possession",
+          "kind": "PREMISE",
+          "id": "L01"
+        }
+      ]
+    ],
+    "total": 3,
+    "enumerated": 3,
+    "omitted": 0,
+    "pool_sizes": [
+      3
+    ],
+    "unseen_options": {
+      "0": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  },
+  {
+    "rule_ref": "R6@1",
+    "pools": [
+      [
+        {
+          "slot": "possession_not_ownership_confirmation",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R5@1"
+        },
+        {
+          "slot": "possession_not_ownership_confirmation",
+          "kind": "PREMISE",
+          "id": "L05"
+        },
+        {
+          "slot": "possession_not_ownership_confirmation",
+          "kind": "PREMISE",
+          "id": "F14"
+        }
+      ],
+      [
+        {
+          "slot": "title_expressly_reserved",
+          "kind": "PREMISE",
+          "id": "F13"
+        },
+        {
+          "slot": "title_expressly_reserved",
+          "kind": "PREMISE",
+          "id": "L06"
+        }
+      ],
+      [
+        {
+          "slot": "opponent_title_not_established",
+          "kind": "PREMISE",
+          "id": "F10"
+        },
+        {
+          "slot": "opponent_title_not_established",
+          "kind": "PREMISE",
+          "id": "F07"
+        }
+      ]
+    ],
+    "total": 12,
+    "enumerated": 12,
+    "omitted": 0,
+    "pool_sizes": [
+      3,
+      2,
+      2
+    ],
+    "unseen_options": {
+      "0": [],
+      "1": [],
+      "2": []
+    },
+    "covered_all_marginals": true,
+    "not_complete_cartesian_coverage": false
+  }
+]

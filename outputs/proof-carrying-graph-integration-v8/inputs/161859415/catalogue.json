@@ -1,0 +1,60 @@
+[
+  {
+    "id": "trial_possession_finding",
+    "meaning": "Recorded attributed premise, not independently proved event: The trial court found dispossession proved and treated the landlady as possessing through her tenant.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "LOWER_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@2",
+        "stage": "Supreme Court civil appeal from revision in a Section 6 summary suit",
+        "jurisdiction": "India; target judgment historical scope only"
+      },
+      {
+        "rule_ref": "R2@2",
+        "stage": "Supreme Court civil appeal from revision in a Section 6 summary suit",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "LANDLORD_STANDING_ON_RECORDED_TENANT_DISPOSSESSION",
+    "meaning": "In the stated tenant/trespasser setting, the Court held that the landlord retained legal or constructive possession through the tenant and could seek Section 6 recovery when that tenant was forcibly dispossessed by a third party. This resolves standing, not independently verified title or filing timeliness.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R1@2",
+        "stage": "Supreme Court civil appeal from revision in a Section 6 summary suit"
+      },
+      {
+        "rule_ref": "R2@2",
+        "stage": "Supreme Court civil appeal from revision in a Section 6 summary suit",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "TENANT_NONJOINDER_NOT_AUTOMATICALLY_FATAL",
+    "meaning": "For that landlord Section 6 action, tenant joinder could be desirable but was not an absolute prerequisite; non-joinder did not by itself defeat maintainability. This does not decide title or all remaining statutory requirements.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R2@2",
+        "stage": "Supreme Court civil appeal from revision in a Section 6 summary suit"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  }
+]

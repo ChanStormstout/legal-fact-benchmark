@@ -1,61 +1,79 @@
 {
-  "active_research_run": "outputs/irac-web-crossmodel-v7",
-  "current_report": "outputs/irac-web-crossmodel-v7/report-zh.txt",
+  "active_research_run": "outputs/proof-source-alignment-v16",
+  "current_report": "outputs/proof-source-alignment-v16/report-zh.md",
   "current_review": {
     "contract_version": 2,
-    "review_kind": "IRAC_WEB_CROSSMODEL_V7_COMPLETED",
-    "title": "IRAC V7 同接口同材料网页A/B对照",
-    "report": "outputs/irac-web-crossmodel-v7/report-zh.txt",
-    "summary": "V7六次普通High独立临时对话完成，2份P与4份最终回答均可读，零重试。网页A/B明显减少V6来源误读及遗漏；112400 B接近A，188721101 B有逐安排组织收益但未确认重要额外净收益。优先网页A、P可选；一次模型辅助来源审阅，非人工gold，旧案开发诊断。未新增法源、执行器改动、本地推理或推送。",
-    "status": "COMPLETED_SIX_WEB_CALLS_ONE_REVIEW_STOPPED_LOCAL_ONLY",
+    "review_kind": "PROOF_SOURCE_ALIGNMENT_V16",
+    "title": "V16局部接受与来源恢复：六DEV固定批次完成，保留两技术失败",
+    "report": "outputs/proof-source-alignment-v16/report-zh.md",
+    "summary": "四案缓存回归，907531限定FALSE恢复；六DEV共11High，五提议四审阅可读。两失败null；原停滞页面后来恢复，只取回原回复。新六根OPEN_TEXT，局部前提恢复不等于完整法律推导，暂不恢复训练。",
+    "status": "COMPLETE_BOUNDED_V16_WITH_TWO_TECHNICAL_FAILURES",
+    "reference_label": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+    "sample_role": "SIX_EXISTING_DEV_REQUESTS_FOUR_CACHED_REGRESSIONS_NO_TEST_READ",
     "links": [
       {
-        "label": "中文报告",
-        "path": "outputs/irac-web-crossmodel-v7/report-zh.txt"
-      },
-      {
-        "label": "完整网页回答及P",
-        "path": "outputs/irac-web-crossmodel-v7/answers.md"
+        "label": "冻结配置",
+        "path": "outputs/proof-source-alignment-v16/freeze/config.json"
       },
       {
         "label": "逐案比较",
-        "path": "outputs/irac-web-crossmodel-v7/case-comparison.csv"
+        "path": "outputs/proof-source-alignment-v16/case-comparison.json"
+      },
+      {
+        "label": "最终三视图",
+        "path": "outputs/proof-source-alignment-v16/three-views-final.json"
+      },
+      {
+        "label": "来源链",
+        "path": "outputs/proof-source-alignment-v16/walkthrough.md"
+      },
+      {
+        "label": "工程验收",
+        "path": "outputs/proof-source-alignment-v16/engineering-acceptance.json"
+      },
+      {
+        "label": "缓存回归",
+        "path": "outputs/proof-source-alignment-v16/cache-regression.json"
       },
       {
         "label": "集中来源审阅",
-        "path": "outputs/irac-web-crossmodel-v7/final-source-review.json"
+        "path": "outputs/proof-source-alignment-v16/final-source-review.json"
       },
       {
-        "label": "允许来源审阅锚点",
-        "path": "outputs/irac-web-crossmodel-v7/review-source-anchors.json"
+        "label": "投入决定",
+        "path": "outputs/proof-source-alignment-v16/learning-decision.json"
       },
       {
-        "label": "成本与对话URL",
-        "path": "outputs/irac-web-crossmodel-v7/call-costs.csv"
+        "label": "成本",
+        "path": "outputs/proof-source-alignment-v16/cost.json"
       },
       {
-        "label": "冻结配置",
-        "path": "outputs/irac-web-crossmodel-v7/freeze/config.json"
+        "label": "实际提交哈希",
+        "path": "outputs/proof-source-alignment-v16/final-submission-manifest.json"
       },
       {
-        "label": "动态B装配",
-        "path": "outputs/irac-web-crossmodel-v7/B-assembly-validation.json"
+        "label": "旧文件保留",
+        "path": "outputs/proof-source-alignment-v16/preservation-validation.json"
       },
       {
-        "label": "历史保留",
-        "path": "outputs/irac-web-crossmodel-v7/preservation-after.json"
+        "label": "完成与失败",
+        "path": "outputs/proof-source-alignment-v16/web-run-completion.json"
+      },
+      {
+        "label": "实现边界",
+        "path": "docs/PROOF_SOURCE_ALIGNMENT_V16.md"
       }
     ],
-    "review_request": "只读核对V7同材料网页A/P/B及V6基线。区分整体配置改善与P额外净收益；核对原文和主要反论，不以共同DENY或JSON成功为法律正确。112400两项过度推断、本人择一路线、后续报告；188721101起租日期、工资凭证、邻居、父亲/弟弟、书面同意及原审效力。P/B C02状态分歧保留解释空间；浏览器记录本地排除。不授权追加实验、纠错重跑或发布。"
+    "review_request": "Review quote recovery, scoped acceptance and actual D/P/R results. Distinguish independent judgments, executable premises, OPEN_TEXT limitations and legal approval. Preserve the 1870386 binding rejection, negative-coverage interpretation dispute and 180091 nonunique quote. Stalled replies recovered from originals are not new generations. No training, TEST access or new run is authorized by this review."
   },
-  "latest_run": "outputs/irac-web-crossmodel-v7",
-  "historical_baseline_run": "outputs/local-qwen-pattern-eval-v3",
-  "reference_label": "MODEL_GENERATED_WITH_SOURCE_REVIEW_NOT_HUMAN_GOLD",
-  "sample_role": "DEVELOPMENT_VALIDATION",
+  "latest_run": "outputs/proof-source-alignment-v16",
+  "historical_baseline_run": "outputs/proof-semantic-search-v12",
+  "reference_label": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "sample_role": "SIX_EXISTING_DEV_REQUESTS_FOUR_CACHED_REGRESSIONS_NO_TEST_READ",
   "publication_target": {
     "repository": "ChanStormstout/legal-fact-benchmark",
     "branch": "research/rules-and-verdict"
   },
-  "status": "COMPLETED_SIX_WEB_CALLS_ONE_REVIEW_STOPPED_LOCAL_ONLY",
+  "status": "COMPLETE_BOUNDED_V16_WITH_TWO_TECHNICAL_FAILURES",
   "no_new_experiment_started_by_publication": true
 }

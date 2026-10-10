@@ -1,0 +1,33 @@
+{
+  "certificate_id": "C1",
+  "snapshot_id": "GATE",
+  "snapshot_sha256": "7ec1748859b4b534c4fefa3d4cfb2b6c08309baa6c18db8ed58de831ffb01022",
+  "registry_sha256": "29306f3ced9abee30bf12de468ced3480ee0c599fee81c65c9c41192d4714913",
+  "policy_sha256": "b13c65d363873e6dd9db73e6ac22e2afe1ee203ed48725f4cbf1a92afc213bde",
+  "mode": "TEACHING",
+  "steps": [
+    {
+      "id": "T1",
+      "rule_ref": "OR_GATE_DEMO@1",
+      "premise_ids": [
+        "LEFT",
+        "RIGHT",
+        "EXCEPTION"
+      ],
+      "depends_on": [],
+      "bindings": {
+        "person": "Person_A",
+        "property": "Parcel_P"
+      },
+      "proposed_result": "FALSE"
+    }
+  ],
+  "requests": [
+    {
+      "id": "Q1",
+      "step_id": "T1",
+      "claim": "DEMO_ISSUE_CONDITION_MET",
+      "proposed_result": "FALSE"
+    }
+  ]
+}

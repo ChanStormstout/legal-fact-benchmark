@@ -1,0 +1,251 @@
+{
+  "version": "REALCASE_V2",
+  "mode": "RESEARCH_DRAFT",
+  "case_id": "789051",
+  "stage": "SUPREME_COURT_MERITS_APPEAL",
+  "snapshot_id": "789051-Flat-20261001-76401fa5b3f3",
+  "snapshot_sha256": "07c18cd783767bddf9823b76129862907ff89ed403c28bc32710cc3283945c56",
+  "proposal": {
+    "steps": [
+      {
+        "id": "APP-23023e977d0c33dd",
+        "rule_ref": "R1@1",
+        "bindings": [
+          {
+            "role": "property",
+            "entity": "E3"
+          },
+          {
+            "role": "subject",
+            "entity": "E1"
+          }
+        ],
+        "time_scope": "Trial adjudication; exact date not supplied",
+        "inputs": [
+          {
+            "slot": "possession_established",
+            "kind": "PREMISE",
+            "id": "F03"
+          },
+          {
+            "slot": "ownership_not_proved",
+            "kind": "PREMISE",
+            "id": "F04"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "Candidate reconstruction claim; not a legal finding. Independent checker must re-evaluate prerequisites."
+      },
+      {
+        "id": "APP-116147d97353e2dd",
+        "rule_ref": "R4@1",
+        "bindings": [
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          },
+          {
+            "role": "subject",
+            "entity": "E1"
+          }
+        ],
+        "time_scope": "Supreme Court merits appeal",
+        "inputs": [
+          {
+            "slot": "independent_possessory_injunction_basis",
+            "kind": "STEP",
+            "id": "APP-d8f8811e19c4c021"
+          },
+          {
+            "slot": "appellant_raised_title_based_objection",
+            "kind": "PREMISE",
+            "id": "F08"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "Candidate reconstruction claim; not a legal finding. Independent checker must re-evaluate prerequisites."
+      },
+      {
+        "id": "APP-d8f8811e19c4c021",
+        "rule_ref": "R3@1",
+        "bindings": [
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          },
+          {
+            "role": "subject",
+            "entity": "E1"
+          },
+          {
+            "role": "transaction",
+            "entity": "E4"
+          }
+        ],
+        "time_scope": "During the plaintiff's attempted construction; exact date not supplied",
+        "inputs": [
+          {
+            "slot": "opponent_attempted_interference",
+            "kind": "PREMISE",
+            "id": "F06"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "Candidate reconstruction claim; not a legal finding. Independent checker must re-evaluate prerequisites."
+      },
+      {
+        "id": "APP-dcc6ec5fb69611b1",
+        "rule_ref": "R6@1",
+        "bindings": [
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          },
+          {
+            "role": "subject",
+            "entity": "E1"
+          }
+        ],
+        "time_scope": null,
+        "inputs": [
+          {
+            "slot": "possession_not_ownership_confirmation",
+            "kind": "STEP",
+            "id": "APP-20a715e50c3c6759"
+          },
+          {
+            "slot": "title_expressly_reserved",
+            "kind": "PREMISE",
+            "id": "F13"
+          },
+          {
+            "slot": "opponent_title_not_established",
+            "kind": "PREMISE",
+            "id": "F10"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "Candidate reconstruction claim; not a legal finding. Independent checker must re-evaluate prerequisites."
+      },
+      {
+        "id": "APP-fa1340fbdd9df34d",
+        "rule_ref": "R6@1",
+        "bindings": [
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          },
+          {
+            "role": "subject",
+            "entity": "E1"
+          }
+        ],
+        "time_scope": null,
+        "inputs": [
+          {
+            "slot": "possession_not_ownership_confirmation",
+            "kind": "PREMISE",
+            "id": "L05"
+          },
+          {
+            "slot": "title_expressly_reserved",
+            "kind": "PREMISE",
+            "id": "F13"
+          },
+          {
+            "slot": "opponent_title_not_established",
+            "kind": "PREMISE",
+            "id": "F10"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "Candidate reconstruction claim; not a legal finding. Independent checker must re-evaluate prerequisites."
+      },
+      {
+        "id": "APP-20a715e50c3c6759",
+        "rule_ref": "R5@1",
+        "bindings": [
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          },
+          {
+            "role": "subject",
+            "entity": "E1"
+          }
+        ],
+        "time_scope": "Supreme Court merits adjudication",
+        "inputs": [
+          {
+            "slot": "injunction_supported_by_possession",
+            "kind": "PREMISE",
+            "id": "L03"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "Candidate reconstruction claim; not a legal finding. Independent checker must re-evaluate prerequisites."
+      }
+    ],
+    "requests": [
+      {
+        "id": "Q1",
+        "predicate": "POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT",
+        "text": "E1 has an independently supportable possessory ground for injunctive restraint against E2's interference with settled possession of E3, notwithstanding E1's failure to establish proprietary title. This conclusion depends on S3, which depends on S2's accepted judicial settled-possession classification and S1's preservation of possession despite title non-proof. It supports protection against interference without determining every independent requirement for injunctive relief or confirming ownership.",
+        "step_id": "APP-d8f8811e19c4c021",
+        "proposed_state": "TRUE"
+      },
+      {
+        "id": "Q2",
+        "predicate": "TITLE_DECLARATION_OBJECTION_NOT_AUTOMATIC_BAR",
+        "text": "For the possessory injunction claim concerning E3, E2's asserted objection based on E1's failure to prove title and the alleged omission of a declaratory prayer does not itself require dismissal, because S3 supplies an independent possessory ground. This conclusion rejects only automatic dismissal on those grounds, not every conceivable objection to an injunction-only action.",
+        "step_id": "APP-116147d97353e2dd",
+        "proposed_state": "TRUE"
+      },
+      {
+        "id": "Q3",
+        "predicate": "POSSESSORY_RELIEF_DOES_NOT_CONFIRM_OWNERSHIP",
+        "text": "The injunction ground protecting E1's possession of E3 against E2's interference does not, by itself, confirm E1's ownership or determine E2's competing proprietary claim. S5 depends on the possessory basis established through S3. Its conclusion is a non-entailment concerning proprietary title, not an affirmative finding that either litigant lacks ownership.",
+        "step_id": "APP-20a715e50c3c6759",
+        "proposed_state": "TRUE"
+      },
+      {
+        "id": "Q4",
+        "predicate": "SEPARATE_TITLE_ACTION_REMAINS_AVAILABLE",
+        "text": "Because possession-based protection does not determine ownership, the Supreme Court expressly reserved title, and E2 had not established the title needed to justify eviction in the reviewed proceedings, the parties may pursue competing proprietary claims in duly constituted proceedings. E2's prospective title-based eviction depends on establishing a better right to possession. The conclusion does not establish any present right of self-help eviction or predict the result of future litigation.",
+        "step_id": "APP-dcc6ec5fb69611b1",
+        "proposed_state": "TRUE"
+      }
+    ],
+    "counterarguments": [
+      "The appellant contended that omitting a declaration of title rendered the suit defective; the Supreme Court rejected automatic dismissal in this merits-stage case (IK-789051:L68-L69; L109-L112).",
+      "The appellant separately argued that plaintiff title non-proof required dismissal irrespective of established possession or defendant title; the Court found no merit in this submission (IK-789051:L69).",
+      "Sri Dasnam Naga Sanyasi was invoked against an injunction-only suit, but the Supreme Court described it as a discretionary temporary-injunction decision on its own facts, not a merits-stage automatic bar (IK-789051:L108-L110).",
+      "Settled possession is necessary: stray, intermittent, incipient or incomplete trespass can be resisted with no more force than permitted; the duration, knowledge, acquiescence and possessory-intention factors are not independently proved here (IK-789051:L88-L105).",
+      "Even a rightful owner may need judicial process against settled possession, while a wrongfully dispossessed rightful owner may retake land peacefully and a claimant proving better right may seek judicial eviction; the protective rule is not immunity from lawful recovery (IK-789051:L85-L87; L107).",
+      "Neither side proved title sufficient for its proposed consequence, and the apparent boundary dispute remains unresolved; possession-based injunction and dismissed appeal do not settle either ownership or demarcation (IK-789051:L65-L67; L106-L107; L113-L114)."
+    ],
+    "gaps": [
+      "BUDGET_OR_CANDIDATE_DEPENDENCY_MISSING:APP-d8f8811e19c4c021:protectable_settled_possession"
+    ]
+  }
+}

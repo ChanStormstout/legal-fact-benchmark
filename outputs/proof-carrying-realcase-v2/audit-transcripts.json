@@ -1,0 +1,15 @@
+{
+  "purpose": "Exact content-preserving audit transcript mirror. Historical publication glob *state*.txt also matches statement_upgrade; original files remain unchanged locally.",
+  "files": [
+    {
+      "path": "mutation-audit/statement_upgrade/stdout.txt",
+      "sha256": "9c17ef7e857943094d6b51349d7a11298650b9414b0e641e99478ab9330cf931",
+      "text": "{\n  \"status\": \"COMPLETED\",\n  \"task\": \"JUDGMENT_REASONING_RECONSTRUCTION\",\n  \"snapshot_id\": \"789051-S1\",\n  \"requests\": [\n    {\n      \"id\": \"Q1\",\n      \"text\": \"Established possession remains available as an independent basis for evaluating possessory protection notwithstanding the possessor's failure to prove ownership.\",\n      \"predicate\": \"POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF\",\n      \"draft_status\": \"INVALID\",\n      \"answer\": null,\n      \"errors\": [\n        \"STATEMENT_STATUS_UPGRADE:F1\",\n        \"REQUEST_STATE_MISMATCH\"\n      ],\n      \"gaps\": [],\n      \"step_id\": \"T1\",\n      \"formal_status\": \"APPROVAL_PENDING\",\n      \"source_refs\": [\n        \"IK-789051:L66\",\n        \"IK-789051:L67\",\n        \"IK-789051:L69\",\n        \"IK-789051:L106\",\n        \"IK-789051:L107\"\n      ]\n    }\n  ],\n  \"steps\": {\n    \"T1\": {\n      \"id\": \"T1\",\n      \"status\": \"INVALID\",\n      \"state\": null,\n      \"errors\": [\n        \"STATEMENT_STATUS_UPGRADE:F1\"\n      ],\n      \"gaps\": [],\n      \"dependencies\": [\n        {\n          \"slot\": \"possession_established\",\n          \"kind\": \"PREMISE\",\n          \"id\": \"F1\"\n        },\n        {\n          \"slot\": \"ownership_not_proved\",\n          \"kind\": \"PREMISE\",\n          \"id\": \"F2\"\n        }\n      ],\n      \"sources\": [\n        \"IK-789051:L66\",\n        \"IK-789051:L67\",\n        \"IK-789051:L69\",\n        \"IK-789051:L106\",\n        \"IK-789051:L107\"\n      ],\n      \"approval\": \"PENDING\",\n      \"model_proposed_state\": \"TRUE\",\n      \"predicate\": \"POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF\",\n      \"bindings\": [\n        {\n          \"role\": \"subject\",\n          \"entity\": \"E1\"\n        },\n        {\n          \"role\": \"property\",\n          \"entity\": \"E3\"\n        }\n      ],\n      \"time_scope\": null,\n      \"statement_status\": \"DERIVED\",\n      \"formal_legal_status\": \"NOT_LEGALLY_APPROVED\"\n    }\n  },\n  \"legal_approval\": false,\n  \"interpretation\": \"Formal dependency checks under model-assisted, explicitly unapproved research premises and rules. No semantic or legal certification.\"\n}\n"
+    },
+    {
+      "path": "mutation-audit/statement_upgrade/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text": ""
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "semantic-use-v12.1",
+  "task": "SOURCE_GROUNDED_JUDGMENT_RECONSTRUCTION",
+  "request_sha256": "f4e987e0d917a56f4e163f88989473c65546c2408b5422143c7b7eda87dd288e",
+  "seed": 20261001,
+  "targets": {
+    "TRAIN": 40,
+    "DEV": 10,
+    "TEST": 20
+  },
+  "max_detailed_disputes": 150,
+  "max_data_web_tasks": 210,
+  "max_disagreement_tasks": 10,
+  "max_final_tasks": 60,
+  "mechanisms": [
+    "POSSESSION_TITLE",
+    "AUTHORIZATION_SCOPE",
+    "STATEMENT_STATUS",
+    "STANDING_STAGE"
+  ],
+  "candidate_order": "Existing full-source manifests in saved rank/source order, then local database facts/issues metadata mechanism hits by line_number; source acquisition only for bounded eligible candidates. No results or labels used. Stable doc ID tiebreak.",
+  "eligibility": "Civil property/possession matter with own source-grounded rules and 2-4 reconstruction targets, identity and complete-source provenance; uncertainty is not exclusion. Only metadata screening is not detailed source qualification.",
+  "grouping": "same litigation/appeal/remand and known related suit one group; shared precedent alone not same dispute; uncertain linkage recorded; exposed groups TRAIN only, old8 REGRESSION; unseen eligible strata round-robin TRAIN/DEV/TEST using seeded group shuffle, reserve DEV/TEST before filling TRAIN",
+  "sealed": "Deny IDs from existing split/exclusion manifests before reading body, never enumerate/read sealed payloads",
+  "labels": [
+    "USABLE",
+    "UNUSABLE",
+    "UNRESOLVED",
+    "UNLABELED"
+  ],
+  "unlabeled_masked": true,
+  "old_labels": "No automatic migration",
+  "reference_policy": "TRAIN/EVALUATION_ONLY_NEVER_INFERENCE_ACCEPTANCE",
+  "source_policy": "Exact located quotes do not establish semantic or legal approval; preserve claim/court/stage/object/time; full original, no metadata summary substitutes",
+  "search": {
+    "expansions_per_request": 10000,
+    "seconds_per_request": 10,
+    "candidate_limit": null,
+    "reference_pruning": false
+  },
+  "quality": {
+    "audit_uses": 100,
+    "max_major_errors": 5,
+    "real_train_disputes_min": 30,
+    "usable_disputes_min": 15,
+    "unusable_disputes_min": 15,
+    "max_synthetic_fraction": 0.2
+  },
+  "training": {
+    "seeds": [
+      20261001,
+      20261002,
+      20261003
+    ],
+    "max_fits": 9,
+    "seconds": 21600,
+    "Flat_RGCN": {
+      "hidden": 64,
+      "layers": 2,
+      "bases": 4,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "dropout": 0.1,
+      "epochs": 100,
+      "patience": 10
+    },
+    "CrossEncoder": {
+      "model": "Alibaba-NLP/gte-reranker-modernbert-base",
+      "revision": "f7481e6055501a30fb19d090657df9ec1f79ab2c",
+      "last_encoder_layers": 2,
+      "encoder_lr": 2e-05,
+      "head_lr": 0.0001,
+      "batch_effective": 16,
+      "epochs": 6,
+      "patience": 2
+    },
+    "loss": "mean per request then per dispute",
+    "selection": "DEV major false acceptance, confirmed support coverage, then lower cost; all seeds retained"
+  },
+  "stop": "Training only after every data/QC gate passes. No TEST driven updates; no extra web answers without concrete DEV gain; no commit/push."
+}

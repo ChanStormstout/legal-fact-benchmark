@@ -1,0 +1,472 @@
+[
+  {
+    "field": "rules",
+    "index": 0,
+    "reason": "Unsupported validator type: integer",
+    "original": {
+      "id": "R1",
+      "version": 1,
+      "description": "Establishes that proof of possession and proof of ownership are distinct inquiries. When possession of identified land has been established but the possessor has not proved ownership, the failure of title proof does not negate the possession finding or automatically eliminate an independent possessory basis for relief.",
+      "conclusion_predicate": "POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF",
+      "conclusion_text": "Established possession remains available as an independent basis for evaluating possessory protection notwithstanding the possessor's failure to prove ownership.",
+      "jurisdiction": "India; Supreme Court of India; civil proceedings concerning possession of immovable property.",
+      "stage": "SUPREME_COURT_MERITS_APPEAL",
+      "origin": "TARGET_ADOPTED_RULE",
+      "source_refs": [
+        "IK-789051:L66",
+        "IK-789051:L67",
+        "IK-789051:L69",
+        "IK-789051:L106",
+        "IK-789051:L107"
+      ],
+      "source_quote": "The Trial Court found that although the plaintiff had failed in proving his title, he had succeeded in proving his possession over the suit property which he was entitled to protect unless dispossessed therefrom by due process of law.",
+      "operator": "ALL",
+      "slots": [
+        {
+          "name": "possession_established",
+          "predicate": "POSSESSION_OF_SUIT_PROPERTY_PROVED",
+          "description": "The plaintiff-possessor was judicially found to possess the identified suit property. The proposition concerns possession, not ownership or the precise boundary of the adjoining properties.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING",
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "ownership_not_proved",
+          "predicate": "PLAINTIFF_TITLE_NOT_PROVED",
+          "description": "The plaintiff failed to establish the claimed title to the suit property. This is a finding of non-proof, not a determination that the plaintiff's ownership claim is factually false.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING",
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "The conclusion preserves a basis for possessory analysis; it does not itself establish an entitlement to injunction.",
+        "The plaintiff's failure to prove title must not be transformed into proof that the opposing party owns the land.",
+        "The rule concerns the same specific suit property for which possession and title were considered.",
+        "No disputed boundary, precise land dimension, or competing ownership claim is resolved.",
+        "The relevant findings are accepted as reported judicial findings under the supplied reconstruction policy, not as independently verified evidence."
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": [
+        "No independent reassessment of the underlying evidence establishing possession or failing to establish title is implemented."
+      ]
+    }
+  },
+  {
+    "field": "rules",
+    "index": 1,
+    "reason": "Unsupported validator type: integer",
+    "original": {
+      "id": "R2",
+      "version": 1,
+      "description": "Identifies the legally protectable quality of peaceful and settled possession, including possession without established title. Settled possession is distinguished from casual, intermittent, or incipient trespass. Its classification requires contextual legal and factual judgment rather than mechanical satisfaction of every illustrative factor reported in the judgment.",
+      "conclusion_predicate": "SETTLED_POSSESSION_IS_LEGALLY_PROTECTABLE",
+      "conclusion_text": "Possession qualifying as peaceful and settled receives legal protection against extrajudicial interference or forcible dispossession, including interference by a person asserting ownership; any recovery by such an owner must respect the applicable due process requirements.",
+      "jurisdiction": "India; Supreme Court of India; possessory protection of immovable property, including the distinction between settled possession and recent trespass.",
+      "stage": "SUPREME_COURT_MERITS_APPEAL",
+      "origin": "TARGET_ADOPTED_RULE",
+      "source_refs": [
+        "IK-789051:L85",
+        "IK-789051:L86",
+        "IK-789051:L87",
+        "IK-789051:L88",
+        "IK-789051:L90",
+        "IK-789051:L91",
+        "IK-789051:L92",
+        "IK-789051:L93",
+        "IK-789051:L94",
+        "IK-789051:L95",
+        "IK-789051:L96",
+        "IK-789051:L98",
+        "IK-789051:L99",
+        "IK-789051:L103",
+        "IK-789051:L105",
+        "IK-789051:L106"
+      ],
+      "source_quote": "It is the settled possession or effective possession of a person without title which would entitle him to protect his possession even as against the true owner.",
+      "operator": "OPEN_TEXT",
+      "slots": [
+        {
+          "name": "independent_possession_basis",
+          "predicate": "POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF",
+          "description": "The independently established possessory basis preserved by R1. This is a derived legal predicate, not a fresh factual finding or an assertion that ownership has been established.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LEGAL_RULE"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "judicial_finding_of_settled_possession",
+          "predicate": "COURT_FOUND_SETTLED_POSSESSION",
+          "description": "The target court expressly reports that the plaintiff was found to be in settled possession of the identified property. This is accepted as an attributed judicial finding without independently reconstructing every underlying factual attribute.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "transient_trespass_exception",
+          "predicate": "MERELY_STRAY_INTERMITTENT_OR_INCIPIENT_INTRUSION",
+          "description": "The purported possessor has only engaged in casual, intermittent, or incomplete acts of intrusion that have not matured into settled possession. Its expected absence in this reconstruction follows from the reported settled-possession classification, not an independently proved chronology of occupation.",
+          "expected": "FALSE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING",
+            "TARGET_COURT_FINDING",
+            "TESTIMONY"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [
+        "transient_trespass_exception"
+      ],
+      "scope_limits": [
+        "The judgment distinguishes settled possession from a trespasser who is merely attempting to acquire possession.",
+        "Factors discussed in the judgment's account of earlier decisions include actual physical occupation, sufficient duration, effectiveness, absence of disturbance, knowledge or absence of concealment, possessory intention, completion of dispossession, and acquiescence.",
+        "The judgment expressly rejects a rigid formula for determining when trespass becomes settled possession.",
+        "Growing crops is discussed as a usual indicator in cases involving cultivable land, not as a universally necessary condition.",
+        "Occupation as an owner's agent or servant is distinguished from independent actual physical possession.",
+        "A rightful owner may resist a fresh or incomplete intrusion using no more force than legally permissible; protection of settled possession must not be extended automatically to that different situation.",
+        "The opposing litigant's actual ownership is not established merely because the legal principle also applies against a true owner.",
+        "The rule concerns protection against self-help and does not defeat lawful recovery through judicial proceedings.",
+        "The particular judgment reports settled possession but does not supply a detailed case-specific chronology, independent evidence of acquiescence, or a complete factual application of every illustrative factor."
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": [
+        "OPEN_TEXT: The legal evaluation of whether conduct amounts to effective, peaceful, and settled possession rather than transient trespass is not executable as a deterministic checklist.",
+        "No numerical minimum duration, mandatory crop requirement, or mechanically sufficient conjunction of the cited factors is implemented.",
+        "No independent factual assessment of duration, owner knowledge, acquiescence, or possessory intention is possible from the supplied judgment alone.",
+        "The court's reported finding can be accepted under the reconstruction policy, but doing so is not equivalent to independently executing the underlying settled-possession test."
+      ]
+    }
+  },
+  {
+    "field": "rules",
+    "index": 2,
+    "reason": "Unsupported validator type: integer",
+    "original": {
+      "id": "R3",
+      "version": 1,
+      "description": "Connects legally protectable settled possession with a possessory ground for injunctive relief when an opposing claimant attempts to interfere with that possession on the strength of asserted ownership. The ground for restraint is protection against interference, not confirmation that the possessor owns the land.",
+      "conclusion_predicate": "POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT",
+      "conclusion_text": "A legally protectable settled possessor facing attempted interference with the identified property has an independent possessory basis for an injunction restraining that interference, without first establishing proprietary title.",
+      "jurisdiction": "India; Supreme Court of India; civil injunction on the merits against interference with settled possession.",
+      "stage": "SUPREME_COURT_MERITS_APPEAL",
+      "origin": "TARGET_ADOPTED_RULE",
+      "source_refs": [
+        "IK-789051:L66",
+        "IK-789051:L67",
+        "IK-789051:L79",
+        "IK-789051:L82",
+        "IK-789051:L83",
+        "IK-789051:L85",
+        "IK-789051:L86",
+        "IK-789051:L87",
+        "IK-789051:L106",
+        "IK-789051:L107",
+        "IK-789051:L112"
+      ],
+      "source_quote": "The law will come to the aid of a person in peaceful and settled possession by injuncting even a rightful owner from using force or taking law in his own hands",
+      "operator": "ALL",
+      "slots": [
+        {
+          "name": "protectable_settled_possession",
+          "predicate": "SETTLED_POSSESSION_IS_LEGALLY_PROTECTABLE",
+          "description": "The possessory interest protected under R2, based on the requisite settled character of possession and without relying on confirmation of ownership.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LEGAL_RULE"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "opponent_attempted_interference",
+          "predicate": "OPPONENT_OBSTRUCTED_POSSESSION_ASSERTING_OWNERSHIP",
+          "description": "The opposing party interfered with or obstructed the possessor's enjoyment of the identified property while asserting a competing ownership claim. In the supplied case, the target court recounts obstruction of the plaintiff's construction on the disputed land; the allegation of ownership remains distinct from proof of ownership.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING",
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "The output establishes a possessory legal ground for injunctive restraint, not an automatic determination of every procedural or discretionary requirement for relief.",
+        "The relevant remedy restrains interference with existing possession rather than determining the superior proprietary claimant.",
+        "The judicial account establishes obstruction and attempted interference; it does not independently establish that physical force was actually used.",
+        "The rule does not prohibit possession being recovered through appropriate legal proceedings.",
+        "The asserted ownership of the opposing party does not itself authorize extrajudicial eviction.",
+        "Protection remains subject to the distinction between genuinely settled possession and merely transient intrusion described in R2.",
+        "The conclusion does not depend on treating the plaintiff's own allegation of title as proved."
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": [
+        "No independent evaluation of the detailed manner of interference, the complete pleadings, or additional discretionary considerations governing injunctions is implemented.",
+        "The rule does not independently execute R2's OPEN_TEXT settled-possession evaluation."
+      ]
+    }
+  },
+  {
+    "field": "rules",
+    "index": 3,
+    "reason": "Unsupported validator type: integer",
+    "original": {
+      "id": "R4",
+      "version": 1,
+      "description": "Addresses the objection that an injunction claim must fail because title was disputed, the plaintiff failed to prove ownership, or a declaration of title was not requested. Where an independently supportable possessory ground exists, these title-related objections do not themselves require dismissal. The merits-stage question remains distinguishable from the discretionary treatment of an interim injunction.",
+      "conclusion_predicate": "TITLE_DECLARATION_OBJECTION_NOT_AUTOMATIC_BAR",
+      "conclusion_text": "The absence of a title declaration, or the failure to establish title, is not by itself a sufficient reason to dismiss an otherwise supportable possessory injunction claim.",
+      "jurisdiction": "India; Supreme Court of India; merits adjudication of civil injunctive relief involving disputed title.",
+      "stage": "SUPREME_COURT_MERITS_APPEAL",
+      "origin": "TARGET_ADOPTED_RULE",
+      "source_refs": [
+        "IK-789051:L68",
+        "IK-789051:L69",
+        "IK-789051:L107",
+        "IK-789051:L108",
+        "IK-789051:L109",
+        "IK-789051:L110",
+        "IK-789051:L111",
+        "IK-789051:L112",
+        "IK-789051:L113"
+      ],
+      "source_quote": "In Kallappa Rama Londa's case, the learned Single Judge has upheld the maintainability of a suit merely seeking injunction, without declaration of title",
+      "operator": "ALL",
+      "slots": [
+        {
+          "name": "independent_possessory_injunction_basis",
+          "predicate": "POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT",
+          "description": "The possessory basis supplied by R3, which does not require a judicial confirmation of the plaintiff's ownership.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LEGAL_RULE"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "appellant_raised_title_based_objection",
+          "predicate": "OPPONENT_ASSERTED_TITLE_FAILURE_OR_DECLARATION_DEFECT",
+          "description": "The defendant-appellant's counsel argued that the suit was defective because no declaration of title had been sought despite the title dispute, and that failure to prove title required dismissal notwithstanding established possession. TRUE records that these arguments were made, without accepting their legal correctness or independently verifying every procedural allegation.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "PARTY_CLAIM"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "The conclusion rejects automatic dismissal based solely on title non-proof or omission of declaratory relief when a legally sufficient independent possessory ground is available.",
+        "It does not establish that every injunction-only action involving disputed title is maintainable regardless of other circumstances.",
+        "The Supreme Court distinguished the cited Allahabad decision because that decision concerned discretionary temporary or ad-interim relief in its own factual setting.",
+        "The judgment accepted the proposition, discussed through the cited Karnataka decision, that uncertainty of title need not defeat protective injunctive relief where possession provides an independent basis.",
+        "The cited Bombay decision is discussed as supporting an injunction where lawful possession is established and invaded or threatened by someone without title; this does not independently prove that every factual element described in that precedent was established in the present case.",
+        "The defendant's contentions must remain PARTY_CLAIM records, whereas the Supreme Court's rejection of their proposed automatic consequences is a separate legal evaluation.",
+        "No general adjudication of title, boundaries, or ownership is authorized by this rule."
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": [
+        "The full pleadings are unavailable for independent verification of the precise declaratory relief requested or omitted.",
+        "No complete procedural test for all circumstances in which a declaration might be required is reconstructed.",
+        "No independent analysis of the cited High Court decisions is performed beyond the Supreme Court's descriptions of those decisions."
+      ]
+    }
+  },
+  {
+    "field": "rules",
+    "index": 4,
+    "reason": "Unsupported validator type: integer",
+    "original": {
+      "id": "R5",
+      "version": 1,
+      "description": "Expresses the distinction between possessory and proprietary protection. A judicially supportable injunction based on peaceful and settled possession protects the existing possessory relationship; that basis alone neither confirms the possessor's ownership nor decides the competing claimant's title.",
+      "conclusion_predicate": "POSSESSORY_RELIEF_DOES_NOT_CONFIRM_OWNERSHIP",
+      "conclusion_text": "An injunction justified on an independent possessory ground does not, by virtue of that ground or relief alone, constitute confirmation of proprietary title for the possessor or rejection of another party's possible ownership.",
+      "jurisdiction": "India; Supreme Court of India; distinction between possessory relief and proprietary adjudication concerning immovable property.",
+      "stage": "SUPREME_COURT_MERITS_APPEAL",
+      "origin": "TARGET_ADOPTED_RULE",
+      "source_refs": [
+        "IK-789051:L72",
+        "IK-789051:L73",
+        "IK-789051:L74",
+        "IK-789051:L75",
+        "IK-789051:L83",
+        "IK-789051:L87",
+        "IK-789051:L107",
+        "IK-789051:L111",
+        "IK-789051:L113"
+      ],
+      "source_quote": "Legal remedies thus appointed for the protection of possession even against ownership are called possessory, while those available for the protection of ownership itself may be distinguished as proprietary.",
+      "operator": "ALL",
+      "slots": [
+        {
+          "name": "injunction_supported_by_possession",
+          "predicate": "POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT",
+          "description": "The legally independent possessory basis for an injunction established through R3, attached to the identified possessor, opposing claimant, and suit property.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LEGAL_RULE"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "This is a non-entailment rule: a possessory ground does not by itself prove or disprove ownership.",
+        "The jurisprudential distinction is presented in the judgment through Salmond and expressly related by the Supreme Court to Indian law; the book itself has not been independently examined.",
+        "The judgment also discusses possession as evidence of title in the absence of proof of better title, but such evidential significance is not equivalent to a conclusive declaration of ownership.",
+        "The rule does not prevent a competent court from determining title in appropriately constituted proprietary proceedings.",
+        "An independently established proprietary adjudication cannot be assumed either to exist or not to exist merely from the fact of possessory relief.",
+        "The actual reservation of title in the supplied case is separately supported by the target court's account and express clarification.",
+        "No inference of ownership can be drawn solely from the injunction or from the Supreme Court's refusal to disturb the possessory protection."
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": [
+        "No independent application of evidentiary presumptions about possession and title to decide ultimate ownership is performed.",
+        "No independent adjudication of the competing proprietary claims or the disputed boundary is implemented."
+      ]
+    }
+  },
+  {
+    "field": "rules",
+    "index": 5,
+    "reason": "Unsupported validator type: integer",
+    "original": {
+      "id": "R6",
+      "version": 1,
+      "description": "Preserves the separate proprietary route after a possessory adjudication that leaves title unresolved. A party claiming better title may seek its establishment through appropriate legal proceedings; any later entitlement to evict the possessor depends on proving the superior right to possess rather than on the earlier possessory injunction or an unproved assertion of ownership.",
+      "conclusion_predicate": "SEPARATE_TITLE_ACTION_REMAINS_AVAILABLE",
+      "conclusion_text": "Where possessory relief does not determine ownership and the competing title question is expressly reserved, the parties remain able to seek adjudication of their competing titles in duly constituted proceedings. A claimant seeking title-based eviction must first establish the better right to possession.",
+      "jurisdiction": "India; Supreme Court of India; preservation of proprietary litigation following possession-based civil injunction proceedings.",
+      "stage": "SUPREME_COURT_MERITS_APPEAL",
+      "origin": "TARGET_ADOPTED_RULE",
+      "source_refs": [
+        "IK-789051:L86",
+        "IK-789051:L87",
+        "IK-789051:L106",
+        "IK-789051:L107",
+        "IK-789051:L113"
+      ],
+      "source_quote": "It is still open to the defendant-appellant to file a suit based on his title against the plaintiff-respondent and evict the latter on the former establishing his better right to possess the property.",
+      "operator": "ALL",
+      "slots": [
+        {
+          "name": "possession_not_ownership_confirmation",
+          "predicate": "POSSESSORY_RELIEF_DOES_NOT_CONFIRM_OWNERSHIP",
+          "description": "The non-entailment established through R5: protective possessory relief does not itself determine ownership.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LEGAL_RULE"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "title_expressly_reserved",
+          "predicate": "TITLE_QUESTION_EXPRESSLY_LEFT_OPEN",
+          "description": "The target court reports that the lower courts proceeded on possession without deciding title, and expressly clarifies that the impugned judgment does not determine the suit property's title for or against either litigant. This is a reported judicial reservation, not a substantive finding establishing either party's ownership.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "opponent_title_not_established",
+          "predicate": "OPPONENT_BETTER_TITLE_NOT_PROVED",
+          "description": "The defendant was also found not to have established title to the disputed land sufficient to substantiate his claimed entitlement to evict the plaintiff. This records failure of proof, not a definitive finding that the defendant lacks any title.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "The conclusion concerns the continued availability of a separate proprietary proceeding, not a present entitlement to dispossess the protected possessor.",
+        "The earlier failure of either party to establish title does not conclusively determine the merits of a future title claim.",
+        "Establishment of a better right to possession is an express condition on the prospective title-based eviction described by the judgment.",
+        "No future success, decree, lawful eviction, or actual later litigation is established.",
+        "A future title claim must concern the properly identified property and the competing legal rights; the original dispute about boundary demarcation remains unresolved.",
+        "The right to seek judicial recovery does not authorize forcible self-help against settled possession.",
+        "The rule describes the separate proprietary path recognized by the Supreme Court in this litigation, not an unlimited general right to reopen final title judgments.",
+        "The final appellate disposition is not an antecedent of this rule."
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": [
+        "No prospective determination of either party's title or superior right to possession is implemented.",
+        "No future procedural admissibility, limitations question, or evidentiary sufficiency assessment is implemented.",
+        "The judgment's condition requiring establishment of a better right is preserved, but no further allocation or standard of proof is invented."
+      ]
+    }
+  }
+]

@@ -1,0 +1,336 @@
+{
+  "type": "object",
+  "properties": {
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "statement_status": {
+            "type": "string",
+            "enum": [
+              "PARTY_CLAIM",
+              "DENIAL",
+              "ADMISSION",
+              "TESTIMONY",
+              "PRIOR_COURT_FINDING",
+              "RECORDED_DOCUMENT",
+              "UNKNOWN"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-68065690:L76:span1",
+                "IK-68065690:L80:span2",
+                "IK-68065690:L82:span3",
+                "IK-68065690:L83:span4",
+                "IK-68065690:L84:span5",
+                "IK-68065690:L174:span6",
+                "IK-68065690:L176:span7",
+                "IK-68065690:L181:span8",
+                "IK-68065690:L174:context-v4",
+                "IK-68065690:L176:context-v4",
+                "IK-68065690:L181:context-v4",
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "text",
+          "statement_status",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 12
+    },
+    "arrangements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-68065690:L76:span1",
+                "IK-68065690:L80:span2",
+                "IK-68065690:L82:span3",
+                "IK-68065690:L83:span4",
+                "IK-68065690:L84:span5",
+                "IK-68065690:L174:span6",
+                "IK-68065690:L176:span7",
+                "IK-68065690:L181:span8",
+                "IK-68065690:L174:context-v4",
+                "IK-68065690:L176:context-v4",
+                "IK-68065690:L181:context-v4"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "description",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 4
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "arrangement": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "condition": {
+            "type": "string",
+            "enum": [
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C06",
+              "DRC_SUBLETTING_C07"
+            ]
+          },
+          "assessment": {
+            "type": "string",
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "UNRESOLVED",
+              "UNSUPPORTED"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "record": {
+                  "type": "integer",
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12
+                  ]
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "SUPPORT",
+                    "OPPOSE",
+                    "CONTEXT",
+                    "UNRESOLVED",
+                    "IRRELEVANT"
+                  ]
+                },
+                "connection": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "record",
+                "role",
+                "connection"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 8
+          },
+          "law_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          },
+          "explanation": {
+            "type": "string"
+          },
+          "gaps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "arrangement",
+          "condition",
+          "assessment",
+          "evidence",
+          "law_refs",
+          "explanation",
+          "gaps"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 12
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "arrangement": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "condition": {
+            "type": "string",
+            "enum": [
+              "",
+              "DRC_SUBLETTING_C01",
+              "DRC_SUBLETTING_C02",
+              "DRC_SUBLETTING_C03",
+              "DRC_SUBLETTING_C04",
+              "DRC_SUBLETTING_C05",
+              "DRC_SUBLETTING_C06",
+              "DRC_SUBLETTING_C07"
+            ]
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ]
+            },
+            "maxItems": 8
+          },
+          "effect": {
+            "type": "string",
+            "enum": [
+              "EVIDENCE_USE_BLOCK",
+              "CONDITION_PENDING",
+              "NOTE",
+              "UNMAPPED"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "IK-68065690:L76:span1",
+                "IK-68065690:L80:span2",
+                "IK-68065690:L82:span3",
+                "IK-68065690:L83:span4",
+                "IK-68065690:L84:span5",
+                "IK-68065690:L174:span6",
+                "IK-68065690:L176:span7",
+                "IK-68065690:L181:span8",
+                "IK-68065690:L174:context-v4",
+                "IK-68065690:L176:context-v4",
+                "IK-68065690:L181:context-v4",
+                "LAW:S02:DRC14:1b",
+                "IK-190902:L107",
+                "IK-190902:L108",
+                "IK-190902:L109",
+                "IK-190902:L110",
+                "IK-190902:L111",
+                "IK-190902:L112"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "arrangement",
+          "condition",
+          "records",
+          "effect",
+          "reason",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 6
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4
+    }
+  },
+  "required": [
+    "records",
+    "arrangements",
+    "conditions",
+    "limitations",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

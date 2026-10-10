@@ -1,0 +1,173 @@
+{
+  "type": "object",
+  "properties": {
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "enum": [
+              "DRC_SUBLETTING_CLAIM_01"
+            ]
+          },
+          "prediction": {
+            "type": "string",
+            "enum": [
+              "PREDICT_GRANT",
+              "PREDICT_DENY"
+            ]
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "test_id": {
+                  "type": "string",
+                  "enum": [
+                    "DRC_SUBLETTING_C01",
+                    "DRC_SUBLETTING_C02",
+                    "DRC_SUBLETTING_C03",
+                    "DRC_SUBLETTING_C04",
+                    "DRC_SUBLETTING_C05",
+                    "DRC_SUBLETTING_C06",
+                    "DRC_SUBLETTING_C07"
+                  ]
+                },
+                "binding_id": {
+                  "type": "string"
+                },
+                "binding": {
+                  "type": "string"
+                },
+                "assessment": {
+                  "type": "string",
+                  "enum": [
+                    "SUPPORTED",
+                    "REFUTED",
+                    "UNRESOLVED",
+                    "UNSUPPORTED"
+                  ]
+                },
+                "refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "IK-52547606:L74:span1",
+                      "IK-52547606:L75:span2",
+                      "IK-52547606:L78:span3",
+                      "IK-52547606:L79:span4",
+                      "IK-52547606:L81:span5",
+                      "IK-52547606:L82:span6",
+                      "IK-52547606:L84:span7",
+                      "IK-52547606:L93:span8",
+                      "IK-52547606:L82:context-v4",
+                      "IK-52547606:L84:context-v4",
+                      "LAW:S02:DRC14:1b",
+                      "IK-190902:L107",
+                      "IK-190902:L108",
+                      "IK-190902:L109",
+                      "IK-190902:L110",
+                      "IK-190902:L111",
+                      "IK-190902:L112"
+                    ]
+                  },
+                  "maxItems": 6
+                },
+                "explanation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "test_id",
+                "binding_id",
+                "binding",
+                "assessment",
+                "refs",
+                "explanation"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 12,
+            "minItems": 1
+          },
+          "opposition": {
+            "type": "object",
+            "properties": {
+              "record": {
+                "type": "string"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "IK-52547606:L74:span1",
+                    "IK-52547606:L75:span2",
+                    "IK-52547606:L78:span3",
+                    "IK-52547606:L79:span4",
+                    "IK-52547606:L81:span5",
+                    "IK-52547606:L82:span6",
+                    "IK-52547606:L84:span7",
+                    "IK-52547606:L93:span8",
+                    "IK-52547606:L82:context-v4",
+                    "IK-52547606:L84:context-v4",
+                    "LAW:S02:DRC14:1b",
+                    "IK-190902:L107",
+                    "IK-190902:L108",
+                    "IK-190902:L109",
+                    "IK-190902:L110",
+                    "IK-190902:L111",
+                    "IK-190902:L112"
+                  ]
+                },
+                "maxItems": 6
+              },
+              "response": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "record",
+              "refs",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          "gaps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4
+          },
+          "reason": {
+            "type": "string"
+          },
+          "intermediate_correction": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "prediction",
+          "conditions",
+          "opposition",
+          "gaps",
+          "reason",
+          "intermediate_correction"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 1,
+      "minItems": 1
+    }
+  },
+  "required": [
+    "answers"
+  ],
+  "additionalProperties": false
+}

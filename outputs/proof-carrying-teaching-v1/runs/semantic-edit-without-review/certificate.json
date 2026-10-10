@@ -1,0 +1,32 @@
+{
+  "certificate_id": "C1",
+  "snapshot_id": "S1",
+  "snapshot_sha256": "5ff555215f782aaa60ed0865097eecdb749bc16261e180c98d831f9eab7f0679",
+  "registry_sha256": "29306f3ced9abee30bf12de468ced3480ee0c599fee81c65c9c41192d4714913",
+  "policy_sha256": "b13c65d363873e6dd9db73e6ac22e2afe1ee203ed48725f4cbf1a92afc213bde",
+  "mode": "TEACHING",
+  "steps": [
+    {
+      "id": "T1",
+      "rule_ref": "COVERAGE_DEMO@1",
+      "premise_ids": [
+        "P1",
+        "P2"
+      ],
+      "depends_on": [],
+      "bindings": {
+        "person": "Person_A",
+        "property": "Parcel_P"
+      },
+      "proposed_result": "FALSE"
+    }
+  ],
+  "requests": [
+    {
+      "id": "Q1",
+      "step_id": "T1",
+      "claim": "SPECIFIC_AUTHORIZATION_COVERS_ENTRY",
+      "proposed_result": "FALSE"
+    }
+  ]
+}

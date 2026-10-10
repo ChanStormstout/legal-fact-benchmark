@@ -1,0 +1,196 @@
+[
+  {
+    "field": "rules",
+    "id": "R6",
+    "reason": "DUPLICATE_ID",
+    "original": {
+      "id": "R6",
+      "version": 1,
+      "description": "Continuation of an adjudicable tenancy issue is analytically separate from proving dispossession and from injunction discretion. The judgment describes Section 6 recovery for loss of settled possession without consent otherwise than by due course of law, but also recounts the rule that unlawful possession cannot be protected against the true owner by injunction; discretionary factors require separate assessment.",
+      "conclusion_predicate": "CONTINUATION_DISTINCT_FROM_POSSESSION_AND_INJUNCTION_MERITS",
+      "conclusion_text": "Procedural survival of the tenancy issue cannot itself establish forcible dispossession, a right to Section 6 recovery, or entitlement to injunction; relevant evidence and discretionary injunction standards must be assessed separately in the appropriate trial proceedings.",
+      "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles",
+      "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+      "origin": "TARGET_ADOPTED_RULE",
+      "source_refs": [
+        "IK-1841885:L138",
+        "IK-1841885:L139",
+        "IK-1841885:L140",
+        "IK-1841885:L141",
+        "IK-1841885:L144",
+        "IK-1841885:L145",
+        "IK-1841885:L146",
+        "IK-1841885:L148",
+        "IK-1841885:L150",
+        "IK-1841885:L151",
+        "IK-1841885:L152",
+        "IK-1841885:L153"
+      ],
+      "source_quote": "The question of forcible possession as claimed is also a matter which can be pressed into service by the parties before the trial Court and if raised the Court shall deal with it considering its relevance to the suit and accept it or otherwise reject the plea in accordance with law. We do not think it necessary to express any opinion in that regard.",
+      "operator": "OPEN_TEXT",
+      "slots": [
+        {
+          "name": "surviving_tenancy_track",
+          "predicate": "MIXED_RELIEFS_NOT_ALONE_GROUND_FOR_WHOLE_REJECTION",
+          "description": "R4's procedural non-rejection conclusion addresses the tenancy track, not possession relief.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LEGAL_RULE"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property",
+            "transaction"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "opposed_dispossession_versions",
+          "predicate": "OPPOSED_DISPOSSESSION_ASSERTIONS_RECORDED",
+          "description": "R5 establishes that opposite accounts were asserted, not that either alleged event was proved.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "PROCEDURAL_RECORD"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property",
+            "transaction"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "settled_possession_proof",
+          "predicate": "CLAIMANTS_SETTLED_POSSESSION_ESTABLISHED",
+          "description": "Whether the identified plaintiffs actually held settled rather than fugitive possession is not determined in this review.",
+          "expected": "UNKNOWN",
+          "allowed_statuses": [
+            "TESTIMONY",
+            "RECORDED_DOCUMENT",
+            "LOWER_COURT_FINDING",
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "property",
+            "transaction"
+          ],
+          "time_required": true
+        },
+        {
+          "name": "unlawful_dispossession_proof",
+          "predicate": "CLAIMANTS_DISPOSSESSED_WITHOUT_CONSENT_OUTSIDE_DUE_PROCESS",
+          "description": "The plaintiffs' allegations and trust's contrary version conflict; the full nonconsensual and unlawful dispossession proposition is not decided. Timing relative to the trial injunction is material.",
+          "expected": "CONFLICTED",
+          "allowed_statuses": [
+            "PARTY_CLAIM",
+            "TESTIMONY",
+            "RECORDED_DOCUMENT",
+            "LOWER_COURT_FINDING",
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property",
+            "transaction"
+          ],
+          "time_required": true
+        },
+        {
+          "name": "injunction_discretion_merits",
+          "predicate": "INJUNCTION_EQUITABLE_ENTITLEMENT_ADJUDICATED",
+          "description": "Lawfulness of possession as against the true owner, prima facie case, balance of convenience, and any relevant conduct have not been decided as an injunction entitlement determination.",
+          "expected": "UNKNOWN",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING",
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "Section 6 restoration and discretionary injunction are different questions: possible recovery despite lack of title does not itself justify injunction against a true owner.",
+        "The judgment recounts a rule against injunction for a person in unlawful possession against the true owner, but does not find that these specific plaintiffs were unlawful possessors or that an injunction is due or barred on their merits.",
+        "The Supreme Court expressly leaves forcible-dispossession issues to the trial court if raised and relevant, and offers no view on the merits.",
+        "Claims about arrears, compliance with prior High Court orders, and surrender by other tenants are trust-side submissions or matters left for trial; their significance cannot be presumed.",
+        "The separate objection that only the District Court had jurisdiction was not specifically urged below and received no Supreme Court ruling."
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": [
+        "OPEN_TEXT: evaluate settled possession, identity of the actual possessor, consent, lawful process, and the significance of possession dates and earlier injunction orders.",
+        "OPEN_TEXT: separately assess prima facie case, balance of convenience, true ownership, lawful or unlawful possession, the scope of discretion, and any relevant conduct.",
+        "No judgment-stage finding or supplied primary evidence resolves plaintiffs' claimed eviction; unknown and conflicted propositions cannot be promoted to either TRUE or FALSE by the procedural ruling."
+      ]
+    }
+  },
+  {
+    "field": "rules",
+    "id": "R6",
+    "reason": "DUPLICATE_ID",
+    "original": {
+      "id": "R6",
+      "version": 2,
+      "description": "Recorded procedural tenancy route and express reservation of merits do not decide those reserved merits.",
+      "conclusion_predicate": "CONTINUATION_DISTINCT_FROM_POSSESSION_AND_INJUNCTION_MERITS",
+      "conclusion_text": "Continuation of the tenancy issue does not decide the reserved possession or injunction merits; a forcible-possession plea may be raised and considered only insofar as relevant to the continued suit.",
+      "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles",
+      "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+      "origin": "RESEARCH_TRANSLATION",
+      "source_refs": [
+        "IK-1841885:L136",
+        "IK-1841885:L151"
+      ],
+      "source_quote": "The question of forcible possession as claimed is also a matter which can be pressed into service by the parties before the trial Court and if raised the Court shall deal with it considering its relevance to the suit and accept it or otherwise reject the plea in accordance with law. We do not think it necessary to express any opinion in that regard.",
+      "operator": "ALL",
+      "slots": [
+        {
+          "name": "surviving_tenancy_track",
+          "predicate": "MIXED_RELIEFS_NOT_ALONE_GROUND_FOR_WHOLE_REJECTION",
+          "description": "R4's procedural non-rejection conclusion addresses the tenancy track, not possession relief.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LEGAL_RULE"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "express_merits_reservation",
+          "predicate": "COURT_EXPRESSLY_RESERVED_DISPOSSESSION_MERITS",
+          "description": "The court expressly declines a merits view and leaves a plea to trial only if raised and relevant.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "Restricted to this judgment-stage reconstruction. Relevant pleas may be accepted or rejected; no mandatory full merits adjudication of every claim is inferred."
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": [
+        "No independent assessment of possession, Section 6 relief or equitable injunction entitlement."
+      ]
+    }
+  }
+]

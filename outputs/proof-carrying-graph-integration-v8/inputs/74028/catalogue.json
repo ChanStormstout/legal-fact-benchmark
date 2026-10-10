@@ -1,0 +1,175 @@
+[
+  {
+    "id": "trial_assessment",
+    "meaning": "Recorded attributed premise, not independently proved event: The trial court relied on the listed documents and accepted the 22 September takeover account, finding no strong prima facie case.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "LOWER_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "high_court_assessment",
+    "meaning": "Recorded attributed premise, not independently proved event: The High Court regarded termination as prima facie illegal and the plaintiff as in possession when suit was filed, granting interim relief.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "LOWER_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "conceded_structure_change",
+    "meaning": "Recorded attributed premise, not independently proved event: The target Court recorded the conceded change from proprietary firm to partnership and the contractual revocation clause; its view of entitlement to act was expressly prima facie.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "omitted_discretion_factors",
+    "meaning": "Recorded attributed premise, not independently proved event: The Court criticized failure to address contrary trial reasons and whether damages would adequately compensate refusal of interim relief.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      },
+      {
+        "rule_ref": "R2@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "merits_reservation",
+    "meaning": "Recorded attributed premise, not independently proved event: The Court reserved contract validity for trial and expressly stated its observations would not affect the merits.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      },
+      {
+        "rule_ref": "R2@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+    "meaning": "The Supreme Court criticized the High Court's interlocutory analysis for prejudging disputed contract questions and overlooking the contrary trial reasons and compensable-loss inquiry. Its prima facie view on contractual revocation did not finally decide validity, possession, or the suit.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R1@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved"
+      },
+      {
+        "rule_ref": "R2@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "requested_interim_relief",
+    "meaning": "Recorded attributed premise, not independently proved event: The suit sought interim protection of the petrol pump possession and business; the challenged orders included restoration.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "PROCEDURAL_RECORD"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R2@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+        "jurisdiction": "India; target judgment historical scope only"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+    "meaning": "The target Court applied the reported discretionary mandatory-injunction guidance and held the High Court's analysis insufficient, particularly on injury not adequately compensable by damages. This is a reconstruction of that interim assessment, not a universal bar on mandatory injunctions or a final damages award.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R2@2",
+        "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  }
+]

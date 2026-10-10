@@ -1,0 +1,3747 @@
+Use only the complete attached task. Do not search externally, use other conversations, or add legal materials. Read the entire supplied source. Answer once in English with complete JSON. File tools may read this attachment and create a JSON file. Model review is not human gold or legal approval.
+
+TASK: independently assess candidate uses in this judgment reconstruction. You see source, rule translations, raw fact proposals and deterministically enumerated candidate applications. No ranking, method answers or checker results are supplied. Judge USABLE when the cited source supports using these attributed premises, objects, time and scope for the proposed rule inputs; valid opposition is usable as opposition, not a failed-request negative. UNUSABLE requires an explicit incompatibility or unsupported upgrade, with source explanation. UNRESOLVED includes insufficient source or genuine interpretation disputes; unselected/unmentioned is never a negative. Examine important contrary passages, not only cited fragments. A rule translated from this target judgment is not a universal rule, and a report of a precedent is not verification of that precedent. Separately review each raw premise as an attributed proposition, without editing it. ACCEPT_RESEARCH only for faithful attribution, state, bindings, limitations and evidence use; otherwise HOLD or UNRESOLVED. Review predicate mappings as SAME_MEANING, RELATED_DIFFERENT or NEW_PREDICATE without rewriting facts. For OPEN_TEXT applications, recorded_conclusion TRUE only when this court explicitly made that bounded evaluation for these objects/stage and these premises; otherwise UNKNOWN. This is an external research assumption, never independent legal computation. Return all candidate IDs once; omit no candidate merely because it is bad. No score or rank. No legal approval.
+{
+  "case": {
+    "case_id": "74028",
+    "name": "Hindustan Petroleum Corporation Ltd vs Sri Sriman Narayan & Anr on 9 July, 2002",
+    "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+    "question": "Why did the Court reject the High Court interim restoration order without finally deciding contractual revocation or possession at trial?"
+  },
+  "task": "Reconstruct the selected reasoning without treating outcome as its own premise",
+  "registered_requests": [
+    {
+      "id": "Q-S1",
+      "predicate": "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS"
+    },
+    {
+      "id": "Q-S2",
+      "predicate": "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT"
+    }
+  ],
+  "rule_registry": [
+    {
+      "id": "R1",
+      "version": 2,
+      "description": "The Supreme Court criticized the High Court's interlocutory analysis for prejudging disputed contract questions and overlooking the contrary trial reasons and compensable-loss inquiry. Its prima facie view on contractual revocation did not finally decide validity, possession, or the suit.",
+      "conclusion_predicate": "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+      "conclusion_text": "The Supreme Court criticized the High Court's interlocutory analysis for prejudging disputed contract questions and overlooking the contrary trial reasons and compensable-loss inquiry. Its prima facie view on contractual revocation did not finally decide validity, possession, or the suit.",
+      "jurisdiction": "India; target judgment historical scope only",
+      "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+      "origin": "RESEARCH_TRANSLATION",
+      "source_refs": [
+        "IK-74028:L92",
+        "IK-74028:L94",
+        "IK-74028:L96",
+        "IK-74028:L98",
+        "IK-74028:L99",
+        "IK-74028:L100",
+        "IK-74028:L101"
+      ],
+      "source_quote": "It is elementary that grant of an interlocutory injunction during the pendency of the legal proceeding is a matter requiring the exercise of discretion of the Court. While exercising the discretion the Court normally applies the following tests :-\n> i) whether the plaintiff has a prima facie case;\n> ii) whether the balance of convenience is in favour of the plaintiff; and\n> iii) whether the plaintiff would suffer an irreparable injury if his prayer for interlocutory injunction is disallowed.\nThe decision whether or not to grant an interlocutory injunction has to be taken at a time when the exercise of the legal right asserted by the plaintiff and its alleged violation are both contested and remain uncertain till they are established on evidence at the trial. The relief by way of interlocutory injunction is granted to mitigate the risk of injustice to the plaintiff during the period before which that uncertainty could be resolved.\nThe object of the interlocutory injunction is to protect the plaintiff against injury by violation of his right for which he could not be adequately compensated in damages recoverable in the action if the uncertainty were resolved in his favour at the trial.\nThe need for such protection has, however, to be weighed against the corresponding need of the defendant to be protected against injury resulting from his having been prevented from exercising his own legal rights for which he could not be adequately compensated. The Court must weigh one need against another and determine where the \"balance of convenience\" lies. [See Gujarat Bottling Co. Ltd.& Ors. Vs. Coca Cola Co. & Ors. (1995) 5 SCC 544 at",
+      "operator": "OPEN_TEXT",
+      "slots": [
+        {
+          "name": "record_P4",
+          "predicate": "trial_assessment",
+          "description": "Recorded attributed premise, not independently proved event: The trial court relied on the listed documents and accepted the 22 September takeover account, finding no strong prima facie case.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "record_P5",
+          "predicate": "high_court_assessment",
+          "description": "Recorded attributed premise, not independently proved event: The High Court regarded termination as prima facie illegal and the plaintiff as in possession when suit was filed, granting interim relief.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "record_P6",
+          "predicate": "conceded_structure_change",
+          "description": "Recorded attributed premise, not independently proved event: The target Court recorded the conceded change from proprietary firm to partnership and the contractual revocation clause; its view of entitlement to act was expressly prima facie.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "record_P7",
+          "predicate": "omitted_discretion_factors",
+          "description": "Recorded attributed premise, not independently proved event: The Court criticized failure to address contrary trial reasons and whether damages would adequately compensate refusal of interim relief.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "record_P8",
+          "predicate": "merits_reservation",
+          "description": "Recorded attributed premise, not independently proved event: The Court reserved contract validity for trial and expressly stated its observations would not affect the merits.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "Discretionary interlocutory test, not deterministic merits adjudication.",
+        "Interim relief only; neither a final contractual validity ruling nor final ownership/possession adjudication."
+      ],
+      "burden_policy": "NOT_SEPARATELY_TRANSLATED; do not infer burdens from missing evidence.",
+      "unimplemented": [
+        "Legal interpretation and source acceptance require separate review; no automatic truth from supporting links."
+      ]
+    },
+    {
+      "id": "R2",
+      "version": 2,
+      "description": "The target Court applied the reported discretionary mandatory-injunction guidance and held the High Court's analysis insufficient, particularly on injury not adequately compensable by damages. This is a reconstruction of that interim assessment, not a universal bar on mandatory injunctions or a final damages award.",
+      "conclusion_predicate": "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+      "conclusion_text": "The target Court applied the reported discretionary mandatory-injunction guidance and held the High Court's analysis insufficient, particularly on injury not adequately compensable by damages. This is a reconstruction of that interim assessment, not a universal bar on mandatory injunctions or a final damages award.",
+      "jurisdiction": "India; target judgment historical scope only",
+      "stage": "Supreme Court appeal concerning interlocutory mandatory injunction, merits reserved",
+      "origin": "RESEARCH_TRANSLATION",
+      "source_refs": [
+        "IK-74028:L102",
+        "IK-74028:L103",
+        "IK-74028:L104",
+        "IK-74028:L105",
+        "IK-74028:L107",
+        "IK-74028:L109",
+        "IK-74028:L110",
+        "IK-74028:L111"
+      ],
+      "source_quote": "574.] In cite14†Dorab Cawasji Warden Vs. Coomi Sorab Warden & Ors. , (1990) 2 SCC 117, this Court, discussing the principles to be kept in mind in considering the prayer for interlocutory mandatory injunction observed :\n> \"The relief of interlocutory mandatory injunctions are thus granted generally to preserve or restore the status quo of the last non-contested status which preceded the pending controversy until the final hearing when full relief may be granted or to compel the undoing of those acts that have been illegally done or the restoration of that which was wrongfully taken from the party complaining.\nBut since the granting of such an injunction to a party who fails or would fail to establish his right at the trial may cause great injustice or irreparable harm to the party against whom it was granted or alternatively not granting of it to a party who succeeds or would succeed may equally cause great injustice or irreparable harm, courts have evolved certain guidelines. Generally stated these guidelines are :\n> (1) The plaintiff has a strong case for trial. That is, it shall be of a higher standard than a prima facie case that is normally required for a prohibitory injunction.\n> (2) It is necessary to prevent irreparable or serious injury which normally cannot be compensated in terms of money.\n> (3) The balance of convenience is in favour of the one seeking such relief.\nBeing essentially an equitable relief the grant or refusal of an interlocutory mandatory injunction shall ultimately rest in the sound judicial discretion of the court to be exercised in the light of the facts and circumstances in each case.\nThough the above guidelines are neither exhaustive nor complete or absolute rules, and there may be exceptional circumstances needing action, applying them as a prerequisite for the grant or refusal of such injunctions would be a sound exercise of a judicial discretion.\"",
+      "operator": "OPEN_TEXT",
+      "slots": [
+        {
+          "name": "record_P1",
+          "predicate": "requested_interim_relief",
+          "description": "Recorded attributed premise, not independently proved event: The suit sought interim protection of the petrol pump possession and business; the challenged orders included restoration.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "PROCEDURAL_RECORD"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "record_P7",
+          "predicate": "omitted_discretion_factors",
+          "description": "Recorded attributed premise, not independently proved event: The Court criticized failure to address contrary trial reasons and whether damages would adequately compensate refusal of interim relief.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "record_P8",
+          "predicate": "merits_reservation",
+          "description": "Recorded attributed premise, not independently proved event: The Court reserved contract validity for trial and expressly stated its observations would not affect the merits.",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "TARGET_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        },
+        {
+          "name": "prior_S1",
+          "predicate": "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+          "description": "Earlier attributed conclusion with all its assumptions retained.",
+          "expected": "TRUE",
+          "allowed_statuses": [],
+          "required_roles": [
+            "subject",
+            "opponent",
+            "property"
+          ],
+          "time_required": false
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "Dorab is reported in this judgment, not independently obtained here. Preserve non-exhaustive and non-absolute character.",
+        "Interim relief only; neither a final contractual validity ruling nor final ownership/possession adjudication."
+      ],
+      "burden_policy": "NOT_SEPARATELY_TRANSLATED; do not infer burdens from missing evidence.",
+      "unimplemented": [
+        "Legal interpretation and source acceptance require separate review; no automatic truth from supporting links."
+      ]
+    }
+  ],
+  "raw_fact_proposal": {
+    "entities": [
+      {
+        "id": "E01",
+        "kind": "PERSON",
+        "label": "Shri Sriman Narayan, plaintiff, respondent no.1, and petroleum dealership holder",
+        "refs": [
+          "IK-74028:L70",
+          "IK-74028:L71",
+          "IK-74028:L117"
+        ]
+      },
+      {
+        "id": "E02",
+        "kind": "CORPORATION",
+        "label": "Hindustan Petroleum Corporation Ltd., appellant, first defendant, and dealership grantor",
+        "refs": [
+          "IK-74028:L70",
+          "IK-74028:L74",
+          "IK-74028:L117"
+        ]
+      },
+      {
+        "id": "E03",
+        "kind": "PROPERTY",
+        "label": "Super Service Station petrol pump at Premises No.5-8-699/8, Nampally Station Road, Abids, Hyderabad",
+        "refs": [
+          "IK-74028:L71"
+        ]
+      },
+      {
+        "id": "E04",
+        "kind": "CORPORATION",
+        "label": "Andhra Pradesh State Civil Supplies Corporation, second defendant and alleged recipient of possession",
+        "refs": [
+          "IK-74028:L74",
+          "IK-74028:L75"
+        ]
+      },
+      {
+        "id": "E05",
+        "kind": "PERSON_ROLE",
+        "label": "Manager of the plaintiff, reported recipient of termination notice and signatory on original exhibits",
+        "refs": [
+          "IK-74028:L72",
+          "IK-74028:L73",
+          "IK-74028:L75"
+        ]
+      },
+      {
+        "id": "E06",
+        "kind": "CONTRACT",
+        "label": "Commercial dealership agreement governing sale of the appellant Corporation's petroleum products",
+        "refs": [
+          "IK-74028:L86",
+          "IK-74028:L117",
+          "IK-74028:L118"
+        ]
+      },
+      {
+        "id": "E07",
+        "kind": "TRANSACTION",
+        "label": "Termination notice served on 22 September 2000",
+        "refs": [
+          "IK-74028:L72",
+          "IK-74028:L73",
+          "IK-74028:L74"
+        ]
+      },
+      {
+        "id": "E08",
+        "kind": "DISPUTED_TRANSACTION",
+        "label": "Alleged takeover and handover of petrol pump possession at approximately 3:30 p.m. on 22 September 2000",
+        "refs": [
+          "IK-74028:L73",
+          "IK-74028:L74",
+          "IK-74028:L75",
+          "IK-74028:L122"
+        ]
+      },
+      {
+        "id": "E09",
+        "kind": "ALLEGED_EVENT",
+        "label": "Plaintiff's alleged forcible dispossession between 9:30 and 10:30 a.m. on 29 September 2000",
+        "refs": [
+          "IK-74028:L73"
+        ]
+      },
+      {
+        "id": "E10",
+        "kind": "PROCEEDING",
+        "label": "Suit instituted on 28 September 2000, identified as O.S. No.1139 of 2000",
+        "refs": [
+          "IK-74028:L72",
+          "IK-74028:L126"
+        ]
+      },
+      {
+        "id": "E11",
+        "kind": "PROCEDURAL_APPLICATION",
+        "label": "I.A.1373/2000 for temporary injunction and I.A.1497/2000 for restoration of alleged possession",
+        "refs": [
+          "IK-74028:L80",
+          "IK-74028:L81",
+          "IK-74028:L89"
+        ]
+      },
+      {
+        "id": "E12",
+        "kind": "TRANSACTION",
+        "label": "Conceded change in dealership firm structure from proprietary firm to partnership firm",
+        "refs": [
+          "IK-74028:L117",
+          "IK-74028:L118"
+        ]
+      },
+      {
+        "id": "E13",
+        "kind": "REPORTED_TRANSACTION",
+        "label": "Partnership dissolution-related development effective 1 March 2000 and reportedly communicated on 3 March 2000",
+        "refs": [
+          "IK-74028:L85"
+        ]
+      },
+      {
+        "id": "E14",
+        "kind": "DISPUTED_CONTRACTUAL_ISSUE",
+        "label": "Whether an opportunity to rectify a change in firm structure was contractually required before revocation",
+        "refs": [
+          "IK-74028:L85",
+          "IK-74028:L86",
+          "IK-74028:L87",
+          "IK-74028:L121"
+        ]
+      },
+      {
+        "id": "E15",
+        "kind": "COURT",
+        "label": "Trial Court hearing the plaintiff's interlocutory applications",
+        "refs": [
+          "IK-74028:L72",
+          "IK-74028:L75",
+          "IK-74028:L77",
+          "IK-74028:L80"
+        ]
+      },
+      {
+        "id": "E16",
+        "kind": "COURT",
+        "label": "High Court of Andhra Pradesh exercising interlocutory appellate jurisdiction",
+        "refs": [
+          "IK-74028:L70",
+          "IK-74028:L84",
+          "IK-74028:L89"
+        ]
+      },
+      {
+        "id": "E17",
+        "kind": "COURT",
+        "label": "Supreme Court of India hearing the appeals concerning interlocutory relief",
+        "refs": [
+          "IK-74028:L69",
+          "IK-74028:L70",
+          "IK-74028:L117",
+          "IK-74028:L127"
+        ]
+      }
+    ],
+    "premises": [
+      {
+        "id": "P01",
+        "predicate": "requested_interim_relief",
+        "text": "The plaintiff sought interim protection against interference with possession of the Super Service Station petrol pump and its daily business operations. The interlocutory proceedings also included an application for restoration of alleged possession, thereby placing mandatory interim relief before the courts.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E11"
+          }
+        ],
+        "time_scope": "Interlocutory applications in the suit instituted on 28 September 2000",
+        "statement_status": "PROCEDURAL_RECORD",
+        "speaker": "Supreme Court reporting the procedural history and applications",
+        "court_level": "Supreme Court",
+        "stage": "Interlocutory proceedings and appeal",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L70",
+          "IK-74028:L71",
+          "IK-74028:L80",
+          "IK-74028:L81",
+          "IK-74028:L89"
+        ],
+        "quote": "seeking interim injunction, restraining the defendants from interfering with possession of the petrol pump",
+        "limitations": [
+          "This records the relief requested, not an established entitlement to that relief.",
+          "The protective injunction and restoration application are related but procedurally distinguishable requests.",
+          "The allegation of prior possession does not independently establish physical possession."
+        ]
+      },
+      {
+        "id": "P02",
+        "predicate": "termination_notice_preceded_suit",
+        "text": "The Trial Court recorded that the plaintiff instituted the suit on 28 September 2000, approximately one week after the termination notice had been served on the plaintiff's Manager on 22 September 2000.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E07"
+          }
+        ],
+        "time_scope": "22-28 September 2000",
+        "statement_status": "PROCEDURAL_RECORD",
+        "speaker": "Supreme Court reporting the Trial Court's chronology",
+        "court_level": "Supreme Court reporting Trial Court record",
+        "stage": "Review of the interlocutory record",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L72"
+        ],
+        "quote": "the plaintiff instituted the suit on 28th September, 2000 whereas notice of termination of dealership agreement had been served on the Manager of the petitioner on 22nd September,2000",
+        "limitations": [
+          "The dates establish the reported sequence of notice and institution of suit.",
+          "Service of termination notice does not itself establish when physical possession changed.",
+          "Validity of contractual revocation remained disputed."
+        ]
+      },
+      {
+        "id": "P03",
+        "predicate": "plaintiff_alleged_continued_possession_and_later_dispossession",
+        "text": "The plaintiff asserted that the defendant's attempt to dispossess him following service of the termination notice was unsuccessful, that he continued in possession until 29 September 2000, and that he was forcibly dispossessed between approximately 9:30 and 10:30 a.m. that day.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E09"
+          }
+        ],
+        "time_scope": "22-29 September 2000; alleged dispossession on 29 September 2000 between 9:30 and 10:30 a.m.",
+        "statement_status": "PARTY_CLAIM",
+        "speaker": "Plaintiff Shri Sriman Narayan, as reported in the judgment",
+        "court_level": "Party account considered by Trial Court",
+        "stage": "Interlocutory factual dispute",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L73"
+        ],
+        "quote": "the petitioner continued in possession of the petrol pump till 29th September, 2000 on which date between 9.30 and 10.30 A.M. he was forcibly dispossessed.",
+        "limitations": [
+          "TRUE denotes that the allegation was recorded, not that dispossession on 29 September was proved.",
+          "The account conflicts with the defendant's asserted takeover on 22 September.",
+          "The judgment does not finally authenticate the alleged event."
+        ]
+      },
+      {
+        "id": "P04",
+        "predicate": "defendant_alleged_takeover_and_handover",
+        "text": "The first defendant asserted that, after serving termination notice on the plaintiff's Manager on 22 September 2000, it took over and vacated the petrol pump premises at approximately 3:30 p.m. and handed possession to the Andhra Pradesh State Civil Supplies Corporation.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E08"
+          }
+        ],
+        "time_scope": "22 September 2000, approximately 3:30 p.m.",
+        "statement_status": "PARTY_CLAIM",
+        "speaker": "Hindustan Petroleum Corporation Ltd., as reported in the judgment",
+        "court_level": "Party account considered by Trial Court",
+        "stage": "Interlocutory factual dispute",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L73",
+          "IK-74028:L74",
+          "IK-74028:L75"
+        ],
+        "quote": "possession of the petrol pump was taken over and the premises were got vacated by the defendant;",
+        "limitations": [
+          "TRUE denotes the recorded defendant account, not independent proof of takeover.",
+          "The asserted transfer to the second defendant is part of the same reported 22 September transaction.",
+          "The account is disputed by the plaintiff's assertion of continued possession."
+        ]
+      },
+      {
+        "id": "P05",
+        "predicate": "reported_documentary_support_for_handover",
+        "text": "The Trial Court considered Exhibits B-3 to B-6, B-8 and B-9 as prima facie documentary indications of a 22 September 2000 retail-outlet handover, including an inventory of transferred items. The judgment reports that the plaintiff's Manager signed the originals of Exhibits B-3 to B-6.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E08"
+          }
+        ],
+        "time_scope": "Documents relating to 22 September 2000",
+        "statement_status": "RECORDED_DOCUMENT",
+        "speaker": "Supreme Court reporting documents considered by the Trial Court",
+        "court_level": "Trial Court evidence as recounted by Supreme Court",
+        "stage": "Interlocutory evidentiary assessment",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L74",
+          "IK-74028:L75"
+        ],
+        "quote": "The Manager had affixed his signatures on the originals of Exh.B-3 to B-6.",
+        "limitations": [
+          "The exhibits are described by the judgment and are not independently inspected or authenticated.",
+          "The documentary assessment was expressly prima facie.",
+          "The Manager's signature is not independently verified in the supplied source.",
+          "Documentary support for an alleged handover is distinguishable from final adjudication of possession."
+        ]
+      },
+      {
+        "id": "P06",
+        "predicate": "trial_assessment",
+        "text": "The Trial Court accepted the defendant's account that possession had been taken from the plaintiff through his Manager and handed to the second defendant on 22 September 2000. It found that the plaintiff had failed to establish possession and enjoyment after that date and had not demonstrated a strong prima facie case.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E08"
+          }
+        ],
+        "time_scope": "Trial Court assessment of the alleged 22 September 2000 takeover and subsequent possession",
+        "statement_status": "LOWER_COURT_FINDING",
+        "speaker": "Trial Court, as reported by the Supreme Court",
+        "court_level": "Trial Court",
+        "stage": "Decision on interim injunction and restoration applications",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L74",
+          "IK-74028:L75",
+          "IK-74028:L76"
+        ],
+        "quote": "The Trial Court held that the plaintiff had failed to prove a strong prima facie case in his favour.",
+        "limitations": [
+          "TRUE records the Trial Court's finding, not a final determination of actual possession.",
+          "The finding relied on the documents described in the judgment.",
+          "The High Court reached a contrary interlocutory assessment of possession.",
+          "A failure to prove continued possession at this stage must not be translated into proof that the plaintiff never possessed the premises."
+        ]
+      },
+      {
+        "id": "P07",
+        "predicate": "trial_court_compensability_and_balance_assessment",
+        "text": "The Trial Court found that the plaintiff lacked a prima facie case, that the balance of convenience was not in his favour, and that refusal to restore possession would not cause irreparable loss because compensation could be obtained if his case were proved.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E11"
+          }
+        ],
+        "time_scope": "Trial Court interlocutory determination",
+        "statement_status": "LOWER_COURT_FINDING",
+        "speaker": "Trial Court, quoted by the Supreme Court",
+        "court_level": "Trial Court",
+        "stage": "Assessment of temporary injunction and restoration",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L78",
+          "IK-74028:L80",
+          "IK-74028:L81"
+        ],
+        "quote": "No irreparable loss or injury also caused to the petitioner/plaintiff, even if the possession is not restored, since entitled for the compensation on proof of his case.",
+        "limitations": [
+          "This is the Trial Court's interlocutory assessment of compensability.",
+          "No final damages award or quantified compensation is established.",
+          "The conclusion about compensability depends on the premise that the plaintiff can obtain compensation upon proof of his case.",
+          "The High Court took a contrary view concerning irreparable injury."
+        ]
+      },
+      {
+        "id": "P08",
+        "predicate": "trial_court_licensee_reasoning",
+        "text": "The Trial Court treated the plaintiff as a licensee authorized by the first defendant to sell its petroleum products. On that characterization and the termination notice, it reasoned that injunctive relief should not be ordered against the licensor and refused temporary injunction and restoration.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E06"
+          }
+        ],
+        "time_scope": "Trial Court determination following notice dated 22 September 2000",
+        "statement_status": "LOWER_COURT_FINDING",
+        "speaker": "Trial Court, as reported and quoted by the Supreme Court",
+        "court_level": "Trial Court",
+        "stage": "Interlocutory equitable-relief assessment",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L77",
+          "IK-74028:L81",
+          "IK-74028:L82",
+          "IK-74028:L83"
+        ],
+        "quote": "the plaintiff was only a licensee authorised by the first defendant to sell the petroleum products manufactured by it",
+        "limitations": [
+          "The stated licensee consequences are attributed to the Trial Court.",
+          "They must not be generalized into an unconditional rule barring all injunctions between licensors and licensees.",
+          "The Supreme Court reserved final contractual questions.",
+          "The Trial Court's characterization does not independently settle lawful possession."
+        ]
+      },
+      {
+        "id": "P09",
+        "predicate": "high_court_reported_partnership_dissolution",
+        "text": "The High Court appears to have treated a partnership dissolution-related development effective 1 March 2000, reportedly communicated to the Corporation on 3 March 2000, as relevant to whether the Corporation could invoke the contractual restriction on changes in the firm's structure.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E13"
+          }
+        ],
+        "time_scope": "1-3 March 2000, before the later termination controversy",
+        "statement_status": "LOWER_COURT_FINDING",
+        "speaker": "High Court, as characterized by the Supreme Court",
+        "court_level": "High Court",
+        "stage": "Interlocutory appeal",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L84",
+          "IK-74028:L85"
+        ],
+        "quote": "there was cancellation of the dissolutions of the partnership firm of the plaintiff with effect from 1.3.2000 and that was intimated to the defendant on 3.3.2000.",
+        "limitations": [
+          "The source uses the unusual expression 'cancellation of the dissolutions'; its precise transactional meaning is not clarified.",
+          "The Supreme Court introduces this matter with 'appears to have taken note', limiting certainty about the High Court's reasoning.",
+          "This development must not be merged automatically with the separate conceded change from proprietorship to partnership.",
+          "The supplied record does not establish that any prior contractual violation was conclusively cured."
+        ]
+      },
+      {
+        "id": "P10",
+        "predicate": "high_court_rectification_requirement_assessment",
+        "text": "The High Court construed contractual clauses 44, 45, 55 and 57 as permitting the Corporation to call upon the dealer to rectify a defect before termination and treated the absence of that corrective procedure as significant to the legality of revocation.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E14"
+          }
+        ],
+        "time_scope": "High Court interlocutory review of termination following the September 2000 notice",
+        "statement_status": "LOWER_COURT_FINDING",
+        "speaker": "High Court, as reported by the Supreme Court",
+        "court_level": "High Court",
+        "stage": "Interlocutory appeal",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L85",
+          "IK-74028:L86",
+          "IK-74028:L87"
+        ],
+        "quote": "the Corporation had been vested with the power to call upon the dealer to rectify the mistake",
+        "limitations": [
+          "This records the High Court's contractual interpretation, not a finally established contractual obligation.",
+          "The Supreme Court expressly reserved whether an opportunity to rectify was required.",
+          "The source does not independently establish the complete contractual language beyond the judicial account."
+        ]
+      },
+      {
+        "id": "P11",
+        "predicate": "high_court_prima_facie_termination_assessment",
+        "text": "Because it considered the rectification procedure to have been omitted, the High Court held that termination of the dealership agreement was prima facie illegal.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E14"
+          }
+        ],
+        "time_scope": "High Court interlocutory appeal concerning September 2000 termination",
+        "statement_status": "LOWER_COURT_FINDING",
+        "speaker": "High Court, as reported by the Supreme Court",
+        "court_level": "High Court",
+        "stage": "Prima facie review of termination",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L86",
+          "IK-74028:L87"
+        ],
+        "quote": "the termination of the dealership agreement was prima facie illegal.",
+        "limitations": [
+          "TRUE denotes the attributed prima facie High Court conclusion.",
+          "The finding is not an authoritative final determination that termination was illegal.",
+          "The Supreme Court criticized the extent to which disputed contractual merits had been addressed at the interlocutory stage."
+        ]
+      },
+      {
+        "id": "P12",
+        "predicate": "high_court_possession_at_filing_assessment",
+        "text": "The High Court concluded that the plaintiff was in possession of the petrol pump when the suit was filed. The Supreme Court later described the High Court as having relied on some material indicating that the plaintiff transacted petroleum-product sales on the filing date.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E10"
+          }
+        ],
+        "time_scope": "28 September 2000",
+        "statement_status": "LOWER_COURT_FINDING",
+        "speaker": "High Court, as reported by the Supreme Court",
+        "court_level": "High Court",
+        "stage": "Interlocutory appeal",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L87",
+          "IK-74028:L122",
+          "IK-74028:L123"
+        ],
+        "quote": "on the date of filing of the suit the plaintiff was in possession of the property.",
+        "limitations": [
+          "TRUE denotes the High Court's finding, not an independently established possession fact.",
+          "The Trial Court had reached a contrary assessment after considering the reported handover documents.",
+          "Evidence of conducting business and evidence of physical possession are not automatically interchangeable.",
+          "The Supreme Court did not finally resolve possession."
+        ]
+      },
+      {
+        "id": "P13",
+        "predicate": "high_court_irreparable_injury_assessment",
+        "text": "The High Court considered termination without an opportunity to rectify the alleged defect an extreme step that caused serious prejudice and irreparable injury to the plaintiff.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E14"
+          }
+        ],
+        "time_scope": "High Court interlocutory assessment following termination",
+        "statement_status": "LOWER_COURT_FINDING",
+        "speaker": "High Court, as reported by the Supreme Court",
+        "court_level": "High Court",
+        "stage": "Interlocutory equitable-relief assessment",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L87",
+          "IK-74028:L88"
+        ],
+        "quote": "serious prejudice leading to irreparable injury has been caused to the plaintiff.",
+        "limitations": [
+          "The recorded conclusion is attributed to the High Court.",
+          "The Trial Court took a different position concerning irreparable injury and monetary compensation.",
+          "The Supreme Court criticized the failure to analyze adequately whether damages could compensate the alleged injury.",
+          "A finding of serious prejudice does not independently establish that monetary damages would be inadequate."
+        ]
+      },
+      {
+        "id": "P14",
+        "predicate": "high_court_interim_restoration_order",
+        "text": "The High Court set aside the Trial Court's refusals and allowed the interlocutory applications for temporary protection and restoration as requested, directing that the orders operate pending disposal of the suit.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E11"
+          }
+        ],
+        "time_scope": "High Court interlocutory order pending trial",
+        "statement_status": "PROCEDURAL_RECORD",
+        "speaker": "Supreme Court reporting the High Court's interlocutory order",
+        "court_level": "High Court",
+        "stage": "Interlocutory appeal",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L88",
+          "IK-74028:L89"
+        ],
+        "quote": "the interlocutory applications, in I.A.Nos.1373 and 1497 of 2000, were allowed as prayed for.",
+        "limitations": [
+          "This records the procedural content of the challenged order.",
+          "The existence of the order does not establish the substantive correctness of its underlying findings.",
+          "The order operated pending disposal of the suit rather than finally deciding it.",
+          "It is not used as evidence proving the eventual Supreme Court disposition."
+        ]
+      },
+      {
+        "id": "P15",
+        "predicate": "appellant_challenged_high_court_discretion_analysis",
+        "text": "The appellant argued that the High Court failed to consider the relevant principles governing interim injunctions and neglected the Trial Court's reasons for refusing interlocutory relief.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E11"
+          }
+        ],
+        "time_scope": "Supreme Court interlocutory appeal",
+        "statement_status": "PARTY_CLAIM",
+        "speaker": "Shri M.L. Verma, senior advocate for Hindustan Petroleum Corporation Ltd.",
+        "court_level": "Supreme Court",
+        "stage": "Appellate submissions",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L90"
+        ],
+        "quote": "the High Court has not considered the reasons given by the Trial Court",
+        "limitations": [
+          "TRUE means the argument was presented, not that an advocate's assertion establishes the omission.",
+          "The corresponding criticism must be grounded independently in the Supreme Court's own reasoning.",
+          "The submission concerns interlocutory review rather than final contractual validity."
+        ]
+      },
+      {
+        "id": "P16",
+        "predicate": "respondent_defended_high_court_interim_relief",
+        "text": "The plaintiff's senior counsel maintained that the High Court's injunction rested on relevant considerations and was justified by the case circumstances, and requested that the Supreme Court not interfere.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E11"
+          }
+        ],
+        "time_scope": "Supreme Court interlocutory appeal",
+        "statement_status": "PARTY_CLAIM",
+        "speaker": "Shri R.F. Nariman, senior counsel for respondent no.1",
+        "court_level": "Supreme Court",
+        "stage": "Appellate submissions",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L91"
+        ],
+        "quote": "the High Court rightly granted the prayer for interim injunction.",
+        "limitations": [
+          "This is the respondent's appellate position, not a finding endorsed by the Supreme Court.",
+          "The asserted adequacy of the High Court's reasoning was contested by the appellant.",
+          "The submission does not prove entitlement to mandatory interim relief."
+        ]
+      },
+      {
+        "id": "P17",
+        "predicate": "interlocutory_discretion_guidance",
+        "text": "The Supreme Court described interlocutory injunction as discretionary relief ordinarily assessed through a prima facie case, balance of convenience, and irreparable injury. It emphasized that the parties' substantive rights remain uncertain before trial and that the court must weigh potentially uncompensable injury to both sides.",
+        "bindings": [],
+        "time_scope": null,
+        "statement_status": "LEGAL_RULE",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Statement of interlocutory principles",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L92",
+          "IK-74028:L94",
+          "IK-74028:L96",
+          "IK-74028:L98",
+          "IK-74028:L99",
+          "IK-74028:L100",
+          "IK-74028:L101"
+        ],
+        "quote": "The Court must weigh one need against another and determine where the \"balance of convenience\" lies.",
+        "limitations": [
+          "This is legal guidance reported in the target judgment, not evidence of a target-case event.",
+          "The three inquiries involve discretionary evaluation rather than an automatic mechanical outcome.",
+          "The injury comparison includes the defendant's need for protection.",
+          "The existence of a disputed substantive right does not establish its ultimate validity."
+        ]
+      },
+      {
+        "id": "P18",
+        "predicate": "mandatory_interlocutory_guidance",
+        "text": "The Supreme Court quoted the Dorab Cawasji Warden guidance that interlocutory mandatory injunction ordinarily requires a strong case for trial exceeding the ordinary prima facie threshold, serious or irreparable injury normally not compensable in money, and a favourable balance of convenience. It also recorded that the guidelines are non-exhaustive, non-absolute, and subject to exceptional circumstances and judicial discretion.",
+        "bindings": [],
+        "time_scope": null,
+        "statement_status": "LEGAL_RULE",
+        "speaker": "Supreme Court quoting Dorab Cawasji Warden",
+        "court_level": "Supreme Court",
+        "stage": "Statement of mandatory interlocutory injunction principles",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L102",
+          "IK-74028:L103",
+          "IK-74028:L104",
+          "IK-74028:L105",
+          "IK-74028:L107",
+          "IK-74028:L109",
+          "IK-74028:L110",
+          "IK-74028:L111"
+        ],
+        "quote": "Though the above guidelines are neither exhaustive nor complete or absolute rules, and there may be exceptional circumstances needing action",
+        "limitations": [
+          "The quoted authority is available only as reproduced in the supplied judgment.",
+          "The heightened strong-case guidance concerns interlocutory mandatory relief.",
+          "The guidelines are expressly non-exhaustive and non-absolute.",
+          "This legal-rule premise cannot independently establish that the plaintiff lacked a strong case or suffered compensable injury.",
+          "Exceptional circumstances are acknowledged without being independently established on the supplied facts."
+        ]
+      },
+      {
+        "id": "P19",
+        "predicate": "reported_distributorship_compensation_analogy",
+        "text": "The Supreme Court reproduced reasoning from Indian Oil Corporation Ltd. v. Amritsar Gas Service concerning a different revocable distributorship agreement. In that reported example, compensation corresponding to a contractual notice period was treated as the available relief rather than restoration of distributorship.",
+        "bindings": [],
+        "time_scope": null,
+        "statement_status": "LEGAL_RULE",
+        "speaker": "Supreme Court quoting Indian Oil Corporation Ltd. v. Amritsar Gas Service",
+        "court_level": "Supreme Court",
+        "stage": "Discussion of relief under commercial distributorship contracts",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L112",
+          "IK-74028:L113",
+          "IK-74028:L114",
+          "IK-74028:L115",
+          "IK-74028:L116"
+        ],
+        "quote": "the only relief which could be granted was the award of compensation for the period of notice, that is, 30 days.",
+        "limitations": [
+          "The quoted passage concerns a different distributorship agreement and different contractual clauses.",
+          "The 30-day notice period is not established as a term of the present dealership agreement.",
+          "The precedent's particular remedy cannot be transferred automatically to this plaintiff.",
+          "No damages amount or notice-period compensation was finally awarded in the target interlocutory reasoning.",
+          "The passage supplies reported legal context rather than a target-case fact."
+        ]
+      },
+      {
+        "id": "P20",
+        "predicate": "conceded_structure_change",
+        "text": "The Supreme Court recorded that the petroleum dealership was governed by a commercial agreement prohibiting changes in the structure of the dealer's firm without the Corporation's permission. It recorded as conceded that the plaintiff changed the firm from a proprietary concern to a partnership and noted clause 45's provision for revocation upon violation of an agreement condition.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E12"
+          }
+        ],
+        "time_scope": "Contractual relationship and firm-structure change preceding the disputed revocation",
+        "statement_status": "TARGET_COURT_FINDING",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Prima facie contractual assessment during interlocutory appeal",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L117",
+          "IK-74028:L118"
+        ],
+        "quote": "Concededly the respondent no.1 had changed the structure of the firm from a proprietary firm to a partnership firm.",
+        "limitations": [
+          "The conceded change in structure is distinguished from the separate dissolution-related account attributed to the High Court.",
+          "The source does not separately establish the precise date of the change from proprietorship to partnership.",
+          "A conceded structural change does not by itself finally determine whether prior permission existed, whether any breach persisted, or whether rectification was required.",
+          "The contract's consequences were considered for the limited interlocutory purpose."
+        ]
+      },
+      {
+        "id": "P21",
+        "predicate": "prima_facie_entitlement_to_revoke",
+        "text": "On the contractual structure-change provision and the recorded change in the plaintiff's firm, the Supreme Court considered the Corporation prima facie entitled to take action for revocation. It expressly confined review of revocation validity at this stage to determining the plaintiff's prima facie case.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E06"
+          }
+        ],
+        "time_scope": "Supreme Court interlocutory review of the disputed revocation",
+        "statement_status": "TARGET_COURT_FINDING",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Limited prima facie contractual assessment",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L117",
+          "IK-74028:L118",
+          "IK-74028:L119"
+        ],
+        "quote": "Therefore, prima facie the appellant was entitled to take action for revoking the agreement entered with the respondent no.1.",
+        "limitations": [
+          "TRUE represents the Court's expressly qualified prima facie assessment.",
+          "Entitlement to take action prima facie is not a final finding that revocation was valid.",
+          "The possible obligation to permit rectification remained unresolved.",
+          "The finding does not adjudicate possession or create a final merits determination."
+        ]
+      },
+      {
+        "id": "P22",
+        "predicate": "high_court_interlocutory_merits_overreach",
+        "text": "The Supreme Court criticized the High Court's approach as resembling a decision of the suit itself. It regarded detailed determination of contractual revocation and the possible obligation to allow rectification as inappropriate for deciding the interlocutory application.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E14"
+          }
+        ],
+        "time_scope": "Supreme Court examination of the High Court's interlocutory reasoning",
+        "statement_status": "TARGET_COURT_FINDING",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Appellate review of interlocutory reasoning",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L119",
+          "IK-74028:L120",
+          "IK-74028:L121",
+          "IK-74028:L122"
+        ],
+        "quote": "the High Court has dealt with the matter as if it was deciding the suit.",
+        "limitations": [
+          "The criticism addresses the scope and method of interlocutory review.",
+          "It does not establish that the High Court's contract interpretation was necessarily wrong on final merits.",
+          "The Supreme Court's own contractual conclusion was expressly prima facie.",
+          "Detailed merits questions were reserved for trial."
+        ]
+      },
+      {
+        "id": "P23",
+        "predicate": "contractual_rectification_issue_reserved",
+        "text": "The Supreme Court identified as unresolved for trial whether a structural change without prior permission, if it violated the agreement, nevertheless required the Corporation to provide an opportunity to rectify and whether revocation without that opportunity would be invalid.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E14"
+          }
+        ],
+        "time_scope": "Reserved for hearing of the suit",
+        "statement_status": "TARGET_COURT_FINDING",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Reservation of substantive contractual questions",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L119",
+          "IK-74028:L121",
+          "IK-74028:L122"
+        ],
+        "quote": "are matters which are to be considered when the suit is taken up for hearing.",
+        "limitations": [
+          "The Court formulated the contractual violation conditionally and did not finally resolve it.",
+          "Whether rectification was required remains open.",
+          "Whether the revocation order was invalid remains open.",
+          "The finding is that these issues are reserved, not that either party's interpretation is established."
+        ]
+      },
+      {
+        "id": "P24",
+        "predicate": "possession_dispute_and_unaddressed_trial_reasons",
+        "text": "The Supreme Court recorded a serious dispute over whether the Corporation had already taken possession following service of the revocation notice and transferred it to the second defendant. It criticized the High Court for relying on indications of the plaintiff's business activity on the suit-filing date without considering the Trial Court's contrary documentary assessment and reasons.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E08"
+          }
+        ],
+        "time_scope": "Disputed possession following 22 September 2000 and at suit filing on 28 September 2000",
+        "statement_status": "TARGET_COURT_FINDING",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Appellate review of status quo assessment",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L122",
+          "IK-74028:L123"
+        ],
+        "quote": "This finding has been arrived at by the High Court without considering the reasons given by the Trial Court which had recorded a finding to the contrary in its order.",
+        "limitations": [
+          "TRUE records the Supreme Court's finding of serious dispute and methodological omission.",
+          "The Court did not conclusively determine actual possession on 22, 28, or 29 September.",
+          "The High Court's evidence of business transactions must not be automatically equated with undisputed possession.",
+          "The plaintiff's later-dispossession allegation and defendant's earlier-takeover account remain distinct competing accounts.",
+          "The omission of contrary reasons does not independently prove the defendant's possession account."
+        ]
+      },
+      {
+        "id": "P25",
+        "predicate": "omitted_discretion_factors",
+        "text": "The Supreme Court found that the High Court failed to discuss the considerations and reasons underlying the Trial Court's refusal of interim mandatory relief. It particularly failed to examine whether refusal would cause the plaintiff irreparable loss incapable of adequate compensation through damages.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E11"
+          }
+        ],
+        "time_scope": "Supreme Court review of the High Court's interim mandatory injunction analysis",
+        "statement_status": "TARGET_COURT_FINDING",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Review of discretionary interlocutory relief",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L123",
+          "IK-74028:L124"
+        ],
+        "quote": "Most importantly, the High Court has not considered the question whether on the facts and circumstances of the case, if the prayer for interim injunction is refused the plaintiff/petitioner will suffer irreparable loss which cannot be adequately compensated by damages.",
+        "limitations": [
+          "The finding concerns insufficiency of the High Court's analysis.",
+          "It does not establish that the plaintiff actually suffered no harm.",
+          "Failure to analyze compensability is not identical to a final finding that damages would necessarily suffice.",
+          "The criticism concerns interim mandatory relief, not a final damages adjudication.",
+          "The conclusion about the High Court's omission is independently supported by the target Court's reasoning, rather than solely by the appellant's submission."
+        ]
+      },
+      {
+        "id": "P26",
+        "predicate": "target_court_ordinary_damages_guidance",
+        "text": "In applying the reported mandatory-injunction authorities, the Supreme Court emphasized the ordinary preference for damages rather than interlocutory mandatory injunction in such a matter. The statement was made in the context of the disputed commercial dealership and the Court's criticism of the inadequate compensability analysis.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E11"
+          }
+        ],
+        "time_scope": "Supreme Court interlocutory assessment",
+        "statement_status": "TARGET_COURT_FINDING",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Application of discretionary mandatory-injunction guidance",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L112",
+          "IK-74028:L115",
+          "IK-74028:L116",
+          "IK-74028:L124",
+          "IK-74028:L125"
+        ],
+        "quote": "ordinarily the relief to be granted to a plaintiff in such a matter is awarding of damages and interim injunction of a mandatory nature is not to be granted.",
+        "limitations": [
+          "The operative qualification 'ordinarily' must be retained.",
+          "This reasoning does not impose a categorical bar on mandatory interim injunctions.",
+          "The separately quoted mandatory-injunction guidelines recognize exceptional circumstances.",
+          "The Court did not finally award damages, determine their amount, or establish that every claimed loss was compensable.",
+          "The cited commercial distributorship example must not be treated as involving identical contractual terms."
+        ]
+      },
+      {
+        "id": "P27",
+        "predicate": "merits_reservation",
+        "text": "The Supreme Court expressly preserved the merits of the underlying case, stating that the observations made in its interlocutory judgment would not affect them. Together with the preceding explanation that revocation validity was being assessed only prima facie, this reserves final contractual and possession-related adjudication for the suit.",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E01"
+          },
+          {
+            "role": "opponent",
+            "entity": "E02"
+          },
+          {
+            "role": "property",
+            "entity": "E03"
+          },
+          {
+            "role": "transaction",
+            "entity": "E10"
+          }
+        ],
+        "time_scope": "Supreme Court judgment concerning interlocutory relief; underlying suit merits reserved",
+        "statement_status": "TARGET_COURT_FINDING",
+        "speaker": "Supreme Court",
+        "court_level": "Supreme Court",
+        "stage": "Express limitation of interlocutory observations",
+        "state": "TRUE",
+        "refs": [
+          "IK-74028:L119",
+          "IK-74028:L121",
+          "IK-74028:L122",
+          "IK-74028:L127"
+        ],
+        "quote": "the observations made in this judgment will not in any way affect the merit of the case.",
+        "limitations": [
+          "The reservation is expressly stated by the target Court.",
+          "The observations do not finally validate or invalidate the contractual revocation.",
+          "The observations do not conclusively determine possession or entitlement to final relief.",
+          "This premise is grounded in the Court's express qualification, not inferred from the final appellate disposition.",
+          "No subsequent trial findings or final merits outcome are supplied."
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "from": "P02",
+        "to": "P04",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L72",
+          "IK-74028:L73",
+          "IK-74028:L74"
+        ],
+        "reason": "The reported service of termination notice on 22 September is chronologically consistent with the defendant's asserted takeover that afternoon, although notice alone does not prove takeover."
+      },
+      {
+        "from": "P03",
+        "to": "P04",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L73",
+          "IK-74028:L74"
+        ],
+        "reason": "The plaintiff's assertion of continued possession until 29 September conflicts with the defendant's claim that possession was taken and transferred on 22 September."
+      },
+      {
+        "from": "P05",
+        "to": "P04",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L74",
+          "IK-74028:L75"
+        ],
+        "reason": "The documents and reported Manager signatures were treated by the Trial Court as prima facie corroboration of the defendant's single asserted 22 September handover transaction."
+      },
+      {
+        "from": "P05",
+        "to": "P06",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L74",
+          "IK-74028:L75",
+          "IK-74028:L76"
+        ],
+        "reason": "The documentary materials supplied part of the stated evidentiary basis for the Trial Court's acceptance of the takeover account and rejection of the plaintiff's asserted continuing possession."
+      },
+      {
+        "from": "P04",
+        "to": "P06",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L74",
+          "IK-74028:L75"
+        ],
+        "reason": "The Trial Court accepted the defendant's pleaded account of takeover and handover; acceptance at this stage remains an attributed lower-court finding."
+      },
+      {
+        "from": "P03",
+        "to": "P06",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L73",
+          "IK-74028:L75",
+          "IK-74028:L76"
+        ],
+        "reason": "The plaintiff's account of continuing possession is inconsistent with the Trial Court's assessment accepting transfer of possession on 22 September."
+      },
+      {
+        "from": "P06",
+        "to": "P12",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L75",
+          "IK-74028:L76",
+          "IK-74028:L87",
+          "IK-74028:L123"
+        ],
+        "reason": "The Trial Court's assessment that continued possession after 22 September was not established conflicts with the High Court's finding of plaintiff possession at suit filing."
+      },
+      {
+        "from": "P09",
+        "to": "P10",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L85",
+          "IK-74028:L86"
+        ],
+        "reason": "The High Court's reported treatment of the earlier dissolution-related development formed part of its contractual analysis questioning reliance on the firm-structure restriction."
+      },
+      {
+        "from": "P09",
+        "to": "P20",
+        "sign": "UNRESOLVED",
+        "refs": [
+          "IK-74028:L85",
+          "IK-74028:L118",
+          "IK-74028:L121"
+        ],
+        "reason": "The High Court's dissolution-related account and the Supreme Court's conceded formation-of-partnership premise concern distinguishable developments. Their exact chronological and contractual relationship is not fully established by the supplied text."
+      },
+      {
+        "from": "P10",
+        "to": "P11",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L86",
+          "IK-74028:L87"
+        ],
+        "reason": "The High Court relied on its understanding of the rectification procedure and its omission when making the prima facie illegality finding."
+      },
+      {
+        "from": "P11",
+        "to": "P14",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L87",
+          "IK-74028:L88",
+          "IK-74028:L89"
+        ],
+        "reason": "The High Court's prima facie termination assessment was one of the expressed grounds for granting interlocutory relief."
+      },
+      {
+        "from": "P12",
+        "to": "P14",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L87",
+          "IK-74028:L88",
+          "IK-74028:L89"
+        ],
+        "reason": "The High Court's finding of possession when the suit was filed supported its decision to allow the applications, including restoration."
+      },
+      {
+        "from": "P13",
+        "to": "P14",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L88",
+          "IK-74028:L89"
+        ],
+        "reason": "The High Court's irreparable-injury assessment was another articulated ground for interlocutory protection and restoration."
+      },
+      {
+        "from": "P07",
+        "to": "P13",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L80",
+          "IK-74028:L88"
+        ],
+        "reason": "The Trial Court viewed the alleged injury as compensable upon proof, while the High Court regarded the termination circumstances as causing irreparable injury."
+      },
+      {
+        "from": "P07",
+        "to": "P25",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L80",
+          "IK-74028:L124"
+        ],
+        "reason": "The Trial Court's express assessment of compensability demonstrates the importance of addressing that issue when reviewing its refusal, consistent with the Supreme Court's criticism of the High Court's omission."
+      },
+      {
+        "from": "P15",
+        "to": "P25",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L90",
+          "IK-74028:L123",
+          "IK-74028:L124"
+        ],
+        "reason": "The appellant's submission identified omitted trial-court reasons and injunction criteria; the Supreme Court separately articulated its own finding concerning those omissions."
+      },
+      {
+        "from": "P16",
+        "to": "P15",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L90",
+          "IK-74028:L91"
+        ],
+        "reason": "The respondent maintained that the High Court relied on relevant considerations, directly contesting the appellant's allegation of deficient interlocutory analysis."
+      },
+      {
+        "from": "P16",
+        "to": "P25",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L91",
+          "IK-74028:L124"
+        ],
+        "reason": "The respondent's claim that the High Court considered relevant factors conflicts with the Supreme Court's finding that essential trial-court reasoning and the damages inquiry were not adequately considered."
+      },
+      {
+        "from": "P17",
+        "to": "P25",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L92",
+          "IK-74028:L98",
+          "IK-74028:L99",
+          "IK-74028:L100",
+          "IK-74028:L101",
+          "IK-74028:L124"
+        ],
+        "reason": "The Court's discretionary framework identifies irreparable injury, compensability, and competing interests as relevant inquiries, supplying the legal context for criticizing their inadequate treatment."
+      },
+      {
+        "from": "P18",
+        "to": "P25",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L103",
+          "IK-74028:L105",
+          "IK-74028:L107",
+          "IK-74028:L109",
+          "IK-74028:L124"
+        ],
+        "reason": "The reported mandatory-injunction guidelines emphasize a strong case and serious injury ordinarily not compensable in money, explaining why the omitted analysis mattered for restoration relief."
+      },
+      {
+        "from": "P18",
+        "to": "P26",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L104",
+          "IK-74028:L107",
+          "IK-74028:L110",
+          "IK-74028:L111",
+          "IK-74028:L125"
+        ],
+        "reason": "The non-absolute mandatory-injunction guidance contextualizes the Court's qualified ordinary-damages statement without converting it into a categorical prohibition."
+      },
+      {
+        "from": "P19",
+        "to": "P26",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L112",
+          "IK-74028:L115",
+          "IK-74028:L116",
+          "IK-74028:L125"
+        ],
+        "reason": "The quoted distributorship decision supplies an example of monetary compensation instead of contractual restoration, but its distinct contractual facts limit the analogy."
+      },
+      {
+        "from": "P20",
+        "to": "P21",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L117",
+          "IK-74028:L118",
+          "IK-74028:L119"
+        ],
+        "reason": "The conceded structural change and the contractual prohibition on changes without permission supplied the stated basis for the Supreme Court's limited prima facie view of entitlement to revoke."
+      },
+      {
+        "from": "P21",
+        "to": "P11",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L87",
+          "IK-74028:L118",
+          "IK-74028:L119"
+        ],
+        "reason": "The Supreme Court's preliminary view that the Corporation could take revocation action points against the High Court's preliminary illegality assessment, without finally resolving the contractual dispute."
+      },
+      {
+        "from": "P21",
+        "to": "P22",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L119",
+          "IK-74028:L120"
+        ],
+        "reason": "The Supreme Court immediately limited its prima facie contractual assessment and criticized the High Court for treating the interlocutory appeal like the suit itself."
+      },
+      {
+        "from": "P23",
+        "to": "P10",
+        "sign": "UNRESOLVED",
+        "refs": [
+          "IK-74028:L86",
+          "IK-74028:L87",
+          "IK-74028:L121",
+          "IK-74028:L122"
+        ],
+        "reason": "The High Court's rectification interpretation remained a live question rather than a proposition finally affirmed or rejected by the Supreme Court."
+      },
+      {
+        "from": "P23",
+        "to": "P22",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L120",
+          "IK-74028:L121",
+          "IK-74028:L122"
+        ],
+        "reason": "The explicit reservation of the rectification and revocation questions supports the Supreme Court's criticism of merits-like interlocutory determination."
+      },
+      {
+        "from": "P06",
+        "to": "P24",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L75",
+          "IK-74028:L76",
+          "IK-74028:L122",
+          "IK-74028:L123"
+        ],
+        "reason": "The Trial Court's contrary assessment supplies the reasoning that the Supreme Court said the High Court failed to address when evaluating disputed possession."
+      },
+      {
+        "from": "P12",
+        "to": "P24",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L87",
+          "IK-74028:L122",
+          "IK-74028:L123"
+        ],
+        "reason": "The High Court's affirmative possession finding stands against the Supreme Court's insistence that serious factual disagreement and the contrary trial reasons had not been adequately confronted."
+      },
+      {
+        "from": "P24",
+        "to": "P25",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L123",
+          "IK-74028:L124"
+        ],
+        "reason": "The specific omission concerning the Trial Court's possession findings forms part of the broader identified deficiency in the High Court's interlocutory analysis."
+      },
+      {
+        "from": "P13",
+        "to": "P25",
+        "sign": "OPPOSE",
+        "refs": [
+          "IK-74028:L88",
+          "IK-74028:L124"
+        ],
+        "reason": "Although the High Court stated that irreparable injury resulted, the Supreme Court found that the necessary inquiry into whether damages would adequately compensate the plaintiff remained unaddressed. The conflict concerns analytical sufficiency, not a final determination that no injury existed."
+      },
+      {
+        "from": "P07",
+        "to": "P26",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L80",
+          "IK-74028:L124",
+          "IK-74028:L125"
+        ],
+        "reason": "The Trial Court's compensability rationale is consistent with the Supreme Court's emphasis on ordinary monetary remedies, although neither supplies a final damages award."
+      },
+      {
+        "from": "P22",
+        "to": "P27",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L119",
+          "IK-74028:L120",
+          "IK-74028:L121",
+          "IK-74028:L127"
+        ],
+        "reason": "The criticism of merits-like interlocutory adjudication is consistent with the Supreme Court's express preservation of the underlying suit's merits."
+      },
+      {
+        "from": "P23",
+        "to": "P27",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L121",
+          "IK-74028:L122",
+          "IK-74028:L127"
+        ],
+        "reason": "The identified unresolved contractual questions exemplify the matters preserved by the express merits reservation."
+      },
+      {
+        "from": "P21",
+        "to": "P27",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L119",
+          "IK-74028:L127"
+        ],
+        "reason": "The express limitation of the revocation assessment to prima facie purposes is compatible with, and reinforces, the final express statement that the merits remain unaffected."
+      },
+      {
+        "from": "P24",
+        "to": "P27",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L122",
+          "IK-74028:L123",
+          "IK-74028:L127"
+        ],
+        "reason": "The Supreme Court's identification of unresolved possession-related disagreement is consistent with preserving final adjudication in the suit."
+      },
+      {
+        "from": "P25",
+        "to": "P27",
+        "sign": "SUPPORT",
+        "refs": [
+          "IK-74028:L124",
+          "IK-74028:L127"
+        ],
+        "reason": "The identified procedural and discretionary inadequacy permits interlocutory review without itself determining the substantive contractual or possession questions."
+      }
+    ],
+    "coverage_limits": [
+      "The reconstruction is confined to case 74028, the supplied judgment passages IK-74028:L65-L127, and the supplied R1 and R2 research-translation registry. No external authority, additional evidence, or later procedural history is incorporated.",
+      "The output records attributed propositions and their supporting or opposing relationships. A TRUE state attached to PARTY_CLAIM, LOWER_COURT_FINDING, RECORDED_DOCUMENT, or TARGET_COURT_FINDING means the specified assertion, finding, or reporting is supported by the supplied source; it does not automatically prove the underlying contested event.",
+      "The source's distinction between the Trial Court, High Court, Supreme Court, party submissions, reported documents, and quoted legal guidance is preserved. Contrary lower-court findings and party positions are not silently converted into Supreme Court findings.",
+      "The reported exhibits B-3 to B-6, B-8 and B-9, the Manager's signatures, and any inventory of transferred property have not been independently inspected or authenticated. Their evidentiary significance is recorded only as described in the judgment.",
+      "The defendant's alleged possession takeover and handover on 22 September 2000 is represented as one disputed transaction, not duplicated because the defendant, Trial Court, and Supreme Court discuss it. The plaintiff's alleged forcible dispossession on 29 September is preserved as a distinct competing account.",
+      "The plaintiff's alleged possession on 28 September 2000, the defendant's alleged earlier takeover, and the High Court's reliance on evidence of business transactions remain contested. No definitive physical-possession chronology, final entitlement to possession, or verified status quo is supplied.",
+      "The conceded change from a proprietary firm to a partnership firm is distinct from the High Court's reported March 2000 dissolution-related development. The source does not establish their complete relationship, the precise date of the former change, or a definitive resolution of any associated contractual breach.",
+      "The Court's prima facie view that the Corporation was entitled to take revocation action does not finally determine whether prior permission was absent, whether a contractual breach persisted, whether rectification was required, or whether revocation was legally valid.",
+      "The High Court's prima facie illegality, possession, and irreparable-injury assessments and the Trial Court's contrary assessments are preserved with their respective attribution. A methodological criticism of either court does not independently establish the opposite underlying factual proposition.",
+      "The supplied guidance concerning interlocutory prohibitory and mandatory injunctions concerns discretionary interim relief. The mandatory-injunction guidelines are expressly non-exhaustive, non-absolute, and compatible with exceptional circumstances. No deterministic rule or universal prohibition is inferred.",
+      "The commercial distributorship precedent reproduced in the judgment concerns separate contractual provisions and a distinct notice-period compensation outcome. Its 30-day term and remedy are not imported into the present dealership dispute.",
+      "The Supreme Court identified failure to consider relevant trial-court reasons and adequate monetary compensation as defects in the High Court's interlocutory analysis. This does not amount to a final finding that the plaintiff suffered no injury, that damages necessarily provide complete compensation, or that any particular amount is due.",
+      "The source expressly preserves the underlying suit's merits. Neither final contractual validity nor final possession nor entitlement to ultimate relief is determined in this reconstruction. The final appellate disposition at IK-74028:L126 is not used as a premise proving itself.",
+      "The research registry contains open-text rules and no separately translated burden-of-proof specification. No evidentiary burden, automatic adverse inference, or executable Boolean merits test has been added from missing evidence.",
+      "This is a model-generated source-grounded reconstruction of premises and relationships. It is not human gold annotation, independent factual verification, judicial approval, or legal approval."
+    ]
+  },
+  "candidates": [
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P20"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L127",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L86",
+        "IK-74028:L87"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-fd967fe3da187fc1"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P20"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L86",
+        "IK-74028:L87"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-35907d7d86f690dc"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P20"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L127",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L86",
+        "IK-74028:L87",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-e494e9ca928094a2"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P20"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L86",
+        "IK-74028:L87",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-d8ce587c162d19cd"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P21"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L127",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L86",
+        "IK-74028:L87"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-5171784b61c7cef3"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P21"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L119",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L86",
+        "IK-74028:L87"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-70f7b7c965277426"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P21"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L127",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L86",
+        "IK-74028:L87",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-60b4a7fca27aecb4"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P11"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P21"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L119",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L86",
+        "IK-74028:L87",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-60d857e8e1c5142d"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P13"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P20"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L127",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L87",
+        "IK-74028:L88"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-2a426addce3427e0"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P13"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P20"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L87",
+        "IK-74028:L88"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-0467cc5bbc64b4a6"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P13"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P20"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L127",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L87",
+        "IK-74028:L88",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-84c2b35b5e776cdf"
+    },
+    {
+      "rule_ref": "R1@2",
+      "inputs": [
+        {
+          "slot": "record_P4",
+          "kind": "PREMISE",
+          "id": "P06"
+        },
+        {
+          "slot": "record_P5",
+          "kind": "PREMISE",
+          "id": "P13"
+        },
+        {
+          "slot": "record_P6",
+          "kind": "PREMISE",
+          "id": "P20"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E08"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L117",
+        "IK-74028:L118",
+        "IK-74028:L74",
+        "IK-74028:L75",
+        "IK-74028:L76",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L87",
+        "IK-74028:L88",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-3e023a643dfc8439"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R1@2"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L127",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L89"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-ff8d01cbebcf0cf5"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L127",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L89"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-50a29db6d685a764"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "PREMISE",
+          "id": "P12"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L127",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L87",
+        "IK-74028:L89"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-4b2bccc1406100ce"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R1@2"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L89"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-990e76dbaf25dabf"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L127",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L89"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-2258ca3d5ab4fa2d"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P25"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "PREMISE",
+          "id": "P12"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L124",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L87",
+        "IK-74028:L89"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-184045d6ee01d06a"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R1@2"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L127",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L89",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-2b267accb88d239e"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L127",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L89",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-973fd610d7985834"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P27"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "PREMISE",
+          "id": "P12"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L127",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L87",
+        "IK-74028:L89",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-a4ae1550651f14ec"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "RULE_DEPENDENCY",
+          "id": "R1@2"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L89",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-ca397ff820a18344"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "PREMISE",
+          "id": "P27"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L119",
+        "IK-74028:L121",
+        "IK-74028:L122",
+        "IK-74028:L127",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L89",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-99316375273ac2ce"
+    },
+    {
+      "rule_ref": "R2@2",
+      "inputs": [
+        {
+          "slot": "record_P1",
+          "kind": "PREMISE",
+          "id": "P01"
+        },
+        {
+          "slot": "record_P7",
+          "kind": "PREMISE",
+          "id": "P15"
+        },
+        {
+          "slot": "record_P8",
+          "kind": "PREMISE",
+          "id": "P07"
+        },
+        {
+          "slot": "prior_S1",
+          "kind": "PREMISE",
+          "id": "P12"
+        }
+      ],
+      "bindings": [
+        {
+          "role": "opponent",
+          "entity": "E02"
+        },
+        {
+          "role": "property",
+          "entity": "E03"
+        },
+        {
+          "role": "subject",
+          "entity": "E01"
+        },
+        {
+          "role": "transaction",
+          "entity": "E11"
+        }
+      ],
+      "time_scope": null,
+      "proposed_use": "INPUTS_FOR_RULE_APPLICATION",
+      "refs": [
+        "IK-74028:L122",
+        "IK-74028:L123",
+        "IK-74028:L70",
+        "IK-74028:L71",
+        "IK-74028:L78",
+        "IK-74028:L80",
+        "IK-74028:L81",
+        "IK-74028:L87",
+        "IK-74028:L89",
+        "IK-74028:L90"
+      ],
+      "origin": "DETERMINISTIC_SLOT_ENUMERATION_NOT_LEGAL_FINDING",
+      "id": "APP-8ffc8acc2ecfb5ce"
+    }
+  ],
+  "predicate_mapping_candidates": [
+    {
+      "premise": "P01",
+      "declared_predicate": "requested_interim_relief",
+      "candidates": [
+        "requested_interim_relief",
+        "high_court_assessment",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "omitted_discretion_factors",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT"
+      ]
+    },
+    {
+      "premise": "P02",
+      "declared_predicate": "termination_notice_preceded_suit",
+      "candidates": [
+        "high_court_assessment",
+        "trial_assessment",
+        "requested_interim_relief",
+        "omitted_discretion_factors",
+        "conceded_structure_change"
+      ]
+    },
+    {
+      "premise": "P03",
+      "declared_predicate": "plaintiff_alleged_continued_possession_and_later_dispossession",
+      "candidates": [
+        "high_court_assessment",
+        "omitted_discretion_factors",
+        "requested_interim_relief",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "trial_assessment"
+      ]
+    },
+    {
+      "premise": "P04",
+      "declared_predicate": "defendant_alleged_takeover_and_handover",
+      "candidates": [
+        "requested_interim_relief",
+        "high_court_assessment",
+        "trial_assessment",
+        "conceded_structure_change",
+        "omitted_discretion_factors"
+      ]
+    },
+    {
+      "premise": "P05",
+      "declared_predicate": "reported_documentary_support_for_handover",
+      "candidates": [
+        "trial_assessment",
+        "conceded_structure_change",
+        "requested_interim_relief",
+        "high_court_assessment",
+        "merits_reservation"
+      ]
+    },
+    {
+      "premise": "P06",
+      "declared_predicate": "trial_assessment",
+      "candidates": [
+        "trial_assessment",
+        "high_court_assessment",
+        "omitted_discretion_factors",
+        "conceded_structure_change",
+        "requested_interim_relief"
+      ]
+    },
+    {
+      "premise": "P07",
+      "declared_predicate": "trial_court_compensability_and_balance_assessment",
+      "candidates": [
+        "omitted_discretion_factors",
+        "high_court_assessment",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "requested_interim_relief"
+      ]
+    },
+    {
+      "premise": "P08",
+      "declared_predicate": "trial_court_licensee_reasoning",
+      "candidates": [
+        "requested_interim_relief",
+        "high_court_assessment",
+        "merits_reservation",
+        "omitted_discretion_factors",
+        "conceded_structure_change"
+      ]
+    },
+    {
+      "premise": "P09",
+      "declared_predicate": "high_court_reported_partnership_dissolution",
+      "candidates": [
+        "conceded_structure_change",
+        "high_court_assessment",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "trial_assessment",
+        "merits_reservation"
+      ]
+    },
+    {
+      "premise": "P10",
+      "declared_predicate": "high_court_rectification_requirement_assessment",
+      "candidates": [
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "high_court_assessment",
+        "conceded_structure_change",
+        "omitted_discretion_factors",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT"
+      ]
+    },
+    {
+      "premise": "P11",
+      "declared_predicate": "high_court_prima_facie_termination_assessment",
+      "candidates": [
+        "high_court_assessment",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "conceded_structure_change",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "requested_interim_relief"
+      ]
+    },
+    {
+      "premise": "P12",
+      "declared_predicate": "high_court_possession_at_filing_assessment",
+      "candidates": [
+        "requested_interim_relief",
+        "high_court_assessment",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "trial_assessment",
+        "conceded_structure_change"
+      ]
+    },
+    {
+      "premise": "P13",
+      "declared_predicate": "high_court_irreparable_injury_assessment",
+      "candidates": [
+        "high_court_assessment",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "omitted_discretion_factors",
+        "conceded_structure_change"
+      ]
+    },
+    {
+      "premise": "P14",
+      "declared_predicate": "high_court_interim_restoration_order",
+      "candidates": [
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "high_court_assessment",
+        "requested_interim_relief",
+        "trial_assessment",
+        "omitted_discretion_factors"
+      ]
+    },
+    {
+      "premise": "P15",
+      "declared_predicate": "appellant_challenged_high_court_discretion_analysis",
+      "candidates": [
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "omitted_discretion_factors",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "high_court_assessment",
+        "requested_interim_relief"
+      ]
+    },
+    {
+      "premise": "P16",
+      "declared_predicate": "respondent_defended_high_court_interim_relief",
+      "candidates": [
+        "high_court_assessment",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "merits_reservation",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "requested_interim_relief"
+      ]
+    },
+    {
+      "premise": "P17",
+      "declared_predicate": "interlocutory_discretion_guidance",
+      "candidates": [
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "high_court_assessment",
+        "omitted_discretion_factors",
+        "conceded_structure_change"
+      ]
+    },
+    {
+      "premise": "P18",
+      "declared_predicate": "mandatory_interlocutory_guidance",
+      "candidates": [
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "high_court_assessment",
+        "merits_reservation",
+        "trial_assessment",
+        "conceded_structure_change"
+      ]
+    },
+    {
+      "premise": "P19",
+      "declared_predicate": "reported_distributorship_compensation_analogy",
+      "candidates": [
+        "requested_interim_relief",
+        "conceded_structure_change",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "omitted_discretion_factors",
+        "high_court_assessment"
+      ]
+    },
+    {
+      "premise": "P20",
+      "declared_predicate": "conceded_structure_change",
+      "candidates": [
+        "conceded_structure_change",
+        "requested_interim_relief",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "high_court_assessment",
+        "merits_reservation"
+      ]
+    },
+    {
+      "premise": "P21",
+      "declared_predicate": "prima_facie_entitlement_to_revoke",
+      "candidates": [
+        "conceded_structure_change",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "high_court_assessment",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "requested_interim_relief"
+      ]
+    },
+    {
+      "premise": "P22",
+      "declared_predicate": "high_court_interlocutory_merits_overreach",
+      "candidates": [
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "high_court_assessment",
+        "conceded_structure_change",
+        "omitted_discretion_factors"
+      ]
+    },
+    {
+      "premise": "P23",
+      "declared_predicate": "contractual_rectification_issue_reserved",
+      "candidates": [
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "omitted_discretion_factors",
+        "conceded_structure_change",
+        "requested_interim_relief",
+        "high_court_assessment"
+      ]
+    },
+    {
+      "premise": "P24",
+      "declared_predicate": "possession_dispute_and_unaddressed_trial_reasons",
+      "candidates": [
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "high_court_assessment",
+        "conceded_structure_change",
+        "omitted_discretion_factors",
+        "requested_interim_relief"
+      ]
+    },
+    {
+      "premise": "P25",
+      "declared_predicate": "omitted_discretion_factors",
+      "candidates": [
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "omitted_discretion_factors",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "high_court_assessment",
+        "requested_interim_relief"
+      ]
+    },
+    {
+      "premise": "P26",
+      "declared_predicate": "target_court_ordinary_damages_guidance",
+      "candidates": [
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "MANDATORY_INTERIM_RELIEF_ANALYSIS_INSUFFICIENT",
+        "omitted_discretion_factors",
+        "requested_interim_relief",
+        "high_court_assessment"
+      ]
+    },
+    {
+      "premise": "P27",
+      "declared_predicate": "merits_reservation",
+      "candidates": [
+        "merits_reservation",
+        "conceded_structure_change",
+        "INTERLOCUTORY_EVALUATION_NOT_FINAL_MERITS",
+        "high_court_assessment",
+        "requested_interim_relief"
+      ]
+    }
+  ]
+}
+COMPLETE ALLOWED SOURCE (document role is supplied, not to be guessed):
+[IK-74028:L65] [TARGET / JUDGMENT_TEXT]     JUDGMENT:
+[IK-74028:L66] [TARGET / JUDGMENT_TEXT] 
+[IK-74028:L67] [TARGET / JUDGMENT_TEXT] D.P.MOHAPATRA,J.
+[IK-74028:L68] [TARGET / JUDGMENT_TEXT] 
+[IK-74028:L69] [TARGET / JUDGMENT_TEXT] Leave is granted.
+[IK-74028:L70] [TARGET / JUDGMENT_TEXT] These appeals, filed by the defendant M/s.Hindustan Petroleum Corporation Ltd., are directed against the order of a single Judge of the High Court of Andhra Pradesh allowing the appeal filed under Order 43 Rule 1(r) Civil Procedure Code (for short 'cite11†C.P.C .') by the plaintiff Shri Sriman Narayan, who is respondent herein. The plaintiff had filed the appeals challenging the order of the Trial Court rejecting the petition filed by him under Order 39 Rules 1 & 2 cite11†C.P.C .
+[IK-74028:L71] [TARGET / JUDGMENT_TEXT] seeking interim injunction, restraining the defendants from interfering with possession of the petrol pump, bearing the name and style Super Service Station at Premises No.5-8-699/8, Nampally Station Road, Abids, Hyderabad and also to restrain them from interfering with running the day to day business of the said petrol pump.
+[IK-74028:L72] [TARGET / JUDGMENT_TEXT] The Trial Court took note of the factual position that the plaintiff instituted the suit on 28th September, 2000 whereas notice of termination of dealership agreement had been served on the Manager of the petitioner on 22nd September,2000 i.e. about a week prior to institution of the suit, and that there were claims and counter claims between the parties about the possession of the petrol pump.
+[IK-74028:L73] [TARGET / JUDGMENT_TEXT] The Trial Court also took note of the case of the petitioner that though notice of termination was served on 22nd September, 2000 the attempt of the defendant to dispossess him could not succeed and the petitioner continued in possession of the petrol pump till 29th September, 2000 on which date between 9.30 and 10.30 A.M. he was forcibly dispossessed. The trial Court also took into consideration the case of the defendant that on 22nd September, 2000 at about 3.30 p.m.
+[IK-74028:L74] [TARGET / JUDGMENT_TEXT] after serving the notice of termination on the Manager of the plaintiff, possession of the petrol pump was taken over and the premises were got vacated by the defendant; that after taking over possession of the petrol pump the first defendant had handed over the same to the second defendant, the Andhra Pradesh State Civil Supplies Corporation. The Trial Court considered the documents marked as Exhibits B-3 to B-6, B-8 and B-9 which prima facie show handing over of the retail outlet at 3.30 p.m.
+[IK-74028:L75] [TARGET / JUDGMENT_TEXT] along with the list of items handed over to the second defendant by the first defendant on 22nd September, 2000. The Manager had affixed his signatures on the originals of Exh.B-3 to B-6. The learned Trial Court on consideration of the relevant materials on record accepted the case pleaded by the defendant that possession of the petrol pump was taken over from the plaintiff through his Manager and was handed over to the second defendant on 22nd September, 2000.
+[IK-74028:L76] [TARGET / JUDGMENT_TEXT] The further finding recorded by the learned Trial Court was that the plaintiff had failed to prove that after 22nd September, 2000 he was in possession and enjoyment of the petrol pump. The Trial Court held that the plaintiff had failed to prove a strong prima facie case in his favour.
+[IK-74028:L77] [TARGET / JUDGMENT_TEXT] Considering the further question whether in the circumstances of the case the plaintiff was entitled for an equitable relief of temporary injunction, the Trial Court held that the plaintiff was only a licensee authorised by the first defendant to sell the petroleum products manufactured by it and an order of injunction could not be passed in favour of the licensee against the licensor. On these findings the Trial Court declined to grant the plaintiff's prayer for temporary injunction.
+[IK-74028:L78] [TARGET / JUDGMENT_TEXT] The trial Court summed up its findings in the following words:-
+[IK-74028:L79] [TARGET / JUDGMENT_TEXT] 
+[IK-74028:L80] [TARGET / JUDGMENT_TEXT] > "As already noted above, the petitioner/ plaintiff has no prima facie case to succeed. The balance of convenience also is not in favour of the petitioner/plaintiff. No irreparable loss or injury also caused to the petitioner/plaintiff, even if the possession is not restored, since entitled for the compensation on proof of his case.
+[IK-74028:L81] [TARGET / JUDGMENT_TEXT] > For foregoing discussion, I hold on the point that the petitioner/plaintiff is not entitled for temporary injunction as claimed in I.A.1373/2000 or restoration of alleged possession as claimed in I.A.1497/2000 and I answer the point accordingly against the petitioner/plaintiff.
+[IK-74028:L82] [TARGET / JUDGMENT_TEXT] > .From the above principles of law laid down and in the light of the cite12†Sections 52 to cite13†64 , the Easement Act, relating to law of licensees, I have no hesitation in coming to a positive conclusion that the petitioner/ plaintiff, after service of notice of termination of the agreement which was admittedly on 22.9.2000, is not entitled for the relief of temporary injunction, since he is nothing but a licensee.
+[IK-74028:L83] [TARGET / JUDGMENT_TEXT] When the petitioner/plaintiff is not entitled for temporary injunction even if he is in possession since it is unlawful, the question of restoration as claimed in the IA 1497/2000 does not arise."
+[IK-74028:L84] [TARGET / JUDGMENT_TEXT] The High Court in the appeal discussed the case of parties, the contentions raised on their behalf and considered the question whether the orders passed by the Courts below are sustainable in law. The High Court observed that in the instant case show cause notice was issued on the ground that the Corporation was obliged to adhere to the principles of natural justice to the effect that such a provision is made in the agreement between the parties.
+[IK-74028:L85] [TARGET / JUDGMENT_TEXT] The High Court appears to have taken note of the fact that there was cancellation of the dissolutions of the partnership firm of the plaintiff with effect from 1.3.2000 and that was intimated to the defendant on 3.3.2000. When such a dissolution had taken place before the issue of show cause notice the Corporation was not entitled to take recourse to the stipulations in the agreement forbidding the grantee from making any change in the structure of the firm without prior permission of the Corporation.
+[IK-74028:L86] [TARGET / JUDGMENT_TEXT] Construing different clauses of the agreement including clauses 44, 45, 55 and 57, the High Court took the view that all illegalities or misconduct or violation need not ipso facto result in inevitable termination of the agreement; for this purpose the Corporation had been vested with the power to call upon the dealer to rectify the mistake and in spite of such direction, if the dealer does not rectify the mistake, it would be open to the Corporation to terminate the agreement.
+[IK-74028:L87] [TARGET / JUDGMENT_TEXT] Such procedure having not been followed by the defendant in the case the High Court held that the termination of the dealership agreement was prima facie illegal. Considering the factual position regarding possession of the property the High Court took the view that on the date of filing of the suit the plaintiff was in possession of the property.
+[IK-74028:L88] [TARGET / JUDGMENT_TEXT] The High Court also took the view that by taking recourse to the extreme step of termination of the agreement without affording an opportunity to rectify the defect by the plaintiff, serious prejudice leading to irreparable injury has been caused to the plaintiff. On these findings, the High Court felt satisfied that the orders refusing to grant interim injunction and rejecting the prayer for restoration of possession of the property were unsustainable in law.
+[IK-74028:L89] [TARGET / JUDGMENT_TEXT] Accordingly, the orders passed by the trial Court were set aside and the interlocutory applications, in I.A.Nos.1373 and 1497 of 2000, were allowed as prayed for. It was directed that the orders were to remain in operation pending disposal of the suit. The lower Court was directed to proceed with the trial of the suit expeditiously. The said order of the High Court is under challenge in the present appeals.
+[IK-74028:L90] [TARGET / JUDGMENT_TEXT] Shri M.L.Verma, learned senior advocate appearing for the appellant contended that the order passed by the High Court is vitiated on account of non-consideration of the relevant criteria and well settled principles in matters of grant of interim injunction. Shri Verma further contended that the High Court has not considered the reasons given by the Trial Court in the order declining to accept the respondent no.1's prayer for interim injunction.
+[IK-74028:L91] [TARGET / JUDGMENT_TEXT] Per contra Shri R.F.Nariman, learned senior counsel appearing for the respondent no.1 submitted that in the context of the facts and circumstances of the case as stated in the impugned order, the High Court rightly granted the prayer for interim injunction. According to the learned senior counsel the order is based on relevant considerations. He urged that this Court may not interfere with the impugned order.
+[IK-74028:L92] [TARGET / JUDGMENT_TEXT] It is elementary that grant of an interlocutory injunction during the pendency of the legal proceeding is a matter requiring the exercise of discretion of the Court. While exercising the discretion the Court normally applies the following tests :-
+[IK-74028:L93] [TARGET / JUDGMENT_TEXT] 
+[IK-74028:L94] [TARGET / JUDGMENT_TEXT] > i) whether the plaintiff has a prima facie case;
+[IK-74028:L95] [TARGET / JUDGMENT_TEXT] 
+[IK-74028:L96] [TARGET / JUDGMENT_TEXT] > ii) whether the balance of convenience is in favour of the plaintiff; and
+[IK-74028:L97] [TARGET / JUDGMENT_TEXT] 
+[IK-74028:L98] [TARGET / JUDGMENT_TEXT] > iii) whether the plaintiff would suffer an irreparable injury if his prayer for interlocutory injunction is disallowed.
+[IK-74028:L99] [TARGET / JUDGMENT_TEXT] The decision whether or not to grant an interlocutory injunction has to be taken at a time when the exercise of the legal right asserted by the plaintiff and its alleged violation are both contested and remain uncertain till they are established on evidence at the trial. The relief by way of interlocutory injunction is granted to mitigate the risk of injustice to the plaintiff during the period before which that uncertainty could be resolved.
+[IK-74028:L100] [TARGET / JUDGMENT_TEXT] The object of the interlocutory injunction is to protect the plaintiff against injury by violation of his right for which he could not be adequately compensated in damages recoverable in the action if the uncertainty were resolved in his favour at the trial.
+[IK-74028:L101] [TARGET / JUDGMENT_TEXT] The need for such protection has, however, to be weighed against the corresponding need of the defendant to be protected against injury resulting from his having been prevented from exercising his own legal rights for which he could not be adequately compensated. The Court must weigh one need against another and determine where the "balance of convenience" lies. [See Gujarat Bottling Co. Ltd.& Ors. Vs. Coca Cola Co. & Ors. (1995) 5 SCC 544 at
+[IK-74028:L102] [TARGET / JUDGMENT_TEXT] 574.] In cite14†Dorab Cawasji Warden Vs. Coomi Sorab Warden & Ors. , (1990) 2 SCC 117, this Court, discussing the principles to be kept in mind in considering the prayer for interlocutory mandatory injunction observed :
+[IK-74028:L103] [TARGET / JUDGMENT_TEXT] > "The relief of interlocutory mandatory injunctions are thus granted generally to preserve or restore the status quo of the last non-contested status which preceded the pending controversy until the final hearing when full relief may be granted or to compel the undoing of those acts that have been illegally done or the restoration of that which was wrongfully taken from the party complaining.
+[IK-74028:L104] [TARGET / JUDGMENT_TEXT] But since the granting of such an injunction to a party who fails or would fail to establish his right at the trial may cause great injustice or irreparable harm to the party against whom it was granted or alternatively not granting of it to a party who succeeds or would succeed may equally cause great injustice or irreparable harm, courts have evolved certain guidelines. Generally stated these guidelines are :
+[IK-74028:L105] [TARGET / JUDGMENT_TEXT] > (1) The plaintiff has a strong case for trial. That is, it shall be of a higher standard than a prima facie case that is normally required for a prohibitory injunction.
+[IK-74028:L106] [TARGET / JUDGMENT_TEXT] 
+[IK-74028:L107] [TARGET / JUDGMENT_TEXT] > (2) It is necessary to prevent irreparable or serious injury which normally cannot be compensated in terms of money.
+[IK-74028:L108] [TARGET / JUDGMENT_TEXT] 
+[IK-74028:L109] [TARGET / JUDGMENT_TEXT] > (3) The balance of convenience is in favour of the one seeking such relief.
+[IK-74028:L110] [TARGET / JUDGMENT_TEXT] Being essentially an equitable relief the grant or refusal of an interlocutory mandatory injunction shall ultimately rest in the sound judicial discretion of the court to be exercised in the light of the facts and circumstances in each case.
+[IK-74028:L111] [TARGET / JUDGMENT_TEXT] Though the above guidelines are neither exhaustive nor complete or absolute rules, and there may be exceptional circumstances needing action, applying them as a prerequisite for the grant or refusal of such injunctions would be a sound exercise of a judicial discretion."
+[IK-74028:L112] [TARGET / JUDGMENT_TEXT] In the case of cite15†Indian Oil Corporation Ltd. vs. Amritsar Gas Service & Ors. , (1991) 1 SCC 533, a bench of three learned Judges of this Court considered the appropriate relief to be granted in a case arising from revocation of the distributorship agreement for sale of LPG by the Indian Oil Corporation under different clauses of the agreement. In that connection, this Court made the following observations :-
+[IK-74028:L113] [TARGET / JUDGMENT_TEXT] > "The question now is of the relief which could be granted by the arbitrator on its finding that termination of the distributorship was not validly made under clause 27 of the agreement.
+[IK-74028:L114] [TARGET / JUDGMENT_TEXT] No doubt, the notice of termination of distributorship dated March 11, 1983 specified the several acts of the distributor on which the termination was based and there were complaints to that effect made against the distributor which had the effect of prejudicing the reputation of the appellant-Corporation; and such acts would permit exercise of the right of termination of distributorship under clause 27.
+[IK-74028:L115] [TARGET / JUDGMENT_TEXT] However, the arbitrator having held that clause 27 was not available to the appellant-Corporation, the question of grant of relief on that finding has to proceed on that basis. In such a situation, the agreement being revocable by either party in accordance with clause 28 by giving 30 days' notice, the only relief which could be granted was the award of compensation for the period of notice, that is, 30 days.
+[IK-74028:L116] [TARGET / JUDGMENT_TEXT] The plaintiff- respondent 1 is, therefore, entitled to compensation being the loss of earnings for the notice period of 30 days instead of restoration of the distributorship. The award has, therefore, to be modified accordingly. The compensation for 30 days notice period from March 11, 1983 is to be calculated on the basis of earnings during that period disclosed from the records of the Indian Oil Corporation Ltd."
+[IK-74028:L117] [TARGET / JUDGMENT_TEXT] Coming to the case on hand it is to be kept in mind that the controversy raised in the case relates to a commercial contract entered between the appellant and respondent no.1 for sale of petroleum products manufactured by the appellant Corporation. Permission for sale of such products was granted by the appellant on the terms and conditions set out in the agreement.
+[IK-74028:L118] [TARGET / JUDGMENT_TEXT] In the said agreement it was clearly stipulated that the respondent no.1 shall not change the structure of the firm without the permission of the appellant. Concededly the respondent no.1 had changed the structure of the firm from a proprietary firm to a partnership firm. The consequence of violation of any condition of the agreement by the respondent no.1 was provided under clause 45 in which it was stated that the grantor/licensor will be entitled to revoke the agreement on the happening of such event.
+[IK-74028:L119] [TARGET / JUDGMENT_TEXT] Therefore, prima facie the appellant was entitled to take action for revoking the agreement entered with the respondent no.1. Validity or otherwise of the order of revocation can be considered at the stage of interim injunction only for the limited purpose of ascertaining whether there is prima facie case in favour of the plaintiff/petitioner and not for determination of the question finally.
+[IK-74028:L120] [TARGET / JUDGMENT_TEXT] From the discussions in the impugned order it appears that the High Court has dealt with the matter as if it was deciding the suit.
+[IK-74028:L121] [TARGET / JUDGMENT_TEXT] The questions whether, if the respondent no.1 had violated the condition stipulated in the agreement by changing the structure of the firm without taking prior permission from the appellant, still the latter was bound to give to the former an opportunity for rectifying the defect; and whether passing the order revoking the agreement without affording such opportunity will render the revocation order invalid, are matters which are to be considered when the suit is taken up for hearing.
+[IK-74028:L122] [TARGET / JUDGMENT_TEXT] These are not matters to be considered in detail for considering the prayer for interlocutory order of injunction. Regarding the question of status quo on the date of the order of injunction there was serious dispute whether the appellant had taken over possession of the property after notice of revocation of the agreement was served on the manager of respondent no.1 and had made over possession of the suit property to respondent no.2 for the purpose of running the petrol pump.
+[IK-74028:L123] [TARGET / JUDGMENT_TEXT] The High Court has tried to get over this question by recording a finding that there were some materials on record to show that the respondent no.1 was transacting business of sale of petroleum products on the date of filing of the suit. This finding has been arrived at by the High Court without considering the reasons given by the Trial Court which had recorded a finding to the contrary in its order.
+[IK-74028:L124] [TARGET / JUDGMENT_TEXT] The High Court has not at all discussed the considerations which weighed and the reasons which persuaded the Trial Court in rejecting the prayer for interim mandatory injunction as prayed for by respondent no.1. Most importantly, the High Court has not considered the question whether on the facts and circumstances of the case, if the prayer for interim injunction is refused the plaintiff/petitioner will suffer irreparable loss which cannot be adequately compensated by damages.
+[IK-74028:L125] [TARGET / JUDGMENT_TEXT] As has been held by this Court in cite14†Dorab Cawasji Warden case (supra), ordinarily the relief to be granted to a plaintiff in such a matter is awarding of damages and interim injunction of a mandatory nature is not to be granted.
+[IK-74028:L126] [TARGET / DISPOSITION_ONLY] On consideration of the entire matter, we are satisfied that the order passed by the High Court granting the prayer for interim injunction, in the context of facts and circumstances of the case, is unsustainable. Accordingly, the appeals are allowed. The order dated 5.12.2000 of the High Court in CMA Nos.3251 and 3255 of 2000 is set aside and the order passed by the Trial Court in I.A.No.1373 & 1497/2000 in O.S. No.1139 of 2000 dated 06.11.2000 is restored.
+[IK-74028:L127] [TARGET / JUDGMENT_TEXT] It is made clear that the observations made in this judgment will not in any way affect the merit of the case. In the facts and circumstances of the case, there will be no orders for costs.
+
+OUTPUT CONTRACT EXAMPLE (replace synthetic values, use USABLE/UNUSABLE/UNRESOLVED; ACCEPT_RESEARCH/HOLD/UNRESOLVED; authority statuses SUPPORTED/QUALIFIED/CONTRADICTED/UNSUPPORTED/UNRESOLVED):
+{"premise_reviews": [{"id": "P1", "decision": "ACCEPT_RESEARCH", "refs": ["SRC:1"], "quote": "short exact source passage", "reason": "attribution and bindings checked"}], "candidate_reviews": [{"id": "APP-identifier", "label": "USABLE", "refs": ["SRC:1"], "quote": "short exact source passage", "reason": "why this proposed use is or is not supported", "recorded_conclusion": "UNKNOWN", "conclusion_refs": [], "conclusion_quote": ""}], "mapping_reviews": [{"premise": "P1", "predicate": "named predicate", "relation": "SAME_MEANING", "refs": ["SRC:1"], "reason": "same proposition scope, not merely similar words"}], "authority_treatment": [{"rule_ref": "R1@1", "status": "QUALIFIED", "refs": ["SRC:1"], "reason": "bounded target account, original precedent not inspected"}], "decisive_counterarguments": ["source-grounded opposing consideration"], "coverage_limits": ["model reference, not human gold or legal approval"]}
+END_OF_TASK

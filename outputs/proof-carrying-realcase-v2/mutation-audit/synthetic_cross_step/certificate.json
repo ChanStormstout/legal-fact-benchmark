@@ -1,0 +1,75 @@
+{
+  "version": "REALCASE_V2",
+  "mode": "RESEARCH_DRAFT",
+  "case_id": "SYNTHETIC",
+  "stage": "APPEAL",
+  "snapshot_id": "S1",
+  "snapshot_sha256": "71a19342c086096d80c08846342015376f529d23c851ed5468d80299b6bf81c0",
+  "proposal": {
+    "steps": [
+      {
+        "id": "T1",
+        "rule_ref": "R1@1",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "Mira"
+          },
+          {
+            "role": "property",
+            "entity": "Z"
+          }
+        ],
+        "time_scope": "Monday",
+        "inputs": [
+          {
+            "slot": "record",
+            "kind": "PREMISE",
+            "id": "F1"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "narrow record chain"
+      },
+      {
+        "id": "T2",
+        "rule_ref": "R2@1",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "Mira"
+          },
+          {
+            "role": "property",
+            "entity": "Z"
+          }
+        ],
+        "time_scope": "Monday",
+        "inputs": [
+          {
+            "slot": "record",
+            "kind": "STEP",
+            "id": "T1"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "consume prior typed result"
+      }
+    ],
+    "requests": [
+      {
+        "id": "Q1",
+        "step_id": "T2",
+        "predicate": "RECORD_CHAIN",
+        "text": "Record chain available.",
+        "proposed_state": "TRUE"
+      }
+    ],
+    "counterarguments": [
+      "No title determination."
+    ],
+    "gaps": [
+      "Legal approval pending."
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "patch_id": "PATCH-S1-S2",
+  "kind": "ADD_SYNTHETIC_PREMISE",
+  "parent": "e7c79a0b7e6c18593b9583df88c6c4db42bd6c99de1466c5cb051cb040d66306",
+  "new_snapshot": "9fec5f305e69ce3855cbeaf353dd645c25eb0d50226e248e8b4a2255af4851a4",
+  "old_value": null,
+  "new_value": {
+    "id": "P4",
+    "case_id": "DEMO_PERMISSION",
+    "stage_id": "TEACHING",
+    "predicate": "AUTHORIZATION",
+    "bindings": {
+      "person": "Person_A",
+      "property": "Parcel_P"
+    },
+    "statement_status": "EXERCISE_STIPULATION",
+    "party_stance": null,
+    "court_assessment": null,
+    "claim_disposition": null,
+    "assessment": "TRUE",
+    "source_refs": [
+      "demo_message_3"
+    ],
+    "interval": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "activity_scope": [
+      "entry"
+    ],
+    "review_id": "REVIEW-P4"
+  },
+  "rationale": "Add a separate Tuesday authorization; do not rewrite Monday.",
+  "review_status": "EXERCISE_SUPPLIED",
+  "human_legal_approval": false,
+  "approval_missing_for_real_cases": true,
+  "preserved_ids": [
+    "P1",
+    "P2",
+    "demo_message_1",
+    "demo_entry_record_2"
+  ],
+  "recompute": [
+    "coverage(P4,P2)",
+    "Tuesday_authorization_query"
+  ],
+  "historical_certificate_policy": "C1 stays valid for S1; stale if presented as the current S2 result."
+}

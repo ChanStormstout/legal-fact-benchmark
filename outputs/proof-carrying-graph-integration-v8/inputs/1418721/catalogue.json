@@ -1,0 +1,325 @@
+[
+  {
+    "id": "REGISTER_IDENTIFIES_SUBJECT_AS_OWNER",
+    "meaning": "The judgment reports that the protected-monuments register identifies the claimant as owner of the particular property. This records the document's reported content without claiming independent inspection or authentication.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "RECORDED_DOCUMENT",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka and the Ancient Monuments Preservation Act, 1904."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "MANNER_OF_ACQUISITION_UNCHALLENGED",
+    "meaning": "The target court records that the manner of the claimant's alleged acquisition of the identified property was not under challenge.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "PROCEDURAL_RECORD",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka and the Ancient Monuments Preservation Act, 1904."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "REGISTER_SUPPORTS_ACQUISITION_CASE",
+    "meaning": "The reported protected-monuments register entry can be treated as evidence supporting the claimant's acquisition-based title case where the manner of acquisition is unchallenged.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka and the Ancient Monuments Preservation Act, 1904."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "CTS_RECORD_IDENTIFIES_SUBJECT",
+    "meaning": "The judgment reports that the relevant city survey records identify the claimant in relation to the disputed property.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "RECORDED_DOCUMENT",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka and the Ancient Monuments Preservation Act, 1904."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "WITNESS_REPORTS_SUBJECT_POSSESSION",
+    "meaning": "A witness is reported to have testified that the claimant possessed the identified property, with supporting testimony about protected-monument status and construction at the claimant government's expense. The proposition establishes the testimony's content, not independently verified possession.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TESTIMONY"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka and the Ancient Monuments Preservation Act, 1904."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "OPPONENT_LACKS_CONCRETE_TITLE_EVIDENCE",
+    "meaning": "The target court found no concrete evidence on the record substantiating the opponent's competing ownership claim. This is a finding about evidentiary insufficiency, not proof that every historical assertion made by the opponent was false.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka and the Ancient Monuments Preservation Act, 1904."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "TITLE_ESTABLISHED_ON_RECORDED_EVIDENCE",
+    "meaning": "The claimant's independently asserted ownership and title may be found established on the combined evidentiary record, without reliance on adverse possession.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "HOSTILE_EXCLUSIVE_ANIMUS_NOT_SPECIFICALLY_PLEADED_AND_PROVED",
+    "meaning": "The target court found that the claimant did not specifically plead and prove possession excluding the opponent with the intention to possess as owner.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "OPPONENT_EARLIER_TITLE_NOT_SPECIFICALLY_PLEADED_AND_PROVED",
+    "meaning": "The target court found that the alleged earlier title of the opponent, material to the proposed adverse-possession theory, was not specifically pleaded and proved.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "DISPOSSESSION_TIME_NOT_SPECIFICALLY_PLEADED_AND_PROVED",
+    "meaning": "The target court found that the relevant point of time of the supposed dispossession had not been specifically pleaded and proved. This records the missing temporal allegation or proof, not an independently established dispossession event or date.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "MATERIAL_ADVERSE_PLEADING_GAPS_RECORDED",
+    "meaning": "Material gaps in the claimant's specific pleading and proof of adverse-possession facts have been identified in the judicial record.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R5@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "CLAIMANT_ASSERTS_ORIGINAL_TITLE",
+    "meaning": "The claimant asserts ownership originating from an asserted title-acquisition basis independent of adverse possession. This records the pleaded position rather than accepting its truth.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "PARTY_CLAIM",
+      "PROCEDURAL_RECORD"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "CLAIMANT_ASSERTS_ALTERNATIVE_ADVERSE_POSSESSION",
+    "meaning": "The same claimant asserts adverse possession as an alternative source of ownership of the same property against the identified opponent.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "PARTY_CLAIM",
+      "PROCEDURAL_RECORD"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "ORIGINAL_TITLE_ADVERSE_PLEA_TENSION_TRIGGERED",
+    "meaning": "The simultaneous assertion of original title and an alternative adverse-possession basis triggers the legal question of inconsistency and renunciation of the earlier title basis; it does not by itself prove that renunciation did not occur.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R5@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "ADVERSE_POSSESSION_GROUND_NOT_ESTABLISHED",
+    "meaning": "The alternative adverse-possession ground is not established where the legally necessary hostile-possession and dispossession facts remain materially unpleaded or unproved after the applicable contextual evaluation.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R5@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "INDEPENDENT_TITLE_GROUND_UNDIMINISHED_BY_FAILED_ADVERSE_PLEA",
+    "meaning": "Where an original-title ground is independently established but the alternative adverse-possession ground is not, rejection of the alternative ground does not by itself invalidate the affirmative title ground.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  }
+]

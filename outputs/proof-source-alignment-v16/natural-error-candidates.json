@@ -1,0 +1,63 @@
+{
+  "new_batch_confirmed_semantic_scope_error_disputes": 1,
+  "confirmed_address_error_disputes": 1,
+  "quote_ambiguity_disputes": 1,
+  "case_level_error_count_not_candidate_count": true,
+  "records": [
+    {
+      "case_id": "1870386",
+      "address": "A03",
+      "scope": "BINDING:reversioners",
+      "proposed_variable": "reversioners_at_1894",
+      "value": [
+        "Venkata Narasamma"
+      ],
+      "kind": "UNDECLARED_VARIABLE_AND_UNSUPPORTED_ROLE_SCOPE",
+      "source_refs": [
+        "IK-1870386:L126",
+        "IK-1870386:L132",
+        "IK-1870386:L150",
+        "IK-1870386:L154"
+      ],
+      "actual_review": "REJECT",
+      "main_review": "Namespace violation confirmed; next-heir evidence does not establish the class used by anti-device predicate",
+      "downstream": "Local binding pending; other bindings/uses retained; OPEN_TEXT root remains unexecuted",
+      "not_human_gold": true
+    },
+    {
+      "case_id": "180091",
+      "addresses": [
+        "A01",
+        "A02",
+        "A04",
+        "A05"
+      ],
+      "scope": "BINDING:claimant witness",
+      "kind": "NON_UNIQUE_SHORT_QUOTATION_NOT_IDENTITY_ERROR",
+      "source_refs": [
+        "IK-180091:L47",
+        "IK-180091:L114",
+        "IK-180091:L116"
+      ],
+      "quote": "the plaintiff firm",
+      "actual_review": "ACCEPT",
+      "program_location": "QUOTE_AMBIGUOUS -> UNRESOLVED",
+      "main_review": "Two occurrences in L116; other identity witnesses valid. No confirmed person mismatch. Current all-witness contract blocks four execution premises while retaining independent judgments.",
+      "candidate_for_semantic_training": false,
+      "not_human_gold": true
+    }
+  ],
+  "disputes": [
+    {
+      "case_id": "1870386",
+      "addresses": [
+        "A01",
+        "A03"
+      ],
+      "kind": "LIMITED_NEGATIVE_JUDGMENT_VERSUS_COMPLETE_PREMISE_COVERAGE",
+      "main_review": "Model and reviewer explicitly preserve unknown subjective bona fides while denying legal totality. These are not labels for fully covered whole premises under current contract; no claim that FALSE is necessarily legally wrong."
+    }
+  ],
+  "old_USABLE_labels_not_relabelled": true,
+  "training_started": false
+}

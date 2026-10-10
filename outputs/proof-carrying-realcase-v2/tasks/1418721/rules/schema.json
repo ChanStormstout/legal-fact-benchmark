@@ -1,0 +1,187 @@
+{
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "enum": [
+              1
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "conclusion_predicate": {
+            "type": "string"
+          },
+          "conclusion_text": {
+            "type": "string"
+          },
+          "jurisdiction": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "origin": {
+            "enum": [
+              "TARGET_ADOPTED_RULE",
+              "TARGET_REPORT_OF_PRECEDENT",
+              "RESEARCH_TRANSLATION"
+            ]
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          },
+          "source_quote": {
+            "type": "string"
+          },
+          "operator": {
+            "enum": [
+              "ALL",
+              "ANY",
+              "OPEN_TEXT"
+            ]
+          },
+          "slots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "predicate": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "expected": {
+                  "enum": [
+                    "TRUE",
+                    "FALSE",
+                    "UNKNOWN",
+                    "CONFLICTED"
+                  ]
+                },
+                "allowed_statuses": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "PARTY_CLAIM",
+                      "TESTIMONY",
+                      "RECORDED_DOCUMENT",
+                      "LOWER_COURT_FINDING",
+                      "TARGET_COURT_FINDING",
+                      "PROCEDURAL_RECORD",
+                      "LEGAL_RULE",
+                      "TARGET_DISPOSITION",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "maxItems": 10
+                },
+                "required_roles": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "subject",
+                      "opponent",
+                      "property",
+                      "transaction"
+                    ]
+                  },
+                  "maxItems": 4
+                },
+                "time_required": {
+                  "enum": [
+                    true,
+                    false
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "predicate",
+                "description",
+                "expected",
+                "allowed_statuses",
+                "required_roles",
+                "time_required"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20
+          },
+          "exception_slots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10
+          },
+          "scope_limits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 15
+          },
+          "burden_policy": {
+            "type": "string"
+          },
+          "unimplemented": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 15
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "description",
+          "conclusion_predicate",
+          "conclusion_text",
+          "jurisdiction",
+          "stage",
+          "origin",
+          "source_refs",
+          "source_quote",
+          "operator",
+          "slots",
+          "exception_slots",
+          "scope_limits",
+          "burden_policy",
+          "unimplemented"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 10
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 15
+    }
+  },
+  "required": [
+    "rules",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

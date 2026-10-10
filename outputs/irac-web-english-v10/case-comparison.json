@@ -1,0 +1,440 @@
+[
+  {
+    "case": "1114159",
+    "category": "CLOSE",
+    "category_zh": "A/B接近",
+    "E": "PASS",
+    "M": "USABLE_WITH_STATUS_AMBIGUITY",
+    "L_A": "SUPPORTED_ANALYSIS_WITH_REAL_GAPS",
+    "L_B": "SUPPORTED_ANALYSIS_WITH_REAL_GAPS",
+    "summary_zh": "两边均保留住宅出租、1964年购房、两级既有判断冲突及真实自住资料缺口；B更明确区分未成立转租与商业使用，但未确认重要额外收益。",
+    "source_checks": [
+      {
+        "refs": [
+          "IK-1114159:L238:restored-v2"
+        ],
+        "source": "Recorded letting on 1.10.1961 and purchase by the daughter on 27 June 1964.",
+        "finding": "Both A and B preserve the transaction and ownership support; neither confuses the original landlord with the current landlord."
+      },
+      {
+        "refs": [
+          "IK-1114159:L239:restored-v2",
+          "IK-1114159:L240:span3",
+          "IK-1114159:L241:span4",
+          "IK-1114159:L244:restored-v2"
+        ],
+        "source": "Statutory authorities found incidental commercial use; the High Court rejected its evidentiary basis. A prior subtenancy plea was rejected because lodgers were paying guests.",
+        "finding": "Both retain the adverse prior finding and court levels. B explicitly states that rejected subtenancy does not settle commercial use. A does not explicitly make the opposite inference, so this refinement is not counted as correction of a confirmed important error."
+      },
+      {
+        "refs": [
+          "IK-18143401:L41:historical-e"
+        ],
+        "source": "The statutory excerpt requires bona fide need, a qualifying occupation route, and no other reasonably suitable accommodation; it stops at Explanation.",
+        "finding": "Both identify missing case particulars and the omitted Explanation rather than inventing those facts or the legal text."
+      }
+    ],
+    "P_traces": [
+      {
+        "kind": "STATUS_AMBIGUITY_NOT_CONFIRMED_FACT_ERROR",
+        "source_refs": [
+          "IK-1114159:L238:restored-v2"
+        ],
+        "P": "records[0] uses UNKNOWN but its text affirmatively records the dated letting and purchase; P already marks ownership SUPPORTED.",
+        "A": "Preserves the affirmative record and marks ownership SUPPORTED.",
+        "B": "Claims an intermediate correction of UNKNOWN, while preserving the same affirmative record and ownership conclusion.",
+        "assessment": "The enum has no general court-narrative category. UNKNOWN here cannot by itself prove a factual omission or a consequential correction by B. No legal error is assigned solely from this field.",
+        "actual_input_locations": {
+          "A": {
+            "path": "outputs/irac-web-english-v10/runs/1114159/A/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-1114159:L238:restored-v2": 7348
+            }
+          },
+          "P": {
+            "path": "outputs/irac-web-english-v10/runs/1114159/P/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-1114159:L238:restored-v2": 7323
+            }
+          },
+          "B": {
+            "path": "outputs/irac-web-english-v10/runs/1114159/B/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-1114159:L238:restored-v2": 7348
+            }
+          }
+        }
+      }
+    ],
+    "important_A_errors": [],
+    "important_B_errors": [],
+    "shared_limits": [
+      "Actual residential need, intended occupant and alternative accommodation are not supplied.",
+      "No target-stage conclusion or complete statutory Explanation is available.",
+      "Both DENY predictions depend on assumptions about missing evidence; neither establishes the historical result."
+    ],
+    "net_reason": "No clearly important incremental benefit over A. Narrative organization is not counted as a separate legal capability gain.",
+    "review_type": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+    "review_scope": "Decisive content across the entire allowed source set; not only model-cited passages; no new reference labels or external law.",
+    "A_path": "runs/1114159/A/parsed.json",
+    "P_path": "runs/1114159/P/parsed.json",
+    "B_path": "runs/1114159/B/parsed.json"
+  },
+  {
+    "case": "52547606",
+    "category": "B_NET_IMPROVEMENT",
+    "category_zh": "B有净改善",
+    "E": "PASS",
+    "M": "USABLE_TWO_CANDIDATES_WITH_OVERLAP_LIMIT",
+    "L_A": "SUBSTANTIALLY_SUPPORTED_WITH_CANDIDATE_COVERAGE_LIMIT",
+    "L_B": "IMPROVED_CANDIDATE_SPECIFIC_ANALYSIS",
+    "summary_zh": "B分别检查儿子的原始经营安排与被指控的公司安排，说明不能把针对儿子的既有认定自动套给公司；A虽提及公司，但主要只分析儿子。改善在分析覆盖，不是发现第二次交易已成立。",
+    "source_checks": [
+      {
+        "refs": [
+          "IK-52547606:L74:span1",
+          "IK-52547606:L79:span4",
+          "IK-52547606:L81:span5"
+        ],
+        "source": "The allegation names Anand Parkash and others including the firm through Ram Parkash. Telephone and partnership evidence identifies firm activity.",
+        "finding": "The firm is a source-grounded candidate, but may overlap the son’s business. B examines its own potential tenancy/possession route and expressly leaves distinctness unresolved."
+      },
+      {
+        "refs": [
+          "IK-52547606:L82:context-v4",
+          "IK-52547606:L84:context-v4",
+          "IK-52547606:L93:span8"
+        ],
+        "source": "ARC rejected an inference of disposition because the son’s use was intended from inception; ARCT found parting with possession. The landlord admitted inception-of-tenancy use.",
+        "finding": "Both preserve the opposing court findings and admission, without treating either as the target High Court conclusion."
+      },
+      {
+        "refs": [
+          "IK-52547606:L75:span2",
+          "IK-190902:L107",
+          "IK-190902:L110",
+          "IK-190902:L112",
+          "LAW:S02:DRC14:1b"
+        ],
+        "source": "Consent/knowledge is asserted; the supplied law distinguishes subletting, assignment and parting with possession and requires written consent for the relevant disposition.",
+        "finding": "Neither treats knowledge as written consent or business use as conclusive divestment. The telephone endpoint does not independently establish the disposition date."
+      }
+    ],
+    "P_traces": [
+      {
+        "kind": "P_ORGANIZATION_REFLECTED_IN_B",
+        "source_refs": [
+          "IK-52547606:L74:span1",
+          "IK-52547606:L79:span4",
+          "IK-52547606:L81:span5",
+          "IK-52547606:L84:context-v4"
+        ],
+        "P": "arrangements[0] covers the son; arrangements[1] covers potentially overlapping firm activity. Firm conditions remain unresolved; no distinct transfer is invented.",
+        "A": "The firm appears in C02 and opposition, but all condition bindings are b1 directed to Anand Parkash. No explicit firm-specific legal-rights analysis.",
+        "B": "b2/C01,C02,C04 inspect the firm separately and state that the ARCT finding names the son, not an independently established firm disposition.",
+        "assessment": "A concrete coverage improvement for an additional alleged recipient. It is traceable to P but not proven to be caused solely by P; B also reads all original sources.",
+        "actual_input_locations": {
+          "A": {
+            "path": "outputs/irac-web-english-v10/runs/52547606/A/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-52547606:L74:span1": 7148,
+              "IK-52547606:L79:span4": 7268,
+              "IK-52547606:L81:span5": 7308,
+              "IK-52547606:L84:context-v4": 7513
+            }
+          },
+          "P": {
+            "path": "outputs/irac-web-english-v10/runs/52547606/P/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-52547606:L74:span1": 7123,
+              "IK-52547606:L79:span4": 7243,
+              "IK-52547606:L81:span5": 7283,
+              "IK-52547606:L84:context-v4": 7488
+            }
+          },
+          "B": {
+            "path": "outputs/irac-web-english-v10/runs/52547606/B/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-52547606:L74:span1": 7148,
+              "IK-52547606:L79:span4": 7268,
+              "IK-52547606:L81:span5": 7308,
+              "IK-52547606:L84:context-v4": 7513
+            }
+          }
+        }
+      }
+    ],
+    "important_A_errors": [],
+    "important_B_errors": [],
+    "coverage_limits": [
+      "B does not include a standalone C03 assignment row. Its reason and gaps nevertheless expressly preserve unresolved complete divestment, so this is not treated as an unexamined alternative merely because the row is absent.",
+      "P firm-specific written consent is shortened in B, but B gaps explicitly cover written consent for either disposition."
+    ],
+    "shared_limits": [
+      "The tenancy/disposition date, written consent and supervisory-review rules remain unavailable.",
+      "Neither court’s earlier disposition supplies an automatic target-stage result."
+    ],
+    "net_reason": "Important but bounded recipient-specific coverage gain, without a comparably serious new error found in the decisive-source review. This is not evidence of a second transaction or a correct historical verdict.",
+    "review_type": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+    "review_scope": "Decisive content across the entire allowed source set; not only model-cited passages; no new reference labels or external law.",
+    "A_path": "runs/52547606/A/parsed.json",
+    "P_path": "runs/52547606/P/parsed.json",
+    "B_path": "runs/52547606/B/parsed.json"
+  },
+  {
+    "case": "55384096",
+    "category": "B_NET_IMPROVEMENT",
+    "category_zh": "B有净改善",
+    "E": "PASS",
+    "M": "USABLE_SINGLE_DISPUTED_ARRANGEMENT",
+    "L_A": "CONDITION_STATUS_OVERSTATEMENT",
+    "L_B": "IMPROVED_STATUS_REASON_ALIGNMENT",
+    "summary_zh": "A把保留法律占有标为SUPPORTED，但解释以“证据若被采信”为前提，且关键权利仍有争议。P和B保留具体支持与反对依据，同时将完整命题留为未决，纠正了标签与理由的不一致。",
+    "source_checks": [
+      {
+        "refs": [
+          "IK-55384096:L67:span1",
+          "IK-55384096:L71:span4"
+        ],
+        "source": "The petitioner alleges complete divestment and a forged sham partnership deed.",
+        "finding": "Both answers preserve these as landlord allegations, not court findings. No recurrence here of upgrading this allegation to an accepted prior adjudication."
+      },
+      {
+        "refs": [
+          "IK-55384096:L69:span2",
+          "IK-55384096:L70:span3",
+          "IK-55384096:L76:context-v4",
+          "IK-55384096:L77:context-v4",
+          "IK-55384096:L80:span8"
+        ],
+        "source": "The defence describes requested assistance and a deed. Widow RW1 denies loss of possession/business; landlord’s attorney admits disability.",
+        "finding": "Both correctly identify the widow and attorney and preserve their statements. Disability does not establish divestment, and partnership terminology does not settle legal possession."
+      },
+      {
+        "refs": [
+          "IK-190902:L107",
+          "IK-190902:L112"
+        ],
+        "source": "Mere use does not constitute parting while legal possession is retained; retained legal possession is itself a substantive qualification.",
+        "finding": "A C06 SUPPORTED is stronger than its own conditional evidence account. B keeps the positive evidence but does not make the disputed legal-possession proposition categorical."
+      }
+    ],
+    "P_traces": [
+      {
+        "kind": "CONDITION_STATUS_CORRECTION",
+        "source_refs": [
+          "IK-55384096:L67:span1",
+          "IK-55384096:L70:span3",
+          "IK-55384096:L71:span4",
+          "IK-55384096:L77:context-v4",
+          "IK-190902:L107",
+          "IK-190902:L112"
+        ],
+        "P": "C06 UNRESOLVED: widow/deed support continued involvement but do not settle retained legal possession against the competing account.",
+        "A": "C06 SUPPORTED, followed by “If this evidence is credited” and unresolved target acceptance.",
+        "B": "C06 UNRESOLVED while retaining widow testimony, the deed and opposing allegations.",
+        "assessment": "An important condition-label/reason alignment improvement, not a reward for using UNKNOWN or for removing adverse evidence.",
+        "actual_input_locations": {
+          "A": {
+            "path": "outputs/irac-web-english-v10/runs/55384096/A/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-55384096:L67:span1": 7148,
+              "IK-55384096:L70:span3": 7228,
+              "IK-55384096:L71:span4": 7268,
+              "IK-55384096:L77:context-v4": 7513,
+              "IK-190902:L107": 7597,
+              "IK-190902:L112": 7782
+            }
+          },
+          "P": {
+            "path": "outputs/irac-web-english-v10/runs/55384096/P/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-55384096:L67:span1": 7123,
+              "IK-55384096:L70:span3": 7203,
+              "IK-55384096:L71:span4": 7243,
+              "IK-55384096:L77:context-v4": 7488,
+              "IK-190902:L107": 7572,
+              "IK-190902:L112": 7757
+            }
+          },
+          "B": {
+            "path": "outputs/irac-web-english-v10/runs/55384096/B/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-55384096:L67:span1": 7148,
+              "IK-55384096:L70:span3": 7228,
+              "IK-55384096:L71:span4": 7268,
+              "IK-55384096:L77:context-v4": 7513,
+              "IK-190902:L107": 7597,
+              "IK-190902:L112": 7782
+            }
+          }
+        }
+      },
+      {
+        "kind": "INTERPRETIVE_DIFFERENCE_NOT_SECOND_CONFIRMED_ERROR",
+        "source_refs": [
+          "IK-55384096:L69:span2",
+          "IK-55384096:L70:span3"
+        ],
+        "P": "The deed/assistance dates do not independently prove the date of a statutory disposition.",
+        "A": "C01 SUPPORTED for the alleged 1983 arrangement, expressly without establishing a prohibited disposition.",
+        "B": "C01 UNRESOLVED for an actually qualifying disposition.",
+        "assessment": "A gives a conditional temporal placement; B applies the full proposition more conservatively. Record this scope difference, but do not count it as an independently established legal error solely because the labels differ.",
+        "actual_input_locations": {
+          "A": {
+            "path": "outputs/irac-web-english-v10/runs/55384096/A/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-55384096:L69:span2": 7188,
+              "IK-55384096:L70:span3": 7228
+            }
+          },
+          "P": {
+            "path": "outputs/irac-web-english-v10/runs/55384096/P/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-55384096:L69:span2": 7163,
+              "IK-55384096:L70:span3": 7203
+            }
+          },
+          "B": {
+            "path": "outputs/irac-web-english-v10/runs/55384096/B/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-55384096:L69:span2": 7188,
+              "IK-55384096:L70:span3": 7228
+            }
+          }
+        }
+      }
+    ],
+    "important_A_errors": [
+      "C06 categorical status exceeds the conditional support acknowledged in its own explanation."
+    ],
+    "important_B_errors": [],
+    "shared_limits": [
+      "No supplied adjudicated resolution of deed authenticity or legal possession.",
+      "The full existence/absence of written consent and proof rules remain uncovered.",
+      "Both DENY predictions are expressly conditional; the status correction does not change the prediction label."
+    ],
+    "net_reason": "B gives a more internally consistent complete analysis of a decisive possession qualification while preserving the substantive evidence on both sides.",
+    "review_type": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+    "review_scope": "Decisive content across the entire allowed source set; not only model-cited passages; no new reference labels or external law.",
+    "A_path": "runs/55384096/A/parsed.json",
+    "P_path": "runs/55384096/P/parsed.json",
+    "B_path": "runs/55384096/B/parsed.json"
+  },
+  {
+    "case": "68065690",
+    "category": "INDETERMINATE",
+    "category_zh": "有得有失，净方向无法可靠判断",
+    "E": "PASS",
+    "M": "USABLE_WITH_CONTROL_PARAPHRASE_LIMIT",
+    "L_A": "SUPPORTED_CORE_WITH_LOCATION_OVERREACH",
+    "L_B": "BETTER_OBJECT_SCOPE_WITH_ADVERSE_EVIDENCE_OMISSION",
+    "summary_zh": "B明确区分29/5号经营店与争议仓库，但弱化了A保留的“Veer Bhan全权主导”证言。两项分别涉及对象边界和占有控制，不以任意权重强选净赢家。",
+    "source_checks": [
+      {
+        "refs": [
+          "IK-68065690:L83:span4"
+        ],
+        "source": "The respondent describes a cycle works shop at 29/5 Shakti Nagar and the disputed shop as a godown. The excerpt does not establish identical locations.",
+        "finding": "A labels the disputed shop as at Shakti Nagar without support in the supplied text. P and B explicitly distinguish the separately described shop. Neither A nor B expressly equates both premises with number 29/5, so A is not accused of a stronger merger than it actually makes."
+      },
+      {
+        "refs": [
+          "IK-68065690:L176:context-v4"
+        ],
+        "source": "RW1 says no deed or partnership accounts, “All in all is Sh. Veer Bhan”, and partnership since 1975.",
+        "finding": "A opposition explicitly describes Veer Bhan controlling the partnership. P paraphrases him as principally responsible. B preserves the oral partnership and missing records but omits the control assertion. This removes an important piece of contrary control evidence, although the assertion does not itself prove surrender of legal possession."
+      },
+      {
+        "refs": [
+          "IK-68065690:L76:span1",
+          "IK-68065690:L82:span3",
+          "IK-68065690:L84:span5",
+          "IK-68065690:L174:context-v4",
+          "IK-68065690:L181:context-v4"
+        ],
+        "source": "Specific rent/exclusive-possession allegations and denials; the reply claims family help and possession; RW2 says he conducts Luthra Cycle Stores and has no other shop or business.",
+        "finding": "Both retain RW2’s adverse evidence and distinguish it from a judicial finding of legal possession. Both keep the rent allegation rather than calling the source silent on rent."
+      }
+    ],
+    "P_traces": [
+      {
+        "kind": "OBJECT_SCOPE_GAIN",
+        "source_refs": [
+          "IK-68065690:L83:span4"
+        ],
+        "P": "arrangements[0] states that the separate 29/5 cycle shop is not established as identical to the disputed shop.",
+        "A": "Bindings place the disputed shop at Shakti Nagar, a location not established for that shop in the allowed excerpts.",
+        "B": "C07 explicitly describes the 29/5 shop separately.",
+        "assessment": "Concrete source-boundary improvement; the impact is limited because A does not explicitly reuse the 29/5 premises as the transferred object.",
+        "actual_input_locations": {
+          "A": {
+            "path": "outputs/irac-web-english-v10/runs/68065690/A/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-68065690:L83:span4": 7268
+            }
+          },
+          "P": {
+            "path": "outputs/irac-web-english-v10/runs/68065690/P/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-68065690:L83:span4": 7243
+            }
+          },
+          "B": {
+            "path": "outputs/irac-web-english-v10/runs/68065690/B/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-68065690:L83:span4": 7268
+            }
+          }
+        }
+      },
+      {
+        "kind": "P_CONTENT_NOT_FULLY_USED_BY_B",
+        "source_refs": [
+          "IK-68065690:L176:context-v4"
+        ],
+        "P": "records[5] preserves a weaker paraphrase: Veer Bhan was principally responsible.",
+        "A": "opposition.record says Veer Bhan controlled the partnership and explains why the testimony weakens mere family assistance.",
+        "B": "opposition.record mentions no deed/accounts and both names, but neither the conditions nor reason preserve the control assertion.",
+        "assessment": "Important adverse-evidence omission in B despite the source and related P content being delivered. It is not a retrieval failure and cannot be attributed solely to P.",
+        "actual_input_locations": {
+          "A": {
+            "path": "outputs/irac-web-english-v10/runs/68065690/A/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-68065690:L176:context-v4": 7517
+            }
+          },
+          "P": {
+            "path": "outputs/irac-web-english-v10/runs/68065690/P/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-68065690:L176:context-v4": 7492
+            }
+          },
+          "B": {
+            "path": "outputs/irac-web-english-v10/runs/68065690/B/prompt.txt",
+            "source_id_first_char_offsets": {
+              "IK-68065690:L176:context-v4": 7517
+            }
+          }
+        }
+      }
+    ],
+    "important_A_errors": [
+      "Unsupported geographical attribution of the disputed shop."
+    ],
+    "important_B_errors": [
+      "Omission of RW1’s control assertion concerning Veer Bhan from the substantive analysis."
+    ],
+    "shared_limits": [
+      "Testimony of business operation is not conclusive divestment; the actual legal rights and consent remain disputed.",
+      "Neither source specifies a qualifying transfer date or supplies all fresh post-remand findings.",
+      "Both predictions assume future fact evaluation will not establish a full disposition; these are not validated historical outcomes."
+    ],
+    "net_reason": "Both a source-boundary gain and loss of important adverse control evidence. Their net legal impact is not reliably ranked in this single run; no successful overall P gate is claimed.",
+    "review_type": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+    "review_scope": "Decisive content across the entire allowed source set; not only model-cited passages; no new reference labels or external law.",
+    "A_path": "runs/68065690/A/parsed.json",
+    "P_path": "runs/68065690/P/parsed.json",
+    "B_path": "runs/68065690/B/parsed.json"
+  }
+]

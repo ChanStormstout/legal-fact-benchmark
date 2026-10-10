@@ -1,0 +1,35 @@
+{
+  "version": "V13",
+  "source": "V12 approved case segments only",
+  "source_recovery": "Referenced IDs plus one immediately adjacent predecessor/successor in same document using numeric source position; preserve full segment; no reference-based selection. Exact ID+text hash dedup; stable original position order. Unknown positions get referenced segment only and explicit coverage limit. Long text chunked reversibly at 3000 Unicode characters, no deletion. All methods consume same complete restored chunk list and full raw relations.",
+  "role_adapter": "Type declarations stored as role_types. When a use binding explicitly names same role as the premise, map it to that role variable only, with exact values, evidence provenance and no name similarity. Explicit symbolic maps preserved only if target variable exists in use bindings. Ambiguity is local pending. Bundle verifies a required role at least once and rejects incompatible explicit values; no null wildcard.",
+  "relation_adapter": "Only explicit finite relation values SUPPORT/SUPPORTS, OPPOSE/OPPOSES, UNRESOLVED (sign or type or relation) with exact known fact IDs become signed edges. All other complete records shared in text and relation audit, marked not graph-encoded. Rule dependency only exact declared conclusion/premise and validated role map.",
+  "label_contract": "USABLE is scope-compatible evidence for assessing a proposition, not proof of TRUE; effective opposition is usable. UNUSABLE is incompatible use, not FALSE. UNRESOLVED is unresolved use; UNLABELED is masked; technical failure null. Existing conflicting semantics recorded, not relabeled.",
+  "web_new_calls_max": 21,
+  "dev_additional_disputes_max": 7,
+  "active_preparation_seconds_max": 7200,
+  "methods": [
+    "RAW_P",
+    "TRAIN_LABEL_PRIOR",
+    "Flat",
+    "RGCN",
+    "CrossEncoder"
+  ],
+  "training_seeds": [
+    20261001,
+    20261002,
+    20261003
+  ],
+  "max_fits": 9,
+  "training_gate": [
+    "engineering/source encoding acceptance",
+    "DEV evaluable units in all four mechanisms",
+    "consistent label semantics",
+    "real routes affected by use classification with other prerequisites met",
+    "interpretable correction space across independent disputes rather than P copying"
+  ],
+  "gate_threshold_policy": "No invented numerical accuracy threshold. Report concrete error/correction opportunities and independently affected disputes; no observed learning results used to admit data. A tiny one-dispute error or no downstream influence cannot justify broad comparison.",
+  "no_retry": true,
+  "test_or_sealed_read": false,
+  "no_commit_push": true
+}

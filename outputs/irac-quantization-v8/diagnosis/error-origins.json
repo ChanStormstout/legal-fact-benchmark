@@ -1,0 +1,117 @@
+{
+  "scope": "Existing V6 errors only; V7 review did not establish same-severity new final-answer errors. No new labels or altered answers.",
+  "role": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "findings": [
+    {
+      "id": "112-purpose",
+      "case": "112400",
+      "first_visible": "P and independent A",
+      "source": [
+        "IK-112400:L123:span1"
+      ],
+      "P": "Lease of first floor rewritten as explicit residential letting; it also claims an original lease document says so.",
+      "B": "Repeats explicit residential letting.",
+      "cause_confirmed": "Unsupported increase of specificity already present in raw generation; B receives unchanged P, no checks.",
+      "causality_limit": "A independently made the same error, so P is not established as its unique cause.",
+      "case_source_text": {
+        "IK-112400:L123:span1": "The appellant took on lease, the first floor of the premises in question from the respondent on January 22, 1964 on a monthly rent of Rs. 250."
+      }
+    },
+    {
+      "id": "112-quantifier",
+      "case": "112400",
+      "first_visible": "A and P",
+      "source": [
+        "IK-112400:L139:restored-v2",
+        "IK-112400:L140:restored-v2"
+      ],
+      "P": "Current accommodation insufficient -> no other suitable home; fixes household size to five without support.",
+      "B": "Repeats no-other-home and five people.",
+      "cause_confirmed": "Local finding inflated to global negative; unsupported household size first visible in P and repeated by B.",
+      "improvement_preserved": "B no longer calls the same C06 both supported and unresolved as A did.",
+      "case_source_text": {
+        "IK-112400:L139:restored-v2": "The latter, after a consideration of the materials on record as well as the extent of the premises in the occupation of the landlord and also having due regard to the number of family members living with the latter, held, in his report dated May 4, 1970, that the portion of the premises in the occupation of the landlord was not reaso- nably sufficient for a family consisting of the landlord, his wife, his son, son's wife and their children.",
+        "IK-112400:L140:restored-v2": "On this basis, he recorded a finding that the premises in the occupation of the respondent were not reasonably suitable for his residence."
+      }
+    },
+    {
+      "id": "112-or-route",
+      "case": "112400",
+      "first_visible": "P partial path -> B entire C03",
+      "source": [
+        "IK-112400:L124:restored-v2",
+        "IK-112400:L139:restored-v2",
+        "IK-18143401:L41:historical-e"
+      ],
+      "P": "Requires independent title for SELF, says named family relations absent; FAMILY and DEPENDENT gaps.",
+      "B": "Drops independent-title demand but blocks overall qualifying route on undefined family/dependency, losing SELF alternative that A retained.",
+      "cause_confirmed": "Model-produced legal branch conflation; supplied program OR evaluator has correct separate-branch behavior and was not in B input.",
+      "repair_boundary": "Use independently valid OR checks on explicit model premises; do not infer premises or automatically correct final text.",
+      "case_source_text": {
+        "IK-112400:L124:restored-v2": "The respondent who was the owner of the entire premises was then occupying the ground floor. The landlord filed an application, before the Rent Controller on November 26.1964 for eviction of the appellant from the portion in his occupation as lessee, on two grounds; (a) that the tenant has sub-let a part of the premises, and (b) that he required the premises bona fide for his occupation as a residence himself and his family members. The latter claim was based under cl.",
+        "IK-112400:L139:restored-v2": "The latter, after a consideration of the materials on record as well as the extent of the premises in the occupation of the landlord and also having due regard to the number of family members living with the latter, held, in his report dated May 4, 1970, that the portion of the premises in the occupation of the landlord was not reaso- nably sufficient for a family consisting of the landlord, his wife, his son, son's wife and their children."
+      }
+    },
+    {
+      "id": "188-missing-reference",
+      "case": "188721101",
+      "first_visible": "P",
+      "source": [
+        "IK-188721101:L81:restored-v2"
+      ],
+      "P": "Five records but four evidence uses refer to record 6; some valid indices also describe the wrong record.",
+      "cause_confirmed": "Fixed enum permits up to 12 but cannot require index <= number actually generated. Importer isolates missing references; wrong meaning at valid ID remains a semantic issue.",
+      "B": "Receives raw proposal by frozen design, not repaired or validated facts.",
+      "repair_boundary": "Do not claim source validation verifies meaning; machine-detectable bad references could be conveyed as scoped flags in a future separately evaluated condition.",
+      "case_source_text": {
+        "IK-188721101:L81:restored-v2": "4. Respondent in support of his case examined himself as RW-1 and his brother Sh. Bhagwan Dass, the alleged sub-lessee, as RW-2. Both the witnesses deposed that Sh. Bhagwan Dass was working as an employee and drawing a salary of Rs. 10,000/- per month. The fact of Sh. Bhagwan Dass operating the shop and being in possession of key thereof was admitted. No proof of any other employee was produced. Salary vouchers of payment of salary to Sh. Bhagwan Dass were also not proved."
+      }
+    },
+    {
+      "id": "188-salary-opposition",
+      "case": "188721101",
+      "first_visible": "P omission; B strengthening",
+      "source": [
+        "IK-188721101:L80:restored-v2",
+        "IK-188721101:L81:restored-v2"
+      ],
+      "P": "Retains salary testimony but omits unproved salary vouchers and blurs witness assertions with admission.",
+      "B": "Salary evidence used to contradict rent requirement; omits voucher defect and neighbors saying brother rather than tenant operated shop.",
+      "cause_confirmed": "A qualification/contrary material available in actual source is lost in P and not restored by B.",
+      "causality_limit": "A also omitted these adverse details. P->B correspondence is observable, not an isolated causal experiment.",
+      "case_source_text": {
+        "IK-188721101:L80:restored-v2": "3. Petitioner in support of her case examined her attorney, Sh. M.L. Jain as PW-1, who supported the petition. Petitioner also examined two other witnesses, who were shopkeepers having their shops in the vicinity. Both the witnesses deposed that Sh. Bhagwan Dass was running the shop and not respondent Sh. Ramesh Kumar.",
+        "IK-188721101:L81:restored-v2": "4. Respondent in support of his case examined himself as RW-1 and his brother Sh. Bhagwan Dass, the alleged sub-lessee, as RW-2. Both the witnesses deposed that Sh. Bhagwan Dass was working as an employee and drawing a salary of Rs. 10,000/- per month. The fact of Sh. Bhagwan Dass operating the shop and being in possession of key thereof was admitted. No proof of any other employee was produced. Salary vouchers of payment of salary to Sh. Bhagwan Dass were also not proved."
+      }
+    },
+    {
+      "id": "188-consent-inference",
+      "case": "188721101",
+      "first_visible": "B reason",
+      "source": [
+        "IK-188721101:L72:restored-v2",
+        "LAW:S02:DRC14:1b"
+      ],
+      "P": "Written consent unresolved, without an automatic outcome rule.",
+      "B": "C05 correctly records lack of consent information, but reason adds that unresolved consent prevents a grant.",
+      "cause_confirmed": "New final legal-effect inference without supplied burden rule; not a consequence supplied by importer.",
+      "improvement_preserved": "B removed A claim that landlord needed consent and unprovided estoppel; C05 body stopped inventing no-consent allegation, though opposition still contains it.",
+      "case_source_text": {
+        "IK-188721101:L72:restored-v2": "2. It was the case of the eviction petitioner - landlord that she had rented out the premises bearing Shop No. 15, in property no. 4415, Gali Bahuji, Pahari Dheeraj, Delhi-110006 to one Sh. Ramesh Kumar on 06.01.1987. However, the said tenant Sh. Ramesh Kumar had parted with possession and sub-let and assigned the same initially to one Sh. Ghanshyam Dass and subsequently to Sh. Bhagwan Dass, who were his father and brother respectively."
+      }
+    },
+    {
+      "id": "188-date",
+      "case": "188721101",
+      "first_visible": "A and P",
+      "source": [
+        "IK-188721101:L72:restored-v2"
+      ],
+      "B": "Removes A invented trial-court date attribution but still assigns lease date to disposition.",
+      "judgment": "Partial improvement does not correct underlying event/date link. A conditional lower-bound inference may be possible if later disposition confirmed, distinct from asserting exact date.",
+      "case_source_text": {
+        "IK-188721101:L72:restored-v2": "2. It was the case of the eviction petitioner - landlord that she had rented out the premises bearing Shop No. 15, in property no. 4415, Gali Bahuji, Pahari Dheeraj, Delhi-110006 to one Sh. Ramesh Kumar on 06.01.1987. However, the said tenant Sh. Ramesh Kumar had parted with possession and sub-let and assigned the same initially to one Sh. Ghanshyam Dass and subsequently to Sh. Bhagwan Dass, who were his father and brother respectively."
+      }
+    }
+  ]
+}

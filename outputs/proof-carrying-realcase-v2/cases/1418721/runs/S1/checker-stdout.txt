@@ -1,0 +1,450 @@
+{
+  "status": "COMPLETED",
+  "task": "JUDGMENT_REASONING_RECONSTRUCTION",
+  "snapshot_id": "1418721-S1",
+  "requests": [
+    {
+      "id": "Q1",
+      "text": "At the Supreme Court merits stage, the government claimant's affirmative title to the collectively described suit properties is proposed as established on the court's combined assessment of acquisition-supporting documentary records, CTS entries, reported testimony, and insufficiently substantiated competing title evidence, independently of adverse possession.",
+      "predicate": "TITLE_ESTABLISHED_ON_RECORDED_EVIDENCE",
+      "draft_status": "INVALID",
+      "answer": null,
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH",
+        "REQUEST_STATE_MISMATCH"
+      ],
+      "gaps": [
+        "DEPENDENCY_INVALID:S1",
+        "OPEN_TEXT_NOT_IMPLEMENTED"
+      ],
+      "step_id": "S2",
+      "formal_status": "APPROVAL_PENDING",
+      "source_refs": [
+        "IK-1418721:L69",
+        "IK-1418721:L70",
+        "IK-1418721:L72",
+        "IK-1418721:L73",
+        "IK-1418721:L80",
+        "IK-1418721:L81",
+        "IK-1418721:L82",
+        "IK-1418721:L83",
+        "IK-1418721:L84",
+        "IK-1418721:L85"
+      ]
+    },
+    {
+      "id": "Q2",
+      "text": "The Supreme Court record identifies material failures specifically to plead and prove hostile exclusive possession with the necessary animus, the appellant's supposed earlier title, and the relevant point of disposition or dispossession.",
+      "predicate": "MATERIAL_ADVERSE_PLEADING_GAPS_RECORDED",
+      "draft_status": "VALID_UNDER_ASSUMPTIONS",
+      "answer": "TRUE",
+      "errors": [],
+      "gaps": [],
+      "step_id": "S3",
+      "formal_status": "APPROVAL_PENDING",
+      "source_refs": [
+        "IK-1418721:L90",
+        "IK-1418721:L91",
+        "IK-1418721:L92",
+        "IK-1418721:L93",
+        "IK-1418721:L94",
+        "IK-1418721:L100",
+        "IK-1418721:L97"
+      ]
+    },
+    {
+      "id": "Q3",
+      "text": "The government claimant's alternative adverse-possession ground against the Karnataka Board of Wakf was not established under the Supreme Court's contextual pleading and proof requirements, without treating the absence of an independently established renunciation as an additional proven fact.",
+      "predicate": "ADVERSE_POSSESSION_GROUND_NOT_ESTABLISHED",
+      "draft_status": "INVALID",
+      "answer": null,
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH",
+        "REQUEST_STATE_MISMATCH"
+      ],
+      "gaps": [
+        "OPEN_TEXT_NOT_IMPLEMENTED"
+      ],
+      "step_id": "S5",
+      "formal_status": "APPROVAL_PENDING",
+      "source_refs": [
+        "IK-1418721:L90",
+        "IK-1418721:L91",
+        "IK-1418721:L92",
+        "IK-1418721:L93",
+        "IK-1418721:L94",
+        "IK-1418721:L96",
+        "IK-1418721:L97",
+        "IK-1418721:L98",
+        "IK-1418721:L99",
+        "IK-1418721:L100",
+        "IK-1418721:L101",
+        "IK-1418721:L59",
+        "IK-1418721:L61",
+        "IK-1418721:L79",
+        "IK-1418721:L89",
+        "IK-1418721:L63",
+        "IK-1418721:L64",
+        "IK-1418721:L77"
+      ]
+    },
+    {
+      "id": "Q4",
+      "text": "For the government claimant and the collectively described Bijapur suit properties, rejection of the alternative adverse-possession basis does not itself negate the independently supported affirmative title basis. This limited conclusion does not independently determine the disposition of the appeals.",
+      "predicate": "INDEPENDENT_TITLE_GROUND_UNDIMINISHED_BY_FAILED_ADVERSE_PLEA",
+      "draft_status": "INVALID",
+      "answer": null,
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH",
+        "REQUEST_STATE_MISMATCH"
+      ],
+      "gaps": [
+        "DEPENDENCY_INVALID:S2",
+        "DEPENDENCY_INVALID:S5"
+      ],
+      "step_id": "S6",
+      "formal_status": "APPROVAL_PENDING",
+      "source_refs": [
+        "IK-1418721:L77",
+        "IK-1418721:L85",
+        "IK-1418721:L89",
+        "IK-1418721:L97",
+        "IK-1418721:L100",
+        "IK-1418721:L101"
+      ]
+    }
+  ],
+  "steps": {
+    "S1": {
+      "id": "S1",
+      "status": "INVALID",
+      "state": null,
+      "errors": [
+        "QUOTE_NOT_LOCATED"
+      ],
+      "gaps": [
+        "RULE_SEMANTICS_NOT_ACCEPTED"
+      ],
+      "dependencies": [
+        {
+          "slot": "register_owner_entry",
+          "kind": "PREMISE",
+          "id": "F6"
+        },
+        {
+          "slot": "acquisition_method_unchallenged",
+          "kind": "PREMISE",
+          "id": "F7"
+        }
+      ],
+      "sources": [
+        "IK-1418721:L82",
+        "IK-1418721:L83"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "REGISTER_SUPPORTS_ACQUISITION_CASE",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "E1"
+        },
+        {
+          "role": "property",
+          "entity": "E4"
+        }
+      ],
+      "time_scope": null,
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    },
+    "S2": {
+      "id": "S2",
+      "status": "INVALID",
+      "state": "UNKNOWN",
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH"
+      ],
+      "gaps": [
+        "DEPENDENCY_INVALID:S1",
+        "OPEN_TEXT_NOT_IMPLEMENTED"
+      ],
+      "dependencies": [
+        {
+          "slot": "acquisition_register_support",
+          "kind": "STEP",
+          "id": "S1"
+        },
+        {
+          "slot": "survey_records",
+          "kind": "PREMISE",
+          "id": "F8"
+        },
+        {
+          "slot": "possession_testimony",
+          "kind": "PREMISE",
+          "id": "F9"
+        },
+        {
+          "slot": "opposing_title_evidence",
+          "kind": "PREMISE",
+          "id": "F10"
+        }
+      ],
+      "sources": [
+        "IK-1418721:L69",
+        "IK-1418721:L70",
+        "IK-1418721:L72",
+        "IK-1418721:L73",
+        "IK-1418721:L80",
+        "IK-1418721:L81",
+        "IK-1418721:L82",
+        "IK-1418721:L83",
+        "IK-1418721:L84",
+        "IK-1418721:L85"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "TITLE_ESTABLISHED_ON_RECORDED_EVIDENCE",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "E1"
+        },
+        {
+          "role": "opponent",
+          "entity": "E2"
+        },
+        {
+          "role": "property",
+          "entity": "E4"
+        }
+      ],
+      "time_scope": null,
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    },
+    "S3": {
+      "id": "S3",
+      "status": "VALID_UNDER_ASSUMPTIONS",
+      "state": "TRUE",
+      "errors": [],
+      "gaps": [],
+      "dependencies": [
+        {
+          "slot": "hostile_exclusive_possession_gap",
+          "kind": "PREMISE",
+          "id": "F12"
+        },
+        {
+          "slot": "earlier_owner_title_gap",
+          "kind": "PREMISE",
+          "id": "F13"
+        },
+        {
+          "slot": "dispossession_time_gap",
+          "kind": "PREMISE",
+          "id": "F14"
+        }
+      ],
+      "sources": [
+        "IK-1418721:L90",
+        "IK-1418721:L91",
+        "IK-1418721:L92",
+        "IK-1418721:L93",
+        "IK-1418721:L94",
+        "IK-1418721:L100",
+        "IK-1418721:L97"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "MATERIAL_ADVERSE_PLEADING_GAPS_RECORDED",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "E1"
+        },
+        {
+          "role": "opponent",
+          "entity": "E2"
+        },
+        {
+          "role": "property",
+          "entity": "E4"
+        }
+      ],
+      "time_scope": null,
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    },
+    "S4": {
+      "id": "S4",
+      "status": "VALID_UNDER_ASSUMPTIONS",
+      "state": "TRUE",
+      "errors": [],
+      "gaps": [],
+      "dependencies": [
+        {
+          "slot": "original_title_asserted",
+          "kind": "PREMISE",
+          "id": "F1"
+        },
+        {
+          "slot": "alternative_adverse_possession_asserted",
+          "kind": "PREMISE",
+          "id": "F2"
+        }
+      ],
+      "sources": [
+        "IK-1418721:L59",
+        "IK-1418721:L61",
+        "IK-1418721:L79",
+        "IK-1418721:L89",
+        "IK-1418721:L96",
+        "IK-1418721:L97",
+        "IK-1418721:L98",
+        "IK-1418721:L99",
+        "IK-1418721:L63",
+        "IK-1418721:L64",
+        "IK-1418721:L77"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "ORIGINAL_TITLE_ADVERSE_PLEA_TENSION_TRIGGERED",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "E1"
+        },
+        {
+          "role": "opponent",
+          "entity": "E2"
+        },
+        {
+          "role": "property",
+          "entity": "E4"
+        }
+      ],
+      "time_scope": null,
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    },
+    "S5": {
+      "id": "S5",
+      "status": "INVALID",
+      "state": "UNKNOWN",
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH"
+      ],
+      "gaps": [
+        "OPEN_TEXT_NOT_IMPLEMENTED"
+      ],
+      "dependencies": [
+        {
+          "slot": "material_pleading_deficiencies",
+          "kind": "STEP",
+          "id": "S3"
+        },
+        {
+          "slot": "inconsistent_title_theories",
+          "kind": "STEP",
+          "id": "S4"
+        }
+      ],
+      "sources": [
+        "IK-1418721:L90",
+        "IK-1418721:L91",
+        "IK-1418721:L92",
+        "IK-1418721:L93",
+        "IK-1418721:L94",
+        "IK-1418721:L96",
+        "IK-1418721:L97",
+        "IK-1418721:L98",
+        "IK-1418721:L99",
+        "IK-1418721:L100",
+        "IK-1418721:L101",
+        "IK-1418721:L59",
+        "IK-1418721:L61",
+        "IK-1418721:L79",
+        "IK-1418721:L89",
+        "IK-1418721:L63",
+        "IK-1418721:L64",
+        "IK-1418721:L77"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "ADVERSE_POSSESSION_GROUND_NOT_ESTABLISHED",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "E1"
+        },
+        {
+          "role": "opponent",
+          "entity": "E2"
+        },
+        {
+          "role": "property",
+          "entity": "E4"
+        }
+      ],
+      "time_scope": null,
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    },
+    "S6": {
+      "id": "S6",
+      "status": "INVALID",
+      "state": "UNKNOWN",
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH"
+      ],
+      "gaps": [
+        "DEPENDENCY_INVALID:S2",
+        "DEPENDENCY_INVALID:S5"
+      ],
+      "dependencies": [
+        {
+          "slot": "independent_title_ground",
+          "kind": "STEP",
+          "id": "S2"
+        },
+        {
+          "slot": "alternative_adverse_ground",
+          "kind": "STEP",
+          "id": "S5"
+        }
+      ],
+      "sources": [
+        "IK-1418721:L77",
+        "IK-1418721:L85",
+        "IK-1418721:L89",
+        "IK-1418721:L97",
+        "IK-1418721:L100",
+        "IK-1418721:L101"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "INDEPENDENT_TITLE_GROUND_UNDIMINISHED_BY_FAILED_ADVERSE_PLEA",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "E1"
+        },
+        {
+          "role": "opponent",
+          "entity": "E2"
+        },
+        {
+          "role": "property",
+          "entity": "E4"
+        }
+      ],
+      "time_scope": null,
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    }
+  },
+  "legal_approval": false,
+  "interpretation": "Formal dependency checks under model-assisted, explicitly unapproved research premises and rules. No semantic or legal certification."
+}

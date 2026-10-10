@@ -1,0 +1,103 @@
+{
+  "version": "REALCASE_V2",
+  "mode": "RESEARCH_DRAFT",
+  "case_id": "161859415",
+  "stage": "Supreme Court civil appeal from revision in a Section 6 summary suit",
+  "snapshot_id": "161859415-CAL-V6-attributed-reconstruction",
+  "snapshot_sha256": "27481a8f05be1a84bc2e8c6f7a4e9a25d16106c4bd7fa47c812de9e7dc5d5790",
+  "proposal": {
+    "steps": [
+      {
+        "id": "S1",
+        "rule_ref": "R1@2",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "161859415:subject"
+          },
+          {
+            "role": "opponent",
+            "entity": "161859415:opponent"
+          },
+          {
+            "role": "property",
+            "entity": "161859415:property"
+          }
+        ],
+        "time_scope": null,
+        "inputs": [
+          {
+            "slot": "record_P3",
+            "kind": "PREMISE",
+            "id": "P3"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "L76 is the trial finding, not independent exhibit proof. L151-L156 supply the target adopted legal assessment and reject opposing lines of authority. Six-month and government restrictions are retained; the filing date is not independently established. Court evaluation remains an explicit assumption, not independent calculation."
+      },
+      {
+        "id": "S2",
+        "rule_ref": "R2@2",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "161859415:subject"
+          },
+          {
+            "role": "opponent",
+            "entity": "161859415:opponent"
+          },
+          {
+            "role": "property",
+            "entity": "161859415:property"
+          }
+        ],
+        "time_scope": null,
+        "inputs": [
+          {
+            "slot": "record_P3",
+            "kind": "PREMISE",
+            "id": "P3"
+          },
+          {
+            "slot": "prior_S1",
+            "kind": "STEP",
+            "id": "S1"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "L157-L159 distinguish desirability from necessity. The contextual examples of an absent or unwilling tenant are reasons for the rule, not asserted facts of this target tenant. Court evaluation remains an explicit assumption, not independent calculation."
+      }
+    ],
+    "requests": [
+      {
+        "id": "Q-S1",
+        "step_id": "S1",
+        "predicate": "LANDLORD_STANDING_ON_RECORDED_TENANT_DISPOSSESSION",
+        "text": "In the stated tenant/trespasser setting, the Court held that the landlord retained legal or constructive possession through the tenant and could seek Section 6 recovery when that tenant was forcibly dispossessed by a third party. This resolves standing, not independently verified title or filing timeliness.",
+        "proposed_state": "TRUE"
+      },
+      {
+        "id": "Q-S2",
+        "step_id": "S2",
+        "predicate": "TENANT_NONJOINDER_NOT_AUTOMATICALLY_FATAL",
+        "text": "For that landlord Section 6 action, tenant joinder could be desirable but was not an absolute prerequisite; non-joinder did not by itself defeat maintainability. This does not decide title or all remaining statutory requirements.",
+        "proposed_state": "TRUE"
+      }
+    ],
+    "counterarguments": [
+      "The contesting defendants argued that the tenant alone could invoke Section 6 because the tenant, not the landlady, was physically dispossessed (IK-161859415:L80); this corresponds to the rejected physical-possession-only position of Veeraswami Mudali and Ramchandra (IK-161859415:L101, L103, L156).",
+      "The Madras ruling in (Kanneganti) Ramamanemma treated absence of the tenant as fatal to maintainability (IK-161859415:L104). The Supreme Court rejected that categorical rule while acknowledging that joinder may be desirable (IK-161859415:L157-L159).",
+      "The contesting defendants claimed joint-family ownership, co-ownership, and the seller’s lack of authority; defendant no. 4 separately alleged fraud and no consideration (IK-161859415:L74). These were title or validity disputes, whereas Section 6(1) permits possessory relief notwithstanding competing title and Section 6(4) preserves title litigation (IK-161859415:L84, L93).",
+      "An objection concerning the dispossessed tenant’s interests remains conceptually relevant: the Rajasthan report said it would be proper to join the tenant and allow a say in the relief (IK-161859415:L134-L136). The Supreme Court ruled only that non-joinder is not invariably fatal, not that the tenant’s subsisting interests can always be ignored (IK-161859415:L158-L159).",
+      "The statute bars suits brought later than six months after dispossession (IK-161859415:L88), but no initial filing date is provided; the 2001 trial-decree date cannot establish compliance or violation. The reported judgment does not separately resolve that possible procedural issue."
+    ],
+    "gaps": [
+      "The target states the dispossession date but does not supply the filing date in the selected account; do not independently certify six-month compliance merely from the result.",
+      "Earlier cited decisions and original exhibits have not been separately verified.",
+      "Codex-assisted preparation only; no independent reference, accepted-premise policy or legal approval.",
+      "Qualified legal approval pending. Original documents/exhibits not independently inspected. Open legal evaluations are attributed assumptions.",
+      "Readable reference retained with its original contract status: PARSED. No response was repaired into success."
+    ]
+  }
+}

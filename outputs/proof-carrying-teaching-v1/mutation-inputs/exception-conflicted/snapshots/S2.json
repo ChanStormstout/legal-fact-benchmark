@@ -1,0 +1,178 @@
+{
+  "snapshot_id": "S2",
+  "case_id": "DEMO_PERMISSION",
+  "issue_id": "ENTRY_AUTHORIZATION",
+  "jurisdiction": "DEMO",
+  "stage_id": "TEACHING",
+  "as_of": "2026-10-13",
+  "task_mode": "SYNTHETIC_TEACHING",
+  "parent_snapshot_hash": "e7c79a0b7e6c18593b9583df88c6c4db42bd6c99de1466c5cb051cb040d66306",
+  "entities": {
+    "Person_A": {
+      "type": "PERSON"
+    },
+    "Parcel_P": {
+      "type": "PROPERTY"
+    },
+    "Parcel_Q": {
+      "type": "PROPERTY"
+    }
+  },
+  "documents": {
+    "E1": {
+      "case_id": "DEMO_PERMISSION",
+      "path": "documents/E1.txt",
+      "sha256": "7c2af7c738e504482bdbc9cb9bfee2851e1b64fcbd5d3c96bcb72ae353f80852",
+      "kind": "SYNTHETIC_TEACHING_SOURCE"
+    },
+    "E2": {
+      "case_id": "DEMO_PERMISSION",
+      "path": "documents/E2.txt",
+      "sha256": "f9f8d50f01f3b4c4900c7c5cd0d6565ab595ff06d49850b06364dd92a5f63a7a",
+      "kind": "SYNTHETIC_TEACHING_SOURCE"
+    },
+    "E3": {
+      "case_id": "DEMO_PERMISSION",
+      "path": "documents/E3.txt",
+      "sha256": "a57a92fae22b45c4486f528802fa8f4d9254b92b21d84d37fd476e4ac2de74df",
+      "kind": "SYNTHETIC_TEACHING_SOURCE"
+    }
+  },
+  "sources": {
+    "demo_message_1": {
+      "document_id": "E1",
+      "case_id": "DEMO_PERMISSION",
+      "start": 0,
+      "end": 85,
+      "line": 1,
+      "exact_text": "Synthetic message: Person_A may enter Parcel_P on Monday, 2026-10-12, for entry only.",
+      "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+      "original_legal_exhibit_available": false
+    },
+    "demo_entry_record_2": {
+      "document_id": "E2",
+      "case_id": "DEMO_PERMISSION",
+      "start": 0,
+      "end": 73,
+      "line": 1,
+      "exact_text": "Synthetic entry record: Person_A entered Parcel_P on Tuesday, 2026-10-13.",
+      "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+      "original_legal_exhibit_available": false
+    },
+    "demo_message_3": {
+      "document_id": "E3",
+      "case_id": "DEMO_PERMISSION",
+      "start": 0,
+      "end": 102,
+      "line": 1,
+      "exact_text": "Synthetic correction message: Person_A may also enter Parcel_P on Tuesday, 2026-10-13, for entry only.",
+      "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+      "original_legal_exhibit_available": false
+    }
+  },
+  "propositions": {
+    "P1": {
+      "id": "P1",
+      "case_id": "DEMO_PERMISSION",
+      "stage_id": "TEACHING",
+      "predicate": "AUTHORIZATION",
+      "bindings": {
+        "person": "Person_A",
+        "property": "Parcel_P"
+      },
+      "statement_status": "EXERCISE_STIPULATION",
+      "party_stance": null,
+      "court_assessment": null,
+      "claim_disposition": null,
+      "assessment": "TRUE",
+      "source_refs": [
+        "demo_message_1"
+      ],
+      "interval": [
+        "2026-10-12",
+        "2026-10-12"
+      ],
+      "activity_scope": [
+        "entry"
+      ],
+      "review_id": "REVIEW-P1"
+    },
+    "P2": {
+      "id": "P2",
+      "case_id": "DEMO_PERMISSION",
+      "stage_id": "TEACHING",
+      "predicate": "ENTRY",
+      "bindings": {
+        "person": "Person_A",
+        "property": "Parcel_P"
+      },
+      "statement_status": "EXERCISE_STIPULATION",
+      "party_stance": null,
+      "court_assessment": null,
+      "claim_disposition": null,
+      "assessment": "TRUE",
+      "source_refs": [
+        "demo_entry_record_2"
+      ],
+      "event_time": "2026-10-13",
+      "activity": "entry",
+      "review_id": "REVIEW-P2"
+    },
+    "P4": {
+      "id": "P4",
+      "case_id": "DEMO_PERMISSION",
+      "stage_id": "TEACHING",
+      "predicate": "AUTHORIZATION",
+      "bindings": {
+        "person": "Person_A",
+        "property": "Parcel_P"
+      },
+      "statement_status": "EXERCISE_STIPULATION",
+      "party_stance": null,
+      "court_assessment": null,
+      "claim_disposition": null,
+      "assessment": "TRUE",
+      "source_refs": [
+        "demo_message_3"
+      ],
+      "interval": [
+        "2026-10-13",
+        "2026-10-13"
+      ],
+      "activity_scope": [
+        "entry"
+      ],
+      "review_id": "REVIEW-P4"
+    }
+  },
+  "reviews": {
+    "REVIEW-P1": {
+      "id": "REVIEW-P1",
+      "subject_sha256": "dc9c781372ef1b3d23ab3a85bf622a5d2363fb3f7c215efcbd0de848a5cf2749",
+      "decision": "EXERCISE_SUPPLIED",
+      "reviewer_role": "EXERCISE_FIXTURE",
+      "basis": "SYNTHETIC_EXERCISE",
+      "human_legal_approval": false,
+      "rationale": "Stipulated teaching input; no person has been represented as approving it."
+    },
+    "REVIEW-P2": {
+      "id": "REVIEW-P2",
+      "subject_sha256": "5f560f0fde4b98e329f2c67e8c00ba74b9133126a11c430a793d5f27faff365b",
+      "decision": "EXERCISE_SUPPLIED",
+      "reviewer_role": "EXERCISE_FIXTURE",
+      "basis": "SYNTHETIC_EXERCISE",
+      "human_legal_approval": false,
+      "rationale": "Stipulated teaching input; no person has been represented as approving it."
+    },
+    "REVIEW-P4": {
+      "id": "REVIEW-P4",
+      "subject_sha256": "4f1022b4f313ce6075724165c60624cc012f8ede3c8e093c3faa3cd01eda9359",
+      "decision": "EXERCISE_SUPPLIED",
+      "reviewer_role": "EXERCISE_FIXTURE",
+      "basis": "SYNTHETIC_EXERCISE",
+      "human_legal_approval": false,
+      "rationale": "Stipulated teaching input; no person has been represented as approving it."
+    }
+  },
+  "unresolved_queries": []
+}

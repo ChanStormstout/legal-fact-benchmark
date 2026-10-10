@@ -1,0 +1,258 @@
+{
+  "version": "REALCASE_V2",
+  "mode": "RESEARCH_DRAFT",
+  "case_id": "789051",
+  "stage": "SUPREME_COURT_MERITS_APPEAL",
+  "snapshot_id": "789051-LOCAL-V3-reviewed-reconstruction",
+  "snapshot_sha256": "c8bcaf645d7c4b739cc61c5a7a35b61eae56d90416086fc67b4377b59ca0cebe",
+  "proposal": {
+    "steps": [
+      {
+        "id": "S1",
+        "rule_ref": "R1@1",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          }
+        ],
+        "time_scope": null,
+        "inputs": [
+          {
+            "slot": "possession_established",
+            "kind": "PREMISE",
+            "id": "F1"
+          },
+          {
+            "slot": "ownership_not_proved",
+            "kind": "PREMISE",
+            "id": "F2"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "R1's two required inputs are satisfied by distinct Trial Court findings reported in the Supreme Court judgment. F1 establishes that the original plaintiff-respondent, E1, proved possession of the identified suit property, E3. F2 establishes that the same plaintiff failed to prove proprietary title to that property. Both premises are TRUE under the stated reconstruction policy and have the permitted LOWER_COURT_FINDING status. Their subject and property bindings coincide. R1 therefore supports POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF: failure to establish ownership does not extinguish the independently established possessory basis. This conclusion preserves the availability of possessory protection for further legal evaluation; it neither establishes an entitlement to injunction by itself nor determines ownership. The failure of title proof is not converted into a finding that E1 never owned E3 or that E2 owns E3. The underlying Trial Court evidence has not been independently examined. Sources: IK-789051:L66-L67 and IK-789051:L106-L107."
+      },
+      {
+        "id": "S2",
+        "rule_ref": "R2@1",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E1"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          }
+        ],
+        "time_scope": null,
+        "inputs": [
+          {
+            "slot": "independent_possession_basis",
+            "kind": "STEP",
+            "id": "S1"
+          },
+          {
+            "slot": "judicial_finding_of_settled_possession",
+            "kind": "PREMISE",
+            "id": "F3"
+          },
+          {
+            "slot": "transient_trespass_exception",
+            "kind": "PREMISE",
+            "id": "F4"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "S1 supplies the exact derived predicate POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF. F3 supplies the Supreme Court's expressly reported characterization that E1 was in settled possession of E3. F4 supplies the expected FALSE state for the complete proposition that E1's occupation was merely stray, intermittent, or incipient intrusion that had not matured into settled possession. Its FALSE state follows from the target court's contrary settled-possession characterization, not from independent proof that no individual intermittent act ever occurred. The supplied reconstruction policy permits accepting this attributed judicial characterization. On that limited basis, R2 supports SETTLED_POSSESSION_IS_LEGALLY_PROTECTABLE, including protection against extrajudicial interference by a person asserting ownership. Critically, R2 has operator OPEN_TEXT. The underlying legal and factual evaluation of whether possession was sufficiently effective, peaceful, enduring, undisturbed, and settled is not independently executable from these inputs. The proposed TRUE state relies on the accepted judicial classification, not on a completed deterministic evaluation of the illustrative factors. No minimum occupation period, universal crop requirement, independently demonstrated acquiescence, or automatic protection for fresh trespass is inferred. Nor does the rule establish that E2 was the rightful owner. Sources: IK-789051:L85-L105 and IK-789051:L106."
+      },
+      {
+        "id": "S3",
+        "rule_ref": "R3@1",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E1"
+          },
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          }
+        ],
+        "time_scope": "Interference preceding commencement of the original suit; exact date unspecified.",
+        "inputs": [
+          {
+            "slot": "protectable_settled_possession",
+            "kind": "STEP",
+            "id": "S2"
+          },
+          {
+            "slot": "opponent_attempted_interference",
+            "kind": "PREMISE",
+            "id": "F5"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "S2 supplies the required legally protectable settled-possession predicate for E1 and E3, subject to its expressly unimplemented OPEN_TEXT evaluation. F5 supplies the Supreme Court's account that E2 obstructed construction being undertaken by E1 on E3 while asserting that the disputed land belonged to E2. F5 is a TARGET_COURT_FINDING accepted as a reported judicial account. Its ownership component records E2's assertion, not proof of E2's title. The inputs preserve identical subject and property entities and identify the specific opponent. R3 therefore supports POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT: interference with E1's established settled possession provides a ground for protective injunctive restraint independently of confirmation of E1's ownership. The supported restraint concerns interference with possession, not permanent exclusion of an owner who subsequently establishes a superior right through legal proceedings. Actual use of physical force is not independently established. The rule does not execute every additional procedural or discretionary requirement for an injunction, and its dependence on S2 retains R2's semantic limitation. Sources: IK-789051:L66-L67, IK-789051:L85-L87 and IK-789051:L106-L107."
+      },
+      {
+        "id": "S4",
+        "rule_ref": "R4@1",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E1"
+          },
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          }
+        ],
+        "time_scope": null,
+        "inputs": [
+          {
+            "slot": "independent_possessory_injunction_basis",
+            "kind": "STEP",
+            "id": "S3"
+          },
+          {
+            "slot": "appellant_raised_title_based_objection",
+            "kind": "PREMISE",
+            "id": "F8"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "S3 establishes the independently supportable possessory ground required by R4. F8 records that counsel for E2 argued that the suit was defective because no declaration of title had been requested despite disputed ownership, and that E1's failure to establish title required dismissal irrespective of proved possession. F8's TRUE state establishes that these submissions were made; its PARTY_CLAIM status does not establish their correctness or independently verify the original pleadings. R4 supports TITLE_DECLARATION_OBJECTION_NOT_AUTOMATIC_BAR: title non-proof or omission of declaratory relief does not, by itself, require dismissal where a legally supportable independent possessory ground exists. The Supreme Court expressly rejected the appellant's proposed automatic consequences. It distinguished the cited Allahabad decision as addressing discretionary temporary or ad-interim relief in its own circumstances and described the Karnataka decision as supporting an injunction-only suit in appropriate circumstances. This derivation concerns the merits-stage possessory ground and does not establish universal maintainability of every injunction-only action involving disputed title. It also inherits S3's dependence on the attributed settled-possession classification. Sources: IK-789051:L68-L69 and IK-789051:L108-L113."
+      },
+      {
+        "id": "S5",
+        "rule_ref": "R5@1",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E1"
+          },
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          }
+        ],
+        "time_scope": null,
+        "inputs": [
+          {
+            "slot": "injunction_supported_by_possession",
+            "kind": "STEP",
+            "id": "S3"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "S3 supplies the exact predicate POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT for E1 against E2 concerning E3. R5 supports POSSESSORY_RELIEF_DOES_NOT_CONFIRM_OWNERSHIP. Its conclusion is a limitation on what follows from a possessory basis for relief: protection of an existing possessory relationship does not, by that protection alone, confirm E1's proprietary title or reject any possible proprietary title belonging to E2. The distinction corresponds to the Supreme Court's account of possessory remedies protecting possession and proprietary remedies protecting ownership. Possession may have evidential significance regarding title when better title is not proved, but that significance is not transformed here into a conclusive proprietary determination. This step does not derive PLAINTIFF_NOT_OWNER or DEFENDANT_NOT_OWNER and makes no affirmative ownership finding. The source judgment's express reservation of title is separately recorded in F10 rather than assumed to follow automatically from this non-entailment rule. Sources: IK-789051:L72-L75, IK-789051:L83, IK-789051:L87 and IK-789051:L113."
+      },
+      {
+        "id": "S6",
+        "rule_ref": "R6@1",
+        "bindings": [
+          {
+            "role": "subject",
+            "entity": "E1"
+          },
+          {
+            "role": "opponent",
+            "entity": "E2"
+          },
+          {
+            "role": "property",
+            "entity": "E3"
+          }
+        ],
+        "time_scope": "Prospective proprietary proceedings following the possessory adjudication; no future filing or outcome established.",
+        "inputs": [
+          {
+            "slot": "possession_not_ownership_confirmation",
+            "kind": "STEP",
+            "id": "S5"
+          },
+          {
+            "slot": "title_expressly_reserved",
+            "kind": "PREMISE",
+            "id": "F10"
+          },
+          {
+            "slot": "opponent_title_not_established",
+            "kind": "PREMISE",
+            "id": "F9"
+          }
+        ],
+        "proposed_state": "TRUE",
+        "explanation": "S5 supplies the non-entailment that possession-based protection does not itself confirm ownership. F10 supplies the Supreme Court's express reservation of the parties' competing title questions, including its account that the Trial Court and High Court kept title open. F9 establishes the separate TARGET_COURT_FINDING that E2 failed to prove title sufficient to substantiate his claimed entitlement to evict E1 in the proceedings under review. The three inputs retain consistent bindings to E1, E2, and the particular suit property E3. R6 therefore supports SEPARATE_TITLE_ACTION_REMAINS_AVAILABLE: the parties' competing proprietary claims remain available for adjudication in duly constituted proceedings, and E2 may seek title-based eviction only upon establishing a better right to possess the property. F9 concerns non-proof in the reviewed litigation, not a definitive finding that E2 lacks ownership. The conclusion establishes neither present authority for forcible eviction nor eventual success in a proprietary suit. No future proceeding, proof of superior title, decree, eviction, or resolution of disputed boundaries is inferred. The rule is applied without using the Supreme Court's final appellate disposition as an antecedent. Sources: IK-789051:L106-L107 and IK-789051:L113."
+      }
+    ],
+    "requests": [
+      {
+        "id": "Q1",
+        "step_id": "S3",
+        "predicate": "POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT",
+        "text": "E1 has an independently supportable possessory ground for injunctive restraint against E2's interference with settled possession of E3, notwithstanding E1's failure to establish proprietary title. This conclusion depends on S3, which depends on S2's accepted judicial settled-possession classification and S1's preservation of possession despite title non-proof. It supports protection against interference without determining every independent requirement for injunctive relief or confirming ownership.",
+        "proposed_state": "TRUE"
+      },
+      {
+        "id": "Q2",
+        "step_id": "S4",
+        "predicate": "TITLE_DECLARATION_OBJECTION_NOT_AUTOMATIC_BAR",
+        "text": "For the possessory injunction claim concerning E3, E2's asserted objection based on E1's failure to prove title and the alleged omission of a declaratory prayer does not itself require dismissal, because S3 supplies an independent possessory ground. This conclusion rejects only automatic dismissal on those grounds, not every conceivable objection to an injunction-only action.",
+        "proposed_state": "TRUE"
+      },
+      {
+        "id": "Q3",
+        "step_id": "S5",
+        "predicate": "POSSESSORY_RELIEF_DOES_NOT_CONFIRM_OWNERSHIP",
+        "text": "The injunction ground protecting E1's possession of E3 against E2's interference does not, by itself, confirm E1's ownership or determine E2's competing proprietary claim. S5 depends on the possessory basis established through S3. Its conclusion is a non-entailment concerning proprietary title, not an affirmative finding that either litigant lacks ownership.",
+        "proposed_state": "TRUE"
+      },
+      {
+        "id": "Q4",
+        "step_id": "S6",
+        "predicate": "SEPARATE_TITLE_ACTION_REMAINS_AVAILABLE",
+        "text": "Because possession-based protection does not determine ownership, the Supreme Court expressly reserved title, and E2 had not established the title needed to justify eviction in the reviewed proceedings, the parties may pursue competing proprietary claims in duly constituted proceedings. E2's prospective title-based eviction depends on establishing a better right to possession. The conclusion does not establish any present right of self-help eviction or predict the result of future litigation.",
+        "proposed_state": "TRUE"
+      }
+    ],
+    "counterarguments": [
+      "The defendant-appellant's counsel argued that the plaintiff's suit was based on title and was defective because no declaration of title had been sought despite the ownership dispute. F8 records this as a PARTY_CLAIM rather than an accepted legal conclusion. The response through S3 and S4 is limited: where an independent possessory ground is available, omission of a declaration does not automatically defeat the claim. The original pleadings and complete procedural requirements have not been independently examined.",
+      "The defendant-appellant further contended that the plaintiff's failure to establish title required dismissal regardless of established possession or the defendant's own failure to establish title. The opposing reasoning is supplied by F1, F2, and R1: possession and ownership are different inquiries, and title non-proof does not eliminate a separately proved possessory interest. R3 supplies a possessory ground for restraint, while R4 rejects the asserted automatic consequence. Neither party's unproved title is treated as factually disproved.",
+      "A person engaged only in fresh, stray, intermittent, or incomplete trespass cannot automatically invoke the same protection as an established settled possessor. R2 expressly preserves that exception. F4 has the expected FALSE state only because the Supreme Court characterized E1's possession as settled. The complete factual attributes of occupation have not been independently reconstructed, and the OPEN_TEXT legal evaluation is not treated as a deterministic checklist.",
+      "The defendant claimed that the disputed land formed part of his own property. That contention is recorded in F7, and the ownership assertion accompanying obstruction is reported in F5. Neither establishes E2's ownership. F9 separately records the Supreme Court's finding that E2 failed to prove title sufficient to substantiate eviction. Even an independently established rightful owner would ordinarily have to respect the legal protection accorded to settled possession rather than resort to extrajudicial dispossession.",
+      "The appellant relied on the Allahabad decision discussed in the judgment to support the argument against an injunction without a title declaration. The Supreme Court distinguished that decision as involving discretionary temporary or ad-interim relief in its particular circumstances. F12 preserves this characterization, while R4 addresses the merits-stage objection. The cited authority has not been independently examined, and no universal procedural rule is inferred from the distinction.",
+      "The disputed dimensions, shapes, and boundaries of the parties' claimed adjoining parcels might be material to a later proprietary determination. F11 records that uncertainty rather than resolving it. The present derivation binds every relevant step to the identified suit property E3 and does not equate E3 with either party's entire claimed adjoining parcel. S5 and S6 preserve the competing title question for separate adjudication rather than allowing possessory relief to settle that larger dispute."
+    ],
+    "gaps": [
+      "R2 uses the OPEN_TEXT operator. The contextual legal evaluation distinguishing settled possession from casual or incipient intrusion remains unimplemented. S2's proposed TRUE state relies on the accepted Supreme Court characterization in F3 and the corresponding FALSE state of F4, not on independent execution of all settled-possession criteria.",
+      "The judgment does not supply a complete case-specific chronology of occupation or independently sufficient information about duration, effectiveness, lack of disturbance, owner knowledge, concealment, possessory intention, completion of dispossession, or acquiescence. No numerical duration threshold, mandatory crop requirement, or mechanically sufficient conjunction of illustrative factors can be inferred.",
+      "The original Trial Court and High Court judgments, pleadings, documentary exhibits, testimony, construction records, and competing title documents have not been independently examined. F1, F2, F3, F5, F9, and F10 are used in their attributed judicial roles under the reconstruction policy, without claiming independent verification of the underlying evidence.",
+      "The precise dimensions, shapes, boundary demarcation, and proprietary allocation of the adjoining parcels remain unresolved. E3 identifies the particular suit property, but the supplied materials do not establish that it forms part of either litigant's entire claimed parcel or provide sufficient information for independent boundary determination.",
+      "Ultimate ownership of E3 by E1 or E2 remains unresolved. The respective failures to prove title do not establish ownership's factual falsity. R5 supplies a rule about what possessory protection does not entail, not an independently supported negative finding of ownership. No rule in the registry permits deriving affirmative ownership for either party.",
+      "R3 establishes a possessory ground for restraint but does not independently evaluate the complete pleadings, precise manner of obstruction, actual use of physical force, every procedural condition, or all additional discretionary considerations relevant to injunctive relief. S3, S4, S5, and S6 inherit the unimplemented OPEN_TEXT aspect of S2.",
+      "R4 does not implement a comprehensive maintainability test for every case involving disputed ownership or missing declaratory relief. The exact prayer in the original suit has not been independently verified. The Supreme Court's descriptions of the cited Allahabad, Karnataka, and Bombay decisions are the only supplied accounts of those authorities.",
+      "The Supreme Court's discussion of Salmond and earlier judicial authorities has not been checked against those independent sources. No further doctrine, evidentiary presumption, statutory remedy, or general proposition of law is added beyond the supplied judgment and unchanged rule registry.",
+      "Burden allocation and standards of proof are NOT_COVERED by the supplied registry. Findings that title was not proved are preserved as findings of evidentiary non-proof, without implementing burden shifting, independent reassessment of title evidence, or a determination of superior ownership.",
+      "R6 preserves possible future proprietary proceedings but does not implement their admissibility, limitation requirements, evidentiary sufficiency, or potential outcomes. Establishment of a better right to possession remains an express condition on prospective title-based eviction; no such future establishment is asserted.",
+      "The rule registry and fact proposal are research reconstructions pending qualified review. The proposed states distinguish technical dependency satisfaction from independent legal and evidentiary correctness. The Supreme Court's final disposition is available solely for comparison and has not been used as a factual antecedent, a self-validating rule, or a substitute for the six-step derivation."
+    ]
+  }
+}

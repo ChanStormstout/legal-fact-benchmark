@@ -1,6 +1,106 @@
-# 当前工作：IRAC V7 网页同接口A/B比较已完成
+# 当前交付：局部接受与来源恢复 V16
+
+完成四案缓存回归及六个固定DEV请求的来源对齐、独立审阅和D/P/R比较。实际11次普通High生成，五份完整提议、四份完整审阅；136109文件不可取得、885778审阅为空，正式结果保留null。停滞页面的其他回复从原任务取回，未重新生成。907531的限定不适用判断经共同引文修复恢复；新六案根规则均为OPEN_TEXT，尚未形成可执行的完整法律推导。
+
+**保留局部对齐与分范围审阅，暂不恢复用途三分类训练。** 新角色范围错误只隔离对应绑定，独立判断、反论与其他用途保留；结构检查、条件性计算、研究接受与正式批准分别记录。25项相关工程测试通过，旧227项V15文件保持。见[中文报告](outputs/proof-source-alignment-v16/report-zh.md)、[最终三视图](outputs/proof-source-alignment-v16/three-views-final.json)、[来源链](outputs/proof-source-alignment-v16/walkthrough.md)及[投入决定](outputs/proof-source-alignment-v16/learning-decision.json)。未读取TEST／SEALED、训练、提交或推送。
+
+# 历史交付：自动来源对齐与条件性推导 V15
+
+完成四个固定DEV请求、四份自动提议、四份独立来源审阅及D/P/R视图。原P加共同确定性修复均未决；自动提议恢复396336与594273两条限定链，审阅接受后保留。121775准确区分普通期满与特殊提前终止，但未证制度主体对应使整项被拒；907531的前提获接受，既有规则引文断词仍阻止执行。见[中文报告](outputs/proof-source-alignment-v15/report-zh.md)、[来源到推导轨迹](outputs/proof-source-alignment-v15/walkthrough.md)、[投入决定](outputs/proof-source-alignment-v15/learning-decision.json)及[实现边界](docs/PROOF_SOURCE_ALIGNMENT_V15.md)。
+
+**保留带独立审阅的来源对齐作为开发候选，不启动新训练。** 结构检查、假设下推导、模型辅助研究接受和正式法律批准分别保存；本轮不证明法律认证、泛化或GNN收益。八次普通High，重试0、新训练0，未读取TEST／SEALED，不提交推送。旧V12当前CrossEncoder种子仍按原暂停安排运行与保存，其余种子不启动。
+
+# 历史交付：用途语义校准与两条真实推理链 V14
+
+完成20条有限监督核对：13条合同一致、3条不同语义、3条用途不明、1条解释争议，旧标签不改。396336／594273各一条路径保留原P及来源校准版本；原P的四个用途及前提判断已为USABLE／TRUE，恢复来自角色映射、引文与外部前提接受，不能算学习模型收益。
+
+**本轮不新增学习组件，不启动训练。** 两条限定组合在研究接受政策下可执行，正式法律批准仍缺失。四项用途翻转仅验证依赖；0新模型调用、0新拟合、未读取TEST／SEALED，不提交或推送。见[中文报告](outputs/proof-semantic-calibration-v14/report-zh.md)、[学习决定](outputs/proof-semantic-calibration-v14/learning-decision.json)、[实现接口](docs/PROOF_SEMANTIC_CALIBRATION_V14.md)。旧V12当前CrossEncoder种子仍按原安排继续保存，其余种子保持暂停。
+
+# 历史交付：共同接口修复与DEV恢复 V13
+
+V13完成类型／变量分离、多证据局部处理、引用原文恢复、同信息关系编码和真实入口验收；原30TRAIN及722条标签保留。冻结10DEV输入中8纠纷有195条有效用途参考，四类机制均有覆盖，但授权与阶段各仅一纠纷。13次普通High生成，无重试；两份用途审阅为空，保留null。
+
+**V13没有启动新训练。** 原P与参考一致173/195，但参考用途替换后86项请求／规则分析仍全部未决，没有发现用途复核能影响完整链的真实路径；旧、新参考的用途口径也尚未充分认证。保留数据与接口，不把局部分类或工程通过解释为法律分析改善。见[中文报告](outputs/proof-semantic-interface-v13/report-zh.md)、[训练决定](outputs/proof-semantic-interface-v13/training-decision.json)、[实现边界](docs/PROOF_SEMANTIC_INTERFACE_V13.md)及[最终数据诊断](outputs/proof-semantic-interface-v13/final-audit-03/data-task-audit.json)。本地交付，未读取TEST／SEALED，不提交或推送。
+
+旧V12尚未结束的CrossEncoder种子允许正常完成，保存监控继续记录；其余种子暂停。旧六次Flat／R-GCN拟合保留，仅属于旧输入下局部用途分类，不能充当V13结果。见[旧暂停诊断](outputs/proof-semantic-search-v12/continuation-02/pause-diagnostic-01/report-zh.md)。
+
+# 历史交付：请求及当前状态条件化排序 V11
+
+完成八案请求/状态条件化排序开发比较及12次实际拟合。Flat三种子为13/13/15项限定重建，R-GCN为12/13/13；新Simple退化至7项，不能作为强基线。全池有界检查17项约1.48秒。保留接口修复，暂不扩大GNN；无新生成调用、案件或推送。
+
+[中文报告](outputs/proof-carrying-state-search-v11/report-zh.md)、[八案比较](outputs/proof-carrying-state-search-v11/index.html)及[监督覆盖](outputs/proof-carrying-state-search-v11/supervision/coverage.json)。每折仅两个纠纷贡献成对损失，不称独立泛化或法律认证。
+
+# 历史交付：共同规则接口与排序空间诊断 V10
+
+八案缓存重放：23项限定请求由8项变为15项（恢复9、撤回覆盖不足2）；仅1418721存在预算内额外1项排序见证。零模型调用、训练或权重加载，暂不扩大GNN。研究审阅政策下结果，不是法律认证。
+
+[中文报告](outputs/proof-carrying-selection-readiness-v10/report-zh.txt)、[逐案工作台](outputs/proof-carrying-selection-readiness-v10/index.html)及[请求诊断](outputs/proof-carrying-selection-readiness-v10/request-diagnosis.json)。规则读取通用化，但新规则的映射仍须审阅；旧结果原字节保留。本地交付，不提交推送。
+
+# 历史交付：Proof-Carrying接口与依赖修复 V9
+
+八案缓存重放完成，零模型调用、零训练。原顺序接口修复使23项请求中的限定重建从5项增至8项；固定六候选预算的依赖选择仍为8项，无额外完整收益。保留旧结果，不推送。
+
+[中文报告](outputs/proof-carrying-dependency-repair-v9/report-zh.txt)与[八案重放工作台](outputs/proof-carrying-dependency-repair-v9/index.html)。三项恢复有明确原文依据；依赖选择及旧宏观覆盖仍有限制，不宣称完整法律验收通过。
+
+# 历史交付：Proof-Carrying完整流程与GNN接入 V8
+
+完成8案16次普通High任务、12次实际拟合及64份下游交付。R-GCN已实际接入候选选择、推导和独立检查，但未显示超过简单排序的稳定完整分析收益。共同瓶颈包括角色绑定过严、引用/接受政策及预算依赖缺失；正式法律批准待定。
+
+见[完整流程工作台](outputs/proof-carrying-graph-integration-v8/index.html)、[中文报告](outputs/proof-carrying-graph-integration-v8/report-zh.txt)、[实现对应表](docs/PROOF_CARRYING_GRAPH_V8.md)。本轮只作本地交付，不提交或推送。
+
+# 历史交付：完整推理重建流程 V7
+
+来源、英文模型任务、原始回复导入、研究审阅政策、类型化图及队列、推导凭据、独立检查、可追溯分析与版本修正已接入同一入口。复用8案23项旧请求完成整批集成；零新模型调用、零组件收益实验。模型和审阅通过明确的外部输入接入，正式法律批准及开放法律判断的自动计算没有被冒充为完成。
+
+打开[完整流程工作台](outputs/proof-carrying-pipeline-v7/index.html)，查看[使用说明](docs/PROOF_CARRYING_PIPELINE_V7.md)、[中文报告](outputs/proof-carrying-pipeline-v7/report-zh.txt)和[逐案交付](outputs/proof-carrying-pipeline-v7/case-delivery.csv)。统一入口为 `scripts/proof_pipeline_v7.py`。历史结果原字节保留；本轮仅本地交付，不提交或推送。
+
+# 历史交付：五案独立参考与条件性重建 v6
+
+五案5次普通High独立参考完成；2份合同通过、3份31项超过30项上限而保留FORMAT_ERROR/null，完整文本作定性来源审阅。10项OPEN_TEXT请求在工程轨道未计算，在明确法院评价假设下形成10项条件性重建，均待正式批准。四项实际入口控制通过，1047项旧文件未变；不是法律认证或自动模型能力成绩。
+
+见[报告](outputs/proof-carrying-calibration-v6/report-zh.txt)、[逐案推理链](outputs/proof-carrying-calibration-v6/walkthrough.md)及[实现边界](docs/PROOF_CARRYING_CALIBRATION_V6.md)。本轮完成研究性校准交付，正式法律批准仍待定；未提交推送。
+
+# 历史交付：五案校准材料准备 v5
+
+完成5案校准材料准备：按固定顺序核读9份完整判决，4份限定裁判链及1份分歧意见案，40项命题、10条OPEN_TEXT规则草案。5份英文独立参考任务保存但未提交；零模型调用、训练及正式批准。实际入口来源/合同/装配检查通过，940项旧文件保持；尚未产生本批凭据或法律验收结果。
+
+见[中文报告](outputs/proof-carrying-calibration-v5/report-zh.txt)和[五案材料入口](outputs/proof-carrying-calibration-v5/walkthrough.md)。下一依赖是独立来源参考和接受政策；不因缺正式法律批准阻止已授权的材料整理。未提交推送。
+
+# 历史交付：同一提议检查前后 v4
+
+三案13项原始请求在同一来源政策下完成检查前后对照：12项条件性／显式轨迹保留，1项旧推导未完成；不能把来源审阅决定当作程序自动纠错。9项固定控制检查发现等价步骤哈希过严及自由文字展示边界，另存修订；7项测试和6项实际入口验收通过。零模型调用，旧记录保留，未提交推送。
+
+见[中文报告](outputs/proof-carrying-checker-evaluation-v4/report-zh.txt)、[完整对照](outputs/proof-carrying-checker-evaluation-v4/walkthrough.md)及[实现边界](docs/PROOF_CARRYING_CHECKER_EVALUATION_V4.md)。保留检查与来源审阅流程，下一阶段准备既定5案校准；不扩大图算法，不将条件性轨迹作为法律认证。
+
+# 历史交付：真实判决重建本地修复 v3
+
+已完成三案缓存的版本化本地修复，零模型调用。工程轨道2项有效、9项计算未完成、2项无效；来源复核轨道11项条件性重建、2项显式组合，均未获正式法律批准。36项相关测试通过；不能把维护者语义修正或法院判断记录当作模型提升及独立法律证明。旧文件原字节保留，未提交推送。
+
+见[报告](outputs/proof-carrying-local-repair-v3/report-zh.txt)、[逐项比较](outputs/proof-carrying-local-repair-v3/comparison.csv)及[实现边界](docs/PROOF_CARRYING_LOCAL_REPAIR_V3.md)。工程缺陷先修复，正式批准仅限制正式验收；条件性重建链不代替开放法律评价或检查净收益实验。
+
+# 历史交付：真实判决推理重建 v2
+
+三份Guide教学判决、15次普通High已完成。原始18步中5步、13项请求中2项取得研究假设下的有效轨迹；其余主要受开放性评价、引文呈现和角色映射限制，另发现Sopan规则范围错误。Rame另存S2修正；25项相关测试及17个变异场景通过，不代表法律能力。正式批准待定，检查净收益与图收益尚未建立，未训练、启封SEALED、提交或推送。
+
+本批完成来源到独立检查的研究流程，尚未完成三案完整法律链验收。见[中文报告](outputs/proof-carrying-realcase-v2/report-zh.txt)、[可点击推理链](outputs/proof-carrying-realcase-v2/walkthrough.html)、[集中来源审阅](outputs/proof-carrying-realcase-v2/final-source-review.json)和[实现及边界](docs/PROOF_CARRYING_REALCASE_V2.md)。原始失败和冻结快照保留；5案校准与30/10/20试点尚未启动。
+
+# 历史交付：Guide 4.0 可检查推理教学案例
+
+已读Student Implementation Guide 4.0，完成DEMO_PERMISSION合成教学链：凭据、独立检查、错误拒绝、S1/S2版本修正及谱图数值复现。27入口场景符合预期，7项相关测试通过；真实法律批准缺失，不能作为真实判案验收。零模型调用、训练及SEALED访问；旧结果保留，不提交推送。 见[完整教学案例](outputs/proof-carrying-teaching-v1/walkthrough.md)、[中文报告](outputs/proof-carrying-teaching-v1/report-zh.txt)及[实现与边界](docs/PROOF_CARRYING_TEACHING_V1.md)。本轮先完成Guide中的合成案例，不声称已完成真实判决的经批准推理。
+
+# 历史结果：V10 全英文四案A/P/B比较完成
+
+V10全英文四案12次普通High全部完成，4份P、8份最终回答，零重试；E通过。集中来源审阅：B有净改善2案、接近1案、得失无法可靠比较1案。68065690新增重要反对证言遗漏，强制P门槛未通过，暂不选统一赢家，P保留可选。B流程输入约2.40倍、观察时间约2.15倍；非精确推理成本，非人工gold、非独立测试。旧结果保留，未提交推送。 见[中文报告](outputs/irac-web-english-v10/report-zh.txt)、[完整英文答案](outputs/irac-web-english-v10/answers.md)、[四份英文P](outputs/irac-web-english-v10/proposals.md)及[比较表](outputs/irac-web-english-v10/case-comparison.csv)。
+
+# 历史检查点：IRAC V9 四案比较已提交8次，保存7份
+
+四案已提交8/12次普通High任务，7份回答保存并导入；55384096 P页面完成但正文读取受阻，后续4个位置未提交。冻结方法和600项历史文件未变。集中来源审阅尚未开始，暂不评价P净收益；未提交推送。见[进度报告](outputs/irac-web-crosscase-v9/report-zh.txt)和[恢复记录](outputs/irac-web-crosscase-v9/resume-02.json)。
+
+# 历史：IRAC V7 网页同接口A/B比较已完成
 
 V7六次普通High独立临时对话完成，2份P与4份最终回答均可读，零重试。网页A/B明显减少V6来源误读及遗漏；112400 B接近A，188721101 B有逐安排组织收益但未确认重要额外净收益。优先网页A、P可选；一次模型辅助来源审阅，非人工gold，旧案开发诊断。未新增法源、执行器改动、本地推理或推送。 见[报告](outputs/irac-web-crossmodel-v7/report-zh.txt)、[完整回答](outputs/irac-web-crossmodel-v7/answers.md)、[逐案比较](outputs/irac-web-crossmodel-v7/case-comparison.csv)。
+
+补充的[9B 4bit／8bit直接回答诊断](outputs/irac-quantization-v8/report-zh.txt)已完成：两次新生成，112400实质接近、188721101新增重要错误，没有清楚净改善。8bit增加约28%总生成耗时、62% MLX峰值内存，不能把旧问题主要归因于4bit。另已追踪[P到B的错误来源](outputs/irac-quantization-v8/diagnosis/report-zh.txt)；语义接口没有改写，P/B没有重跑。本地补充结果未提交或推送。
 
 # 历史：IRAC V6 两案完整比较已完成
 

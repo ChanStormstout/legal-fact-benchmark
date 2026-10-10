@@ -1,0 +1,199 @@
+{
+  "id": "TEACHING_RULE_REGISTRY@1",
+  "rules": {
+    "COVERAGE_DEMO@1": {
+      "id": "COVERAGE_DEMO@1",
+      "version": 1,
+      "status": "PENDING",
+      "scope": {
+        "jurisdiction": "DEMO",
+        "issue_id": "ENTRY_AUTHORIZATION",
+        "stage_id": "TEACHING",
+        "valid_from": "2026-10-01",
+        "valid_to": "2026-10-31"
+      },
+      "kind": "PERMISSION_COVERAGE",
+      "conclusion": "SPECIFIC_AUTHORIZATION_COVERS_ENTRY",
+      "inputs": [
+        {
+          "role": "authorization",
+          "predicate": "AUTHORIZATION"
+        },
+        {
+          "role": "entry",
+          "predicate": "ENTRY"
+        }
+      ],
+      "logic": "Same person AND same property AND event inside inclusive interval AND granted activity.",
+      "burden_policy": "NOT_APPLICABLE_NARROW_TEACHING_TEST",
+      "exception_policy": "NOT_APPLICABLE_NARROW_TEACHING_TEST",
+      "authority_status": "INSTRUCTIONAL_NOT_LEGAL_AUTHORITY",
+      "guide_pages": [
+        5,
+        9,
+        10
+      ],
+      "limits": [
+        "Only this authorization/entry pair.",
+        "No inference of global absence or liability."
+      ],
+      "review_id": "REVIEW-COVERAGE_DEMO@1"
+    },
+    "AND_GATE_DEMO@1": {
+      "id": "AND_GATE_DEMO@1",
+      "version": 1,
+      "status": "DEMO_ONLY",
+      "scope": {
+        "jurisdiction": "DEMO",
+        "issue_id": "ENTRY_AUTHORIZATION",
+        "stage_id": "TEACHING",
+        "valid_from": "2026-10-01",
+        "valid_to": "2026-10-31"
+      },
+      "kind": "EXPRESSION",
+      "conclusion": "DEMO_ISSUE_CONDITION_MET",
+      "inputs": [
+        {
+          "role": "left",
+          "predicate": "TEST_ASSESSMENT"
+        },
+        {
+          "role": "right",
+          "predicate": "TEST_ASSESSMENT"
+        },
+        {
+          "role": "exception",
+          "predicate": "TEST_ASSESSMENT"
+        }
+      ],
+      "expression": {
+        "op": "AND",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              {
+                "op": "REF",
+                "role": "left"
+              },
+              {
+                "op": "REF",
+                "role": "right"
+              }
+            ]
+          },
+          {
+            "op": "NOT",
+            "arg": {
+              "op": "REF",
+              "role": "exception"
+            }
+          }
+        ]
+      },
+      "burden_policy": "NOT_APPLICABLE_NARROW_TEACHING_TEST",
+      "exception_policy": "EXPLICIT_INPUT",
+      "authority_status": "INSTRUCTIONAL_NOT_LEGAL_AUTHORITY",
+      "guide_pages": [
+        19
+      ],
+      "limits": [
+        "Test fixture for a bounded expression, not a real possession rule."
+      ],
+      "review_id": "REVIEW-AND_GATE_DEMO@1"
+    },
+    "OR_GATE_DEMO@1": {
+      "id": "OR_GATE_DEMO@1",
+      "version": 1,
+      "status": "DEMO_ONLY",
+      "scope": {
+        "jurisdiction": "DEMO",
+        "issue_id": "ENTRY_AUTHORIZATION",
+        "stage_id": "TEACHING",
+        "valid_from": "2026-10-01",
+        "valid_to": "2026-10-31"
+      },
+      "kind": "EXPRESSION",
+      "conclusion": "DEMO_ISSUE_CONDITION_MET",
+      "inputs": [
+        {
+          "role": "left",
+          "predicate": "TEST_ASSESSMENT"
+        },
+        {
+          "role": "right",
+          "predicate": "TEST_ASSESSMENT"
+        },
+        {
+          "role": "exception",
+          "predicate": "TEST_ASSESSMENT"
+        }
+      ],
+      "expression": {
+        "op": "AND",
+        "args": [
+          {
+            "op": "OR",
+            "args": [
+              {
+                "op": "REF",
+                "role": "left"
+              },
+              {
+                "op": "REF",
+                "role": "right"
+              }
+            ]
+          },
+          {
+            "op": "NOT",
+            "arg": {
+              "op": "REF",
+              "role": "exception"
+            }
+          }
+        ]
+      },
+      "burden_policy": "NOT_APPLICABLE_NARROW_TEACHING_TEST",
+      "exception_policy": "EXPLICIT_INPUT",
+      "authority_status": "INSTRUCTIONAL_NOT_LEGAL_AUTHORITY",
+      "guide_pages": [
+        19
+      ],
+      "limits": [
+        "Test fixture for a bounded expression, not a real possession rule."
+      ],
+      "review_id": "REVIEW-OR_GATE_DEMO@1"
+    }
+  },
+  "reviews": {
+    "REVIEW-COVERAGE_DEMO@1": {
+      "id": "REVIEW-COVERAGE_DEMO@1",
+      "subject_sha256": "6a84b0a5c4196c406efd219042e1d05fa61de89125cee16d232cc5019a499bf3",
+      "decision": "EXERCISE_SUPPLIED",
+      "reviewer_role": "DEMO_RULE_FIXTURE",
+      "basis": "SYNTHETIC_EXERCISE",
+      "human_legal_approval": false,
+      "rationale": "Stipulated teaching input; no person has been represented as approving it."
+    },
+    "REVIEW-AND_GATE_DEMO@1": {
+      "id": "REVIEW-AND_GATE_DEMO@1",
+      "subject_sha256": "3c10cabc965a5e97c09edc9cbf60479085052278227dfb6f3671c66e3b1289ad",
+      "decision": "EXERCISE_SUPPLIED",
+      "reviewer_role": "DEMO_RULE_FIXTURE",
+      "basis": "SYNTHETIC_EXERCISE",
+      "human_legal_approval": false,
+      "rationale": "Stipulated teaching input; no person has been represented as approving it."
+    },
+    "REVIEW-OR_GATE_DEMO@1": {
+      "id": "REVIEW-OR_GATE_DEMO@1",
+      "subject_sha256": "79b30bb2c994136f02eddff7fd02f5e91af47844d31b0378d45cb5e1b1c9847a",
+      "decision": "EXERCISE_SUPPLIED",
+      "reviewer_role": "DEMO_RULE_FIXTURE",
+      "basis": "SYNTHETIC_EXERCISE",
+      "human_legal_approval": false,
+      "rationale": "Stipulated teaching input; no person has been represented as approving it."
+    }
+  },
+  "production_approved_rules": []
+}

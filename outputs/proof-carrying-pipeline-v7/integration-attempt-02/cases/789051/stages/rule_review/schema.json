@@ -1,0 +1,71 @@
+{
+  "type": "object",
+  "properties": {
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "type": "string"
+          },
+          "decision": {
+            "enum": [
+              "ACCEPT_AS_RESEARCH_TRANSLATION",
+              "ISSUE",
+              "UNCERTAIN"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          },
+          "quote": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "exceptions_or_scope_missing": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 12
+          }
+        },
+        "required": [
+          "rule_id",
+          "decision",
+          "refs",
+          "quote",
+          "reason",
+          "exceptions_or_scope_missing"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 20
+    },
+    "approval": {
+      "enum": [
+        "MODEL_SOURCE_REVIEW_NOT_LEGAL_APPROVAL"
+      ]
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 15
+    }
+  },
+  "required": [
+    "reviews",
+    "approval",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

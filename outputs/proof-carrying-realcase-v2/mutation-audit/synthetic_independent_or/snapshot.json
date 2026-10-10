@@ -1,0 +1,182 @@
+{
+  "snapshot_id": "S1",
+  "case_id": "SYNTHETIC",
+  "stage": "APPEAL",
+  "jurisdiction": "Synthetic",
+  "entities": {
+    "Mira": {},
+    "Z": {},
+    "Q": {}
+  },
+  "sources": {
+    "S1": {
+      "text": "Mira occupied Z.",
+      "role": "JUDGMENT_TEXT",
+      "url": "synthetic://source"
+    },
+    "R0": {
+      "text": "An occupation record is available.",
+      "role": "JUDGMENT_TEXT",
+      "url": "synthetic://rule"
+    }
+  },
+  "documents": [],
+  "premises": {
+    "F1": {
+      "id": "F1",
+      "predicate": "OCCUPATION_RECORDED",
+      "text": "Recorded occupation.",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "Mira"
+        },
+        {
+          "role": "property",
+          "entity": "Z"
+        }
+      ],
+      "time_scope": "Monday",
+      "statement_status": "LOWER_COURT_FINDING",
+      "speaker": "court",
+      "court_level": "trial",
+      "stage": "trial",
+      "state": "TRUE",
+      "refs": [
+        "S1"
+      ],
+      "quote": "Mira occupied Z.",
+      "limitations": [
+        "Title not determined; not a blocker to the record."
+      ]
+    }
+  },
+  "rules": {
+    "R1@1": {
+      "id": "R1",
+      "version": 1,
+      "description": "Synthetic record rule",
+      "conclusion_predicate": "RECORD_AVAILABLE",
+      "conclusion_text": "An occupation record is available; no title consequence.",
+      "jurisdiction": "Synthetic",
+      "stage": "APPEAL",
+      "origin": "RESEARCH_TRANSLATION",
+      "source_refs": [
+        "R0"
+      ],
+      "source_quote": "An occupation record is available.",
+      "operator": "ANY",
+      "slots": [
+        {
+          "name": "record",
+          "predicate": "OCCUPATION_RECORDED",
+          "description": "record",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": true
+        },
+        {
+          "name": "independent_missing",
+          "predicate": "OCCUPATION_RECORDED",
+          "description": "record",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": true
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "Synthetic"
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": []
+    },
+    "R2@1": {
+      "id": "R2",
+      "version": 1,
+      "description": "Synthetic record rule",
+      "conclusion_predicate": "RECORD_CHAIN",
+      "conclusion_text": "An occupation record is available; no title consequence.",
+      "jurisdiction": "Synthetic",
+      "stage": "APPEAL",
+      "origin": "RESEARCH_TRANSLATION",
+      "source_refs": [
+        "R0"
+      ],
+      "source_quote": "An occupation record is available.",
+      "operator": "ALL",
+      "slots": [
+        {
+          "name": "record",
+          "predicate": "RECORD_AVAILABLE",
+          "description": "record",
+          "expected": "TRUE",
+          "allowed_statuses": [
+            "LOWER_COURT_FINDING"
+          ],
+          "required_roles": [
+            "subject",
+            "property"
+          ],
+          "time_required": true
+        }
+      ],
+      "exception_slots": [],
+      "scope_limits": [
+        "Synthetic"
+      ],
+      "burden_policy": "NOT_COVERED",
+      "unimplemented": []
+    }
+  },
+  "reviews": {
+    "premises": {
+      "F1": {
+        "subject_hash": "743aefa102d5f60287a2f0b7cd7d1262a624018d5f94509a286d74c9fe2a0ddc",
+        "decision": "ACCEPT_RESEARCH",
+        "actor": "MUTATION_FIXTURE_ONLY_NOT_SOURCE_REVIEW",
+        "qualified_legal_approval": false
+      }
+    },
+    "rules": {
+      "R1@1": {
+        "subject_hash": "4a9fb73185c423e28be3d99576e73b40f46e5e7baa9c0a020d7e86f83eb9c911",
+        "decision": "ACCEPT_RESEARCH",
+        "actor": "MUTATION_FIXTURE_ONLY_NOT_SOURCE_REVIEW",
+        "qualified_legal_approval": false
+      },
+      "R2@1": {
+        "subject_hash": "e9a70e7b7f66c78f1126f8c39d29af7a41baa5bb531eb455ad57f66d2f717592",
+        "decision": "ACCEPT_RESEARCH",
+        "actor": "MUTATION_FIXTURE_ONLY_NOT_SOURCE_REVIEW",
+        "qualified_legal_approval": false
+      }
+    }
+  },
+  "scope_reviews": {
+    "R1@1": {
+      "subject_hash": "4a9fb73185c423e28be3d99576e73b40f46e5e7baa9c0a020d7e86f83eb9c911",
+      "jurisdiction_compatible": true,
+      "stage_compatible": true,
+      "basis": "Fixture only"
+    },
+    "R2@1": {
+      "subject_hash": "e9a70e7b7f66c78f1126f8c39d29af7a41baa5bb531eb455ad57f66d2f717592",
+      "jurisdiction_compatible": true,
+      "stage_compatible": true,
+      "basis": "Fixture only"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "rule_hash": "e6bf90faeb4c8f777af80168bc27f011b6dfeb4f0899708e15243c4176b6d8cb",
+    "before": {
+      "version": 1,
+      "rule_hash": "e6bf90faeb4c8f777af80168bc27f011b6dfeb4f0899708e15243c4176b6d8cb",
+      "slot_variables": {
+        "claimants_ouster_allegation_recorded": {
+          "subject": "subject",
+          "opponent": "opponent",
+          "property": "property",
+          "transaction": "transaction"
+        },
+        "trust_denial_recorded": {
+          "subject": "subject",
+          "opponent": "opponent",
+          "property": "property",
+          "transaction": "transaction"
+        }
+      },
+      "source_refs": [
+        "IK-1841885:L62",
+        "IK-1841885:L75",
+        "IK-1841885:L79",
+        "IK-1841885:L81",
+        "IK-1841885:L138",
+        "IK-1841885:L151",
+        "IK-1841885:L152"
+      ],
+      "source_quote": "This plea is strongly disputed by learned counsel for the respondent-trust who says that the possession was taken in accordance with law and as noted above, by voluntary surrendering by most of the tenants.",
+      "reason": "Existing slot descriptions share the named litigant/property roles; only required roles unify; extra event roles remain local.",
+      "review_status": "MAINTAINER_SOURCE_REVIEW_RESEARCH_ONLY",
+      "legal_approval": false
+    },
+    "after": {
+      "version": 2,
+      "rule_hash": "e6bf90faeb4c8f777af80168bc27f011b6dfeb4f0899708e15243c4176b6d8cb",
+      "slot_variables": {
+        "claimants_ouster_allegation_recorded": {
+          "subject": "subject",
+          "opponent": "opponent",
+          "property": "property",
+          "transaction": "transaction"
+        },
+        "trust_denial_recorded": {
+          "subject": "opponent",
+          "opponent": "subject",
+          "property": "property",
+          "transaction": "transaction"
+        }
+      },
+      "source_refs": [
+        "IK-1841885:L75",
+        "IK-1841885:L138",
+        "IK-1841885:L151",
+        "IK-1841885:L152"
+      ],
+      "source_quote": "This plea is strongly disputed by learned counsel for the respondent-trust who says that the possession was taken in accordance with law and as noted above, by voluntary surrendering by most of the tenants.",
+      "reason": "Claimants allegation subject=plaintiffs; trust denial subject=trust. Same plaintiffs/trust/property/contested transaction, opposite speaker roles. Does not endorse either account.",
+      "review_status": "MAINTAINER_SOURCE_REVIEW_RESEARCH_ONLY",
+      "legal_approval": false
+    },
+    "review": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_LEGAL_APPROVAL"
+  }
+]

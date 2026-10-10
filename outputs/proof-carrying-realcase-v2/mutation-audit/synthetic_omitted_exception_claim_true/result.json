@@ -1,0 +1,106 @@
+{
+  "status": "COMPLETED",
+  "task": "JUDGMENT_REASONING_RECONSTRUCTION",
+  "snapshot_id": "S1",
+  "requests": [
+    {
+      "id": "Q1",
+      "text": "Record chain available.",
+      "predicate": "RECORD_CHAIN",
+      "draft_status": "INVALID",
+      "answer": null,
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH",
+        "REQUEST_STATE_MISMATCH"
+      ],
+      "gaps": [
+        "DEPENDENCY_INVALID:T1"
+      ],
+      "step_id": "T2",
+      "formal_status": "APPROVAL_PENDING",
+      "source_refs": [
+        "R0"
+      ]
+    }
+  ],
+  "steps": {
+    "T1": {
+      "id": "T1",
+      "status": "INVALID",
+      "state": "UNKNOWN",
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH"
+      ],
+      "gaps": [
+        "MISSING_SLOT:independent_missing",
+        "MISSING_SLOT:exception"
+      ],
+      "dependencies": [
+        {
+          "slot": "record",
+          "kind": "PREMISE",
+          "id": "F1"
+        }
+      ],
+      "sources": [
+        "R0",
+        "S1"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "RECORD_AVAILABLE",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "Mira"
+        },
+        {
+          "role": "property",
+          "entity": "Z"
+        }
+      ],
+      "time_scope": "Monday",
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    },
+    "T2": {
+      "id": "T2",
+      "status": "INVALID",
+      "state": "UNKNOWN",
+      "errors": [
+        "PROPOSED_RESULT_MISMATCH"
+      ],
+      "gaps": [
+        "DEPENDENCY_INVALID:T1"
+      ],
+      "dependencies": [
+        {
+          "slot": "record",
+          "kind": "STEP",
+          "id": "T1"
+        }
+      ],
+      "sources": [
+        "R0"
+      ],
+      "approval": "PENDING",
+      "model_proposed_state": "TRUE",
+      "predicate": "RECORD_CHAIN",
+      "bindings": [
+        {
+          "role": "subject",
+          "entity": "Mira"
+        },
+        {
+          "role": "property",
+          "entity": "Z"
+        }
+      ],
+      "time_scope": "Monday",
+      "statement_status": "DERIVED",
+      "formal_legal_status": "NOT_LEGALLY_APPROVED"
+    }
+  },
+  "legal_approval": false,
+  "interpretation": "Formal dependency checks under model-assisted, explicitly unapproved research premises and rules. No semantic or legal certification."
+}

@@ -1,0 +1,74 @@
+{
+  "certificate_id": "C1",
+  "status": "INCOMPLETE",
+  "legal_approved": false,
+  "steps": [
+    {
+      "step_id": "T1",
+      "status": "CHECKED",
+      "result": "FALSE",
+      "claim": "SPECIFIC_AUTHORIZATION_COVERS_ENTRY",
+      "rule_ref": "COVERAGE_DEMO@1",
+      "premise_ids": [
+        "P1",
+        "P2"
+      ],
+      "bindings": {
+        "person": "Person_A",
+        "property": "Parcel_P"
+      },
+      "trace": [
+        {
+          "check": "person",
+          "result": "TRUE"
+        },
+        {
+          "check": "parcel",
+          "result": "TRUE"
+        },
+        {
+          "check": "time",
+          "result": "FALSE"
+        },
+        {
+          "check": "activity",
+          "result": "TRUE"
+        }
+      ],
+      "unresolved_inputs": [],
+      "exception_gate_pending": false,
+      "source_trace": [
+        {
+          "source_ref": "demo_message_1",
+          "document_id": "E1",
+          "start": 0,
+          "end": 85,
+          "exact_text": "Synthetic message: Person_A may enter Parcel_P on Monday, 2026-10-12, for entry only.",
+          "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+          "semantic_support_inferred_from_locator": false
+        },
+        {
+          "source_ref": "demo_entry_record_2",
+          "document_id": "E2",
+          "start": 0,
+          "end": 73,
+          "exact_text": "Synthetic entry record: Person_A entered Parcel_P on Tuesday, 2026-10-13.",
+          "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+          "semantic_support_inferred_from_locator": false
+        }
+      ],
+      "verification_scope": "SYNTHETIC_TEACHING_POLICY_ONLY"
+    }
+  ],
+  "requests": [
+    {
+      "status": "INCOMPLETE",
+      "reason": "NO_RULE_FOR_REQUESTED_BROADER_CONCLUSION",
+      "result": null,
+      "request_id": "Q1",
+      "claim": "FINAL_LIABILITY"
+    }
+  ],
+  "trust_boundary": "Caller-controlled manifest and review process; no cryptographic reviewer identity attestation.",
+  "historical_snapshot_validated": "S1"
+}

@@ -1,0 +1,8 @@
+{
+  "status": "INPUT_READ_SCOPE_CORRECTED",
+  "detail": "The first continuation supervision invocation inherited an old loop which decoded case.json before testing split. It therefore read V12 TEST case source payloads into process memory, then immediately skipped them. No TEST proposal, reference, labels or model outputs were read; no TEST text was emitted or semantically reviewed. The continuation entry now uses the frozen TRAIN/DEV-only queue before opening case.json. Existing SEALED payloads were not opened.",
+  "test_input_payloads_read_by_old_loop": true,
+  "test_labels_read": false,
+  "test_used_for_training_or_selection": false,
+  "case_content_emitted": false
+}

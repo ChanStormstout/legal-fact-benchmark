@@ -1,0 +1,101 @@
+[
+  {
+    "kind": "INVALID_TYPED_PROOF",
+    "name": "wrong_subject",
+    "target": "Q1",
+    "expected_conclusion_handling": "WITHHOLD",
+    "reason": "Change the subject without changing the evidence.",
+    "current": null,
+    "actual_status": "INVALID",
+    "actual_state": null,
+    "finding": "EXPECTED_STRUCTURAL_HANDLING"
+  },
+  {
+    "kind": "INVALID_TYPED_PROOF",
+    "name": "wrong_rule_version",
+    "target": "Q1",
+    "expected_conclusion_handling": "WITHHOLD",
+    "reason": "Unavailable rule version.",
+    "current": null,
+    "actual_status": "INVALID",
+    "actual_state": null,
+    "finding": "EXPECTED_STRUCTURAL_HANDLING"
+  },
+  {
+    "kind": "INVALID_TYPED_PROOF",
+    "name": "typed_ownership_upgrade",
+    "target": "Q1",
+    "expected_conclusion_handling": "WITHHOLD",
+    "reason": "Possessory protection does not establish ownership.",
+    "current": null,
+    "actual_status": "INVALID",
+    "actual_state": null,
+    "finding": "EXPECTED_STRUCTURAL_HANDLING"
+  },
+  {
+    "kind": "UNSUPPORTED_NATURAL_LANGUAGE",
+    "name": "prose_ownership_upgrade",
+    "target": "Q1",
+    "expected_conclusion_handling": "WITHHOLD_FALSE_PROSE",
+    "reason": "Keep the predicate but replace the displayed request prose with an unsupported ownership conclusion. Distinguish typed checking from prose checking.",
+    "current": null,
+    "actual_status": "CONDITIONAL_RECONSTRUCTION",
+    "actual_state": "TRUE",
+    "finding": "UNCHECKED_PROSE_ACCEPTED_BY_TYPED_CHECKER; DISPLAY_SEPARATES_IT"
+  },
+  {
+    "kind": "VALID_SEMANTIC_INVARIANT",
+    "name": "equivalent_input_order",
+    "target": "Q1",
+    "expected_conclusion_handling": "RETAIN",
+    "reason": "Named-slot order does not change bindings, predicates or rule application. Exact reviewed hash may still require re-review.",
+    "current": null,
+    "actual_status": "INVALID",
+    "actual_state": null,
+    "finding": "OVERBLOCKS_EQUIVALENT_PROPOSAL"
+  },
+  {
+    "kind": "VALID_SEMANTIC_INVARIANT",
+    "name": "equivalent_explanatory_note",
+    "target": "Q1",
+    "expected_conclusion_handling": "RETAIN",
+    "reason": "Only non-executable explanation changes; no fact, slot, binding or conclusion changes.",
+    "current": null,
+    "actual_status": "INVALID",
+    "actual_state": null,
+    "finding": "OVERBLOCKS_EQUIVALENT_PROPOSAL"
+  },
+  {
+    "kind": "VALID_SEMANTIC_INVARIANT",
+    "name": "unreferenced_valid_step",
+    "target": "Q1",
+    "expected_conclusion_handling": "RETAIN",
+    "reason": "An unreferenced correct step is not a dependency.",
+    "current": null,
+    "actual_status": "CONDITIONAL_RECONSTRUCTION",
+    "actual_state": "TRUE",
+    "finding": "EXPECTED_STRUCTURAL_HANDLING"
+  },
+  {
+    "kind": "VALID_VERSION_OPERATION",
+    "name": "historical_snapshot_reopen",
+    "target": "Q1",
+    "expected_conclusion_handling": "RETAIN",
+    "reason": "Explicitly reopen the same trusted historical snapshot.",
+    "current": "789051-LOCAL-V3-reviewed-reconstruction",
+    "actual_status": "CONDITIONAL_RECONSTRUCTION",
+    "actual_state": "TRUE",
+    "finding": "EXPECTED_STRUCTURAL_HANDLING"
+  },
+  {
+    "kind": "INVALID_VERSION_OPERATION",
+    "name": "wrong_current_version",
+    "target": "Q1",
+    "expected_conclusion_handling": "WITHHOLD",
+    "reason": "An old snapshot cannot claim to be an unavailable current snapshot.",
+    "current": "UNAVAILABLE-CURRENT",
+    "actual_status": "TECHNICAL_OR_CONTRACT_FAILURE",
+    "actual_state": null,
+    "finding": "EXPECTED_STRUCTURAL_HANDLING"
+  }
+]

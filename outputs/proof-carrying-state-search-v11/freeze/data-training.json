@@ -1,0 +1,92 @@
+{
+  "hashes": {
+    "outputs/proof-carrying-state-search-v11/supervision/1144022.json": "aba72f50eb9630a0dd085b655b7efb9d8278dd83b3ebd0398d3c77659e801049",
+    "outputs/proof-carrying-state-search-v11/supervision/840688.json": "29ccf6c2fa7f040d8c1e5867732ba87ff6de12cc45abea7bdd09d76ee14641a4",
+    "outputs/proof-carrying-state-search-v11/supervision/gate.json": "4eab97a97fd6053484f28196bb2d0aeb08567c635b90a9058d7baab6368e46bf",
+    "outputs/proof-carrying-state-search-v11/supervision/1841885.json": "703ef6a07abab6968d0a5c9aa98b2e794290b172b394aa2543fb2097860ce499",
+    "outputs/proof-carrying-state-search-v11/supervision/789051.json": "ed32d8f384a7c5b429fd5030545bfdceca918c261c6e80cc4583d811b6d186c8",
+    "outputs/proof-carrying-state-search-v11/supervision/522414.json": "dabcc897e2862f8d90bc14e26044abaabc5e9456a234e7a8fb49df6521a6d19e",
+    "outputs/proof-carrying-state-search-v11/supervision/161859415.json": "f31011a74a30904503c76d7f11a8a164a503c8b5d2e115404013521bbe0063b6",
+    "outputs/proof-carrying-state-search-v11/supervision/coverage.json": "1de78686dc6e7092206fa219de28b4383ee57ff9c15e3d8c67be9db872ff123e",
+    "outputs/proof-carrying-state-search-v11/supervision/74028.json": "3c1ed672449680d26743ea25c0b9ec15712dfef4b9b8c61d2e9a3f70059e410a",
+    "outputs/proof-carrying-state-search-v11/supervision/1418721.json": "3d2d3dd1287911bfa3ca0b0d11e3c31ff2d9e183cf593730d3273d7f37adaeb8"
+  },
+  "folds": [
+    [
+      "789051",
+      "1841885",
+      "161859415",
+      "522414"
+    ],
+    [
+      "1418721",
+      "840688",
+      "74028",
+      "1144022"
+    ]
+  ],
+  "config": {
+    "task": "REQUEST_PARTIAL_SELECTION_NEXT_APPLICATION_DEVELOPMENT",
+    "cases": [
+      "789051",
+      "1418721",
+      "1841885",
+      "840688",
+      "161859415",
+      "74028",
+      "522414",
+      "1144022"
+    ],
+    "new_cases": 0,
+    "new_llm_calls": 0,
+    "candidate_policy": "retain existing pool plus balanced per-slot coverage enumeration; at least12 up to64 new combinations per rule, budget raised only to longest pool; never use references",
+    "budgets": [
+      6,
+      "ALL_ELIGIBLE"
+    ],
+    "scheduler": "stable round-robin requests with pending goal rules; request and selected candidates are explicit state",
+    "supervision": "positive action on a checked attributed route still feasible from state; negative only migrated source-reviewed concrete slot non-applicability; unknown masked; no complement negatives",
+    "pair_loss": "mean softplus(negative_score-positive_score) within same state",
+    "folds": [
+      [
+        "789051",
+        "1841885",
+        "161859415",
+        "522414"
+      ],
+      [
+        "1418721",
+        "840688",
+        "74028",
+        "1144022"
+      ]
+    ],
+    "seeds": [
+      20261001,
+      20261002,
+      20261003
+    ],
+    "models": [
+      "Simple",
+      "Flat",
+      "RGCN"
+    ],
+    "hidden": 64,
+    "layers": 2,
+    "bases": 4,
+    "dropout": 0.1,
+    "optimizer": "AdamW",
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "epochs": 30,
+    "epoch_selection": "fixed last epoch, no heldout tuning",
+    "max_fits": 12,
+    "training_wall_budget_seconds": 1800,
+    "states_per_request": 32,
+    "pairs_per_state": 16,
+    "route_limit_per_candidate": 64,
+    "graph": "same fact/rule/application/request relations; computational reverse edges not legal inference",
+    "encoder": "cached frozen V8 E5 vectors; no new text model; composite average of available component vectors",
+    "stop": "one frozen comparison, no result-driven repair/refit, no push. If no supervised comparisons or no selection headroom report instead of inventing negatives. No generalization claim on exposed eight disputes."
+  }
+}

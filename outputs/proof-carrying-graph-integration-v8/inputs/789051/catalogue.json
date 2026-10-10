@@ -1,0 +1,281 @@
+[
+  {
+    "id": "POSSESSION_OF_SUIT_PROPERTY_PROVED",
+    "meaning": "The plaintiff-possessor was judicially found to possess the identified suit property. The proposition concerns possession, not ownership or the precise boundary of the adjoining properties.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "LOWER_COURT_FINDING",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; civil proceedings concerning possession of immovable property."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "PLAINTIFF_TITLE_NOT_PROVED",
+    "meaning": "The plaintiff failed to establish the claimed title to the suit property. This is a finding of non-proof, not a determination that the plaintiff's ownership claim is factually false.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "LOWER_COURT_FINDING",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; civil proceedings concerning possession of immovable property."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "POSSESSION_BASIS_SURVIVES_TITLE_NONPROOF",
+    "meaning": "Established possession remains available as an independent basis for evaluating possessory protection notwithstanding the possessor's failure to prove ownership.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; possessory protection of immovable property, including the distinction between settled possession and recent trespass."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "COURT_FOUND_SETTLED_POSSESSION",
+    "meaning": "The target court expressly reports that the plaintiff was found to be in settled possession of the identified property. This is accepted as an attributed judicial finding without independently reconstructing every underlying factual attribute.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; possessory protection of immovable property, including the distinction between settled possession and recent trespass."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "MERELY_STRAY_INTERMITTENT_OR_INCIPIENT_INTRUSION",
+    "meaning": "The purported possessor has only engaged in casual, intermittent, or incomplete acts of intrusion that have not matured into settled possession. Its expected absence in this reconstruction follows from the reported settled-possession classification, not an independently proved chronology of occupation.",
+    "parameters": [
+      "subject",
+      "property"
+    ],
+    "allowed_statuses": [
+      "LOWER_COURT_FINDING",
+      "TARGET_COURT_FINDING",
+      "TESTIMONY"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; possessory protection of immovable property, including the distinction between settled possession and recent trespass."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "SETTLED_POSSESSION_IS_LEGALLY_PROTECTABLE",
+    "meaning": "Possession qualifying as peaceful and settled receives legal protection against extrajudicial interference or forcible dispossession, including interference by a person asserting ownership; any recovery by such an owner must respect the applicable due process requirements.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; civil injunction on the merits against interference with settled possession."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "OPPONENT_OBSTRUCTED_POSSESSION_ASSERTING_OWNERSHIP",
+    "meaning": "The opposing party interfered with or obstructed the possessor's enjoyment of the identified property while asserting a competing ownership claim. In the supplied case, the target court recounts obstruction of the plaintiff's construction on the disputed land; the allegation of ownership remains distinct from proof of ownership.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "LOWER_COURT_FINDING",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; civil injunction on the merits against interference with settled possession."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "POSSESSORY_BASIS_FOR_INJUNCTIVE_RESTRAINT",
+    "meaning": "A legally protectable settled possessor facing attempted interference with the identified property has an independent possessory basis for an injunction restraining that interference, without first establishing proprietary title.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; merits adjudication of civil injunctive relief involving disputed title."
+      },
+      {
+        "rule_ref": "R5@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; distinction between possessory relief and proprietary adjudication concerning immovable property."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "OPPONENT_ASSERTED_TITLE_FAILURE_OR_DECLARATION_DEFECT",
+    "meaning": "The defendant-appellant's counsel argued that the suit was defective because no declaration of title had been sought despite the title dispute, and that failure to prove title required dismissal notwithstanding established possession. TRUE records that these arguments were made, without accepting their legal correctness or independently verifying every procedural allegation.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "PARTY_CLAIM"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; merits adjudication of civil injunctive relief involving disputed title."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "TITLE_DECLARATION_OBJECTION_NOT_AUTOMATIC_BAR",
+    "meaning": "The absence of a title declaration, or the failure to establish title, is not by itself a sufficient reason to dismiss an otherwise supportable possessory injunction claim.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "POSSESSORY_RELIEF_DOES_NOT_CONFIRM_OWNERSHIP",
+    "meaning": "An injunction justified on an independent possessory ground does not, by virtue of that ground or relief alone, constitute confirmation of proprietary title for the possessor or rejection of another party's possible ownership.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R5@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      },
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; preservation of proprietary litigation following possession-based civil injunction proceedings."
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "TITLE_QUESTION_EXPRESSLY_LEFT_OPEN",
+    "meaning": "The target court reports that the lower courts proceeded on possession without deciding title, and expressly clarifies that the impugned judgment does not determine the suit property's title for or against either litigant. This is a reported judicial reservation, not a substantive finding establishing either party's ownership.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; preservation of proprietary litigation following possession-based civil injunction proceedings."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "OPPONENT_BETTER_TITLE_NOT_PROVED",
+    "meaning": "The defendant was also found not to have established title to the disputed land sufficient to substantiate his claimed entitlement to evict the plaintiff. This records failure of proof, not a definitive finding that the defendant lacks any title.",
+    "parameters": [
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "jurisdiction": "India; Supreme Court of India; preservation of proprietary litigation following possession-based civil injunction proceedings."
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "SEPARATE_TITLE_ACTION_REMAINS_AVAILABLE",
+    "meaning": "Where possessory relief does not determine ownership and the competing title question is expressly reserved, the parties remain able to seek adjudication of their competing titles in duly constituted proceedings. A claimant seeking title-based eviction must first establish the better right to possession.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_MERITS_APPEAL"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  }
+]

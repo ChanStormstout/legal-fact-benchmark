@@ -1,0 +1,97 @@
+{
+  "synthetic_premises": {
+    "DRC_BONA_FIDE-C03/SELF": {
+      "status": "SUPPORTED"
+    },
+    "DRC_BONA_FIDE-C03/FAMILY": {
+      "status": "UNRESOLVED"
+    },
+    "DRC_BONA_FIDE-C03/DEPENDENT": {
+      "status": "UNRESOLVED"
+    }
+  },
+  "existing_expression": {
+    "op": "OR",
+    "args": [
+      {
+        "op": "REF",
+        "id": "DRC_BONA_FIDE-C03/SELF",
+        "source_refs": [
+          {
+            "source_id": "IK-18143401:L41:historical-e",
+            "quote": "for himself or for any member of his family dependent on him"
+          }
+        ]
+      },
+      {
+        "op": "AND",
+        "args": [
+          {
+            "op": "REF",
+            "id": "DRC_BONA_FIDE-C03/FAMILY",
+            "source_refs": [
+              {
+                "source_id": "IK-18143401:L41:historical-e",
+                "quote": "for himself or for any member of his family dependent on him"
+              }
+            ]
+          },
+          {
+            "op": "REF",
+            "id": "DRC_BONA_FIDE-C03/DEPENDENT",
+            "source_refs": [
+              {
+                "source_id": "IK-18143401:L41:historical-e",
+                "quote": "for himself or for any member of his family dependent on him"
+              }
+            ]
+          }
+        ],
+        "source_refs": [
+          {
+            "source_id": "IK-18143401:L41:historical-e",
+            "quote": "for himself or for any member of his family dependent on him"
+          }
+        ]
+      }
+    ],
+    "source_refs": [
+      {
+        "source_id": "IK-18143401:L41:historical-e",
+        "quote": "for himself or for any member of his family dependent on him"
+      }
+    ]
+  },
+  "output": {
+    "status": "SUPPORTED",
+    "trace": [
+      {
+        "status": "SUPPORTED",
+        "trace": [
+          "DRC_BONA_FIDE-C03/SELF"
+        ]
+      },
+      {
+        "status": "UNRESOLVED",
+        "trace": [
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              "DRC_BONA_FIDE-C03/FAMILY"
+            ]
+          },
+          {
+            "status": "UNRESOLVED",
+            "trace": [
+              "DRC_BONA_FIDE-C03/DEPENDENT"
+            ]
+          }
+        ],
+        "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+      }
+    ],
+    "interpretation": "CONDITIONAL_ON_MODEL_TEST_STATES_AND_BINDING"
+  },
+  "case_truth_not_inferred": true,
+  "new_model_calls": 0
+}

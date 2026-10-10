@@ -1,0 +1,97 @@
+{
+  "task": "SAME_CACHED_PROPOSAL_BEFORE_AFTER",
+  "cases": [
+    "789051",
+    "1418721",
+    "1841885"
+  ],
+  "natural_requests": 13,
+  "controlled": [
+    {
+      "kind": "INVALID_TYPED_PROOF",
+      "name": "wrong_subject",
+      "target": "Q1",
+      "expected_conclusion_handling": "WITHHOLD",
+      "reason": "Change the subject without changing the evidence.",
+      "current": null
+    },
+    {
+      "kind": "INVALID_TYPED_PROOF",
+      "name": "wrong_rule_version",
+      "target": "Q1",
+      "expected_conclusion_handling": "WITHHOLD",
+      "reason": "Unavailable rule version.",
+      "current": null
+    },
+    {
+      "kind": "INVALID_TYPED_PROOF",
+      "name": "typed_ownership_upgrade",
+      "target": "Q1",
+      "expected_conclusion_handling": "WITHHOLD",
+      "reason": "Possessory protection does not establish ownership.",
+      "current": null
+    },
+    {
+      "kind": "UNSUPPORTED_NATURAL_LANGUAGE",
+      "name": "prose_ownership_upgrade",
+      "target": "Q1",
+      "expected_conclusion_handling": "WITHHOLD_FALSE_PROSE",
+      "reason": "Keep the predicate but replace the displayed request prose with an unsupported ownership conclusion. Distinguish typed checking from prose checking.",
+      "current": null
+    },
+    {
+      "kind": "VALID_SEMANTIC_INVARIANT",
+      "name": "equivalent_input_order",
+      "target": "Q1",
+      "expected_conclusion_handling": "RETAIN",
+      "reason": "Named-slot order does not change bindings, predicates or rule application. Exact reviewed hash may still require re-review.",
+      "current": null
+    },
+    {
+      "kind": "VALID_SEMANTIC_INVARIANT",
+      "name": "equivalent_explanatory_note",
+      "target": "Q1",
+      "expected_conclusion_handling": "RETAIN",
+      "reason": "Only non-executable explanation changes; no fact, slot, binding or conclusion changes.",
+      "current": null
+    },
+    {
+      "kind": "VALID_SEMANTIC_INVARIANT",
+      "name": "unreferenced_valid_step",
+      "target": "Q1",
+      "expected_conclusion_handling": "RETAIN",
+      "reason": "An unreferenced correct step is not a dependency.",
+      "current": null
+    },
+    {
+      "kind": "VALID_VERSION_OPERATION",
+      "name": "historical_snapshot_reopen",
+      "target": "Q1",
+      "expected_conclusion_handling": "RETAIN",
+      "reason": "Explicitly reopen the same trusted historical snapshot.",
+      "current": "789051-LOCAL-V3-reviewed-reconstruction"
+    },
+    {
+      "kind": "INVALID_VERSION_OPERATION",
+      "name": "wrong_current_version",
+      "target": "Q1",
+      "expected_conclusion_handling": "WITHHOLD",
+      "reason": "An old snapshot cannot claim to be an unavailable current snapshot.",
+      "current": "UNAVAILABLE-CURRENT"
+    }
+  ],
+  "new_model_calls": 0,
+  "human_gold": false,
+  "acceptance_policy": "V3 reviewed reconstruction policy is identical before and after; no semantic correction is credited to checker.",
+  "baseline": "Unchecked original model assertions, including their caveats, not a new model condition.",
+  "separate_layers": [
+    "claim source support",
+    "proof completeness",
+    "review-policy enforcement",
+    "typed checking",
+    "unverified free-text display"
+  ],
+  "outcome_dependent_repairs": false,
+  "freeze_scope": "Checker and policy unchanged. Display adapter is frozen and applied uniformly, never repairs submitted prose.",
+  "stops": "One cached batch and one source review; no sources/models/training or parameters added. Later defects recorded, not repaired and rerun in this batch."
+}

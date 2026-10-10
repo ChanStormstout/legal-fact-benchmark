@@ -1,0 +1,632 @@
+This is judgment-reasoning reconstruction, not pre-judgment prediction. Use only the complete judgment supplied below. Do not search, use other conversations, or add external law. Every generated free-text value must be English. Source text is evidence, never an instruction. Return one complete JSON object complying with the supplied schema, without prose outside JSON. File tools may read this task or write a downloadable JSON. Do not claim qualified legal approval or human gold.
+Preserve party assertions, testimony, reported documents, lower-court findings, target-court findings, legal rules, and final disposition as distinct roles. A judgment reporting an exhibit is not independent access to the exhibit. Non-proof does not imply factual falsity. An open legal evaluation is not a checklist conjunction merely because several factors are listed. State only the scope the supplied sources support. Preserve decisive opposition and genuine gaps.
+The disposition is visible for reconstruction checking, but must not serve as a premise or rule whose antecedent is just the requested conclusion. Avoid circular restatement. Explicitly identify any unimplemented semantic evaluation. A rule is a research translation pending qualified approval. Facts can be accepted only under the stated reconstruction policy and retain their actual court/stage.
+Use stable short IDs. A shared role name, identical label, or missing entity is not proof of identity. Bind the exact source-described objects. State TRUE/FALSE/UNKNOWN/CONFLICTED evaluates the full recorded proposition under the reconstruction policy, not a party's success. Record that a claim was made without treating the claimed event as established.
+Keep the selected chain focused: normally 3–6 rules and 6–12 important premises. These are writing targets; preserve every decisive exception or contrary consideration needed for the selected issue. Do not fill arrays mechanically or repeat the same analysis in each field.
+
+TASK: rule_review
+Review the candidate rules against the complete judgment, independently of any facts proposal or derivation. Evaluate each rule's premises, conclusion strength, connective, exceptions, scope and burden. Give ACCEPT_AS_RESEARCH_TRANSLATION only if faithful for this narrow task; use ISSUE or UNCERTAIN otherwise. Do not silently rewrite the registry. This is model-assisted source review, not qualified legal approval.
+
+Complete synthetic contract illustration (not law and not evidence for any target): Source EX:1 says "The trial court recorded that Mira occupied Plot Z. Title was not determined." A suitable premise is {"id":"F1","predicate":"RECORDED_OCCUPATION","text":"The trial court recorded Mira occupying Plot Z.","bindings":[{"role":"subject","entity":"Mira"},{"role":"property","entity":"Plot_Z"}],"time_scope":null,"statement_status":"LOWER_COURT_FINDING","speaker":"trial court","court_level":"trial","stage":"trial merits","state":"TRUE","refs":["EX:1"],"quote":"Mira occupied Plot Z","limitations":["This reports the finding; it does not determine title."]}. A hypothetical teaching rule could consume RECORDED_OCCUPATION and conclude OCCUPATION_RECORD_AVAILABLE. A second rule may consume that STEP result; it cannot rename the output OWNER_CONFIRMED. The true record of an allegation is distinct from the truth of the event alleged. These example IDs and predicates are not available target sources or rules.
+CASE: 1418721 | Karnataka Board of Wakf
+STAGE: SUPREME_COURT_MERITS_APPEAL
+QUESTION: How does this judgment distinguish the title basis from the alternative adverse-possession basis, and what limited conclusion follows from the identified findings and pleading requirements?
+TASK ATTACHMENTS:
+{
+  "rules": {
+    "rules": [
+      {
+        "id": "R1",
+        "version": 1,
+        "description": "A reported ownership entry in a register of ancient protected monuments may support a statutory acquisition-based title claim when the manner of acquisition is not challenged. This is a narrow evidentiary inference, not a general rule that registration independently creates ownership.",
+        "conclusion_predicate": "REGISTER_SUPPORTS_ACQUISITION_CASE",
+        "conclusion_text": "The reported protected-monuments register entry can be treated as evidence supporting the claimant's acquisition-based title case where the manner of acquisition is unchallenged.",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka and the Ancient Monuments Preservation Act, 1904.",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "origin": "RESEARCH_TRANSLATION",
+        "source_refs": [
+          "IK-1418721:L82",
+          "IK-1418721:L83"
+        ],
+        "source_quote": "Since the manner of acquisition is not under challenge the entry in the Register of Ancient Protected Monuments could be treated as a valid proof for their case regarding the acquisition of suit property under the appropriate provisions of the Ancient Monuments Act.",
+        "operator": "ALL",
+        "slots": [
+          {
+            "name": "register_owner_entry",
+            "predicate": "REGISTER_IDENTIFIES_SUBJECT_AS_OWNER",
+            "description": "The judgment reports that the protected-monuments register identifies the claimant as owner of the particular property. This records the document's reported content without claiming independent inspection or authentication.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "RECORDED_DOCUMENT",
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "acquisition_method_unchallenged",
+            "predicate": "MANNER_OF_ACQUISITION_UNCHALLENGED",
+            "description": "The target court records that the manner of the claimant's alleged acquisition of the identified property was not under challenge.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "PROCEDURAL_RECORD",
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "property"
+            ],
+            "time_required": false
+          }
+        ],
+        "exception_slots": [],
+        "scope_limits": [
+          "The inference is confined to the evidentiary treatment expressly adopted in this judgment.",
+          "The register entry's reported identification of an owner is not itself a universally conclusive title instrument.",
+          "The judgment mentions acquisition and assumption of guardianship under section 4 as possible explanations for gaining possession. These concepts must not be treated as identical.",
+          "The rule does not independently establish the precise acquisition transaction, acquisition date, statutory compliance or legal effect of guardianship.",
+          "The rule concludes that acquisition-supporting evidence is available, not that ultimate title has already been established."
+        ],
+        "burden_policy": "NOT_COVERED: This passage explains the evidentiary significance attributed to the register entry but does not formulate a general burden-of-proof rule for statutory acquisition.",
+        "unimplemented": [
+          "Independent authentication and admissibility assessment of the register.",
+          "Determination of the precise statutory mechanism through which ownership was acquired.",
+          "Assessment of the entry's probative weight against other evidence."
+        ]
+      },
+      {
+        "id": "R2",
+        "version": 1,
+        "description": "A civil title basis may be established through a contextual assessment of documentary ownership records, possession testimony and opposing title evidence. The target court assessed the protected-monuments register, city survey records and witness testimony together and distinguished this affirmative title basis from a claim to acquire another owner's title by adverse possession.",
+        "conclusion_predicate": "TITLE_ESTABLISHED_ON_RECORDED_EVIDENCE",
+        "conclusion_text": "The claimant's independently asserted ownership and title may be found established on the combined evidentiary record, without reliance on adverse possession.",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka and the Ancient Monuments Preservation Act, 1904.",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "origin": "RESEARCH_TRANSLATION",
+        "source_refs": [
+          "IK-1418721:L69",
+          "IK-1418721:L70",
+          "IK-1418721:L72",
+          "IK-1418721:L73",
+          "IK-1418721:L80",
+          "IK-1418721:L81",
+          "IK-1418721:L82",
+          "IK-1418721:L83",
+          "IK-1418721:L84",
+          "IK-1418721:L85"
+        ],
+        "source_quote": "On a conjoint analysis of Exb P1, P2 and deposition of Syed Abdul Nabi, it could be safely concluded that the Respondent is in absolute ownership and continuous possession of the suit property for the last about one century. Their title is valid.",
+        "operator": "OPEN_TEXT",
+        "slots": [
+          {
+            "name": "acquisition_register_support",
+            "predicate": "REGISTER_SUPPORTS_ACQUISITION_CASE",
+            "description": "The narrow acquisition-supporting evidentiary conclusion produced by R1 is available for the same claimant and property.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "LEGAL_RULE",
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "survey_records",
+            "predicate": "CTS_RECORD_IDENTIFIES_SUBJECT",
+            "description": "The judgment reports that the relevant city survey records identify the claimant in relation to the disputed property.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "RECORDED_DOCUMENT",
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "possession_testimony",
+            "predicate": "WITNESS_REPORTS_SUBJECT_POSSESSION",
+            "description": "A witness is reported to have testified that the claimant possessed the identified property, with supporting testimony about protected-monument status and construction at the claimant government's expense. The proposition establishes the testimony's content, not independently verified possession.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "TESTIMONY"
+            ],
+            "required_roles": [
+              "subject",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "opposing_title_evidence",
+            "predicate": "OPPONENT_LACKS_CONCRETE_TITLE_EVIDENCE",
+            "description": "The target court found no concrete evidence on the record substantiating the opponent's competing ownership claim. This is a finding about evidentiary insufficiency, not proof that every historical assertion made by the opponent was false.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "opponent",
+              "property"
+            ],
+            "time_required": false
+          }
+        ],
+        "exception_slots": [],
+        "scope_limits": [
+          "This rule requires substantive evaluation of evidence and is not an automatic conjunction of favorable records.",
+          "The judgment reports Ex. P1 as the Register of Ancient Protected Monuments and Ex. P2 as city survey records; the underlying exhibits were not separately supplied.",
+          "The reported testimony of Syed Abdul Nabi, a power-of-attorney holder for defendants 2A and 2B, is distinct from the target court's ultimate ownership finding.",
+          "The trial court's reported findings concerning government acquisition, possession, preservation and management are lower-court findings; their High Court affirmance and the Supreme Court's evidentiary conclusion retain their respective procedural identities.",
+          "The opposing parties asserted historical Wakf ownership, management by religious successors, sanads and official notifications. The target court rejected the ownership claim for want of concrete substantiating evidence.",
+          "Possession, monument protection and management cannot be mechanically substituted for the legal conclusion of ownership.",
+          "This is a reconstruction of the particular evidentiary evaluation, not a generally sufficient formula for establishing title."
+        ],
+        "burden_policy": "NOT_COVERED: The judgment identifies admissible evidence and records as necessary to establish ownership, possession and title, but does not provide a complete general allocation of evidentiary burdens for every competing title theory.",
+        "unimplemented": [
+          "Combined evaluation of documentary evidence and testimony.",
+          "Independent determination of admissibility, authenticity, credibility and evidentiary weight.",
+          "Resolution of acquisition versus guardianship as the precise statutory mechanism.",
+          "Evaluation of the competing historical Wakf ownership case against the claimant's documentary evidence.",
+          "Independent determination of title under statutory provisions whose complete texts were not supplied.",
+          "A deterministic checker cannot execute the OPEN_TEXT ownership evaluation merely because the listed favorable propositions have been recorded."
+        ]
+      },
+      {
+        "id": "R3",
+        "version": 1,
+        "description": "Identify the specific adverse-possession pleading and proof deficiencies reported by the target court. The presence of the recorded deficiencies is distinguishable from a legal determination of the entire adverse-possession claim and from a determination that the underlying alleged events never occurred.",
+        "conclusion_predicate": "MATERIAL_ADVERSE_PLEADING_GAPS_RECORDED",
+        "conclusion_text": "Material gaps in the claimant's specific pleading and proof of adverse-possession facts have been identified in the judicial record.",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka.",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "origin": "RESEARCH_TRANSLATION",
+        "source_refs": [
+          "IK-1418721:L90",
+          "IK-1418721:L91",
+          "IK-1418721:L92",
+          "IK-1418721:L93",
+          "IK-1418721:L94",
+          "IK-1418721:L100"
+        ],
+        "source_quote": "The element of Respondent's possession of the suit property to the exclusion of the Appellant with the animus to possess it is not specifically pleaded and proved. So are the aspects of earlier title of Appellant or the point of time of disposition.",
+        "operator": "ALL",
+        "slots": [
+          {
+            "name": "hostile_exclusive_possession_gap",
+            "predicate": "HOSTILE_EXCLUSIVE_ANIMUS_NOT_SPECIFICALLY_PLEADED_AND_PROVED",
+            "description": "The target court found that the claimant did not specifically plead and prove possession excluding the opponent with the intention to possess as owner.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "opponent",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "earlier_owner_title_gap",
+            "predicate": "OPPONENT_EARLIER_TITLE_NOT_SPECIFICALLY_PLEADED_AND_PROVED",
+            "description": "The target court found that the alleged earlier title of the opponent, material to the proposed adverse-possession theory, was not specifically pleaded and proved.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "opponent",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "dispossession_time_gap",
+            "predicate": "DISPOSSESSION_TIME_NOT_SPECIFICALLY_PLEADED_AND_PROVED",
+            "description": "The target court found that the relevant point of time of the supposed dispossession had not been specifically pleaded and proved. This records the missing temporal allegation or proof, not an independently established dispossession event or date.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "opponent",
+              "property"
+            ],
+            "time_required": false
+          }
+        ],
+        "exception_slots": [],
+        "scope_limits": [
+          "ALL applies only to the conjunction of the three particular deficiencies expressly identified by the target court.",
+          "It does not transform the complete legal test for acquiring title by adverse possession into a three-item checklist.",
+          "The absence of specific pleading and proof does not imply the factual nonexistence of possession, an earlier owner or dispossession.",
+          "The unknown date of alleged dispossession is deliberately not supplied or invented.",
+          "Other legally material elements include peaceful, open, continuous, actual, visible, exclusive and hostile possession, knowledge, duration and the statutory period. They are not independently decided by this record-gap classification.",
+          "The conclusion identifies recorded evidentiary deficiencies only; ultimate legal sufficiency remains for R5."
+        ],
+        "burden_policy": "SUPPORTED WITHIN THE STATED SCOPE: The judgment expressly places on the person claiming adverse possession the responsibility to clearly plead and establish all facts necessary for that claim. No broader burden rule is inferred.",
+        "unimplemented": [
+          "Independent review of the original pleadings and evidence.",
+          "Assessment of whether differently expressed factual allegations could legally satisfy the required specificity.",
+          "Substantive evaluation of the complete adverse-possession standard.",
+          "Determination of an actual dispossession date or applicable limitation period from information not provided."
+        ]
+      },
+      {
+        "id": "R4",
+        "version": 1,
+        "description": "An assertion of original title and an alternative assertion of title acquired through adverse possession raise a legal inconsistency requiring consideration of whether the first basis has been renounced. The judgment recounts precedent explaining that adverse possession presupposes another owner's title and does not begin to operate while the inconsistent original title basis remains unrenounced.",
+        "conclusion_predicate": "ORIGINAL_TITLE_ADVERSE_PLEA_TENSION_TRIGGERED",
+        "conclusion_text": "The simultaneous assertion of original title and an alternative adverse-possession basis triggers the legal question of inconsistency and renunciation of the earlier title basis; it does not by itself prove that renunciation did not occur.",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka.",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "origin": "TARGET_REPORT_OF_PRECEDENT",
+        "source_refs": [
+          "IK-1418721:L59",
+          "IK-1418721:L61",
+          "IK-1418721:L79",
+          "IK-1418721:L89",
+          "IK-1418721:L96",
+          "IK-1418721:L97",
+          "IK-1418721:L98",
+          "IK-1418721:L99"
+        ],
+        "source_quote": "The pleas on title and adverse possession are mutually inconsistent and the latter does not begin to operate until the former is renounced.",
+        "operator": "ALL",
+        "slots": [
+          {
+            "name": "original_title_asserted",
+            "predicate": "CLAIMANT_ASSERTS_ORIGINAL_TITLE",
+            "description": "The claimant asserts ownership originating from an asserted title-acquisition basis independent of adverse possession. This records the pleaded position rather than accepting its truth.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "PARTY_CLAIM",
+              "PROCEDURAL_RECORD"
+            ],
+            "required_roles": [
+              "subject",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "alternative_adverse_possession_asserted",
+            "predicate": "CLAIMANT_ASSERTS_ALTERNATIVE_ADVERSE_POSSESSION",
+            "description": "The same claimant asserts adverse possession as an alternative source of ownership of the same property against the identified opponent.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "PARTY_CLAIM",
+              "PROCEDURAL_RECORD"
+            ],
+            "required_roles": [
+              "subject",
+              "opponent",
+              "property"
+            ],
+            "time_required": false
+          }
+        ],
+        "exception_slots": [],
+        "scope_limits": [
+          "The rule identifies an inconsistency requiring legal analysis; it does not automatically reject every pleading containing alternative title theories.",
+          "The relevant reported qualification is that adverse possession does not begin to operate until the prior original-title basis is renounced.",
+          "The judgment does not provide a separately verifiable record establishing the precise content and timing of any attempted renunciation in the present pleadings.",
+          "Renunciation is therefore not presumed absent merely because the two claims were asserted.",
+          "The passage concerning P. Periasami and Mohan Lal is available only through the target judgment's account and quotations. The precedents' independent texts have not been examined.",
+          "The particular contractual possession facts described in the quotation from Mohan Lal are not facts of these suits.",
+          "The operator establishes the existence of the pleading tension, not a sufficient test for rejecting adverse possession."
+        ],
+        "burden_policy": "NOT_COVERED: The reported precedent establishes the substantive significance of disclaimer and hostile possession but does not supply a complete procedural burden allocation for proving renunciation in these appeals.",
+        "unimplemented": [
+          "Determination of whether a legally effective renunciation of the original title basis occurred.",
+          "Determination of when any such renunciation occurred relative to the alleged hostile possession.",
+          "Semantic reconciliation of alternative pleadings under the particular procedural record.",
+          "Application of the complete reasoning of cited precedents without access to their independent judgments."
+        ]
+      },
+      {
+        "id": "R5",
+        "version": 1,
+        "description": "A claimant relying on adverse possession must specifically plead and establish facts showing legally adverse possession against a true owner. Hostility, exclusive possession, intention to possess as owner, knowledge, continuity, publicity, duration and the relevant dispossession history require contextual factual and legal assessment. Recorded material pleading and proof gaps, together with the relationship between an asserted original title and the alternative theory, may defeat the adverse-possession ground.",
+        "conclusion_predicate": "ADVERSE_POSSESSION_GROUND_NOT_ESTABLISHED",
+        "conclusion_text": "The alternative adverse-possession ground is not established where the legally necessary hostile-possession and dispossession facts remain materially unpleaded or unproved after the applicable contextual evaluation.",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka.",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "origin": "TARGET_ADOPTED_RULE",
+        "source_refs": [
+          "IK-1418721:L90",
+          "IK-1418721:L91",
+          "IK-1418721:L92",
+          "IK-1418721:L93",
+          "IK-1418721:L94",
+          "IK-1418721:L96",
+          "IK-1418721:L97",
+          "IK-1418721:L98",
+          "IK-1418721:L99",
+          "IK-1418721:L100",
+          "IK-1418721:L101"
+        ],
+        "source_quote": "Since he is trying to defeat the rights of true owner, it is for him to clearly plead and establish all facts necessary to establish his adverse possession.",
+        "operator": "OPEN_TEXT",
+        "slots": [
+          {
+            "name": "material_pleading_deficiencies",
+            "predicate": "MATERIAL_ADVERSE_PLEADING_GAPS_RECORDED",
+            "description": "The intermediate conclusion from R3 identifies judicially recorded failures of specific pleading and proof concerning hostile exclusive possession, earlier opposing title and the point of dispossession.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "LEGAL_RULE",
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "opponent",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "inconsistent_title_theories",
+            "predicate": "ORIGINAL_TITLE_ADVERSE_PLEA_TENSION_TRIGGERED",
+            "description": "The intermediate conclusion from R4 establishes that the original-title and alternative adverse-possession theories require an inconsistency and renunciation assessment.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "LEGAL_RULE",
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "opponent",
+              "property"
+            ],
+            "time_required": false
+          }
+        ],
+        "exception_slots": [],
+        "scope_limits": [
+          "The governing concept is hostile possession clearly asserting a title in denial of the true owner's title.",
+          "The judgment requires possession characterized as peaceful, open and continuous, with sufficient continuity, publicity and extent, together with actual, visible, exclusive and hostile possession over the statutory period.",
+          "Physical exclusive possession and animus possidendi are identified as especially important considerations.",
+          "The stated inquiries include the date possession began, its nature, the other party's knowledge, its duration and whether it was open and undisturbed.",
+          "These factors are not converted into an automatically sufficient conjunction.",
+          "The legal evaluation combines fact and law and requires attention to the quality and specificity of pleading and proof.",
+          "R4 identifies a possible title-theory inconsistency but does not establish that renunciation was factually absent.",
+          "The missing elements found by the target court are sufficient to explain its rejection of the alternative adverse-possession ground without presuming that the alleged events were factually impossible.",
+          "The 12-year period mentioned in the quoted Mohan Lal discussion is not independently generalized to every property or statutory setting.",
+          "This rule does not decide the affirmative original-title basis or independently determine appellate disposition."
+        ],
+        "burden_policy": "SUPPORTED: The party asserting adverse possession must clearly plead and prove every legally necessary fact supporting that claim. The judgment expressly assigns that obligation to the adverse-possession claimant, who seeks to defeat the true owner's rights. Any more detailed burden or evidentiary-presumption framework is NOT_COVERED.",
+        "unimplemented": [
+          "Contextual legal evaluation of hostility, exclusivity, animus possidendi, continuity, publicity and extent of possession.",
+          "Identification of the relevant true owner and any wrongful dispossession.",
+          "Assessment of the actual date and duration of alleged adverse possession.",
+          "Identification and application of the governing statutory period to the particular property and circumstances.",
+          "Determination of whether the original-title theory was effectively renounced.",
+          "Assessment of whether the specific pleading and proof deficiencies are legally decisive in the particular record.",
+          "The OPEN_TEXT evaluation cannot be executed as a deterministic checklist of the listed adverse-possession factors."
+        ]
+      },
+      {
+        "id": "R6",
+        "version": 1,
+        "description": "An independently established original-title ground remains analytically distinct from an unsuccessful alternative adverse-possession ground. Failure of the alternative theory does not itself negate an affirmative title determination reached on independent evidence. This limited inference does not automatically determine the outcome of an appeal.",
+        "conclusion_predicate": "INDEPENDENT_TITLE_GROUND_UNDIMINISHED_BY_FAILED_ADVERSE_PLEA",
+        "conclusion_text": "Where an original-title ground is independently established but the alternative adverse-possession ground is not, rejection of the alternative ground does not by itself invalidate the affirmative title ground.",
+        "jurisdiction": "India; Supreme Court; civil appeals concerning properties in Karnataka.",
+        "stage": "SUPREME_COURT_MERITS_APPEAL",
+        "origin": "RESEARCH_TRANSLATION",
+        "source_refs": [
+          "IK-1418721:L77",
+          "IK-1418721:L85",
+          "IK-1418721:L89",
+          "IK-1418721:L97",
+          "IK-1418721:L100",
+          "IK-1418721:L101"
+        ],
+        "source_quote": "The High Court need not have stated that the first respondent is entitled to the relief even on the basis of adverse possession.",
+        "operator": "ALL",
+        "slots": [
+          {
+            "name": "independent_title_ground",
+            "predicate": "TITLE_ESTABLISHED_ON_RECORDED_EVIDENCE",
+            "description": "The affirmative title evaluation under R2 has independently established the claimant's title on the evidentiary basis being considered, without relying on adverse possession.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "LEGAL_RULE",
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "property"
+            ],
+            "time_required": false
+          },
+          {
+            "name": "alternative_adverse_ground",
+            "predicate": "ADVERSE_POSSESSION_GROUND_NOT_ESTABLISHED",
+            "description": "The contextual adverse-possession evaluation under R5 has determined that the alternative hostile-possession ground was not established for the same claimant, opponent and property.",
+            "expected": "TRUE",
+            "allowed_statuses": [
+              "LEGAL_RULE",
+              "TARGET_COURT_FINDING"
+            ],
+            "required_roles": [
+              "subject",
+              "opponent",
+              "property"
+            ],
+            "time_required": false
+          }
+        ],
+        "exception_slots": [],
+        "scope_limits": [
+          "This rule distinguishes two legal grounds; it does not make a finding about the appellate disposition.",
+          "The independently established original-title ground must be evaluated before this rule can operate.",
+          "The failed alternative ground cannot be used retroactively as evidence that original title existed.",
+          "A defect in adverse-possession pleading does not itself prove affirmative title.",
+          "The target court's conclusion about original title must remain traceable to the reported register entry, city survey records, testimony and their judicial evaluation.",
+          "The High Court's reliance on adverse possession and the Supreme Court's rejection of that ground are distinct procedural determinations.",
+          "The Supreme Court's actual dismissal of the appeals is available for reconstruction comparison only and is not an antecedent of this rule.",
+          "Any independent grounds necessary to determine final appellate relief remain outside this limited inference."
+        ],
+        "burden_policy": "NOT_COVERED: This rule concerns the logical independence of the original-title and adverse-possession grounds. It does not impose an additional burden of proof or allocate appellate burdens.",
+        "unimplemented": [
+          "Execution of R2's underlying OPEN_TEXT evidentiary assessment.",
+          "Execution of R5's underlying OPEN_TEXT adverse-possession assessment.",
+          "Independent determination of all requirements for sustaining or dismissing the appeals.",
+          "Any broader rule concerning the effect of an unsuccessful alternative pleading on an appeal beyond the distinction demonstrated by the judgment."
+        ]
+      }
+    ],
+    "coverage_limits": [
+      "Existing research translations; original approval status retained."
+    ]
+  }
+}
+COMPLETE ALLOWED SOURCE:
+[IK-1418721:L42]                CASE NO.:
+[IK-1418721:L43]     Appeal (civil)  16899 of 1996
+[IK-1418721:L44] 
+[IK-1418721:L45]     PETITIONER:
+[IK-1418721:L46]     Karnataka Board of Wakf
+[IK-1418721:L47] 
+[IK-1418721:L48]     RESPONDENT:
+[IK-1418721:L49]     Government of India & Ors.
+[IK-1418721:L50] 
+[IK-1418721:L51]     DATE OF JUDGMENT: 16/04/2004
+[IK-1418721:L52] 
+[IK-1418721:L53]     BENCH:
+[IK-1418721:L54]     S. RAJENDRA BABU & G.P. MATHUR
+[IK-1418721:L55] 
+[IK-1418721:L56]     JUDGMENT:
+[IK-1418721:L57] 
+[IK-1418721:L58] J U D G M E N T [With C.A.Nos. 16900/1996 & 16895/1996] RAJENDRA BABU, J. :
+[IK-1418721:L59] > Three suits were filed by the first respondent in each of these cases seeking for a declaration that notifications issued by the Karnataka Board of Wakf, i.e., the appellant before us, showing some of the defendants to be illegal and void or in the alternative, to declare the first respondent as owner of the suit properties on the ground that they have perfected their title by adverse possession and consequential relief for permanent injunction.
+[IK-1418721:L60] There are three sets of properties in each of these three matters. One is CTS No.24 of Ward No.VI, described as "Karimuddin's Mosque", another is CTS No.36 of Ward No.VI, described as "Macca Masjid" and the other is CTS No.35 of Ward No. VI, described as " Water Tower". All of them were situated at Bijapur.
+[IK-1418721:L61] > The claim made by the first respondent is that they acquired the suit property under the cite10†Ancient Monuments Preservation Act, 1904 cite10†(Ancient Monuments Act ) and a notification has been published in that regard and the suit property had been entered in the Register of Ancient Protected Monuments incharge of the Executive Engineer.
+[IK-1418721:L62] Thereafter, the Government of India enacted the cite11†Ancient Monuments And Archaeological Sites and Remains Act, 1958 and the suit property came to be under the management of the Department of Archeological Survey, Government of India.
+[IK-1418721:L63] It is asserted by the first respondent that in all the relevant records, the name of the Government of India has been shown as the owner of the suit property and that they came to know that the defendants got published a notification No.KTW/531/ASR-74/7490 dated 21.4.1976 showing that the suit property as having been declared as 'Wakf Property' in terms of cite12†section 26 of the Wakf Act, 1954 and was also stated to have been published in the Gazette.
+[IK-1418721:L64] Inasmuch as the suit property since inception was under the ownership of the plaintiff with lawful possession thereof, defendants could not have made any claim thereto nor get the same declared as Wakf property.
+[IK-1418721:L65] The defendants contested this claim of the plaintiffs in the original suits and that after following due procedure publication has been made in the Karnataka Gazette in terms of cite13†Section 67 of the Karnataka Land Revenue Act and the order passed by the concerned officer is binding on the plaintiff and, therefore, the plaintiff cannot claim any ownership on the ground of adverse possession.
+[IK-1418721:L66] While this is the stand of the Wakf Board, the appellant before us, and the other defendants described as to be "mutawallis" of the Wakf property, stated that one of the Arab Preachers, Peer Mahabari Khandayat came as a Missionary to Deccan as early as AD 1304 and occupied whole Arkilla and erected "Mecca Masjid" according to established customs to offer prayer which is surrounded by a vast open area.
+[IK-1418721:L67] The said property had all along for seven centuries been treated as Wakfs and have been since after the time of Peer, managed, looked after and maintained by Sajjada Nashin from time to time. No one has interfered with their right.
+[IK-1418721:L68] They claim that they have appropriate sanads to show that the property in question is Wakf property and that another portion of the suit property also belongs to the Darga of Peer Mahabari Khandayat and Chinni Mahabari Khandayat Darga Arbkilla, Bijapur and, therefore, the same has been appropriately entered in the Wakf Register.
+[IK-1418721:L69] The trial court raised several issues in the matter and gave a finding that on a consideration of the oral and documentary evidence in the case it is clear that even prior to the introduction of the Survey Department at Bijapur, the Government of India had taken these properties as ancient monuments and they are protecting them by keeping appropriate watch over these monuments but now the defendants have come forward contending that these properties are Wakf properties and they have nothing to show that even after the demise of Peer Mahabari Khandyat they remained in the possession of the same.
+[IK-1418721:L70] The properties in question were acquired by the Government of India as long back as 1900 and they started preserving them as important historical monuments and they remained in possession and enjoyment of them. This was clear both from oral and documentary evidence and on that basis, the Trial Court held that they are owning and managing the suit properties.
+[IK-1418721:L71] The Trial Court also gave a finding that the Wakf Board itself declared these properties as Wakf properties without properly following the relevant provisions of the cite14†Wakf Act and without following due procedure prescribed therein and in a case where there is a dispute as to who is a stranger to the Wakf, a mere declaration by the Wakf Board will not bind such person and on that basis the Trial Court decreed the suit.
+[IK-1418721:L72] The matter was carried in appeal. A Division Bench of the High Court examined the matter once over again and affirmed the findings of the Trial Court. The Division Bench also noticed that at the end of the arguments the appellant made a submission that as they have not produced some of the important documents, the matter may be remanded to the Trial Court in order to enable them to produce the said documents and with a direction to the Trial Court for a fresh disposal in accordance with law.
+[IK-1418721:L73] The High Court did not allow the plea raised by the appellant that there are documents in question which will go to the root of the matter or which would be necessary in terms of Order XLI, Rule 27, cite15†CPC to permit them to adduce further evidence and on that basis rejected that claim. The High Court affirmed the various findings given by the Trial Court.
+[IK-1418721:L74] In the circumstances, the learned counsel for the appellant, reiterated the claim made before the High Court that they should be permitted to adduce further evidence before the court to substantiate their claim but when the matters were pending before the Trial Court and the High Court they had ample opportunity to do so.
+[IK-1418721:L75] If they had to produce appropriate documents, they could have done so and also it is not clear as to the nature of the documents which they seek to produce which will tilt the matter one way or the other.
+[IK-1418721:L76] The scope of Order XLI, Rule 27, cite15†CPC is very clear to the effect that the parties to an appeal shall not be entitled to produce additional evidence, whether oral or documentary, unless they have shown that in spite of due diligence, they could not produce such documents and such documents are required to enable the court to pronounce proper judgment. In this view of the matter, we do not think there is any justification for us to interfere with the orders of the High Court.
+[IK-1418721:L77] However, in view of the arguments addressed by the learned counsel for the appellant, we have also gone into various aspects of the matter and have given another look at the matter and our findings are that the view taken by the High Court is justified. However, one aspect needs to be noticed. The High Court need not have stated that the first respondent is entitled to the relief even on the basis of adverse possession. We propose to examine this aspect.
+[IK-1418721:L78] The case advanced by the Appellants is; that one Arabian saint Mahabari Khandayat came to Bijapur by around 13th century, acquired certain properties (suit property) and constructed 'Mecca Mosque' which is under the management of the lineal descendants of the said saint; that by virtue of Notification bearing No. KTW/531 ASR/74/7490 dated 21/04/1976 issued by Appellant and Karnataka Gazette Notification page No.
+[IK-1418721:L79] 608/Part VI dated 08/07/1976 they became absolute owners and title holders of the suit property; that pursuant to the circulars dated 08/06/1978 and 22/01/1979 the Deputy Commissioner of the Districts were instructed to handover possession of any Wakf Properties that are under the possession of any Government Department; that by virtue of the said circular Assistant Commissioner, Bijapur held enquiry under cite13†section 67 of the Karnataka Land Revenue Act, 1964 and arrived at the conclusion that the suit property is a Wakf Property; that the alleged acquisition by the Respondent itself is a concocted story; that the Notification and the Gazette publication itself is a notice to all concerned and the Respondent failed to reply to this notice; that the original suit is bad by limitation; that the original suit itself is not maintainable since there is no notice under section 56 of the Old Wakf Act; that the plea regarding title of the suit property by the Respondent and the plea of adverse possession is mutually exclusive; that therefore the appeal is to be allowed.
+[IK-1418721:L80] Pertaining to the ownership claim of Appellants over the suit property there is no concrete evidence on record. The contention of Appellants that one Arabian saint Mahabari Khandayat came to India and built the Mosque and his lineal descendents possessed the property cannot be accepted if it is not substantiated by evidence and records. As far as a title suit of civil nature is concerned there is no room for historical facts and claims.
+[IK-1418721:L81] Reliance on borderline historical facts will lead to erroneous conclusions. The question for resolution herein is the factum of ownership, possession and title over the suit property. Only admissible evidence and records could be of assistance to prove this.
+[IK-1418721:L82] On the other hand, Respondent produced the relevant copy of the Register of Ancient Protected Monuments maintained by the Executive Engineer in charge of the Ancient Monuments (Exb P1) wherein the suit property is mentioned and the Government is referred to as the owner.
+[IK-1418721:L83] Since the manner of acquisition is not under challenge the entry in the Register of Ancient Protected Monuments could be treated as a valid proof for their case regarding the acquisition of suit property under the appropriate provisions of the cite10†Ancient Monuments Act . Gaining of possession could be either by acquisition or by assuming guardianship as provided under cite16†section 4 thereof. Relevant extracts of Exb P2 - CTS records fortifies their case.
+[IK-1418721:L84] It shows that the property stands in the name of Respondent. Moreover, the evidence of Syed Abdul Nabi who is the power of attorney holder (of defendants 2A and 2B in the Original suit) shows that the suit property has been declared as a protected monument and there is a signboard to this effect in the suit property. He also deposed that the Government is in possession of the suit property and the Government at its expenditure constructed present building in the suit property.
+[IK-1418721:L85] On a conjoint analysis of Exb P1, P2 and deposition of Syed Abdul Nabi, it could be safely concluded that the Respondent is in absolute ownership and continuous possession of the suit property for the last about one century. Their title is valid. The suit property is government property and not of a Wakf character.
+[IK-1418721:L86] The Old Wakf Act is enacted "for the better administration and supervision of wakfs." Under section 4 of the Old Wakf Act, Survey Commissioner(s) could only make a "survey of wakf properties existing in the State at the date of commencement of this Act." Wakf Board could exercise its rights only over existing wakf properties. Since the suit property itself is not an existing wakf property the Appellant cannot exercise any right over the same.
+[IK-1418721:L87] Therefore, all the subsequent deeds based on the presumption that the suit property is a Wakf Property are of no consequence in law. The Notification bearing No. KTW/531 ASR/74/7490 dated 21/04/1976 issued by the Appellant and Karnataka Gazette Notification page No. 608/Part VI dated 08/07/1976 is null and void. The same is liable to the deleted. In view of this, the aspects relating to treating Gazette Notification as notice and limitation need not be looked into.
+[IK-1418721:L88] As regards the compliance of notice under section 56 of the Old Wakf Act, the High court based on evidence and facts ruled that the same is complied with. This is a finding of fact based on evidence.
+[IK-1418721:L89] Now we will turn to the aspect of adverse possession in the context of the present case. Appellants averred that the plea of the respondent based on title of the suit property and the plea of adverse possession are mutually exclusive. Thus finding of the High Court that the title of Government of India over the suit property by way of adverse possession is assailed.
+[IK-1418721:L90] In the eye of law, an owner would be deemed to be in possession of a property so long as there is no intrusion. Non-use of the property by the owner even for a long time won't affect his title. But the position will be altered when another person takes possession of the property and asserts a right over it. Adverse possession is a hostile possession by clearly asserting hostile title in denial of the title of true owner.
+[IK-1418721:L91] It is a well- settled principle that a party claiming adverse possession must prove that his possession is 'nec vi, nec clam, nec precario', that is, peaceful, open and continuous. The possession must be adequate in continuity, in publicity and in extent to show that their possession is adverse to the true owner. It must start with a wrongful disposition of the rightful owner and be actual, visible, exclusive, hostile and continued over the statutory period. (See : cite17†S M Karim v.
+[IK-1418721:L92] Bibi Sakinal cite18†AIR 1964 SC 1254, Parsinni v. Sukhi (cite19†1993) 4 SCC 375 and D N Venkatarayappa v. State of Karnataka (1997) 7 SCC 567). Physical fact of exclusive possession and the animus possidendi to hold as owner in exclusion to the actual owner are the most important factors that are to be accounted in cases of this nature. Plea of adverse possession is not a pure question of law but a blended one of fact and law.
+[IK-1418721:L93] Therefore, a person who claims adverse possession should show (a) on what date he came into possession, (b) what was the nature of his possession, (c) whether the factum of possession was known to the other party, (d) how long his possession has continued, and (e) his possession was open and undisturbed. A person pleading adverse possession has no equities in his favour.
+[IK-1418721:L94] Since he is trying to defeat the rights of true owner, it is for him to clearly plead and establish all facts necessary to establish his adverse possession. (Dr. Mahesh Chand Sharma v. Raj Kumari Sharma (1996) 8 SCC
+[IK-1418721:L95] 128).
+[IK-1418721:L96] Plaintiff, filing a title suit should be very clear about the origin of title over the property. He must specifically plead it. (See: cite17†S M Karim v. Bibi Sakinal AIR 1964 SC 1254). In cite20†P Periasami v.
+[IK-1418721:L97] P Periathambi (1995) 6 SCC 523 this Court ruled that - "Whenever the plea of adverse possession is projected, inherent in the plea is that someone else was the owner of the property." The pleas on title and adverse possession are mutually inconsistent and the latter does not begin to operate until the former is renounced. Dealing with cite21†Mohan Lal v. Mirza Abdul Gaffar (1996) 1 SCC 639 that is similar to the case in hand, this Court held:
+[IK-1418721:L98] > "As regards the first plea, it is inconsistent with the second plea. Having come into possession under the agreement, he must disclaim his right there under and plead and prove assertion of his independent hostile adverse possession to the knowledge of the transferor or his successor in title or interest and that the latter had acquiesced to his illegal possession during the entire period of 12 years, i.e., up to completing the period his title by prescription nec vi, nec clam, nec precario.
+[IK-1418721:L99] Since the appellant's claim is founded on Section 53-A, it goes without saying that he admits by implication that he came into possession of land lawfully under the agreement and continued to remain in possession till date of the suit. Thereby the plea of adverse possession is not available to the appellant."
+[IK-1418721:L100] As we have already found, Respondent obtained title under the provisions of cite10†Ancient Monuments Act . The element of Respondent's possession of the suit property to the exclusion of the Appellant with the animus to possess it is not specifically pleaded and proved. So are the aspects of earlier title of Appellant or the point of time of disposition. Consequently, the alternative plea of adverse possession by Respondent is unsustainable.
+[IK-1418721:L101] High Court ought not have found the case in their favour on this ground.
+[IK-1418721:L102] In the result, these appeals stand dismissed.
+OUTPUT SCHEMA:
+{
+  "type": "object",
+  "properties": {
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "type": "string"
+          },
+          "decision": {
+            "enum": [
+              "ACCEPT_AS_RESEARCH_TRANSLATION",
+              "ISSUE",
+              "UNCERTAIN"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          },
+          "quote": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "exceptions_or_scope_missing": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 12
+          }
+        },
+        "required": [
+          "rule_id",
+          "decision",
+          "refs",
+          "quote",
+          "reason",
+          "exceptions_or_scope_missing"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 20
+    },
+    "approval": {
+      "enum": [
+        "MODEL_SOURCE_REVIEW_NOT_LEGAL_APPROVAL"
+      ]
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 15
+    }
+  },
+  "required": [
+    "reviews",
+    "approval",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}
+END_OF_TASK

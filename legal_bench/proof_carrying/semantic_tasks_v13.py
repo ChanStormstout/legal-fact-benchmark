@@ -1,0 +1,11 @@
+"""V13 DEV use review hides proposed labels and self-defensive use conclusions."""
+import json
+from .semantic_tasks_v12 import COMMON,LABELCONTRACT
+
+def blind_review(case,proposal):
+ facts={f['id']:f for f in proposal['facts']};premises={p['id']:(p,r) for r in proposal['rules'] for p in r['premises']};items=[]
+ for u in proposal['uses']:
+  p,r=premises.get(u.get('rule_premise'),({},{}))
+  items.append({'use_id':u['id'],'request_id':u.get('request_id'),'premise':p,'rule':r,'object_bindings':u.get('bindings',{}),'evidence':[facts[k] for k in u.get('evidence_ids',[]) if k in facts]})
+ instruction='''Independently classify each listed evidence use against the complete allowed judgment. No P use labels, use-level whole-premise states, use basis, self-defense or prior reference answers are supplied. USABLE means the evidence is appropriate for assessing this specific proposition within the recorded object/status/time/scope, INCLUDING effective opposition or evidence that the proposition is false. USABLE does not mean the whole proposition is established. UNUSABLE means an explicit incompatibility of this evidence use, not falsity of the proposition. UNRESOLVED means a real unresolved use; UNLABELED means unreviewed. Supporting relevance alone is not whole-premise truth. Multiple records may supply scattered roles only with explicit object correspondence; same types or nulls do not establish identity. Distinguish factual narratives from statements, testimony and court findings at their actual stage. Preserve contrary material and real interpretive uncertainty. Exact source refs and separate exact quotations are required. Do not alter the evidence/propositions. Use the existing output contract. In basis identify whether the use supports, opposes or provides context to the proposition. Do not supply a new final answer.\nOUTPUT EXAMPLE (fictional only):\n'''
+ return COMMON+'\nCASE ID: '+case['case_id']+'\nQUESTIONS:\n'+json.dumps(case['targets'])+'\n'+instruction+json.dumps(LABELCONTRACT)+'\nPROPOSED USES WITHOUT SELF-ASSESSMENTS:\n'+json.dumps(items,ensure_ascii=False)+'\nCOMPLETE ALLOWED JUDGMENT:\n'+'\n\n'.join('['+s['id']+']\n'+s['text'] for s in case['segments'])+'\nEND. Complete the English JSON once, no follow-up.'

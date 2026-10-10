@@ -1,0 +1,67 @@
+{
+  "version": "V8",
+  "case_order": [
+    "789051",
+    "1418721",
+    "1841885",
+    "840688",
+    "161859415",
+    "74028",
+    "522414",
+    "1144022"
+  ],
+  "task": "EXPOSED_JUDGMENT_RECONSTRUCTION_DEVELOPMENT",
+  "maximum_web_calls": 24,
+  "planned_proposals": 8,
+  "planned_references": 8,
+  "model": {
+    "hidden": 64,
+    "layers": 2,
+    "bases": 4,
+    "dropout": 0.1
+  },
+  "web_retries": 0,
+  "candidate_generation": "Rule slot exact model predicates plus fixed E5 top2; up to12 applications per rule; lexical stable product; retain unknown and mismatches",
+  "candidate_budget": 6,
+  "dependency_policy": "No label-guided expansion; shared selected applications only; unresolved dependency explicit",
+  "encoder": {
+    "model": "intfloat/e5-small-v2",
+    "revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52"
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001
+  },
+  "epochs": 100,
+  "selection": "Fixed final epoch; heldout not used for model selection",
+  "seeds": [
+    20261001,
+    20261002,
+    20261003
+  ],
+  "folds": [
+    [
+      "789051",
+      "1841885",
+      "161859415",
+      "522414"
+    ],
+    [
+      "1418721",
+      "840688",
+      "74028",
+      "1144022"
+    ]
+  ],
+  "group_basis": "Distinct named disputes in existing eight-case inventory; not newly proven exhaustive linkage independence",
+  "gate": "at least4 usable disputes; each training fold has independently reviewed USABLE and UNUSABLE; unlabelled/UNRESOLVED masked",
+  "training_max_fits": 12,
+  "source_review": "one concentrated review after batch, not human gold",
+  "freeze_policy": "code+tasks frozen before first web generation; independent graph saved before labels; append data/split manifest before fitting",
+  "no_new_targets": true,
+  "sealed_access": false,
+  "no_push": true,
+  "acceptance_policy": "Existing hash-pinned rule/scope research decisions; raw premises and candidate court evaluations only by separate reference review, address validation and concentrated source review; never legal approval",
+  "stop": "one collection, one training batch, one concentrated review; no semantic retries or parameter search"
+}

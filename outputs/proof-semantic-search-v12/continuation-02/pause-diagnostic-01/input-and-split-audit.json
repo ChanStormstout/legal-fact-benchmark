@@ -1,0 +1,89 @@
+{
+  "actual_model_input": "Graph: fact/rule-premise/use/target/entity JSON embedded by E5. CE: request, proposed rule/premise, selected P fact bundles, proposed use, P relations and coverage limits. Neither encoder assembles restored case segments. Source ID and P quotations are present; complete restored source is read by the independent checker, not the classifiers.",
+  "self_assessment_in_graph": true,
+  "self_assessment_in_crossencoder": true,
+  "premise_state_and_basis_in_features": true,
+  "relations_key_shapes": {
+    "['explanation', 'from', 'id', 'source_refs', 'to', 'type']": 12,
+    "['explanation', 'from', 'id', 'resolution_fact', 'source_refs', 'to', 'type']": 1,
+    "['description', 'from', 'id', 'to', 'type']": 128,
+    "['explanation', 'from', 'id', 'to', 'type']": 93,
+    "['explanation', 'from', 'id', 'scope', 'to', 'type']": 1,
+    "['description', 'from', 'to', 'type']": 39,
+    "['explanation', 'from', 'to', 'type']": 43,
+    "['from', 'id', 'note', 'to', 'type']": 15,
+    "['description', 'from_ids', 'id', 'to_ids', 'type']": 10,
+    "['explanation', 'from_ids', 'id', 'to_ids', 'type']": 10,
+    "['explanation', 'from_rule_ids', 'id', 'to_rule_ids', 'type']": 1,
+    "['explanation', 'from_rule_ids', 'id', 'to_ids', 'type']": 1,
+    "['explanation', 'from_id', 'id', 'relation', 'to_id']": 16,
+    "['description', 'items', 'type']": 14,
+    "['description', 'id', 'members', 'resolution', 'type']": 10,
+    "['description', 'from', 'id', 'source_refs', 'to', 'type']": 13,
+    "['description', 'from', 'id', 'legal_significance', 'request_ids', 'to', 'type']": 3,
+    "['description', 'from', 'id', 'legal_significance', 'request_ids', 'rule_ids', 'to', 'type']": 9,
+    "['explanation', 'from', 'id', 'refs', 'to', 'type']": 15,
+    "['explanation', 'from', 'id', 'resolution', 'subject', 'to', 'type']": 10
+  },
+  "relation_examples": [
+    {
+      "case_id": "444449",
+      "relation": {
+        "id": "REL01",
+        "type": "PROCEDURAL_REVERSAL",
+        "from": "F09",
+        "to": "F10",
+        "explanation": "The High Court reversed the Senior Civil Judge's disposition and restored the trial court's eviction decree.",
+        "source_refs": [
+          "IK-444449:L55",
+          "IK-444449:L56"
+        ]
+      }
+    },
+    {
+      "case_id": "444449",
+      "relation": {
+        "id": "REL02",
+        "type": "CONTRARY_ACCOUNT_RESOLVED",
+        "from": "F17",
+        "to": "F19",
+        "explanation": "Counsel proposed that replacement subtenancy was excluded; the Supreme Court answered that the appellant had made fresh grants directly after earlier subtenancies ended. These are an argument and an adopted finding concerning the same course of successive occupation, not two separate invented events.",
+        "source_refs": [
+          "IK-444449:L85",
+          "IK-444449:L86",
+          "IK-444449:L88"
+        ]
+      }
+    },
+    {
+      "case_id": "444449",
+      "relation": {
+        "id": "REL03",
+        "type": "HISTORICAL_FACT_NOT_STATUTORY_DEFENSE",
+        "from": "F09",
+        "to": "F18",
+        "explanation": "The existence of earlier subtenants was acknowledged but did not disprove the appellant's later direct subletting without written consent.",
+        "source_refs": [
+          "IK-444449:L55",
+          "IK-444449:L87",
+          "IK-444449:L88"
+        ]
+      }
+    }
+  ],
+  "dispute_mechanism_coverage": {
+    "TRAIN": {
+      "AUTHORIZATION_SCOPE": 16,
+      "STANDING_STAGE": 7,
+      "POSSESSION_TITLE": 4,
+      "STATEMENT_STATUS": 3
+    },
+    "DEV": {
+      "STATEMENT_STATUS": 1,
+      "POSSESSION_TITLE": 1,
+      "STANDING_STAGE": 1
+    }
+  },
+  "gate": "Only TRAIN mechanism coverage and at least one valid DEV label are required. No DEV-per-mechanism minimum exists. Original numeric gate can pass while generalization checks are inadequate.",
+  "test_or_sealed_read": false
+}

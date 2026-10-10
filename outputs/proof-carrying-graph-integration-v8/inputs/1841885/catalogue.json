@@ -1,0 +1,348 @@
+[
+  {
+    "id": "RULE11_A_OR_D_CHALLENGE_RECORDED",
+    "meaning": "A party has invoked Rule 11(a) or (d) against the identified plaintiffs' plaint; recording the objection does not validate it.",
+    "parameters": [
+      "subject",
+      "opponent"
+    ],
+    "allowed_statuses": [
+      "PROCEDURAL_RECORD"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court review of civil procedure under the Code of Civil Procedure, 1908"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "IDENTIFIED_PLAINT_SUBMITTED_FOR_SCREENING",
+    "meaning": "An identified plaint, including its pleaded material facts and prayers, is the object of the screening; its allegations are not yet proven.",
+    "parameters": [
+      "subject",
+      "opponent"
+    ],
+    "allowed_statuses": [
+      "PROCEDURAL_RECORD",
+      "PARTY_CLAIM"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court review of civil procedure under the Code of Civil Procedure, 1908"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "RULE11_WHOLE_PLAINT_SCREEN_APPLIES",
+    "meaning": "A Rule 11(a)/(d) challenge must be screened on the material factual allegations of the plaint as a whole, not by proving or disproving those allegations through the defence or by treating each requested relief as a separate cause of action.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R1@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW"
+      },
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Maharashtra trust-tenancy controversy under the Code of Civil Procedure, 1908 and Bombay Public Trusts Act, 1950, as addressed by the Supreme Court"
+      },
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court review of Rule 11 rejection in a Maharashtra trust-tenancy civil suit"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "TENANCY_CONTINUANCE_AND_DURATION_MAIN_SUBJECT_IDENTIFIED",
+    "meaning": "The target court characterizes the principal pleaded controversy as continuation and period of the tenancy; this is not a finding that an 11-year term, rather than an 11-month term, existed.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property",
+      "transaction"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Maharashtra trust-tenancy controversy under the Code of Civil Procedure, 1908 and Bombay Public Trusts Act, 1950, as addressed by the Supreme Court"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "TENANCY_SUBJECT_CIVIL_ADJUDICABLE",
+    "meaning": "Where meaningful reading of the plaint identifies a substantive tenancy-continuance or tenancy-term controversy, those questions are for civil-court adjudication rather than determination as a Section 50 trust-affairs inquiry.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R2@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW"
+      },
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court review of Rule 11 rejection in a Maharashtra trust-tenancy civil suit"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "PLAINT_REQUESTS_INQUIRY_INTO_TRUST_AFFAIRS",
+    "meaning": "The plaint includes a separate prayer that the Commissioner inquire into alleged illegal acts by the trust and trustees; this records a requested remedy, not proof of illegal acts.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "transaction"
+    ],
+    "allowed_statuses": [
+      "PROCEDURAL_RECORD",
+      "PARTY_CLAIM"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Bombay Public Trusts Act, 1950, as applied in the Maharashtra civil proceeding reviewed by the Supreme Court"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "TRUST_AFFAIRS_INQUIRY_SPECIAL_ACT_ROUTE",
+    "meaning": "A genuine trust-affairs inquiry prayer is treated under Section 50 and the applicable Section 51 consent regime rather than being converted into an ordinary tenancy question.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R3@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW"
+      },
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court review of Rule 11 rejection in a Maharashtra trust-tenancy civil suit"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "MIXED_RELIEFS_NOT_ALONE_GROUND_FOR_WHOLE_REJECTION",
+    "meaning": "When a whole-plaint review identifies a civil-adjudicable tenancy subject alongside a separate special-Act trust-inquiry prayer, the mere combination of those prayers does not itself justify rejecting the entire plaint; lawful restriction to tenancy issues and applications to relinquish other prayers are distinct procedural matters.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R4@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW"
+      },
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles"
+      },
+      {
+        "rule_ref": "R6@2",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "PLAINTIFFS_ALLEGE_FORCIBLE_DISPOSSESSION",
+    "meaning": "It is recorded that the plaintiffs alleged forcible eviction despite claimed continuing tenancy, without adopting the alleged event as a finding.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property",
+      "transaction"
+    ],
+    "allowed_statuses": [
+      "PARTY_CLAIM",
+      "PROCEDURAL_RECORD"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R5@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; evidentiary-role reconstruction of the Maharashtra civil plaint as reported in Supreme Court review"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "TRUST_DENIES_FORCIBLE_OUSTER_AND_ASSERTS_LAWFUL_TAKING",
+    "meaning": "The trust disputes forcible dispossession and claims lawful taking; the stated surrender by most tenants cannot be attributed to any named plaintiff without identification.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property",
+      "transaction"
+    ],
+    "allowed_statuses": [
+      "PARTY_CLAIM"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R5@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; evidentiary-role reconstruction of the Maharashtra civil plaint as reported in Supreme Court review"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "OPPOSED_DISPOSSESSION_ASSERTIONS_RECORDED",
+    "meaning": "The litigants advance contrary versions of the identified dispossession, without that record itself proving a forcible ouster, voluntary surrender by the same plaintiffs, or lawful taking of possession.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R5@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW"
+      },
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "CLAIMANTS_SETTLED_POSSESSION_ESTABLISHED",
+    "meaning": "Whether the identified plaintiffs actually held settled rather than fugitive possession is not determined in this review.",
+    "parameters": [
+      "subject",
+      "property",
+      "transaction"
+    ],
+    "allowed_statuses": [
+      "TESTIMONY",
+      "RECORDED_DOCUMENT",
+      "LOWER_COURT_FINDING",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": true,
+    "scope": [
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "CLAIMANTS_DISPOSSESSED_WITHOUT_CONSENT_OUTSIDE_DUE_PROCESS",
+    "meaning": "The plaintiffs' allegations and trust's contrary version conflict; the full nonconsensual and unlawful dispossession proposition is not decided. Timing relative to the trial injunction is material.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property",
+      "transaction"
+    ],
+    "allowed_statuses": [
+      "PARTY_CLAIM",
+      "TESTIMONY",
+      "RECORDED_DOCUMENT",
+      "LOWER_COURT_FINDING",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": true,
+    "scope": [
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "INJUNCTION_EQUITABLE_ENTITLEMENT_ADJUDICATED",
+    "meaning": "Lawfulness of possession as against the true owner, prima facie case, balance of convenience, and any relevant conduct have not been decided as an injunction entitlement determination.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "LOWER_COURT_FINDING",
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  },
+  {
+    "id": "CONTINUATION_DISTINCT_FROM_POSSESSION_AND_INJUNCTION_MERITS",
+    "meaning": "Procedural survival of the tenancy issue cannot itself establish forcible dispossession, a right to Section 6 recovery, or entitlement to injunction; relevant evidence and discretionary injunction standards must be assessed separately in the appropriate trial proceedings.",
+    "parameters": [],
+    "scope": [
+      {
+        "rule_ref": "R6@1",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW"
+      }
+    ],
+    "origin": "EXISTING_RULE_CONCLUSION",
+    "negation": "Explicit FALSE is not lack of a witness"
+  },
+  {
+    "id": "COURT_EXPRESSLY_RESERVED_DISPOSSESSION_MERITS",
+    "meaning": "The court expressly declines a merits view and leaves a plea to trial only if raised and relevant.",
+    "parameters": [
+      "subject",
+      "opponent",
+      "property"
+    ],
+    "allowed_statuses": [
+      "TARGET_COURT_FINDING"
+    ],
+    "time_required": false,
+    "scope": [
+      {
+        "rule_ref": "R6@2",
+        "stage": "SUPREME_COURT_PLAINT_REJECTION_REVIEW",
+        "jurisdiction": "India; Supreme Court civil plaint-rejection review discussing Section 6 of the Specific Relief Act, 1963, and injunction principles"
+      }
+    ],
+    "negation": "Explicit FALSE is not lack of a witness",
+    "origin": "EXISTING_VERSIONED_RULE_SLOT"
+  }
+]

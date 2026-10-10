@@ -1,0 +1,74 @@
+{
+  "certificate_id": "C2",
+  "status": "CHECKED",
+  "legal_approved": false,
+  "steps": [
+    {
+      "step_id": "T1",
+      "status": "CHECKED",
+      "result": "TRUE",
+      "claim": "SPECIFIC_AUTHORIZATION_COVERS_ENTRY",
+      "rule_ref": "COVERAGE_DEMO@1",
+      "premise_ids": [
+        "P4",
+        "P2"
+      ],
+      "bindings": {
+        "person": "Person_A",
+        "property": "Parcel_P"
+      },
+      "trace": [
+        {
+          "check": "person",
+          "result": "TRUE"
+        },
+        {
+          "check": "parcel",
+          "result": "TRUE"
+        },
+        {
+          "check": "time",
+          "result": "TRUE"
+        },
+        {
+          "check": "activity",
+          "result": "TRUE"
+        }
+      ],
+      "unresolved_inputs": [],
+      "exception_gate_pending": false,
+      "source_trace": [
+        {
+          "source_ref": "demo_message_3",
+          "document_id": "E3",
+          "start": 0,
+          "end": 102,
+          "exact_text": "Synthetic correction message: Person_A may also enter Parcel_P on Tuesday, 2026-10-13, for entry only.",
+          "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+          "semantic_support_inferred_from_locator": false
+        },
+        {
+          "source_ref": "demo_entry_record_2",
+          "document_id": "E2",
+          "start": 0,
+          "end": 73,
+          "exact_text": "Synthetic entry record: Person_A entered Parcel_P on Tuesday, 2026-10-13.",
+          "availability": "SYNTHETIC_ORIGINAL_AVAILABLE",
+          "semantic_support_inferred_from_locator": false
+        }
+      ],
+      "verification_scope": "SYNTHETIC_TEACHING_POLICY_ONLY"
+    }
+  ],
+  "requests": [
+    {
+      "status": "CHECKED",
+      "result": "TRUE",
+      "step_id": "T1",
+      "request_id": "Q1",
+      "claim": "SPECIFIC_AUTHORIZATION_COVERS_ENTRY"
+    }
+  ],
+  "trust_boundary": "Caller-controlled manifest and review process; no cryptographic reviewer identity attestation.",
+  "historical_snapshot_validated": "S2"
+}
