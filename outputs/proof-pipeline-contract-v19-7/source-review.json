@@ -1,0 +1,252 @@
+{
+  "reviewed_at": "2026-10-12T03:31:40.964877+00:00",
+  "reviewer": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "scope": "One concentrated review of decisive old/new P issues and allowed counterevidence, not exhaustive reannotation or final-answer scoring",
+  "cases": [
+    {
+      "case_id": "1954254",
+      "assessment": "PARTIAL_REPAIR_NOT_RELIABLE",
+      "items": [
+        {
+          "id": "195-role-date",
+          "comparison": "IMPROVED_WITH_NEW_OTHER_ROLE_ERROR",
+          "premises": [
+            "R01.P1",
+            "R01.P2",
+            "R03.P1"
+          ],
+          "source_refs": [
+            "IK-1954254:L54",
+            "IK-1954254:L55",
+            "IK-1954254:L91",
+            "IK-1954254:L92",
+            "IK-1954254:L94",
+            "IK-1954254:L108"
+          ],
+          "observation": "R01 property now points to premises rather than landlord; petition and filing/start dates have distinct correct roles. R03.P1 now binds tenant to District Judge, and this can pass generic PARTY type compatibility. A type domain is not legal role qualification.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R03.P1/judgments/0/role_objects/tenant",
+          "program_result": "TRUE_CONDITIONAL_UNVERIFIED"
+        },
+        {
+          "id": "195-controlling-date",
+          "comparison": "JUDGMENT_DIRECTION_IMPROVED_CHAIN_STILL_INCONSISTENT",
+          "premises": [
+            "R03.P2"
+          ],
+          "source_refs": [
+            "IK-1954254:L95",
+            "IK-1954254:L104",
+            "IK-1954254:L108",
+            "IK-1954254:L109"
+          ],
+          "observation": "New whole judgment says FALSE and explains Supreme Court rejection, improving old TRUE-as-lower-court-report. The evidence record still asserts the controlling-date proposition as SUPREME_COURT_RECOUNTED_FACT; the use is SUPPORT for the rejected lower view. Earlier/later events are bound to TIME objects, and the model marks rejection as BLOCK_SCOPE. No valid complete refutation trace is established.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R03.P2",
+          "program_result": "UNKNOWN"
+        },
+        {
+          "id": "195-contract-rent",
+          "comparison": "CATEGORY_IMPROVED_CONSISTENCY_ERROR_REMAINS",
+          "premises": [
+            "R04.P1"
+          ],
+          "source_refs": [
+            "IK-1954254:L54",
+            "IK-1954254:L91",
+            "IK-1954254:L56"
+          ],
+          "observation": "New proposal uses contractual monthly Rs277.50 rather than standard annual Rs855. But L54 states277.50 as plaint amount and L91 states269.50 in the agreement. The fixed target asks exact consistent contractual rent; asserting TRUE without resolving this discrepancy is unsupported.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R04.P1"
+        },
+        {
+          "id": "195-consent-source",
+          "comparison": "NEW_SOURCE_SELECTION_REGRESSION",
+          "premises": [
+            "R02.P2"
+          ],
+          "source_refs": [
+            "IK-1954254:L99",
+            "IK-1954254:L127",
+            "IK-1954254:L131"
+          ],
+          "observation": "Old required witness selected L99, which expressly states no evidence of written consent. New record selects L127/L131 and required witness L127, concerning order interpolation. Restored text is faithful to chosen addresses; the model chose unsupported addresses. The fictive Written Consent object is not an obtained document.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R02.P2/uses/0/witnesses/0/source",
+          "program_result": "UNKNOWN"
+        },
+        {
+          "id": "195-operative-rent",
+          "comparison": "PERSISTENT",
+          "premises": [
+            "R04.P2"
+          ],
+          "source_refs": [
+            "IK-1954254:L56",
+            "IK-1954254:L110",
+            "IK-1954254:L146",
+            "IK-1954254:L167",
+            "IK-1954254:L171"
+          ],
+          "observation": "Proposal still treats trial annual standard rent as operative while acknowledging remand. L167 remains an unrelated death/substitution reference. Contractual rent object OBJ3 is undeclared. Correct address restoration does not repair legal scope or source relevance.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R04.P2",
+          "program_result": "UNKNOWN"
+        },
+        {
+          "id": "195-payment-window",
+          "comparison": "PERSISTENT_WITH_NEW_EXPLICIT_UNSUPPORTED_TIMING",
+          "premises": [
+            "R05.P2"
+          ],
+          "source_refs": [
+            "IK-1954254:L59",
+            "IK-1954254:L61",
+            "IK-1954254:L72",
+            "IK-1954254:L134",
+            "IK-1954254:L143",
+            "IK-1954254:L145"
+          ],
+          "observation": "New use says first-hearing deposit preceded expiry of one month after notice, and judgment uses it to negate statutory default. Notice is May10 and suit July3; deposit with defence is later. The court discussion of interim/standard rent and procedural hardship is not proof of payment before June10. The FALSE label alone is not a correct reasoning reconstruction.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R05.P2/uses/0/claim",
+          "program_result": "UNKNOWN"
+        },
+        {
+          "id": "195-cross-identities",
+          "comparison": "NOT_RECOVERED",
+          "premises": [
+            "R01.P1",
+            "R01.P2",
+            "R02.P1",
+            "R02.P2",
+            "R02.P3",
+            "R03.P1",
+            "R03.P2",
+            "R04.P1",
+            "R04.P2",
+            "R05.P1",
+            "R05.P2",
+            "R05.P3"
+          ],
+          "source_refs": [
+            "IK-1954254:L53",
+            "IK-1954254:L54",
+            "IK-1954254:L91",
+            "IK-1954254:L92"
+          ],
+          "observation": "No object_links proposed; separate local declarations do not prove same tenant/property across slots. All five rule routes are explicitly incompatible under shared-variable contract. No names/types are automatically merged. All five rules remain OPEN_TEXT irrespective of binding repair.",
+          "major_remaining": false
+        }
+      ]
+    },
+    {
+      "case_id": "1187427",
+      "assessment": "JUDGMENT_DIRECTIONS_IMPROVED_NOT_COMPLETE_GROUNDED_CHAIN",
+      "items": [
+        {
+          "id": "118-addresses-and-objects",
+          "comparison": "IMPROVED",
+          "premises": [
+            "R5.P1",
+            "R5.P2",
+            "R6.P1"
+          ],
+          "source_refs": [
+            "IK-1187427:L245",
+            "IK-1187427:L280",
+            "IK-1187427:L324"
+          ],
+          "observation": "July18 prior application still correctly selects SRC207/L245. Earlier case and later ground are now declared; zero missing-role judgments and zero undeclared OBJ references. This does not establish cross-premise identity.",
+          "major_remaining": false
+        },
+        {
+          "id": "118-objection-directions",
+          "comparison": "JUDGMENT_IMPROVED_RECORD_ATTRIBUTION_AND_DEPENDENCIES_REMAIN_WRONG",
+          "premises": [
+            "R6.P2",
+            "R6.P3",
+            "R6.P4"
+          ],
+          "source_refs": [
+            "IK-1187427:L292",
+            "IK-1187427:L297",
+            "IK-1187427:L298",
+            "IK-1187427:L305",
+            "IK-1187427:L306",
+            "IK-1187427:L307",
+            "IK-1187427:L308",
+            "IK-1187427:L319",
+            "IK-1187427:L322",
+            "IK-1187427:L323",
+            "IK-1187427:L324"
+          ],
+          "observation": "All three whole judgments now FALSE with Supreme Court rejection explanations, rather than TRUE merely because objections were raised. But each EV1 asserts disentitling effect under an adopted-Supreme-Court status; each second OPPOSE use references undeclared EV2. R6.P2 required first witness L292 is preliminary contrary reasoning, not the eventual rejecting reasoning. Program conditional FALSE is therefore still conditional on incorrectly represented evidence, not legal validation.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R6.P2/records/0",
+          "program_result": "THREE_FALSE_CONDITIONAL_UNVERIFIED"
+        },
+        {
+          "id": "118-legal-role-swap",
+          "comparison": "NEW_OR_PREVIOUSLY_UNREVIEWED_ROLE_ERROR",
+          "premises": [
+            "R7.P2"
+          ],
+          "source_refs": [
+            "IK-1187427:L337",
+            "IK-1187427:L339",
+            "IK-1187427:L340"
+          ],
+          "observation": "landlord_category binds Section25C1 while statutory_modification binds Section14A applicant. The prose explains exemption correctly, but those legal-object roles are exchanged. All are LEGAL_CONCEPT, so domain compatibility does not catch the role error.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R7.P2/judgments/0/role_objects",
+          "program_result": "TRUE_CONDITIONAL_UNVERIFIED"
+        },
+        {
+          "id": "118-order-source",
+          "comparison": "PERSISTENT",
+          "premises": [
+            "R8.P1"
+          ],
+          "source_refs": [
+            "IK-1187427:L248",
+            "IK-1187427:L338",
+            "IK-1187427:L340"
+          ],
+          "observation": "Required witness L338 discusses statutory cases in which an order has been obtained; it does not identify this case order as L248 does. An order object sourced to statutory discussion is not complete proof of the actual order.",
+          "major_remaining": true,
+          "raw_pointer": "/analyses/R8.P1/uses/0/witnesses/0/source",
+          "program_result": "UNKNOWN"
+        },
+        {
+          "id": "118-coverage-and-chain",
+          "comparison": "UNCHANGED_INCOMPLETE",
+          "premises": [
+            "R5.P1",
+            "R5.P2",
+            "R6.P5",
+            "R6.P6",
+            "R8.P1",
+            "R8.P2"
+          ],
+          "source_refs": [
+            "IK-1187427:L287",
+            "IK-1187427:L328",
+            "IK-1187427:L330",
+            "IK-1187427:L340",
+            "IK-1187427:L341",
+            "IK-1187427:L342"
+          ],
+          "observation": "R6.P5/P6 explicitly remain NOT_ANALYZED. No object_links; R5 ALL path cannot establish same earlier_case between P1/P2 and is recorded incompatible. Waiting-period interpretation remains correctly stated, with external court reasoning rather than program proof.",
+          "major_remaining": false
+        }
+      ]
+    }
+  ],
+  "semantic_approval": false,
+  "legal_approval": false,
+  "additional_model_calls": 0,
+  "methods_not_changed_after_new_results": true,
+  "no_reference_or_review_in_model_inputs": true
+}

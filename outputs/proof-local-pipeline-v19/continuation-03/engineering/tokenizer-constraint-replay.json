@@ -1,0 +1,93 @@
+{
+  "status": "PASS",
+  "model_generation_calls": 0,
+  "model_loaded": false,
+  "tokenizer_revision": "8b2b98c00a6b4d291155e4890773ca8f769aee53",
+  "constraint_version": "0.11.2",
+  "constraint": "actual runtime SchemaMask/CompositeQuoteEnforcer",
+  "receipts": [
+    {
+      "name": "legal_full_JSON",
+      "token_count": 371,
+      "expected_acceptance": true,
+      "complete_JSON_and_EOS_allowed": true,
+      "rejected_at": null,
+      "model_called": false
+    },
+    {
+      "name": "source_in_record",
+      "token_count": 371,
+      "expected_acceptance": false,
+      "complete_JSON_and_EOS_allowed": false,
+      "rejected_at": {
+        "position": 84,
+        "token_id": 54135,
+        "text": "SRC",
+        "prefix_tail": "type\":\"person\",\"refs\":[\"SRC:3\"],\"identity_basis\":\"Source explicitly names Mira.\"}],\"uses\":[{\"records\":[\""
+      },
+      "model_called": false
+    },
+    {
+      "name": "bare_integer",
+      "token_count": 369,
+      "expected_acceptance": false,
+      "complete_JSON_and_EOS_allowed": false,
+      "rejected_at": {
+        "position": 84,
+        "token_id": 16,
+        "text": "1",
+        "prefix_tail": "type\":\"person\",\"refs\":[\"SRC:3\"],\"identity_basis\":\"Source explicitly names Mira.\"}],\"uses\":[{\"records\":["
+      },
+      "model_called": false
+    },
+    {
+      "name": "zero_ordinal",
+      "token_count": 371,
+      "expected_acceptance": false,
+      "complete_JSON_and_EOS_allowed": false,
+      "rejected_at": {
+        "position": 86,
+        "token_id": 15,
+        "text": "0",
+        "prefix_tail": "person\",\"refs\":[\"SRC:3\"],\"identity_basis\":\"Source explicitly names Mira.\"}],\"uses\":[{\"records\":[\"EV:"
+      },
+      "model_called": false
+    },
+    {
+      "name": "object_in_record",
+      "token_count": 371,
+      "expected_acceptance": false,
+      "complete_JSON_and_EOS_allowed": false,
+      "rejected_at": {
+        "position": 84,
+        "token_id": 51657,
+        "text": "OBJ",
+        "prefix_tail": "type\":\"person\",\"refs\":[\"SRC:3\"],\"identity_basis\":\"Source explicitly names Mira.\"}],\"uses\":[{\"records\":[\""
+      },
+      "model_called": false
+    },
+    {
+      "name": "use_in_record",
+      "token_count": 371,
+      "expected_acceptance": false,
+      "complete_JSON_and_EOS_allowed": false,
+      "rejected_at": {
+        "position": 84,
+        "token_id": 7660,
+        "text": "USE",
+        "prefix_tail": "type\":\"person\",\"refs\":[\"SRC:3\"],\"identity_basis\":\"Source explicitly names Mira.\"}],\"uses\":[{\"records\":[\""
+      },
+      "model_called": false
+    },
+    {
+      "name": "syntactically_legal_dynamic_missing_import_rejects",
+      "token_count": 373,
+      "expected_acceptance": true,
+      "complete_JSON_and_EOS_allowed": true,
+      "rejected_at": null,
+      "model_called": false
+    }
+  ],
+  "dynamic_reference_existence_is_import_only": true,
+  "elapsed_seconds": 10.297018540790305
+}

@@ -1,0 +1,2805 @@
+{
+  "tasks": [
+    {
+      "case_id": "1954254",
+      "part": "P01",
+      "run": {
+        "run_status": "OK",
+        "done_received": true,
+        "requested_model": "Qwen/Qwen3.5-9B",
+        "started_at": "2026-10-12T00:46:52.912528+00:00",
+        "production_version": "V19_6",
+        "request_sha256": "53f864692bb5842cb6592336b48dec5d5e37d1a4a0530c0d261a72dac93949d9",
+        "source_input_truncated_by_client": false,
+        "local_guard_enforcement": false,
+        "http_status": 200,
+        "response_headers": {
+          "content-type": "text/event-stream;charset=utf-8",
+          "x-request-id": "p4sEAhf-3pDw3Z-a492170d5cf14ca7",
+          "cf-ray": "a492170d5cf14ca7-PHX"
+        },
+        "id": "p4sEAhf-3pDw3Z-a492170d5cf14ca7",
+        "model": "Qwen/Qwen3.5-9B",
+        "created": 1791766013,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 17236,
+          "total_tokens": 28841,
+          "completion_tokens": 11605,
+          "reasoning_tokens": 0
+        },
+        "reasoning_output_present": false,
+        "raw_sha256": "0a3adbeba936a874180ef960d09c98fb9ace7453979f9c44276725646a4ffebf",
+        "elapsed_seconds": 118.98915562500001,
+        "finished_at": "2026-10-12T00:48:51.901473+00:00",
+        "listed_price_token_cost_usd": 0.005831370000000001
+      },
+      "contract_status": "CONTRACT_VALID",
+      "formal_answer_present": true,
+      "coverage": {
+        "status": "ANALYSIS_REPORTED",
+        "expected": [
+          "R01.P1",
+          "R01.P2",
+          "R02.P1",
+          "R02.P2",
+          "R02.P3",
+          "R03.P1",
+          "R03.P2",
+          "R04.P1",
+          "R04.P2",
+          "R05.P1",
+          "R05.P2",
+          "R05.P3"
+        ],
+        "returned": [
+          "R01.P1",
+          "R01.P2",
+          "R02.P1",
+          "R02.P2",
+          "R02.P3",
+          "R03.P1",
+          "R03.P2",
+          "R04.P1",
+          "R04.P2",
+          "R05.P1",
+          "R05.P2",
+          "R05.P3"
+        ],
+        "missing": [],
+        "duplicate": [],
+        "extra": [],
+        "explicit_not_analyzed": [],
+        "analyzed_without_judgment": [],
+        "semantic_completeness_verified": false
+      },
+      "schema_violations": [],
+      "records_retained": 18,
+      "uses": {
+        "CONDITIONALLY_AVAILABLE_USE": 10,
+        "STRUCTURAL_INVALID": 6
+      },
+      "use_error_counts": {
+        "OBJECT_INDEX_INVALID": 12
+      },
+      "judgment_states": {
+        "TRUE": 4,
+        "UNKNOWN": 8
+      },
+      "judgment_error_counts": {
+        "NECESSARY_COMPONENT_WITHOUT_AVAILABLE_BASIS": 7,
+        "OBJECT_INDEX_INVALID": 5,
+        "MISSING_OR_EXTRA_ROLE": 6
+      },
+      "rule_states": [
+        {
+          "rule_id": "R01",
+          "operator": "OPEN_TEXT",
+          "conditional_result": "UNKNOWN",
+          "not_executed": true
+        },
+        {
+          "rule_id": "R02",
+          "operator": "OPEN_TEXT",
+          "conditional_result": "UNKNOWN",
+          "not_executed": true
+        },
+        {
+          "rule_id": "R03",
+          "operator": "OPEN_TEXT",
+          "conditional_result": "UNKNOWN",
+          "not_executed": true
+        },
+        {
+          "rule_id": "R04",
+          "operator": "OPEN_TEXT",
+          "conditional_result": "UNKNOWN",
+          "not_executed": true
+        },
+        {
+          "rule_id": "R05",
+          "operator": "OPEN_TEXT",
+          "conditional_result": "UNKNOWN",
+          "not_executed": true
+        }
+      ],
+      "missing_role_judgments": 6,
+      "independent_import": {
+        "status": "OK",
+        "errors": [],
+        "typed_transport_recomputed": true,
+        "semantic_approval": false,
+        "legal_approval": false,
+        "count_checks": "ALL_ANALYSES_AND_DECLARED_NESTED_COUNTS_CHECKED"
+      },
+      "independent_check": {
+        "status": "OK",
+        "errors": [],
+        "source_use_checks": [
+          {
+            "binding": {
+              "R01.P1::tenant": 1,
+              "R01.P1::landlord": 2,
+              "R01.P1::property": 3,
+              "R01.P1::commencement_date": 4
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R01.P1",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R01.P1::tenant",
+                "object": 1,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P1::landlord",
+                "object": 2,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P1::property",
+                "object": 3,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P1::commencement_date",
+                "object": 4,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R01.P1::tenant": 1,
+              "R01.P1::landlord": 3,
+              "R01.P1::property": 3,
+              "R01.P1::commencement_date": 5
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R01.P1",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R01.P1::tenant",
+                "object": 1,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P1::landlord",
+                "object": 3,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P1::property",
+                "object": 3,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P1::commencement_date",
+                "object": 5,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R01.P2::tenant": 6,
+              "R01.P2::petition": 6,
+              "R01.P2::commencement_date": 7,
+              "R01.P2::filing_date": 8
+            },
+            "available": true,
+            "bearing": false,
+            "premise": "R01.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R01.P2::tenant",
+                "object": 6,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P2::petition",
+                "object": 6,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P2::commencement_date",
+                "object": 7,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P2::filing_date",
+                "object": 8,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R01.P2::tenant": 6,
+              "R01.P2::petition": 6,
+              "R01.P2::commencement_date": 9,
+              "R01.P2::filing_date": 8
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R01.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R01.P2::tenant",
+                "object": 6,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P2::petition",
+                "object": 6,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P2::commencement_date",
+                "object": 9,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P2::filing_date",
+                "object": 8,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R01.P2::tenant": 6,
+              "R01.P2::petition": 6,
+              "R01.P2::filing_date": 8
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R01.P2",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R01.P2::tenant",
+                "object": 6,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P2::petition",
+                "object": 6,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R01.P2::filing_date",
+                "object": 8,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R02.P1::head_tenant": 10,
+              "R02.P1::subtenant": 11,
+              "R02.P1::property": 12
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R02.P1",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R02.P1::head_tenant",
+                "object": 10,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R02.P1::subtenant",
+                "object": 11,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R02.P1::property",
+                "object": 12,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R02.P2::subtenant": 13,
+              "R02.P2::landlord": 14
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R02.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R02.P2::subtenant",
+                "object": 13,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R02.P2::landlord",
+                "object": 14,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R02.P3::tenant": 15,
+              "R02.P3::landlord": 16,
+              "R02.P3::property": 17
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R02.P3",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R02.P3::tenant",
+                "object": 15,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R02.P3::landlord",
+                "object": 16,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R02.P3::property",
+                "object": 17,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R03.P1::tenant": 18,
+              "R03.P1::earlier_letting_date": 19
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R03.P1",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R03.P1::tenant",
+                "object": 18,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R03.P1::earlier_letting_date",
+                "object": 19,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R03.P2::applicant": 20,
+              "R03.P2::earlier_event": 21,
+              "R03.P2::later_event": 22,
+              "R03.P2::governing_limitation_date": 23
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R03.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R03.P2::applicant",
+                "object": 20,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R03.P2::earlier_event",
+                "object": 21,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R03.P2::later_event",
+                "object": 22,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R03.P2::governing_limitation_date",
+                "object": 23,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R03.P2::applicant": 20,
+              "R03.P2::earlier_event": 21,
+              "R03.P2::later_event": 22,
+              "R03.P2::governing_limitation_date": 23
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R03.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R03.P2::applicant",
+                "object": 20,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R03.P2::earlier_event",
+                "object": 21,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R03.P2::later_event",
+                "object": 22,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R03.P2::governing_limitation_date",
+                "object": 23,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R04.P1::tenant": 24,
+              "R04.P1::property": 25,
+              "R04.P1::contractual_monthly_rent": 26
+            },
+            "available": true,
+            "bearing": false,
+            "premise": "R04.P1",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R04.P1::tenant",
+                "object": 24,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R04.P1::property",
+                "object": 25,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R04.P1::contractual_monthly_rent",
+                "object": 26,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R04.P2::property": 27,
+              "R04.P2::operative_standard_rent": 28
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R04.P2",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R04.P2::property",
+                "object": 27,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R04.P2::operative_standard_rent",
+                "object": 28,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R05.P1::landlord": 29,
+              "R05.P1::tenant": 30,
+              "R05.P1::notice_date": 31,
+              "R05.P1::suit": 32
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R05.P1",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R05.P1::landlord",
+                "object": 29,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R05.P1::tenant",
+                "object": 30,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R05.P1::notice_date",
+                "object": 31,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R05.P1::suit",
+                "object": 32,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R05.P2::tenant": 33,
+              "R05.P2::lawful_arrears": 34,
+              "R05.P2::notice_date": 35
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R05.P2",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R05.P2::tenant",
+                "object": 33,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R05.P2::lawful_arrears",
+                "object": 34,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R05.P2::notice_date",
+                "object": 35,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R05.P3::tenant": 36,
+              "R05.P3::deposit": 37,
+              "R05.P3::deposit_date": 38
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R05.P3",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R05.P3::tenant",
+                "object": 36,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R05.P3::deposit",
+                "object": 37,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R05.P3::deposit_date",
+                "object": 38,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          }
+        ],
+        "premise_checks": [
+          {
+            "id": "J001",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R01.P1::tenant": 1,
+              "R01.P1::landlord": 3,
+              "R01.P1::property": 3,
+              "R01.P1::commencement_date": 5
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J002",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R01.P2::tenant": 6,
+              "R01.P2::petition": 6,
+              "R01.P2::commencement_date": 7,
+              "R01.P2::filing_date": 8
+            },
+            "errors": [
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J003",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R02.P1::head_tenant": 10,
+              "R02.P1::subtenant": 11,
+              "R02.P1::property": 12
+            },
+            "errors": [
+              "OBJECT",
+              "ROLE_COVERAGE",
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J004",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R02.P2::subtenant": 13,
+              "R02.P2::landlord": 14
+            },
+            "errors": [
+              "ROLE_COVERAGE"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J005",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R02.P3::tenant": 15,
+              "R02.P3::landlord": 16,
+              "R02.P3::property": 17
+            },
+            "errors": [
+              "OBJECT",
+              "ROLE_COVERAGE",
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J006",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R03.P1::tenant": 18,
+              "R03.P1::earlier_letting_date": 19
+            },
+            "errors": [
+              "OBJECT",
+              "ROLE_COVERAGE",
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J007",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R03.P2::applicant": 20,
+              "R03.P2::earlier_event": 21,
+              "R03.P2::later_event": 22,
+              "R03.P2::governing_limitation_date": 23
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J008",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R04.P1::tenant": 24,
+              "R04.P1::property": 25,
+              "R04.P1::contractual_monthly_rent": 26
+            },
+            "errors": [
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J009",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R04.P2::property": 27,
+              "R04.P2::operative_standard_rent": 28
+            },
+            "errors": [
+              "OBJECT",
+              "ROLE_COVERAGE",
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J010",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R05.P1::landlord": 29,
+              "R05.P1::tenant": 30,
+              "R05.P1::notice_date": 31,
+              "R05.P1::suit": 32
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J011",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R05.P2::tenant": 33,
+              "R05.P2::lawful_arrears": 34,
+              "R05.P2::notice_date": 35
+            },
+            "errors": [
+              "OBJECT",
+              "ROLE_COVERAGE",
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J012",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R05.P3::tenant": 36,
+              "R05.P3::deposit": 37,
+              "R05.P3::deposit_date": 38
+            },
+            "errors": [],
+            "matches_upstream": true
+          }
+        ],
+        "traces": [
+          {
+            "rule_id": "R01",
+            "inputs": [
+              "J001",
+              "J002"
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          },
+          {
+            "rule_id": "R02",
+            "inputs": [
+              "J003",
+              "J004",
+              "J005"
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          },
+          {
+            "rule_id": "R03",
+            "inputs": [
+              "J006",
+              "J007"
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          },
+          {
+            "rule_id": "R04",
+            "inputs": [
+              "J008",
+              "J009"
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          },
+          {
+            "rule_id": "R05",
+            "inputs": [
+              "J010",
+              "J011",
+              "J012"
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          }
+        ],
+        "semantic_approval": false,
+        "legal_approval": false,
+        "scope": "Independent exact source/object/dependency/scope/combination recomputation; model semantics not proved."
+      },
+      "reference_used": false,
+      "semantic_status": "REQUIRES_SCOPED_SOURCE_REVIEW",
+      "offline_guard_hits": {},
+      "old_API": {
+        "case_id": "1954254",
+        "part": "P01",
+        "run": {
+          "run_status": "OK",
+          "done_received": true,
+          "source_input_truncated_by_client": false,
+          "request_sha256": "7330d235921a9e27554c539300394fce7d761ebd6a750d1e477e3a76ec5528ff",
+          "requested_model": "Qwen/Qwen3.5-9B",
+          "started_at": "2026-10-11T15:35:18.027323+00:00",
+          "local_guard_enforcement": false,
+          "http_status": 200,
+          "response_headers": {
+            "content-type": "text/event-stream;charset=utf-8",
+            "x-request-id": "p4pJYjU-3pDw3Z-a48eef12ae784395",
+            "cf-ray": "a48eef12ae784395-PHX"
+          },
+          "id": "p4pJYjU-3pDw3Z-a48eef12ae784395",
+          "model": "Qwen/Qwen3.5-9B",
+          "created": 1791732918,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 25606,
+            "total_tokens": 39300,
+            "completion_tokens": 13694,
+            "reasoning_tokens": 0
+          },
+          "reasoning_output_present": false,
+          "raw_sha256": "cd52d3d73564af97145c35fcb3d9a94f838523f4cd2f3010eb738bb88a597947",
+          "elapsed_seconds": 135.029253625,
+          "finished_at": "2026-10-11T15:37:33.056939+00:00",
+          "listed_price_token_cost_usd": 0.00777652
+        },
+        "contract_status": "CONTRACT_REJECTED",
+        "formal_answer_present": false,
+        "coverage": {
+          "status": "ANALYSIS_REPORTED",
+          "expected": [
+            "R01.P1",
+            "R01.P2",
+            "R02.P1",
+            "R02.P2",
+            "R02.P3",
+            "R03.P1",
+            "R03.P2",
+            "R04.P1",
+            "R04.P2",
+            "R05.P1",
+            "R05.P2",
+            "R05.P3"
+          ],
+          "returned": [
+            "R01.P1",
+            "R01.P2",
+            "R02.P1",
+            "R02.P2",
+            "R02.P3",
+            "R03.P1",
+            "R03.P2",
+            "R04.P1",
+            "R04.P2",
+            "R05.P1",
+            "R05.P2",
+            "R05.P3"
+          ],
+          "missing": [],
+          "duplicate": [],
+          "extra": [],
+          "explicit_not_analyzed": [],
+          "analyzed_without_judgment": [],
+          "semantic_completeness_verified": false
+        },
+        "schema_violations": [
+          {
+            "path": "$/analyses/10/records/0/refs",
+            "reason": "DUPLICATE_ARRAY_ITEM"
+          },
+          {
+            "path": "$/analyses/10/objects/0/refs",
+            "reason": "DUPLICATE_ARRAY_ITEM"
+          },
+          {
+            "path": "$/analyses/10/uses/0/witnesses/0/refs",
+            "reason": "DUPLICATE_ARRAY_ITEM"
+          },
+          {
+            "path": "$/analyses/11/records/0/refs",
+            "reason": "DUPLICATE_ARRAY_ITEM"
+          },
+          {
+            "path": "$/analyses/11/objects/0/refs",
+            "reason": "DUPLICATE_ARRAY_ITEM"
+          },
+          {
+            "path": "$/analyses/11/uses/0/witnesses/0/refs",
+            "reason": "DUPLICATE_ARRAY_ITEM"
+          }
+        ],
+        "records_retained": 15,
+        "uses": {
+          "CONDITIONALLY_AVAILABLE_USE": 9,
+          "STRUCTURAL_INVALID": 5
+        },
+        "use_error_counts": {
+          "WITNESS_QUOTE_NOT_LOCATED": 41
+        },
+        "judgment_states": {
+          "UNKNOWN": 12
+        },
+        "judgment_error_counts": {
+          "MISSING_OR_EXTRA_ROLE": 12,
+          "NECESSARY_COMPONENT_WITHOUT_AVAILABLE_BASIS": 8
+        },
+        "rule_states": [
+          {
+            "rule_id": "R01",
+            "operator": "OPEN_TEXT",
+            "conditional_result": "UNKNOWN",
+            "not_executed": true
+          },
+          {
+            "rule_id": "R02",
+            "operator": "OPEN_TEXT",
+            "conditional_result": "UNKNOWN",
+            "not_executed": true
+          },
+          {
+            "rule_id": "R03",
+            "operator": "OPEN_TEXT",
+            "conditional_result": "UNKNOWN",
+            "not_executed": true
+          },
+          {
+            "rule_id": "R04",
+            "operator": "OPEN_TEXT",
+            "conditional_result": "UNKNOWN",
+            "not_executed": true
+          },
+          {
+            "rule_id": "R05",
+            "operator": "OPEN_TEXT",
+            "conditional_result": "UNKNOWN",
+            "not_executed": true
+          }
+        ],
+        "missing_role_judgments": 12,
+        "independent_import": {
+          "status": "OK",
+          "errors": [],
+          "typed_transport_recomputed": true,
+          "semantic_approval": false,
+          "legal_approval": false,
+          "count_checks": "ALL_ANALYSES_AND_DECLARED_NESTED_COUNTS_CHECKED"
+        },
+        "independent_check": {
+          "status": "OK",
+          "errors": [],
+          "source_use_checks": [
+            {
+              "binding": {
+                "R01.P1::tenant": 1
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R01.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R01.P1::tenant",
+                  "object": 1,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R01.P1::commencement_date": 4
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R01.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R01.P1::commencement_date",
+                  "object": 4,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R01.P1::tenant": 1
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R01.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R01.P1::tenant",
+                  "object": 1,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R01.P2::petition": 6
+              },
+              "available": true,
+              "bearing": false,
+              "premise": "R01.P2",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R01.P2::petition",
+                  "object": 6,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R02.P1::subtenant": 8
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R02.P1",
+              "errors": [
+                "REQUIRED_SOURCE"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R02.P1::subtenant",
+                  "object": 8,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R02.P2::subtenant": 10
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R02.P2",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R02.P2::subtenant",
+                  "object": 10,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R02.P3::tenant": 12
+              },
+              "available": true,
+              "bearing": false,
+              "premise": "R02.P3",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R02.P3::tenant",
+                  "object": 12,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R03.P1::tenant": 16
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R03.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R03.P1::tenant",
+                  "object": 16,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R03.P2::applicant": 17
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R03.P2",
+              "errors": [
+                "REQUIRED_SOURCE"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R03.P2::applicant",
+                  "object": 17,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R04.P1::tenant": 20
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R04.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R04.P1::tenant",
+                  "object": 20,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R04.P2::property": 22
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R04.P2",
+              "errors": [
+                "REQUIRED_SOURCE"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R04.P2::property",
+                  "object": 22,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R05.P1::landlord": 23
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R05.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R05.P1::landlord",
+                  "object": 23,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R05.P2::tenant": 25
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R05.P2",
+              "errors": [
+                "REQUIRED_SOURCE"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R05.P2::tenant",
+                  "object": 25,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R05.P3::tenant": 26
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R05.P3",
+              "errors": [
+                "REQUIRED_SOURCE"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R05.P3::tenant",
+                  "object": 26,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            }
+          ],
+          "premise_checks": [
+            {
+              "id": "J001",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R01.P1::tenant": 1
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J002",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R01.P2::petition": 6
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J003",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R02.P1::subtenant": 8
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J004",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R02.P2::subtenant": 10
+              },
+              "errors": [
+                "ROLE_COVERAGE"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J005",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R02.P3::tenant": 12
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J006",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R03.P1::tenant": 16
+              },
+              "errors": [
+                "ROLE_COVERAGE"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J007",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R03.P2::applicant": 17
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J008",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R04.P1::tenant": 20
+              },
+              "errors": [
+                "ROLE_COVERAGE"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J009",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R04.P2::property": 22
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J010",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R05.P1::landlord": 23
+              },
+              "errors": [
+                "ROLE_COVERAGE"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J011",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R05.P2::tenant": 25
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J012",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R05.P3::tenant": 26
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            }
+          ],
+          "traces": [
+            {
+              "rule_id": "R01",
+              "inputs": [
+                "J001",
+                "J002"
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            },
+            {
+              "rule_id": "R02",
+              "inputs": [
+                "J003",
+                "J004",
+                "J005"
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            },
+            {
+              "rule_id": "R03",
+              "inputs": [
+                "J006",
+                "J007"
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            },
+            {
+              "rule_id": "R04",
+              "inputs": [
+                "J008",
+                "J009"
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            },
+            {
+              "rule_id": "R05",
+              "inputs": [
+                "J010",
+                "J011",
+                "J012"
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            }
+          ],
+          "semantic_approval": false,
+          "legal_approval": false,
+          "scope": "Independent exact source/object/dependency/scope/combination recomputation; model semantics not proved."
+        },
+        "reference_used": false,
+        "semantic_status": "REQUIRES_SCOPED_SOURCE_REVIEW"
+      }
+    },
+    {
+      "case_id": "1187427",
+      "part": "P02",
+      "run": {
+        "run_status": "OK",
+        "done_received": true,
+        "requested_model": "Qwen/Qwen3.5-9B",
+        "started_at": "2026-10-12T00:48:52.219286+00:00",
+        "production_version": "V19_6",
+        "request_sha256": "dcfc16d39cd398fb6f8430a23b2759ecdb18e44320de121409f0bce83bc3fe0a",
+        "source_input_truncated_by_client": false,
+        "local_guard_enforcement": false,
+        "http_status": 200,
+        "response_headers": {
+          "content-type": "text/event-stream;charset=utf-8",
+          "x-request-id": "p4sEnCB-3pDw3Z-a49219f72cd6a0c3",
+          "cf-ray": "a49219f72cd6a0c3-PHX"
+        },
+        "id": "p4sEnCB-3pDw3Z-a49219f72cd6a0c3",
+        "model": "Qwen/Qwen3.5-9B",
+        "created": 1791766133,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 23039,
+          "total_tokens": 32869,
+          "completion_tokens": 9830,
+          "reasoning_tokens": 0
+        },
+        "reasoning_output_present": false,
+        "raw_sha256": "67ac73bf218a076863013d06ec975817da3a47a498398e239ca4f75d5808907d",
+        "elapsed_seconds": 107.99321475,
+        "finished_at": "2026-10-12T00:50:40.212343+00:00",
+        "listed_price_token_cost_usd": 0.00637413
+      },
+      "contract_status": "CONTRACT_VALID",
+      "formal_answer_present": true,
+      "coverage": {
+        "status": "PARTIAL_ANALYSIS",
+        "expected": [
+          "R5.P1",
+          "R5.P2",
+          "R6.P1",
+          "R6.P2",
+          "R6.P3",
+          "R6.P4",
+          "R6.P5",
+          "R6.P6",
+          "R7.P1",
+          "R7.P2",
+          "R8.P1",
+          "R8.P2"
+        ],
+        "returned": [
+          "R5.P1",
+          "R5.P2",
+          "R6.P1",
+          "R6.P2",
+          "R6.P3",
+          "R6.P4",
+          "R6.P5",
+          "R6.P6",
+          "R7.P1",
+          "R7.P2",
+          "R8.P1",
+          "R8.P2"
+        ],
+        "missing": [],
+        "duplicate": [],
+        "extra": [],
+        "explicit_not_analyzed": [
+          "R6.P5",
+          "R6.P6"
+        ],
+        "analyzed_without_judgment": [],
+        "semantic_completeness_verified": false
+      },
+      "schema_violations": [],
+      "records_retained": 15,
+      "uses": {
+        "STRUCTURAL_INVALID": 5,
+        "CONDITIONALLY_AVAILABLE_USE": 10
+      },
+      "use_error_counts": {
+        "OBJECT_INDEX_INVALID": 10
+      },
+      "judgment_states": {
+        "UNKNOWN": 3,
+        "TRUE": 7
+      },
+      "judgment_error_counts": {
+        "OBJECT_INDEX_INVALID": 3,
+        "MISSING_OR_EXTRA_ROLE": 3,
+        "NECESSARY_COMPONENT_WITHOUT_AVAILABLE_BASIS": 3
+      },
+      "rule_states": [
+        {
+          "rule_id": "R5",
+          "operator": "ALL",
+          "conditional_result": "UNKNOWN",
+          "not_executed": false
+        },
+        {
+          "rule_id": "R6",
+          "operator": "OPEN_TEXT",
+          "conditional_result": "UNKNOWN",
+          "not_executed": true
+        },
+        {
+          "rule_id": "R7",
+          "operator": "OPEN_TEXT",
+          "conditional_result": "UNKNOWN",
+          "not_executed": true
+        },
+        {
+          "rule_id": "R8",
+          "operator": "OPEN_TEXT",
+          "conditional_result": "UNKNOWN",
+          "not_executed": true
+        }
+      ],
+      "missing_role_judgments": 3,
+      "independent_import": {
+        "status": "OK",
+        "errors": [],
+        "typed_transport_recomputed": true,
+        "semantic_approval": false,
+        "legal_approval": false,
+        "count_checks": "ALL_ANALYSES_AND_DECLARED_NESTED_COUNTS_CHECKED"
+      },
+      "independent_check": {
+        "status": "OK",
+        "errors": [],
+        "source_use_checks": [
+          {
+            "binding": {
+              "R5.P1::landlord": 1,
+              "R5.P1::tenant": 2
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R5.P1",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R5.P1::landlord",
+                "object": 1,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R5.P1::tenant",
+                "object": 2,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R5.P1::landlord": 1,
+              "R5.P1::tenant": 2
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R5.P1",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R5.P1::landlord",
+                "object": 1,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R5.P1::tenant",
+                "object": 2,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R5.P2::earlier_case": 5,
+              "R5.P2::later_case": 6
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R5.P2",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R5.P2::earlier_case",
+                "object": 5,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R5.P2::later_case",
+                "object": 6,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R5.P2::earlier_case": 5,
+              "R5.P2::later_case": 6
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R5.P2",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R5.P2::earlier_case",
+                "object": 5,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R5.P2::later_case",
+                "object": 6,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R6.P1::tenant": 7,
+              "R6.P1::landlord": 8
+            },
+            "available": false,
+            "bearing": false,
+            "premise": "R6.P1",
+            "errors": [
+              "OBJECT"
+            ],
+            "type_compatibility": [
+              {
+                "address": "R6.P1::tenant",
+                "object": 7,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P1::landlord",
+                "object": 8,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R6.P2::tenant": 9,
+              "R6.P2::landlord": 10,
+              "R6.P2::retirement": 11
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R6.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R6.P2::tenant",
+                "object": 9,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P2::landlord",
+                "object": 10,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P2::retirement",
+                "object": 11,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R6.P2::tenant": 9,
+              "R6.P2::landlord": 10,
+              "R6.P2::retirement": 11
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R6.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R6.P2::tenant",
+                "object": 9,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P2::landlord",
+                "object": 10,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P2::retirement",
+                "object": 11,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R6.P3::tenant": 12,
+              "R6.P3::landlord": 13,
+              "R6.P3::let_premises": 14
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R6.P3",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R6.P3::tenant",
+                "object": 12,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P3::landlord",
+                "object": 13,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P3::let_premises",
+                "object": 14,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R6.P3::tenant": 12,
+              "R6.P3::landlord": 13,
+              "R6.P3::let_premises": 14
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R6.P3",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R6.P3::tenant",
+                "object": 12,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P3::landlord",
+                "object": 13,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P3::let_premises",
+                "object": 14,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R6.P4::tenant": 15,
+              "R6.P4::landlord": 16,
+              "R6.P4::earlier_case": 17,
+              "R6.P4::later_ground": 18
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R6.P4",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R6.P4::tenant",
+                "object": 15,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P4::landlord",
+                "object": 16,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P4::earlier_case",
+                "object": 17,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R6.P4::later_ground",
+                "object": 18,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R6.P4::tenant": 15,
+              "R6.P4::landlord": 16,
+              "R6.P4::earlier_case": 17,
+              "R6.P4::later_ground": 18
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R6.P4",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R6.P4::tenant",
+                "object": 15,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P4::landlord",
+                "object": 16,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R6.P4::earlier_case",
+                "object": 17,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R6.P4::later_ground",
+                "object": 18,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R7.P1::proponent": 19,
+              "R7.P1::primary_ground": 20,
+              "R7.P1::proposed_added_ground": 21
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R7.P1",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R7.P1::proponent",
+                "object": 19,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R7.P1::primary_ground",
+                "object": 20,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R7.P1::proposed_added_ground",
+                "object": 21,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R7.P2::landlord_category": 22,
+              "R7.P2::otherwise_applicable_restriction": 23,
+              "R7.P2::statutory_modification": 24
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R7.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R7.P2::landlord_category",
+                "object": 22,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R7.P2::otherwise_applicable_restriction",
+                "object": 23,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R7.P2::statutory_modification",
+                "object": 24,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R8.P1::landlord": 25,
+              "R8.P1::tenant": 26,
+              "R8.P1::eviction_order": 27,
+              "R8.P1::ground": 28
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R8.P1",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R8.P1::landlord",
+                "object": 25,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R8.P1::tenant",
+                "object": 26,
+                "status": "COMPATIBLE_TYPE_DOMAIN"
+              },
+              {
+                "address": "R8.P1::eviction_order",
+                "object": 27,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R8.P1::ground",
+                "object": 28,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "binding": {
+              "R8.P2::order": 29,
+              "R8.P2::minimum_period": 30,
+              "R8.P2::applicable_ground": 31
+            },
+            "available": true,
+            "bearing": true,
+            "premise": "R8.P2",
+            "errors": [],
+            "type_compatibility": [
+              {
+                "address": "R8.P2::order",
+                "object": 29,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R8.P2::minimum_period",
+                "object": 30,
+                "status": "UNMAPPED_DESCRIPTION"
+              },
+              {
+                "address": "R8.P2::applicable_ground",
+                "object": 31,
+                "status": "UNMAPPED_DESCRIPTION"
+              }
+            ]
+          }
+        ],
+        "premise_checks": [
+          {
+            "id": "J001",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R5.P1::landlord": 1,
+              "R5.P1::tenant": 2
+            },
+            "errors": [
+              "OBJECT",
+              "ROLE_COVERAGE",
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J002",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R5.P2::earlier_case": 5,
+              "R5.P2::later_case": 6
+            },
+            "errors": [
+              "OBJECT",
+              "ROLE_COVERAGE",
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J003",
+            "independently_recomputed_state": "UNKNOWN",
+            "binding": {
+              "R6.P1::tenant": 7,
+              "R6.P1::landlord": 8
+            },
+            "errors": [
+              "OBJECT",
+              "ROLE_COVERAGE",
+              "DEPENDENCY"
+            ],
+            "matches_upstream": true
+          },
+          {
+            "id": "J004",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R6.P2::tenant": 9,
+              "R6.P2::landlord": 10,
+              "R6.P2::retirement": 11
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J005",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R6.P3::tenant": 12,
+              "R6.P3::landlord": 13,
+              "R6.P3::let_premises": 14
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J006",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R6.P4::tenant": 15,
+              "R6.P4::landlord": 16,
+              "R6.P4::earlier_case": 17,
+              "R6.P4::later_ground": 18
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J007",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R7.P1::proponent": 19,
+              "R7.P1::primary_ground": 20,
+              "R7.P1::proposed_added_ground": 21
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J008",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R7.P2::landlord_category": 22,
+              "R7.P2::otherwise_applicable_restriction": 23,
+              "R7.P2::statutory_modification": 24
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J009",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R8.P1::landlord": 25,
+              "R8.P1::tenant": 26,
+              "R8.P1::eviction_order": 27,
+              "R8.P1::ground": 28
+            },
+            "errors": [],
+            "matches_upstream": true
+          },
+          {
+            "id": "J010",
+            "independently_recomputed_state": "TRUE",
+            "binding": {
+              "R8.P2::order": 29,
+              "R8.P2::minimum_period": 30,
+              "R8.P2::applicable_ground": 31
+            },
+            "errors": [],
+            "matches_upstream": true
+          }
+        ],
+        "traces": [
+          {
+            "rule_id": "R5",
+            "inputs": [
+              "J001",
+              "J002"
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          },
+          {
+            "rule_id": "R6",
+            "inputs": [
+              "J003",
+              "J004",
+              "J005",
+              "J006",
+              null,
+              null
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          },
+          {
+            "rule_id": "R7",
+            "inputs": [
+              "J007",
+              "J008"
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          },
+          {
+            "rule_id": "R8",
+            "inputs": [
+              "J009",
+              "J010"
+            ],
+            "errors": [],
+            "status": "CONDITIONAL_TRACE_RECOMPUTED",
+            "rule_version": 1
+          }
+        ],
+        "semantic_approval": false,
+        "legal_approval": false,
+        "scope": "Independent exact source/object/dependency/scope/combination recomputation; model semantics not proved."
+      },
+      "reference_used": false,
+      "semantic_status": "REQUIRES_SCOPED_SOURCE_REVIEW",
+      "offline_guard_hits": {},
+      "old_API": {
+        "case_id": "1187427",
+        "part": "P02",
+        "run": {
+          "run_status": "OK",
+          "done_received": true,
+          "source_input_truncated_by_client": false,
+          "request_sha256": "cf23015ec65c162ccaa19640c7db6c49beb38e67a21a728f3a770d4f73235786",
+          "requested_model": "Qwen/Qwen3.5-9B",
+          "started_at": "2026-10-11T15:37:33.062496+00:00",
+          "local_guard_enforcement": false,
+          "http_status": 200,
+          "response_headers": {
+            "content-type": "text/event-stream;charset=utf-8",
+            "x-request-id": "p4pKEsr-3pDw3Z-a48ef25e78b3be69",
+            "cf-ray": "a48ef25e78b3be69-PHX"
+          },
+          "id": "p4pKEsr-3pDw3Z-a48ef25e78b3be69",
+          "model": "Qwen/Qwen3.5-9B",
+          "created": 1791733053,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 35476,
+            "total_tokens": 41139,
+            "completion_tokens": 5663,
+            "reasoning_tokens": 0
+          },
+          "reasoning_output_present": false,
+          "raw_sha256": "9252afe6cf99dea9e2b38c79ae45460a6fae59e69751ddc2be3dd95e05adf03a",
+          "elapsed_seconds": 61.596400999999986,
+          "finished_at": "2026-10-11T15:38:34.670381+00:00",
+          "listed_price_token_cost_usd": 0.00744667
+        },
+        "contract_status": "CONTRACT_VALID",
+        "formal_answer_present": true,
+        "coverage": {
+          "status": "PARTIAL_ANALYSIS",
+          "expected": [
+            "R5.P1",
+            "R5.P2",
+            "R6.P1",
+            "R6.P2",
+            "R6.P3",
+            "R6.P4",
+            "R6.P5",
+            "R6.P6",
+            "R7.P1",
+            "R7.P2",
+            "R8.P1",
+            "R8.P2"
+          ],
+          "returned": [
+            "R5.P1",
+            "R5.P2",
+            "R6.P2",
+            "R6.P3",
+            "R7.P1",
+            "R7.P2",
+            "R8.P1",
+            "R8.P2"
+          ],
+          "missing": [
+            "R6.P1",
+            "R6.P4",
+            "R6.P5",
+            "R6.P6"
+          ],
+          "duplicate": [],
+          "extra": [],
+          "explicit_not_analyzed": [],
+          "analyzed_without_judgment": [],
+          "semantic_completeness_verified": false
+        },
+        "schema_violations": [],
+        "records_retained": 24,
+        "uses": {
+          "CONDITIONALLY_AVAILABLE_USE": 11,
+          "STRUCTURAL_INVALID": 9
+        },
+        "use_error_counts": {
+          "OBJECT_INDEX_INVALID": 16,
+          "WITNESS_QUOTE_NOT_LOCATED": 3,
+          "RECORD_INDEX_INVALID": 2
+        },
+        "judgment_states": {
+          "UNKNOWN": 8
+        },
+        "judgment_error_counts": {
+          "MISSING_OR_EXTRA_ROLE": 8,
+          "OBJECT_INDEX_INVALID": 6,
+          "NECESSARY_COMPONENT_WITHOUT_AVAILABLE_BASIS": 6
+        },
+        "rule_states": [
+          {
+            "rule_id": "R5",
+            "operator": "ALL",
+            "conditional_result": "UNKNOWN",
+            "not_executed": false
+          },
+          {
+            "rule_id": "R6",
+            "operator": "OPEN_TEXT",
+            "conditional_result": "UNKNOWN",
+            "not_executed": true
+          },
+          {
+            "rule_id": "R7",
+            "operator": "OPEN_TEXT",
+            "conditional_result": "UNKNOWN",
+            "not_executed": true
+          },
+          {
+            "rule_id": "R8",
+            "operator": "OPEN_TEXT",
+            "conditional_result": "UNKNOWN",
+            "not_executed": true
+          }
+        ],
+        "missing_role_judgments": 8,
+        "independent_import": {
+          "status": "OK",
+          "errors": [],
+          "typed_transport_recomputed": true,
+          "semantic_approval": false,
+          "legal_approval": false,
+          "count_checks": "ALL_ANALYSES_AND_DECLARED_NESTED_COUNTS_CHECKED"
+        },
+        "independent_check": {
+          "status": "OK",
+          "errors": [],
+          "source_use_checks": [
+            {
+              "binding": {
+                "R5.P1::earlier_case": 1
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R5.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R5.P1::earlier_case",
+                  "object": 1,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R5.P1::earlier_case": 1
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R5.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R5.P1::earlier_case",
+                  "object": 1,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R5.P1::earlier_case": 1
+              },
+              "available": true,
+              "bearing": false,
+              "premise": "R5.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R5.P1::earlier_case",
+                  "object": 1,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R5.P2::earlier_case": 2
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R5.P2",
+              "errors": [
+                "OBJECT"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R5.P2::earlier_case",
+                  "object": 2,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R5.P2::earlier_case": 2
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R5.P2",
+              "errors": [
+                "OBJECT"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R5.P2::earlier_case",
+                  "object": 2,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R5.P2::earlier_case": 2
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R5.P2",
+              "errors": [
+                "OBJECT",
+                "REQUIRED_SOURCE"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R5.P2::earlier_case",
+                  "object": 2,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P2::retirement": 3
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R6.P2",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R6.P2::retirement",
+                  "object": 3,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P2::retirement": 3
+              },
+              "available": true,
+              "bearing": false,
+              "premise": "R6.P2",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R6.P2::retirement",
+                  "object": 3,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P2::retirement": 3
+              },
+              "available": true,
+              "bearing": false,
+              "premise": "R6.P2",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R6.P2::retirement",
+                  "object": 3,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P2::retirement": 3
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R6.P2",
+              "errors": [
+                "RECORD"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R6.P2::retirement",
+                  "object": 3,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P2::retirement": 3
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R6.P2",
+              "errors": [
+                "RECORD"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R6.P2::retirement",
+                  "object": 3,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P3::let_premises": 4
+              },
+              "available": true,
+              "bearing": false,
+              "premise": "R6.P3",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R6.P3::let_premises",
+                  "object": 4,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P3::let_premises": 4
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R6.P3",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R6.P3::let_premises",
+                  "object": 4,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P3::let_premises": 4
+              },
+              "available": true,
+              "bearing": false,
+              "premise": "R6.P3",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R6.P3::let_premises",
+                  "object": 4,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R6.P3::let_premises": 4
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R6.P3",
+              "errors": [
+                "REQUIRED_SOURCE"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R6.P3::let_premises",
+                  "object": 4,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R7.P1::proponent": 5
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R7.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R7.P1::proponent",
+                  "object": 5,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R7.P1::proponent": 5
+              },
+              "available": true,
+              "bearing": true,
+              "premise": "R7.P1",
+              "errors": [],
+              "type_compatibility": [
+                {
+                  "address": "R7.P1::proponent",
+                  "object": 5,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R7.P2::landlord_category": 6
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R7.P2",
+              "errors": [
+                "OBJECT",
+                "OBJECT",
+                "REQUIRED_SOURCE"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R7.P2::landlord_category",
+                  "object": 6,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R8.P1::eviction_order": 7
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R8.P1",
+              "errors": [
+                "OBJECT"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R8.P1::eviction_order",
+                  "object": 7,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            },
+            {
+              "binding": {
+                "R8.P2::order": 8
+              },
+              "available": false,
+              "bearing": false,
+              "premise": "R8.P2",
+              "errors": [
+                "OBJECT",
+                "OBJECT"
+              ],
+              "type_compatibility": [
+                {
+                  "address": "R8.P2::order",
+                  "object": 8,
+                  "status": "UNMAPPED_DESCRIPTION"
+                }
+              ]
+            }
+          ],
+          "premise_checks": [
+            {
+              "id": "J001",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R5.P1::earlier_case": 1
+              },
+              "errors": [
+                "ROLE_COVERAGE"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J002",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R5.P2::earlier_case": 2
+              },
+              "errors": [
+                "OBJECT",
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J003",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R6.P2::retirement": 3
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J004",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R6.P3::let_premises": 4
+              },
+              "errors": [
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J005",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R7.P1::proponent": 5
+              },
+              "errors": [
+                "ROLE_COVERAGE"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J006",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R7.P2::landlord_category": 6
+              },
+              "errors": [
+                "OBJECT",
+                "OBJECT",
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J007",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R8.P1::eviction_order": 7
+              },
+              "errors": [
+                "OBJECT",
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            },
+            {
+              "id": "J008",
+              "independently_recomputed_state": "UNKNOWN",
+              "binding": {
+                "R8.P2::order": 8
+              },
+              "errors": [
+                "OBJECT",
+                "OBJECT",
+                "ROLE_COVERAGE",
+                "DEPENDENCY"
+              ],
+              "matches_upstream": true
+            }
+          ],
+          "traces": [
+            {
+              "rule_id": "R5",
+              "inputs": [
+                "J001",
+                "J002"
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            },
+            {
+              "rule_id": "R6",
+              "inputs": [
+                null,
+                "J003",
+                "J004",
+                null,
+                null,
+                null
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            },
+            {
+              "rule_id": "R7",
+              "inputs": [
+                "J005",
+                "J006"
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            },
+            {
+              "rule_id": "R8",
+              "inputs": [
+                "J007",
+                "J008"
+              ],
+              "errors": [],
+              "status": "CONDITIONAL_TRACE_RECOMPUTED",
+              "rule_version": 1
+            }
+          ],
+          "semantic_approval": false,
+          "legal_approval": false,
+          "scope": "Independent exact source/object/dependency/scope/combination recomputation; model semantics not proved."
+        },
+        "reference_used": false,
+        "semantic_status": "REQUIRES_SCOPED_SOURCE_REVIEW"
+      }
+    }
+  ],
+  "reviewer": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "joint_interface_development_comparison_not_independent_test": true,
+  "no_full_answer_or_learning_model_claim": true
+}

@@ -1,0 +1,63 @@
+{
+  "kind": "SYNTHETIC_RULE_COMPOSITION_CONTROL_NOT_MODEL_RESULT",
+  "rule": "R5",
+  "slot_variables": null,
+  "premise_local_bindings": [
+    {
+      "id": "J001",
+      "premise": "R5.P1",
+      "binding": {
+        "R5.P1::landlord": 1,
+        "R5.P1::tenant": 2,
+        "R5.P1::earlier_case": 3
+      },
+      "conditional_state": "TRUE",
+      "stage": "objection concerning concurrent eviction applications"
+    },
+    {
+      "id": "J002",
+      "premise": "R5.P2",
+      "binding": {
+        "R5.P2::earlier_case": 4,
+        "R5.P2::later_case": 5,
+        "R5.P2::later_ground": 6
+      },
+      "conditional_state": "TRUE",
+      "stage": "objection concerning concurrent eviction applications"
+    }
+  ],
+  "traces": [
+    {
+      "rule_id": "R5",
+      "operator": "ALL",
+      "binding": {
+        "R5.P1::landlord": 1,
+        "R5.P1::tenant": 2,
+        "R5.P1::earlier_case": 3,
+        "R5.P2::earlier_case": 4,
+        "R5.P2::later_case": 5,
+        "R5.P2::later_ground": 6
+      },
+      "inputs": [
+        "J001",
+        "J002"
+      ],
+      "slot_states": [
+        "TRUE",
+        "TRUE"
+      ],
+      "conditional_result": "TRUE",
+      "not_executed": false,
+      "exceptions": [],
+      "limits": [
+        "The conclusion is specific to the different grounds described in this judgment.",
+        "The Court did not resolve the original misuse, subletting or bona fide need allegations.",
+        "The judgment does not announce an unrestricted rule permitting any number of duplicative eviction proceedings."
+      ],
+      "enumeration_complete": true,
+      "stage": "objection concerning concurrent eviction applications",
+      "status": "CONDITIONAL_UNVERIFIED_MODEL_SEMANTICS"
+    }
+  ],
+  "observation": "With no declared cross-slot variable equality, different earlier-case IDs occupy disjoint local keys and can yield conditional TRUE. Actual saved R5 is UNKNOWN due missing objects, so this is a contract boundary, not a new observed wrong case outcome."
+}

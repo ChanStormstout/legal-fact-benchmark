@@ -1,0 +1,348 @@
+{
+  "type": "object",
+  "properties": {
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ADMISSION",
+              "COURT_FINDING",
+              "COURT_LEGAL_REASONING",
+              "COURT_PROCEDURAL_ACCOUNT",
+              "PARTY_CLAIM",
+              "RECORDED_DOCUMENT",
+              "TESTIMONY",
+              "UNKNOWN"
+            ]
+          },
+          "stage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "maxItems": 256
+          }
+        },
+        "required": [
+          "text",
+          "status",
+          "stage",
+          "refs"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "maxItems": 256
+          },
+          "identity_basis": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "label",
+          "type",
+          "refs",
+          "identity_basis"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "uses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "premise": {
+            "type": "string",
+            "enum": [
+              "R1.P1"
+            ]
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "minItems": 1,
+            "maxItems": 256
+          },
+          "bindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "enum": [
+                    "R1.P1::tenant"
+                  ]
+                },
+                "object": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "address",
+                "object"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "SUPPORT",
+              "OPPOSE",
+              "CONTEXT"
+            ]
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "stage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "witnesses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1,
+                  "maxItems": 256
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "necessity": {
+                  "type": "string",
+                  "enum": [
+                    "REQUIRED",
+                    "SUPPLEMENTARY"
+                  ]
+                }
+              },
+              "required": [
+                "refs",
+                "quote",
+                "necessity"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 256
+          },
+          "self_assessment": {
+            "type": "string",
+            "enum": [
+              "SUPPORTED",
+              "UNSUPPORTED",
+              "UNRESOLVED"
+            ]
+          },
+          "limits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256
+          }
+        },
+        "required": [
+          "premise",
+          "records",
+          "bindings",
+          "direction",
+          "claim",
+          "stage",
+          "witnesses",
+          "self_assessment",
+          "limits"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "premises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "premise": {
+            "type": "string",
+            "enum": [
+              "R1.P1"
+            ]
+          },
+          "bindings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "enum": [
+                    "R1.P1::tenant"
+                  ]
+                },
+                "object": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "address",
+                "object"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "uses": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "TRUE",
+              "FALSE",
+              "UNKNOWN",
+              "CONFLICTED"
+            ]
+          },
+          "complete": {
+            "type": "boolean"
+          },
+          "stage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "basis": {
+            "type": "string",
+            "minLength": 1
+          },
+          "opposition_uses": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "gaps": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "necessary_limits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256
+          }
+        },
+        "required": [
+          "premise",
+          "bindings",
+          "uses",
+          "state",
+          "complete",
+          "stage",
+          "basis",
+          "opposition_uses",
+          "gaps",
+          "necessary_limits"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "maxItems": 256
+    }
+  },
+  "required": [
+    "records",
+    "objects",
+    "uses",
+    "premises",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

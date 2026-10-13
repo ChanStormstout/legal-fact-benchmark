@@ -1,0 +1,22 @@
+{
+  "version": "V19_REFERENCE_1",
+  "production_version": "V19_4",
+  "source": "SRC:n selects the n-th entry of the frozen allowed-source directory",
+  "record": "EV:n selects the n-th record within the current analysis",
+  "object": "OBJ:n selects the n-th object within the current analysis",
+  "use": "USE:n selects the n-th use within the current analysis",
+  "component": "COMP:n selects the n-th component; WHOLE_JUDGMENT is explicit whole scope",
+  "ordinal_policy": "One-based array positions assigned by code; no model-declared duplicate IDs",
+  "generation_guarantees": [
+    "Exact finite source enum",
+    "Local reference namespace and positive ordinal syntax"
+  ],
+  "import_only_checks": [
+    "Dynamic declared-array existence",
+    "Unique cross-analysis premise scope",
+    "Dependency membership and object/source semantics"
+  ],
+  "legacy_policy": "Only valid original one-based indices retain their meaning; zero/out-of-range/wrong-namespace references are never guessed or shifted",
+  "source_presence_not_semantic_support": true,
+  "local_failure_preserves_records_and_independent_uses": true
+}

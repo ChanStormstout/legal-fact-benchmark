@@ -1,0 +1,632 @@
+[
+  {
+    "case_id": "1954254",
+    "part": "P01",
+    "material_identity": {
+      "prompt_sha256": "bbb1f7e7b3b7f78225a765f7eb750dcdd15477e99afcdedd79b5d4c167b54790",
+      "schema_sha256": "00d9a5f99fadb717c5139d85b6e61cefa7a8cb12172c1eab657fcc40cb3fe034",
+      "source_count": 138,
+      "all_source_fragments_present": true,
+      "SSE_equals_raw_equals_parsed": true,
+      "record_count_unchanged_after_merge": 18,
+      "record_interpretations_unchanged": true
+    },
+    "schema_violations": [],
+    "coverage": {
+      "status": "ANALYSIS_REPORTED",
+      "expected": [
+        "R01.P1",
+        "R01.P2",
+        "R02.P1",
+        "R02.P2",
+        "R02.P3",
+        "R03.P1",
+        "R03.P2",
+        "R04.P1",
+        "R04.P2",
+        "R05.P1",
+        "R05.P2",
+        "R05.P3"
+      ],
+      "returned": [
+        "R01.P1",
+        "R01.P2",
+        "R02.P1",
+        "R02.P2",
+        "R02.P3",
+        "R03.P1",
+        "R03.P2",
+        "R04.P1",
+        "R04.P2",
+        "R05.P1",
+        "R05.P2",
+        "R05.P3"
+      ],
+      "missing": [],
+      "duplicate": [],
+      "extra": [],
+      "explicit_not_analyzed": [],
+      "analyzed_without_judgment": [],
+      "semantic_completeness_verified": false
+    },
+    "dynamic_reference_statuses": {
+      "VALID": 136,
+      "NONEXISTENT_LOCAL_REFERENCE": 11
+    },
+    "use_dispositions": {
+      "CONDITIONALLY_AVAILABLE_USE": 10,
+      "STRUCTURAL_INVALID": 6
+    },
+    "use_errors": {
+      "OBJECT_INDEX_INVALID": 12
+    },
+    "binding_type_statuses": {
+      "UNMAPPED_DESCRIPTION": 52
+    },
+    "missing_role_judgments": 6,
+    "conditional_states": {
+      "TRUE": 4,
+      "UNKNOWN": 8
+    },
+    "rule_execution": [
+      {
+        "rule_id": "R01",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true,
+        "inputs": [
+          "J001",
+          "J002"
+        ]
+      },
+      {
+        "rule_id": "R02",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true,
+        "inputs": [
+          "J003",
+          "J004",
+          "J005"
+        ]
+      },
+      {
+        "rule_id": "R03",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true,
+        "inputs": [
+          "J006",
+          "J007"
+        ]
+      },
+      {
+        "rule_id": "R04",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true,
+        "inputs": [
+          "J008",
+          "J009"
+        ]
+      },
+      {
+        "rule_id": "R05",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true,
+        "inputs": [
+          "J010",
+          "J011",
+          "J012"
+        ]
+      }
+    ],
+    "model_input": {
+      "saved_source_fragments": 56,
+      "encoding_status": "PREPARED_NOT_YET_ENCODED",
+      "actual_encoded_source_ids": null,
+      "not_full_document_omission_detection": true,
+      "relation_counts": {
+        "REQUEST_APPLICATION": 16,
+        "RULE_APPLICATION": 16,
+        "FACT_APPLICATION": 16,
+        "SUPPORT": 15,
+        "OBJECT_FACT": 52,
+        "OPPOSE": 1,
+        "REQUEST_APPLICATION_REVERSE": 16,
+        "RULE_APPLICATION_REVERSE": 16,
+        "FACT_APPLICATION_REVERSE": 16,
+        "SUPPORT_REVERSE": 15,
+        "OBJECT_FACT_REVERSE": 52,
+        "OPPOSE_REVERSE": 1
+      },
+      "RULE_DEPENDENCY_edges": 0
+    },
+    "fixed_premise_contracts": {
+      "R01.P1": {
+        "text": "The premises were let directly by the landlord to the particular applicant tenant with the relevant tenancy commencing after the commencement of the Act.",
+        "allowed_statuses": [
+          "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+          "SUPREME_COURT_RECOUNTED_FACT"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "applicant tenant",
+          "landlord": "direct landlord",
+          "property": "demised premises",
+          "commencement_date": "relevant tenancy commencement"
+        }
+      },
+      "R01.P2": {
+        "text": "The applicant filed the Section 8 petition within six months from commencement of that applicant's relevant tenancy.",
+        "allowed_statuses": [
+          "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+          "TRIAL_COURT_FINDING_REPORTED"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "applicant tenant",
+          "petition": "Section 8 standard-rent application",
+          "commencement_date": "relevant tenancy commencement",
+          "filing_date": "petition filing"
+        }
+      },
+      "R02.P1": {
+        "text": "The head tenant inducted the appellant as subtenant after the Act commenced.",
+        "allowed_statuses": [
+          "SUPREME_COURT_RECOUNTED_FACT"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "head_tenant": "inducting tenant",
+          "subtenant": "appellant",
+          "property": "demised premises",
+          "induction_date": "post-Act date"
+        }
+      },
+      "R02.P2": {
+        "text": "The record contains no evidence showing that the landlord gave written consent to the appellant's induction as subtenant.",
+        "allowed_statuses": [
+          "SUPREME_COURT_EVIDENTIARY_ASSESSMENT"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "subtenant": "appellant",
+          "landlord": "person whose written consent was required",
+          "written_consent_document": "document establishing consent, if any"
+        }
+      },
+      "R02.P3": {
+        "text": "After Brook surrendered the head tenancy, the landlord expressly accepted the appellant as direct tenant from May 1, 1955.",
+        "allowed_statuses": [
+          "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "appellant",
+          "landlord": "direct landlord",
+          "property": "demised premises",
+          "effective_date": "recognized direct-tenancy date"
+        }
+      },
+      "R03.P1": {
+        "text": "The District Judge adopted the earlier subtenancy or first letting as the starting point for calculating the appellant's limitation period, and the High Court substantially endorsed that reasoning.",
+        "allowed_statuses": [
+          "REPORTED_LOWER_COURT_REASONING"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "appellant",
+          "earlier_letting_date": "date used by lower court",
+          "interpreting_courts": "lower courts"
+        }
+      },
+      "R03.P2": {
+        "text": "The September 1, 1954 induction as Brook's subtenant is legally the controlling letting for the appellant's Section 11(b) application after direct tenancy was recognized from May 1, 1955.",
+        "allowed_statuses": [
+          "REPORTED_LOWER_COURT_REASONING",
+          "SUPREME_COURT_RECOUNTED_FACT",
+          "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "applicant": "appellant",
+          "earlier_event": "subtenant induction",
+          "later_event": "direct tenancy recognition",
+          "governing_limitation_date": "proposed start date"
+        }
+      },
+      "R04.P1": {
+        "text": "The evidence establishes an exact, consistent contractual monthly rent for the demised cottage under the direct tenancy.",
+        "allowed_statuses": [
+          "REPORTED_PLAINT_AMOUNT",
+          "SUPREME_COURT_RECOUNTED_FACT"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "appellant",
+          "property": "demised cottage",
+          "contractual_monthly_rent": "exact amount"
+        }
+      },
+      "R04.P2": {
+        "text": "The legally operative standard rent for the demised cottage has been established through the required adjudication, allowing comparison with the contractual amount.",
+        "allowed_statuses": [
+          "TRIAL_COURT_FINDING_REPORTED",
+          "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "property": "demised cottage",
+          "operative_standard_rent": "finally determined amount",
+          "contractual_rent": "amount to be compared"
+        }
+      },
+      "R05.P1": {
+        "text": "The landlord brought a possession suit asserting failure to pay rent after the statutory demand notice under Section 13(1)(a).",
+        "allowed_statuses": [
+          "LANDLORD_CLAIM_REPORTED"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "landlord": "plaintiff",
+          "tenant": "defendant",
+          "notice_date": "date of demand notice",
+          "suit": "eviction suit"
+        }
+      },
+      "R05.P2": {
+        "text": "The underlying statutory default occurred: the tenant neither paid nor tendered all legally payable arrears within one month after service of the qualifying demand notice.",
+        "allowed_statuses": [
+          "SUPREME_COURT_RECOUNTED_FACT",
+          "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "defendant",
+          "lawful_arrears": "legally payable arrears",
+          "notice_date": "qualifying notice date",
+          "payment_or_tender_date": "relevant date"
+        }
+      },
+      "R05.P3": {
+        "text": "During the eviction proceedings, the tenant deposited the arrears claimed by the landlord.",
+        "allowed_statuses": [
+          "SUPREME_COURT_RECOUNTED_FACT"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "depositor",
+          "deposit": "claimed arrears",
+          "deposit_date": "date of deposit"
+        }
+      }
+    },
+    "reference_used": false
+  },
+  {
+    "case_id": "1187427",
+    "part": "P02",
+    "material_identity": {
+      "prompt_sha256": "b816eae36963aae0a037a9ce1c0acd45f476a5148f859d0feddcf44c5c43e508",
+      "schema_sha256": "c2dee182f4c01dba28a2f57c57c2278ad08ad6859fc0cacc98af6330833c5faf",
+      "source_count": 308,
+      "all_source_fragments_present": true,
+      "SSE_equals_raw_equals_parsed": true,
+      "record_count_unchanged_after_merge": 15,
+      "record_interpretations_unchanged": true
+    },
+    "schema_violations": [],
+    "coverage": {
+      "status": "PARTIAL_ANALYSIS",
+      "expected": [
+        "R5.P1",
+        "R5.P2",
+        "R6.P1",
+        "R6.P2",
+        "R6.P3",
+        "R6.P4",
+        "R6.P5",
+        "R6.P6",
+        "R7.P1",
+        "R7.P2",
+        "R8.P1",
+        "R8.P2"
+      ],
+      "returned": [
+        "R5.P1",
+        "R5.P2",
+        "R6.P1",
+        "R6.P2",
+        "R6.P3",
+        "R6.P4",
+        "R6.P5",
+        "R6.P6",
+        "R7.P1",
+        "R7.P2",
+        "R8.P1",
+        "R8.P2"
+      ],
+      "missing": [],
+      "duplicate": [],
+      "extra": [],
+      "explicit_not_analyzed": [
+        "R6.P5",
+        "R6.P6"
+      ],
+      "analyzed_without_judgment": [],
+      "semantic_completeness_verified": false
+    },
+    "dynamic_reference_statuses": {
+      "VALID": 117,
+      "NONEXISTENT_LOCAL_REFERENCE": 8
+    },
+    "use_dispositions": {
+      "STRUCTURAL_INVALID": 5,
+      "CONDITIONALLY_AVAILABLE_USE": 10
+    },
+    "use_errors": {
+      "OBJECT_INDEX_INVALID": 10
+    },
+    "binding_type_statuses": {
+      "COMPATIBLE_TYPE_DOMAIN": 20,
+      "UNMAPPED_DESCRIPTION": 23
+    },
+    "missing_role_judgments": 3,
+    "conditional_states": {
+      "UNKNOWN": 3,
+      "TRUE": 7
+    },
+    "rule_execution": [
+      {
+        "rule_id": "R5",
+        "operator": "ALL",
+        "conditional_result": "UNKNOWN",
+        "not_executed": false,
+        "inputs": [
+          "J001",
+          "J002"
+        ]
+      },
+      {
+        "rule_id": "R6",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true,
+        "inputs": [
+          "J003",
+          "J004",
+          "J005",
+          "J006",
+          null,
+          null
+        ]
+      },
+      {
+        "rule_id": "R7",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true,
+        "inputs": [
+          "J007",
+          "J008"
+        ]
+      },
+      {
+        "rule_id": "R8",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true,
+        "inputs": [
+          "J009",
+          "J010"
+        ]
+      }
+    ],
+    "model_input": {
+      "saved_source_fragments": 42,
+      "encoding_status": "PREPARED_NOT_YET_ENCODED",
+      "actual_encoded_source_ids": null,
+      "not_full_document_omission_detection": true,
+      "relation_counts": {
+        "REQUEST_APPLICATION": 15,
+        "RULE_APPLICATION": 15,
+        "FACT_APPLICATION": 15,
+        "SUPPORT": 15,
+        "OBJECT_FACT": 43,
+        "REQUEST_APPLICATION_REVERSE": 15,
+        "RULE_APPLICATION_REVERSE": 15,
+        "FACT_APPLICATION_REVERSE": 15,
+        "SUPPORT_REVERSE": 15,
+        "OBJECT_FACT_REVERSE": 43
+      },
+      "RULE_DEPENDENCY_edges": 0
+    },
+    "fixed_premise_contracts": {
+      "R5.P1": {
+        "text": "The landlord had a pre-existing, still-pending eviction proceeding against the same tenant.",
+        "allowed_statuses": [
+          "PROCEDURAL_HISTORY",
+          "COURT_RECORDED_FACT"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "landlord": "person",
+          "tenant": "person",
+          "earlier_case": "identified proceeding"
+        }
+      },
+      "R5.P2": {
+        "text": "The present eviction proceeding invokes section 14A's special Government-allottee entitlement rather than merely duplicating the earlier petition's misuse, subletting or bona fide requirement grounds.",
+        "allowed_statuses": [
+          "PROCEDURAL_HISTORY",
+          "SUPREME_COURT_ADOPTED_LEGAL_APPLICATION"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "earlier_case": "identified proceeding",
+          "later_case": "section 14A proceeding",
+          "later_ground": "section 14A(1)"
+        }
+      },
+      "R6.P1": {
+        "text": "The respondent-tenant sought permission to defend the section 14A eviction proceeding and put forward the identified objections.",
+        "allowed_statuses": [
+          "PROCEDURAL_HISTORY",
+          "TENANT_SUBMISSION"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "person",
+          "landlord": "person",
+          "eviction_ground": "section 14A(1)"
+        }
+      },
+      "R6.P2": {
+        "text": "The tenant's objection that the landlord had retired before filing discloses a fact that would legally disentitle the landlord under section 14A.",
+        "allowed_statuses": [
+          "TENANT_SUBMISSION",
+          "SUPREME_COURT_ADOPTED_LEGAL_REASONING"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "person",
+          "landlord": "person",
+          "retirement": "employment event"
+        }
+      },
+      "R6.P3": {
+        "text": "The tenant's objection to mixed residential and professional letting discloses a fact that would legally disentitle the landlord under section 14A.",
+        "allowed_statuses": [
+          "TENANT_SUBMISSION",
+          "COURT_RECORDED_ADMISSION",
+          "SUPREME_COURT_ADOPTED_LEGAL_APPLICATION"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "person",
+          "landlord": "person",
+          "let_premises": "identified premises"
+        }
+      },
+      "R6.P4": {
+        "text": "The tenant's objection that a pre-existing eviction case was pending discloses a fact that would legally disentitle the landlord under section 14A on these identified grounds.",
+        "allowed_statuses": [
+          "TENANT_SUBMISSION",
+          "PROCEDURAL_HISTORY",
+          "SUPREME_COURT_ADOPTED_LEGAL_APPLICATION"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "person",
+          "landlord": "person",
+          "earlier_case": "identified proceeding",
+          "later_ground": "section 14A(1)"
+        }
+      },
+      "R6.P5": {
+        "text": "The tenant's affidavit discloses facts that, if established, would show the landlord does not meet the qualifying Government-allotted residential occupation requirement.",
+        "allowed_statuses": [
+          "TENANT_SUBMISSION",
+          "COURT_RECORDED_FACT",
+          "COURT_RECORDED_ADMISSION"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "person",
+          "landlord": "person",
+          "allotted_residence": "Government-allotted residential premises"
+        }
+      },
+      "R6.P6": {
+        "text": "The tenant's affidavit discloses facts that, if established, would show absence of the general or special governmental order required on the terms of section 14A.",
+        "allowed_statuses": [
+          "TENANT_SUBMISSION",
+          "COURT_RECORDED_FACT",
+          "COURT_RECORDED_NOTICE"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "tenant": "person",
+          "landlord": "person",
+          "qualifying_order": "general or special Government order"
+        }
+      },
+      "R7.P1": {
+        "text": "The tenant's counsel argued that sections 25B and 25C require a section 14A claimant additionally to satisfy section 14(1)(e) and associated restrictions.",
+        "allowed_statuses": [
+          "COUNSEL_SUBMISSION"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "proponent": "tenant's counsel",
+          "primary_ground": "section 14A",
+          "proposed_added_ground": "section 14(1)(e)"
+        }
+      },
+      "R7.P2": {
+        "text": "Section 25C(1), as construed by the Supreme Court, exempts a person satisfying section 14A from the five-year restriction imposed by section 14(6).",
+        "allowed_statuses": [
+          "SUPREME_COURT_ADOPTED_LEGAL_REASONING"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "landlord_category": "person satisfying section 14A",
+          "otherwise_applicable_restriction": "section 14(6)",
+          "statutory_modification": "section 25C(1)"
+        }
+      },
+      "R8.P1": {
+        "text": "An order for recovery of possession of the identified tenanted premises was made on a ground specified by section 14(1)(e) or section 14A.",
+        "allowed_statuses": [
+          "PROCEDURAL_HISTORY"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "landlord": "person",
+          "tenant": "person",
+          "eviction_order": "identified order",
+          "ground": "section 14(1)(e) or section 14A"
+        }
+      },
+      "R8.P2": {
+        "text": "The two-month waiting period under section 25C(2) applies to the relevant eviction order notwithstanding section 14A's reference to recovering possession immediately.",
+        "allowed_statuses": [
+          "SUPREME_COURT_ADOPTED_LEGAL_REASONING"
+        ],
+        "explicit_stage": null,
+        "explicit_court": null,
+        "role_types": {
+          "order": "order for recovery of possession",
+          "minimum_period": "two months",
+          "applicable_ground": "section 14A or section 14(1)(e)"
+        }
+      }
+    },
+    "reference_used": false
+  }
+]

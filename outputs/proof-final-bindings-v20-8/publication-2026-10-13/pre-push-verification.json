@@ -1,0 +1,59 @@
+{
+  "verification_at": "2026-10-13T12:08:39.709887-07:00",
+  "verification_kind": "INDEPENDENT_PRE_PUBLICATION_ENGINEERING_AND_FROZEN_CACHE_AUDIT",
+  "version": "V20_9_2",
+  "status": "PASS",
+  "tests": {
+    "run": 85,
+    "failures": 0,
+    "errors": 0
+  },
+  "accepted_case_replays": [
+    {
+      "case_id": "1954254",
+      "statements": 22,
+      "field_reviews": 177,
+      "coverage_reviews": 11
+    },
+    {
+      "case_id": "569555",
+      "statements": 24,
+      "field_reviews": 155,
+      "coverage_reviews": 11
+    },
+    {
+      "case_id": "1187427",
+      "statements": 26,
+      "field_reviews": 156,
+      "coverage_reviews": 11
+    }
+  ],
+  "freeze_manifests_verified": 7,
+  "delivery_code_files_frozen": 55,
+  "delivery_prepared_files_frozen": 15,
+  "frozen_archive_hashes_verified": true,
+  "protected_historical_files_verified": 480,
+  "new_model_calls": 0,
+  "training_calls": 0,
+  "main_entry_switched": false,
+  "original_generation_queue_resumed": false,
+  "user_authorization": "先核对 side chat 的修复是否完成并冻结，如果 ok 先推送一次",
+  "publication_state_at_verification": "NOT_PUSHED_YET",
+  "scope": "Current reviewed statement package and exposed development case outputs only; not automatic extraction accuracy, unseen performance, lawyer approval, or resolution of every historical freewriting truncation.",
+  "concurrent_experiment_outputs_excluded": [
+    "outputs/historical-contrasts-v2/experiments/**",
+    "outputs/historical-contrasts-v2/data-readiness.json"
+  ],
+  "reason": "Publication source set changed during prepare because a separate historical contrast experiment created new runtime files; frozen side delivery dependencies are unchanged.",
+  "git_whitespace_exception": {
+    "kind": "blank-at-eof",
+    "files": [
+      "legal_bench/proof_carrying/artifact_state_v20_2.py",
+      "legal_bench/proof_carrying/local_evaluation_v20_2.py",
+      "legal_bench/proof_carrying/scoring_v20_2.py",
+      "tests/test_source_verification_v20_2.py"
+    ],
+    "reason": "Preserve exact bytes of existing frozen V20.2 source and tests; all four match archived frozen hashes.",
+    "scope": "Per-process Git config only; default trailing-space and other checks remain enabled."
+  }
+}

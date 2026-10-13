@@ -1,0 +1,511 @@
+{
+  "type": "object",
+  "$defs": {
+    "source_choice": {
+      "type": "string",
+      "enum": [
+        "SRC:1",
+        "SRC:3",
+        "SRC:5",
+        "SRC:6",
+        "SRC:8",
+        "SRC:11",
+        "SRC:16",
+        "SRC:17",
+        "SRC:18",
+        "SRC:19",
+        "SRC:20",
+        "SRC:21",
+        "SRC:22",
+        "SRC:23",
+        "SRC:24",
+        "SRC:25",
+        "SRC:26",
+        "SRC:27",
+        "SRC:28",
+        "SRC:29",
+        "SRC:30",
+        "SRC:31",
+        "SRC:32",
+        "SRC:33",
+        "SRC:34",
+        "SRC:35",
+        "SRC:36",
+        "SRC:37",
+        "SRC:39",
+        "SRC:40",
+        "SRC:42",
+        "SRC:43",
+        "SRC:44",
+        "SRC:45",
+        "SRC:46",
+        "SRC:47",
+        "SRC:49",
+        "SRC:50",
+        "SRC:52",
+        "SRC:53",
+        "SRC:54",
+        "SRC:55",
+        "SRC:56",
+        "SRC:57",
+        "SRC:58",
+        "SRC:59",
+        "SRC:60",
+        "SRC:61",
+        "SRC:62",
+        "SRC:63",
+        "SRC:64",
+        "SRC:65",
+        "SRC:66",
+        "SRC:67",
+        "SRC:68",
+        "SRC:69",
+        "SRC:70",
+        "SRC:71",
+        "SRC:72",
+        "SRC:73",
+        "SRC:74",
+        "SRC:75",
+        "SRC:77",
+        "SRC:78",
+        "SRC:79",
+        "SRC:80",
+        "SRC:81",
+        "SRC:82",
+        "SRC:83",
+        "SRC:84",
+        "SRC:85",
+        "SRC:86",
+        "SRC:87",
+        "SRC:88",
+        "SRC:89",
+        "SRC:91",
+        "SRC:92",
+        "SRC:93",
+        "SRC:94",
+        "SRC:95",
+        "SRC:96",
+        "SRC:97",
+        "SRC:98",
+        "SRC:99",
+        "SRC:100",
+        "SRC:101",
+        "SRC:102",
+        "SRC:103",
+        "SRC:104",
+        "SRC:105",
+        "SRC:106",
+        "SRC:107",
+        "SRC:108",
+        "SRC:109",
+        "SRC:110",
+        "SRC:111",
+        "SRC:112",
+        "SRC:113",
+        "SRC:114",
+        "SRC:115",
+        "SRC:116",
+        "SRC:117",
+        "SRC:118",
+        "SRC:119",
+        "SRC:120",
+        "SRC:121",
+        "SRC:122",
+        "SRC:123",
+        "SRC:124",
+        "SRC:125",
+        "SRC:126",
+        "SRC:127",
+        "SRC:128",
+        "SRC:129",
+        "SRC:130",
+        "SRC:131",
+        "SRC:132",
+        "SRC:133",
+        "SRC:134",
+        "SRC:135",
+        "SRC:137",
+        "SRC:138"
+      ]
+    },
+    "verdict": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "enum": [
+            "SUPPORTED",
+            "UNSUPPORTED",
+            "UNRESOLVED"
+          ]
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_choice"
+          },
+          "minItems": 0,
+          "maxItems": 122,
+          "uniqueItems": true
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        }
+      },
+      "required": [
+        "label",
+        "refs",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "verdicts": {
+      "type": "object",
+      "properties": {
+        "D1": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D2": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D3": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D4": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D5": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D6": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D7": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D8": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D9": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D10": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D11": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D12": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D13": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D14": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D15": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D16": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D17": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D18": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D19": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D20": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D21": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D22": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D23": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D24": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D25": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D26": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D27": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D28": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D29": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D30": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D31": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D32": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D33": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D34": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D35": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D36": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D37": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D38": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D39": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D40": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D41": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D42": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D43": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D44": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D45": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D46": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D47": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D48": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D49": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D50": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D51": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D52": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D53": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D54": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D55": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D56": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D57": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D58": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D59": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D60": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D61": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D62": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D63": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D64": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D65": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D66": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D67": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D68": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D69": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D70": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D71": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D72": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D73": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D74": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D75": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D76": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D77": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D78": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D79": {
+          "$ref": "#/$defs/verdict"
+        },
+        "D80": {
+          "$ref": "#/$defs/verdict"
+        }
+      },
+      "required": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15",
+        "D16",
+        "D17",
+        "D18",
+        "D19",
+        "D20",
+        "D21",
+        "D22",
+        "D23",
+        "D24",
+        "D25",
+        "D26",
+        "D27",
+        "D28",
+        "D29",
+        "D30",
+        "D31",
+        "D32",
+        "D33",
+        "D34",
+        "D35",
+        "D36",
+        "D37",
+        "D38",
+        "D39",
+        "D40",
+        "D41",
+        "D42",
+        "D43",
+        "D44",
+        "D45",
+        "D46",
+        "D47",
+        "D48",
+        "D49",
+        "D50",
+        "D51",
+        "D52",
+        "D53",
+        "D54",
+        "D55",
+        "D56",
+        "D57",
+        "D58",
+        "D59",
+        "D60",
+        "D61",
+        "D62",
+        "D63",
+        "D64",
+        "D65",
+        "D66",
+        "D67",
+        "D68",
+        "D69",
+        "D70",
+        "D71",
+        "D72",
+        "D73",
+        "D74",
+        "D75",
+        "D76",
+        "D77",
+        "D78",
+        "D79",
+        "D80"
+      ],
+      "additionalProperties": false
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 480
+      },
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "verdicts",
+    "coverage_limits"
+  ],
+  "additionalProperties": false
+}

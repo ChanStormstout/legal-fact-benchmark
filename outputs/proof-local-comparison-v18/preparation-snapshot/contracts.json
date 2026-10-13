@@ -1,0 +1,154 @@
+{
+  "preparation_only": true,
+  "labels": [
+    "SUPPORTED",
+    "UNSUPPORTED",
+    "UNRESOLVED"
+  ],
+  "unit": "Exact declared source-use, objects, speaker/stage, evidentiary direction and scope",
+  "use_not_whole_truth": true,
+  "valid_opposition_may_be_SUPPORTED": true,
+  "wrong_citation_not_rescued": true,
+  "unknown_not_false": true,
+  "unlabelled_not_negative": true,
+  "source_recovery": "All record/use/witness/opposition/object refs, fixed adjacent context labelled NEIGHBOUR_CONTEXT_ONLY",
+  "learner_visible": "Same-case union of restored packets, raw P, rules and all generated relation descriptions",
+  "INPUT_COVERAGE_LIMITED": "Evidence needed outside this union excluded from supervision; original candidate retained",
+  "role_directory": "premise ID plus declared role address; type, variable and concrete object remain separate",
+  "approval": "NOT_GRANTED; no model self-approval",
+  "inference_source_isolation": "No DEV reference used to assemble sources, P prompts, graph or checker policy",
+  "evaluation": {
+    "reference_status": "MODEL_GENERATED_SOURCE_REVIEWED_NOT_HUMAN_GOLD",
+    "reference_freeze_before_any_DEV_final": true,
+    "reference_policy": "Reuse independent Q1 sources; only missing/unclear/conflicting items may be supplemented. Preserve originals and revisions uniformly across all methods.",
+    "reference_input_isolation": "DEV evaluation reference never enters local prompt, graph, candidates, checker acceptance policy, or final generation. DEV local classification labels used only for validation/evaluation, not gradients.",
+    "claim_split_rule": "A substantive judgement is one independently assessable proposition about a fact/object/event/status/stage, a rule/scope/exception, an application, or a conclusion. Split only when clauses can have different truth or support values. Merge repetitions and paraphrases of the same proposition, across fields. Do not count citations, headings, stylistic remarks, or every word as claims. An explicitly qualified uncertainty or assumption is assessed in its stated scope. Distinguish an asserted fact from an attributed claim. Alternative accounts of the same issue remain different claims when their speakers, objects, stage, or asserted content differ.",
+    "full_answer_primary_metrics": {
+      "key_content_coverage": "correctly_handled_distinct_reference_items / all_frozen_key_items; correct sourced uncertainty counts; omitted/wrong items do not",
+      "unsupported_judgement_rate": "confirmed_erroneous_or_unsupported_substantive_judgements / evaluable_distinct_substantive_judgements; disputes separate; zero denominator -> null",
+      "major_error_dispute_proportion": "disputes_with_at_least_one_decisive_confirmed_error / semantically_evaluable_disputes"
+    },
+    "major_error_definition": "Decisive wrong source attribution, object, court stage, rule scope, necessary condition, or conclusion direction. Cosmetic differences excluded.",
+    "overall_categories": [
+      "COMPLETE_AND_SOURCED",
+      "PARTIAL",
+      "MAJOR_ERROR",
+      "DISPUTED_OR_UNEVALUABLE"
+    ],
+    "aggregation": "request metrics -> within-dispute means -> equal dispute weighting. Completion on all planned conditions; semantic metrics on eligible completed answers with denominators retained.",
+    "local_metrics": [
+      "three_class_confusion",
+      "precision",
+      "recall",
+      "macro_f1",
+      "UNSUPPORTED_to_SUPPORTED_error_allow",
+      "SUPPORTED_to_UNSUPPORTED_error_block",
+      "UNRESOLVED_destinations_separate"
+    ],
+    "local_baselines": [
+      "exact_same_semantics_raw_P_else_unmapped",
+      "TRAIN_label_prior_with_explicit_family_match_or_global_fallback"
+    ],
+    "blind_evaluation": {
+      "seed": 20261001,
+      "neutral_ids": true,
+      "order": {
+        "136109": {
+          "ANSWER_01": "G",
+          "ANSWER_02": "D",
+          "ANSWER_03": "C",
+          "ANSWER_04": "E",
+          "ANSWER_05": "A",
+          "ANSWER_06": "B",
+          "ANSWER_07": "F"
+        },
+        "885778": {
+          "ANSWER_01": "G",
+          "ANSWER_02": "B",
+          "ANSWER_03": "C",
+          "ANSWER_04": "E",
+          "ANSWER_05": "D",
+          "ANSWER_06": "F",
+          "ANSWER_07": "A"
+        },
+        "121775": {
+          "ANSWER_01": "G",
+          "ANSWER_02": "F",
+          "ANSWER_03": "B",
+          "ANSWER_04": "A",
+          "ANSWER_05": "C",
+          "ANSWER_06": "E",
+          "ANSWER_07": "D"
+        },
+        "396336": {
+          "ANSWER_01": "F",
+          "ANSWER_02": "E",
+          "ANSWER_03": "C",
+          "ANSWER_04": "A",
+          "ANSWER_05": "G",
+          "ANSWER_06": "B",
+          "ANSWER_07": "D"
+        },
+        "1870386": {
+          "ANSWER_01": "F",
+          "ANSWER_02": "C",
+          "ANSWER_03": "D",
+          "ANSWER_04": "A",
+          "ANSWER_05": "E",
+          "ANSWER_06": "G",
+          "ANSWER_07": "B"
+        },
+        "180091": {
+          "ANSWER_01": "C",
+          "ANSWER_02": "A",
+          "ANSWER_03": "E",
+          "ANSWER_04": "G",
+          "ANSWER_05": "D",
+          "ANSWER_06": "B",
+          "ANSWER_07": "F"
+        },
+        "907531": {
+          "ANSWER_01": "D",
+          "ANSWER_02": "E",
+          "ANSWER_03": "C",
+          "ANSWER_04": "F",
+          "ANSWER_05": "G",
+          "ANSWER_06": "B",
+          "ANSWER_07": "A"
+        },
+        "732701": {
+          "ANSWER_01": "C",
+          "ANSWER_02": "A",
+          "ANSWER_03": "F",
+          "ANSWER_04": "G",
+          "ANSWER_05": "E",
+          "ANSWER_06": "B",
+          "ANSWER_07": "D"
+        },
+        "594273": {
+          "ANSWER_01": "B",
+          "ANSWER_02": "E",
+          "ANSWER_03": "D",
+          "ANSWER_04": "F",
+          "ANSWER_05": "C",
+          "ANSWER_06": "A",
+          "ANSWER_07": "G"
+        },
+        "948916": {
+          "ANSWER_01": "C",
+          "ANSWER_02": "F",
+          "ANSWER_03": "G",
+          "ANSWER_04": "D",
+          "ANSWER_05": "B",
+          "ANSWER_06": "E",
+          "ANSWER_07": "A"
+        }
+      },
+      "limits": "Structure/content may reveal method; do not claim complete blinding. No method names/model confidence provenance shown to reviewer."
+    },
+    "evaluation_evidence": "Complete allowed source plus frozen checklist; new out-of-checklist claims must be checked against source, never marked wrong merely because absent from checklist.",
+    "decisive_disagreement_review": "One concentrated local source review; retain reference amendments and rescore ALL related conditions uniformly. No local answer retries.",
+    "no_composite_score_or_forced_winner": true,
+    "prediction_to_answer_trace": "connection id, raw P label, predicted label, audit/material consequence, final adoption/rejection/reinterpretation, source-grounded effect; common fixes not attributed to learners"
+  }
+}

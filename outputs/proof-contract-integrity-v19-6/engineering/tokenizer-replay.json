@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "receipts": [
+    {
+      "name": "valid",
+      "token_count": 223,
+      "complete_and_EOS_allowed": true,
+      "blocked_at": null,
+      "expected": true
+    },
+    {
+      "name": "second_duplicate_source",
+      "token_count": 227,
+      "complete_and_EOS_allowed": false,
+      "blocked_at": 40,
+      "expected": false
+    },
+    {
+      "name": "source_is_not_record",
+      "token_count": 223,
+      "complete_and_EOS_allowed": false,
+      "blocked_at": 82,
+      "expected": false
+    },
+    {
+      "name": "missing_fixed_premise",
+      "token_count": 14,
+      "complete_and_EOS_allowed": false,
+      "blocked_at": 4,
+      "expected": false
+    },
+    {
+      "name": "missing_role_key",
+      "token_count": 219,
+      "complete_and_EOS_allowed": false,
+      "blocked_at": 204,
+      "expected": false
+    },
+    {
+      "name": "dynamic_missing_import_only",
+      "token_count": 225,
+      "complete_and_EOS_allowed": true,
+      "blocked_at": null,
+      "expected": true
+    }
+  ],
+  "capacity": [
+    {
+      "case_id": "1187427",
+      "part": "P02",
+      "new_prompt_tokens": 23039,
+      "old_prompt_tokens": 35476,
+      "required_total": 39679,
+      "budget_65536_unchanged": true,
+      "fits": true
+    },
+    {
+      "case_id": "1954254",
+      "part": "P01",
+      "new_prompt_tokens": 17236,
+      "old_prompt_tokens": 25606,
+      "required_total": 33876,
+      "budget_65536_unchanged": true,
+      "fits": true
+    }
+  ],
+  "tokenizer_revision": "8b2b98c00a6b4d291155e4890773ca8f769aee53",
+  "constraint": "V19_6 UniqueStringParser + CompositeQuoteEnforcer",
+  "lmfe": "0.11.2",
+  "model_loaded": false,
+  "model_generation_calls": 0,
+  "elapsed_seconds": 2.7865659589879215,
+  "guarantee": "Declared unique string arrays, fixed keys, namespaces; dynamic existence and legal semantics are import/review responsibilities."
+}

@@ -1,0 +1,128 @@
+{
+  "reviewed_at": "2026-10-11T15:42:22.183815+00:00",
+  "reviewer": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "scope": "Generation mechanics and decisive source/reference connections in the two saved P tasks; not complete judgment annotation or final legal-answer scoring",
+  "cases": [
+    {
+      "case_id": "1954254",
+      "part": "P01",
+      "natural_completion": true,
+      "schema_unique_items_violations": [
+        "$/analyses/10/records/0/refs",
+        "$/analyses/10/objects/0/refs",
+        "$/analyses/10/uses/0/witnesses/0/refs",
+        "$/analyses/11/records/0/refs",
+        "$/analyses/11/objects/0/refs",
+        "$/analyses/11/uses/0/witnesses/0/refs"
+      ],
+      "local_repetition_guard_replay": {
+        "record": {
+          "kind": "REPEATED_SOURCE_ADDRESS_IN_ONE_LIST",
+          "address": "SRC:59",
+          "count": 3,
+          "list_start": 18417,
+          "trigger_end": 20330,
+          "scope": "ONE_REFS_ARRAY_ONLY"
+        }
+      },
+      "all_raw_evidence_preserved": true,
+      "use_dispositions": {
+        "CONDITIONALLY_AVAILABLE_USE": 9,
+        "STRUCTURAL_INVALID": 5
+      },
+      "conditional_rule_results": {
+        "UNKNOWN": 11
+      },
+      "formal_legal_approval": false,
+      "raw_diagnostic_is_not_downstream_performance": true,
+      "findings": [
+        {
+          "kind": "NATURAL_GENERATION_RECOVERY",
+          "finding": "API completed 12 analyses, 15 evidence records and 14 uses; all raw EV/OBJ/USE ordinals exist. Local 1954254 raw used nonexistent EV:2..11 in one-record units. This mechanical error is absent in this API response; no rerun or correction was applied."
+        },
+        {
+          "kind": "REFERENCE_REPETITION",
+          "finding": "R05.P2 record, object and witness refs each contain 256 entries but only126 unique choices; R05.P3 equivalents254 entries with126 unique. Six original uniqueItems requirements violated. Original scoped guard triggers on third SRC:59 within one list. Provider finished because API guards were diagnostic only.",
+          "raw_location": "analyses[10..11]",
+          "consequence": "Strict full-schema formal answer null; original readable response retained for qualitative diagnosis, not repaired."
+        },
+        {
+          "kind": "SOURCE_ADDRESS_WRONG",
+          "finding": "R01.P1 record2 says surrender1April1955 but SRC54=L90 covers prior subtenancy and SRC91=L127 covers1956 procedural notation. Correct allowed fact is L91. R01.P2 petition10October1955 cites SRC55=L91 and SRC92=L128, neither the petition date. L92 records10October;L93 laterrecords1October; date discrepancy retained as source ambiguity rather than inventing one date.",
+          "source_locations": [
+            "IK-1954254:L90",
+            "IK-1954254:L91",
+            "IK-1954254:L92",
+            "IK-1954254:L93",
+            "IK-1954254:L127",
+            "IK-1954254:L128"
+          ]
+        },
+        {
+          "kind": "RECORD_USE_SEMANTIC_MISMATCH",
+          "finding": "R01.P1 use2 cites EV2(surrender1April) to claim direct tenancy1May; use3 cites EV3(agreement) to claim petition timing although record4 states petition. Address existence passes; semantic connection is wrong or incomplete.",
+          "raw_location": "analyses[0].uses[1..2]"
+        },
+        {
+          "kind": "OVERBROAD_ANCHORS",
+          "finding": "R05.P2/P3 exhaustively repeat a broad set of allowable sources. This does not prove default or first-day deposit. The sourceL114 records deposit under protest while contesting and standard-rent application; legal definitions elsewhere cannot alone prove the particular deposit date. Not counted as a final legal verdict error because no complete answer was generated."
+        }
+      ]
+    },
+    {
+      "case_id": "1187427",
+      "part": "P02",
+      "natural_completion": true,
+      "schema_unique_items_violations": [],
+      "local_repetition_guard_replay": {},
+      "all_raw_evidence_preserved": true,
+      "use_dispositions": {
+        "CONDITIONALLY_AVAILABLE_USE": 11,
+        "STRUCTURAL_INVALID": 9
+      },
+      "conditional_rule_results": {
+        "UNKNOWN": 8
+      },
+      "formal_legal_approval": false,
+      "raw_diagnostic_is_not_downstream_performance": true,
+      "findings": [
+        {
+          "kind": "IDENTICAL_RECORD_FAILURE_ABSENT",
+          "finding": "R5.P2 now has three distinct records rather than the local three identical records; no original repetition guards trigger."
+        },
+        {
+          "kind": "NONEXISTENT_DYNAMIC_REFERENCES",
+          "finding": "16 original local references exceed declared arrays. R5.P2 has onlyone object but usesOBJ2; R6.P2 has threerecords but usesEV4/EV5; R7.P2/R8.P1/R8.P2 similarly reference undeclaredobjects. Preserved raw; individual uses isolated, valid independent records/uses survive.",
+          "raw_locations": [
+            "R5.P2",
+            "R6.P2",
+            "R7.P2",
+            "R8.P1",
+            "R8.P2"
+          ]
+        },
+        {
+          "kind": "SOURCE_DIRECTORY_LINE_CONFUSION",
+          "finding": "R5.P1 record1 cites SRC245, which actually mapsL283, to claim earlier petition18July1974. The allowed supporting text isL245. R5.P2 citesSRC283 which mapsL321(only421), whereas the RentController reasoning isL283. R8.P1 evictionorder10March1976 citesSRC248->L286(legalquestion), not the proceduralorder. Exact source enum does not prevent wrong semantic selection.",
+          "source_locations": [
+            "IK-1187427:L245",
+            "IK-1187427:L283",
+            "IK-1187427:L286",
+            "IK-1187427:L321"
+          ]
+        },
+        {
+          "kind": "WRONG_CITATION_EMPTY_OR_HEADER",
+          "finding": "R7.P2 ruleexemption citesSRC33=L71(ACT:) andSRC37=L75(empty). The same allowed text states the exemption atL337/L340. Meaning of statement may accord withsource elsewhere, but attached source witness doesnot support it; citation validity isnot semantic validation.",
+          "source_locations": [
+            "IK-1187427:L71",
+            "IK-1187427:L75",
+            "IK-1187427:L337",
+            "IK-1187427:L340"
+          ]
+        }
+      ]
+    }
+  ],
+  "decision": "Provider completes faster, but repetition, source misselection and invalid dynamic binding persist. Local deployment alone is not a supported complete explanation. Do not resume V19 or train from these diagnostic responses."
+}

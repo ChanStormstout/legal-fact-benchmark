@@ -1,0 +1,578 @@
+{
+  "version": "V19_7_RULE_CONTRACT_1",
+  "policy_role": "SOURCE_GROUNDED_RESEARCH_INPUT_CONTRACT_NOT_LEGAL_APPROVAL",
+  "reference_or_answer_used": false,
+  "rules": {
+    "R5": {
+      "original_rule_sha256": "ed24159dfe2503366066aec054a798f75ff192e8c76ab99a08c2b7e67bbd3d61",
+      "source_refs": [
+        "IK-1187427:L245",
+        "IK-1187427:L283",
+        "IK-1187427:L324"
+      ],
+      "unchanged_operator": "ALL",
+      "slot_variables": {
+        "R5.P1": {
+          "landlord": "R5::L",
+          "tenant": "R5::T",
+          "earlier_case": "R5::EARLIER"
+        },
+        "R5.P2": {
+          "earlier_case": "R5::EARLIER",
+          "later_case": "R5::LATER",
+          "later_ground": "R5::GROUND"
+        }
+      },
+      "premises": {
+        "R5.P1": {
+          "fixed_proposition": "The landlord had a pre-existing, still-pending eviction proceeding against the same tenant.",
+          "role_types": {
+            "landlord": "PARTY",
+            "tenant": "PARTY",
+            "earlier_case": "EVENT"
+          },
+          "required_roles": [
+            "landlord",
+            "tenant",
+            "earlier_case"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R5.P1.K1",
+              "text": "The same landlord had an earlier, still-pending proceeding against the identified tenant."
+            }
+          ],
+          "whole_basis_statuses": [
+            "PROCEDURAL_HISTORY",
+            "COURT_RECORDED_FACT"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L245",
+            "IK-1187427:L283",
+            "IK-1187427:L324"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R5.P2": {
+          "fixed_proposition": "The present eviction proceeding invokes section 14A's special Government-allottee entitlement rather than merely duplicating the earlier petition's misuse, subletting or bona fide requirement grounds.",
+          "role_types": {
+            "earlier_case": "EVENT",
+            "later_case": "EVENT",
+            "later_ground": "LEGAL_CONCEPT"
+          },
+          "required_roles": [
+            "earlier_case",
+            "later_case",
+            "later_ground"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R5.P2.K1",
+              "text": "The identified later proceeding uses the Section 14A special government-allottee entitlement."
+            },
+            {
+              "id": "R5.P2.K2",
+              "text": "It does not duplicate the grounds of the same earlier proceeding identified in the preceding premise."
+            }
+          ],
+          "whole_basis_statuses": [
+            "PROCEDURAL_HISTORY",
+            "SUPREME_COURT_ADOPTED_LEGAL_APPLICATION"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L245",
+            "IK-1187427:L283",
+            "IK-1187427:L324"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    },
+    "R6": {
+      "original_rule_sha256": "c5b0365576cc21eac8922bc468efb01bd2e8c89e7ba03b29a5f481cd947f9b01",
+      "source_refs": [
+        "IK-1187427:L272",
+        "IK-1187427:L273",
+        "IK-1187427:L274",
+        "IK-1187427:L275",
+        "IK-1187427:L325",
+        "IK-1187427:L326",
+        "IK-1187427:L328",
+        "IK-1187427:L330",
+        "IK-1187427:L332"
+      ],
+      "unchanged_operator": "OPEN_TEXT",
+      "slot_variables": {
+        "R6.P1": {
+          "tenant": "R6::T",
+          "landlord": "R6::L",
+          "eviction_ground": "R6::GROUND"
+        },
+        "R6.P2": {
+          "tenant": "R6::T",
+          "landlord": "R6::L",
+          "retirement": "R6::RETIRE"
+        },
+        "R6.P3": {
+          "tenant": "R6::T",
+          "landlord": "R6::L",
+          "let_premises": "R6::X"
+        },
+        "R6.P4": {
+          "tenant": "R6::T",
+          "landlord": "R6::L",
+          "earlier_case": "R6::EARLIER",
+          "later_ground": "R6::GROUND"
+        },
+        "R6.P5": {
+          "tenant": "R6::T",
+          "landlord": "R6::L",
+          "allotted_residence": "R6::ALLOT"
+        },
+        "R6.P6": {
+          "tenant": "R6::T",
+          "landlord": "R6::L",
+          "qualifying_order": "R6::ORDER"
+        }
+      },
+      "premises": {
+        "R6.P1": {
+          "fixed_proposition": "The respondent-tenant sought permission to defend the section 14A eviction proceeding and put forward the identified objections.",
+          "role_types": {
+            "tenant": "PARTY",
+            "landlord": "PARTY",
+            "eviction_ground": "LEGAL_CONCEPT"
+          },
+          "required_roles": [
+            "tenant",
+            "landlord",
+            "eviction_ground"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "ATTRIBUTED_REPORT",
+          "components": [
+            {
+              "id": "R6.P1.K1",
+              "text": "The tenant sought leave to contest and put the identified objections forward; this proposition reports that procedural act."
+            }
+          ],
+          "whole_basis_statuses": [
+            "PROCEDURAL_HISTORY",
+            "TENANT_SUBMISSION"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L272",
+            "IK-1187427:L273",
+            "IK-1187427:L274",
+            "IK-1187427:L275",
+            "IK-1187427:L325",
+            "IK-1187427:L326",
+            "IK-1187427:L328",
+            "IK-1187427:L330",
+            "IK-1187427:L332"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R6.P2": {
+          "fixed_proposition": "The tenant's objection that the landlord had retired before filing discloses a fact that would legally disentitle the landlord under section 14A.",
+          "role_types": {
+            "tenant": "PARTY",
+            "landlord": "PARTY",
+            "retirement": "EVENT"
+          },
+          "required_roles": [
+            "tenant",
+            "landlord",
+            "retirement"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R6.P2.K1",
+              "text": "The retirement objection discloses a fact legally disentitling the landlord; the objection having been raised alone does not establish its legal effect."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_ADOPTED_LEGAL_REASONING"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L272",
+            "IK-1187427:L273",
+            "IK-1187427:L274",
+            "IK-1187427:L275",
+            "IK-1187427:L325",
+            "IK-1187427:L326",
+            "IK-1187427:L328",
+            "IK-1187427:L330",
+            "IK-1187427:L332"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R6.P3": {
+          "fixed_proposition": "The tenant's objection to mixed residential and professional letting discloses a fact that would legally disentitle the landlord under section 14A.",
+          "role_types": {
+            "tenant": "PARTY",
+            "landlord": "PARTY",
+            "let_premises": "PROPERTY"
+          },
+          "required_roles": [
+            "tenant",
+            "landlord",
+            "let_premises"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R6.P3.K1",
+              "text": "The mixed-use letting objection legally disentitles the landlord; the existence of mixed use alone does not establish that effect."
+            }
+          ],
+          "whole_basis_statuses": [
+            "COURT_RECORDED_ADMISSION",
+            "SUPREME_COURT_ADOPTED_LEGAL_APPLICATION"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L272",
+            "IK-1187427:L273",
+            "IK-1187427:L274",
+            "IK-1187427:L275",
+            "IK-1187427:L325",
+            "IK-1187427:L326",
+            "IK-1187427:L328",
+            "IK-1187427:L330",
+            "IK-1187427:L332"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R6.P4": {
+          "fixed_proposition": "The tenant's objection that a pre-existing eviction case was pending discloses a fact that would legally disentitle the landlord under section 14A on these identified grounds.",
+          "role_types": {
+            "tenant": "PARTY",
+            "landlord": "PARTY",
+            "earlier_case": "EVENT",
+            "later_ground": "LEGAL_CONCEPT"
+          },
+          "required_roles": [
+            "tenant",
+            "landlord",
+            "earlier_case",
+            "later_ground"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R6.P4.K1",
+              "text": "The pending-earlier-case objection legally disentitles the landlord; pendency alone does not establish that effect."
+            }
+          ],
+          "whole_basis_statuses": [
+            "PROCEDURAL_HISTORY",
+            "SUPREME_COURT_ADOPTED_LEGAL_APPLICATION"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L272",
+            "IK-1187427:L273",
+            "IK-1187427:L274",
+            "IK-1187427:L275",
+            "IK-1187427:L325",
+            "IK-1187427:L326",
+            "IK-1187427:L328",
+            "IK-1187427:L330",
+            "IK-1187427:L332"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R6.P5": {
+          "fixed_proposition": "The tenant's affidavit discloses facts that, if established, would show the landlord does not meet the qualifying Government-allotted residential occupation requirement.",
+          "role_types": {
+            "tenant": "PARTY",
+            "landlord": "PARTY",
+            "allotted_residence": "PROPERTY"
+          },
+          "required_roles": [
+            "tenant",
+            "landlord",
+            "allotted_residence"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R6.P5.K1",
+              "text": "The affidavit identifies facts which, if proved, defeat the government-allotted residential occupation requirement; retain the hypothetical scope rather than asserting the facts happened."
+            }
+          ],
+          "whole_basis_statuses": [
+            "COURT_RECORDED_FACT",
+            "COURT_RECORDED_ADMISSION"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L272",
+            "IK-1187427:L273",
+            "IK-1187427:L274",
+            "IK-1187427:L275",
+            "IK-1187427:L325",
+            "IK-1187427:L326",
+            "IK-1187427:L328",
+            "IK-1187427:L330",
+            "IK-1187427:L332"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R6.P6": {
+          "fixed_proposition": "The tenant's affidavit discloses facts that, if established, would show absence of the general or special governmental order required on the terms of section 14A.",
+          "role_types": {
+            "tenant": "PARTY",
+            "landlord": "PARTY",
+            "qualifying_order": "DOCUMENT"
+          },
+          "required_roles": [
+            "tenant",
+            "landlord",
+            "qualifying_order"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R6.P6.K1",
+              "text": "The affidavit identifies facts which, if proved, defeat the qualifying government-order requirement; retain the hypothetical scope rather than asserting the facts happened."
+            }
+          ],
+          "whole_basis_statuses": [
+            "COURT_RECORDED_FACT",
+            "COURT_RECORDED_NOTICE"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L272",
+            "IK-1187427:L273",
+            "IK-1187427:L274",
+            "IK-1187427:L275",
+            "IK-1187427:L325",
+            "IK-1187427:L326",
+            "IK-1187427:L328",
+            "IK-1187427:L330",
+            "IK-1187427:L332"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    },
+    "R7": {
+      "original_rule_sha256": "5befbfdb7d5c455a63b2e36d451b5bbd88194beac280ec1a975eadbf35a75a90",
+      "source_refs": [
+        "IK-1187427:L333",
+        "IK-1187427:L335",
+        "IK-1187427:L337",
+        "IK-1187427:L339",
+        "IK-1187427:L340"
+      ],
+      "unchanged_operator": "OPEN_TEXT",
+      "slot_variables": {
+        "R7.P1": {
+          "proponent": "R7::PROPONENT",
+          "primary_ground": "R7::PRIMARY",
+          "proposed_added_ground": "R7::ADDED"
+        },
+        "R7.P2": {
+          "landlord_category": "R7::CATEGORY",
+          "otherwise_applicable_restriction": "R7::RESTRICTION",
+          "statutory_modification": "R7::MODIFICATION"
+        }
+      },
+      "premises": {
+        "R7.P1": {
+          "fixed_proposition": "The tenant's counsel argued that sections 25B and 25C require a section 14A claimant additionally to satisfy section 14(1)(e) and associated restrictions.",
+          "role_types": {
+            "proponent": "PARTY",
+            "primary_ground": "LEGAL_CONCEPT",
+            "proposed_added_ground": "LEGAL_CONCEPT"
+          },
+          "required_roles": [
+            "proponent",
+            "primary_ground",
+            "proposed_added_ground"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "ATTRIBUTED_REPORT",
+          "components": [
+            {
+              "id": "R7.P1.K1",
+              "text": "Counsel advanced the identified argument linking Sections 25B/25C, the primary ground and the proposed additional ground; this reports the argument."
+            }
+          ],
+          "whole_basis_statuses": [
+            "COUNSEL_SUBMISSION"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L333",
+            "IK-1187427:L335",
+            "IK-1187427:L337",
+            "IK-1187427:L339",
+            "IK-1187427:L340"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R7.P2": {
+          "fixed_proposition": "Section 25C(1), as construed by the Supreme Court, exempts a person satisfying section 14A from the five-year restriction imposed by section 14(6).",
+          "role_types": {
+            "landlord_category": "LEGAL_CONCEPT",
+            "otherwise_applicable_restriction": "LEGAL_CONCEPT",
+            "statutory_modification": "LEGAL_CONCEPT"
+          },
+          "required_roles": [
+            "landlord_category",
+            "otherwise_applicable_restriction",
+            "statutory_modification"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R7.P2.K1",
+              "text": "The Supreme Court construction of Section 25C(1) gives the specified exemption to the identified statutory category."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_ADOPTED_LEGAL_REASONING"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L333",
+            "IK-1187427:L335",
+            "IK-1187427:L337",
+            "IK-1187427:L339",
+            "IK-1187427:L340"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    },
+    "R8": {
+      "original_rule_sha256": "bb1058751aefb1c598cb2b8419cacd6de414c534e7c8eed413138539e3f1342e",
+      "source_refs": [
+        "IK-1187427:L336",
+        "IK-1187427:L338",
+        "IK-1187427:L340",
+        "IK-1187427:L341",
+        "IK-1187427:L342"
+      ],
+      "unchanged_operator": "OPEN_TEXT",
+      "slot_variables": {
+        "R8.P1": {
+          "landlord": "R8::L",
+          "tenant": "R8::T",
+          "eviction_order": "R8::ORDER",
+          "ground": "R8::GROUND"
+        },
+        "R8.P2": {
+          "order": "R8::ORDER",
+          "minimum_period": "R8::PERIOD",
+          "applicable_ground": "R8::GROUND"
+        }
+      },
+      "premises": {
+        "R8.P1": {
+          "fixed_proposition": "An order for recovery of possession of the identified tenanted premises was made on a ground specified by section 14(1)(e) or section 14A.",
+          "role_types": {
+            "landlord": "PARTY",
+            "tenant": "PARTY",
+            "eviction_order": "DOCUMENT",
+            "ground": "LEGAL_CONCEPT"
+          },
+          "required_roles": [
+            "landlord",
+            "tenant",
+            "eviction_order",
+            "ground"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R8.P1.K1",
+              "text": "The identified order recovers possession on the identified Section 14(1)(e) or 14A ground."
+            }
+          ],
+          "whole_basis_statuses": [
+            "PROCEDURAL_HISTORY"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L336",
+            "IK-1187427:L338",
+            "IK-1187427:L340",
+            "IK-1187427:L341",
+            "IK-1187427:L342"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R8.P2": {
+          "fixed_proposition": "The two-month waiting period under section 25C(2) applies to the relevant eviction order notwithstanding section 14A's reference to recovering possession immediately.",
+          "role_types": {
+            "order": "DOCUMENT",
+            "minimum_period": "TIME",
+            "applicable_ground": "LEGAL_CONCEPT"
+          },
+          "required_roles": [
+            "order",
+            "minimum_period",
+            "applicable_ground"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R8.P2.K1",
+              "text": "The two-month Section 25C(2) waiting period applies to that identified order despite the Section 14A immediate-recovery formulation."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_ADOPTED_LEGAL_REASONING"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1187427:L336",
+            "IK-1187427:L338",
+            "IK-1187427:L340",
+            "IK-1187427:L341",
+            "IK-1187427:L342"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    }
+  }
+}

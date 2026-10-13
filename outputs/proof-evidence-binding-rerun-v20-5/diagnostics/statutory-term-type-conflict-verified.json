@@ -1,0 +1,44 @@
+{
+  "kind": "RULE_DESCRIPTION_CATEGORY_COLLISION",
+  "case_id": "1187427",
+  "part": "P01",
+  "premise": "R2.P2",
+  "role": "statutory_term",
+  "fixed_proposition": "As the Supreme Court construed it, section 14A's word 'person' is not confined to a serving Government servant, and retirement alone does not extinguish eligibility.",
+  "original_description": "person",
+  "prepared_expected_type": "PERSON",
+  "semantic_target": "The word person in the statute, not an individual human.",
+  "correct_legal_term_type_rejected": {
+    "actual": {
+      "raw": "LEGAL_CONCEPT",
+      "canonical": "LEGAL_CONCEPT",
+      "domain": [
+        "legal_concept"
+      ],
+      "status": "MAPPED",
+      "policy_version": "V19_OBJECT_TYPES_1"
+    },
+    "expected": {
+      "raw": "PERSON",
+      "canonical": "PERSON",
+      "domain": [
+        "human"
+      ],
+      "status": "MAPPED",
+      "policy_version": "V19_OBJECT_TYPES_1"
+    },
+    "status": "EXPLICIT_TYPE_CONFLICT",
+    "identity_established": false,
+    "semantic_approval": false
+  },
+  "normalization_path": "legal_bench/proof_carrying/source_verification_v20_2.py:34 -> object_types_v19.normalize",
+  "new_guard_consumption": "evidence_binding_gate_v20_5.role_types -> schema role description -> mlx_json_constraint_v20_5.EvidenceBindingParser.local_values",
+  "primary_source_refs": [
+    "SRC:250",
+    "SRC:263",
+    "SRC:267"
+  ],
+  "causal_limit": "Confirms a mechanically wrong category and its enforcement; does not prove this is the sole cause of any specific model binding.",
+  "supersedes": "statutory-term-type-conflict.json",
+  "metadata_correction": "Correct parser method name; same frozen input and category diagnosis."
+}

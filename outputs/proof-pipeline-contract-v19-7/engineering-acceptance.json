@@ -1,0 +1,240 @@
+{
+  "status": "PASS",
+  "tests": 39,
+  "new_tests": 14,
+  "actual_entry_fault_controls": [
+    {
+      "case_id": "1954254",
+      "synthetic_fault": "LIMIT_KIND",
+      "status": "IMPORT_REJECTED",
+      "natural_record_unchanged": true
+    },
+    {
+      "case_id": "1954254",
+      "synthetic_fault": "WITNESS_TEXT",
+      "status": "IMPORT_REJECTED",
+      "natural_record_unchanged": true
+    },
+    {
+      "case_id": "1954254",
+      "synthetic_fault": "MERGE_RECORD_DELETION",
+      "status": "MERGE_REJECTED"
+    },
+    {
+      "case_id": "1954254",
+      "synthetic_fault": "DELETE_RULE_TRACES_AND_COVERAGE",
+      "status": "CHECK_REJECTED",
+      "nonempty_trace_deletion_tested_in_synthetic_valid_actual_entry": true
+    },
+    {
+      "case_id": "1187427",
+      "synthetic_fault": "LIMIT_KIND",
+      "status": "IMPORT_REJECTED",
+      "natural_record_unchanged": true
+    },
+    {
+      "case_id": "1187427",
+      "synthetic_fault": "WITNESS_TEXT",
+      "status": "IMPORT_REJECTED",
+      "natural_record_unchanged": true
+    },
+    {
+      "case_id": "1187427",
+      "synthetic_fault": "MERGE_RECORD_DELETION",
+      "status": "MERGE_REJECTED"
+    },
+    {
+      "case_id": "1187427",
+      "synthetic_fault": "DELETE_RULE_TRACES_AND_COVERAGE",
+      "status": "CHECK_REJECTED",
+      "nonempty_trace_deletion_tested_in_synthetic_valid_actual_entry": true
+    }
+  ],
+  "tokenizer_replay": {
+    "status": "PASS",
+    "model_loaded": false,
+    "model_calls": 0,
+    "tokenizer_revision": "8b2b98c00a6b4d291155e4890773ca8f769aee53",
+    "receipts": [
+      {
+        "id": "valid",
+        "EOS_allowed": true,
+        "blocked_at": null,
+        "tokens": 235,
+        "expected": true
+      },
+      {
+        "id": "wrong_fixed_component",
+        "EOS_allowed": false,
+        "blocked_at": 196,
+        "tokens": 234,
+        "expected": false
+      },
+      {
+        "id": "duplicate_source",
+        "EOS_allowed": false,
+        "blocked_at": 40,
+        "tokens": 239,
+        "expected": false
+      },
+      {
+        "id": "wrong_namespace",
+        "EOS_allowed": false,
+        "blocked_at": 82,
+        "tokens": 235,
+        "expected": false
+      },
+      {
+        "id": "dynamic_existence_import_only",
+        "EOS_allowed": true,
+        "blocked_at": null,
+        "tokens": 237,
+        "expected": true
+      }
+    ],
+    "capacity": [
+      {
+        "case_id": "1954254",
+        "input_tokens_local_tokenizer": 22029,
+        "reserved_output": 16384,
+        "template_margin": 256,
+        "total": 38669,
+        "no_source_truncation": true
+      },
+      {
+        "case_id": "1187427",
+        "input_tokens_local_tokenizer": 27732,
+        "reserved_output": 16384,
+        "template_margin": 256,
+        "total": 44372,
+        "no_source_truncation": true
+      }
+    ],
+    "elapsed_seconds": 2.1739397498313338,
+    "provider_decoder_not_this_local_mask": true
+  },
+  "cached_P_replay": [
+    {
+      "case_id": "1954254",
+      "generation_version": "V19_6_UNMODIFIED_CACHE",
+      "processing_version": "V19_7",
+      "contract": "CONTRACT_VALID",
+      "formal_present": true,
+      "coverage": {
+        "status": "ANALYSIS_REPORTED",
+        "expected": [
+          "R01.P1",
+          "R01.P2",
+          "R02.P1",
+          "R02.P2",
+          "R02.P3",
+          "R03.P1",
+          "R03.P2",
+          "R04.P1",
+          "R04.P2",
+          "R05.P1",
+          "R05.P2",
+          "R05.P3"
+        ],
+        "returned": [
+          "R01.P1",
+          "R01.P2",
+          "R02.P1",
+          "R02.P2",
+          "R02.P3",
+          "R03.P1",
+          "R03.P2",
+          "R04.P1",
+          "R04.P2",
+          "R05.P1",
+          "R05.P2",
+          "R05.P3"
+        ],
+        "missing": [],
+        "duplicate": [],
+        "extra": [],
+        "explicit_not_analyzed": [],
+        "analyzed_without_judgment": [],
+        "semantic_completeness_verified": false
+      },
+      "states": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "old_model_semantics_not_backfilled": true
+    },
+    {
+      "case_id": "1187427",
+      "generation_version": "V19_6_UNMODIFIED_CACHE",
+      "processing_version": "V19_7",
+      "contract": "CONTRACT_VALID",
+      "formal_present": true,
+      "coverage": {
+        "status": "PARTIAL_ANALYSIS",
+        "expected": [
+          "R5.P1",
+          "R5.P2",
+          "R6.P1",
+          "R6.P2",
+          "R6.P3",
+          "R6.P4",
+          "R6.P5",
+          "R6.P6",
+          "R7.P1",
+          "R7.P2",
+          "R8.P1",
+          "R8.P2"
+        ],
+        "returned": [
+          "R5.P1",
+          "R5.P2",
+          "R6.P1",
+          "R6.P2",
+          "R6.P3",
+          "R6.P4",
+          "R6.P5",
+          "R6.P6",
+          "R7.P1",
+          "R7.P2",
+          "R8.P1",
+          "R8.P2"
+        ],
+        "missing": [],
+        "duplicate": [],
+        "extra": [],
+        "explicit_not_analyzed": [
+          "R6.P5",
+          "R6.P6"
+        ],
+        "analyzed_without_judgment": [],
+        "semantic_completeness_verified": false
+      },
+      "states": [
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "old_model_semantics_not_backfilled": true
+    }
+  ],
+  "final_pipeline": "A-G new-version mocked actual runner saved and validated; no final model generation",
+  "initial_test_environment_failure": "System Python missing MLX-VLM; unchanged tests passed in existing project qwen35 runtime",
+  "semantic_or_legal_success": false
+}

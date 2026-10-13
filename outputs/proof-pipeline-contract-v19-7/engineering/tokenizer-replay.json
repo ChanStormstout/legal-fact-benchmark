@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "model_loaded": false,
+  "model_calls": 0,
+  "tokenizer_revision": "8b2b98c00a6b4d291155e4890773ca8f769aee53",
+  "receipts": [
+    {
+      "id": "valid",
+      "EOS_allowed": true,
+      "blocked_at": null,
+      "tokens": 235,
+      "expected": true
+    },
+    {
+      "id": "wrong_fixed_component",
+      "EOS_allowed": false,
+      "blocked_at": 196,
+      "tokens": 234,
+      "expected": false
+    },
+    {
+      "id": "duplicate_source",
+      "EOS_allowed": false,
+      "blocked_at": 40,
+      "tokens": 239,
+      "expected": false
+    },
+    {
+      "id": "wrong_namespace",
+      "EOS_allowed": false,
+      "blocked_at": 82,
+      "tokens": 235,
+      "expected": false
+    },
+    {
+      "id": "dynamic_existence_import_only",
+      "EOS_allowed": true,
+      "blocked_at": null,
+      "tokens": 237,
+      "expected": true
+    }
+  ],
+  "capacity": [
+    {
+      "case_id": "1954254",
+      "input_tokens_local_tokenizer": 22029,
+      "reserved_output": 16384,
+      "template_margin": 256,
+      "total": 38669,
+      "no_source_truncation": true
+    },
+    {
+      "case_id": "1187427",
+      "input_tokens_local_tokenizer": 27732,
+      "reserved_output": 16384,
+      "template_margin": 256,
+      "total": 44372,
+      "no_source_truncation": true
+    }
+  ],
+  "elapsed_seconds": 2.1739397498313338,
+  "provider_decoder_not_this_local_mask": true
+}

@@ -1,0 +1,31 @@
+{
+  "model_config_path": "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/.runtime/qwen35-v1/model-cache/models--mlx-community--Qwen3.5-9B-4bit/snapshots/8b2b98c00a6b4d291155e4890773ca8f769aee53/config.json",
+  "model_config_sha256": "a96942cb6a8a1d3f1d17514d81a1925d04362a6a3233b389d13012211baaa9f8",
+  "native_max_position_embeddings": 262144,
+  "operational_context_tokens": 65536,
+  "native_rope_parameters_unchanged": {
+    "mrope_interleaved": true,
+    "mrope_section": [
+      11,
+      11,
+      10
+    ],
+    "rope_type": "default",
+    "rope_theta": 10000000,
+    "partial_rotary_factor": 0.25
+  },
+  "RAM_bytes": 25769803776,
+  "framework": "MLX-VLM 0.7.4",
+  "framework_support_evidence": [
+    "models/qwen3_5/config.py TextConfig.max_position_embeddings",
+    "models/qwen3_5/language.py Attention passes max_position_embeddings to Qwen3_5RotaryEmbedding and keeps cache offset",
+    "generate/types.py max_tokens,prefill_step_size,logits_processors supported"
+  ],
+  "KV_estimate_formula": "8 full-attention layers * 2(K,V) * 4 kv_heads *256 head_dim *65536 positions *2 bytes =2147483648; float32 upper estimate doubles. Linear recurrent layers fixed state. Estimate excludes weights/prefill activations/OS/other apps.",
+  "estimated_16bit_full_context_KV_bytes": 2147483648,
+  "existing_peak_mlx_GB": 7.89180936,
+  "decision": "65536 within actual native config and loaded framework; feasible bounded attempt, not guaranteed capacity or quality",
+  "new_weights": false,
+  "model_pre_run": false,
+  "position_extension": false
+}

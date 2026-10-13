@@ -1,0 +1,610 @@
+{
+  "version": "V19_7_RULE_CONTRACT_1",
+  "policy_role": "SOURCE_GROUNDED_RESEARCH_INPUT_CONTRACT_NOT_LEGAL_APPROVAL",
+  "reference_or_answer_used": false,
+  "rules": {
+    "R01": {
+      "original_rule_sha256": "10b88e908a0f71d282f77de39a89361bb267d95a20eae2c26f7e7d11b632fbcf",
+      "source_refs": [
+        "IK-1954254:L83",
+        "IK-1954254:L86",
+        "IK-1954254:L89",
+        "IK-1954254:L96",
+        "IK-1954254:L97",
+        "IK-1954254:L104",
+        "IK-1954254:L106",
+        "IK-1954254:L107"
+      ],
+      "unchanged_operator": "OPEN_TEXT",
+      "slot_variables": {
+        "R01.P1": {
+          "tenant": "R01::T",
+          "landlord": "R01::L",
+          "property": "R01::X",
+          "commencement_date": "R01::START"
+        },
+        "R01.P2": {
+          "tenant": "R01::T",
+          "petition": "R01::PET",
+          "commencement_date": "R01::START",
+          "filing_date": "R01::FILE"
+        }
+      },
+      "premises": {
+        "R01.P1": {
+          "fixed_proposition": "The premises were let directly by the landlord to the particular applicant tenant with the relevant tenancy commencing after the commencement of the Act.",
+          "role_types": {
+            "tenant": "PARTY",
+            "landlord": "PARTY",
+            "property": "PROPERTY",
+            "commencement_date": "TIME"
+          },
+          "required_roles": [
+            "tenant",
+            "landlord",
+            "property",
+            "commencement_date"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R01.P1.K1",
+              "text": "Direct letting by the identified landlord to this applicant tenant."
+            },
+            {
+              "id": "R01.P1.K2",
+              "text": "The relevant tenancy commencement relative to commencement of the Act."
+            }
+          ],
+          "whole_basis_statuses": [
+            "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+            "SUPREME_COURT_RECOUNTED_FACT"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L83",
+            "IK-1954254:L86",
+            "IK-1954254:L89",
+            "IK-1954254:L96",
+            "IK-1954254:L97",
+            "IK-1954254:L104",
+            "IK-1954254:L106",
+            "IK-1954254:L107"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R01.P2": {
+          "fixed_proposition": "The applicant filed the Section 8 petition within six months from commencement of that applicant's relevant tenancy.",
+          "role_types": {
+            "tenant": "PARTY",
+            "petition": "DOCUMENT",
+            "commencement_date": "TIME",
+            "filing_date": "TIME"
+          },
+          "required_roles": [
+            "tenant",
+            "petition",
+            "commencement_date",
+            "filing_date"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R01.P2.K1",
+              "text": "The identified applicant filed the identified Section 8 petition."
+            },
+            {
+              "id": "R01.P2.K2",
+              "text": "Filing was within six months of that same applicant tenancy commencement."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+            "TRIAL_COURT_FINDING_REPORTED"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L83",
+            "IK-1954254:L86",
+            "IK-1954254:L89",
+            "IK-1954254:L96",
+            "IK-1954254:L97",
+            "IK-1954254:L104",
+            "IK-1954254:L106",
+            "IK-1954254:L107"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    },
+    "R02": {
+      "original_rule_sha256": "5097d224272ff62f7ef1168a1558cc8004543d34e0d970d6778668684486dcee",
+      "source_refs": [
+        "IK-1954254:L97",
+        "IK-1954254:L98",
+        "IK-1954254:L99",
+        "IK-1954254:L100"
+      ],
+      "unchanged_operator": "OPEN_TEXT",
+      "slot_variables": {
+        "R02.P1": {
+          "head_tenant": "R02::H",
+          "subtenant": "R02::S",
+          "property": "R02::X",
+          "induction_date": "R02::IND"
+        },
+        "R02.P2": {
+          "subtenant": "R02::S",
+          "landlord": "R02::L",
+          "written_consent_document": "R02::CONSENT"
+        },
+        "R02.P3": {
+          "tenant": "R02::S",
+          "landlord": "R02::L",
+          "property": "R02::X",
+          "effective_date": "R02::DIRECT"
+        }
+      },
+      "premises": {
+        "R02.P1": {
+          "fixed_proposition": "The head tenant inducted the appellant as subtenant after the Act commenced.",
+          "role_types": {
+            "head_tenant": "PARTY",
+            "subtenant": "PARTY",
+            "property": "PROPERTY",
+            "induction_date": "TIME"
+          },
+          "required_roles": [
+            "head_tenant",
+            "subtenant",
+            "property",
+            "induction_date"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R02.P1.K1",
+              "text": "The head tenant inducted this appellant as subtenant in these premises."
+            },
+            {
+              "id": "R02.P1.K2",
+              "text": "That induction occurred after commencement of the Act."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_RECOUNTED_FACT"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L97",
+            "IK-1954254:L98",
+            "IK-1954254:L99",
+            "IK-1954254:L100"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R02.P2": {
+          "fixed_proposition": "The record contains no evidence showing that the landlord gave written consent to the appellant's induction as subtenant.",
+          "role_types": {
+            "subtenant": "PARTY",
+            "landlord": "PARTY",
+            "written_consent_document": "DOCUMENT"
+          },
+          "required_roles": [
+            "subtenant",
+            "landlord"
+          ],
+          "optional_roles": [
+            "written_consent_document"
+          ],
+          "optional_basis": "Frozen role describes consent document \"if any\"; absence of an object is not wildcard identity or proof that no consent existed.",
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R02.P2.K1",
+              "text": "The judgment records absence of evidence of landlord written consent to this induction, rather than independent proof of absence of all consent."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_EVIDENTIARY_ASSESSMENT"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L97",
+            "IK-1954254:L98",
+            "IK-1954254:L99",
+            "IK-1954254:L100"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R02.P3": {
+          "fixed_proposition": "After Brook surrendered the head tenancy, the landlord expressly accepted the appellant as direct tenant from May 1, 1955.",
+          "role_types": {
+            "tenant": "PARTY",
+            "landlord": "PARTY",
+            "property": "PROPERTY",
+            "effective_date": "TIME"
+          },
+          "required_roles": [
+            "tenant",
+            "landlord",
+            "property",
+            "effective_date"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R02.P3.K1",
+              "text": "After the head tenant surrender, the landlord expressly accepted this appellant as direct tenant."
+            },
+            {
+              "id": "R02.P3.K2",
+              "text": "The effective date of that acceptance is the specified May 1 date."
+            }
+          ],
+          "whole_basis_statuses": [
+            "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L97",
+            "IK-1954254:L98",
+            "IK-1954254:L99",
+            "IK-1954254:L100"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    },
+    "R03": {
+      "original_rule_sha256": "4f6befacb5aa99073a2771e572d466f40e44ed45bb2a85dc0b4ae88be023f42e",
+      "source_refs": [
+        "IK-1954254:L94",
+        "IK-1954254:L95",
+        "IK-1954254:L101",
+        "IK-1954254:L102",
+        "IK-1954254:L103",
+        "IK-1954254:L104",
+        "IK-1954254:L105",
+        "IK-1954254:L108"
+      ],
+      "unchanged_operator": "OPEN_TEXT",
+      "slot_variables": {
+        "R03.P1": {
+          "tenant": "R03::T",
+          "earlier_letting_date": "R03::EARLY",
+          "interpreting_courts": "R03::COURTS"
+        },
+        "R03.P2": {
+          "applicant": "R03::T",
+          "earlier_event": "R03::SUBLET",
+          "later_event": "R03::DIRECT",
+          "governing_limitation_date": "R03::CONTROL"
+        }
+      },
+      "premises": {
+        "R03.P1": {
+          "fixed_proposition": "The District Judge adopted the earlier subtenancy or first letting as the starting point for calculating the appellant's limitation period, and the High Court substantially endorsed that reasoning.",
+          "role_types": {
+            "tenant": "PARTY",
+            "earlier_letting_date": "TIME",
+            "interpreting_courts": "ORGANIZATION"
+          },
+          "required_roles": [
+            "tenant",
+            "earlier_letting_date",
+            "interpreting_courts"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "ATTRIBUTED_REPORT",
+          "components": [
+            {
+              "id": "R03.P1.K1",
+              "text": "The District Judge used the earlier subtenancy or first letting date as the limitation start."
+            },
+            {
+              "id": "R03.P1.K2",
+              "text": "The High Court substantially endorsed that interpretation."
+            }
+          ],
+          "whole_basis_statuses": [
+            "REPORTED_LOWER_COURT_REASONING"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L94",
+            "IK-1954254:L95",
+            "IK-1954254:L101",
+            "IK-1954254:L102",
+            "IK-1954254:L103",
+            "IK-1954254:L104",
+            "IK-1954254:L105",
+            "IK-1954254:L108"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R03.P2": {
+          "fixed_proposition": "The September 1, 1954 induction as Brook's subtenant is legally the controlling letting for the appellant's Section 11(b) application after direct tenancy was recognized from May 1, 1955.",
+          "role_types": {
+            "applicant": "PARTY",
+            "earlier_event": "EVENT",
+            "later_event": "EVENT",
+            "governing_limitation_date": "TIME"
+          },
+          "required_roles": [
+            "applicant",
+            "earlier_event",
+            "later_event",
+            "governing_limitation_date"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R03.P2.K1",
+              "text": "The earlier induction is legally controlling for limitation after the later recognition of direct tenancy; merely reporting that a court proposed the date does not establish this legal proposition."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_RECOUNTED_FACT",
+            "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L94",
+            "IK-1954254:L95",
+            "IK-1954254:L101",
+            "IK-1954254:L102",
+            "IK-1954254:L103",
+            "IK-1954254:L104",
+            "IK-1954254:L105",
+            "IK-1954254:L108"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    },
+    "R04": {
+      "original_rule_sha256": "d8853b6a15f41ef0b05c92b71a50956687200015493ce7d33c7935dc0dede3d8",
+      "source_refs": [
+        "IK-1954254:L135",
+        "IK-1954254:L136",
+        "IK-1954254:L137",
+        "IK-1954254:L138"
+      ],
+      "unchanged_operator": "OPEN_TEXT",
+      "slot_variables": {
+        "R04.P1": {
+          "tenant": "R04::T",
+          "property": "R04::X",
+          "contractual_monthly_rent": "R04::RENT"
+        },
+        "R04.P2": {
+          "property": "R04::X",
+          "operative_standard_rent": "R04::STANDARD",
+          "contractual_rent": "R04::RENT"
+        }
+      },
+      "premises": {
+        "R04.P1": {
+          "fixed_proposition": "The evidence establishes an exact, consistent contractual monthly rent for the demised cottage under the direct tenancy.",
+          "role_types": {
+            "tenant": "PARTY",
+            "property": "PROPERTY",
+            "contractual_monthly_rent": "QUANTITY"
+          },
+          "required_roles": [
+            "tenant",
+            "property",
+            "contractual_monthly_rent"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R04.P1.K1",
+              "text": "The evidence provides an exact and consistent contractual monthly rent for these demised premises; another rent measure does not substitute for it."
+            }
+          ],
+          "whole_basis_statuses": [
+            "REPORTED_PLAINT_AMOUNT",
+            "SUPREME_COURT_RECOUNTED_FACT"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L135",
+            "IK-1954254:L136",
+            "IK-1954254:L137",
+            "IK-1954254:L138"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R04.P2": {
+          "fixed_proposition": "The legally operative standard rent for the demised cottage has been established through the required adjudication, allowing comparison with the contractual amount.",
+          "role_types": {
+            "property": "PROPERTY",
+            "operative_standard_rent": "QUANTITY",
+            "contractual_rent": "QUANTITY"
+          },
+          "required_roles": [
+            "property",
+            "operative_standard_rent",
+            "contractual_rent"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R04.P2.K1",
+              "text": "A legally operative standard rent was established by the required adjudication."
+            },
+            {
+              "id": "R04.P2.K2",
+              "text": "That adjudication permits comparison with the contractual rent for the same premises."
+            }
+          ],
+          "whole_basis_statuses": [
+            "TRIAL_COURT_FINDING_REPORTED",
+            "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L135",
+            "IK-1954254:L136",
+            "IK-1954254:L137",
+            "IK-1954254:L138"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    },
+    "R05": {
+      "original_rule_sha256": "04318f73838eeb95f57ffe4c530c14648eca1f6331fcfadaf3749629e02bbfaf",
+      "source_refs": [
+        "IK-1954254:L133",
+        "IK-1954254:L134",
+        "IK-1954254:L145"
+      ],
+      "unchanged_operator": "OPEN_TEXT",
+      "slot_variables": {
+        "R05.P1": {
+          "landlord": "R05::L",
+          "tenant": "R05::T",
+          "notice_date": "R05::NOTICE",
+          "suit": "R05::SUIT"
+        },
+        "R05.P2": {
+          "tenant": "R05::T",
+          "lawful_arrears": "R05::ARREARS",
+          "notice_date": "R05::NOTICE",
+          "payment_or_tender_date": "R05::PAYMENT"
+        },
+        "R05.P3": {
+          "tenant": "R05::T",
+          "deposit": "R05::DEPOSIT",
+          "deposit_date": "R05::DEPOSIT_DATE"
+        }
+      },
+      "premises": {
+        "R05.P1": {
+          "fixed_proposition": "The landlord brought a possession suit asserting failure to pay rent after the statutory demand notice under Section 13(1)(a).",
+          "role_types": {
+            "landlord": "PARTY",
+            "tenant": "PARTY",
+            "notice_date": "TIME",
+            "suit": "EVENT"
+          },
+          "required_roles": [
+            "landlord",
+            "tenant",
+            "notice_date",
+            "suit"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "ATTRIBUTED_REPORT",
+          "components": [
+            {
+              "id": "R05.P1.K1",
+              "text": "The landlord brought the identified possession suit asserting the specified non-payment ground after the identified notice; the assertion is attributed."
+            }
+          ],
+          "whole_basis_statuses": [
+            "LANDLORD_CLAIM_REPORTED"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L133",
+            "IK-1954254:L134",
+            "IK-1954254:L145"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R05.P2": {
+          "fixed_proposition": "The underlying statutory default occurred: the tenant neither paid nor tendered all legally payable arrears within one month after service of the qualifying demand notice.",
+          "role_types": {
+            "tenant": "PARTY",
+            "lawful_arrears": "QUANTITY",
+            "notice_date": "TIME",
+            "payment_or_tender_date": "TIME"
+          },
+          "required_roles": [
+            "tenant",
+            "lawful_arrears",
+            "notice_date",
+            "payment_or_tender_date"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "LEGAL_APPLICABILITY",
+          "components": [
+            {
+              "id": "R05.P2.K1",
+              "text": "After service of a qualifying notice, all legally recoverable arrears were neither paid nor tendered within the specified one-month window; a later deposit is not this timely compliance."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_RECOUNTED_FACT",
+            "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L133",
+            "IK-1954254:L134",
+            "IK-1954254:L145"
+          ],
+          "no_target_state_or_correct_object": true
+        },
+        "R05.P3": {
+          "fixed_proposition": "During the eviction proceedings, the tenant deposited the arrears claimed by the landlord.",
+          "role_types": {
+            "tenant": "PARTY",
+            "deposit": "QUANTITY",
+            "deposit_date": "TIME"
+          },
+          "required_roles": [
+            "tenant",
+            "deposit",
+            "deposit_date"
+          ],
+          "optional_roles": [],
+          "optional_basis": null,
+          "target_kind": "CASE_FACT_OR_ATTRIBUTED_COURT_ASSESSMENT",
+          "components": [
+            {
+              "id": "R05.P3.K1",
+              "text": "The identified tenant made the claimed deposit during the proceeding; deposit amount and date retain their separate roles."
+            }
+          ],
+          "whole_basis_statuses": [
+            "SUPREME_COURT_RECOUNTED_FACT"
+          ],
+          "status_policy_basis": "An attributed assertion or reported lower-court view remains available for argument/counterargument but cannot alone establish a legal-effect proposition. Status and basis-mode are model claims, not independent approval.",
+          "source_refs": [
+            "IK-1954254:L133",
+            "IK-1954254:L134",
+            "IK-1954254:L145"
+          ],
+          "no_target_state_or_correct_object": true
+        }
+      },
+      "correspondence_basis": "Role descriptions and identity relationships in the frozen rule premises; equality applies only to explicitly repeated variable IDs."
+    }
+  }
+}

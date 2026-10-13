@@ -1,0 +1,102 @@
+{
+  "confirmed": [
+    {
+      "slot": "1954254/P01",
+      "mechanism": "Successive complete records copy the entire prior record and extend it, then an unfinished text exceeds17000chars. Output exhausts16384tokens before uses/judgments.",
+      "first_prefix_extension_record": 26,
+      "old_StringGuard": "Runs per string, resets at each string; no four equal64char windows in individual strings.",
+      "old_RecordGuard": "Complete identical text/refs/status/stage only; changed lengths and statuses do not meet identity."
+    },
+    {
+      "slot": "1187427/P02",
+      "mechanism": "Numeric source-address array repeatedly emits32, then output truncates. Not the same cross-record mechanism.",
+      "old_StringGuard": "Numeric refs arrays outside free-text strings.",
+      "old_RecordGuard": "No identical complete evidence record."
+    }
+  ],
+  "constraints_replayed": [
+    {
+      "slot": "1954254/P01",
+      "original_raw_sha256": "a1e01665db0911975ee70b94a7798f456ba55c663ba050fe5c48aa1484041f86",
+      "prefix_tokens_replayed": 2248,
+      "prefix_characters": 9501,
+      "tail": " possession on April 1, 1955. Prior thereto he had served a notice on the appellant to",
+      "closure_candidates": [
+        {
+          "text": "\"",
+          "tokens": [
+            1
+          ],
+          "allowed": true
+        },
+        {
+          "text": "\",",
+          "tokens": [
+            487
+          ],
+          "allowed": true
+        },
+        {
+          "text": "\"}",
+          "tokens": [
+            8934
+          ],
+          "allowed": false
+        }
+      ],
+      "new_scoped_guard_hit": {
+        "kind": "CUMULATIVE_RECORD_PREFIX_EXPANSION",
+        "premise": "R01.P1",
+        "same_attribution_stage_source": true,
+        "successive_extensions": 3,
+        "previous_record_start": 26545,
+        "record_start": 33408,
+        "trigger_end": 40786,
+        "previous_characters": 6699,
+        "new_characters": 7216,
+        "criterion": "Three exact entire-prefix extensions, prior length>=320, in same local attributed source context"
+      },
+      "old_status": "OUTPUT_TRUNCATED",
+      "no_regenerated_or_repaired_output": true
+    },
+    {
+      "slot": "1187427/P02",
+      "original_raw_sha256": "f07f44a5594133ff8c274699e0c0dbc52ad0205b81b4ae91c3e8692258882d61",
+      "prefix_tokens_replayed": 233,
+      "prefix_characters": 866,
+      "tail": "48,249,250,268,283,32,32",
+      "closure_candidates": [
+        {
+          "text": "]",
+          "tokens": [
+            60
+          ],
+          "allowed": true
+        },
+        {
+          "text": "],",
+          "tokens": [
+            1089
+          ],
+          "allowed": false
+        }
+      ],
+      "new_scoped_guard_hit": null,
+      "old_status": "OUTPUT_TRUNCATED",
+      "no_regenerated_or_repaired_output": true
+    }
+  ],
+  "confirmed_constraint_forced_expansion": false,
+  "potential_input_inducers": [
+    "Same assertion appears in rules and source under distinct roles",
+    "Exact duplicated short fragments15/29 in allowed snapshots, preserved",
+    "Premise-local record generation can repeat underlying facts across units; why model continues is not causally isolated"
+  ],
+  "cannot_infer": [
+    "Root cause exclusively model size",
+    "All long records are errors",
+    "Schema correction alone solves legal semantics"
+  ],
+  "source_ranges_unchanged": true,
+  "no_new_diagnostic_generation": true
+}

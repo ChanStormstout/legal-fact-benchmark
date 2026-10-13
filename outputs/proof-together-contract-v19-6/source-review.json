@@ -1,0 +1,230 @@
+{
+  "reviewed_at": "2026-10-12T00:53:30.455222+00:00",
+  "reviewer": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD",
+  "scope": "Decisive proposal source/object/premise issues, not exhaustive reannotation or final-answer scoring",
+  "new_generations_for_review": 0,
+  "cases": [
+    {
+      "case_id": "1954254",
+      "part": "P01",
+      "overall": "ENGINEERING_COMPLETION_IMPROVED_SEMANTIC_FAILURES_PERSIST",
+      "items": [
+        {
+          "id": "195-a",
+          "finding": "SOURCE_ADDRESS_RECOVERED",
+          "new_pointer": "/analyses/R01.P1/records/1",
+          "sources": [
+            "IK-1954254:L91"
+          ],
+          "observation": "April 1, 1955 surrender now cites SRC:55/L91, rather than the old unrelated L90/L127 pair. No old output was changed.",
+          "old_problem_reproduced": false
+        },
+        {
+          "id": "195-b",
+          "finding": "WRONG_OBJECT_AND_ROLE_BINDING",
+          "new_pointer": "/analyses/R01.P1/judgments/0/role_objects/property",
+          "sources": [
+            "IK-1954254:L55",
+            "IK-1954254:L91"
+          ],
+          "observation": "property points to OBJ:3, whose declared label is Lakhmir Singh, a landlord. The first use also types Brook as direct landlord. IDs exist; existence and descriptive type acceptance do not establish role semantics. Conditional TRUE is not a legal gain.",
+          "conditional_program_result": "TRUE"
+        },
+        {
+          "id": "195-c",
+          "finding": "DATE_AND_PETITION_OBJECT_MISBINDING",
+          "new_pointer": "/analyses/R01.P2/judgments/0/role_objects",
+          "sources": [
+            "IK-1954254:L91",
+            "IK-1954254:L92",
+            "IK-1954254:L93"
+          ],
+          "observation": "petition is bound to the Appellant; commencement_date to the October 10 filing date; filing_date to the May 1 commencement date. October 1 and October 10 both occur in allowed text, so the source date discrepancy itself is retained as a real textual limitation.",
+          "conditional_program_result": "UNKNOWN"
+        },
+        {
+          "id": "195-d",
+          "finding": "TARGET_PROPOSITION_REPLACED_BY_LOWER_COURT_ATTRIBUTION",
+          "new_pointer": "/analyses/R03.P2/judgments/0",
+          "sources": [
+            "IK-1954254:L95",
+            "IK-1954254:L104",
+            "IK-1954254:L108",
+            "IK-1954254:L109"
+          ],
+          "observation": "Fixed premise asks whether the 1954 subtenancy is legally controlling after recognition of direct tenancy. The proposal instead says TRUE because the District Judge used that date, while its own STAGE_SCOPE says this construction was rejected. Reporting a rejected court view does not establish the requested legal proposition.",
+          "conditional_program_result": "TRUE"
+        },
+        {
+          "id": "195-e",
+          "finding": "CONTRACTUAL_RENT_VERSUS_STANDARD_RENT_CONFUSION",
+          "new_pointer": "/analyses/R04.P1",
+          "sources": [
+            "IK-1954254:L56",
+            "IK-1954254:L91",
+            "IK-1954254:L110"
+          ],
+          "observation": "The fixed premise concerns exact consistent contractual monthly rent; the proposal substitutes trial standard rent Rs.855 per annum and labels it contractual_monthly_rent. Accurate quotation of a different fact does not satisfy the premise.",
+          "conditional_program_result": "UNKNOWN"
+        },
+        {
+          "id": "195-f",
+          "finding": "UNRELATED_SOURCE_STILL_ATTACHED",
+          "new_pointer": "/analyses/R04.P2/records/0/refs",
+          "sources": [
+            "IK-1954254:L110",
+            "IK-1954254:L146",
+            "IK-1954254:L167"
+          ],
+          "observation": "L110 supports remand for standard rent. L146 concerns a quoted rule; L167 concerns death/substitution, not this remand proposition. Inline aliases reduce index confusion but do not guarantee every selected source is relevant."
+        },
+        {
+          "id": "195-g",
+          "finding": "FULL_PREMISE_REPLACED_BY_PARTIAL_EVENT",
+          "new_pointer": "/analyses/R05.P2/judgments/0",
+          "sources": [
+            "IK-1954254:L61",
+            "IK-1954254:L133",
+            "IK-1954254:L134"
+          ],
+          "observation": "Later deposit of claimed arrears is treated as TRUE for the opposite question of failure to pay/tender legally payable arrears within one month. The timing/legal-amount requirement is not established by that deposit fact.",
+          "conditional_program_result": "UNKNOWN"
+        },
+        {
+          "id": "195-h",
+          "finding": "LOCAL_VALID_CONTENT_RETAINED",
+          "new_pointer": "/analyses/R05.P3/records/0",
+          "sources": [
+            "IK-1954254:L61"
+          ],
+          "observation": "The deposit during proceedings is correctly attributed and retained. Written statement is used as deposit_date rather than an actual date; do not claim precise temporal grounding.",
+          "conditional_program_result": "TRUE"
+        }
+      ],
+      "open_rules": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05"
+      ],
+      "not_a_full_final_answer_evaluation": true
+    },
+    {
+      "case_id": "1187427",
+      "part": "P02",
+      "overall": "SOURCE_ALIGNMENT_IMPROVED_LEGAL_PROPOSITION_POLARITY_FAILURES_PERSIST",
+      "items": [
+        {
+          "id": "118-a",
+          "finding": "OLD_LINE_INDEX_ERROR_NOT_REPRODUCED",
+          "new_pointer": "/analyses/R5.P1/records/0",
+          "sources": [
+            "IK-1187427:L245"
+          ],
+          "observation": "The July 18, 1974 application correctly cites SRC:207/L245. The old SRC:245/L283 misselection does not recur in this record."
+        },
+        {
+          "id": "118-b",
+          "finding": "RULE_SOURCE_ADDRESS_IMPROVED",
+          "new_pointer": "/analyses/R7.P2/records/0",
+          "sources": [
+            "IK-1187427:L337",
+            "IK-1187427:L339",
+            "IK-1187427:L340"
+          ],
+          "observation": "The exemption record now cites SRC:299/L337 and SRC:301/L339, instead of old title/blank sources L71/L75. The required use witness selects only L339, less direct than L337 or L340; complete witness specificity remains limited.",
+          "conditional_program_result": "TRUE"
+        },
+        {
+          "id": "118-c",
+          "finding": "MISSING_DECLARED_OBJECTS_BLOCK_ALL_ROUTE",
+          "new_pointer": "/analyses/R5.P1/uses/0/role_objects/earlier_case",
+          "sources": [
+            "IK-1187427:L245",
+            "IK-1187427:L280",
+            "IK-1187427:L324"
+          ],
+          "observation": "R5.P1 declares only two objects but cites OBJ:3 for earlier_case. R5.P2 declares four but cites OBJ:5 for later_ground. R6.P1 declares two but cites OBJ:3. These uses are locally isolated; original records remain. R5 ALL stays UNKNOWN, despite recovered source alignment.",
+          "conditional_program_result": "UNKNOWN"
+        },
+        {
+          "id": "118-d",
+          "finding": "PARTY_ARGUMENT_NOT_LEGAL_DISENTITLEMENT",
+          "new_pointer": "/analyses/R6.P2/judgments/0",
+          "sources": [
+            "IK-1187427:L280",
+            "IK-1187427:L285",
+            "IK-1187427:L305",
+            "IK-1187427:L306",
+            "IK-1187427:L307"
+          ],
+          "observation": "TRUE is justified by the existence of the retirement objection, while its own scope note says the objection was rejected. Fixed premise concerns legal disentitlement, not whether the tenant raised it. The program conditionally preserves TRUE without independently validating this semantics.",
+          "conditional_program_result": "TRUE"
+        },
+        {
+          "id": "118-e",
+          "finding": "PARTY_ARGUMENT_NOT_LEGAL_DISENTITLEMENT",
+          "new_pointer": "/analyses/R6.P3/judgments/0",
+          "sources": [
+            "IK-1187427:L281",
+            "IK-1187427:L319",
+            "IK-1187427:L322",
+            "IK-1187427:L323"
+          ],
+          "observation": "The recorded mixed-use objection is turned into TRUE for legal disentitlement, despite source reasoning and own rejection note.",
+          "conditional_program_result": "TRUE"
+        },
+        {
+          "id": "118-f",
+          "finding": "PARTY_ARGUMENT_NOT_LEGAL_DISENTITLEMENT",
+          "new_pointer": "/analyses/R6.P4/judgments/0",
+          "sources": [
+            "IK-1187427:L280",
+            "IK-1187427:L281",
+            "IK-1187427:L324"
+          ],
+          "observation": "The pending-suit objection is turned into TRUE for legal disentitlement. L324 expressly rejects that objection on the different identified grounds.",
+          "conditional_program_result": "TRUE"
+        },
+        {
+          "id": "118-g",
+          "finding": "EXPLICIT_NOT_ANALYZED_REMAINS_INCOMPLETE",
+          "new_pointer": "/analyses/R6.P5",
+          "sources": [
+            "IK-1187427:L287",
+            "IK-1187427:L328",
+            "IK-1187427:L330"
+          ],
+          "observation": "R6.P5 and R6.P6 are explicitly NOT_ANALYZED, not missing keys and not UNKNOWN judgments. Existing source describes qualification requirements; no complete response for those tasks was generated. Do not infer absence of source from non-analysis."
+        },
+        {
+          "id": "118-h",
+          "finding": "PARTIAL_WITNESS_FOR_ORDER",
+          "new_pointer": "/analyses/R8.P1/uses/0/witnesses/0/source",
+          "sources": [
+            "IK-1187427:L248",
+            "IK-1187427:L283"
+          ],
+          "observation": "Record refs include L248 where the eviction order is described, but the required witness selects only L283, which is the distinct-causes ruling. Overall source is present; required source-use choice is incomplete for the order-existence proposition.",
+          "conditional_program_result": "TRUE"
+        },
+        {
+          "id": "118-i",
+          "finding": "OPPOSITION_NOT_FULLY_RETAINED",
+          "new_pointer": "/analyses/R6.P2/judgments/0/opposition_uses",
+          "sources": [
+            "IK-1187427:L305",
+            "IK-1187427:L307",
+            "IK-1187427:L322",
+            "IK-1187427:L324"
+          ],
+          "observation": "The proposal knows from its notes that the objections were rejected but gives no opposing uses for these legal propositions. Recording rejection as a scope note does not preserve the contrary legal basis in the judgment components."
+        }
+      ],
+      "not_a_full_final_answer_evaluation": true
+    }
+  ],
+  "no_label_or_model_input_changed": true,
+  "formal_legal_approval": false
+}

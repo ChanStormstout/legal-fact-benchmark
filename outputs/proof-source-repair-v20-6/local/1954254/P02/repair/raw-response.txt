@@ -1,0 +1,307 @@
+{
+  "source_sets": [
+    ["SRC:19", "SRC:20", "SRC:23", "SRC:24", "SRC:25", "SRC:26", "SRC:27", "SRC:28", "SRC:29", "SRC:30", "SRC:31", "SRC:32", "SRC:33", "SRC:34", "SRC:35", "SRC:80", "SRC:81", "SRC:82", "SRC:83", "SRC:84", "SRC:85", "SRC:86", "SRC:87", "SRC:88", "SRC:89", "SRC:91", "SRC:92", "SRC:93", "SRC:94", "SRC:95", "SRC:96", "SRC:97", "SRC:98", "SRC:99", "SRC:100", "SRC:101", "SRC:102", "SRC:103", "SRC:104", "SRC:105", "SRC:106", "SRC:107", "SRC:108", "SRC:109", "SRC:110", "SRC:111", "SRC:112", "SRC:113", "SRC:114", "SRC:115", "SRC:116", "SRC:117", "SRC:118", "SRC:119", "SRC:120", "SRC:121", "SRC:122", "SRC:123", "SRC:124", "SRC:125", "SRC:126", "SRC:127", "SRC:128", "SRC:129", "SRC:130", "SRC:131", "SRC:132", "SRC:133", "SRC:134", "SRC:135", "SRC:138"]
+  ],
+  "analyses": {
+    "R06.P1": {
+      "analysis_status": "ANALYZED",
+      "records": [
+        {
+          "proposition": "A tenant's application for determination of standard rent was pending while the landlord pursued eviction for nonpayment.",
+          "status": "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+          "stage": "interim management of contested rent in eviction litigation",
+          "court_level": "SUPREME_COURT",
+          "ref_set": "C1"
+        }
+      ],
+      "objects": [
+        {
+          "label": "tenant",
+          "type": "PARTY",
+          "ref_set": "C1",
+          "identity_basis": "Appellant in the main suit and petitioner in the standard rent application."
+        },
+        {
+          "label": "standard_rent_petition",
+          "type": "DOCUMENT",
+          "ref_set": "C1",
+          "identity_basis": "Petition filed under Section 8 of the Act."
+        },
+        {
+          "label": "eviction_suit",
+          "type": "LEGAL_CONCEPT",
+          "ref_set": "C1",
+          "identity_basis": "Suit filed by landlord for recovery of possession and arrears."
+        }
+      ],
+      "uses": [
+        {
+          "records": ["EV:1"],
+          "role_objects": {
+           "tenant": "OBJ:1",
+           "standard_rent_petition": "OBJ:2",
+           "eviction_suit": "OBJ:3"
+          },
+          "direction": "SUPPORT",
+          "claim": "The Supreme Court recounts that the tenant filed a petition for standard rent determination while the landlord simultaneously pursued an eviction suit for non-payment.",
+          "stage": "interim management of contested rent in eviction litigation",
+          "witnesses": [
+           {"source_set": "C1", "necessity": "REQUIRED"}
+          ],
+          "self_assessment": "SUPPORTED",
+          "limits": []
+        }
+      ],
+      "judgments": [
+        {
+          "role_objects": {
+           "tenant": "OBJ:1",
+           "standard_rent_petition": "OBJ:2",
+           "eviction_suit": "OBJ:3"
+          },
+          "uses": ["USE:1"],
+          "state": "TRUE",
+          "complete": true,
+          "stage": "interim management of contested rent in eviction litigation",
+          "basis": "The Supreme Court explicitly recounts the procedural history where the tenant filed a Section 8 petition while the landlord filed an eviction suit for non-payment.",
+          "components": [
+           {"component_id": "R06.P1.K1", "alternatives": [["USE:1"]]}
+          ],
+          "opposition_uses": [],
+          "gaps": [],
+          "necessary_limits": [
+           {"kind": "STAGE_SCOPE", "component": "WHOLE_JUDGMENT", "reason": "This judgment is part of a larger sequence regarding limitation and condonation.", "ref_set": "C1"}
+          ],
+          "basis_mode": "REPORT_STATEMENT_ONLY"
+        }
+      ],
+      "limits": []
+    },
+    "R06.P2": {
+      "analysis_status": "ANALYZED",
+      "records": [
+        {
+          "proposition": "The tenant applied under Section 9 for interim-rent determination while the standard-rent question remained pending.",
+          "status": "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+          "stage": "interim management of contested rent in eviction litigation",
+          "court_level": "SUPREME_COURT",
+          "ref_set": "C1"
+        }
+      ],
+      "objects": [
+        {
+          "label": "tenant",
+          "type": "PARTY",
+          "ref_set": "C1",
+          "identity_basis": "Appellant in the main suit and petitioner in the standard rent application."
+        },
+        {
+          "label": "application",
+          "type": "DOCUMENT",
+          "ref_set": "C1",
+          "identity_basis": "Application filed under Section 9 for interim rent."
+        },
+        {
+          "label": "application_date",
+          "type": "TIME",
+          "ref_set": "C1",
+          "identity_basis": "Date of filing the Section 9 application."
+        }
+      ],
+      "uses": [
+        {
+          "records": ["EV:1"],
+          "role_objects": {
+           "tenant": "OBJ:1",
+           "application": "OBJ:2",
+           "application_date": "OBJ:3"
+          },
+          "direction": "SUPPORT",
+          "claim": "The Supreme Court recounts that the tenant filed an application under Section 9 for interim rent determination while the standard rent petition was still pending.",
+          "stage": "interim management of contested rent in eviction litigation",
+          "witnesses": [
+           {"source_set": "C1", "necessity": "REQUIRED"}
+          ],
+          "self_assessment": "SUPPORTED",
+          "limits": []
+        }
+      ],
+      "judgments": [
+        {
+          "role_objects": {
+           "tenant": "OBJ:1",
+           "application": "OBJ:2",
+           "application_date": "OBJ:3"
+          },
+          "uses": ["USE:1"],
+          "state": "TRUE",
+          "complete": true,
+          "stage": "interim management of contested rent in eviction litigation",
+          "basis": "The Supreme Court explicitly finds that the tenant filed a Section 9 application for interim rent while the Section 8 petition was pending.",
+          "components": [
+           {"component_id": "R06.P2.K1", "alternatives": [["USE:1"]]}
+          ],
+          "opposition_uses": [],
+          "gaps": [],
+          "necessary_limits": [
+           {"kind": "STAGE_SCOPE", "component": "WHOLE_JUDGMENT", "reason": "This judgment is part of a larger sequence regarding limitation and condonation.", "ref_set": "C1"}
+          ],
+          "basis_mode": "REPORT_STATEMENT_ONLY"
+        }
+      ],
+      "limits": []
+    },
+    "R06.P3": {
+      "analysis_status": "ANALYZED",
+      "records": [
+        {
+          "proposition": "No legally operative interim-rent determination resolving the tenant's Section 9 application had been made.",
+          "status": "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+          "stage": "interim management of contested rent in eviction litigation",
+          "court_level": "SUPREME_COURT",
+          "ref_set": "C1"
+        }
+      ],
+      "objects": [
+        {
+          "label": "application",
+          "type": "DOCUMENT",
+          "ref_set": "C1",
+          "identity_basis": "Application filed under Section 9 for interim rent."
+        },
+        {
+          "label": "operative_order",
+          "type": "LEGAL_CONCEPT",
+          "ref_set": "C1",
+          "identity_basis": "The order directing future rent deposit was interpolated and declared a legal nullity."
+        }
+      ],
+      "uses": [
+        {
+          "records": ["EV:1"],
+          "role_objects": {
+           "application": "OBJ:2",
+           "operative_order": "OBJ:2"
+          },
+          "direction": "SUPPORT",
+          "claim": "The Supreme Court finds that the order directing the tenant to deposit future rent (purportedly dated Oct 6, 1956) was interpolated and thus legally non-existent, meaning no operative interim determination was made.",
+          "stage": "interim management of contested rent in eviction litigation",
+          "witnesses": [
+           {"source_set": "C1", "necessity": "REQUIRED"}
+          ],
+          "self_assessment": "SUPPORTED",
+          "limits": []
+        }
+      ],
+      "judgments": [
+        {
+          "role_objects": {
+           "application": "OBJ:2",
+           "operative_order": "OBJ:2"
+          },
+          "uses": ["USE:1"],
+          "state": "TRUE",
+          "complete": true,
+          "stage": "interim management of contested rent in eviction litigation",
+          "basis": "The Supreme Court explicitly finds that the order directing future rent deposit was interpolated and declared a legal nullity, meaning no legally operative interim determination existed.",
+          "components": [
+           {"component_id": "R06.P3.K1", "alternatives": [["USE:1"]]}
+          ],
+          "opposition_uses": [],
+          "gaps": [],
+          "necessary_limits": [
+           {"kind": "STAGE_SCOPE", "component": "WHOLE_JUDGMENT", "reason": "This judgment is part of a larger sequence regarding limitation and condonation.", "ref_set": "C1"}
+          ],
+          "basis_mode": "ASSESS_FIXED_PROPOSITION"
+        }
+      ],
+      "limits": []
+    },
+    "R07.P1": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R07.P2": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R07.P3": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R08.P1": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R08.P2": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R08.P3": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R09.P1": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R09.P2": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R10.P1": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    },
+    "R10.P2": {
+      "analysis_status": "NOT_ANALYZED",
+      "records": [],
+      "objects": [],
+      "uses": [],
+      "judgments": [],
+      "limits": []
+    }
+  },
+  "object_links": [],
+  "coverage_limits": [
+    "The provided source text (O.P. Kathpalia vs Lakhmir Singh) contains detailed facts and reasoning for the Supreme Court judgment, but the specific 'WORK KEYS' provided in the prompt (R06 through R10) map to a different case structure or a hypothetical decomposition of the current case's issues that is not fully realized in the source text provided. Specifically, R06, R07, R08, R09, and R10 represent distinct legal propositions (Standard Rent Petition, Interim Rent, Interpolat",
+    "The source text provided is the full judgment of O.P. Kathpalia vs Lakhmir Singh. The 'FIXED WORK AND ROLE KEYS' list propositions (R06.P1 to R10.P2) that seem to be a structured breakdown of the legal issues discussed in the judgment. However, the instruction 'Reconstruct the court's reasoning on the principal contested property, possession or tenancy entitlement' suggests a focus on the outcome regarding the tenant's right to stay/rent. The provided keys (R06-R10) cover",
+    "The 'FIXED REQUEST' asks to reconstruct the court's reasoning on the principal contested property/tenancy entitlement. The principal issue is whether the tenant has the right to remain in possession and pay standard rent rather than being evicted for non-payment of the agreed rent. The court's reasoning is that the tenant's right to protection under the Act is contingent on the determination of standard rent or interim rent. Since the order directing the tenant to pay the",
+    "The 'FIXED WORK AND ROLE KEYS' provided in the prompt are generic templates for various legal propositions (R06 to R10). The source text provided is a specific judgment (O.P. Kathpalia). The mapping of the source text to these specific keys requires careful extraction. For instance, R06.P1 maps to the fact that the tenant filed a Section 8 petition while the landlord sued for eviction (SRC:19, SRC:23, SRC:24). R06.P2 maps to the tenant filing a Section 9 application while the",
+    "The 'FIXED WORK AND ROLE KEYS' provided in the prompt are generic templates for various legal propositions (R06 to R10). The source text provided is a specific judgment (O.P. Kathpalia). The mapping of the source text to these specific keys requires careful extraction. For instance, R06.P1 maps to the fact that the tenant filed a Section 8 petition while the landlord sued for eviction

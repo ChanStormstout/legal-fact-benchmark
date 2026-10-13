@@ -1,0 +1,4211 @@
+{
+  "type": "object",
+  "properties": {
+    "units": {
+      "type": "object",
+      "properties": {
+        "R01.P1": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "landlord": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "property": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PROPERTY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "commencement_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "tenant",
+                "landlord",
+                "property",
+                "commencement_date"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R01.P1.K1",
+                        "R01.P1.K2"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R01.P2": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "petition": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "DOCUMENT",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "commencement_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "filing_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "tenant",
+                "petition",
+                "commencement_date",
+                "filing_date"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R01.P2.K1",
+                        "R01.P2.K2"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R02.P1": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "head_tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "subtenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "property": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PROPERTY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "induction_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "head_tenant",
+                "subtenant",
+                "property",
+                "induction_date"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R02.P1.K1",
+                        "R02.P1.K2"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R02.P2": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "subtenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "landlord": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "written_consent_document": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "DOCUMENT",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "subtenant",
+                "landlord",
+                "written_consent_document"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R02.P2.K1"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R02.P3": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "landlord": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "property": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PROPERTY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "effective_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "tenant",
+                "landlord",
+                "property",
+                "effective_date"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R02.P3.K1",
+                        "R02.P3.K2"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R03.P1": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "earlier_letting_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "interpreting_courts": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "tenant",
+                "earlier_letting_date",
+                "interpreting_courts"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R03.P1.K1",
+                        "R03.P1.K2"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R03.P2": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "applicant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "earlier_event": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "EVENT",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "later_event": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "EVENT",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "governing_limitation_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "applicant",
+                "earlier_event",
+                "later_event",
+                "governing_limitation_date"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R03.P2.K1"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R04.P1": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "property": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PROPERTY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "contractual_monthly_rent": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "QUANTITY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "tenant",
+                "property",
+                "contractual_monthly_rent"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R04.P1.K1"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R04.P2": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "property": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PROPERTY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "operative_standard_rent": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "QUANTITY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "contractual_rent": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "QUANTITY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "property",
+                "operative_standard_rent",
+                "contractual_rent"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R04.P2.K1",
+                        "R04.P2.K2"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R05.P1": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "landlord": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "notice_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "suit": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "EVENT",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "landlord",
+                "tenant",
+                "notice_date",
+                "suit"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R05.P1.K1"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R05.P2": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "lawful_arrears": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "QUANTITY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "notice_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "payment_or_tender_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "tenant",
+                "lawful_arrears",
+                "notice_date",
+                "payment_or_tender_date"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R05.P2.K1"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        },
+        "R05.P3": {
+          "type": "object",
+          "properties": {
+            "roles": {
+              "type": "object",
+              "properties": {
+                "tenant": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PERSON",
+                        "PARTY",
+                        "ORGANIZATION",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "deposit": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "QUANTITY",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                },
+                "deposit_date": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "TIME",
+                        "UNMAPPED"
+                      ]
+                    },
+                    "refs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/source_choice"
+                      },
+                      "minItems": 0,
+                      "maxItems": 122,
+                      "uniqueItems": true
+                    },
+                    "identity_basis": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "entity_key": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "type",
+                    "refs",
+                    "identity_basis",
+                    "entity_key"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "tenant",
+                "deposit",
+                "deposit_date"
+              ],
+              "additionalProperties": false
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "proposition": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ADMISSION",
+                      "ADMITTED_POSITION_RECOGNIZED_BY_SUPREME_COURT",
+                      "COURT_FINDING",
+                      "COURT_LEGAL_REASONING",
+                      "COURT_PROCEDURAL_ACCOUNT",
+                      "LANDLORD_CLAIM_REPORTED",
+                      "PARTY_CLAIM",
+                      "RECORDED_DOCUMENT",
+                      "REPORTED_LOWER_COURT_REASONING",
+                      "REPORTED_PLAINT_AMOUNT",
+                      "SUPREME_COURT_EVIDENTIARY_ASSESSMENT",
+                      "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+                      "SUPREME_COURT_RECOUNTED_FACT",
+                      "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+                      "TESTIMONY",
+                      "TRIAL_COURT_FINDING_REPORTED",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "stage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "court_level": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 1,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORT",
+                      "OPPOSE",
+                      "CONTEXT"
+                    ]
+                  },
+                  "component_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "R05.P3.K1"
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true
+                  },
+                  "application": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "proposition",
+                  "status",
+                  "stage",
+                  "court_level",
+                  "refs",
+                  "direction",
+                  "component_ids",
+                  "application"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN",
+                "CONFLICTED"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 480
+              },
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true
+            },
+            "necessary_limits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "NOTE",
+                      "STAGE_SCOPE",
+                      "BLOCK_SCOPE",
+                      "UNMAPPED"
+                    ]
+                  },
+                  "component": {
+                    "type": "string",
+                    "pattern": "^(WHOLE_JUDGMENT|COMP:[1-9][0-9]*)$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/source_choice"
+                    },
+                    "minItems": 0,
+                    "maxItems": 138,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "component",
+                  "reason",
+                  "refs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 256
+            }
+          },
+          "required": [
+            "roles",
+            "evidence",
+            "state",
+            "stage",
+            "basis",
+            "gaps",
+            "necessary_limits"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "R01.P1",
+        "R01.P2",
+        "R02.P1",
+        "R02.P2",
+        "R02.P3",
+        "R03.P1",
+        "R03.P2",
+        "R04.P1",
+        "R04.P2",
+        "R05.P1",
+        "R05.P2",
+        "R05.P3"
+      ],
+      "additionalProperties": false
+    },
+    "coverage_limits": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 480
+      },
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "units",
+    "coverage_limits"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "source_choice": {
+      "type": "string",
+      "enum": [
+        "SRC:1",
+        "SRC:3",
+        "SRC:5",
+        "SRC:6",
+        "SRC:8",
+        "SRC:11",
+        "SRC:16",
+        "SRC:17",
+        "SRC:18",
+        "SRC:19",
+        "SRC:20",
+        "SRC:21",
+        "SRC:22",
+        "SRC:23",
+        "SRC:24",
+        "SRC:25",
+        "SRC:26",
+        "SRC:27",
+        "SRC:28",
+        "SRC:29",
+        "SRC:30",
+        "SRC:31",
+        "SRC:32",
+        "SRC:33",
+        "SRC:34",
+        "SRC:35",
+        "SRC:36",
+        "SRC:37",
+        "SRC:39",
+        "SRC:40",
+        "SRC:42",
+        "SRC:43",
+        "SRC:44",
+        "SRC:45",
+        "SRC:46",
+        "SRC:47",
+        "SRC:49",
+        "SRC:50",
+        "SRC:52",
+        "SRC:53",
+        "SRC:54",
+        "SRC:55",
+        "SRC:56",
+        "SRC:57",
+        "SRC:58",
+        "SRC:59",
+        "SRC:60",
+        "SRC:61",
+        "SRC:62",
+        "SRC:63",
+        "SRC:64",
+        "SRC:65",
+        "SRC:66",
+        "SRC:67",
+        "SRC:68",
+        "SRC:69",
+        "SRC:70",
+        "SRC:71",
+        "SRC:72",
+        "SRC:73",
+        "SRC:74",
+        "SRC:75",
+        "SRC:77",
+        "SRC:78",
+        "SRC:79",
+        "SRC:80",
+        "SRC:81",
+        "SRC:82",
+        "SRC:83",
+        "SRC:84",
+        "SRC:85",
+        "SRC:86",
+        "SRC:87",
+        "SRC:88",
+        "SRC:89",
+        "SRC:91",
+        "SRC:92",
+        "SRC:93",
+        "SRC:94",
+        "SRC:95",
+        "SRC:96",
+        "SRC:97",
+        "SRC:98",
+        "SRC:99",
+        "SRC:100",
+        "SRC:101",
+        "SRC:102",
+        "SRC:103",
+        "SRC:104",
+        "SRC:105",
+        "SRC:106",
+        "SRC:107",
+        "SRC:108",
+        "SRC:109",
+        "SRC:110",
+        "SRC:111",
+        "SRC:112",
+        "SRC:113",
+        "SRC:114",
+        "SRC:115",
+        "SRC:116",
+        "SRC:117",
+        "SRC:118",
+        "SRC:119",
+        "SRC:120",
+        "SRC:121",
+        "SRC:122",
+        "SRC:123",
+        "SRC:124",
+        "SRC:125",
+        "SRC:126",
+        "SRC:127",
+        "SRC:128",
+        "SRC:129",
+        "SRC:130",
+        "SRC:131",
+        "SRC:132",
+        "SRC:133",
+        "SRC:134",
+        "SRC:135",
+        "SRC:137",
+        "SRC:138"
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+................E......................
+======================================================================
+ERROR: test_actual_runner_strict_contract_failure_saves_null_without_model (tests.test_contract_integrity_v19_6.ContractIntegrity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/tests/test_contract_integrity_v19_6.py", line 173, in test_actual_runner_strict_contract_failure_saves_null_without_model
+    with tempfile.TemporaryDirectory() as d, patch('mlx_vlm.generate.stream_generate', stream):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 1389, in __enter__
+    self.target = self.getter()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 1564, in <lambda>
+    getter = lambda: _importer(target)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/mock.py", line 1236, in _importer
+    thing = __import__(import_path)
+ModuleNotFoundError: No module named 'mlx_vlm'
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.105s
+
+FAILED (errors=1)

@@ -1,4 +1,70 @@
-# 当前交付：局部接受与来源恢复 V16
+# V20.9.2最终答案修复：三案交付已冻结
+
+V20.9.2独立支线交付已冻结：三个已暴露开发案例通过模型来源核验和当前请求覆盖验收；本次独立重放一致，85项工程测试通过，7份冻结清单和480个旧文件哈希一致。发布仅保存代码与证据，不切换主实验入口、不恢复原批次、不新增模型调用或训练；不是人工金标准、未见测试收益或律师批准。
+
+[支线报告](outputs/proof-final-bindings-v20-8/report-zh.md)、[实现边界](docs/FINAL_BINDINGS_V20_8.md)、[独立发布核对](outputs/proof-final-bindings-v20-8/publication-2026-10-13/pre-push-verification.json)。历史失败、冻结方法与旧报告保留。
+
+# V20.4局部引用约束：569555/P01重跑已完成
+
+569555/P01 本次状态 OK，正式入口状态 OK，输出 12,283 tokens。截断已在本次任务中消除。 77项工程测试、21份缓存的数据保真与合法/非法引用回放通过；真实模型只重跑本任务一次。保留旧结果，不训练、提交或推送。[本轮报告](outputs/proof-declared-references-v20-4/report-zh.md)和[实现边界](docs/DECLARED_REFERENCES_V20_4.md)。
+
+# V20.3共享来源集合：四次重跑已完成
+
+四次指定任务已保存：技术生成成功 3/4，原入口接受 3/4，截断 1/4。共享引用表示在四项中均避免了跨字段重新展开来源列表；569555/P01 的局部 EV 编号膨胀仍耗尽预算，因此没有解决全部截断。 63项工程测试与18份完整缓存、四份失败前缀的无损恢复通过。每次16,384输出上限保持，不训练、不网页评分、不提交或推送。旧批次继续暂停。[本轮报告](outputs/proof-shared-sources-v20-3/report-zh.md)与[实现边界](docs/SHARED_SOURCES_V20_3.md)。
+
+# V20.2十项代码修复与缓存验收通过
+
+F01–F10已另存修复，54项工程测试和五案真实缓存调用链通过；相同提议下旧两案应用检查拒绝降为零。旧文件和冻结源码保持，原批次继续暂停，新增生成、嵌入推理、训练和网页提交均0。三案D–G最终材料仍超65,536上下文预算，完整回答比较尚未运行。[本轮报告](outputs/proof-source-verification-repair-v20-2/report-zh.md)与[实现边界](docs/SOURCE_VERIFICATION_V20_2.md)。本地审阅包已更新，不提交或推送。
+
+# V20.1已安全暂停
+
+用户要求暂停后，280457/Q02正常完成并保存，批处理返回PAUSED并退出。P共18份可读、4份截断、1份旧约束失败；Q共8份可读、2份容量失败。尚未标注、训练或生成完整回答，无完整方法比较结论。[暂停报告](outputs/proof-source-verification-v20/continuation-01/report-zh.md)。保留旧结果，等待恢复授权，不推送。
+
+# 历史结果：V19_8本地诊断与共同修复完成
+
+当前研究方向见[研究主线与实施计划](docs/SOURCE_GROUNDED_VERIFICATION_PLAN.md)：说明motivation、核心insight、具体改进、完整pipeline和A—G评价。V20已按后续授权实现并冻结来源核验与局部修订流程，现已按用户要求暂停；训练和完整回答收益尚未评价。[详细调查与17篇研究依据](outputs/source-grounded-verification-design-v1/report-zh.md)保留原始方案版本。
+
+两份原P保持，修复计算后保真、空白名单、FALSE依据、身份待核验路线和失败保存。47项相关检查通过；恢复8条未决路线，前提真假状态不变。冻结后发现tokenizer容量计数错误，已另存修正版与错误记录；完整来源保留，1187427 D现为56,986输入tokens，含预留仅余102。自然来源/对象错误仍在，无新调用、训练或完整回答，不推送。[当前报告](outputs/proof-pipeline-diagnostic-repair-v19-8/report-zh.md)。
+
+# 历史结果：V19_7集中修复与两份Together重跑已完成
+
+四类独立检查漏洞修复，共享变量与固定命题合同及最终入口接通；39相关测试通过，2次Together P自然结束。动态非法引用字段19→9，部分判断方向改善，但来源错配、对象语义与证据依赖错误仍在。未训练或生成真实最终回答，不能报告完整法律分析收益；保留旧版本，不推送。[报告](outputs/proof-pipeline-contract-v19-7/report-zh.md)。
+
+# V19_6全链路排查已完成，完整工程验收仍有缺口
+
+零生成、零训练核对两份API记录和实际调用链。旧重复引用及关键行号错引未重现，动态对象与完整命题误用仍存在；故障注入确认限制/见证保真、合并保真和规则轨迹覆盖漏检，尚未修改生产代码。不能把上一轮已测工程行为通过扩展为完整pipeline修好。[完整排查](outputs/proof-pipeline-audit-v19-6/report-zh.md)。
+
+# Together V19_6两案验证已完成，整批与训练保持暂停
+
+两次固定提议均自然结束，完整Schema通过；重复膨胀和部分行号错引未重现，分析覆盖更明确。对象漏建、错绑及“提出异议”替代“法律上成立”仍有重大错误，不能用TRUE增加证明法律收益。约227秒、按标价$0.0122，无新增完整回答或训练。[报告](outputs/proof-together-contract-v19-6/report-zh.md)。
+
+# V19_6共同合同修复已完成，生成与训练保持暂停
+
+集中修复引用地址、重复数组与JSON键校验、固定前提及角色填写、分析覆盖和独立数量核验。32项相关检查与实际tokenizer回放通过，26份旧缓存保留重放；未新增模型调用，未宣称法律分析改善。[报告](outputs/proof-contract-integrity-v19-6/report-zh.md)。
+
+# Together同输入诊断已完成
+
+两份相同P输入在Together Qwen3.5-9B FP8自然结束，约197秒、按标价0.015美元。第一案仍重复引用，第二案局部编号越界、来源目录与行号混用；不能把问题全归因本地。旧V19保持暂停，无新增训练或完整法律回答，不推送。 [报告](outputs/proof-together-diagnostic-v1/report-zh.md)。
+
+# V19_5生成恢复验收失败，连续保护后暂停
+
+V19_5保留类型化引用与局部隔离，程序恢复原文、模型提出命题。17项工程检查通过；两次恢复调用分别截断和重复中止，0份完成，后两份未提交。累计26P／18完成／8失败，11TRAIN126兼容标签、1DEV18；未新增训练、网页或完整回答。恢复门槛失败后暂停，不推送。 [报告](outputs/proof-local-pipeline-v19/continuation-04/report-final-zh.md)。
+
+# V19_4引用接口已修复，连续截断后暂停
+
+共同引用接口工程验收通过，旧164证据／152用途不猜修。V19_4恢复1954254/P01后16,384 tokens截断，继承保护累计连续2次截断并正常退出；24P中18OK6失败，53P未开始。11TRAIN126兼容标签，网页12次；未训练或新增完整回答，等待生成方法范围决定，不推送。 [Report](outputs/proof-local-pipeline-v19/continuation-03/report-zh.md), [stop record](outputs/proof-local-pipeline-v19/continuation-03/natural-flow-stop.json).
+
+# 历史状态：V18宽裕预算恢复已冻结并暂停
+
+旧批次安全暂停，12次输出及三份网页标注保留。新版本复用87份分包和七个回答条件，采用核对后的65,536上下文、P16,384及最终8,192预算；标注区分明确负例、真实解释争议及必要外部依赖。[当前报告](outputs/proof-local-comparison-v18/continuation-02/report-zh.md)。已按用户要求在569555/P01W02保存后暂停；新4次P均截断，训练与完整回答评价未启动；不读取TEST／SEALED、不提交推送。
+
+# 历史状态：V17已按用户指令暂停
+
+停止于907531 B；18份最终回答技术完成，25项依赖跳过，1项中断并保存null，26项尚未启动。Flat／R-GCN／CrossEncoder各一份已完成训练的权重、预测和日志保留。网页完整回答评分未开始，不能报告完整法律分析收益。所有新生成、训练与评分保持暂停，未开展修复或下一轮。
+
+见[当前报告](outputs/proof-local-comparison-v17/report-zh.md)、[暂停报告](outputs/proof-local-comparison-v17/pause-01/report-zh.md)、[暂停清单](outputs/proof-local-comparison-v17/pause-01/pause-record.json)与[冻结协议](outputs/proof-local-comparison-v17/freeze/protocol.json)。不提交或推送。
+
+# 历史交付：局部接受与来源恢复 V16
 
 完成四案缓存回归及六个固定DEV请求的来源对齐、独立审阅和D/P/R比较。实际11次普通High生成，五份完整提议、四份完整审阅；136109文件不可取得、885778审阅为空，正式结果保留null。停滞页面的其他回复从原任务取回，未重新生成。907531的限定不适用判断经共同引文修复恢复；新六案根规则均为OPEN_TEXT，尚未形成可执行的完整法律推导。
 

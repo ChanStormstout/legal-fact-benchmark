@@ -1,0 +1,23 @@
+{
+  "pre_freeze_issues": [
+    {
+      "stage": "first tokenizer replay",
+      "error": "UnionParser lacks _config",
+      "repair": "carry original parser config across union branches",
+      "resolved_by": "successful complete JSON+EOS real-tokenizer replay"
+    },
+    {
+      "stage": "initial cache replay",
+      "affected": [
+        "1066467/P02",
+        "1187427/P01"
+      ],
+      "error": "new count wrapper initially omitted V19_2 one-witness-per-source restoration cardinality",
+      "repair": "apply exact expected expansion count under the declared V19_2 conversion",
+      "old_diagnostic_retained": "replay-summary.json",
+      "final_record": "replay-final-summary.json"
+    }
+  ],
+  "model_calls": 0,
+  "no_frozen_comparison_mixed": true
+}

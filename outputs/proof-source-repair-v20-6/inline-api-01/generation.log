@@ -1,0 +1,21 @@
+REPAIR_TASK 1954254 P02
+API_START P02 repair
+API_END P02 repair OK 76.3 cost 0.00762261
+CRITIQUE_TASK 1954254 P02 80
+API_START P02 critique
+API_END P02 critique OK 80.3 cost 0.0070529500000000005
+PART_APPLIED 1954254 P02 {"decisions":{"SUPPORTED":121},"verification":{"expected":121,"reviewed":121,"not_reviewed":0,"quarantined":0,"status":"COMPLETE","explicit_unresolved":0,"not_a_semantic_accuracy_metric":true},"independent":"OK"}
+REPAIR_TASK 1954254 P01
+API_START P01 repair
+API_END P01 repair OK 71.4 cost 0.00736934
+Traceback (most recent call last):
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/proof_source_repair_api_v20_6_1.py", line 193, in <module>
+    main()
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/proof_source_repair_api_v20_6_1.py", line 189, in main
+    (prepare if args.action=='prepare' else run)()
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/proof_source_repair_api_v20_6_1.py", line 122, in run
+    raw = inline.expand(packed, task)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/legal_bench/proof_carrying/inline_roles_v20_6_1.py", line 108, in expand
+    raise ValueError('INCONSISTENT_UNMAPPED_ROLE:'+pid+'/'+role)
+ValueError: INCONSISTENT_UNMAPPED_ROLE:R02.P2/written_consent_document

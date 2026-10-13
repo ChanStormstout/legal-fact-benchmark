@@ -1,0 +1,1191 @@
+Let me work through this carefully.
+
+The task: assess every supplied fixed premise (R1.P1 through R4.P3) against the complete allowed source (B. N. Mutto & Anr vs T. K. Nandi, Supreme Court of India, 29 November 1978). I need to fill roles with actual entities, use entity_keys consistently for the same real entity, provide evidence items with attributed propositions, statuses, stages, court levels, refs, directions, component_ids, and application notes. Then state TRUE/FALSE/UNKNOWN/CONFLICTED per premise, with stage, basis, gaps, necessary_limits.
+
+Let me first map the source. The SRC numbering corresponds to the source lines. Let me map key lines:
+
+- SRC:1 = L39: title "B. N. Mutto & Anr vs T. K. Nandi on 29 November, 1978"
+- SRC:3 = L41: equivalent citations
+- SRC:5 = L43: Author: P.S. Kailasam
+- SRC:6 = L44: Bench
+- SRC:8-14 = L46-L52: Petitioner B. N. MUTTO & ANR. vs Respondent T. K. NANDI
+- SRC:16 = L54: date of judgment 29/11/1978
+- SRC:33-35 = L72-L73: Act: Delhi Rent Control Act, 1958 Ss. 14(1)(e), 14A and 25B(5)
+- SRC:39-49 = L78-L87: headnote re section 14
+- SRC:50-56 = L88-L94: September 1975 Central Government decision; Ordinance 1975; Amendment Act 1976; deeming provision 1st December 1975
+- SRC:57-64 = L95-L102: Section 14A added by amendment
+- SRC:65-74 = L103-L112: Section 25B special procedure
+- SRC:75-87 = L113-L125: headnote facts: appellant (landlord) let out residential accommodation in New Delhi to respondent (tenant); landlord Government servant allotted Government accommodation; 9 December 1975 notice; retired 30 November 1975; 9 December 1975 petition; tenant's three objections
+- SRC:88-97 = L126-L135: objections (ii) and (iii)
+- SRC:98-112 = L136-L150: Rent Controller rejected contentions, refused leave; held (i)... (ii)... (iii)...
+- SRC:113-117 = L151-L155: High Court allowing tenant's revision: landlord retired 30 Nov 1975 before Ordinance came into force, tenant not liable to vacate independently of ownership
+- SRC:118 = L156: Allowing the appeal
+- SRC:120-141 = L158-L179: HELD 1(a): Section 14A does not require person to be Government servant; policy decision 9 Sept 1975 related only to Government servants; later realized provision should be made for persons other than Government servants; circular dated 9 September 1975 and notice support narrower view but s.14A does not restrict right to Government servants alone; "person" cannot be confined to Government servants
+- SRC:142-143 = L180-L181: Nihal Chand v. Kalyan Chand Jain [1978] 2 SCR 183 at p. 190, referred to
+- SRC:144-161 = L182-L199: HELD 1(b): not necessary in petition under s.14A to specify premises let for residential purpose only; words different; section contemplates owning residential accommodation in Delhi; if premises intended for residential accommodation, no difference if let for residential as well as other purposes; even if let for professional or commercial purposes, premises would not cease to be residential accommodation; requirement in s.14(1)(e) not found in s.14A(1)
+- SRC:162-163 = L200-L201: Busching Schmitz Private Ltd. v. P. T. Mengham & Anr. [1977] 3 SCR 312, referred to
+- SRC:164-169 = L202-L207: HELD 2: previous application pending — no force; grounds different, special rights
+- SRC:170-176 = L208-L214: scope of s.25B restricted
+- SRC:177-191 = L215-L229: s.25B and 25C applicable to both; s.25C(2) two months
+- SRC:195-196 = L233-L234: JUDGMENT: Civil Appellate Jurisdiction: Civil Appeal No. 2302 of 1977
+- SRC:198 = L236: Appeal by Special Leave from Judgment and Order dated 6th December 1976 of Delhi High Court in Civil Revision No. 247 of 1976
+- SRC:200 = L238: Rameshwar Nath for Appellant
+- SRC:202 = L240: G. L. Sanghi etc. for Respondent
+- SRC:203 = L241: judgment delivered by KAILASAM J.; appeal by special leave by landlord against judgment of High Court of Delhi allowing revision of respondent-tenant and setting aside order of eviction passed by Rent Controller, Delhi, rejecting application of respondent seeking permission to contest eviction filed by appellants under section 14(A)(1)
+- SRC:206 = L244: facts: appellant Shri B. N. Muttoo, Inspector General of Police, leased property No. F-9, East of Kailash, New Delhi, to respondent from 15 September 1972 at monthly rent Rs. 2,200/- exclusive of electricity and water charges. Lease for use of premises for residential and/or professional purposes only and not for commercial purposes. Lease renewed from time to time; respondent became monthly tenant under Delhi Rent Control Act 1958.
+- SRC:207 = L245: On 18 July 1974 landlord filed petition for eviction on grounds of misuser, subletting and bona fide requirement. Registered as Suit No. 182 of 1974, still pending.
+- SRC:208 = L246: First appellant B. N. Muttoo retired as Inspector General of Police on 30 November 1975. While in office occupying premises No. C-II/77 Moti Bagh I, New Delhi, allotted by Government. On 9 September 1975 Government decision that Government servants who own houses in the locality should vacate Government accommodation allotted within 3 months from 1 October 1975.
+- SRC:209 = L247: On 9 December 1975 notice served on first appellant by Deputy Director (Admn.) stating Government by Office Memorandum No. 12031(1)/74-Pol.II dated 9 September 1975 required all Government officials who own houses in Delhi and New Delhi and have also been allotted Government residence to vacate before stipulated date failing which penal rate of licence fee of market rate shall be charged besides necessary action to evict him from Government residence.
+- SRC:210 = L248: On same day appellant filed present Suit for eviction. On 16 January 1976 respondent applied for leave to defend. On 10 March 1976 Rent Controller refused leave and decreed the suit filed by landlord.
+- SRC:211 = L249: Revision petition filed by respondent before High Court which allowed revision and set aside order of Rent Controller and remanded proceedings to Rent Controller for disposal according to law. Against order of High Court allowing revision, present appeal preferred by landlord.
+- SRC:212 = L250: question: whether Rent Controller was right in refusing leave to respondent to defend eviction petition.
+- SRC:213 = L251: Delhi Rent Control Act (Act 59 of 1958) came into force 31 December 1958; Chapter III restricted right of landlord to evict; section 14 prohibited order/decree except under circumstances.
+- SRC:214 = L252: landlord required to make application to Controller on grounds in sub-clauses (a) to (l) in section 14(1); provisions of section 14(1)(e) relevant
+- SRC:215-227 = L253-L265: text of section 14(1) and clause (e) and Explanation
+- SRC:228 = L266: Ordinance (No. 24 of 1975) amended Act; replaced by Amendment Act No. 18 of 1976; Amending Act continued provisions of Ordinance but extended summary procedure applicable to s.14(1)(e) to evictions on ground in s.14A
+- SRC:229 = L267: Amending Act came into force February 9, 1976 but deemed to have come into force 1 December 1975 (date of Ordinance). Section 14A conferred right to recover immediate possession of premises to certain persons. Amended section 14A(1) reads:
+- SRC:230 = L268: text of section 14A(1)
+- SRC:231 = L269: This section confers on a landlord who owns a residential accommodation
+- SRC:232 = L270: ... in his own name or in the name of his wife or dependent child in the Union territory of Delhi and was in occupation of any residential premises allotted to him by the Central Government or any local authority and is required by any general or special order ... a right shall accrue to such landlord to recover immediate possession of any premises let out by him.
+- SRC:233 = L271: Apart from conferring rights under section 14A, summary procedure under sections 25A, 25B, 25C
+- SRC:234-237 = L272-L275: section 25B procedure
+- SRC:238 = L276: introduction of section 14A became necessary as Government took decision 9 September 1975 that Government servants who own houses in UT of Delhi shall be required to vacate Government accommodation allotted within 3 months from 1 October 1975; failing which licence fee at market rates
+- SRC:239 = L277: Government servants owing houses could not get possession of their residential accommodation; necessary to confer right to recover immediate possession
+- SRC:240 = L278: According to procedure in s.25B tenant must apply for leave; coming to facts: Government decision to require officers who have been allotted premises and who own their own houses to vacate within 3 months from 1 October 1975
+- SRC:241 = L279: Notice of such intention conveyed to landlord on 9 December 1975. In the meantime on 30 November 1975 the officer retired from service. Thus on date notice served he had already retired. Petition for eviction also filed on 9 December 1975 after officer retired.
+- SRC:242-243 = L280-L281: main contentions by tenant in petition for leave to contest: (1) landlord cannot invoke s.25B(5) as not Government servant on date of petition; (2) landlord had already filed petition registered as O.S. No. 182 of 1974 pending before Additional Rent Controller; eviction sought on same ground so petition could not be entertained; (3) premises let for residential or professional purposes so landlord not entitled as premises not let for residential purposes.
+- SRC:244 = L282: Rent Controller rejected all contentions. Held question whether landlord was Government servant on date notice received and date petition filed is irrelevant so long as he satisfied requirements laid down in section 14(1) of the Act.
+- SRC:245 = L283: on second contention RC found ground under s.14A is new cause of action different from previous petitions; hence petition not barred.
+- SRC:246 = L284: On third point RC found not necessary for application under s.14(1) that building should have been let for residential purposes as required under s.14(1)(e); sufficient if landlord requires premises for residential accommodation. RC held grounds for leave to resist are those specified in s.25B(5) alone.
+- SRC:247 = L285: On appeal High Court allowed revision by tenant mainly on ground that application for eviction must fail on account of admitted fact that landlord had retired from service on 30 November 1975 before Ordinance came into force and was on that account liable to vacate the premises independently of his ownership of the premises in dispute.
+- SRC:248 = L286: important question: whether landlord who retired from service on 30 November 1975 before Ordinance came into force could avail himself of provisions of s.14A(1). A reading of s.14A discloses right accrues to certain persons if requisite conditions satisfied.
+- SRC:249 = L287: The conditions are: (1) landlord must be in occupation of any residential premises allotted by Central Government or local authority; (2) such landlord is required by general or special order to vacate such residential accommodation or in default incur certain obligations on ground that he owns in UT of Delhi a residential accommodation either in own name or name of wife or dependent child. If conditions satisfied, right accrues on and from date of such order to recover immediate possession of any premises let out by him.
+- SRC:250 = L288: It may be noted that the section does not require that the person who is in occupation of the premises allotted by the Government should be a Government servant. It is necessary that the person is required by the Government or authority to vacate such accommodation imposing certain consequences in the event of not vacating. The policy decision taken by Government on 9 September 1975 only related to Government servants in occupation of premises allotted to them.
+- SRC:251 = L289: If Government servant had another house in locality he was to vacate within 3 months from 1 October 1975. This general order no doubt relates only to government servants. After decision was taken it was realized that some provision should be made to enable persons in occupation of buildings allotted by Government to get possession of houses they own but have let to tenants.
+- SRC:252 = L290: In order to enable them to get possession of premises let by them expeditiously s.14A(1) was enacted and expeditious procedure under s.25-B made applicable. It may also be noted that the order served on landlord on 9 December 1975 mentions that all Government officials who own houses in Delhi and have also been allotted Government residence are to vacate Government accommodation.
+- SRC:253 = L291: the general circular dated 9 September 1975 as well as notice served on landlord thus support the view that intention of Government was to enable only those Government servants who are in occupation of Government accommodation and who own houses to get immediate possession, though s.14A does not restrict the right to recover immediate possession to Government servants alone.
+- SRC:254 = L292: In these circumstances, conclusions arrived at by High Court that a Government servant who had retired before date on which he filed application is not entitled to benefits of s.14(1) is understandable. This view was expressed by this Court in Nihal Chand v. Kalyan Chand Jain wherein it was observed "There appears to be some force in the view taken by the High Court that the provision of section 14A(1) was not intended for Government servants who have retired from Government service or who have been transferred outside Delhi."
+- SRC:255 = L293: (1) [1978] 2 S.C.R. 183 at p. 190.
+- SRC:258 = L296: But this Court did not decide the issue because on the facts of the case it was of the view that the landlord was entitled to invoke provisions of s.14A(1) notwithstanding the fact that he had retired from Government service with effect from 30 November 1975.
+- SRC:259 = L297: In that case the notice was served on the appellant landlord on 30 September 1975 which was before the date of retirement which was on 31st November 1975 [sic — presumably 30 November]. On the ground that the right to evict the tenant accrued to the landlord when he was in service it was held that he was entitled to rights conferred under s.14A. In this case the notice was served on 9 December 1975 and the officer had retired on 30 November 1975.
+- SRC:260 = L298: On the reasoning in the above case the appellant will not be entitled to the relief. The question therefore squarely arises in this case as to whether a Government servant who retired before the notice was served on him requiring to quit the Government accommodation is entitled to benefit of s.14A(1).
+- SRC:261 = L299: It is not clear as to why the right to recover immediate possession is not confined to Government servants alone under s.14A. It is clear that according to Government's policy statement the intention was only to require Government servants to vacate premises allotted to them if they had their own houses in the area.
+- SRC:262 = L300: It cannot be said that it was by inadvertance that Legislature mentioned persons instead of Government servants and made section applicable to persons other than Government servants. It is stated at the Bar that Government accommodation is provided not only to Government servants but also to Members of Parliament and other non-officials who occupy important positions in public life.
+- SRC:263 = L301: The Court will not be justified in presuming that when legislature used word "persons" it meant only Government servants. Rule as to construction of statutes... Craies on Statute Law (6th Ed. p. 66) relying on Tasmania v. Commonwealth...
+- SRC:264 = L302: quote from Craies: cardinal rule... words precise and unambiguous... expound in ordinary and natural sense...
+- SRC:267 = L305: Taking into account the object of the Act there could be no difficulty in giving the plain meaning to the word "person" as not being confined to Government servants for it is seen that accommodation has been provided by the Government not only to Government servants but to others also. In the circumstances, the Court cannot help giving the plain and unambiguous meaning to the section.
+- SRC:268 = L306: It may be that retired Government servants as well as others in occupation of Government accommodation may become entitled to a special advantage, but the purpose of the legislation being to enable the Government to get possession of accommodation provided by them by enabling the allottee to get immediate possession of the residential accommodation owned but let by them, the Court will not be justified in giving a meaning which the words used will not warrant.
+- SRC:269 = L307: On this question therefore we find ourselves unable to concur with the view taken by the High Court.
+- SRC:270 = L308: The next question: whether rights conferred under s.14A(1) are available to premises that had been let for residential as well as professional purposes. It is admitted that the premises were let for residential as well as professional purposes. Section 14(1)(e) requires that in order to avail the provisions of s.14(1)(e) the premises should be "let for use as a residence".
+- SRC:271 = L309: It has been held that when premises are let for residential as well as commercial or for residential and professional purposes the provisions of s.14(1)(e) will not apply. This Court in Dr. Gopal Dass Verma v. Dr. S. K. Bhardwaj and Anr.,
+- SRC:272 = L310: in construing s.13(1)(e) of Delhi and Ajmer Rent Control Act 1952 held that premises let for residential purposes but used by tenant with consent of landlord incidentally for commercial professional or other purposes cease to be premises let for residential purpose alone and as such landlord would not be entitled to eject tenant under s.13(1)(e).
+- SRC:273 = L311: Section 13(1)(e) allowed decree for ejectment if Court satisfied premises let for residential purposes required bona fide by landlord who is owner for occupation as residence for himself or family and no other suitable accommodation.
+- SRC:274 = L312: On facts of case found that right from commencement of tenancy a substantial part of premises was used by respondent I for his professional purpose, and found done obviously with consent of landlord. Court held professional use of substantial part of premises with consent of appellant clearly takes case outside s.13(1)(e). (1) [1962] 2 S.C.R. 678.
+- SRC:276 = L314: The view expressed in the above case was reiterated by this Court in Kartar Singh v. Chaman Lal & Ors. On the facts it was found that premises had been taken for residential-cum-business or professional purposes. By rent deed the owner inducted as tenant Labha Mal Arora who was practising advocate.
+- SRC:277 = L315: Along with rent deed a letter written by landlord to tenant stating he had no objection to tenant having professional office along with residence. After tenant's death in 1952 premises used only for residence by his sons and widow till 1957. In August 1957 first respondent who qualified as legal practitioner started having office in premises. Another son also started practising as lawyer in same premises sometime later.
+- SRC:278 = L316: Landlord served notice on sons and widow of deceased requiring them to vacate. Court found two rooms used by original tenant as his office, one room by his clerk and premises had been let for residence-cum-business purposes. Plea that tenant was only granted licence to use premises for residence-cum-profession personal to him which came to end on death not accepted. Court agreed with view in Dr. Gopal Dass Verma's case that tenant could not be ejected under s.13(1)(h) [sic — probably (e)] because tenancy of premises let out or used for residence and carrying on of profession could not be terminated merely by showing tenant had acquired suitable residence. Court rejected contention that Labha Mal Arora had been merely given permission or licence of personal nature for his office.
+- SRC:280 = L318: It also was unable to find that any test of dominant intention was applied in Dr. Gopal Dass Verma's case.
+- SRC:281 = L319: It is not necessary for us to go into question whether words "let for residential purposes" would exclude premises let predominantly for residential purposes with licence to use insignificant part for professional purposes such as lawyer's or doctor's consulting room. The words used in s.14A are clearly different. Section 14A contemplates the owning by the landlord in the Union territory of Delhi a residential accommodation.
+- SRC:282 = L320: If he owns a residential accommodation he has a right to recover immediately possession of any premises let out by him. The emphasis is on residential accommodation. If the premises are one intended for residential accommodation it will not make any difference if the premises are let for residential (1) [1970] 1 S.C.R. 9.
+- SRC:284 = L322: as well as other purposes. Even though the residential accommodation is let for professional or commercial purposes the premises will not cease to be for residential accommodation. It is common ground that the Premises let were put up under the Delhi Development Authority's scheme for residential purposes. The only plea was that though it was put up for residential purposes it was let for residential as well as for professional purposes.
+- SRC:285 = L323: The requirement in s.14(1)(e) that in order to enable landlord to recover possession the premises ought to have been let for residential purposes is not there in s.14A(1). In this view we agree with the High Court that it is not necessary in a petition for eviction under s.14A to satisfy that it was let for residential purposes only. This view has been taken by this Court in Busching Schmitz Private Ltd. v. P. T. Menghani and Anr.
+- SRC:286 = L324: The submission that as a previous application for possession by the landlord was pending this petition would not be permissible cannot be accepted as the grounds on which an application for possession is filed under s.14A(1) are different and based on special rights conferred on the class of persons who occupied Government accommodation.
+- SRC:287 = L325: The only other question: scope of right to contest the suit — on what grounds can tenant seek leave to resist suit filed by landlord under s.14A(1). Special procedure under s.25B made applicable where landlord applies for recovery of possession on grounds specified in clause (e) of proviso to sub-section (1) of s.14 or under s.14A.
+- SRC:288 = L326: Sub-section (5) of s.25B says Controller shall give leave to tenant to contest if affidavit filed by tenant discloses such facts that would disentitle landlord from obtaining order for recovery of possession on grounds specified in clause (e) of proviso to sub-section (1) of s.14 or s.14A.
+- SRC:289 = L327: Under s.14(1)(e) the tenant may resist the application on grounds specified namely that the premises are not let for residential purposes, that they are not required bona fide etc.
+- SRC:290 = L328: So far as facts which would disentitle landlord from obtaining order under s.14A are concerned they can only be that the landlord is not a person in occupation of residential premises allotted to him by the Central Government or that no general or special order has been made by the Government requiring him to vacate such residential accommodation (1) [1977] 3 S.C.R. 312.
+- SRC:292 = L330: on the terms specified in the section. Leave to contest an application under s.14A(1) cannot be said to be analogous to provisions of grant of leave to defend as envisaged in Civil Procedure Code. Order XXXVII Rule 2 sub-rule (3)...
+- SRC:294 = L332: The scope of s.25B(5) is very restricted for leave to contest can only be given if facts are such as would disentitle landlord from obtaining order for recovery of possession on ground specified in s.14A.
+- SRC:295 = L333: Learned counsel for tenant submitted requirements of s.14(1)(e) should also be satisfied before landlord could take advantage of procedure under s.25B. Drew attention to s.25C(1) and 25C(2) submitted reading of these two sub-sections would indicate that before eviction could be ordered under application under s.14A(1) requirements of s.14(6) and (7) should be satisfied.
+- SRC:296 = L334: While s.14(1) enumerates grounds... sub-sections (2) to (11) place restrictions. Sub-section (2) provides restriction as to right for recovery under s.14(1)(e). Restriction regarding right to recover possession under clause (e) laid down in sub-sections (6) and (7) of s.14.
+- SRC:297 = L335: s.14(6) states where landlord has acquired any premises by transfer no application for recovery of possession shall lie under sub-section (1) on ground specified in clause (e) unless period of five years has elapsed from date of acquisition.
+- SRC:298 = L336: s.14(7) lays down where order for recovery of possession made on ground specified in clause (e), landlord shall not be entitled to obtain possession before expiration of period of six months from date of order.
+- SRC:299 = L337: s.25C makes exception to requirement of s.14(6): where landlord in occupation of residential premises allotted by Central Government or local authority and fulfils requirements of s.14A(1), requirement under s.14(6) that he would not be entitled to possession unless five years elapsed from date of acquisition is not applicable. In other words he can straightway obtain possession without impediment under s.14(6).
+- SRC:300 = L338: Great stress laid by learned counsel for tenant on s.25C(2) which provides that in case of landlord who, being person of category specified in sub-section (1), has obtained, on ground specified in clause (e) of proviso to sub-section (1) of s.14 or under s.14A, an order for eviction of tenant from any premises, provisions of sub-section (7) of s.14 shall have effect as if for words "six months" occurring therein the words "two months" were substituted. Contention was that if s.14A(1) stood by itself and if landlord applying under s.14A(1) would straightway get possession after tenant cannot contest suit on grounds specified in s.25B(5) there is no need for mentioning provisions of s.14(1)(6) and (7) and prescribing lesser period...
+- SRC:301 = L339: In other words, submission was that application for possession under s.14A should also satisfy requirements of s.14(1)(e). The provisions of s.25B and 25C are applicable to both applications under s.14(1)(e) and under s.14A. Applications under s.14(1)(e) are governed by s.14(6) and s.14(7). By introduction of s.25C the condition imposed in s.14(6) is varied.
+- SRC:302 = L340: The condition imposed under s.14(6) is made not applicable to persons who satisfy requirements under s.14A meaning thereby that this restriction will be applicable only to an application under s.14(1)(e). s.25C(2) makes it clear that not only in case of application under s.14(1)(e) but also under s.14A the term of six months prescribed in s.14(7) is reduced to two months.
+- SRC:303 = L341: The reason for specifying period of two months in case of s.14A is understandable for otherwise an applicant under s.14A would be entitled to possession immediately. By prescribing specific period of two months under s.25C(2) it is made clear that even an applicant under s.14A would have to satisfy conditions laid down by s.25C i.e.
+- SRC:304 = L342: a period of two months should elapse before landlord is entitled to obtain possession from date of an order for recovery of possession. This submission also fails.
+- SRC:305 = L343: In the result we hold that the landlord who retired before the date on which the notice to quit was given by the Government is also entitled to the benefits of s.14A and allow the appeal.
+- SRC:307 = L345: P.B.R — Appeal allowed
+- SRC:308 = L346: 424
+
+Now, the premises to assess:
+
+**R1.P1**: "The applicant-landlord owns residential accommodation in the Union Territory of Delhi in the applicant's own name or the name of the applicant's wife or dependent child."
+- Roles: landlord (PERSON), owned_home (UNMAPPED), registered_owner (UNMAPPED).
+- Evidence: The judgment says the landlord owned a house in Delhi (the premises F-9, East of Kailash, New Delhi). The Government decision/notice was premised on his owning a house in Delhi. The section 14A(1) requires ownership "either in his own name or in the name of his wife or dependent child". The judgment: "The appellant, Shri B. N. Muttoo, Inspector General of Police, leased the property No. F-9, East of Kailash, New Delhi, to the respondent..." — the property is described as "his residential accommodation" (headnote: "The appellant (landlord) let out his residential accommodation in New Delhi to the respondent"). The Government notice required officials "who own houses in Delhi and New Delhi" to vacate. The notice was served on Muttoo on that ground. The Court's reasoning: "the purpose of the legislation being to enable the Government to get possession of accommodation provided by them by enabling the allottee to get immediate possession of the residential accommodation owned but let by them" — and the Court held the landlord entitled to s.14A benefits.
+
+Is there an explicit court finding that Muttoo owned residential accommodation in Delhi in his own name? The judgment says: "The appellant, Shri B. N. Muttoo, Inspector General of Police, leased the property No. F-9, East of Kailash, New Delhi, to the respondent from 15th September, 1972..." — "leased the property" implies ownership. Also "the landlord let out his residential accommodation in New Delhi to the respondent" (headnote). The Government decision premise: "Government servants who owned houses in the Union Territory of Delhi should... vacate Government accommodation" — and the notice was served on him under that policy, implying he owned a house. Also "It is common ground that the Premises let were put up under the Delhi Development Authority's scheme for residential purposes." — common ground that premises were put up for residential purposes; the "only plea was that though it was put up for residential purposes it was let for residential as well as for professional purposes."
+
+Hmm — does the judgment explicitly say the ownership was in his own name (vs wife/dependent child)? The statutory text covers "either in his own name or in the name of his wife or dependent child". The judgment's own paraphrase at L270: "confers on a landlord who owns a residential accommodation in his own name or in the name of his wife or dependent child in the Union territory of Delhi..." The facts: Muttoo leased F-9 to the tenant; the notice was served on him on the ground that he owned a house. The Court held he was entitled to s.14A benefits, which requires ownership. The Court's holding at L343: "the landlord who retired before the date on which the notice to quit was given by the Government is also entitled to the benefits of section 14A" — this is a legal conclusion on the retirement question; the Court did not separately adjudicate ownership as a contested issue (it wasn't contested). The tenancy objection was about letting purpose, not ownership.
+
+So the premise: "owns residential accommodation in the UT of Delhi in the applicant's own name or the name of the applicant's wife or dependent child." The disjunctive "own name or wife/dependent child" — the judgment supports ownership of F-9 by Muttoo (he leased it, it's described as "his residential accommodation", "houses they own but have been let to tenants"). Whether in his own name specifically — the judgment doesn't explicitly state the registered ownership name. But the premise is disjunctive: owns in own name OR wife/dependent child's name. The court-recorded facts support that he owned the house (the notice was issued on the ground that he owned a house in Delhi; he let out "his residential accommodation"). I'd assess TRUE with COURT_RECORDED_FACT evidence, noting the specific registered-name detail is not separately stated but the disjunctive is satisfied by ownership by the landlord himself.
+
+Wait — careful. The premise says "owns residential accommodation in the Union Territory of Delhi in the applicant's own name or the name of the applicant's wife or dependent child." The necessary components: (a) ownership of residential accommodation in UT Delhi; (b) by the applicant-landlord; (c) in own name or wife/dependent child's name. The judgment supports (a) and (b) strongly. For (c): the judgment doesn't specify whose name the title was in. However, the notice was served on him personally on the ground that he owned a house — "required all Government officials who own houses in Delhi and New Delhi... to vacate". The Court applied s.14A to him, and the Court's summary of conditions includes the ownership requirement. The Court's final holding that he is entitled to s.14A benefits implies the conditions were satisfied. But "Court outcomes cannot prove themselves" — the instruction says don't treat the final order as proof. However, the reasoning passages do support: the Court at L287 restates conditions; at L306 describes "the allottee to get immediate possession of the residential accommodation owned but let by them"; the facts at L244 say he "leased the property No. F-9... to the respondent" — leasing out one's property implies ownership. Also headnote L113-114: "The appellant (landlord) let out his residential accommodation in New Delhi to the respondent (tenant)."
+
+I think TRUE is right, with the caveat noted in gaps: the judgment does not separately record the title/registered owner's name; ownership is inferred from the recorded facts that he leased out "his" property and the Government notice proceeded on his owning a house. Actually, is that enough for TRUE? "TRUE requires source support for all necessary components." The disjunctive component "in the applicant's own name or the name of the applicant's wife or dependent child" — the source supports ownership by the applicant himself (he leased his property; the notice was addressed to him as owner). The "own name" phrasing in the statute is about title registration; the judgment doesn't do a title trial (as the limits in R1 note: "The Supreme Court did not conduct a separate title trial or give a dated finding of physical occupation for every point in the timeline."). Hmm, that limit is part of the rule contract R1's limits. So the rule itself acknowledges no separate title trial. Given the disjunctive and the recorded facts (he let out "his residential accommodation"; Government notice on ground of his owning a house; Court's application of s.14A to him), I'll assess TRUE with a gap noting the registered-name detail is not separately stated.
+
+Actually, let me reconsider: should it be TRUE or UNKNOWN? The premise is the statutory condition as applied. The Court's reasoning at L287 lists conditions; the Court's analysis proceeds on the basis that Muttoo owned a house in Delhi (that's why the notice was issued to him). The Court never doubts ownership. The tenant's objections did not include ownership. The Court's holding: landlord entitled to s.14A benefits. The premise is a statutory eligibility element that the Court effectively treated as satisfied (uncontested). I'll say TRUE, with evidence: COURT_RECORDED_FACT (he leased F-9, his residential accommodation, to the tenant; Government notice proceeded on his owning a house in Delhi), SUPREME_COURT_ADOPTED_LEGAL_APPLICATION (Court's application of s.14A conditions to the landlord). Gap: the judgment does not separately record whether title stood in Muttoo's own name versus his wife/dependent child; ownership by the landlord himself is the basis.
+
+Roles:
+- landlord: "Shri B. N. Muttoo (first appellant), Inspector General of Police" — PERSON. Refs: SRC:206 (L244), SRC:208 (L246), SRC:9 (L47 petitioner B.N. Mutto & Anr). entity_key: "ent_muttoo_landlord".
+- owned_home: "Residential house No. F-9, East of Kailash, New Delhi (in the Union Territory of Delhi), owned by the landlord and let to the tenant" — type PROPERTY. Refs: SRC:206, SRC:75 (L113 headnote "let out his residential accommodation in New Delhi"), SRC:209 (notice re owning houses in Delhi). entity_key: "ent_f9_premises".
+- registered_owner: Hmm. The role is "landlord, wife or dependent child" — the registered owner. The judgment doesn't identify a registered owner by name/title record. Options: value "B. N. Muttoo (ownership by the landlord himself; the judgment does not separately record the title holder's name)" — type PERSON? Or UNMAPPED? The instruction: "Use value/type/entity_key UNMAPPED with refs=[] when identity cannot be established. Otherwise refs must point to identifying text." The registered owner identity: the judgment supports that Muttoo owned the house (he leased it out as his own). But "registered owner" as a distinct concept (whose name the title is in) is not established by the text. Hmm. The premise is disjunctive, so the identity of the registered owner as between "own name" vs "wife/dependent child" is not pinned down. But the premise only requires the disjunction. For the role, I could map registered_owner to B. N. Muttoo with basis "the judgment records that Muttoo leased out 'his residential accommodation' in New Delhi and the Government notice proceeded on the ground that he owned a house in Delhi; the disjunctive statutory condition is satisfied through ownership by the landlord himself, though the judgment does not separately record the title registration." That seems defensible. Alternatively UNMAPPED. I think mapping to Muttoo with the caveat is better since the premise is TRUE and the role must be filled with the particular entity. The identity basis: recorded facts that the property was "his" and let by him. I'll map it as PERSON "B. N. Muttoo" with refs to SRC:206, SRC:75, SRC:209 and note in identity_basis the caveat.
+
+Hmm, but wait — "Do not call a party a property, or a statutory word a person." Fine. "A missing optional document can be UNMAPPED; a failed search is not proof of nonexistence." Not applicable here.
+
+Actually, let me reconsider whether registered_owner should be UNMAPPED. The role description: "registered_owner: landlord, wife or dependent child". The premise requires ownership "in the applicant's own name or the name of the applicant's wife or dependent child". The judgment supports ownership by the landlord (he let out his own accommodation; notice on ground of his ownership). The specific "name in which title is registered" is not stated. But the role asks for the person in whose name the accommodation is owned — as far as the judgment goes, that's the landlord himself. I'll fill with Muttoo and note the basis. This keeps the premise TRUE coherent.
+
+Evidence items for R1.P1:
+1. COURT_RECORDED_FACT: "The appellant Shri B. N. Muttoo, Inspector General of Police, leased the property No. F-9, East of Kailash, New Delhi, to the respondent from 15 September 1972 at a monthly rent of Rs. 2,200/-, the lease being of the landlord's own residential accommodation." Refs: SRC:206, SRC:75. Direction SUPPORT. component_ids: ["R1.P1.K1"]. Application: establishes the landlord owned and let residential accommodation in Delhi.
+2. COURT_RECORDED_NOTICE: "The notice served on the landlord on 9 December 1975 by the Deputy Director (Admn.) stated that the Government, by Office Memorandum No. 12031(1)/74-Pol.II dated 9 September 1975, required all Government officials who own houses in Delhi and New Delhi and have been allotted Government residence to vacate, and was served on the landlord on that footing." Refs: SRC:209, SRC:252. Direction SUPPORT. Application: the qualifying order proceeded on the landlord's ownership of a house in Delhi.
+3. SUPREME_COURT_ADOPTED_LEGAL_APPLICATION: "The Court restated the s.14A(1) conditions, including that the landlord owns in the Union territory of Delhi a residential accommodation either in his own name or in the name of his wife or dependent child, and decided the appeal on the basis that the landlord who retired before the notice was entitled to the benefits of s.14A." Refs: SRC:249, SRC:305, SRC:232. Direction SUPPORT. Application: the ownership condition was applied to this landlord without contest.
+4. Maybe a CONTEXT item: "It is common ground that the premises let were put up under the Delhi Development Authority's scheme for residential purposes." Refs: SRC:284. Direction SUPPORT/CONTEXT. Application: character of the property as residential accommodation. Actually this bears more on R3.P2. Could include as context here too. I'll include as CONTEXT with component_ids ["R1.P1.K1"] — hmm, does it bear on ownership? It bears on residential character. For R1.P1 the "residential accommodation" character matters. I'll include it as SUPPORT for the residential character component. Actually direction SUPPORT is fine.
+
+Also contrary evidence check: "Read beyond immediately relevant passages to find contrary evidence." Is there anything contradicting ownership? The High Court's view was about retirement, not ownership. The tenant's objections: not a Government servant; pending petition; mixed letting. None deny ownership. The 1974 petition included "misuser, subletting and bona fide requirement" — a bona fide requirement petition under s.14(1)(e) would imply... actually a s.14(1)(e) claim requires the landlord to be owner and need the premises; but that petition was on grounds of misuser, subletting AND bona fide requirement. Not contrary to ownership. No contrary evidence. State TRUE.
+
+Stage: "Supreme Court appellate consideration of s.14A(1) eligibility (Civil Appeal No. 2302 of 1977)". Basis: recorded facts + adopted application.
+
+Gaps: "The judgment does not separately record the title registration; ownership in the landlord's own name is the basis on which the notice was served and the section applied, rather than a separately adjudicated title finding." Also maybe: "No document of title is in the record; ownership appears from the recorded letting and the Government notice premise."
+
+Necessary_limits: maybe a NOTE that the Court did not conduct a title trial; component WHOLE_JUDGMENT. Refs SRC:248-249.
+
+**R1.P2**: "The applicant-landlord meets the section 14A condition of being a person in occupation of residential premises allotted to that person by the Central Government or a local authority."
+- Roles: landlord (PERSON), allotted_residence (UNMAPPED), allotting_authority (UNMAPPED), precise_relevant_occupation_date (UNMAPPED).
+- Evidence: SRC:208: "While in office he was occupying premises bearing No. C-II/77 Moti Bagh I, New Delhi, allotted to him by the Government." SRC:116-117 (headnote): "The landlord was a Government servant who had been allotted Government accommodation in New Delhi." SRC:241: "Notice of such intention was conveyed to the landlord on 9th December, 1975. In the meantime on 30th November, 1975 the officer retired from service. Thus on the date on which notice was served on him he had already retired." — So he was in occupation while in office; retired 30 Nov 1975; notice 9 Dec 1975. Was he still "in occupation" of the allotted premises at the relevant time (date of order/notice/petition)? The judgment says "While in office he was occupying premises... allotted to him by the Government." After retirement on 30 November 1975, did he continue in occupation? The judgment doesn't explicitly say he was still occupying C-II/77 Moti Bagh after retirement. The notice of 9 December 1975 required him to vacate the Government residence, failing which penal licence fee and eviction action — implying he was still in occupation (or at least holding it) as of 9 December 1975. The Court's reasoning at L288: "It is necessary that the person is required by the Government or authority to vacate such accommodation imposing certain consequences in the event of his not vacating." The Court held he was entitled to s.14A benefits. The Court at L306: "the purpose of the legislation being to enable the Government to get possession of accommodation provided by them by enabling the allottee to get immediate possession..." The Court did not give a dated finding of physical occupation for every point in the timeline (per R1 limits: "The Supreme Court did not conduct a separate title trial or give a dated finding of physical occupation for every point in the timeline.").
+
+So: allotted_residence = "Premises No. C-II/77 Moti Bagh I, New Delhi (Government-allotted residence)" — PROPERTY. allotting_authority = "the (Central) Government" — the judgment says "allotted to him by the Government"; the statute says Central Government or local authority. The notice was served by the Deputy Director (Admn.) — of the Government (Central Government, since it's an Office Memorandum of the Government of India presumably; the headnote says "the Central Government decided"). SRC:50: "In September, 1975 the Central Government decided that Government servants who owned houses in the Union Territory of Delhi should... vacate Government accommodation let out to them." So allotting authority: Central Government. Type ORGANIZATION. precise_relevant_occupation_date: The relevant occupation — "While in office he was occupying premises bearing No. C-II/77 Moti Bagh I" — occupation during service until retirement on 30 November 1975; the notice of 9 December 1975 required vacation. The precise date of occupation relevant: the judgment records occupation "while in office" (until 30 November 1975) and the vacation requirement as of 9 December 1975. Is there a precise date? The role is "date, if established". The judgment establishes he was occupying while in office (i.e., up to retirement 30 November 1975) and that on 9 December 1975 he was required to vacate. Hmm — the premise: "being a person in occupation of residential premises allotted to that person by the Central Government". The Court's holding implies this condition was met. The occupation date: I could map to "30 November 1975 (retirement, while in occupation of the allotted premises); the notice of 9 December 1975 required him to vacate the allotted residence" — but that's two dates. The role is a single value. Maybe: "In occupation of the allotted premises while in office up to his retirement on 30 November 1975; on 9 December 1975 the Government notice required him to vacate the allotted residence." Type TIME. Hmm, TIME type with a compound value. Or UNMAPPED? The instruction says "Different dates for different events must be different values." Here we have one role for occupation date. The judgment: "While in office he was occupying premises bearing No. C-II/77 Moti Bagh I, New Delhi, allotted to him by the Government." — occupation during office, i.e., up to 30 November 1975. The notice of 9 December 1975 requiring vacation implies continued holding. I think the best value: "Occupied the allotted premises while in office, through his retirement on 30 November 1975; the vacation requirement was notified on 9 December 1975" — TIME. Refs: SRC:208, SRC:241, SRC:209.
+
+Actually, is the premise TRUE? The Court held the landlord entitled to s.14A benefits, and the first condition is occupation of allotted premises. The recorded facts: he was occupying the allotted premises while in office; retired 30 Nov 1975; notice 9 Dec 1975 requiring vacation with penal consequences — the notice presupposes he was still in occupation/holding the Government residence on 9 December 1975 (otherwise "failing which penal rate of licence fee... besides necessary action to evict him from the Government residence" would be moot). The Court's reasoning at L288: "It is necessary that the person is required by the Government or authority to vacate such accommodation..." — and the Court found the notice satisfied this. The Court's conclusion at L343: landlord entitled to benefits of s.14A. The High Court's contrary view was on retirement, not occupation. So TRUE, with a gap noting the judgment does not give a dated finding of physical occupation after retirement; occupation while in office is recorded and the 9 December 1975 notice presupposes continued holding of the Government residence.
+
+Hmm, but "Court outcomes cannot prove themselves" — the holding at L343 is the outcome; but the reasoning (L288, L290, L306) plus recorded facts support the condition. The Court's analysis: "the order served on the landlord on 9th December, 1975 mentions that all Government officials who own houses in Delhi and have also been allotted Government residence are to vacate Government accommodation" (L290) — and the Court treated the notice as the qualifying order for this landlord. The Court's statement of the question at L298: "whether a Government servant who retired before the notice was served on him requiring to quit the Government accommodation is entitled to the benefit of s.14A(1)" — "requiring to quit the Government accommodation" implies he was holding it. I'm comfortable with TRUE.
+
+Evidence items:
+1. COURT_RECORDED_FACT: "While in office the first appellant, B. N. Muttoo, was occupying premises No. C-II/77 Moti Bagh I, New Delhi, allotted to him by the Government; he retired as Inspector General of Police on 30 November 1975." Refs: SRC:208, SRC:116 (L116 headnote "allotted Government accommodation in New Delhi"). SUPPORT, component R1.P2.K1.
+2. COURT_RECORDED_NOTICE: "On 9 December 1975 a notice was served on the first appellant by the Deputy Director (Admn.) stating that the Government, by Office Memorandum No. 12031(1)/74-Pol.II dated 9 September 1975, required all Government officials who own houses in Delhi and New Delhi and have also been allotted Government residence to vacate the Government residence before the stipulated date, failing which penal licence fee at market rate would be charged and action taken to evict him from the Government residence." Refs: SRC:209, SRC:252. SUPPORT. Application: the notice presupposed the landlord was holding the allotted Government residence after retirement and required him to vacate it.
+3. SUPREME_COURT_ADOPTED_LEGAL_APPLICATION: "The Court framed the question as whether a Government servant who retired before the notice requiring him to quit the Government accommodation was served is entitled to s.14A(1), and held that such a landlord is entitled to the benefits of s.14A." Refs: SRC:260, SRC:305. SUPPORT.
+4. CONTEXT: headnote: "The landlord was a Government servant who had been allotted Government accommodation in New Delhi." Refs SRC:77-78 (SRC:77 = L115? wait). Let me recheck: SRC:75 = L113 ("The appellant (landlord) let out his residential accommodation..."), SRC:76 = L114, SRC:77 = L115 ("landlord was a Government servant who had been allotted"), SRC:78 = L116 ("Government accommodation in New Delhi. On 9th December. 1975"). Hmm, the SRC numbering: each SRC:n corresponds to a line. Let me recount:
+
+SRC:39 = L78 (headnote start "Section 14 of the Delhi Rent Control Act, 1958")
+SRC:40 = L79
+SRC:41 = L80
+SRC:42 = L81
+SRC:43 = L82
+SRC:44 = L83
+SRC:45 = L84
+SRC:46 = L85
+SRC:47 = L86
+SRC:48 = L87
+SRC:49 = L88 ("In September, 1975 the Central Government decided that")
+SRC:50 = L89 ("Government servants who owned houses in the Union Territory")
+SRC:51 = L90
+SRC:52 = L91
+SRC:53 = L92
+SRC:54 = L93
+SRC:55 = L94
+SRC:56 = L95 ("Section 14A which was added by the amendment Act")
+SRC:57 = L96
+SRC:58 = L97
+SRC:59 = L98
+SRC:60 = L99
+SRC:61 = L100
+SRC:62 = L101
+SRC:63 = L102
+SRC:64 = L103 ("provides for special procedure")
+SRC:65 = L104
+SRC:66 = L105
+SRC:67 = L106
+SRC:68 = L107
+SRC:69 = L108
+SRC:70 = L109
+SRC:71 = L110
+SRC:72 = L111
+SRC:73 = L112
+SRC:74 = L113 ("The appellant (landlord) let out his residential")
+SRC:75 = L114 ("accommodation in New Delhi to the respondent (tenant). The")
+SRC:76 = L115 ("landlord was a Government servant who had been allotted")
+SRC:77 = L116 ("Government accommodation in New Delhi. On 9th December. 1975")
+SRC:78 = L117 ("the Government issued a notice to the landlord calling upon")
+SRC:79 = L118
+SRC:80 = L119
+SRC:81 = L120 ("November, ]975. On 9th December, 1975 the landlord filed a")
+SRC:82 = L121
+SRC:83 = L122
+SRC:84 = L123
+SRC:85 = L124
+SRC:86 = L125
+SRC:87 = L126
+SRC:88 = L127
+SRC:89 = L128 ("8-978SCI/78")
+SRC:90 = L129 ("410")
+SRC:91 = L130
+SRC:92 = L131
+SRC:93 = L132
+SRC:94 = L133
+SRC:95 = L134
+SRC:96 = L135
+SRC:97 = L136
+SRC:98 = L137
+SRC:99 = L138
+SRC:100 = L139
+SRC:101 = L140
+SRC:102 = L141
+SRC:103 = L142
+SRC:104 = L143
+SRC:105 = L144
+SRC:106 = L145
+SRC:107 = L146
+SRC:108 = L147
+SRC:109 = L148
+SRC:110 = L149
+SRC:111 = L150
+SRC:112 = L151
+SRC:113 = L152
+SRC:114 = L153
+SRC:115 = L154
+SRC:116 = L155
+SRC:117 = L156 ("Allowing the appeal.")
+SRC:118 = L157 ("^")
+SRC:119 = L158
+SRC:120 = L159
+SRC:121 = L160
+SRC:122 = L161
+SRC:123 = L162
+SRC:124 = L163
+SRC:125 = L164
+SRC:126 = L165
+SRC:127 = L166
+SRC:128 = L167
+SRC:129 = L168
+SRC:130 = L169
+SRC:131 = L170
+SRC:132 = L171
+SRC:133 = L172
+SRC:134 = L173
+SRC:135 = L174
+SRC:136 = L175
+SRC:137 = L176
+SRC:138 = L177
+SRC:139 = L178
+SRC:140 = L179
+SRC:141 = L180
+SRC:142 = L181
+SRC:143 = L182
+SRC:144 = L183
+SRC:145 = L184
+SRC:146 = L185
+SRC:147 = L186
+SRC:148 = L187
+SRC:149 = L188
+SRC:150 = L189
+SRC:151 = L190
+SRC:152 = L191
+SRC:153 = L192
+SRC:154 = L193
+SRC:155 = L194
+SRC:156 = L195
+SRC:157 = L196
+SRC:158 = L197
+SRC:159 = L198
+SRC:160 = L199
+SRC:161 = L200
+SRC:162 = L201
+SRC:163 = L202
+SRC:164 = L203
+SRC:165 = L204
+SRC:166 = L205
+SRC:167 = L206
+SRC:168 = L207
+SRC:169 = L208
+SRC:170 = L209
+SRC:171 = L210
+SRC:172 = L211
+SRC:173 = L212
+SRC:174 = L213
+SRC:175 = L214
+SRC:176 = L215
+SRC:177 = L216
+SRC:178 = L217
+SRC:179 = L218
+SRC:180 = L219
+SRC:181 = L220
+SRC:182 = L221
+SRC:183 = L222
+SRC:184 = L223
+SRC:185 = L224
+SRC:186 = L225
+SRC:187 = L226
+SRC:188 = L227
+SRC:189 = L228
+SRC:190 = L229
+SRC:191 = L230
+SRC:195 = L234 (CIVIL APPELLATE JURISDICTION: Civil Appeal No. 2302 of 1977)
+SRC:196 = L235
+SRC:198 = L236 (Appeal by Special Leave from Judgment and Order dated 6th December 1976 of Delhi High Court in Civil Revision No. 247 of 1976)
+SRC:200 = L238 (Rameshwar Nath for Appellant)
+SRC:202 = L240 (G. L. Sanghi... for Respondent)
+SRC:203 = L241 (judgment delivered by KAILASAM J...)
+SRC:205 = L243 ("412")
+SRC:206 = L244 (facts: leased F-9...)
+SRC:207 = L245 (18 July 1974 petition, Suit No. 182 of 1974)
+SRC:208 = L246 (retired 30 Nov 1975; occupying C-II/77 Moti Bagh I; 9 Sept 1975 decision)
+SRC:209 = L247 (9 Dec 1975 notice by Deputy Director (Admn.), O.M. No. 12031(1)/74-Pol.II)
+SRC:210 = L248 (same day filed suit; 16 Jan 1976 leave to defend application; 10 March 1976 RC refused leave and decreed)
+SRC:211 = L249 (revision to High Court; allowed; remanded; appeal)
+SRC:212 = L250 (question)
+SRC:213 = L251 (Act 59 of 1958 came into force 31 Dec 1958...)
+SRC:214 = L252
+SRC:215 = L253
+SRC:217 = L255
+SRC:219 = L257
+SRC:221 = L259
+SRC:223 = L261
+SRC:225 = L263
+SRC:226 = L264 (clause (e) text)
+SRC:227 = L265 (Explanation)
+SRC:228 = L266 (Ordinance No. 24 of 1975; Amendment Act No. 18 of 1976; extended summary procedure)
+SRC:229 = L267 (Amending Act in force 9 Feb 1976, deemed 1 Dec 1975; s.14A conferred right; amended s.14A(1) reads)
+SRC:230 = L268 (text of s.14A(1))
+SRC:231 = L269
+SRC:232 = L270
+SRC:233 = L271
+SRC:234 = L272
+SRC:235 = L273
+SRC:236 = L274
+SRC:237 = L275
+SRC:238 = L276 (introduction of s.14A necessary; 9 Sept 1975 decision; licence fee at market rates)
+SRC:239 = L277
+SRC:240 = L278
+SRC:241 = L279 (notice conveyed 9 Dec 1975; retired 30 Nov 1975; petition filed 9 Dec 1975 after retirement)
+SRC:242 = L280 (contentions 1 and 2)
+SRC:243 = L281 (contention 3)
+SRC:244 = L282 (RC rejected; irrelevant so long as satisfied s.14(1) requirements)
+SRC:245 = L283 (RC: new cause of action)
+SRC:246 = L284 (RC third point)
+SRC:247 = L285 (High Court allowed revision on retirement ground)
+SRC:248 = L286 (important question)
+SRC:249 = L287 (conditions restated)
+SRC:250 = L288 (section does not require Government servant)
+SRC:251 = L289
+SRC:252 = L290 (order served 9 Dec 1975 mentions all Government officials who own houses...)
+SRC:253 = L291 (circular and notice support narrower view though s.14A does not restrict)
+SRC:254 = L292 (High Court conclusions understandable; Nihal Chand observation)
+SRC:255 = L293
+SRC:257 = L295 ("418")
+SRC:258 = L296 (did not decide the issue; landlord entitled notwithstanding retirement w.e.f. 30 Nov 1975)
+SRC:259 = L297 (Nihal Chand facts: notice 30 Sept 1975 before retirement 31 Nov 1975 [sic]; this case notice 9 Dec 1975, retired 30 Nov 1975)
+SRC:260 = L298 (question squarely arises)
+SRC:261 = L299
+SRC:262 = L300 (stated at Bar: accommodation provided to MPs and non-officials)
+SRC:263 = L301
+SRC:264 = L302 (Craies quote)
+SRC:266 = L304 ("419")
+SRC:267 = L305 (plain meaning)
+SRC:268 = L306 (retired Government servants may get special advantage; purpose of legislation)
+SRC:269 = L307 (unable to concur with High Court)
+SRC:270 = L308 (next question; admitted let for residential and professional; s.14(1)(e) requires "let for use as a residence")
+SRC:271 = L309 (held that mixed letting takes case outside s.14(1)(e); Dr. Gopal Dass Verma)
+SRC:272 = L310 (Gopal Dass Verma holding re s.13(1)(e) Delhi & Ajmer Act)
+SRC:273 = L311
+SRC:274 = L312 (facts: substantial part used professionally with consent; outside s.13(1)(e))
+SRC:275 = L313 ("420")
+SRC:276 = L314 (Kartar Singh v. Chaman Lal; rent deed; Labha Mal Arora advocate)
+SRC:277 = L315 (letter; after death 1952; Aug 1957 office)
+SRC:278 = L316 (two rooms office; residence-cum-business; licence plea rejected)
+SRC:279 = L317
+SRC:280 = L318 (no dominant intention test)
+SRC:281 = L319 (not necessary to go into insignificant part question; s.14A words different; contemplates owning residential accommodation)
+SRC:282 = L320 (emphasis on residential accommodation; intended for residential)
+SRC:283 = L321 ("421")
+SRC:284 = L322 (even though let for professional/commercial, not cease residential; common ground DDA scheme residential; only plea)
+SRC:285 = L323 (requirement not in s.14A(1); agree with High Court; Busching Schmitz)
+SRC:286 = L324 (previous application submission fails)
+SRC:287 = L325 (scope of right to contest)
+SRC:288 = L326
+SRC:289 = L327 (under s.14(1)(e) tenant may resist on grounds...)
+SRC:290 = L328 (under s.14A facts disentitling: not person in occupation of allotted premises or no general/special order)
+SRC:291 = L329 ("422")
+SRC:292 = L330
+SRC:293 = L331
+SRC:294 = L332 (scope of 25B(5) restricted)
+SRC:295 = L333 (counsel submission re 14(1)(e) requirements; 25C(1), 25C(2))
+SRC:296 = L334
+SRC:297 = L335 (s.14(6) five years)
+SRC:298 = L336 (s.14(7) six months)
+SRC:299 = L337 (s.25C exception to 14(6))
+SRC:300 = L338 (s.25C(2) two months; contention)
+SRC:301 = L339
+SRC:302 = L340
+SRC:303 = L341
+SRC:304 = L342 (two months elapse; submission fails)
+SRC:305 = L343 (result: landlord who retired before notice entitled; appeal allowed)
+SRC:307 = L345 (P.B.R Appeal allowed)
+SRC:308 = L346 ("424")
+
+OK so the SRC numbering is offset from L numbers. The rule source_refs use "IK-1187427:L268" etc. — those are line refs, but my output refs must be SRC choices from the enum. The enum includes SRC:1 through SRC:308 with some gaps (SRC:2, 4, 7, 10, 12, 15, 17, 24, 31, 32, 36, 37, 38, 193, 194, 197, 199, 201, 204, 216, 218, 220, 222, 224, 256, 265, 283, 291, 306 are missing — these correspond to blank lines). Let me verify: the enum lists: 1,3,5,6,8,9,11,13,14,16,18,19,20,21,22,23,25,26,27,28,29,30,33,34,35,39-92 (39,40,41,...,92? let me check: "SRC:39","SRC:40",...,"SRC:92","SRC:93",... up to "SRC:191", then 195,196,198,200,202,203,205,...,305,307,308). Yes, blanks removed.
+
+So mapping: SRC:n = the n-th non-blank source line. Let me build the mapping carefully using the given source list:
+
+SRC:1 | L39: title
+SRC:3 | L41: citations
+SRC:5 | L43: Author Kailasam
+SRC:6 | L44: Bench
+SRC:8 | L46: PETITIONER:
+SRC:9 | L47: B. N. MUTTO & ANR.
+SRC:11 | L49: Vs.
+SRC:13 | L51: RESPONDENT:
+SRC:14 | L52: T. K. NANDI
+SRC:16 | L54: DATE OF JUDGMENT 29/11/1978
+SRC:18 | L56: BENCH:
+SRC:19 | L57: KAILASAM, P.S.
+SRC:20 | L58: BENCH:
+SRC:21 | L59: KAILASAM, P.S.
+SRC:22 | L60: DESAI, D.A.
+SRC:23 | L61: KOSHAL, A.D.
+SRC:25 | L63: CITATION:
+SRC:26 | L64: 1979 AIR 460, 1979 SCR (2) 409
+SRC:27 | L65: 1979 SCC (1) 361
+SRC:28 | L66: CITATOR INFO
+SRC:29 | L67: D 1982 SC1518
+SRC:30 | L68: D 1984 SC 458
+SRC:33 | L71: ACT:
+SRC:34 | L72: Delhi Rent Control Act, 1958 Ss. 14(1)(e), 14A and
+SRC:35 | L73: 25B(5)-Scope of.
+SRC:39 | L77: HEADNOTE:
+SRC:40 | L78: Section 14 of the Delhi Rent Control Act, 1958
+SRC:41 | L79: prohibits...
+SRC:42 | L80
+SRC:43 | L81
+SRC:44 | L82
+SRC:45 | L83
+SRC:46 | L84
+SRC:47 | L85
+SRC:48 | L86
+SRC:49 | L87
+SRC:50 | L88: In September, 1975 the Central Government decided that
+SRC:51 | L89: Government servants who owned houses in the Union Territory
+SRC:52 | L90: of Delhi should, within three months from 1st October, 1975,
+SRC:53 | L91: vacate Government accommodation let out to them. By the Delhi Rent Control Act
+SRC:54 | L92: (Amendment) Ordinance, 1975 the Act
+SRC:55 | L93: was amended and eventually the Amendment Act, 1976 replaced
+SRC:56 | L94: the Ordinance. By a deeming provision the Act came into
+SRC:57 | L95: force on the date of the Ordinance i.e. 1st December, 1975.
+SRC:58 | L96: Section 14A which was added by the amendment Act
+SRC:59 | L97: provides that a landlord who, being a person in
+SRC:60 | L98: occupation of any residential premises allotted to him by
+SRC:61 | L99: the Central Government is required to vacate such
+SRC:62 | L100: residential accommodation on the ground that he owns in the
+SRC:63 | L101: Union Territory of Delhi a residential accommodation, a
+SRC:64 | L102: right shall accrue to such landlord to recover immediately
+SRC:65 | L103: possession of the premises let out by him. Section 25B
+SRC:66 | L104: provides for special procedure for disposal of application
+SRC:67 | L105: for eviction under s. 14(1)(e) and s. 14A, Section 25B
+SRC:68 | L106: provides that when an application is filed by the landlord
+SRC:69 | L107: under either s. 14(1)(e) or s. 14A, the tenant shall not
+SRC:70 | L108: contest the prayer for eviction unless he files an affidavit
+SRC:71 | L109: and obtains leave from the Controller. Sub-section (5)
+SRC:72 | L110: requires that the affidavit filed by the tenant should
+SRC:73 | L111: disclose such facts as would disentitle the landlord from,
+SRC:74 | L112: obtaining an order for the recovery of possession of the
+SRC:75 | L113: premises on the ground specified in s. 14(1)(e) or s. 14A.
+SRC:76 | L114: The appellant (landlord) let out his residential
+SRC:77 | L115: accommodation in New Delhi to the respondent (tenant). The
+SRC:78 | L116: landlord was a Government servant who had been allotted
+SRC:79 | L117: Government accommodation in New Delhi. On 9th December. 1975
+SRC:80 | L118: the Government issued a notice to the landlord calling upon
+SRC:81 | L119: him to vacate Government accommodation allotted to him. Tn
+SRC:82 | L120: the meantime the landlord retired from service on 30th
+SRC:83 | L121: November, 1975. On 9th December, 1975 the landlord filed a
+SRC:84 | L122: petition for eviction of the tenant from his house. The
+SRC:85 | L123: tenant raised three objections as to the maintainability of
+SRC:86 | L124: the petition: (i) that the landlord could not invoke the
+SRC:87 | L125: provisions of s. 25B(5) because he was not a Government
+SRC:88 | L126: servant on the date of the petition; (ii) that since the
+SRC:89 | L127: ground on
+SRC:90 | L128: 8-978SCI/78
+SRC:91 | L129: 410
+SRC:92 | L130: which eviction was sought in the petition was the same which
+SRC:93 | L131: had already been filed by the landlord and was pending
+SRC:94 | L132: before the Rent Controller, the petition could not be
+SRC:95 | L133: entertained, and (iii) that the premises occupied by him
+SRC:96 | L134: were let out for residential or professional purposes and
+SRC:97 | L135: therefore the landlord was not entitled to ask for eviction
+SRC:98 | L136: as the premises were not let for residential purposes alone.
+SRC:99 | L137: The Rent Controller rejected all the contentions and
+SRC:100 | L138: refused leave to the tenant to defend the landlord's
+SRC:101 | L139: eviction petition. He held that (i) the question whether the
+SRC:102 | L140: landlord was a Government servant or not on the date when
+SRC:103 | L141: the notice was received and on the date when he filed a
+SRC:104 | L142: petition was irrelevant so long as he satisfied the
+SRC:105 | L143: requirements laid down in s. 14(1),
+SRC:106 | L144: (ii) the ground for
+SRC:107 | L145: eviction under s. 14A was a new cause of action and
+SRC:108 | L146: different from the one raised in the previous petition and,
+SRC:109 | L147: therefore the petition was not barred,
+SRC:110 | L148: (iii) it was not
+SRC:111 | L149: necessary for an application under s. 14(1) that the
+SRC:112 | L150: building should have been let for residential purposes as
+SRC:113 | L151: required under s. 14(1)(e), it is sufficient if the
+SRC:114 | L152: landlord required the premises for residential accommodation.
+SRC:115 | L153: Allowing the tenant's revision, the High Court held
+SRC:116 | L154: that since the landlord had retired from service On 30th
+SRC:117 | L155: November, 1975 before the Ordinance came into force, the
+SRC:118 | L156: tenant was not liable to vacate the premises independently
+SRC:119 | L157: of his ownership in the Premises in dispute.
+SRC:120 | L158: Allowing the appeal.
+SRC:121 | L159: ^
+SRC:122 | L160: HELD: 1 (a) Section 14A does not require that the
+SRC:123 | L161: person who was in occupation of the premises allotted by
+SRC:124 | L162: the Government should be a Government servant. The policy
+SRC:125 | L163: decision of 9th September. 1975 related only to Government
+SRC:126 | L164: servants who were in occupation of premises allotted to them
+SRC:127 | L165: by the Government. But later the Government seemed to have
+SRC:128 | L166: realised that some provision should be made to get
+SRC:129 | L167: possession of the premises let to persons other than
+SRC:130 | L168: Government servants and who owned their own houses in Delhi
+SRC:131 | L169: and whose premises had been let out to tenants. Although the
+SRC:132 | L170: circular dated 9th September, 1975 as well as the notice
+SRC:133 | L171: served by the Government on the landlord support the view
+SRC:134 | L172: that the intention of the Government was to enable only
+SRC:135 | L173: those Government servants who were in occupation of
+SRC:136 | L174: Government accommodation and who owned houses to get
+SRC:137 | L175: immediate possession
+SRC:138 | L176: . s. 14A does not restrict the right to recover immediate
+SRC:139 | L177: possession to Government servants alone. Therefore, taking
+SRC:140 | L178: into account the object of the Act, the meaning of the word
+SRC:141 | L179: "person" cannot be confined to Government servants because
+SRC:142 | L180: Government accommodation was provided not only to Government
+SRC:143 | L181: servants but to others as well. [417C-F]
+SRC:144 | L182: Nihal Chand v. Kalyan Chand lain. [1978] 2 SCR 183
+SRC:145 | L183: at p. 190, referred to.
+SRC:146 | L184: (b) It is not necessary in a petition for eviction
+SRC:147 | L185: under s. 14A to specify that the premises were let for
+SRC:148 | L186: residential purpose only. The words used in s. 14A are
+SRC:149 | L187: clearly different. This section contemplates the owning by
+SRC:150 | L188: the landlord in Delhi of a residential accommodation. If he
+SRC:151 | L189: owns a residential accommodation he had the right to recover
+SRC:152 | L190: immediately possession of any premises let out by him. If
+SRC:153 | L191: the premises were one intended for residential accommodation
+SRC:154 | L192: it would not make any difference if the premises were let
+SRC:155 | L193: for residential as well as
+SRC:156 | L194: 411
+SRC:157 | L195: as other purposes. Even if the residential accommodation was
+SRC:158 | L196: let for professional or commercial purposes, the premises
+SRC:159 | L197: would not cease to be for residential accommodation.
+SRC:160 | L198: Moreover the requirement in s. 14(1)(e) that to enable the
+SRC:161 | L199: landlord to recover possession the premises ought to have
+SRC:162 | L200: been let for residential purposes is not found in s. 14A(1).
+SRC:163 | L200? 
+
+Hmm wait, I need to recount. Let me carefully recount from the source list given. The source list has explicit SRC numbers with L numbers:
+
+SRC:1 | IK-1187427:L39
+SRC:2 | L40 (blank)
+SRC:3 | L41
+SRC:4 | L42 (blank)
+SRC:5 | L43
+SRC:6 | L44
+SRC:7 | L45 (blank)
+SRC:8 | L46
+SRC:9 | L47
+SRC:10 | L48 (blank)
+SRC:11 | L49
+SRC:12 | L50 (blank)
+SRC:13 | L51
+SRC:14 | L52
+SRC:15 | L53 (blank)
+SRC:16 | L54
+SRC:17 | L55 (blank)
+SRC:18 | L56
+SRC:19 | L57
+SRC:20 | L58
+SRC:21 | L59
+SRC:22 | L60
+SRC:23 | L61
+SRC:24 | L62 (blank)
+SRC:25 | L63
+SRC:26 | L64
+SRC:27 | L65
+SRC:28 | L66
+SRC:29 | L67
+SRC:30 | L68
+SRC:31 | L69 (blank)
+SRC:32 | L70 (blank)
+SRC:33 | L71
+SRC:34 | L72
+SRC:35 | L73
+SRC:36 | L74 (blank)
+SRC:37 | L75 (blank)
+SRC:38 | L76 (blank)
+SRC:39 | L77
+SRC:40 | L78
+SRC:41 | L79
+SRC:42 | L80
+SRC:43 | L81
+SRC:44 | L82
+SRC:45 | L83
+SRC:46 | L84
+SRC:47 | L85
+SRC:48 | L86
+SRC:49 | L87
+SRC:50 | L88
+SRC:51 | L89
+SRC:52 | L90
+SRC:53 | L91
+SRC:54 | L92
+SRC:55 | L93
+SRC:56 | L94
+SRC:57 | L95
+SRC:58 | L96
+SRC:59 | L97
+SRC:60 | L98
+SRC:61 | L99
+SRC:62 | L100
+SRC:63 | L101
+SRC:64 | L102
+SRC:65 | L103
+SRC:66 | L104
+SRC:67 | L105
+SRC:68 | L106
+SRC:69 | L107
+SRC:70 | L108
+SRC:71 | L109
+SRC:72 | L110
+SRC:73 | L111
+SRC:74 | L112
+SRC:75 | L113
+SRC:76 | L114
+SRC:77 | L115
+SRC:78 | L116
+SRC:79 | L117
+SRC:80 | L118
+SRC:81 | L119
+SRC:82 | L120
+SRC:83 | L121
+SRC:84 | L122
+SRC:85 | L123
+SRC:86 | L124
+SRC:87 | L125
+SRC:88 | L126
+SRC:89 | L127
+SRC:90 | L128
+SRC:91 | L129
+SRC:92 | L130
+SRC:93 | L131
+SRC:94 | L132
+SRC:95 | L133
+SRC:96 | L134
+SRC:97 | L135
+SRC:98 | L136
+SRC:99 | L137
+SRC:100 | L138
+SRC:101 | L139
+SRC:102 | L140
+SRC:103 | L141
+SRC:104 | L142
+SRC:105 | L143
+SRC:106 | L144
+SRC:107 | L145
+SRC:108 | L146
+SRC:109 | L147
+SRC:110 | L148
+SRC:111 | L149
+SRC:112 | L150
+SRC:113 | L151
+SRC:114 | L152
+SRC:115 | L153
+SRC:116 | L154
+SRC:117 | L155
+SRC:118 | L156
+SRC:119 | L157
+SRC:120 | L158
+SRC:121 | L159
+SRC:122 | L160
+SRC:123 | L161
+SRC:124 | L162
+SRC:125 | L163
+SRC:126 | L164
+SRC:127 | L165
+SRC:128 | L166
+SRC:129 | L167
+SRC:130 | L168
+SRC:131 | L169
+SRC:132 | L170
+SRC:133 | L171
+SRC:134 | L172
+SRC:135 | L173
+SRC:136 | L174
+SRC:137 | L175
+SRC:138 | L176
+SRC:139 | L177
+SRC:140 | L178
+SRC:141 | L179
+SRC:142 | L180
+SRC:143 | L181
+SRC:144 | L182
+SRC:145 | L183
+SRC:146 | L184
+SRC:147 | L185
+SRC:148 | L186
+SRC:149 | L187
+SRC:150 | L188
+SRC:151 | L189
+SRC:152 | L190
+SRC:153 | L191
+SRC:154 | L192
+SRC:155 | L193
+SRC:156 | L194
+SRC:157 | L195
+SRC:158 | L196
+SRC:159 | L197
+SRC:160 | L198
+SRC:161 | L199
+SRC:162 | L200
+SRC:163 | L201
+SRC:164 | L202
+SRC:165 | L203
+SRC:166 | L204
+SRC:167 | L205
+SRC:168 | L206
+SRC:169 | L207
+SRC:170 | L208
+SRC:171 | L209
+SRC:172 | L210
+SRC:173 | L211
+SRC:174 | L212
+SRC:175 | L213
+SRC:176 | L214
+SRC:177 | L215
+SRC:178 | L216
+SRC:179 | L217
+SRC:180 | L218
+SRC:181 | L219
+SRC:182 | L220
+SRC:183 | L221
+SRC:184 | L222
+SRC:185 | L223
+SRC:186 | L224
+SRC:187 | L225
+SRC:188 | L226
+SRC:189 | L227
+SRC:190 | L228
+SRC:191 | L229
+SRC:192 | L230 (blank)
+SRC:193 | L231 (blank)
+SRC:194 | L232 (blank)
+SRC:195 | L233
+SRC:196 | L234
+SRC:197 | L235 (blank)
+SRC:198 | L236
+SRC:199 | L237 (blank)
+SRC:200 | L238
+SRC:201 | L239 (blank)
+SRC:202 | L240
+SRC:203 | L241
+SRC:204 | L242 (blank)
+SRC:205 | L243
+SRC:206 | L244
+SRC:207 | L245
+SRC:208 | L246
+SRC:209 | L247
+SRC:210 | L248
+SRC:211 | L249
+SRC:212 | L250
+SRC:213 | L251
+SRC:214 | L252
+SRC:215 | L253
+SRC:216 | L254 (blank)
+SRC:217 | L255
+SRC:218 | L256 (blank)
+SRC:219 | L257
+SRC:220 | L258 (blank)
+SRC:221 | L259
+SRC:222 | L260 (blank)
+SRC:223 | L261
+SRC:224 | L262 (blank)
+SRC:225 | L263
+SRC:226 | L264
+SRC:227 | L265
+SRC:228 | L266
+SRC:229 | L267
+SRC:230 | L268
+SRC:231 | L269
+SRC:232 | L270
+SRC:233 | L271
+SRC:234 | L272
+SRC:235 | L273
+SRC:236 | L274
+SRC:237 | L275
+SRC:238 | L276
+SRC:239 | L277
+SRC:240 | L278
+SRC:241 | L279
+SRC:242 | L280
+SRC:243 | L281
+SRC:244 | L282
+SRC:245 | L283
+SRC:246 | L284
+SRC:247 | L285
+SRC:248 | L286
+SRC:249 | L287
+SRC:250 | L288
+SRC:251 | L289
+SRC:252 | L290
+SRC:253 | L291
+SRC:254 | L292
+SRC:255 | L293
+SRC:256 | L294 (blank)
+SRC:257 | L295
+SRC:258 | L296
+SRC:259 | L297
+SRC:260 | L298
+SRC:261 | L299
+SRC:262 | L300
+SRC:263 | L301
+SRC:264 | L302
+SRC:265 | L303 (blank)
+SRC:266 | L304
+SRC:267 | L305
+SRC:268 | L306
+SRC:269 | L307
+SRC:270 | L308
+SRC:271 | L309
+SRC:272 | L310
+SRC:273 | L311
+SRC:274 | L312
+SRC:275 | L313
+SRC:276 | L314
+SRC:277 | L315
+SRC:278 | L316
+SRC:279 | L317
+SRC:280 | L318
+SRC:281 | L319
+SRC:282 | L320
+SRC:283 | L321
+SRC:284 | L322
+SRC:285 | L323
+SRC:286 | L324
+SRC:287 | L325
+SRC:288 | L326
+SRC:289 | L327
+SRC:290 | L328
+SRC:291 | L329
+SRC:292 | L330
+SRC:293 | L331
+SRC:294 | L332
+SRC:295 | L333
+SRC:296 | L334
+SRC:297 | L335
+SRC:298 | L336
+SRC:299 | L337
+SRC:300 | L338
+SRC:301 | L339
+SRC:302 | L340
+SRC:303 | L341
+SRC:304 | L342
+SRC:305 | L343
+SRC:306 | L344 (blank)
+SRC:307 | L345
+SRC:308 | L346
+
+Great, this matches the enum (missing: 2,4,7,10,12,15,17,24,31,32,36,37,38,192,193,194,197,199,201,204,216,218,220,222,224,256,265,283,291,306). Check enum: it has SRC:1,3,5,6,8,9,11,13,14,16,18,19,20,21,22,23,25,26,27,28,29,30,33,34,35,39,...,191,195,196,198,200,202,203,205,...,305,307,308. Yes matches.
+
+So now the SRC→content mapping (using the given list):
+
+- SRC:39 = L77 "HEADNOTE:"
+- SRC:40 = L78 "Section 14 of the Delhi Rent Control Act, 1958"
+- SRC:41 = L79 "prohibits a court from making any order or decree..."
+- SRC:42 = L80 "of a landlord for recovery of possession of any premises"
+- SRC:43 = L81 "except under certain circumstances. One of the grounds on"
+- SRC:44 = L82 "which the landlord can make an application to the Rent"
+- SRC:45 = L83 "Controller for recovery of possession is provided in s."
+- SRC:46 = L84 "14(1)(e) of the Act is that the premises let for residential"
+- SRC:47 = L85 "purposes are required bonafide by the landlord for"
+- SRC:48 = L86 "occupation a a residence for himself and that the landlord"
+- SRC:49 = L87 "has no other reasonably suitable residential accommodation."
+- SRC:50 = L88 "In September, 1975 the Central Government decided that"
+- SRC:51 = L89 "Government servants who owned houses in the Union Territory"
+- SRC:52 = L90 "of Delhi should, within three months from 1st October, 1975,"
+- SRC:53 = L91 "vacate Government accommodation let out to them. By the Delhi Rent Control Act"
+- SRC:54 = L92 "(Amendment) Ordinance, 1975 the Act"
+- SRC:55 = L93 "was amended and eventually the Amendment Act, 1976 replaced"
+- SRC:56 = L94 "the Ordinance. By a deeming provision the Act came into"
+- SRC:57 = L95 "force on the date of the Ordinance i.e. 1st December, 1975."
+- SRC:58 = L96 "Section 14A which was added by the amendment Act"
+- SRC:59 = L97 "provides that a, landlord who, being a person in"
+- SRC:60 = L98 "occupation of any residential premises allotted to him by"
+- SRC:61 = L99 "the Central Government is required to vacate such"
+- SRC:62 = L100 "residential accommodation on the ground that he owns in the"
+- SRC:63 = L101 "Union Territory of Delhi a residential accommodation, a"
+- SRC:64 = L102 "right shall accrue to such landlord to recover immediately"
+- SRC:65 = L103 "possession of the premises let out by him. Section 25B"
+- SRC:66 = L104 "provides for special procedure for disposal of application"
+- SRC:67 = L105 "for eviction under s. 14(1)(e) and s. 14A, Section 25B"
+- SRC:68 = L106 "provides that when an application is filed by the landlord"
+- SRC:69 = L107 "under either s. 14(1)(e) or s. 14A, the tenant shall not"
+- SRC:70 = L108 "contest the prayer for eviction unless he files an affidavit"
+- SRC:71 = L109 "and obtains leave from the Controller. Sub-section (5)"
+- SRC:72 = L110 "requires that the affidavit filed by the tenant should"
+- SRC:73 = L111 "disclose such facts as would disentitle the landlord from,"
+- SRC:74 = L112 "obtaining, an order for the recovery of possession of the"
+- SRC:75 = L113 "premises on the ground specified in s. 14 (1)(e) or s. 14A."
+- SRC:76 = L114 "The appellant (landlord) let out his residential"
+- SRC:77 = L115 "accommodation in New Delhi to the respondent (tenant). The"
+- SRC:78 = L116 "landlord was a Government servant who had been allotted"
+- SRC:79 = L117 "Government accommodation in New Delhi. On 9th December. 1975"
+- SRC:80 = L118 "the Government issued a notice to the landlord calling upon"
+- SRC:81 = L119 "him to vacate Government accommodation allotted to him. Tn"
+- SRC:82 = L120 "the meantime the landlord retired from service on 30th"
+- SRC:83 = L121 "November, ]975. On 9th December, 1975 the landlord filed a"
+- SRC:84 = L122 "petition for eviction of the tenant from his house. The"
+- SRC:85 = L123 "tenant raised three objections as to the maintainability of"
+- SRC:86 = L124 "the petition: (i) that the landlord could not invoke the"
+- SRC:87 = L125 "provisions of s. 25B(5) because he was not a Government"
+- SRC:88 = L126 "servant on the date of the petition; (ii) that since the"
+- SRC:89 = L127 "ground on"
+- SRC:90 = L128 "8-978SCI/78"
+- SRC:91 = L129 "410"
+- SRC:92 = L130 "which eviction was sought in the petition was the same which"
+- SRC:93 = L131 "had already been filed by the landlord and was pending"
+- SRC:94 = L132 "before the Rent Controller, the petition could not be"
+- SRC:95 = L133 "entertained, and (iii) that the premises occupied by him"
+- SRC:96 = L134 "were let out for residential or professional purposes and"
+- SRC:97 = L135 "therefore the landlord was not entitled to ask for eviction"
+- SRC:98 = L136 "as the premises were not let for residential purposes alone."
+- SRC:99 = L137 "The Rent Controller rejected all the contentions and"
+- SRC:100 = L138 "refused leave to the tenant to defend the landlord's"
+- SRC:101 = L139 "eviction petition. He held that (i) the question whether the"
+- SRC:102 = L140 "landlord was a Government servant or not on the date when"
+- SRC:103 = L141 "the notice was received and on the date when he filed a"
+- SRC:104 = L142 "petition was irrelevant so long as he satisfied the"
+- SRC:105 = L143 "requirements laid down in s. 14(1), (ii) the ground for"
+- SRC:106 = L144 "eviction under s. 14A was a new cause of action and"
+- SRC:107 = L145 "different from the one raised in the previous petition and,"
+- SRC:108 = L148 "therefore the petition was not barred, (iii) it was not"
+- SRC:109 = L149 "necessary for an application under s. 14(1) that the"
+- SRC:110 = L150 "building should have been let for residential purposes as"
+- SRC:111 = L151 "required under s. 14(1) (e), it is sufficient if the"
+- SRC:112 = L152 "landlord required the premises for residential accommodation"
+- SRC:113 = L153 "Allowing the tenant's revision, the High Court held"
+- SRC:114 = L154 "that since the landlord had retired from service On 30th"
+- SRC:115 = L155 "November, 1975 before the Ordinance came into force, the"
+- SRC:116 = L156 "tenant was not liable to vacate the premises independently"
+- SRC:117 = L157 "of his ownership in the Premises in dispute."
+- SRC:118 = L158 "Allowing the appeal."
+- SRC:119 = L159 "^"
+- SRC:120 = L160 "HELD: 1 (a) Section 14A does not require that the"
+- SRC:121 = L161 "person who was in, occupation of the premises allotted by"
+- SRC:122 = L162 "the Government should be a Government servant. The policy"
+- SRC:123 = L163 "decision of 9th September. 1975 related only to Government"
+- SRC:124 = L164 "servants who were in occupation of premises allotted to them"
+- SRC:125 = L165 "by the Government. But later the Government seemed to have"
+- SRC:126 = L166 "realised that some provision should be made to get"
+- SRC:127 = L167 "possession of the premises let to persons other than"
+- SRC:128 = L168 "Government servants and who owned their own houses in Delhi"
+- SRC:129 = L169 "and whose premises had been let out to tenants. Although the"
+- SRC:130 = L170 "circular dated 9th September, 1975 as well as the notice"
+- SRC:131 = L171 "served by the Government on the landlord support the view"
+- SRC:132 = L172 "that the intention of the Government was to enable only"
+- SRC:133 = L173 "those Government servants who were in occupation of"
+- SRC:134 = L174 "Government accommodation and who owned houses to get"
+- SRC:135 = L175 "immediate possession"
+- SRC:136 = L176 ". s. 14A does not restrict the right to recover immediate"
+- SRC:137 = L177 "possession to Government servants alone. Therefore, taking"
+- SRC:138 = L178 "into account the object of the Act, the meaning of the word"
+- SRC:139 = L179 "\"person\" cannot be confined to Government servants because"
+- SRC:140 = L180 "Government accommodation was provided not only to Government"
+- SRC:141 = L181 "servants but to others as well. [417C-F]"
+- SRC:142 = L182 "Nihal Chand v. Kalyan Chand lain. [1978] 2 SCR 183"
+- SRC:143 = L183 "at p. 190, referred to."
+- SRC:144 = L184 "(b) It is not necessary in a petition for eviction"
+- SRC:145 = L185 "under s. 14A to specify that the premises were let for"
+- SRC:146 = L186 "residential purpose only. The words used in s. 14A are"
+- SRC:147 = L187 "clearly different. This section contemplates the owning by"
+- SRC:148 = L188 "the landlord in Delhi of a residential accommodation. If he"
+- SRC:149 = L189 "owns a residential accommodation he had the right to recover"
+- SRC:150 = L190 "immediately possession of any premises let out by him. If"
+- SRC:151 = L191 "the premises were one intended for residential accommodation"
+- SRC:152 = L192 "it would not make any difference if the premises were let"
+- SRC:153 = L193 "for residential as well"
+- SRC:154 = L194 "411"
+- SRC:155 = L195 "as other purposes. Evendif the residential accommodation was"
+- SRC:156 = L196 "let for professional or commercial purposes, the premises"
+- SRC:157 = L197 "would not cease to be for residential accommodation."
+- SRC:158 = L198 "Moreover the requirement in s. 14(1)(e) that to enable the"
+- SRC:159 = L199 "landlord to recover possession the premises ought to have"
+- SRC:160 = L200 "been let for residential purposes is not found in s. 14A(1)."
+- SRC:161 = L201 "[421A-C]"
+- SRC:162 = L202 "Busching Schmitz Private Ltd. v. P. T. Mengham &"
+- SRC:163 = L203 "Anr. [1977] 3 SCR 312, referred to."
+- SRC:164 = L204 "2. The submission that as a previous application for"
+- SRC:165 = L205 "possession by the land lord was pending, a petition under s. 14A would not be permissible has no force because the"
+- SRC:166 = L206 "grounds on which the application for possession was filed"
+- SRC:167 = L207 "under s. 14A(1) Are different and ale based on special"
+- SRC:168 = L208 "rights conferred on the class of persons who occupied"
+- SRC:169 = L209 "Government accommodation. [421D]"
+- SRC:170 = L210 "(a) The scope of s. 25B is very restricted, for leave"
+- SRC:171 = L211 "to contest can only be given if the facts are such as would"
+- SRC:172 = L212 "disentitle the landlord from obtaining an order for recovery"
+- SRC:173 = L213 "of possession on the ground specified in s. 14A. Leave to"
+- SRC:174 = L214 "contest an application under s. 14A(1) cannot be said to be"
+- SRC:175 = L215 "analogous to the provisions of grant of leave to defend"
+- SRC:176 = L216 "envisaged in the C.P.C. [422C & A]"
+- SRC:177 = L217 "(b) The provisions of s. 25B and s. 25C are applicable"
+- SRC:178 = L218 "to both applications under s. 14(1)(e) and under s 14A. By"
+- SRC:179 = L219 "the introduction of s. 25C the condition imposed in s. 14(6)"
+- SRC:180 = L220 "is varied. The condition imposed under s. 14(6) is made not"
+- SRC:181 = L221 "applicable to persons who satisfy the requirements under s. 14A meaning thereby that this restriction will be applicable"
+- SRC:182 = L222 "only to an application under s. 14(1)(e). Section 25C(2)"
+- SRC:183 = L223 "makes it clear that not only in the case of an application"
+- SRC:184 = L224 "under s. 14(1)(e) but also under s. 14A the term of six"
+- SRC:185 = L225 "months prescribed in s. 14(7) is reduced to two months. By"
+- SRC:186 = L226 "prescribing a specific period of two months under s. 25C(2)"
+- SRC:187 = L227 "it is made clear that even an applicant under s. 14A would"
+- SRC:188 = L228 "have to satisfy the conditions laid down by s. 25C, that is,"
+- SRC:189 = L229 "period of two months should elapse before the landlord is'"
+- SRC:190 = L230 "entitled to obtain possession from the date of an order for"
+- SRC:191 = L231 "recovery of possession. [423D-G]"
+- SRC:195 = L233 "JUDGMENT:"
+- SRC:196 = L234 "CIVIL APPELLATE JURISDICTION: Civil Appeal No. 2302 of 1977."
+- SRC:198 = L236 "Appeal by Special Leave from the Judgment and Order dated 6th December. 1976 of the Delhi High Court in Civil Revision No.247 of 1976."
+- SRC:200 = L238 "Rameshwar Nath, for the Appellant."
+- SRC:202 = L240 "G. L. Sanghi. S. S. Ray, S. R. Agarwal, Praveen Kumar and B. Mohan for the Respondent."
+- SRC:203 = L241 "The judgment of the Court was delivered by KAILASAM. J.-This appeal is by special leave by the landlord against; the judgment of the High Court of Delhi whereby it allowed a revision of the respondent-tenant and set aside the order of eviction passed by the Rent Controller, Delhi, rejecting the application of the respondent seeking permission to contest the proceedings for eviction filed by tile appellants under section 14(A)(1) of the Delhi Rent Control Act."
+- SRC:205 = L243 "412"
+- SRC:206 = L244 "The appellant, Shri B. N. Muttoo, Inspector General of Police, Leased the property No. F-9, East of Kailash, New Delhi, to the respondent from 15th September, 1972 at a monthly rent o.` Rs. 2,200/- exclusive of electricity and water charges. The lease was for the use of the premises for residential and/or professional purposes only and not for commercial purposes. The lease agreement was renewed from time to time and the respondent became a monthly tenant under the Delhi Rent Control Act, 1958."
+- SRC:207 = L245 "On 18th July, 1974 the landlord filed a petition for eviction of the respondent on the grounds OF mis user, subletting and bona fide requirement. The petition was registered as Suit No. 182 of 1974 and is still pending."
+- SRC:208 = L246 "The first appellant, B. N. Muttoo, retired as Inspector General of Police on 30th November, 1975. While in office he was occupying premises bearing No. C-II/ 77 Moti Bagh I, New Delhi, allotted to him by the Government. On 9th September, 1975 the Government took a decision that Government servants who own houses in the locality should vacate the Government accommodation allotted to them within 3 months from 1st October, 1975."
+- SRC:209 = L247 "On 9th December, 1975 a notice was served on the first appellant by the Deputy Director (Admn.) stating that the Government by its Office Memorandum No. 12031(1)/ 74-Pol.II dated 9th September 1975 required all Government officials who, own houses in Delhi and New Delhi and have also been allotted Government residence to vacate the Government residence before the stipulated date failing which penal rate of licence of market rate shall be charged besides necessary action to evict him from the Government residence."
+- SRC:210 = L248 "On the same day the appellant filed the present Suit for eviction of the respondent. On 16th January, 1976 the respondent applied 'or leave to defend. On 10th March, 1976 the Rent Controller refused leave and decreed the suit filed by the landlord."
+- SRC:211 = L249 "A revision petition was filed by the respondent before the High Court which allowed the revision and set aside the order of the Rent Controller and remanded the proceedings to the Rent Controller for disposal according to law. Against the order of the High Court allowing the revision by the respondent the present appeal has been preferred to this Court by the landlord."
+- SRC:212 = L250 "The question that arises in this appeal is whether the Rent Controller was right in refusing leave to the respondent to defend the eviction petition filed by the landlord."
+- SRC:213 = L251 "In order to appreciate the point... Delhi Rent Control Act (Act 59 of 1958) came into force on 31st December, 1958. By Chapter III the right of the landlord to evict the tenant was restricted. Section 14 prohibited any order or decree..."
+- SRC:214 = L252 "The landlord was required to make an application to the Controller for recovery of the possession on one of the grounds mentioned in sub-clauses (a) to (l) in section 14(1). The provisions of section 14(1)(e) which are relevant may be referred to:-"
+- SRC:215 = L253 "14. (1) Notwithstanding anything..."
+- SRC:217 = L255 "Provided that the Controller may..."
+- SRC:219 = L257 "(a) X X X"
+- SRC:221 = L259 "(b) X X X"
+- SRC:223 = L261 "(c) X X X"
+- SRC:225 = L263 "(d) X X X"
+- SRC:226 = L264 "(e) that the premises let for residential purposes are required bona fide by the landlord for occupation as a residence For himself or for any member of his family dependent on him, if he is the owner thereof, or for any person for whose benefit the premises are held and that the landlord or such person has no other reasonably suitable residential accommodation:"
+- SRC:227 = L265 "Explanation... 'premises let for residential purposes' include any premises which having been let for use as a residence are, without the consent of the landlord, used incidentally for commercial or other purposes;"
+- SRC:228 = L266 "By the Delhi Rent Control Act (Amendment) Ordinance (No. 24 of 1975), 1975 the Delhi Rent Control Act was amended. the Ordinance was eventually replaced by the Delhi Rent Control (Amendment) Act No. 18 of 1976. The Amending Act continued the provisions of the Ordinance but extended the summary procedure which was applicable to section 14(1)(e) to evictions on the ground set out in section 14A of the Act."
+- SRC:229 = L267 "The Amending Act came into force on February 9, 1976 but by virtue of sub-section (2) of section 1 it was deemed to have come into force on 1st December, 1975 i.e. On the date on which the Ordinance came into force. Section 14A conferred a right to recover immediate possession of premises to certain persons. The amended section 14A(1) reads:"
+- SRC:230 = L268 "(1) Where a landlord who, being a person in occupation of any residential premises allotted to him by the Central Government or any local authority is required, by, or in pursuance of, any general or special order made by that Government or authority, to vacate such residential accommodation, or in default, to incur certain obligations, on the ground that he owns, in the Union territory of Delhi a residential accommodation either in his own name or in the name of his wife or dependent child, there shall accrue, on and from the date of such order, to such landlord, ... a right to recover immediately possession of any premises let out by him:"
+- SRC:231 = L269 "This section confers on a landlord who owns a residential accommodation."
+- SRC:232 = L270 "in his own name or in the name of his wife or dependent child in the Union territory of Delhi and was in occupation of any residential premises allotted to him by the Central Government or any local authority and is required by any general or special order made by the Government or the authority to vacate such residential accommodation or in default to incur certain obligations on the ground that he owns a residential accommodation in Delhi either in his own name or in the name of his wife or dependent child, a right shall accrue to such landlord to recover immediate possession of any premises let out by him."
+- SRC:233 = L271 "Apart from conferring rights under section 14A a summary procedure for trial of applications made under section 14(1)(e) and section 14A is provided under sections 25A, 25B and 25C..."
+- SRC:234 = L272 "The special procedure for disposal of application for eviction under section 14(1)(e) and section 14A is prescribed by section 25B..."
+- SRC:235 = L273 "Sub-section (4) to section 25B restricts the right of the tenant to defend..."
+- SRC:236 = L274 "In default of his appearance... deemed to be admitted..."
+- SRC:237 = L275 "It requires that the affidavit filed by the tenant should disclose such facts as would disentitle the landlord..."
+- SRC:238 = L276 "The introduction of section 14A became necessary as the Government took a decision on 9th September, 1975 that the Government servants who own houses in the Union territory of Delhi shall be required to vacate Government accommodation allotted to them within 3 months from 1st October, 1975. If they fail to vacate the accommodation they were to be charged licence fee at market rates."
+- SRC:239 = L277 "The Government servants who were owing houses in the Union territory of Delhi could not get possession of their residential accommodation. It became necessary to confer on them the right to recover immediate possession of their premises and also to prescribe an expeditions procedure..."
+- SRC:240 = L278 "According to the procedure specified in section 25B it was made incumbent on the tenant to apply for and obtain leave to contest the application for eviction Coming to the facts of the case the Government took the decision to require the Government officers who have been allotted premises by the Government and who own their own houses in the area specified to vacate the premises allotted by the Government within 3 months from 1st October, 1975."
+- SRC:241 = L279 "Notice of such intention was conveyed to be landlord on 9th December, 1975. In the meantime on 30th November, 197'; the officer retired from service. Thus on the date 11 on which notice was served on him he had already retired. The petition for eviction was also filed on 9th December, 1975 after the officer retired."
+- SRC:242 = L280 "The main contentions raised by the tenant in the petition for leave to contest were;(1) the landlord cannot invoke the provisions of section 25B(5) as he was not a Government servant on the date of the petition; (2) the landlord had already filed a petition for eviction which was registered as O.S. No. 182 of 1974 and was pending before the Additional Rent Controller."
+- SRC:243 = L281 "As the eviction is sought on the same ground in the present petition it was submitted that this petition could not be entertained; (3) the premises which the respondent is occupying were let for the purpose of residential or professional purposes and therefore the landlord is not entitled to ask for eviction as the premises are not let for residential purposes."
+- SRC:244 = L282 "The Rent Controller rejected all the contentions put forward by the respondent. He held that the question as to whether the landlord was a Government servant or not on the date when the notice was received and on the date when he filed the petition is irrelevant so long as he satisfied the requirements laid down in section 14(1) of the Act."
+- SRC:245 = L283 "on the second contention the Rent Controller found that the ground for eviction under section 14A is a new cause of action and different from the one that was raised in the previous petitions and hence the present petition is not barred."
+- SRC:246 = L284 "On the third point the Rent Controller found that it is not necessary for an application under section 14(1) that the building should have been let for residential purposes as required under section 14(1)(e) and it is sufficient if the landlord requires the premises for residential accommodation. The Rent Controller held that the grounds on which leave to resist an application can be granted are those that are specified in section 25B(5) alone."
+- SRC:247 = L285 "On appeal the High Court allowed the revision by the tenant mainly on the ground that the application for eviction must fail on account of the admitted fact that the landlord had retired from service on 30th November, 1975 before the Ordinance came into force and was on that account liable to vacate the premises independently of his owner ship of the premises in dispute."
+- SRC:248 = L286 "The important question that arises for consideration is whether the landlord who retired from service on 30th November, 1975 before the Ordinance came into force could avail himself of the provisions of section 14A(1). A reading of section 14A discloses that a right to recover immediate possession of premises accrues to certain persons if the requisite conditions are satisfied."
+- SRC:249 = L287 "The conditions are: (1) the landlord must be in occupation of any residential premises allotted to him by the Central Government or any local authority; (2) such landlord is required by a general or special order made by the Government or authority to vacate such residential accommodation or in default to incur certain obligations on the ground that he owns in the Union territory of Delhi a residential accommodation either in his on name or in the name of his wife or dependent child If the aforesaid conditions are satisfied a right shall accrue to such a landlord on and from the date of such order to recover immediate possession of any premises let out by him."
+- SRC:250 = L288 "It may be noted that the section does not require that the person who is in occupation of the premises allotted by the Government should be a Government servant. It is necessary that the person is required by the Government or authority to vacate such accommodation imposing certain consequences in the event of his not vacating. The policy decision taken by the Government on 9th September, 1975 only related to Government servants who were in occupation of premises allotted to them by the Government."
+- SRC:251 = L289 "If the Government servant had another house in the locality he was to vacate within 3 months from the 1st October, 1975. This general order no doubt relates only to government servants. After the decision was taken it was realized that some provision should be made to enable the persons in occupation of buildings allotted to them by the Government to get possession of the houses they own but have been let to tenants."
+- SRC:252 = L290 "In order to enable them to get possession of the premises let by them expditiously section 14A(1) was enacted and the expeditious procedure under section 25-B was made applicable. It may also be noted that the order served on the landlord on 9th December, 1975 mentions that all Government officials who own houses in Delhi and have also been allotted Government residence are to vacate Government accommodation."
+- SRC:253 = L291 "the general circular dated 9th September, 1975 as well as the notice served on the landlord thus support the view that the intention of the Government was to enable only those Government servants who are in occupation of Government accommodation and who own houses to get immediate possession, though section 14A does not restrict the right to recover immediate possession to Government servants alone."
+- SRC:254 = L292 "In these circumstances, the conclusions arrived at by the High Court that a Government servant who had retired before the date on which he had filed the application is not entitled to the benefits of section 14(1) is understandable. This view was expressed by this Court in Nihal Chand v. Kalyan Chand Jain (1) wherein it was observed \"There appears to be some force in the view taken by the High Court that the provision of section 14A(1) was not intended for Govern-"
+- SRC:255 = L293 "(1) [1978] 2 S.C.R. 183 at p. 190."
+- SRC:257 = L295 "418"
+- SRC:258 = L296 "ment servant who have retired from Government service or who have been transferred outside Delhi.\" But this Court did not decide the issue because on the facts of the case it was of the view that the landlord was entitled to invoke the provisions of section 14A(1) notwithstanding the fact that he had retired from Government service with effect from 30th November, 1975."
+- SRC:259 = L297 "In that case the notice was served on the appellant landlord on 30th September, 1975 which was before the date of retirement which was on 31st November', 1975. On the ground that the right to evict the tenant accrued to the landlord when he was in service it was held that he was entitled to the rights conferred under section 14A. In this case the notice was served on 9th December, 1975 and the officer had retired on 30th November, 1975."
+- SRC:260 = L298 "On the reasoning in the above case the appellant will not be entitled to the relief. The question therefore squarely arises in this case as to whether a Government servant who retired before the notice was served on him requiring to quit the Government accommodation is entitled to the benefit of section 14A(1)."
+- SRC:261 = L299 "It is not clear as to why the right to recover immediate possession is not confined to Government servants alone under section 14A. It is clear that according to Government's policy statement the intention was only to require the Government servants to vacate the premises allotted to them by the Government if they had their own houses in the area."
+- SRC:262 = L300 "It cannot be said that it was by inadvertance that the Legislature mentioned persons instead of Government servants and made the section applicable to persons other than Government servants. It is stated at the Bar that Government accommodation is provided not only to Government servants but also to Members of Parliament and other non-officials who occupy important positions in public life."
+- SRC:263 = L301 "The Court will not be justified in presuming that when the legislature used the word \"persons\" it meant only Government servants. The rule as to construction of the statutes is well-known... Craies on Statute Law (6th Ed. p. 66) relying on Tasmania v. Common wealth(1) has stated the rule as follows:-"
+- SRC:264 = L302 quote from Craies...
+- SRC:266 = L304 "419"
+- SRC:267 = L305 "such a case best declare the intention of the lawgiver. Taking into A account the object of the Act there could be no difficulty in giving the plain meaning to the word \"person\" as not being confined to Government servants for it is seen that accommodation has been provided by the Government not only to Government servants but to others also. In the circumstances, the Court cannot help giving the plain and unambiguous meaning to the section."
+- SRC:268 = L306 "It may be that the Retired Government servants as well as others who are in occupation of Government accommodation may become entitled to a special advantage, but the purpose of the legislation being to enable the Government to get possession of accommodation provided by them by enabling the allottee to get immediate possession of the residential accommodation owned but let by them, the Court will not be justified in giving a meaning which the words used will not warrant."
+- SRC:269 = L307 "On this question therefore we find ourselves unable to concur with the view taken by he High Court."
+- SRC:270 = L308 "The next question that arises is whether the rights conferred under section 14A(1) are available to premises that had been let for residential as well as professional purposes. It is admitted that the premises were let for residential as well as professional purposes. Section 14(1)(e) requires that in order to avail the provisions of section 14(1)(e) the premises should be \"let for use as a residence'."
+- SRC:271 = L309 "It has been held that when premises are let for residential as well as commercial or for residential and professional purposes the provisions of section 14(1)(e) will not apply. This Court in Dr. Gopal Dass Verma v. Dr. S. K."
+- SRC:272 = L310 "Bhardwaj and Anr., (1) in construing section 13(1)(e) of the Delhi and Ajmer Rent Control Act, 1952 held that premises let for residential purposes but used by the tenant with the consent of the landlord incidentally for commercial professional or other purposes cease to be premises let for a residential purpose alone and as such the landlord would not be entitled to eject the tenant under section 13(1)(e) of the Act."
+- SRC:273 = L311 "Section 13(1)(e) allowed a decree for ejectment to be passed if the Court is satisfied that the premises let for residential purposes are required bona fide by the landlord who is the owner of such premises for occupation as a residence tor himself or his family and that he has no other suitable accommodation."
+- SRC:274 = L312 "On the facts of the case it was found that right from the commencement of the tenancy a substantial part of the premises was used by respondent I for his professional purpose, and they have also found that this has been done obviously with the consent of the landlord. The Court held that the professional use of a substantial part Or the premises with (1) [1962] 2 S.C.R. 678."
+- SRC:275 = L313 "420"
+- SRC:276 = L314 "the consent of the appellant clearly takes the case outside section 13(1)(e). The view expressed in the above case was reiterated by this Court in Kartar Singh v. Chaman Lal & Ors. (1) On the facts it was found that the premises had been taken for residential-cum-business or professional purposes. By the rent deed the owner inducted as a tenant Labha Mal Arora who was practising advocate."
+- SRC:277 = L315 "Along with the rent deed a letter was written by the landlord to the tenant stating that he had no objection to the tenant having his professional office along with the residence. After the tenant's death in 1952 the premises were used only for residence by his sons and widow till 1957. In August, 1957 the first respondent who qualified himself as a legal practitioner started having an office in the premises. Another son also started practising as a lawyer in the same premises sometime later."
+- SRC:278 = L316 "The landlord served a notice on the sons and widow of the deceased for requiring them to vacate the premises. The court found two rooms were used by the original tenant as his office, one room by his clerk and the premises had been let for residence-cum business purposes. The plea that the tenant was only granted a licence to use the premises for residence-cum-profession which was personal to him and which came to an end on his death was not accepted. The court agreed with the view expressed in Dr. Gopal Dass Verma's case (supra) that a tenant could not be ejected under section 13(1)(h) because the tenancy of premises let out or used for residence and carrying on of profession could not be terminated merely by showing that the tenant had acquired a suitable residence. the court rejected the contention that the tenant, Labha Mal Arora, had been merely given a permission or licence which was of a personal nature of his office."
+- SRC:279 = L317 (part of above)
+- SRC:280 = L318 "It also was unable to find that any test of dominant intention was applied in Dr. Gopal Dass Verma's case."
+- SRC:281 = L319 "It is not necessary for us to go into the question whether the words \"let for residential purposes\" would exclude premises let predominantly for residential purposes with a licence to use an insignificant part for professional purposes such as lawyer's or doctor's consulting room. The words used in section 14A are clearly different. Section 14A contemplates the owning by the landlord in the Union territory of Delhi a residential accommodation."
+- SRC:282 = L320 "If he owns a residential accommodation he has a right to recover immediately possession of any premises let out by him. The emphasis is on residential accommodation. If the premises are one intended for residential accommodation it will not make any difference if the premises are let for residential (1) [1970] 1 S.C.R. 9."
+- SRC:283 = L321 "421"
+- SRC:284 = L322 "as well as other purposes. Even though the residential accommodation is let for professional or commercial purposes the premises will not cease to be for residential accommodation. It is common ground that the Premises let were put up under the Delhi Development Authority's scheme for residential purposes. The only plea was that though it was put up for residential purposes it was let for residential as well as for professional purposes."
+- SRC:285 = L323 "The requirement in section 14(1)(e) that in order to enable the landlord to recover possession the premises ought to have been let for residential purposes is not there in section 14A(1). In this view we agree with the High Court that it is not necessary in a petition for eviction under section 14A to satisfy that it was let for residential purposes only. This view has been taken by this Court in Busching Schmitz Private Ltd. v. P. T."
+- SRC:286 = L324 "Menghani and Anr. (1) The submission that as a previous application for possession by the landlord was pending this petition would not be permissible cannot be accepted as the grounds on which an application for possession is filed under section 14A(1) are different and based on special rights conferred on the class of persons who occupied Government accommodation."
+- SRC:287 = L325 "The only other question that remains to be considered is the scope of the right to contest the suit..."
+- SRC:288 = L326 "Sub-section (5) of section 25B says that the Controller shall give leave to the tenant to contest it' the affidavit filed by the tenant discloses such facts..."
+- SRC:289 = L327 "Under section 14(1)(e) the tenant may resist the application on the grounds specified namely that the premises are not let for residential purposes, that they are not required holla fide etc."
+- SRC:290 = L328 "So far as the facts which would disentitle the landlord from obtaining an order under section 14A are concerned they call only be that the landlord is not a person in occupation OF residential premises allotted to him by the Central Government or that no general or special order has been made by the Government requiring him to vacate such residential accommodation (1) [1977] 3 S.C.R. 312."
+- SRC:291 = L329 "422"
+- SRC:292 = L330 "on the terms specified in the section. Leave to contest an application under section 14A(1) cannot be said to be analogous to the provisions, of grant of leave to defend as envisaged in the Civil Procedure Code. Order XXXVII, Rule 2, sub-rule (3) of the Code of Civil Procedure provides..."
+- SRC:293 = L331 "Sub-rule (1) of Rule 3 of Order XXXVIII lays down the procedure to obtain leave..."
+- SRC:294 = L332 "The scope of section 25B(5) is very restricted for leave to contest can only be given if the facts are such as would disentitle the landlord from obtaining an order for recovery of possession on the ground specified in section 14A."
+- SRC:295 = L333 "The learned counsel for the tenant submitted that the requirements of section 14(1)(e) should also be satisfied before the landlord could take advantage of the procedure provided under section 25B. The learned counsel drew our attention to section 25C(1) and section 25C(2) and submitted that the reading of these two sub-sections would indicate that before an eviction could be ordered under an application under section 14A(1) the requirements of sections 14(6) and (7) should be satisfied."
+- SRC:296 = L334 "While section 14(1) enumerates the grounds... sub-sections (2) to (11) place certain restrictions. Subsection (2) provides restriction as to right for recovery of possession under section 14(1)(e). Restriction regarding the right to recover possession under clause (e) is laid down in sub-sections (6) and (7) of section 14."
+- SRC:297 = L335 "Section 14(6) states that where a landlord has acquired any premises by transfer no application for recovery of possession shall lie under sub-section (1) on the ground specified in clause (e) of the proviso thereto, unless a period of five years has elapsed from the date of the acquisition."
+- SRC:298 = L336 "Sub-section (7) to section 14 lays down that where an order for the recovery of possession of any premises is made on the ground specified in clause (e) of the proviso to sub-section (1), the landlord shall not be entitled to obtain possession thereof before The expiration of a period of six months from the date of the order."
+- SRC:299 = L337 "Section 25C makes an exception to the requirement of section 14(6) to the effect that where a landlord is in occupation of any residential premises allotted to him by the Central Government or any local authority and who fulfils the requirements of section 14A(1) the requirement under section 14(6) that he would not be entitled to possession unless a period of five years has elapsed from the date of his acquisition of the premises is not applicable In other words, he can straightway obtain possession without the impediment imposed under section 14(6)."
+- SRC:300 = L338 "Great stress was laid by the learned counsel for the tenant on section 25C(2) which provides that in the case of a landlord who, being a person of the category specified in sub-section (1), has obtained, on the ground specified in clause (e) of the proviso to sub-section (1) of section 14 or under section 14A, an order for the eviction of a tenant from any premises, the provisions of subsection (7) of section 14 shall have effect as if for the words \"six months\", occurring therein, the words \"two months\" were substituted The contention was that if section 14A(1) stood by itself and if a landlord applying under section 14A(1) would straightway get the possession after the tenant cannot contest the suit on the grounds specified in section 25B(5) there is no need for mentioning the provisions of section 14(1)(6) and section 14(1)(7) and prescribing a lesser period for a prescribed period under section 14(7)."
+- SRC:301 = L339 "In other words, the submission was that an application for possession under section 14A should also satisfy the requirements of section 14(1)(e). The provisions of section 25B and 25C are applicable to both applications under section 14(1)(e) and under section 14A. Applications under section 14(1)(e) are governed by section 14(6) and section 14(7). By introduction of section 25C the condition imposed in section 14(6) is varied."
+- SRC:302 = L340 "The condition imposed under section 14(6) is made not applicable to persons who satisfy the requirements under section 14A meaning thereby that this restriction will be applicable only to an application under section 14(1)(e). Section 25C(2) makes it clear that not only in the case of an application under section 14(1)(e) but also under section 14A the term of six months prescribed in section 14(7) is educed to two months."
+- SRC:303 = L341 "The reason for specifying the period or two months in the case of section 14A is understandable for otherwise an applicant under section 14A would be entitled to possession immediately. By prescribing a specific period of two months under sec ion 25C(2) it is made clear that even an applicant under section 14A would have to satisfy the conditions laid down by section 25C i.e."
+- SRC:304 = L342 "a period of two months should elapse before the landlord is entitled to obtain possession from the date of an order for recovery of possession. This submission also fails."
+- SRC:305 = L343 "In the result we hold that the landlord who retired before the date on which the notice to quit was given by the Government is also entitled to the benefits of section 14A and allow the appeal."
+- SRC:307 = L345 "P.B.R Appeal allowed"
+- SRC:308 = L346 "424"
+
+OK. Now let me assess each premise.
+
+---
+
+**R1.P1** — ownership of residential accommodation in UT Delhi in own name or wife/dependent child's name.
+
+Roles:
+- landlord: "Shri B. N. Muttoo (first appellant), Inspector General of Police" — PERSON. Refs: SRC:206, SRC:208, SRC:9. identity_basis: "Named as first appellant and landlord who leased F-9, East of Kailash, New Delhi, to the respondent; retired as Inspector General of Police on 30 November 1975." entity_key: "ent_muttoo".
+- owned_home: "Residential accommodation being the landlord's house/property No. F-9, East of Kailash, New Delhi, in the Union Territory of Delhi" — PROPERTY. Refs: SRC:206, SRC:76, SRC:77, SRC:209. identity_basis: "Recorded as the landlord's residential accommodation in New Delhi which he let to the tenant; the Government notice proceeded on the ground that he owned a house in Delhi." entity_key: "ent_f9_premises".
+- registered_owner: "B. N. Muttoo (ownership by the landlord himself; the judgment does not separately record the title registration)" — PERSON. Refs: SRC:206, SRC:76. identity_basis: "The judgment records that Muttoo leased out 'his residential accommodation' in New Delhi and the s.14A analysis proceeded on his own ownership; the disjunctive statutory condition is satisfied via the landlord's own ownership, though no separate title document is described." entity_key: "ent_muttoo" (same person). Hmm — entity_key for registered_owner: it's the same person as landlord, so reuse "ent_muttoo". Good.
+
+Evidence:
+1. COURT_RECORDED_FACT — "The appellant Shri B. N. Muttoo, Inspector General of Police, leased the property No. F-9, East of Kailash, New Delhi, to the respondent from 15 September 1972 at a monthly rent of Rs. 2,200/- exclusive of electricity and water charges." Refs SRC:206. SUPPORT. component R1.P1.K1. Application: "Leasing out the property as his own supports the landlord's ownership of residential accommodation in Delhi."
+2. COURT_RECORDED_FACT (headnote) — "The appellant (landlord) let out his residential accommodation in New Delhi to the respondent (tenant)." Refs SRC:76, SRC:77. SUPPORT. Application: "Describes the let premises as the landlord's own residential accommodation in New Delhi."
+3. COURT_RECORDED_NOTICE — "The notice served on the first appellant on 9 December 1975 by the Deputy Director (Admn.) recited Office Memorandum No. 12031(1)/74-Pol.II dated 9 September 1975 requiring all Government officials who own houses in Delhi and New Delhi and have been allotted Government residence to vacate, and was served on the landlord on that footing." Refs SRC:209, SRC:252. SUPPORT. Application: "The qualifying Government action proceeded on the basis that this landlord owned a house in Delhi."
+4. SUPREME_COURT_ADOPTED_LEGAL_APPLICATION — "The Court restated the s.14A(1) conditions, including ownership by the landlord in the Union territory of Delhi of a residential accommodation either in his own name or in the name of his wife or dependent child, and decided the appeal on the footing that this landlord, who owned the house he had let, satisfied the statutory conditions apart from the contested retirement point." Refs SRC:249, SRC:232, SRC:268, SRC:305. SUPPORT. Application: "The ownership condition was applied to the landlord without contest; the dispute concerned retirement, not ownership."
+5. CONTEXT — "It is common ground that the premises let were put up under the Delhi Development Authority's scheme for residential purposes; the only plea was that though put up for residential purposes they were let for residential as well as professional purposes." Refs SRC:284. SUPPORT (residential character). Application: "Confirms the residential character of the accommodation owned and let."
+
+Any OPPOSE evidence? The High Court's view (SRC:247) was about retirement, not ownership. The tenant's objections (SRC:242, SRC:243) don't contest ownership. No contrary evidence on ownership. State TRUE.
+
+Stage: "Supreme Court, Civil Appeal No. 2302 of 1977 (appeal against Delhi High Court revision order dated 6 December 1976)". Basis: "Recorded facts that the landlord leased out his own residential accommodation in New Delhi and the Government notice proceeded on his owning a house in Delhi; the Court applied the s.14A(1) ownership condition to him without contest."
+
+Gaps: "The judgment records ownership through the letting of 'his' property and the notice premise; it does not separately identify the title registration or record a title document." (≤480 chars.)
+
+Necessary_limits: NOTE, WHOLE_JUDGMENT: "The Supreme Court conducted no title trial; ownership appears from the recorded letting and the Government notice premise rather than a separate adjudicated title finding." Refs SRC:248, SRC:249.
+
+---
+
+**R1.P2** — occupation of residential premises allotted by Central Government or local authority.
+
+Roles:
+- landlord: B. N. Muttoo — PERSON, entity_key "ent_muttoo". Refs SRC:208, SRC:206.
+- allotted_residence: "Premises No. C-II/77 Moti Bagh I, New Delhi, allotted to him by the Government" — PROPERTY. Refs SRC:208, SRC:78, SRC:79. entity_key: "ent_moti_bagh_premises".
+- allotting_authority: "The (Central) Government" — ORGANIZATION. Refs SRC:208 ("allotted to him by the Government"), SRC:50 ("the Central Government decided"), SRC:230 (statutory text "allotted to him by the Central Government"). entity_key: "ent_central_govt".
+- precise_relevant_occupation_date: The judgment records occupation "while in office" — i.e., up to retirement on 30 November 1975 — and the 9 December 1975 notice requiring vacation of the Government residence. Value: "Occupied the allotted premises while in office, through his retirement on 30 November 1975; the Government notice of 9 December 1975 then required him to vacate the allotted Government residence" — TIME. Refs SRC:208, SRC:241, SRC:209. entity_key: "ent_occupation_timeline". Hmm, is this "precise"? The role says "date, if established". The judgment establishes: occupation while in office (until 30 Nov 1975); notice requiring vacation on 9 Dec 1975. It does not give a specific date of commencement of occupation, nor an explicit finding that he was physically in occupation on 9 December 1975 (though the notice implies it). I'll provide the compound value with both dates and note in identity_basis that the judgment records occupation while in office and the post-retirement vacation demand, without a separately dated finding of physical occupation on the notice date. Actually — maybe better to keep the value focused: "In occupation of the allotted premises while in office up to his retirement on 30 November 1975; on 9 December 1975 the Government notice required vacation of the allotted residence." That's honest.
+
+Evidence:
+1. COURT_RECORDED_FACT — "The first appellant, B. N. Muttoo, retired as Inspector General of Police on 30 November 1975; while in office he was occupying premises No. C-II/77 Moti Bagh I, New Delhi, allotted to him by the Government." Refs SRC:208. SUPPORT. R1.P2.K1.
+2. COURT_RECORDED_FACT (headnote) — "The landlord was a Government servant who had been allotted Government accommodation in New Delhi; on 9 December 1975 the Government issued a notice calling upon him to vacate the Government accommodation allotted to him." Refs SRC:78, SRC:79, SRC:80, SRC:81. SUPPORT.
+3. COURT_RECORDED_NOTICE — "On 9 December 1975 a notice was served on the first appellant by the Deputy Director (Admn.) stating that the Government, by Office Memorandum No. 12031(1)/74-Pol.II dated 9 September 1975, required officials who own houses in Delhi and New Delhi and have been allotted Government residence to vacate the Government residence before the stipulated date, failing which penal

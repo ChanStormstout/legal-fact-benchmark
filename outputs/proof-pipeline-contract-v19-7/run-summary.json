@@ -1,0 +1,1357 @@
+[
+  {
+    "case_id": "1954254",
+    "part": "P01",
+    "run": {
+      "run_status": "OK",
+      "done_received": true,
+      "requested_model": "Qwen/Qwen3.5-9B",
+      "started_at": "2026-10-12T03:13:26.448041+00:00",
+      "production_version": "V19_7",
+      "request_sha256": "9c362077f9e3cab26e10e72d2fbaa0fb175b955f3103ca8c5d52af4cfe7609c0",
+      "source_input_truncated_by_client": false,
+      "local_guard_enforcement": false,
+      "http_status": 200,
+      "response_headers": {
+        "content-type": "text/event-stream;charset=utf-8",
+        "x-request-id": "p4t1Edn-fdNmn-a492edbcff3ad2c0",
+        "cf-ray": "a492edbcff3ad2c0-PHX"
+      },
+      "id": "p4t1Edn-fdNmn-a492edbcff3ad2c0",
+      "model": "Qwen/Qwen3.5-9B",
+      "created": 1791774807,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 22029,
+        "total_tokens": 32428,
+        "completion_tokens": 10399,
+        "reasoning_tokens": 0
+      },
+      "reasoning_output_present": false,
+      "raw_sha256": "3360c36dce263e89a257eeba40f77c5fc7a7c2c89d0dfb3e460ae66f3641ef55",
+      "elapsed_seconds": 163.149157958,
+      "finished_at": "2026-10-12T03:16:09.597830+00:00",
+      "listed_price_token_cost_usd": 0.00634468
+    },
+    "contract_status": "CONTRACT_VALID",
+    "formal_answer_present": true,
+    "coverage": {
+      "status": "ANALYSIS_REPORTED",
+      "expected": [
+        "R01.P1",
+        "R01.P2",
+        "R02.P1",
+        "R02.P2",
+        "R02.P3",
+        "R03.P1",
+        "R03.P2",
+        "R04.P1",
+        "R04.P2",
+        "R05.P1",
+        "R05.P2",
+        "R05.P3"
+      ],
+      "returned": [
+        "R01.P1",
+        "R01.P2",
+        "R02.P1",
+        "R02.P2",
+        "R02.P3",
+        "R03.P1",
+        "R03.P2",
+        "R04.P1",
+        "R04.P2",
+        "R05.P1",
+        "R05.P2",
+        "R05.P3"
+      ],
+      "missing": [],
+      "duplicate": [],
+      "extra": [],
+      "explicit_not_analyzed": [],
+      "analyzed_without_judgment": [],
+      "semantic_completeness_verified": false
+    },
+    "schema_violations": [],
+    "records_retained": 12,
+    "uses": {
+      "CONDITIONALLY_AVAILABLE_USE": 8,
+      "STRUCTURAL_INVALID": 4
+    },
+    "use_error_counts": {
+      "OBJECT_INDEX_INVALID": 6,
+      "OBJECT_TYPE_CONFLICT": 4
+    },
+    "judgment_states": {
+      "UNKNOWN": 10,
+      "TRUE": 2
+    },
+    "judgment_error_counts": {
+      "FIXED_PROPOSITION_ASSESSMENT_NOT_DECLARED": 8,
+      "OBJECT_INDEX_INVALID": 3,
+      "OBJECT_TYPE_CONFLICT": 4,
+      "MISSING_OR_EXTRA_ROLE": 3,
+      "NECESSARY_COMPONENT_WITHOUT_AVAILABLE_BASIS": 4
+    },
+    "rule_states": [],
+    "missing_role_judgments": 3,
+    "independent_import": {
+      "status": "OK",
+      "errors": [],
+      "scope": "FULL_NESTED_CONVERSION_INCLUDING_LIMITS_AND_COMPLETE_WITNESSES",
+      "semantic_approval": false
+    },
+    "independent_check": {
+      "status": "OK",
+      "errors": [],
+      "source_use_checks": [
+        {
+          "binding": {
+            "R01::T": 2,
+            "R01::L": 3,
+            "R01::X": 4,
+            "R01::START": 5
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R01.P1",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R01.P1::tenant",
+              "object": 2,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R01.P1::landlord",
+              "object": 3,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R01.P1::property",
+              "object": 4,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R01.P1::commencement_date",
+              "object": 5,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R01::T": 6,
+            "R01::PET": 7,
+            "R01::START": 9,
+            "R01::FILE": 8
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R01.P2",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R01.P2::tenant",
+              "object": 6,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R01.P2::petition",
+              "object": 7,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R01.P2::commencement_date",
+              "object": 9,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R01.P2::filing_date",
+              "object": 8,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R02::H": 10,
+            "R02::S": 11,
+            "R02::X": 12
+          },
+          "available": false,
+          "bearing": false,
+          "premise": "R02.P1",
+          "errors": [
+            "OBJECT_TYPE_CONFLICT",
+            "OBJECT"
+          ],
+          "type_compatibility": [
+            {
+              "address": "R02.P1::head_tenant",
+              "object": 10,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R02.P1::subtenant",
+              "object": 11,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R02.P1::property",
+              "object": 12,
+              "status": "EXPLICIT_TYPE_CONFLICT"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R02::S": 13,
+            "R02::L": 14,
+            "R02::CONSENT": 15
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R02.P2",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R02.P2::subtenant",
+              "object": 13,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R02.P2::landlord",
+              "object": 14,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R02.P2::written_consent_document",
+              "object": 15,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R02::S": 16,
+            "R02::L": 17,
+            "R02::X": 18
+          },
+          "available": false,
+          "bearing": false,
+          "premise": "R02.P3",
+          "errors": [
+            "OBJECT_TYPE_CONFLICT",
+            "OBJECT"
+          ],
+          "type_compatibility": [
+            {
+              "address": "R02.P3::tenant",
+              "object": 16,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R02.P3::landlord",
+              "object": 17,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R02.P3::property",
+              "object": 18,
+              "status": "EXPLICIT_TYPE_CONFLICT"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R03::T": 19,
+            "R03::EARLY": 21,
+            "R03::COURTS": 20
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R03.P1",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R03.P1::tenant",
+              "object": 19,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R03.P1::earlier_letting_date",
+              "object": 21,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R03.P1::interpreting_courts",
+              "object": 20,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R03::T": 22,
+            "R03::SUBLET": 23,
+            "R03::DIRECT": 24,
+            "R03::CONTROL": 23
+          },
+          "available": false,
+          "bearing": false,
+          "premise": "R03.P2",
+          "errors": [
+            "OBJECT_TYPE_CONFLICT",
+            "OBJECT_TYPE_CONFLICT"
+          ],
+          "type_compatibility": [
+            {
+              "address": "R03.P2::applicant",
+              "object": 22,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R03.P2::earlier_event",
+              "object": 23,
+              "status": "EXPLICIT_TYPE_CONFLICT"
+            },
+            {
+              "address": "R03.P2::later_event",
+              "object": 24,
+              "status": "EXPLICIT_TYPE_CONFLICT"
+            },
+            {
+              "address": "R03.P2::governing_limitation_date",
+              "object": 23,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R04::T": 25,
+            "R04::X": 26,
+            "R04::RENT": 27
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R04.P1",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R04.P1::tenant",
+              "object": 25,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R04.P1::property",
+              "object": 26,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R04.P1::contractual_monthly_rent",
+              "object": 27,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R04::X": 28,
+            "R04::STANDARD": 29
+          },
+          "available": false,
+          "bearing": false,
+          "premise": "R04.P2",
+          "errors": [
+            "OBJECT"
+          ],
+          "type_compatibility": [
+            {
+              "address": "R04.P2::property",
+              "object": 28,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R04.P2::operative_standard_rent",
+              "object": 29,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R05::L": 30,
+            "R05::T": 31,
+            "R05::NOTICE": 32,
+            "R05::SUIT": 33
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R05.P1",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R05.P1::landlord",
+              "object": 30,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R05.P1::tenant",
+              "object": 31,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R05.P1::notice_date",
+              "object": 32,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R05.P1::suit",
+              "object": 33,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R05::T": 34,
+            "R05::ARREARS": 35,
+            "R05::NOTICE": 36,
+            "R05::PAYMENT": 37
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R05.P2",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R05.P2::tenant",
+              "object": 34,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R05.P2::lawful_arrears",
+              "object": 35,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R05.P2::notice_date",
+              "object": 36,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R05.P2::payment_or_tender_date",
+              "object": 37,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R05::T": 38,
+            "R05::DEPOSIT": 39,
+            "R05::DEPOSIT_DATE": 40
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R05.P3",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R05.P3::tenant",
+              "object": 38,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R05.P3::deposit",
+              "object": 39,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R05.P3::deposit_date",
+              "object": 40,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        }
+      ],
+      "premise_checks": [
+        {
+          "id": "J001",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R01::T": 2,
+            "R01::L": 3,
+            "R01::X": 4,
+            "R01::START": 5
+          },
+          "errors": [
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J002",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R01::T": 6,
+            "R01::PET": 7,
+            "R01::START": 9,
+            "R01::FILE": 8
+          },
+          "errors": [
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J003",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R02::H": 10,
+            "R02::S": 11,
+            "R02::X": 12
+          },
+          "errors": [
+            "OBJECT_TYPE_CONFLICT",
+            "OBJECT",
+            "ROLE_COVERAGE",
+            "DEPENDENCY",
+            "DEPENDENCY",
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J004",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R02::S": 13,
+            "R02::L": 14,
+            "R02::CONSENT": 15
+          },
+          "errors": [
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J005",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R02::S": 16,
+            "R02::L": 17,
+            "R02::X": 18
+          },
+          "errors": [
+            "OBJECT_TYPE_CONFLICT",
+            "OBJECT",
+            "ROLE_COVERAGE",
+            "DEPENDENCY",
+            "DEPENDENCY",
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J006",
+          "independently_recomputed_state": "TRUE",
+          "binding": {
+            "R03::T": 19,
+            "R03::EARLY": 21,
+            "R03::COURTS": 20
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J007",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R03::T": 22,
+            "R03::SUBLET": 23,
+            "R03::DIRECT": 24,
+            "R03::CONTROL": 23
+          },
+          "errors": [
+            "OBJECT_TYPE_CONFLICT",
+            "OBJECT_TYPE_CONFLICT",
+            "DEPENDENCY",
+            "LIMIT"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J008",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R04::T": 25,
+            "R04::X": 26,
+            "R04::RENT": 27
+          },
+          "errors": [
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J009",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R04::X": 28,
+            "R04::STANDARD": 29
+          },
+          "errors": [
+            "OBJECT",
+            "ROLE_COVERAGE",
+            "DEPENDENCY",
+            "DEPENDENCY",
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J010",
+          "independently_recomputed_state": "TRUE",
+          "binding": {
+            "R05::L": 30,
+            "R05::T": 31,
+            "R05::NOTICE": 32,
+            "R05::SUIT": 33
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J011",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R05::T": 34,
+            "R05::ARREARS": 35,
+            "R05::NOTICE": 36,
+            "R05::PAYMENT": 37
+          },
+          "errors": [
+            "LIMIT"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J012",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R05::T": 38,
+            "R05::DEPOSIT": 39,
+            "R05::DEPOSIT_DATE": 40
+          },
+          "errors": [
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        }
+      ],
+      "expected_trace_count": 0,
+      "rule_coverage": [
+        {
+          "rule_id": "R01",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 1,
+          "enumeration_complete": true
+        },
+        {
+          "rule_id": "R02",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 1,
+          "enumeration_complete": true
+        },
+        {
+          "rule_id": "R03",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 1,
+          "enumeration_complete": true
+        },
+        {
+          "rule_id": "R04",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 1,
+          "enumeration_complete": true
+        },
+        {
+          "rule_id": "R05",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 1,
+          "enumeration_complete": true
+        }
+      ],
+      "semantic_approval": false,
+      "legal_approval": false,
+      "scope": "Full conversion, merge and all feasible frozen rule routes; source meaning and model truth not proved."
+    },
+    "reference_used": false,
+    "semantic_status": "REQUIRES_SCOPED_SOURCE_REVIEW"
+  },
+  {
+    "case_id": "1187427",
+    "part": "P02",
+    "run": {
+      "run_status": "OK",
+      "done_received": true,
+      "requested_model": "Qwen/Qwen3.5-9B",
+      "started_at": "2026-10-12T03:16:09.830906+00:00",
+      "production_version": "V19_7",
+      "request_sha256": "7956c7a5f589ba504067ec63d242c1c936aae0e0df1bbfd1f3a8d77a36cd6fe6",
+      "source_input_truncated_by_client": false,
+      "local_guard_enforcement": false,
+      "http_status": 200,
+      "response_headers": {
+        "content-type": "text/event-stream;charset=utf-8",
+        "x-request-id": "p4t25L4-3pDw3Z-a492f1baadc7afa4",
+        "cf-ray": "a492f1baadc7afa4-PHX"
+      },
+      "id": "p4t25L4-3pDw3Z-a492f1baadc7afa4",
+      "model": "Qwen/Qwen3.5-9B",
+      "created": 1791774970,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 27732,
+        "total_tokens": 37697,
+        "completion_tokens": 9965,
+        "reasoning_tokens": 0
+      },
+      "reasoning_output_present": false,
+      "raw_sha256": "796a70cc2f6bef6f6a5ad90fd5eed6edf93a59b4e1fb3c4976cbc1d52295ca2c",
+      "elapsed_seconds": 117.89588858299999,
+      "finished_at": "2026-10-12T03:18:07.727216+00:00",
+      "listed_price_token_cost_usd": 0.007205690000000001
+    },
+    "contract_status": "CONTRACT_VALID",
+    "formal_answer_present": true,
+    "coverage": {
+      "status": "PARTIAL_ANALYSIS",
+      "expected": [
+        "R5.P1",
+        "R5.P2",
+        "R6.P1",
+        "R6.P2",
+        "R6.P3",
+        "R6.P4",
+        "R6.P5",
+        "R6.P6",
+        "R7.P1",
+        "R7.P2",
+        "R8.P1",
+        "R8.P2"
+      ],
+      "returned": [
+        "R5.P1",
+        "R5.P2",
+        "R6.P1",
+        "R6.P2",
+        "R6.P3",
+        "R6.P4",
+        "R6.P5",
+        "R6.P6",
+        "R7.P1",
+        "R7.P2",
+        "R8.P1",
+        "R8.P2"
+      ],
+      "missing": [],
+      "duplicate": [],
+      "extra": [],
+      "explicit_not_analyzed": [
+        "R6.P5",
+        "R6.P6"
+      ],
+      "analyzed_without_judgment": [],
+      "semantic_completeness_verified": false
+    },
+    "schema_violations": [],
+    "records_retained": 10,
+    "uses": {
+      "CONDITIONALLY_AVAILABLE_USE": 10,
+      "STRUCTURAL_INVALID": 3
+    },
+    "use_error_counts": {
+      "RECORD_INDEX_INVALID": 3
+    },
+    "judgment_states": {
+      "UNKNOWN": 2,
+      "TRUE": 5,
+      "FALSE": 3
+    },
+    "judgment_error_counts": {
+      "FIXED_PROPOSITION_ASSESSMENT_NOT_DECLARED": 2
+    },
+    "rule_states": [
+      {
+        "rule_id": "R7",
+        "operator": "OPEN_TEXT",
+        "conditional_result": "UNKNOWN",
+        "not_executed": true
+      }
+    ],
+    "missing_role_judgments": 0,
+    "independent_import": {
+      "status": "OK",
+      "errors": [],
+      "scope": "FULL_NESTED_CONVERSION_INCLUDING_LIMITS_AND_COMPLETE_WITNESSES",
+      "semantic_approval": false
+    },
+    "independent_check": {
+      "status": "OK",
+      "errors": [],
+      "source_use_checks": [
+        {
+          "binding": {
+            "R5::L": 1,
+            "R5::T": 2,
+            "R5::EARLIER": 3
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R5.P1",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R5.P1::landlord",
+              "object": 1,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R5.P1::tenant",
+              "object": 2,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R5.P1::earlier_case",
+              "object": 3,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R5::EARLIER": 4,
+            "R5::LATER": 5,
+            "R5::GROUND": 6
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R5.P2",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R5.P2::earlier_case",
+              "object": 4,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R5.P2::later_case",
+              "object": 5,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R5.P2::later_ground",
+              "object": 6,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R6::T": 7,
+            "R6::L": 8,
+            "R6::GROUND": 9
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R6.P1",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R6.P1::tenant",
+              "object": 7,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P1::landlord",
+              "object": 8,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P1::eviction_ground",
+              "object": 9,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R6::T": 10,
+            "R6::L": 11,
+            "R6::RETIRE": 12
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R6.P2",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R6.P2::tenant",
+              "object": 10,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P2::landlord",
+              "object": 11,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P2::retirement",
+              "object": 12,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R6::T": 10,
+            "R6::L": 11,
+            "R6::RETIRE": 12
+          },
+          "available": false,
+          "bearing": false,
+          "premise": "R6.P2",
+          "errors": [
+            "RECORD"
+          ],
+          "type_compatibility": [
+            {
+              "address": "R6.P2::tenant",
+              "object": 10,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P2::landlord",
+              "object": 11,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P2::retirement",
+              "object": 12,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R6::T": 13,
+            "R6::L": 14,
+            "R6::X": 15
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R6.P3",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R6.P3::tenant",
+              "object": 13,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P3::landlord",
+              "object": 14,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P3::let_premises",
+              "object": 15,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R6::T": 13,
+            "R6::L": 14,
+            "R6::X": 15
+          },
+          "available": false,
+          "bearing": false,
+          "premise": "R6.P3",
+          "errors": [
+            "RECORD"
+          ],
+          "type_compatibility": [
+            {
+              "address": "R6.P3::tenant",
+              "object": 13,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P3::landlord",
+              "object": 14,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P3::let_premises",
+              "object": 15,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R6::T": 16,
+            "R6::L": 17,
+            "R6::EARLIER": 18,
+            "R6::GROUND": 19
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R6.P4",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R6.P4::tenant",
+              "object": 16,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P4::landlord",
+              "object": 17,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P4::earlier_case",
+              "object": 18,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P4::later_ground",
+              "object": 19,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R6::T": 16,
+            "R6::L": 17,
+            "R6::EARLIER": 18,
+            "R6::GROUND": 19
+          },
+          "available": false,
+          "bearing": false,
+          "premise": "R6.P4",
+          "errors": [
+            "RECORD"
+          ],
+          "type_compatibility": [
+            {
+              "address": "R6.P4::tenant",
+              "object": 16,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P4::landlord",
+              "object": 17,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P4::earlier_case",
+              "object": 18,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R6.P4::later_ground",
+              "object": 19,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R7::PROPONENT": 20,
+            "R7::PRIMARY": 21,
+            "R7::ADDED": 22
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R7.P1",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R7.P1::proponent",
+              "object": 20,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R7.P1::primary_ground",
+              "object": 21,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R7.P1::proposed_added_ground",
+              "object": 22,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R7::CATEGORY": 23,
+            "R7::RESTRICTION": 24,
+            "R7::MODIFICATION": 25
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R7.P2",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R7.P2::landlord_category",
+              "object": 23,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R7.P2::otherwise_applicable_restriction",
+              "object": 24,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R7.P2::statutory_modification",
+              "object": 25,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R8::L": 26,
+            "R8::T": 27,
+            "R8::ORDER": 28,
+            "R8::GROUND": 29
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R8.P1",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R8.P1::landlord",
+              "object": 26,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R8.P1::tenant",
+              "object": 27,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R8.P1::eviction_order",
+              "object": 28,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R8.P1::ground",
+              "object": 29,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "R8::ORDER": 30,
+            "R8::PERIOD": 31,
+            "R8::GROUND": 32
+          },
+          "available": true,
+          "bearing": true,
+          "premise": "R8.P2",
+          "errors": [],
+          "type_compatibility": [
+            {
+              "address": "R8.P2::order",
+              "object": 30,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R8.P2::minimum_period",
+              "object": 31,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            },
+            {
+              "address": "R8.P2::applicable_ground",
+              "object": 32,
+              "status": "COMPATIBLE_TYPE_DOMAIN"
+            }
+          ]
+        }
+      ],
+      "premise_checks": [
+        {
+          "id": "J001",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R5::L": 1,
+            "R5::T": 2,
+            "R5::EARLIER": 3
+          },
+          "errors": [
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J002",
+          "independently_recomputed_state": "TRUE",
+          "binding": {
+            "R5::EARLIER": 4,
+            "R5::LATER": 5,
+            "R5::GROUND": 6
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J003",
+          "independently_recomputed_state": "TRUE",
+          "binding": {
+            "R6::T": 7,
+            "R6::L": 8,
+            "R6::GROUND": 9
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J004",
+          "independently_recomputed_state": "FALSE",
+          "binding": {
+            "R6::T": 10,
+            "R6::L": 11,
+            "R6::RETIRE": 12
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J005",
+          "independently_recomputed_state": "FALSE",
+          "binding": {
+            "R6::T": 13,
+            "R6::L": 14,
+            "R6::X": 15
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J006",
+          "independently_recomputed_state": "FALSE",
+          "binding": {
+            "R6::T": 16,
+            "R6::L": 17,
+            "R6::EARLIER": 18,
+            "R6::GROUND": 19
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J007",
+          "independently_recomputed_state": "TRUE",
+          "binding": {
+            "R7::PROPONENT": 20,
+            "R7::PRIMARY": 21,
+            "R7::ADDED": 22
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J008",
+          "independently_recomputed_state": "TRUE",
+          "binding": {
+            "R7::CATEGORY": 23,
+            "R7::RESTRICTION": 24,
+            "R7::MODIFICATION": 25
+          },
+          "errors": [],
+          "matches_upstream": true
+        },
+        {
+          "id": "J009",
+          "independently_recomputed_state": "UNKNOWN",
+          "binding": {
+            "R8::L": 26,
+            "R8::T": 27,
+            "R8::ORDER": 28,
+            "R8::GROUND": 29
+          },
+          "errors": [
+            "CORRESPONDENCE_MODE"
+          ],
+          "matches_upstream": true
+        },
+        {
+          "id": "J010",
+          "independently_recomputed_state": "TRUE",
+          "binding": {
+            "R8::ORDER": 30,
+            "R8::PERIOD": 31,
+            "R8::GROUND": 32
+          },
+          "errors": [],
+          "matches_upstream": true
+        }
+      ],
+      "expected_trace_count": 1,
+      "rule_coverage": [
+        {
+          "rule_id": "R5",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 1,
+          "enumeration_complete": true
+        },
+        {
+          "rule_id": "R6",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 1,
+          "enumeration_complete": true
+        },
+        {
+          "rule_id": "R7",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 0,
+          "enumeration_complete": true
+        },
+        {
+          "rule_id": "R8",
+          "cartesian_routes": 1,
+          "routes_examined": 1,
+          "incompatible_routes": 1,
+          "enumeration_complete": true
+        }
+      ],
+      "semantic_approval": false,
+      "legal_approval": false,
+      "scope": "Full conversion, merge and all feasible frozen rule routes; source meaning and model truth not proved."
+    },
+    "reference_used": false,
+    "semantic_status": "REQUIRES_SCOPED_SOURCE_REVIEW"
+  }
+]

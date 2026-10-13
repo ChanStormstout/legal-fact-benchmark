@@ -1,0 +1,22 @@
+{
+  "case_id": "1954254",
+  "part": "P02",
+  "field": "coverage_limits",
+  "item_indices_zero_based": [
+    3,
+    5
+  ],
+  "copies": 2,
+  "characters": 1684,
+  "text_sha256": "802f5bbd2c330733b7f4a11d1f8a5ec5a8aa34a8f557938958921c1948c47e60",
+  "raw_sha256": "6a26d6cd23968c921af9d027ec7b5b135f0aa21927295cfa84b412c45568199a",
+  "saved_run_repetition_guard": null,
+  "cached_31_character_chunk_replay": {
+    "string_guard_hit": null,
+    "record_guard_hit": null
+  },
+  "confirmed_cause": "StringGuard resets its repeated-fragment history at every JSON string; it checks four occurrences within one string. RecordGuard checks attributed records. Neither compares separate coverage_limits strings. The schema permits duplicates in that array.",
+  "cause_scope": "Explains why this exact two-item repetition was accepted; does not explain all causes of the model choosing to repeat prose.",
+  "answer_modified": false,
+  "new_generation_calls": 0
+}

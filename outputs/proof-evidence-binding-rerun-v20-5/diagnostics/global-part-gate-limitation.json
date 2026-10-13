@@ -1,0 +1,21 @@
+{
+  "kind": "GLOBAL_PART_GATE_LIMITATION",
+  "source": "legal_bench/proof_carrying/evidence_binding_gate_v20_5.py:audit/process_saved",
+  "observed_policy": "Every role_objects entry in every use and judgment, including NOT_ANALYZED units and optional or unknown roles, contributes to pending. Any unsupported or pending binding prevents the entire part from conditional processing.",
+  "known_negative_premise_example": {
+    "premise": "R02.P2",
+    "text": "The record contains no evidence showing that the landlord gave written consent to the appellant's induction as subtenant.",
+    "required_roles": [
+      "subtenant",
+      "landlord"
+    ],
+    "optional_roles": [
+      "written_consent_document"
+    ],
+    "optional_description": "document establishing consent, if any"
+  },
+  "scope": "Conservative containment policy verified; not proof that all UNKNOWN or partial proposals are wrong. Local correct results remain in raw candidate artifacts, but the current automated entry does not process them separately.",
+  "answer_modified": false,
+  "source_or_rule_modified": false,
+  "semantic_approval": false
+}

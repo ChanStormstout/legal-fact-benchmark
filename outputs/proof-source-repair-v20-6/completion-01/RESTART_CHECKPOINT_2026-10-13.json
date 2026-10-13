@@ -1,0 +1,86 @@
+{
+  "saved_at_epoch": 1791886827.7294452,
+  "status": "RESTART_CHECKPOINT_FINAL_ACCEPTANCE_INCOMPLETE",
+  "no_further_dispatch": true,
+  "old_queue_stays_paused": true,
+  "engineering_tests_passed": 51,
+  "analysis_parts": [
+    {
+      "case": "1187427",
+      "part": "P01",
+      "units": 14,
+      "analyzed": 14,
+      "generation_status": "OK",
+      "finish_reason": "stop",
+      "citation_normalization_saved": false
+    },
+    {
+      "case": "1954254",
+      "part": "P01",
+      "units": 12,
+      "analyzed": 12,
+      "generation_status": "OK",
+      "finish_reason": "stop",
+      "citation_normalization_saved": false
+    },
+    {
+      "case": "1954254",
+      "part": "P02",
+      "units": 13,
+      "analyzed": 13,
+      "generation_status": "OK",
+      "finish_reason": "stop",
+      "citation_normalization_saved": false
+    },
+    {
+      "case": "569555",
+      "part": "P01",
+      "units": 14,
+      "analyzed": 14,
+      "generation_status": "FORMAT_OR_TRANSPORT_FAILURE",
+      "finish_reason": "stop",
+      "citation_normalization_saved": true
+    }
+  ],
+  "source_reviews_saved": [
+    {
+      "case": "1954254",
+      "declarations": 194
+    },
+    {
+      "case": "569555",
+      "declarations": 180
+    }
+  ],
+  "final_answers": [
+    {
+      "case": "1954254",
+      "contract": "VALID_FINAL_NOT_LEGAL_SUCCESS",
+      "answer_saved": true,
+      "whole_case_source_acceptance": "FAILED_OR_NOT_FINISHED"
+    }
+  ],
+  "next_steps": [
+    "Retrieve and preserve the 1187427 ordinary ChatGPT review; source annotations are model judgments, not human gold.",
+    "Apply remaining saved source reviews and recompute locally.",
+    "Remove final-answer narrative 480-character cap in a new version, preserving existing schemas and failed outputs.",
+    "Prevent rejected claims from returning through assumptions; generate complete source-grounded answers and perform one whole-case acceptance."
+  ],
+  "do_not_resume": [
+    "Old paused batch",
+    "Training",
+    "TEST/SEALED evaluation",
+    "Commit or push"
+  ],
+  "browser_reviews": {
+    "1954254": "https://chatgpt.com/c/6ace0303-9ce4-83e8-b21b-77ac2384c299",
+    "569555": "https://chatgpt.com/c/6ace035b-69e8-83e8-8660-54ce061bf83c",
+    "1187427": "Ordinary ChatGPT conversation sent from browser tab 1788304814; current final conversation URL not yet captured."
+  },
+  "confirmed_remaining_failures": [
+    "1954254 9B final conclusion is exactly 480 characters and ends mid-sentence; schema maxLength is 480.",
+    "1954254 9B final assumptions reintroduce unproved lack of notice, despite source critic rejection.",
+    "1954254 9B final omits specific actor/property identification and misattributes landlord withdrawal request / Supreme Court remand."
+  ],
+  "resumption_scope": "Continue only this versioned acceptance, without repeating completed analysis calls; no automatic restart dispatch."
+}

@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "scope": "Engineering contract acceptance only; no semantic or legal certification",
+  "unit_and_entry_tests": 32,
+  "new_tests": 15,
+  "existing_regressions": 17,
+  "actual_tokenizer_mask_receipts": [
+    {
+      "name": "valid",
+      "token_count": 223,
+      "complete_and_EOS_allowed": true,
+      "blocked_at": null,
+      "expected": true
+    },
+    {
+      "name": "second_duplicate_source",
+      "token_count": 227,
+      "complete_and_EOS_allowed": false,
+      "blocked_at": 40,
+      "expected": false
+    },
+    {
+      "name": "source_is_not_record",
+      "token_count": 223,
+      "complete_and_EOS_allowed": false,
+      "blocked_at": 82,
+      "expected": false
+    },
+    {
+      "name": "missing_fixed_premise",
+      "token_count": 14,
+      "complete_and_EOS_allowed": false,
+      "blocked_at": 4,
+      "expected": false
+    },
+    {
+      "name": "missing_role_key",
+      "token_count": 219,
+      "complete_and_EOS_allowed": false,
+      "blocked_at": 204,
+      "expected": false
+    },
+    {
+      "name": "dynamic_missing_import_only",
+      "token_count": 225,
+      "complete_and_EOS_allowed": true,
+      "blocked_at": null,
+      "expected": true
+    }
+  ],
+  "old_cache_rows_replayed": 26,
+  "independent_recomputed_readable_rows": 20,
+  "original_files_unchanged": 183,
+  "new_model_calls": 0,
+  "new_API_calls": 0,
+  "training_fits": 0,
+  "paused": true,
+  "dynamic_reference_existence_is_import_only": true,
+  "coverage_separate_from_transport": true,
+  "old_P_not_semantically_repaired": true,
+  "source_review_not_human_gold": true
+}

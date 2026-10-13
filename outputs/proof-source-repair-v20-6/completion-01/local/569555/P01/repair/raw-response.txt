@@ -1,0 +1,660 @@
+{
+  "units": {
+    "R1.P1": {
+      "roles": {
+        "landlord": {
+          "value": "Pratap Chand",
+          "type": "PERSON",
+          "refs": ["SRC:8", "SRC:13", "SRC:14", "SRC:167", "SRC:236"],
+          "identity_basis": "Petitioner/Respondent 1 named as Pratap Chand in case caption and judgment text.",
+          "entity_key": "LANDLORD_PRATAP_CHAND"
+        },
+        "tenant": {
+          "value": "Automobile Association of Upper India",
+          "type": "ORGANIZATION",
+          "refs": ["SRC:14", "SRC:52", "SRC:53", "SRC:90", "SRC:236", "SRC:237"],
+          "identity_basis": "Respondent 2 identified as Automobile Association of Upper India (formerly Northern India) in judgment.",
+          "entity_key": "TENANT_AUTO_ASSOCIATION"
+        },
+        "premises": {
+          "value": "Room No. 6, Pratap Buildings, Connaught Circus, New Delhi",
+          "type": "PROPERTY",
+          "refs": ["SRC:167", "SRC:236", "SRC:237"],
+          "identity_basis": "Specific room and building identified in the landlord's claim and Sarkar J's facts.",
+          "entity_key": "PREMISES_ROOM_6"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The respondent landlord filed a suit against the tenant alleging unauthorized subletting.",
+          "status": "UNDISPUTED_CASE_FACT",
+          "stage": "Trial Suit Initiation",
+          "court_level": "Trial Court",
+          "refs": ["SRC:51", "SRC:52", "SRC:53", "SRC:90"],
+          "direction": "SUPPORT",
+          "component_ids": ["R1.P1.K1"],
+          "application": "Establishes the tenancy relationship and the basis of the eviction suit."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Substantive Entitlement Ground",
+      "basis": "The landlord let the identified premises to the tenant whose conduct is relied upon for recovery of possession.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R1.P2": {
+      "roles": {
+        "tenant": {
+          "value": "Automobile Association of Upper India",
+          "type": "ORGANIZATION",
+          "refs": ["SRC:237", "SRC:241"],
+          "identity_basis": "The Association is the primary tenant.",
+          "entity_key": "TENANT_AUTO_ASSOCIATION"
+        },
+        "subtenant": {
+          "value": "Karam Singh Sobti",
+          "type": "PERSON",
+          "refs": ["SRC:8", "SRC:9", "SRC:236", "SRC:237"],
+          "identity_basis": "Appellant named as Karam Singh Sobti, identified as sub-tenant.",
+          "entity_key": "SUBTENANT_KARAM_SINGH"
+        },
+        "premises": {
+          "value": "Room No. 6, Pratap Buildings, Connaught Circus, New Delhi",
+          "type": "PROPERTY",
+          "refs": ["SRC:237"],
+          "identity_basis": "The specific room subject to subletting.",
+          "entity_key": "PREMISES_ROOM_6"
+        },
+        "cutoff": {
+          "value": "June 9, 1952",
+          "type": "TIME",
+          "refs": ["SRC:45", "SRC:83", "SRC:238"],
+          "identity_basis": "Commencement date of the 1952 Act cited as the statutory cutoff.",
+          "entity_key": "CUTOFF_1952_COMMENCEMENT"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The subletting commenced not later than November 1950, which is before the commencement of the 1952 Act.",
+          "status": "LOWER_APPELLATE_FINDING",
+          "stage": "Additional Senior Sub-judge Finding",
+          "court_level": "Lower Appellate Court",
+          "refs": ["SRC:61", "SRC:62", "SRC:173", "SRC:242"],
+          "direction": "SUPPORT",
+          "component_ids": ["R1.P2.K1"],
+          "application": "Establishes the timing of the subletting relative to the statutory cutoff."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Statutory Exception Timing",
+      "basis": "The tenant sublet, assigned, or otherwise parted with possession of the whole or part of those premises before the commencement of the 1952 Act on June 9, 1952.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R1.P3": {
+      "roles": {
+        "landlord": {
+          "value": "Pratap Chand",
+          "type": "PERSON",
+          "refs": ["SRC:167", "SRC:236"],
+          "identity_basis": "Respondent 1, Pratap Chand.",
+          "entity_key": "LANDLORD_PRATAP_CHAND"
+        },
+        "tenant": {
+          "value": "Automobile Association of Upper India",
+          "type": "ORGANIZATION",
+          "refs": ["SRC:237", "SRC:241"],
+          "identity_basis": "The Association, the primary tenant.",
+          "entity_key": "TENANT_AUTO_ASSOCIATION"
+        },
+        "premises": {
+          "value": "Room No. 6, Pratap Buildings, Connaught Circus, New Delhi",
+          "type": "PROPERTY",
+          "refs": ["SRC:237"],
+          "identity_basis": "The room in question.",
+          "entity_key": "PREMISES_ROOM_6"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "Both the Association and the appellant admitted that the landlord had not consented to the subletting before it started.",
+          "status": "PARTY_ADMISSION",
+          "stage": "Trial Court Proceedings",
+          "court_level": "Trial Court",
+          "refs": ["SRC:241"],
+          "direction": "SUPPORT",
+          "component_ids": ["R1.P3.K1"],
+          "application": "Confirms the initial lack of consent required for the statutory exception."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Landlord Consent Status",
+      "basis": "The tenant did not obtain the landlord's consent before the subletting relied upon for the statutory exception.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R2.P1": {
+      "roles": {
+        "landlord": {
+          "value": "Pratap Chand",
+          "type": "PERSON",
+          "refs": ["SRC:236", "SRC:241"],
+          "identity_basis": "Respondent 1.",
+          "entity_key": "LANDLORD_PRATAP_CHAND"
+        },
+        "occupant": {
+          "value": "Karam Singh Sobti",
+          "type": "PERSON",
+          "refs": ["SRC:236", "SRC:257", "SRC:258"],
+          "identity_basis": "Appellant, the subtenant.",
+          "entity_key": "SUBTENANT_KARAM_SINGH"
+        },
+        "premises": {
+          "value": "Room No. 6, Pratap Buildings, Connaught Circus, New Delhi",
+          "type": "PROPERTY",
+          "refs": ["SRC:237", "SRC:257"],
+          "identity_basis": "The demised room.",
+          "entity_key": "PREMISES_ROOM_6"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The landlord knew that the appellant was in occupation of the demised premises.",
+          "status": "SUPREME_COURT_ADOPTED_EVALUATION",
+          "stage": "Supreme Court Majority Evaluation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:254", "SRC:256", "SRC:292"],
+          "direction": "SUPPORT",
+          "component_ids": ["R2.P1.K1"],
+          "application": "Acknowledges the landlord's knowledge of physical possession."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Knowledge of Occupation",
+      "basis": "The landlord knew that the appellant physically occupied the demised room.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R2.P2": {
+      "roles": {
+        "landlord": {
+          "value": "Pratap Chand",
+          "type": "PERSON",
+          "refs": ["SRC:236", "SRC:241"],
+          "identity_basis": "Respondent 1.",
+          "entity_key": "LANDLORD_PRATAP_CHAND"
+        },
+        "tenant": {
+          "value": "Automobile Association of Upper India",
+          "type": "ORGANIZATION",
+          "refs": ["SRC:237", "SRC:241"],
+          "identity_basis": "The Association.",
+          "entity_key": "TENANT_AUTO_ASSOCIATION"
+        },
+        "occupant": {
+          "value": "Karam Singh Sobti",
+          "type": "PERSON",
+          "refs": ["SRC:236", "SRC:257"],
+          "identity_basis": "Appellant.",
+          "entity_key": "SUBTENANT_KARAM_SINGH"
+        },
+        "premises": {
+          "value": "Room No. 6, Pratap Buildings, Connaught Circus, New Delhi",
+          "type": "PROPERTY",
+          "refs": ["SRC:237"],
+          "identity_basis": "The room.",
+          "entity_key": "PREMISES_ROOM_6"
+        },
+        "knowledge_date": {
+          "value": "May 1954",
+          "type": "TIME",
+          "refs": ["SRC:241", "SRC:259", "SRC:260"],
+          "identity_basis": "Date when the appellant's sole occupation began and the agreement ended.",
+          "entity_key": "KNOWLEDGE_DATE_MAY_1954"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The landlord accepted rent from the Association after the subletting, but the evidence does not establish he knew the appellant's possession was under a subtenancy rather than Association activities until May 1954.",
+          "status": "DISSENTING_LEGAL_INTERPRETATION",
+          "stage": "Sarkar J Dissenting Opinion",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:241", "SRC:257", "SRC:258", "SRC:259", "SRC:260", "SRC:265", "SRC:266"],
+          "direction": "OPPOSE",
+          "component_ids": ["R2.P2.K1"],
+          "application": "Sarkar J argues the landlord might have thought prior occupation was for the Association, and rent acceptance since 1954 is not mentioned as a fact establishing knowledge of subtenancy."
+        },
+        {
+          "proposition": "The fact that a landlord had knowledge that a person other than a tenant was in possession did not by itself always lead to an inference that the landlord had knowledge that the person in possession was a sub-tenant.",
+          "status": "SUPREME_COURT_ADOPTED_EVALUATION",
+          "stage": "Supreme Court Majority Evaluation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:254", "SRC:255", "SRC:292"],
+          "direction": "SUPPORT",
+          "component_ids": ["R2.P2.K1"],
+          "application": "Majority holds that knowledge of occupation does not equate to knowledge of subtenancy status."
+        }
+      ],
+      "state": "FALSE",
+      "stage": "Knowledge of Sustained Subtenancy",
+      "basis": "When the landlord accepted rent from the Association after the subletting, he knew that the appellant's possession was under a subtenancy rather than occupation connected with the Association's activities.",
+      "gaps": [
+        "The record does not explicitly state that the landlord accepted rent from the Association *after* the subletting commenced in 1950, only that he received rent with full knowledge of the subletting according to the lower appellate court, which the Supreme Court majority found unsupported by evidence."
+      ],
+      "necessary_limits": []
+    },
+    "R2.P3": {
+      "roles": {
+        "landlord": {
+          "value": "Pratap Chand",
+          "type": "PERSON",
+          "refs": ["SRC:236"],
+          "identity_basis": "Respondent 1.",
+          "entity_key": "LANDLORD_PRATAP_CHAND"
+        },
+        "tenant": {
+          "value": "Automobile Association of Upper India",
+          "type": "ORGANIZATION",
+          "refs": ["SRC:237"],
+          "identity_basis": "The Association.",
+          "entity_key": "TENANT_AUTO_ASSOCIATION"
+        },
+        "subtenant": {
+          "value": "Karam Singh Sobti",
+          "type": "PERSON",
+          "refs": ["SRC:8"],
+          "identity_basis": "Appellant.",
+          "entity_key": "SUBTENANT_KARAM_SINGH"
+        },
+        "premises": {
+          "value": "Room No. 6, Pratap Buildings, Connaught Circus, New Delhi",
+          "type": "PROPERTY",
+          "refs": ["SRC:237"],
+          "identity_basis": "The room.",
+          "entity_key": "PREMISES_ROOM_6"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The High Court held there was no evidence to justify the finding that the landlord had acquiesced in the subletting.",
+          "status": "HIGH_COURT_FINDING",
+          "stage": "High Court Revision",
+          "court_level": "High Court",
+          "refs": ["SRC:83", "SRC:84", "SRC:85", "SRC:122", "SRC:175", "SRC:213", "SRC:248"],
+          "direction": "SUPPORT",
+          "component_ids": ["R2.P3.K1"],
+          "application": "The High Court found the evidence insufficient to support the inference of acquiescence."
+        },
+        {
+          "proposition": "The Supreme Court majority agreed that the High Court was right in its view that there was no evidence in the case to support the finding of acquiescence.",
+          "status": "AGREED_SUPREME_COURT_HOLDING",
+          "stage": "Supreme Court Majority Holding",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:180", "SRC:181", "SRC:216", "SRC:234", "SRC:254", "SRC:255", "SRC:292"],
+          "direction": "SUPPORT",
+          "component_ids": ["R2.P3.K1"],
+          "application": "The Supreme Court adopted the High Court's evidentiary assessment that acquiescence was not proved."
+        }
+      ],
+      "state": "FALSE",
+      "stage": "Acquiescence Inference",
+      "basis": "The evidence supports a legal inference that the landlord acquiesced in the subletting relied on in the eviction suit.",
+      "gaps": [
+        "The judgment explicitly states that the evidence only showed knowledge of occupation, not knowledge of subtenancy, and thus failed to support the legal inference of acquiescence."
+      ],
+      "necessary_limits": []
+    },
+    "R3.P1": {
+      "roles": {
+        "challenged_finding": {
+          "value": "Finding of acquiescence by the Additional Senior Sub-judge",
+          "type": "LEGAL_CONCEPT",
+          "refs": ["SRC:60", "SRC:61", "SRC:62", "SRC:173", "SRC:174", "SRC:213", "SRC:248"],
+          "identity_basis": "The specific finding that the landlord acquiesced in the subletting.",
+          "entity_key": "FINDING_ACQUIESCENCE"
+        },
+        "lower_court": {
+          "value": "Additional Senior Sub-judge of Delhi",
+          "type": "PARTY",
+          "refs": ["SRC:58", "SRC:59", "SRC:60", "SRC:172", "SRC:173", "SRC:242"],
+          "identity_basis": "The appellate court whose finding was challenged.",
+          "entity_key": "LOWER_COURT_ADDITIONAL_JUDGE"
+        },
+        "reviewing_court": {
+          "value": "High Court of Punjab",
+          "type": "PARTY",
+          "refs": ["SRC:63", "SRC:86", "SRC:103", "SRC:174", "SRC:213", "SRC:243"],
+          "identity_basis": "The High Court exercising revisional jurisdiction.",
+          "entity_key": "REVIEWING_COURT_HIGH_COURT"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "If a Court had arrived at a finding without any evidence to support it, it can be legitimately said that it had not decided the case 'according to law' within the meaning of section 35.",
+          "status": "SUPREME_COURT_ADOPTED_EVALUATION",
+          "stage": "Supreme Court Majority Evaluation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:92", "SRC:93", "SRC:94", "SRC:129", "SRC:130", "SRC:131", "SRC:250", "SRC:251", "SRC:252", "SRC:253", "SRC:254"],
+          "direction": "SUPPORT",
+          "component_ids": ["R3.P1.K1"],
+          "application": "Establishes the legal threshold for High Court interference in revision."
+        },
+        {
+          "proposition": "The High Court held that there was no evidence to justify the finding of the learned Subordinate Judge that the respondent had acquiesced in the sub-letting.",
+          "status": "HIGH_COURT_FINDING",
+          "stage": "High Court Revision",
+          "court_level": "High Court",
+          "refs": ["SRC:83", "SRC:84", "SRC:85", "SRC:122", "SRC:175", "SRC:213", "SRC:248"],
+          "direction": "SUPPORT",
+          "component_ids": ["R3.P1.K1"],
+          "application": "The High Court applied the 'no evidence' standard to set aside the lower appellate finding."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Revisional Jurisdiction Threshold",
+      "basis": "The lower appellate finding challenged in revision has no supporting evidence, rather than merely evidence whose weight the revisional court would assess differently.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R3.P2": {
+      "roles": {
+        "reviewing_court": {
+          "value": "High Court of Punjab",
+          "type": "PARTY",
+          "refs": ["SRC:63", "SRC:86", "SRC:103", "SRC:174", "SRC:213", "SRC:243"],
+          "identity_basis": "The High Court exercising revisional jurisdiction.",
+          "entity_key": "REVIEWING_COURT_HIGH_COURT"
+        },
+        "statutory_power": {
+          "value": "Section 35 of the Delhi and Ajmer Rent Control Act, 1952",
+          "type": "LEGAL_CONCEPT",
+          "refs": ["SRC:63", "SRC:71", "SRC:103", "SRC:127", "SRC:189", "SRC:243", "SRC:250"],
+          "identity_basis": "The specific section conferring revisional power.",
+          "entity_key": "STATUTORY_POWER_SECTION_35"
+        },
+        "proceeding": {
+          "value": "Civil Revision No. 427-D of 1957",
+          "type": "EVENT",
+          "refs": ["SRC:162", "SRC:174", "SRC:213", "SRC:243"],
+          "identity_basis": "The specific revision petition number and year.",
+          "entity_key": "PROCEEDING_REVISION_427_D"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The respondent-landlord moved the High Court of Punjab in revision under section 35 of the Control Act of 1952.",
+          "status": "PROCEDURAL_HISTORY",
+          "stage": "High Court Revision",
+          "court_level": "High Court",
+          "refs": ["SRC:63", "SRC:86", "SRC:103", "SRC:174", "SRC:213", "SRC:243"],
+          "direction": "SUPPORT",
+          "component_ids": ["R3.P2.K1"],
+          "application": "Confirms the procedural basis for the High Court's intervention."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Procedural Jurisdiction",
+      "basis": "The High Court is exercising the revisional jurisdiction provided by section 35 of the 1952 Act over the lower appellate decision.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R4.P1": {
+      "roles": {
+        "tenant": {
+          "value": "Automobile Association of Upper India",
+          "type": "ORGANIZATION",
+          "refs": ["SRC:52", "SRC:90", "SRC:237", "SRC:245"],
+          "identity_basis": "The primary tenant/respondent.",
+          "entity_key": "TENANT_AUTO_ASSOCIATION"
+        },
+        "subtenant": {
+          "value": "Karam Singh Sobti",
+          "type": "PERSON",
+          "refs": ["SRC:8", "SRC:9", "SRC:236", "SRC:237"],
+          "identity_basis": "The appellant/subtenant.",
+          "entity_key": "SUBTENANT_KARAM_SINGH"
+        },
+        "decree": {
+          "value": "Decree for ejectment passed by the trial judge against both the Association and the appellant",
+          "type": "DOCUMENT",
+          "refs": ["SRC:57", "SRC:58", "SRC:90", "SRC:172", "SRC:245", "SRC:270"],
+          "identity_basis": "The joint decree resulting from the trial court's judgment.",
+          "entity_key": "DECREE_JOINT_EJECTMENT"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "One decree had been passed by the trial judge against both the Association and the appellant.",
+          "status": "AGREED_SUPREME_COURT_HOLDING",
+          "stage": "Trial Court Judgment",
+          "court_level": "Trial Court",
+          "refs": ["SRC:57", "SRC:58", "SRC:90", "SRC:172", "SRC:245", "SRC:270"],
+          "direction": "SUPPORT",
+          "component_ids": ["R4.P1.K1"],
+          "application": "Establishes the joint nature of the decree."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Joint Decree",
+      "basis": "The trial court passed one ejectment decree against both the principal tenant and subtenant.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R4.P2": {
+      "roles": {
+        "subtenant": {
+          "value": "Karam Singh Sobti",
+          "type": "PERSON",
+          "refs": ["SRC:8", "SRC:9", "SRC:236", "SRC:237"],
+          "identity_basis": "The appellant.",
+          "entity_key": "SUBTENANT_KARAM_SINGH"
+        },
+        "decree": {
+          "value": "Decree for ejectment passed by the trial judge against both the Association and the appellant",
+          "type": "DOCUMENT",
+          "refs": ["SRC:57", "SRC:58", "SRC:90", "SRC:172", "SRC:245", "SRC:270"],
+          "identity_basis": "The joint decree.",
+          "entity_key": "DECREE_JOINT_EJECTMENT"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The appellant alone appealed to the Additional Senior Sub-judge who set aside the order of the trial judge.",
+          "status": "PROCEDURAL_HISTORY",
+          "stage": "Additional Senior Sub-judge Appeal",
+          "court_level": "Lower Appellate Court",
+          "refs": ["SRC:58", "SRC:59", "SRC:60", "SRC:172", "SRC:173", "SRC:242"],
+          "direction": "SUPPORT",
+          "component_ids": ["R4.P2.K1"],
+          "application": "Confirms the subtenant pursued an independent appeal."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Independent Appeal",
+      "basis": "The subtenant against whom the joint decree was passed pursued an appeal challenging that decree.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R4.P3": {
+      "roles": {
+        "tenant": {
+          "value": "Automobile Association of Upper India",
+          "type": "ORGANIZATION",
+          "refs": ["SRC:52", "SRC:90", "SRC:237", "SRC:245"],
+          "identity_basis": "The primary tenant/respondent.",
+          "entity_key": "TENANT_AUTO_ASSOCIATION"
+        },
+        "decree": {
+          "value": "Decree for ejectment passed by the trial judge against both the Association and the appellant",
+          "type": "DOCUMENT",
+          "refs": ["SRC:57", "SRC:58", "SRC:90", "SRC:172", "SRC:245", "SRC:270"],
+          "identity_basis": "The joint decree.",
+          "entity_key": "DECREE_JOINT_EJECTMENT"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The Association does not appear to have seriously contested the suit but the appellant did. The appellant alone appealed.",
+          "status": "PARTY_ARGUMENT",
+          "stage": "Trial and Appeal Proceedings",
+          "court_level": "Trial Court / Lower Appellate Court",
+          "refs": ["SRC:240", "SRC:241", "SRC:245", "SRC:270"],
+          "direction": "SUPPORT",
+          "component_ids": ["R4.P3.K1"],
+          "application": "Indicates the tenant did not appeal, while the subtenant did."
+        },
+        {
+          "proposition": "The appellant had his own right to appeal from that decree. That right could not be affected by the Association's decision not to file an appeal.",
+          "status": "AGREED_SUPREME_COURT_HOLDING",
+          "stage": "Supreme Court Majority Holding",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:101", "SRC:102", "SRC:103", "SRC:140", "SRC:141", "SRC:270", "SRC:271", "SRC:272"],
+          "direction": "SUPPORT",
+          "component_ids": ["R4.P3.K1"],
+          "application": "Confirms the subtenant's independent right to appeal despite the tenant's non-appeal."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Nonappeal by Cotenant",
+      "basis": "The principal tenant did not itself appeal against the joint ejectment decree.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R5.P1": {
+      "roles": {
+        "proceeding": {
+          "value": "Civil Revision No. 427-D of 1957",
+          "type": "EVENT",
+          "refs": ["SRC:162", "SRC:174", "SRC:213", "SRC:243"],
+          "identity_basis": "The pending revision case.",
+          "entity_key": "PROCEEDING_REVISION_427_D"
+        },
+        "earlier_act": {
+          "value": "Delhi and Ajmer Rent Control Act, 1952",
+          "type": "DOCUMENT",
+          "refs": ["SRC:32", "SRC:33", "SRC:35", "SRC:44", "SRC:82", "SRC:105", "SRC:166", "SRC:186", "SRC:204", "SRC:205", "SRC:206", "SRC:208", "SRC:210", "SRC:212", "SRC:223", "SRC:224", "SRC:225", "SRC:226", "SRC:238", "SRC:244", "SRC:275", "SRC:277", "SRC:280", "SRC:281", "SRC:282", "SRC:283", "SRC:284", "SRC:285", "SRC:286", "SRC:287", "SRC:288", "SRC:289", "SRC:290", "SRC:291", "SRC:292", "SRC:293", "SRC:294", "SRC:295", "SRC:297", "SRC:298", "SRC:299", "SRC:300", "SRC:301", "SRC:302", "SRC:303", "SRC:304", "SRC:305", "SRC:306", "SRC:307", "SRC:308", "SRC:309", "SRC:310", "SRC:311", "SRC:312", "SRC:313", "SRC:315", "SRC:316", "SRC:318", "SRC:319", "SRC:321", "SRC:322", "SRC:323", "SRC:324", "SRC:325", "SRC:326", "SRC:327", "SRC:329", "SRC:331", "SRC:333", "SRC:334", "SRC:335", "SRC:336", "SRC:337", "SRC:338", "SRC:339", "SRC:340", "SRC:341", "SRC:342", "SRC:343", "SRC:344", "SRC:345", "SRC:346", "SRC:347", "SRC:348", "SRC:349", "SRC:350"],
+          "identity_basis": "The repealed Act governing the original suit.",
+          "entity_key": "ACT_1952"
+        },
+        "later_act": {
+          "value": "Delhi Rent Control Act, 1958",
+          "type": "DOCUMENT",
+          "refs": ["SRC:32", "SRC:33", "SRC:35", "SRC:65", "SRC:66", "SRC:67", "SRC:68", "SRC:69", "SRC:70", "SRC:71", "SRC:72", "SRC:73", "SRC:74", "SRC:75", "SRC:76", "SRC:77", "SRC:78", "SRC:79", "SRC:80", "SRC:81", "SRC:82", "SRC:105", "SRC:165", "SRC:166", "SRC:185", "SRC:186", "SRC:187", "SRC:189", "SRC:204", "SRC:205", "SRC:206", "SRC:208", "SRC:210", "SRC:212", "SRC:223", "SRC:224", "SRC:225", "SRC:226", "SRC:238", "SRC:244", "SRC:275", "SRC:277", "SRC:280", "SRC:281", "SRC:282", "SRC:283", "SRC:284", "SRC:285", "SRC:286", "SRC:287", "SRC:288", "SRC:289", "SRC:290", "SRC:291", "SRC:292", "SRC:293", "SRC:294", "SRC:295", "SRC:297", "SRC:298", "SRC:299", "SRC:300", "SRC:301", "SRC:302", "SRC:303", "SRC:304", "SRC:305", "SRC:306", "SRC:307", "SRC:308", "SRC:309", "SRC:310", "SRC:311", "SRC:312", "SRC:313", "SRC:315", "SRC:316", "SRC:318", "SRC:319", "SRC:321", "SRC:322", "SRC:323", "SRC:324", "SRC:325", "SRC:326", "SRC:327", "SRC:329", "SRC:331", "SRC:333", "SRC:334", "SRC:335", "SRC:336", "SRC:337", "SRC:338", "SRC:339", "SRC:340", "SRC:341", "SRC:342", "SRC:343", "SRC:344", "SRC:345", "SRC:346", "SRC:347", "SRC:348", "SRC:349", "SRC:350"],
+          "identity_basis": "The repealing Act.",
+          "entity_key": "ACT_1958"
+        },
+        "commencement": {
+          "value": "February 9, 1959",
+          "type": "TIME",
+          "refs": ["SRC:173", "SRC:211", "SRC:244"],
+          "identity_basis": "Date the 1958 Act came into force.",
+          "entity_key": "COMMENCEMENT_1958"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The revision case was pending in the High Court when the Delhi Rent Control Act, 1958, came into force.",
+          "status": "PROCEDURAL_HISTORY",
+          "stage": "High Court Revision",
+          "court_level": "High Court",
+          "refs": ["SRC:65", "SRC:66", "SRC:67", "SRC:68", "SRC:69", "SRC:70", "SRC:71", "SRC:72", "SRC:73", "SRC:74", "SRC:75", "SRC:76", "SRC:77", "SRC:78", "SRC:79", "SRC:80", "SRC:81", "SRC:82", "SRC:103", "SRC:174", "SRC:175", "SRC:211", "SRC:212", "SRC:213", "SRC:244", "SRC:245"],
+          "direction": "SUPPORT",
+          "component_ids": ["R5.P1.K1"],
+          "application": "Establishes the timing of the transition between Acts."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Pending Proceeding Savings",
+      "basis": "The identified eviction suit or proceeding originated under the 1952 Act and remained pending when the 1958 Act commenced.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R5.P2": {
+      "roles": {
+        "premises": {
+          "value": "Room No. 6, Pratap Buildings, Connaught Circus, New Delhi",
+          "type": "PROPERTY",
+          "refs": ["SRC:167", "SRC:236", "SRC:237"],
+          "identity_basis": "The room in question.",
+          "entity_key": "PREMISES_ROOM_6"
+        },
+        "proceeding": {
+          "value": "Civil Revision No. 427-D of 1957",
+          "type": "EVENT",
+          "refs": ["SRC:162", "SRC:174", "SRC:213", "SRC:243"],
+          "identity_basis": "The pending revision case.",
+          "entity_key": "PROCEEDING_REVISION_427_D"
+        },
+        "section_54_applicability": {
+          "value": "Inapplicable",
+          "type": "BOOLEAN",
+          "refs": ["SRC:174", "SRC:210", "SRC:211", "SRC:249"],
+          "identity_basis": "The judgment states the case is for eviction of a tenant from premises to which section 54 does not apply.",
+          "entity_key": "SECTION_54_INAPPLICABLE"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The dispute concerns tenant eviction from premises to which section 54 does not apply, bringing the first proviso's direction to have regard to the 1958 Act into the statutory analysis.",
+          "status": "MAJORITY_LEGAL_INTERPRETATION",
+          "stage": "Supreme Court Majority Interpretation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:174", "SRC:210", "SRC:211", "SRC:249"],
+          "direction": "SUPPORT",
+          "component_ids": ["R5.P2.K1"],
+          "application": "Confirms the scope of the first proviso under section 57(2)."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "First Proviso Subject Scope",
+      "basis": "The dispute concerns tenant eviction from premises to which section 54 does not apply, bringing the first proviso's direction to have regard to the 1958 Act into the statutory analysis.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R5.P3": {
+      "roles": {
+        "earlier_ground": {
+          "value": "Section 13(1) proviso (c)(i) of the 1952 Act",
+          "type": "LEGAL_CONCEPT",
+          "refs": ["SRC:48", "SRC:49", "SRC:50", "SRC:88", "SRC:168", "SRC:169", "SRC:170", "SRC:171", "SRC:182", "SRC:200", "SRC:238", "SRC:239", "SRC:240"],
+          "identity_basis": "The statutory ground relied upon by the landlord.",
+          "entity_key": "GROUND_1952_SUBLETTING"
+        },
+        "later_ground": {
+          "value": "Section 14(1) proviso (b) of the 1958 Act",
+          "type": "LEGAL_CONCEPT",
+          "refs": ["SRC:182", "SRC:200", "SRC:239", "SRC:240", "SRC:346", "SRC:347", "SRC:348"],
+          "identity_basis": "The corresponding ground in the new Act.",
+          "entity_key": "GROUND_1958_SUBLETTING"
+        },
+        "legal_change": {
+          "value": "Different treatment of pre-1952 subletting (deemed lawful in 1958 Act if subtenant in occupation at commencement vs. exception in 1952 Act)",
+          "type": "LEGAL_CONCEPT",
+          "refs": ["SRC:182", "SRC:200", "SRC:201", "SRC:202", "SRC:203", "SRC:204", "SRC:239", "SRC:346", "SRC:347", "SRC:348"],
+          "identity_basis": "The substantive difference between the two Acts regarding subletting.",
+          "entity_key": "LEGAL_CHANGE_SUBLETTING"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "Replacing the saved section 13 subletting ground with the materially different 1958 provisions would create or apply different substantive rights and liabilities rather than merely clarify or slightly modify the previous provisions.",
+          "status": "MAJORITY_LEGAL_INTERPRETATION",
+          "stage": "Supreme Court Majority Interpretation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:113", "SRC:114", "SRC:115", "SRC:151", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152", "SRC:153", "SRC:154", "SRC:155", "SRC:156", "SRC:157", "SRC:152"],
+          "direction": "SUPPORT",
+          "component_ids": ["R5.P3.K1"],
+          "application": "Majority holds that applying the 1958 Act would create new rights/liabilities, thus the 1952 Act ground remains."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "Transitional Substantive Rights",
+      "basis": "Replacing the saved section 13 subletting ground with the materially different 1958 provisions would create or apply different substantive rights and liabilities rather than merely clarify or slightly modify the previous provisions.",
+      "gaps": [],
+      "necessary_limits": []
+    }
+  },
+  "coverage_limits": [
+    "The judgment does not explicitly detail the specific dates of rent acceptance by the landlord, only that the lower appellate court found he received rent with full knowledge, a finding the Supreme Court majority deemed unsupported by evidence."
+  ]
+}

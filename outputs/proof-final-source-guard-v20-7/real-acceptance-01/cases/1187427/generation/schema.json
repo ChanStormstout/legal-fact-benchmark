@@ -1,0 +1,970 @@
+{
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "enum": [
+        "Q1"
+      ]
+    },
+    "conclusion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "grounds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "point": {
+            "type": "string",
+            "minLength": 1
+          },
+          "statement_status_and_stage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "case_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/source_id"
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "rule_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/rule_address"
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "explanation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/claim_id"
+            },
+            "minItems": 1,
+            "maxItems": 256,
+            "uniqueItems": true
+          },
+          "actor_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256,
+            "uniqueItems": true
+          },
+          "property_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256,
+            "uniqueItems": true
+          },
+          "event_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "point",
+          "statement_status_and_stage",
+          "case_refs",
+          "rule_refs",
+          "explanation",
+          "claim_ids",
+          "actor_ids",
+          "property_ids",
+          "event_ids"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "counterarguments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "point": {
+            "type": "string",
+            "minLength": 1
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/source_id"
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "treatment": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/claim_id"
+            },
+            "minItems": 1,
+            "maxItems": 256,
+            "uniqueItems": true
+          },
+          "actor_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256,
+            "uniqueItems": true
+          },
+          "property_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256,
+            "uniqueItems": true
+          },
+          "event_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "maxItems": 256,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "point",
+          "refs",
+          "treatment",
+          "claim_ids",
+          "actor_ids",
+          "property_ids",
+          "event_ids"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 5
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 480
+      },
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "maxItems": 0,
+      "uniqueItems": true
+    },
+    "connection_handling": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "connection_id": {
+            "$ref": "#/$defs/claim_id"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "ADOPT",
+              "REJECT",
+              "REINTERPRET",
+              "NOT_USED"
+            ]
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/source_id"
+            },
+            "minItems": 0,
+            "maxItems": 256
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "connection_id",
+          "decision",
+          "refs",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 256
+    },
+    "conclusion_claim_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim_id"
+      },
+      "minItems": 0,
+      "maxItems": 256,
+      "uniqueItems": true
+    },
+    "result_status": {
+      "type": "string",
+      "enum": [
+        "SOURCE_RECONSTRUCTION",
+        "CONDITIONAL",
+        "UNRESOLVED"
+      ]
+    },
+    "case_frame": {
+      "type": "object",
+      "properties": {
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "PARTY",
+                  "COURT",
+                  "OTHER"
+                ]
+              },
+              "capacities": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true
+              },
+              "court_level": {
+                "type": "string",
+                "minLength": 1
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/source_id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "kind",
+              "capacities",
+              "court_level",
+              "refs"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/source_id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "description",
+              "refs"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actor_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "property_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "court_context_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "stage": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "PARTY_APPLICATION",
+                  "PARTY_ASSERTION",
+                  "PARTY_PAYMENT",
+                  "PARTY_KNOWLEDGE",
+                  "COURT_ORDER",
+                  "COURT_REMAND",
+                  "OTHER"
+                ]
+              },
+              "statement_status": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "claim_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claim_id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/source_id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "actor_id",
+              "property_id",
+              "court_context_id",
+              "stage",
+              "kind",
+              "statement_status",
+              "description",
+              "claim_ids",
+              "refs"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "actors",
+        "properties",
+        "events"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "request_id",
+    "conclusion",
+    "grounds",
+    "counterarguments",
+    "gaps",
+    "assumptions",
+    "connection_handling",
+    "conclusion_claim_ids",
+    "result_status",
+    "case_frame"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "source_id": {
+      "type": "string",
+      "enum": [
+        "IK-1187427:L100",
+        "IK-1187427:L101",
+        "IK-1187427:L102",
+        "IK-1187427:L103",
+        "IK-1187427:L104",
+        "IK-1187427:L105",
+        "IK-1187427:L106",
+        "IK-1187427:L107",
+        "IK-1187427:L108",
+        "IK-1187427:L109",
+        "IK-1187427:L110",
+        "IK-1187427:L111",
+        "IK-1187427:L112",
+        "IK-1187427:L113",
+        "IK-1187427:L114",
+        "IK-1187427:L115",
+        "IK-1187427:L116",
+        "IK-1187427:L117",
+        "IK-1187427:L118",
+        "IK-1187427:L119",
+        "IK-1187427:L120",
+        "IK-1187427:L121",
+        "IK-1187427:L122",
+        "IK-1187427:L123",
+        "IK-1187427:L124",
+        "IK-1187427:L125",
+        "IK-1187427:L126",
+        "IK-1187427:L127",
+        "IK-1187427:L128",
+        "IK-1187427:L129",
+        "IK-1187427:L130",
+        "IK-1187427:L131",
+        "IK-1187427:L132",
+        "IK-1187427:L133",
+        "IK-1187427:L134",
+        "IK-1187427:L135",
+        "IK-1187427:L136",
+        "IK-1187427:L137",
+        "IK-1187427:L138",
+        "IK-1187427:L139",
+        "IK-1187427:L140",
+        "IK-1187427:L141",
+        "IK-1187427:L142",
+        "IK-1187427:L143",
+        "IK-1187427:L144",
+        "IK-1187427:L145",
+        "IK-1187427:L146",
+        "IK-1187427:L147",
+        "IK-1187427:L148",
+        "IK-1187427:L149",
+        "IK-1187427:L150",
+        "IK-1187427:L151",
+        "IK-1187427:L152",
+        "IK-1187427:L153",
+        "IK-1187427:L154",
+        "IK-1187427:L155",
+        "IK-1187427:L156",
+        "IK-1187427:L157",
+        "IK-1187427:L158",
+        "IK-1187427:L159",
+        "IK-1187427:L160",
+        "IK-1187427:L161",
+        "IK-1187427:L162",
+        "IK-1187427:L163",
+        "IK-1187427:L164",
+        "IK-1187427:L165",
+        "IK-1187427:L166",
+        "IK-1187427:L167",
+        "IK-1187427:L168",
+        "IK-1187427:L169",
+        "IK-1187427:L170",
+        "IK-1187427:L171",
+        "IK-1187427:L172",
+        "IK-1187427:L173",
+        "IK-1187427:L174",
+        "IK-1187427:L175",
+        "IK-1187427:L176",
+        "IK-1187427:L177",
+        "IK-1187427:L178",
+        "IK-1187427:L179",
+        "IK-1187427:L180",
+        "IK-1187427:L181",
+        "IK-1187427:L182",
+        "IK-1187427:L183",
+        "IK-1187427:L184",
+        "IK-1187427:L185",
+        "IK-1187427:L186",
+        "IK-1187427:L187",
+        "IK-1187427:L188",
+        "IK-1187427:L189",
+        "IK-1187427:L190",
+        "IK-1187427:L191",
+        "IK-1187427:L192",
+        "IK-1187427:L193",
+        "IK-1187427:L194",
+        "IK-1187427:L195",
+        "IK-1187427:L196",
+        "IK-1187427:L197",
+        "IK-1187427:L198",
+        "IK-1187427:L199",
+        "IK-1187427:L200",
+        "IK-1187427:L201",
+        "IK-1187427:L202",
+        "IK-1187427:L203",
+        "IK-1187427:L204",
+        "IK-1187427:L205",
+        "IK-1187427:L206",
+        "IK-1187427:L207",
+        "IK-1187427:L208",
+        "IK-1187427:L209",
+        "IK-1187427:L210",
+        "IK-1187427:L211",
+        "IK-1187427:L212",
+        "IK-1187427:L213",
+        "IK-1187427:L214",
+        "IK-1187427:L215",
+        "IK-1187427:L216",
+        "IK-1187427:L217",
+        "IK-1187427:L218",
+        "IK-1187427:L219",
+        "IK-1187427:L220",
+        "IK-1187427:L221",
+        "IK-1187427:L222",
+        "IK-1187427:L223",
+        "IK-1187427:L224",
+        "IK-1187427:L225",
+        "IK-1187427:L226",
+        "IK-1187427:L227",
+        "IK-1187427:L228",
+        "IK-1187427:L229",
+        "IK-1187427:L233",
+        "IK-1187427:L234",
+        "IK-1187427:L236",
+        "IK-1187427:L238",
+        "IK-1187427:L240",
+        "IK-1187427:L241",
+        "IK-1187427:L243",
+        "IK-1187427:L244",
+        "IK-1187427:L245",
+        "IK-1187427:L246",
+        "IK-1187427:L247",
+        "IK-1187427:L248",
+        "IK-1187427:L249",
+        "IK-1187427:L250",
+        "IK-1187427:L251",
+        "IK-1187427:L252",
+        "IK-1187427:L253",
+        "IK-1187427:L255",
+        "IK-1187427:L257",
+        "IK-1187427:L259",
+        "IK-1187427:L261",
+        "IK-1187427:L263",
+        "IK-1187427:L264",
+        "IK-1187427:L265",
+        "IK-1187427:L266",
+        "IK-1187427:L267",
+        "IK-1187427:L268",
+        "IK-1187427:L269",
+        "IK-1187427:L270",
+        "IK-1187427:L271",
+        "IK-1187427:L272",
+        "IK-1187427:L273",
+        "IK-1187427:L274",
+        "IK-1187427:L275",
+        "IK-1187427:L276",
+        "IK-1187427:L277",
+        "IK-1187427:L278",
+        "IK-1187427:L279",
+        "IK-1187427:L280",
+        "IK-1187427:L281",
+        "IK-1187427:L282",
+        "IK-1187427:L283",
+        "IK-1187427:L284",
+        "IK-1187427:L285",
+        "IK-1187427:L286",
+        "IK-1187427:L287",
+        "IK-1187427:L288",
+        "IK-1187427:L289",
+        "IK-1187427:L290",
+        "IK-1187427:L291",
+        "IK-1187427:L292",
+        "IK-1187427:L293",
+        "IK-1187427:L295",
+        "IK-1187427:L296",
+        "IK-1187427:L297",
+        "IK-1187427:L298",
+        "IK-1187427:L299",
+        "IK-1187427:L300",
+        "IK-1187427:L301",
+        "IK-1187427:L302",
+        "IK-1187427:L304",
+        "IK-1187427:L305",
+        "IK-1187427:L306",
+        "IK-1187427:L307",
+        "IK-1187427:L308",
+        "IK-1187427:L309",
+        "IK-1187427:L310",
+        "IK-1187427:L311",
+        "IK-1187427:L312",
+        "IK-1187427:L313",
+        "IK-1187427:L314",
+        "IK-1187427:L315",
+        "IK-1187427:L316",
+        "IK-1187427:L317",
+        "IK-1187427:L318",
+        "IK-1187427:L319",
+        "IK-1187427:L320",
+        "IK-1187427:L321",
+        "IK-1187427:L322",
+        "IK-1187427:L323",
+        "IK-1187427:L324",
+        "IK-1187427:L325",
+        "IK-1187427:L326",
+        "IK-1187427:L327",
+        "IK-1187427:L328",
+        "IK-1187427:L329",
+        "IK-1187427:L330",
+        "IK-1187427:L331",
+        "IK-1187427:L332",
+        "IK-1187427:L333",
+        "IK-1187427:L334",
+        "IK-1187427:L335",
+        "IK-1187427:L336",
+        "IK-1187427:L337",
+        "IK-1187427:L338",
+        "IK-1187427:L339",
+        "IK-1187427:L340",
+        "IK-1187427:L341",
+        "IK-1187427:L342",
+        "IK-1187427:L343",
+        "IK-1187427:L345",
+        "IK-1187427:L346",
+        "IK-1187427:L39",
+        "IK-1187427:L41",
+        "IK-1187427:L43",
+        "IK-1187427:L44",
+        "IK-1187427:L46",
+        "IK-1187427:L47",
+        "IK-1187427:L49",
+        "IK-1187427:L51",
+        "IK-1187427:L52",
+        "IK-1187427:L54",
+        "IK-1187427:L56",
+        "IK-1187427:L57",
+        "IK-1187427:L58",
+        "IK-1187427:L59",
+        "IK-1187427:L60",
+        "IK-1187427:L61",
+        "IK-1187427:L63",
+        "IK-1187427:L64",
+        "IK-1187427:L65",
+        "IK-1187427:L66",
+        "IK-1187427:L67",
+        "IK-1187427:L68",
+        "IK-1187427:L71",
+        "IK-1187427:L72",
+        "IK-1187427:L73",
+        "IK-1187427:L77",
+        "IK-1187427:L78",
+        "IK-1187427:L79",
+        "IK-1187427:L80",
+        "IK-1187427:L81",
+        "IK-1187427:L82",
+        "IK-1187427:L83",
+        "IK-1187427:L84",
+        "IK-1187427:L85",
+        "IK-1187427:L86",
+        "IK-1187427:L87",
+        "IK-1187427:L88",
+        "IK-1187427:L89",
+        "IK-1187427:L90",
+        "IK-1187427:L91",
+        "IK-1187427:L92",
+        "IK-1187427:L93",
+        "IK-1187427:L94",
+        "IK-1187427:L95",
+        "IK-1187427:L96",
+        "IK-1187427:L97",
+        "IK-1187427:L98",
+        "IK-1187427:L99"
+      ]
+    },
+    "claim_id": {
+      "type": "string",
+      "enum": [
+        "C001",
+        "C002",
+        "C003",
+        "C004",
+        "C005",
+        "C006",
+        "C007",
+        "C008",
+        "C009",
+        "C010",
+        "C011",
+        "C012",
+        "C013",
+        "C014",
+        "C015",
+        "C016",
+        "C017",
+        "C018",
+        "C019",
+        "C020",
+        "C021",
+        "C022",
+        "C023",
+        "C024",
+        "C025",
+        "C026",
+        "C027",
+        "C028",
+        "C029",
+        "C030",
+        "C031",
+        "C032",
+        "C033",
+        "C034",
+        "C035",
+        "C036",
+        "C037",
+        "C038",
+        "C039",
+        "C040",
+        "C041",
+        "C042",
+        "C043",
+        "C044",
+        "C045",
+        "C046",
+        "C047",
+        "C048",
+        "C049",
+        "C050",
+        "C051",
+        "C052",
+        "C053",
+        "C054",
+        "C055",
+        "C056",
+        "C057",
+        "C058",
+        "C059",
+        "C060",
+        "C061",
+        "C062",
+        "C063",
+        "C064",
+        "C065",
+        "C066",
+        "C067",
+        "C068",
+        "C069",
+        "C070",
+        "C071",
+        "C072",
+        "C073",
+        "C074",
+        "C075",
+        "C076",
+        "C077",
+        "C078",
+        "C079",
+        "C080",
+        "C081",
+        "C082",
+        "C083",
+        "C084",
+        "C085",
+        "C086",
+        "C087",
+        "C088",
+        "C089",
+        "C090",
+        "C091",
+        "C092",
+        "C093",
+        "C094",
+        "C095",
+        "C096",
+        "C097",
+        "C098",
+        "C099",
+        "C100",
+        "C101",
+        "C102",
+        "C103",
+        "C104",
+        "C105",
+        "C106",
+        "C107",
+        "C108",
+        "C109",
+        "C110",
+        "C111",
+        "C112",
+        "C113",
+        "C114",
+        "C115",
+        "C116",
+        "C117",
+        "C118",
+        "C119",
+        "C120",
+        "C121",
+        "C122",
+        "C123",
+        "C124",
+        "C125",
+        "C126",
+        "C127",
+        "C128",
+        "C129",
+        "C130",
+        "C131",
+        "C132",
+        "C133",
+        "C134",
+        "C135",
+        "C136",
+        "C137"
+      ]
+    },
+    "rule_address": {
+      "type": "string",
+      "enum": [
+        "IK-1187427:L245",
+        "IK-1187427:L264",
+        "IK-1187427:L265",
+        "IK-1187427:L268",
+        "IK-1187427:L270",
+        "IK-1187427:L272",
+        "IK-1187427:L273",
+        "IK-1187427:L274",
+        "IK-1187427:L275",
+        "IK-1187427:L283",
+        "IK-1187427:L286",
+        "IK-1187427:L287",
+        "IK-1187427:L288",
+        "IK-1187427:L291",
+        "IK-1187427:L292",
+        "IK-1187427:L296",
+        "IK-1187427:L298",
+        "IK-1187427:L301",
+        "IK-1187427:L305",
+        "IK-1187427:L306",
+        "IK-1187427:L307",
+        "IK-1187427:L308",
+        "IK-1187427:L309",
+        "IK-1187427:L310",
+        "IK-1187427:L314",
+        "IK-1187427:L319",
+        "IK-1187427:L320",
+        "IK-1187427:L322",
+        "IK-1187427:L323",
+        "IK-1187427:L324",
+        "IK-1187427:L325",
+        "IK-1187427:L326",
+        "IK-1187427:L327",
+        "IK-1187427:L328",
+        "IK-1187427:L330",
+        "IK-1187427:L332",
+        "IK-1187427:L333",
+        "IK-1187427:L335",
+        "IK-1187427:L336",
+        "IK-1187427:L337",
+        "IK-1187427:L338",
+        "IK-1187427:L339",
+        "IK-1187427:L340",
+        "IK-1187427:L341",
+        "IK-1187427:L342",
+        "R1",
+        "R1.P1",
+        "R1.P2",
+        "R1.P3",
+        "R1.P4",
+        "R2",
+        "R2.P1",
+        "R2.P2",
+        "R2.P3",
+        "R2.P4",
+        "R3",
+        "R3.P1",
+        "R3.P2",
+        "R3.P3",
+        "R4",
+        "R4.P1",
+        "R4.P2",
+        "R4.P3",
+        "R5",
+        "R5.P1",
+        "R5.P2",
+        "R6",
+        "R6.P1",
+        "R6.P2",
+        "R6.P3",
+        "R6.P4",
+        "R6.P5",
+        "R6.P6",
+        "R7",
+        "R7.P1",
+        "R7.P2",
+        "R8",
+        "R8.P1",
+        "R8.P2"
+      ]
+    }
+  }
+}

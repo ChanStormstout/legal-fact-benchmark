@@ -1,0 +1,29 @@
+REPAIR_TASK 1954254 P02
+START repair input 47974
+PROGRESS repair 256 139.2
+PROGRESS repair 512 158.3
+PROGRESS repair 768 178.0
+PROGRESS repair 1024 197.6
+PROGRESS repair 1280 217.8
+PROGRESS repair 1536 239.1
+PROGRESS repair 1792 257.9
+PROGRESS repair 2048 276.0
+PROGRESS repair 2304 298.2
+PROGRESS repair 2560 327.6
+PROGRESS repair 2816 350.7
+PROGRESS repair 3072 368.9
+PROGRESS repair 3328 819.7
+PROGRESS repair 3584 1497.8
+END repair INTERRUPTED_BY_USER_PAUSE 1840.2
+REPAIR_TASK 1954254 P01
+Traceback (most recent call last):
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/proof_source_repair_v20_6.py", line 188, in <module>
+    main()
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/proof_source_repair_v20_6.py", line 184, in main
+    (prepare if args.action=='prepare' else run)()
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/proof_source_repair_v20_6.py", line 112, in run
+    plan['max_repair_tokens'], remaining(beginning, plan), 'FIXED')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Codex/2026-09-28/files-mentioned-by-the-user-canonicalizing/scripts/proof_source_repair_v20_6.py", line 92, in remaining
+    raise KeyboardInterrupt('OWN_REPAIR_PAUSE_REQUESTED')
+KeyboardInterrupt: OWN_REPAIR_PAUSE_REQUESTED

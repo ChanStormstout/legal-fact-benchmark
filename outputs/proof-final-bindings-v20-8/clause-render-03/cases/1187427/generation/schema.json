@@ -1,0 +1,121 @@
+{
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "enum": [
+        "Q1"
+      ]
+    },
+    "disposition_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "FE07"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 1,
+      "uniqueItems": true
+    },
+    "reasoning_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "C024",
+          "C029",
+          "C036",
+          "C045",
+          "C054",
+          "C065",
+          "C074",
+          "C083",
+          "C092",
+          "C103",
+          "C110",
+          "C129",
+          "FE01",
+          "FE02",
+          "FE03",
+          "FE04",
+          "FE05",
+          "FE06",
+          "FE07"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 12,
+      "uniqueItems": true
+    },
+    "ground_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "C024",
+          "C029",
+          "C036",
+          "C045",
+          "C054",
+          "C065",
+          "C074",
+          "C083",
+          "C092",
+          "C103",
+          "C110",
+          "C129",
+          "FE01",
+          "FE02",
+          "FE03",
+          "FE04",
+          "FE05",
+          "FE06",
+          "FE07"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 24,
+      "uniqueItems": true
+    },
+    "counterargument_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "C024",
+          "C029",
+          "C036",
+          "C045",
+          "C054",
+          "C065",
+          "C074",
+          "C083",
+          "C092",
+          "C103",
+          "C110",
+          "C129",
+          "FE01",
+          "FE02",
+          "FE03",
+          "FE04",
+          "FE05",
+          "FE06",
+          "FE07"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 16,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "request_id",
+    "disposition_claim_ids",
+    "reasoning_claim_ids",
+    "ground_claim_ids",
+    "counterargument_claim_ids"
+  ],
+  "additionalProperties": false
+}

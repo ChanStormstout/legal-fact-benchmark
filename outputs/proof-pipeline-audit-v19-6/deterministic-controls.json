@@ -1,0 +1,87 @@
+{
+  "controls": [
+    {
+      "id": "DELETE_ANALYSIS",
+      "kind": "SYNTHETIC_CONVERSION_FAULT",
+      "status": "REJECTED",
+      "errors": [
+        "ANALYSIS_COUNT_MISMATCH"
+      ]
+    },
+    {
+      "id": "ALTER_RECORD_STAGE",
+      "kind": "SYNTHETIC_CONVERSION_FAULT",
+      "status": "REJECTED",
+      "errors": [
+        "RECORD_ATTRIBUTION_CHANGED:stage"
+      ]
+    },
+    {
+      "id": "ALTER_BINDING_INDEX",
+      "kind": "SYNTHETIC_CONVERSION_FAULT",
+      "status": "REJECTED",
+      "errors": [
+        "REFERENCE_CONVERSION_MISMATCH:0/uses/0/objects"
+      ]
+    },
+    {
+      "id": "SHORTEN_CODE_RESTORED_WITNESS",
+      "kind": "SYNTHETIC_CONVERSION_FAULT",
+      "status": "OK",
+      "errors": [],
+      "entry_contract": "CONTRACT_VALID",
+      "independent": "OK"
+    },
+    {
+      "id": "BLOCK_SCOPE_CHANGED_TO_NOTE",
+      "kind": "SYNTHETIC_CONVERSION_FAULT",
+      "status": "OK",
+      "errors": [],
+      "entry_contract": "CONTRACT_VALID",
+      "independent": "OK",
+      "before_state": "UNKNOWN",
+      "after_state": "TRUE"
+    },
+    {
+      "id": "DELETE_ALL_RULE_TRACES",
+      "kind": "SYNTHETIC_CHECK_OUTPUT_FAULT",
+      "status": "OK",
+      "original_trace_count": 5,
+      "remaining_trace_count": 0
+    },
+    {
+      "id": "DELETE_RECORD_DURING_MERGE",
+      "kind": "SYNTHETIC_MERGE_FAULT",
+      "entry_contract": "CONTRACT_VALID",
+      "independent": "OK",
+      "formal_present": true,
+      "before_records": 18,
+      "after_records": 17
+    },
+    {
+      "id": "EXPLICIT_TYPE_CONFLICT",
+      "kind": "DETERMINISTIC_TYPE_CONTROL",
+      "result": "EXPLICIT_TYPE_CONFLICT"
+    },
+    {
+      "id": "FREE_DESCRIPTION_NOT_STRING_CONFLICT",
+      "kind": "DETERMINISTIC_TYPE_CONTROL",
+      "result": "UNMAPPED_DESCRIPTION"
+    },
+    {
+      "id": "USES_CAN_BLOCK_BUT_NOT_REWRITE_WHOLE_JUDGMENT",
+      "kind": "SYNTHETIC_PREDICTION_CONTROL_NOT_MODEL_RESULT",
+      "altered_uses": [
+        "K006",
+        "K007"
+      ],
+      "original_state": "TRUE",
+      "after_state": "UNKNOWN",
+      "objects_or_truth_not_repaired": true,
+      "independent_check": "OK"
+    }
+  ],
+  "natural_failure_count": 0,
+  "fault_injections_do_not_establish_occurrence_in_saved_answers": true,
+  "production_code_unchanged": true
+}

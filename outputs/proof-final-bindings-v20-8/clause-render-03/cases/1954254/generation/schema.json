@@ -1,0 +1,140 @@
+{
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "enum": [
+        "Q1"
+      ]
+    },
+    "disposition_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "FE06",
+          "FE07"
+        ]
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "reasoning_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "C025",
+          "C036",
+          "C047",
+          "C058",
+          "C065",
+          "C076",
+          "C085",
+          "C106",
+          "C121",
+          "C142",
+          "C151",
+          "C160",
+          "C173",
+          "C178",
+          "C185",
+          "C198",
+          "C205",
+          "FE01",
+          "FE02",
+          "FE03",
+          "FE04",
+          "FE05",
+          "FE06",
+          "FE07",
+          "FE08"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 12,
+      "uniqueItems": true
+    },
+    "ground_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "C025",
+          "C036",
+          "C047",
+          "C058",
+          "C065",
+          "C076",
+          "C085",
+          "C106",
+          "C121",
+          "C142",
+          "C151",
+          "C160",
+          "C173",
+          "C178",
+          "C185",
+          "C198",
+          "C205",
+          "FE01",
+          "FE02",
+          "FE03",
+          "FE04",
+          "FE05",
+          "FE06",
+          "FE07",
+          "FE08"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 24,
+      "uniqueItems": true
+    },
+    "counterargument_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "C025",
+          "C036",
+          "C047",
+          "C058",
+          "C065",
+          "C076",
+          "C085",
+          "C106",
+          "C121",
+          "C142",
+          "C151",
+          "C160",
+          "C173",
+          "C178",
+          "C185",
+          "C198",
+          "C205",
+          "FE01",
+          "FE02",
+          "FE03",
+          "FE04",
+          "FE05",
+          "FE06",
+          "FE07",
+          "FE08"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 16,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "request_id",
+    "disposition_claim_ids",
+    "reasoning_claim_ids",
+    "ground_claim_ids",
+    "counterargument_claim_ids"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,98 @@
+{
+  "findings": [
+    {
+      "id": "E1",
+      "priority": "P1",
+      "category": "INDEPENDENT_IMPORT_FIDELITY_GAP",
+      "natural_occurrence_confirmed": false,
+      "code": "legal_bench/proof_carrying/local_checker_v19_6.py",
+      "line": 44,
+      "detail": "Counts and selected judgment fields are compared, but necessary_limits kind/reason and code-restored witness quote are not compared to original contract. Synthetic BLOCK_SCOPE→NOTE passes the real acceptance entry and changes UNKNOWN→TRUE; a shortened literal witness also passes.",
+      "related_code": [
+        "legal_bench/proof_carrying/local_checker_v19_refs.py:25",
+        "legal_bench/proof_carrying/local_checker_v19_refs.py:48",
+        "legal_bench/proof_carrying/local_pipeline_v19_compact.py:55"
+      ]
+    },
+    {
+      "id": "E2",
+      "priority": "P1",
+      "category": "MERGE_FIDELITY_NOT_INDEPENDENTLY_CHECKED",
+      "natural_occurrence_confirmed": false,
+      "code": "scripts/proof_contract_integrity_v19_6.py",
+      "line": 77,
+      "detail": "Import is checked before merge; downstream checker consumes the already merged proposal without comparing it to converted input. Synthetic deletion of last evidence during merge passes entry as CONTRACT_VALID/OK with 18→17 records. Real two-case merge retains all 33 records."
+    },
+    {
+      "id": "E3",
+      "priority": "P1",
+      "category": "RULE_TRACE_COMPLETENESS_GAP",
+      "natural_occurrence_confirmed": false,
+      "code": "legal_bench/proof_carrying/local_checker_v19_refs.py",
+      "line": 148,
+      "detail": "Only supplied rule traces are iterated. Deleting all five traces still returns OK; no expected-rule/route completeness check. New checker count wrapper protects uses/judgments/analysis_units, not conditional_rules."
+    },
+    {
+      "id": "M1",
+      "priority": "P1",
+      "category": "WHOLE_PREMISE_REPLACED_BY_ATTRIBUTED_STATEMENT",
+      "natural_occurrence_confirmed": true,
+      "code": "legal_bench/proof_carrying/local_pipeline_v19_refs.py",
+      "line": 195,
+      "detail": "Allowed record status merely checks permitted evidence form. Legal conditions R6.P2/P3/P4 allow TENANT_SUBMISSION and have no explicit premise stage/court guard. Whole state/components are model proposals. The model changes legal disentitlement into the existence of an objection; program and independent checker conditionally preserve TRUE. Similarly 1954254 R03.P2 replaces controlling legal date with rejected District Judge view.",
+      "model_pointers": [
+        "1187427:/analyses/R6.P2/judgments/0",
+        "1187427:/analyses/R6.P3/judgments/0",
+        "1187427:/analyses/R6.P4/judgments/0",
+        "1954254:/analyses/R03.P2/judgments/0"
+      ]
+    },
+    {
+      "id": "M2",
+      "priority": "P1",
+      "category": "DYNAMIC_REFERENCE_AND_ROLE_SEMANTIC_FAILURE",
+      "natural_occurrence_confirmed": true,
+      "code": "legal_bench/proof_carrying/local_pipeline_v19_6.py",
+      "line": 39,
+      "detail": "Generation constrains prefix/syntax, not dynamic local existence or role identity. 1954254 has 11 nonexistent raw reference fields, 1187427 has 8. Local importer rejects these uses. Existing IDs can still point property to landlord, petition to tenant, or dates to reversed roles."
+    },
+    {
+      "id": "C1",
+      "priority": "P2",
+      "category": "TYPE_COVERAGE_LIMITATION",
+      "natural_occurrence_confirmed": true,
+      "code": "legal_bench/proof_carrying/object_types_v19.py",
+      "line": 56,
+      "detail": "Unmapped type descriptions are correctly distinct from explicit conflict, but provide no semantic protection. All 52 first-case use binding comparisons are unmapped; second case 23/43. This is a coverage boundary; do not restore literal-string rejection or infer identity."
+    },
+    {
+      "id": "C2",
+      "priority": "P1",
+      "category": "MISSING_RULE_CROSS_SLOT_IDENTITY_CONTRACT",
+      "natural_occurrence_confirmed": false,
+      "code": "legal_bench/proof_carrying/local_pipeline_v19_refs.py",
+      "line": 29,
+      "detail": "R5 has no slot_variables. Same earlier_case in two premises gets disjoint premise-local variable names. Synthetic distinct earlier-case IDs may compose to TRUE. Actual R5 remains UNKNOWN due missing objects; no actual wrong full route demonstrated. Shared roles require explicit rule/source-based equality contracts, not global same-role merging."
+    },
+    {
+      "id": "I1",
+      "priority": "P2",
+      "category": "DOWNSTREAM_NEW_VERSION_NOT_INTEGRATED",
+      "natural_occurrence_confirmed": true,
+      "code": "scripts/proof_local_compact_v19.py",
+      "line": 6,
+      "detail": "Paused full local A–G runner still imports V19_5. V19_6 API/common acceptance generates learner material but no encoded inputs, weights or final-answer tasks. Cannot resume old runner and claim new contract end-to-end."
+    },
+    {
+      "id": "I2",
+      "priority": "P2",
+      "category": "GRAPH_INFORMATION_AND_SCOPE_LIMITATION",
+      "natural_occurrence_confirmed": true,
+      "code": "legal_bench/proof_carrying/local_pipeline_v18_recovery.py",
+      "line": 241,
+      "detail": "RULE_DEPENDENCY is declared but not generated here; both graphs have 0. Second proposal generates only support directions, no OPPOSE edges. Learner source coverage is cited paragraphs plus fixed neighbours (56/42 saved segments), not full 138/308. Actual encoding remains PREPARED_NOT_YET_ENCODED."
+    }
+  ],
+  "no_production_fix_or_new_model_run_in_this_audit": true,
+  "reviewer": "MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD"
+}

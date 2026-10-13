@@ -1,11 +1,11 @@
 # ChatGPT 审阅入口
 
-当前实验：V16局部接受与来源恢复：六DEV固定批次完成，保留两技术失败
+当前实验：V20.9.2最终答案来源与主体修复：三案冻结交付
 
-四案缓存回归，907531限定FALSE恢复；六DEV共11High，五提议四审阅可读。两失败null；原停滞页面后来恢复，只取回原回复。新六根OPEN_TEXT，局部前提恢复不等于完整法律推导，暂不恢复训练。
+V20.9.2独立支线交付已冻结：三个已暴露开发案例通过模型来源核验和当前请求覆盖验收；本次独立重放一致，85项工程测试通过，7份冻结清单和480个旧文件哈希一致。发布仅保存代码与证据，不切换主实验入口、不恢复原批次、不新增模型调用或训练；不是人工金标准、未见测试收益或律师批准。
 
-[本轮报告](../outputs/proof-source-alignment-v16/report-zh.md)、[项目状态](../docs/PROJECT_STATE.json)、[实验索引](../docs/EXPERIMENT_INDEX.md)。
+[本轮报告](../outputs/proof-final-bindings-v20-8/report-zh.md)、[项目状态](../docs/PROJECT_STATE.json)、[实验索引](../docs/EXPERIMENT_INDEX.md)。
 
-[冻结配置](../outputs/proof-source-alignment-v16/freeze/config.json)；[逐案比较](../outputs/proof-source-alignment-v16/case-comparison.json)；[最终三视图](../outputs/proof-source-alignment-v16/three-views-final.json)；[来源链](../outputs/proof-source-alignment-v16/walkthrough.md)；[工程验收](../outputs/proof-source-alignment-v16/engineering-acceptance.json)；[缓存回归](../outputs/proof-source-alignment-v16/cache-regression.json)；[集中来源审阅](../outputs/proof-source-alignment-v16/final-source-review.json)；[投入决定](../outputs/proof-source-alignment-v16/learning-decision.json)；[成本](../outputs/proof-source-alignment-v16/cost.json)；[实际提交哈希](../outputs/proof-source-alignment-v16/final-submission-manifest.json)；[旧文件保留](../outputs/proof-source-alignment-v16/preservation-validation.json)；[完成与失败](../outputs/proof-source-alignment-v16/web-run-completion.json)；[实现边界](../docs/PROOF_SOURCE_ALIGNMENT_V16.md)。
+[实现边界](../docs/FINAL_BINDINGS_V20_8.md)；[三案验收](../outputs/proof-final-bindings-v20-8/results.json)；[冻结清单](../outputs/proof-final-bindings-v20-8/delivery-01/freeze/protocol.json)；[独立发布核对](../outputs/proof-final-bindings-v20-8/publication-2026-10-13/pre-push-verification.json)。
 
 本地审阅包尚未提交或推送。模型参考不是人工金标准；来源定位与程序测试不证明法律正确。历史来源分卷 SOURCES_01–04 属于旧关系基线，不是当前输入。

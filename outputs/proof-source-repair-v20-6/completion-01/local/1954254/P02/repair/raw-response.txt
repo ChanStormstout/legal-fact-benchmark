@@ -1,0 +1,568 @@
+{
+  "units": {
+    "R06.P1": {
+      "roles": {
+        "tenant": {
+          "value": "Appellant (E.B. Brook's sub-tenant)",
+          "type": "PERSON",
+          "refs": ["SRC:17", "SRC:54", "SRC:55"],
+          "identity_basis": "The appellant is the sub-tenant who became the direct tenant of Lakhmir Singh.",
+          "entity_key": "TENANT_APP"
+        },
+        "standard_rent_petition": {
+          "value": "Section 8 petition filed Oct 10, 1955",
+          "type": "EVENT",
+          "refs": ["SRC:19", "SRC:54"],
+          "identity_basis": "Petition filed for determination of standard rent effective from May 1, 1955.",
+          "entity_key": "PETITION_S8"
+        },
+        "eviction_suit": {
+          "value": "Civil Suit No. 231/56 filed July 3, 1956",
+          "type": "EVENT",
+          "refs": ["SRC:23", "SRC:24"],
+          "identity_basis": "Suit filed by Lakhmir Singh for recovery of arrears and possession under Section 13(1)(a).",
+          "entity_key": "SUIT_13"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "A tenant's application for determination of standard rent was pending while the landlord pursued eviction for nonpayment.",
+          "status": "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+          "stage": "interim management of contested rent in eviction litigation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:23", "SRC:24", "SRC:54", "SRC:102"],
+          "direction": "SUPPORT",
+          "component_ids": ["R06.P1.K1"],
+          "application": "The tenant filed a Section 8 petition on Oct 10, 1955, while the landlord filed a Section 13 suit on July 3, 1956."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "interim management of contested rent in eviction litigation",
+      "basis": "The Supreme Court recounts the procedural history where the Section 8 petition was pending during the pendency of the Section 13 eviction suit.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R06.P2": {
+      "roles": {
+        "tenant": {
+          "value": "Appellant (E.B. Brook's sub-tenant)",
+          "type": "PERSON",
+          "refs": ["SRC:28", "SRC:63"],
+          "identity_basis": "The appellant moved the application under Section 9.",
+          "entity_key": "TENANT_APP"
+        },
+        "application": {
+          "value": "Application under Section 9 for interim rent",
+          "type": "EVENT",
+          "refs": ["SRC:28", "SRC:63"],
+          "identity_basis": "Application moved on Oct 5, 1956, for fixing interim rent pending standard rent determination.",
+          "entity_key": "APP_S9"
+        },
+        "application_date": {
+          "value": "October 5, 1956",
+          "type": "TIME",
+          "refs": ["SRC:28", "SRC:63"],
+          "identity_basis": "Date the tenant moved the application under Section 9.",
+          "entity_key": "DATE_S9_FILING"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The tenant applied under Section 9 for interim-rent determination while the standard-rent question remained pending.",
+          "status": "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+          "stage": "interim management of contested rent in eviction litigation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:28", "SRC:63", "SRC:105"],
+          "direction": "SUPPORT",
+          "component_ids": ["R06.P2.K1"],
+          "application": "The tenant moved an application under Section 9 on Oct 5, 1956, after the landlord's Section 13(5) application was set down for hearing."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "interim management of contested rent in eviction litigation",
+      "basis": "The judgment explicitly states the tenant moved a Section 9 application on Oct 5, 1956, while the standard rent petition was still pending.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R06.P3": {
+      "roles": {
+        "application": {
+          "value": "Application under Section 9 for interim rent",
+          "type": "EVENT",
+          "refs": ["SRC:28", "SRC:63", "SRC:105"],
+          "identity_basis": "The application for interim rent filed on Oct 5, 1956.",
+          "entity_key": "APP_S9"
+        },
+        "operative_order": {
+          "value": "Interpolated order dated Oct 6, 1956",
+          "type": "DOCUMENT",
+          "refs": ["SRC:28", "SRC:63", "SRC:88", "SRC:91", "SRC:105", "SRC:128"],
+          "identity_basis": "The order purported to direct future rent deposit but was found interpolated and legally non-existent.",
+          "entity_key": "ORDER_OCT6_INTERPOLATED"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "No legally operative interim-rent determination resolving the tenant's Section 9 application had been made.",
+          "status": "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+          "stage": "validity of rent-deposit direction and procedural sanction",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:28", "SRC:63", "SRC:88", "SRC:91", "SRC:105", "SRC:128"],
+          "direction": "SUPPORT",
+          "component_ids": ["R06.P3.K1"],
+          "application": "The Supreme Court held the order dated Oct 6, 1956, was interpolated and a nullity, meaning no valid interim rent determination existed."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "validity of rent-deposit direction and procedural sanction",
+      "basis": "The Supreme Court found the order directing future rent payment was interpolated and therefore legally non-existent, leaving the Section 9 application undecided.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R07.P1": {
+      "roles": {
+        "tenant": {
+          "value": "Appellant (E.B. Brook's sub-tenant)",
+          "type": "PERSON",
+          "refs": ["SRC:28", "SRC:63"],
+          "identity_basis": "The tenant was the party directed to deposit rent.",
+          "entity_key": "TENANT_APP"
+        },
+        "order": {
+          "value": "Order dated October 6, 1956",
+          "type": "DOCUMENT",
+          "refs": ["SRC:28", "SRC:63", "SRC:88", "SRC:91"],
+          "identity_basis": "The purported order directing monthly rent deposit.",
+          "entity_key": "ORDER_OCT6_INTERPOLATED"
+        },
+        "order_date": {
+          "value": "October 6, 1956",
+          "type": "TIME",
+          "refs": ["SRC:28", "SRC:63", "SRC:88", "SRC:91"],
+          "identity_basis": "The date written on the interpolated order.",
+          "entity_key": "DATE_OCT6"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The purported October 6, 1956 order constituted a genuinely made and legally effective rent-deposit direction binding the tenant.",
+          "status": "DISPUTED_TRIAL_RECORD",
+          "stage": "validity of rent-deposit direction and procedural sanction",
+          "court_level": "Trial Court / High Court",
+          "refs": ["SRC:28", "SRC:63", "SRC:83", "SRC:103"],
+          "direction": "OPPOSE",
+          "component_ids": ["R07.P1.K1"],
+          "application": "The trial court and High Court initially treated the order as valid, but the Supreme Court found it interpolated and non-binding."
+        }
+      ],
+      "state": "FALSE",
+      "stage": "validity of rent-deposit direction and procedural sanction",
+      "basis": "The Supreme Court determined the order was interpolated and legally non-existent, directly refuting the proposition that it was a genuine, effective direction.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R07.P2": {
+      "roles": {
+        "tenant": {
+          "value": "Appellant (E.B. Brook's sub-tenant)",
+          "type": "PERSON",
+          "refs": ["SRC:31", "SRC:32", "SRC:67"],
+          "identity_basis": "The tenant whose defence was struck off.",
+          "entity_key": "TENANT_APP"
+        },
+        "sanction": {
+          "value": "Order striking off defence dated March 17, 1958",
+          "type": "DOCUMENT",
+          "refs": ["SRC:31", "SRC:32", "SRC:67", "SRC:128"],
+          "identity_basis": "The order by the learned Judge striking off the tenant's defence.",
+          "entity_key": "ORDER_STRIKEOFF"
+        },
+        "underlying_direction": {
+          "value": "Purported monthly deposit direction (Oct 6, 1956)",
+          "type": "DOCUMENT",
+          "refs": ["SRC:31", "SRC:32", "SRC:67", "SRC:103"],
+          "identity_basis": "The interpolated order cited as the reason for striking off defence.",
+          "entity_key": "ORDER_OCT6_INTERPOLATED"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The trial court struck off the tenant's defence on the asserted ground that he had not complied with the purported monthly deposit direction.",
+          "status": "TRIAL_COURT_ORDER_REPORTED",
+          "stage": "validity of rent-deposit direction and procedural sanction",
+          "court_level": "Trial Court",
+          "refs": ["SRC:31", "SRC:32", "SRC:67", "SRC:128"],
+          "direction": "SUPPORT",
+          "component_ids": ["R07.P2.K1"],
+          "application": "The trial court ordered the defence struck off on March 17, 1958, because the tenant failed to comply with the direction made under Section 13(5)."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "validity of rent-deposit direction and procedural sanction",
+      "basis": "The judgment reports that the trial court struck off the defence based on the tenant's failure to comply with the direction dated Oct 6, 1956.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R07.P3": {
+      "roles": {
+        "order": {
+          "value": "Order dated October 6, 1956",
+          "type": "DOCUMENT",
+          "refs": ["SRC:28", "SRC:63", "SRC:88", "SRC:91", "SRC:105", "SRC:128"],
+          "identity_basis": "The order directing future rent deposit.",
+          "entity_key": "ORDER_OCT6_INTERPOLATED"
+        },
+        "legal_character": {
+          "value": "Interpolated and legal nullity",
+          "type": "LEGAL_CONCEPT",
+          "refs": ["SRC:28", "SRC:63", "SRC:88", "SRC:91", "SRC:105", "SRC:128"],
+          "identity_basis": "The Supreme Court's finding on the nature of the order.",
+          "entity_key": "FINDING_NULLITY"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The Supreme Court determined that the purported direction was interpolated and a legal nullity.",
+          "status": "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+          "stage": "validity of rent-deposit direction and procedural sanction",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:28", "SRC:63", "SRC:88", "SRC:91", "SRC:105", "SRC:128"],
+          "direction": "SUPPORT",
+          "component_ids": ["R07.P3.K1"],
+          "application": "The Supreme Court held the order was interpolated and legally non-existent, making compliance impossible."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "validity of rent-deposit direction and procedural sanction",
+      "basis": "The Supreme Court explicitly found the order was interpolated and a nullity, rendering the basis for striking off the defence invalid.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R08.P1": {
+      "roles": {
+        "suit": {
+          "value": "Civil Suit No. 231/56",
+          "type": "EVENT",
+          "refs": ["SRC:30", "SRC:117", "SRC:121"],
+          "identity_basis": "The landlord's suit for recovery of rent and possession.",
+          "entity_key": "SUIT_13"
+        },
+        "dismissal_date": {
+          "value": "December 12, 1956",
+          "type": "TIME",
+          "refs": ["SRC:117", "SRC:121"],
+          "identity_basis": "Date the suit was dismissed for default.",
+          "entity_key": "DATE_DISMISSAL"
+        },
+        "restoration_date": {
+          "value": "December 30, 1957",
+          "type": "TIME",
+          "refs": ["SRC:117", "SRC:121"],
+          "identity_basis": "Date the suit was restored to file.",
+          "entity_key": "DATE_RESTORATION"
+        },
+        "appeal_date": {
+          "value": "January 2, 1958",
+          "type": "TIME",
+          "refs": ["SRC:117", "SRC:121", "SRC:123"],
+          "identity_basis": "Date the tenant preferred the appeal against the interpolated order.",
+          "entity_key": "DATE_APPEAL"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The landlord's suit was dismissed, subsequently restored, and the tenant preferred his appeal promptly after restoration.",
+          "status": "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+          "stage": "review of refusal to condone appellate delay",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:117", "SRC:121", "SRC:123"],
+          "direction": "SUPPORT",
+          "component_ids": ["R08.P1.K1"],
+          "application": "The suit was dismissed on Dec 12, 1956, restored on Dec 30, 1957, and the appeal was filed on Jan 2, 1958."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "review of refusal to condone appellate delay",
+      "basis": "The judgment recounts the specific dates of dismissal, restoration, and appeal filing to establish the timeline for condonation.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R08.P2": {
+      "roles": {
+        "tenant": {
+          "value": "Appellant (E.B. Brook's sub-tenant)",
+          "type": "PERSON",
+          "refs": ["SRC:117", "SRC:121"],
+          "identity_basis": "The appellant who claimed lack of notice.",
+          "entity_key": "TENANT_APP"
+        },
+        "orders": {
+          "value": "Interpolated order dated October 6, 1956",
+          "type": "DOCUMENT",
+          "refs": ["SRC:117", "SRC:121"],
+          "identity_basis": "The order against which the appeal was filed.",
+          "entity_key": "ORDER_OCT6_INTERPOLATED"
+        },
+        "communication_date": {
+          "value": "UNMAPPED",
+          "type": "TIME",
+          "refs": [],
+          "identity_basis": "The tenant alleged no communication; the date is not established as a fact of communication.",
+          "entity_key": "DATE_COMMUNICATION_UNMAPPED"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The challenged orders were actually made without notifying or communicating them to the tenant, as asserted in his condonation application.",
+          "status": "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+          "stage": "review of refusal to condone appellate delay",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:117", "SRC:121"],
+          "direction": "SUPPORT",
+          "component_ids": ["R08.P2.K1"],
+          "application": "The tenant's application under Section 5 of the Limitation Act specifically stated the orders were made in his absence and without communication."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "review of refusal to condone appellate delay",
+      "basis": "The Supreme Court accepted the tenant's assertion that the orders were made without notice as part of the sufficient cause for condonation.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R08.P3": {
+      "roles": {
+        "appellant": {
+          "value": "Appellant (E.B. Brook's sub-tenant)",
+          "type": "PARTY",
+          "refs": ["SRC:120", "SRC:124"],
+          "identity_basis": "The tenant seeking condonation of delay.",
+          "entity_key": "TENANT_APP"
+        },
+        "interpolation_date": {
+          "value": "UNMAPPED",
+          "type": "TIME",
+          "refs": ["SRC:120", "SRC:124"],
+          "identity_basis": "The exact date of interpolation was not definitively established.",
+          "entity_key": "DATE_INTERPOLATION_UNMAPPED"
+        },
+        "prejudice": {
+          "value": "Loss of statutory protection due to non-compliance with a nullity",
+          "type": "LEGAL_CONCEPT",
+          "refs": ["SRC:120", "SRC:124"],
+          "identity_basis": "The prejudice suffered by the tenant due to the interpolated order.",
+          "entity_key": "PREJUDICE_LOSS_PROTECTION"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The Supreme Court found that the uncertain timing and legal nullity of the interpolated order, together with the resulting loss of statutory protection, created compelling cause for condonation and a miscarriage of justice if relief were refused.",
+          "status": "SUPREME_COURT_EVALUATIVE_FINDING",
+          "stage": "review of refusal to condone appellate delay",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:120", "SRC:124"],
+          "direction": "SUPPORT",
+          "component_ids": ["R08.P3.K1"],
+          "application": "The Court found the uncertainty of the interpolation date and the nullity of the order constituted sufficient cause and a miscarriage of justice."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "review of refusal to condone appellate delay",
+      "basis": "The Supreme Court explicitly linked the nullity of the order and the uncertainty of its timing to the finding of sufficient cause for condonation.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R09.P1": {
+      "roles": {
+        "tenant": {
+          "value": "Tenant in Vora Abbasbhai case",
+          "type": "PERSON",
+          "refs": ["SRC:109", "SRC:110"],
+          "identity_basis": "The tenant in the cited precedent.",
+          "entity_key": "TENANT_VORA"
+        },
+        "standard_rent": {
+          "value": "Court-fixed standard rent",
+          "type": "QUANTITY",
+          "refs": ["SRC:109", "SRC:110"],
+          "identity_basis": "The rent fixed by the court in the precedent.",
+          "entity_key": "RENT_VORA_FIXED"
+        },
+        "payment_deadline": {
+          "value": "Date specified by the court",
+          "type": "TIME",
+          "refs": ["SRC:109", "SRC:110"],
+          "identity_basis": "The deadline specified in the precedent.",
+          "entity_key": "DEADLINE_VORA"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The court has fixed the applicable standard rent and specified a date by which the tenant must pay or tender it.",
+          "status": "SUPREME_COURT_LEGAL_AND_EVIDENTIARY_FINDING",
+          "stage": "reported analogous precedent",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:109", "SRC:110"],
+          "direction": "SUPPORT",
+          "component_ids": ["R09.P1.K1"],
+          "application": "The Supreme Court cites Vora Abbasbhai where the court fixed standard rent and specified a payment date."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "reported analogous precedent",
+      "basis": "The judgment reports the holding in Vora Abbasbhai regarding the fixing of standard rent and the specification of a payment date.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R09.P2": {
+      "roles": {
+        "tenant": {
+          "value": "Tenant in Vora Abbasbhai case",
+          "type": "PERSON",
+          "refs": ["SRC:109", "SRC:110"],
+          "identity_basis": "The tenant in the cited precedent.",
+          "entity_key": "TENANT_VORA"
+        },
+        "standard_rent": {
+          "value": "Court-fixed standard rent",
+          "type": "QUANTITY",
+          "refs": ["SRC:109", "SRC:110"],
+          "identity_basis": "The rent fixed by the court in the precedent.",
+          "entity_key": "RENT_VORA_FIXED"
+        },
+        "payment_deadline": {
+          "value": "Date specified by the court",
+          "type": "TIME",
+          "refs": ["SRC:109", "SRC:110"],
+          "identity_basis": "The deadline specified in the precedent.",
+          "entity_key": "DEADLINE_VORA"
+        },
+        "continuing_payments": {
+          "value": "Regular payment or tender until final decision",
+          "type": "EVENT",
+          "refs": ["SRC:109", "SRC:110"],
+          "identity_basis": "The condition of continuing payment in the precedent.",
+          "entity_key": "PAYMENT_CONTINUING_VORA"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The tenant pays or tenders the court-fixed rent on or before the specified date and continues to pay or tender it regularly until final decision of the suit.",
+          "status": "SUPREME_COURT_RECOUNTED_FACT",
+          "stage": "reported analogous precedent",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:109", "SRC:110"],
+          "direction": "SUPPORT",
+          "component_ids": ["R09.P2.K1"],
+          "application": "The Supreme Court recounts the rule from Vora Abbasbhai that qualifying for protection requires payment on the specified date and continuing regular payment."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "reported analogous precedent",
+      "basis": "The judgment reports the conditions under which a tenant qualifies for statutory protection in the cited precedent.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R10.P1": {
+      "roles": {
+        "deceased": {
+          "value": "Lakhmir Singh (Original Landlord)",
+          "type": "PERSON",
+          "refs": ["SRC:130", "SRC:131"],
+          "identity_basis": "The original landlord who died during the pendency of appeals.",
+          "entity_key": "LANDLORD_DECEASED"
+        },
+        "death_date": {
+          "value": "April 9, 1978",
+          "type": "TIME",
+          "refs": ["SRC:130", "SRC:131"],
+          "identity_basis": "The date of death of the original landlord.",
+          "entity_key": "DATE_DEATH"
+        },
+        "transferees": {
+          "value": "Respondents Nos. 2 and 3",
+          "type": "PERSON_GROUP",
+          "refs": ["SRC:130", "SRC:132", "SRC:133"],
+          "identity_basis": "The transferees who became the real contesting respondents.",
+          "entity_key": "RESPONDENTS_2_3"
+        },
+        "transfer_date": {
+          "value": "December 21, 1959",
+          "type": "TIME",
+          "refs": ["SRC:130", "SRC:132", "SRC:133"],
+          "identity_basis": "The date the property was transferred to respondents 2 and 3.",
+          "entity_key": "DATE_TRANSFER"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The original landlord died during appellate proceedings after having transferred the entire disputed property to respondents 2 and 3, who were the real contesting respondents.",
+          "status": "SUPREME_COURT_RECOUNTED_FACT",
+          "stage": "substitution, abatement and delay condonation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:130", "SRC:131", "SRC:132", "SRC:133"],
+          "direction": "SUPPORT",
+          "component_ids": ["R10.P1.K1"],
+          "application": "The judgment states Lakhmir Singh died on April 9, 1978, having transferred the property on Dec 21, 1959, to respondents 2 and 3."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "substitution, abatement and delay condonation",
+      "basis": "The Supreme Court recounts the death of the original landlord and the prior transfer of property to the current respondents.",
+      "gaps": [],
+      "necessary_limits": []
+    },
+    "R10.P2": {
+      "roles": {
+        "applicant": {
+          "value": "Appellant (E.B. Brook's sub-tenant)",
+          "type": "PARTY",
+          "refs": ["SRC:131", "SRC:133"],
+          "identity_basis": "The tenant who filed the substitution petition.",
+          "entity_key": "TENANT_APP"
+        },
+        "actual_first_knowledge_date": {
+          "value": "March 2, 1984",
+          "type": "TIME",
+          "refs": ["SRC:131", "SRC:133"],
+          "identity_basis": "The date the tenant received intimation from opposing counsel.",
+          "entity_key": "DATE_KNOWLEDGE"
+        },
+        "notification_date": {
+          "value": "March 2, 1984",
+          "type": "TIME",
+          "refs": ["SRC:131", "SRC:133"],
+          "identity_basis": "The date the letter intimating death was handed to the Registry.",
+          "entity_key": "DATE_NOTIFICATION"
+        },
+        "substitution_date": {
+          "value": "March 21, 1984",
+          "type": "TIME",
+          "refs": ["SRC:131", "SRC:133"],
+          "identity_basis": "The date the petition for substitution was moved.",
+          "entity_key": "DATE_SUBSTITUTION"
+        }
+      },
+      "evidence": [
+        {
+          "proposition": "The tenant's substitution application was filed promptly after the first actual knowledge of the original landlord's death conveyed by opposing counsel.",
+          "status": "SUPREME_COURT_RECOUNTED_PROCEDURAL_FACT",
+          "stage": "substitution, abatement and delay condonation",
+          "court_level": "Supreme Court",
+          "refs": ["SRC:131", "SRC:133"],
+          "direction": "SUPPORT",
+          "component_ids": ["R10.P2.K1"],
+          "application": "The tenant received intimation on March 2, 1984, and filed the substitution petition on March 21, 1984, within three weeks."
+        }
+      ],
+      "state": "TRUE",
+      "stage": "substitution, abatement and delay condonation",
+      "basis": "The Supreme Court found the tenant filed the substitution petition promptly after receiving intimation from opposing counsel.",
+      "gaps": [],
+      "necessary_limits": []
+    }
+  },
+  "coverage_limits": [
+    "The judgment does not provide the specific amount of standard rent fixed by the trial court in the first instance, only that it was remitted for determination.",
+    "The exact date of interpolation of the October 6, 1956 order is not definitively established, only that it occurred before the transfer of the suit."
+  ]
+}

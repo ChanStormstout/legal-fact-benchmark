@@ -1,0 +1,178 @@
+{
+  "review_date_local": "2026-10-11",
+  "timezone": "America/Phoenix",
+  "corpus_count": 17,
+  "scope": "Targeted primary-source design review, not exhaustive systematic review",
+  "sources": [
+    {
+      "id": "AIS",
+      "title": "Measuring Attribution in Natural Language Generation Models",
+      "year": "2023",
+      "url": "https://aclanthology.org/2023.cl-4.2/",
+      "finding": "Output interpretation in context and source support are distinct checks.",
+      "limit": "Contextual attribution is not legal approval.",
+      "read_scope": "ABSTRACT_AND_RELEVANT_METHOD",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "FEVER",
+      "title": "FEVER: a Large-scale Dataset for Fact Extraction and VERification",
+      "year": "2018",
+      "url": "https://aclanthology.org/N18-1074/",
+      "finding": "Evidence sets and claim labels are both evaluated.",
+      "limit": "Wikipedia claims are not judicial reasoning.",
+      "read_scope": "ABSTRACT",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "ContractNLI",
+      "title": "ContractNLI: A Dataset for Document-level Natural Language Inference for Contracts",
+      "year": "2021",
+      "url": "https://aclanthology.org/2021.findings-emnlp.164/",
+      "finding": "Document entailment and evidence spans are separately annotated; exceptions remain difficult.",
+      "limit": "Contracts differ from speaker- and stage-sensitive judgments.",
+      "read_scope": "METHOD_AND_LIMITATIONS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "RARR",
+      "title": "RARR: Researching and Revising What Language Models Say, Using Language Models",
+      "year": "2023",
+      "url": "https://aclanthology.org/2023.acl-long.910/",
+      "finding": "Evidence research and minimal revision can improve attribution.",
+      "limit": "The paper notes downstream reasoning is not necessarily revised after factual edits; original method uses web search.",
+      "read_scope": "METHOD_RESULTS_LIMITATIONS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "CoVe",
+      "title": "Chain-of-Verification Reduces Hallucination in Large Language Models",
+      "year": "2024",
+      "url": "https://aclanthology.org/2024.findings-acl.212/",
+      "finding": "Factored verification hides the initial answer during individual verification.",
+      "limit": "Original verification uses model knowledge; gains do not establish independent legal evidence checking.",
+      "read_scope": "METHOD_RESULTS_LIMITATIONS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "IntrinsicCorrection",
+      "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2310.01798",
+      "finding": "Intrinsic correction is sensitive to oracle feedback, extra information and extra compute.",
+      "limit": "A finding for tested setups, not a universal impossibility theorem.",
+      "read_scope": "METHOD_AND_CONFOUNDS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "ProCo",
+      "title": "Large Language Models Can Self-Correct with Key Condition Verification",
+      "year": "2024",
+      "url": "https://aclanthology.org/2024.emnlp-main.714/",
+      "finding": "Specific key-condition checking is a positive counterexample to generic reflection failure.",
+      "limit": "Short questions and mainly entity or numerical answers limit transfer to long judgments.",
+      "read_scope": "METHOD_RESULTS_LIMITATIONS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "FActScore",
+      "title": "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation",
+      "year": "2023",
+      "url": "https://aclanthology.org/2023.emnlp-main.741/",
+      "finding": "Atomic fact support is assessed against a designated source.",
+      "limit": "Aggregate score error is not per-claim accuracy; disputed legal interpretations and coverage need separate treatment.",
+      "read_scope": "METHOD_RESULTS_LIMITATIONS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "SAFE",
+      "title": "Long-form factuality in large language models",
+      "year": "2024",
+      "url": "https://arxiv.org/abs/2403.18802",
+      "finding": "Source checking decomposes facts, resolves context and uses bounded iterative search.",
+      "limit": "External search and length-based recall proxy differ from fixed legal sources and key-item coverage.",
+      "read_scope": "METHOD_RESULTS_LIMITATIONS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "ALCE",
+      "title": "Enabling Large Language Models to Generate Text with Citations",
+      "year": "2023",
+      "url": "https://aclanthology.org/2023.emnlp-main.398/",
+      "finding": "Answer correctness and citation quality require separate evaluation.",
+      "limit": "Entailment-based evaluators have errors and do not solve complex legal chains.",
+      "read_scope": "METHOD_RESULTS_LIMITATIONS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "GEAR",
+      "title": "GEAR: Graph-based Evidence Aggregating and Reasoning for Fact Verification",
+      "year": "2019",
+      "url": "https://aclanthology.org/P19-1085/",
+      "finding": "Graph propagation aggregates multiple evidence statements.",
+      "limit": "FEVER gains are not proof of R-GCN legal benefits; do not adopt fully connected edges as factual links.",
+      "read_scope": "ABSTRACT_AND_METHOD_OVERVIEW",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "DocInfer",
+      "title": "DocInfer: Document-level Natural Language Inference using Optimal Evidence Selection",
+      "year": "2022",
+      "url": "https://aclanthology.org/2022.emnlp-main.51/",
+      "finding": "Document graphs address dispersed evidence and document entailment.",
+      "limit": "Do not import its extra architecture or reinforcement learning into this bounded project.",
+      "read_scope": "ABSTRACT_AND_METHOD_OVERVIEW",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "PRMLessons",
+      "title": "The Lessons of Developing Process Reward Models in Mathematical Reasoning",
+      "year": "2025",
+      "url": "https://aclanthology.org/2025.findings-acl.547/",
+      "finding": "Outcome-success-based labels and Best-of-N may mismeasure step correctness.",
+      "limit": "Mathematical verification findings motivate safeguards, not legal correctness guarantees.",
+      "read_scope": "METHOD_RESULTS_CONFOUNDS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "ProcessBench",
+      "title": "ProcessBench: Identifying Process Errors in Mathematical Reasoning",
+      "year": "2025",
+      "url": "https://aclanthology.org/2025.acl-long.50/",
+      "finding": "Evaluate error identification and correct-process retention separately.",
+      "limit": "Legal branches require local rather than global rejection after an error.",
+      "read_scope": "METHOD_RESULTS",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "NLIArtifacts",
+      "title": "Don’t Take the Premise for Granted: Mitigating Artifacts in Natural Language Inference",
+      "year": "2019",
+      "url": "https://aclanthology.org/P19-1084/",
+      "finding": "Hypothesis-only artifacts can yield nontrivial performance without premise understanding.",
+      "limit": "Evidence-sensitivity controls remain diagnostic, not natural legal supervision.",
+      "read_scope": "ABSTRACT_AND_METHOD_OVERVIEW",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "LostMiddle",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "year": "2024",
+      "url": "https://aclanthology.org/2024.tacl-1.9/",
+      "finding": "Relevant-information position affects tested long-context tasks.",
+      "limit": "Not a causal diagnosis of the current Qwen errors.",
+      "read_scope": "ABSTRACT",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    },
+    {
+      "id": "FACTSGrounding",
+      "title": "The FACTS Grounding Leaderboard: Benchmarking LLMs’ Ability to Ground Responses to Long-Form Input",
+      "year": "2025",
+      "url": "https://arxiv.org/abs/2501.03200",
+      "finding": "Groundedness must be paired with meaningful task completion.",
+      "limit": "Judge bias persists; multiple judges do not establish human legal gold.",
+      "read_scope": "METHOD_AND_EVALUATION",
+      "verification": "VERIFIED_PRIMARY_SOURCE"
+    }
+  ]
+}

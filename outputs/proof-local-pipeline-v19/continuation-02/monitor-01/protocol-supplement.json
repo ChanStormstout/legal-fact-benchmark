@@ -1,0 +1,45 @@
+{
+  "version": "V19_SCHEDULING_MONITOR_1",
+  "frozen_at_utc": "2026-10-11T11:46:04.753889+00:00",
+  "scope": "SCHEDULING_AND_ACCOUNTING_ONLY_NOT_A_NEW_GENERATION_METHOD",
+  "original_protocol": "outputs/proof-local-pipeline-v19/continuation-02/freeze/protocol.json",
+  "original_protocol_sha256": "31a9b0573af8520213dd8bba3d6d566125894fbb8e142027cdacc4ef7abc1228",
+  "code_hashes": {
+    "legal_bench/proof_carrying/p_monitor_v19.py": "daca1bd53aed73bd7257340e2b6618a61afd1c0000077f95e7e3f3a5eaaed14f",
+    "scripts/proof_local_monitor_v19.py": "ab6364c319237d9d3ab54ebf423911be9c9c5a19c4a9e55a844c4156a7ac116d",
+    "tests/test_p_monitor_v19.py": "fd01228bb5a941fbdc75cc549bf1cc60c22e4e5fe2aad463ca1238108b3082ce"
+  },
+  "guard_seed": {
+    "dest": "local/1066467/P01",
+    "existing_status": "REPETITION_ABORT",
+    "run_sha256": "9e159629c4f77ce6cb1cc03a66e0ba0e46ec06a31403ec96073aa1b88e5e6ea0"
+  },
+  "rolling_guard": {
+    "input": "Actual completed P calls from seed onward in frozen dispatch order; skipped or uncertain attempts do not count as new completed calls",
+    "stop": "Two adjacent REPETITION_ABORT calls, or two adjacent OUTPUT_TRUNCATED calls; save current first, dispatch no next P",
+    "reset": "OK resets streak. A different technical status breaks same-category adjacency; different repetition diagnostics are preserved under the repetition failure category.",
+    "repeat_source": "Existing record_guard/repetition_guard and raw-response/token-ids retained; no new detection threshold",
+    "no_retries": true
+  },
+  "per_saved_P": "Frozen conversion, merge, production and independent recomputation; technical success/failure, readable parts, preserved records, local dispositions and compatible source-reviewed TRAIN/DEV labels counted separately",
+  "effective_supervision": "Count only unchanged admitted source-reviewed labels for terminal case parts. Raw readable P or structurally available use is not automatically a training label. References used for accounting only, never fed to proposals/checks/learner input.",
+  "shared_engineering_stop": "Pause after saved current for source/version integrity failure, production/independent recomputation disagreement, record-retention mismatch, reference leakage flag or import exception. Natural local semantic errors retain original content and frozen isolation. Other suspected common omissions/connections require impact diagnosis before a separate repair version.",
+  "no_semantic_method_change": true,
+  "no_DEV_based_changes": true,
+  "original_data_training_final_gates_unchanged": true,
+  "original_slots_budgets_unchanged": true,
+  "already_saved_P_not_regenerated": true,
+  "current_transition": {
+    "legacy_process_pid": 85932,
+    "active_dest": "local/1066467/P02",
+    "safe_pause_marker": "outputs/proof-local-pipeline-v19/continuation-02/PAUSE_REQUESTED.json",
+    "effect": "Current process saves P02 at original limits then stops. New process uses this supplement; edits do not alter live process. If P02 triggers same-category second failure, do not resume."
+  },
+  "engineering_acceptance": {
+    "two_monitor_tests": "PASS",
+    "actual_cached_entry_recompute": "10 cases including no-readable seed; 9 readable cases, independent recomputation OK; 134 compatible labels preserved",
+    "tests_log": "outputs/proof-local-pipeline-v19/continuation-02/startup/monitor-tests.txt"
+  },
+  "no_new_model_prerun": true,
+  "no_commit_push": true
+}

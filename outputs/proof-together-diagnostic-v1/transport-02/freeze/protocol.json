@@ -1,0 +1,86 @@
+{
+  "version": "TOGETHER_SAME_INPUT_V1",
+  "frozen_at": "2026-10-11T15:35:17.929817+00:00",
+  "HEAD": "0dc654bbc6e1e6d98493ea073a49963624adf5f7",
+  "tasks": [
+    {
+      "case_id": "1954254",
+      "part": "P01",
+      "original": "outputs/proof-local-pipeline-v19/continuation-04/local/1954254/P01",
+      "task": "tasks/1954254/P01",
+      "prompt_sha256": "2fa9ac6248d1bfabc28e42e69f2cc07239e8700c3cbd40a9eee47bb78e5574de",
+      "schema_file_sha256": "028aa7b4761749b673eb688b4776f2fbd65be9ff8fb0cf537d67eed8bc8bf32e",
+      "request_sha256": "7330d235921a9e27554c539300394fce7d761ebd6a750d1e477e3a76ec5528ff",
+      "prompt_identical_bytes": true,
+      "schema_identical_bytes": true,
+      "local_prompt_tokens": 25606,
+      "local_status": "OUTPUT_TRUNCATED",
+      "local_output_tokens": 16384,
+      "local_elapsed_seconds": 1321.5713687089738
+    },
+    {
+      "case_id": "1187427",
+      "part": "P02",
+      "original": "outputs/proof-local-pipeline-v19/continuation-04/local/1187427/P02",
+      "task": "tasks/1187427/P02",
+      "prompt_sha256": "9cdafda3b2fb27b9ed07b9a0c62e9f3913a36cdd285ab3b358815850c46f24bf",
+      "schema_file_sha256": "8c95e9664496b923d6d532f3fe1f43c0eadb66be0774e2b788aeb3be74feec43",
+      "request_sha256": "cf23015ec65c162ccaa19640c7db6c49beb38e67a21a728f3a770d4f73235786",
+      "prompt_identical_bytes": true,
+      "schema_identical_bytes": true,
+      "local_prompt_tokens": 35476,
+      "local_status": "REPETITION_ABORT",
+      "local_output_tokens": 1723,
+      "local_elapsed_seconds": 231.38308254210278
+    }
+  ],
+  "runner_sha256": "c53757ab32ee045fa58854fad83b3b1b0e7f97de06afb90ddf1fbd52949be42f",
+  "maximum_generations": 2,
+  "retries": 0,
+  "per_call_seconds_cap": 3600,
+  "maximum_cost_usd": 0.1,
+  "input_price_usd_per_million": 0.17,
+  "output_price_usd_per_million": 0.25,
+  "model": "Qwen/Qwen3.5-9B",
+  "service_model_ui": "Qwen3.5 9B FP8",
+  "parameters": {
+    "model": "Qwen/Qwen3.5-9B",
+    "reasoning": {
+      "enabled": false
+    },
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "min_p": 0.0,
+    "repetition_penalty": 1.0,
+    "seed": 20261001,
+    "max_tokens": 16384,
+    "stream": true,
+    "n": 1,
+    "context_length_exceeded_behavior": "error"
+  },
+  "differences": [
+    "FP8 versus local 4-bit MLX",
+    "Server framework, exact weights revision and chat template not available",
+    "Provider JSON Schema decoding versus patched local LM Format Enforcer",
+    "API reasoning disable versus local tokenizer template disable",
+    "Local repetition guards diagnostic only in API run; do not interrupt stream",
+    "Local 65536 input/output budget checked on saved inputs; provider native context 262144"
+  ],
+  "evaluation": [
+    "natural completion and strict original schema validation",
+    "original dynamic reference and local import/independent check",
+    "offline identical-record/address/string guards",
+    "source fidelity for selected decisive assertions; not whole-case legal evaluation"
+  ],
+  "no_training_or_local_generation": true,
+  "V19_remains_paused": true,
+  "credential_storage": "User-home private file or environment; never repository",
+  "credential_expiration_ui": "2027-06-12 00:00 as shown after user created key; not changed by agent",
+  "official_sources": [
+    "https://www.together.ai/models/qwen3-5-9b",
+    "https://docs.together.ai/reference/chat-completions",
+    "https://docs.together.ai/docs/inference/chat/structured-outputs"
+  ],
+  "stop": "After two prescribed attempts; no method changes, alternate models or repair retries"
+}
