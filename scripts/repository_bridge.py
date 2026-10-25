@@ -115,7 +115,7 @@ def prepare_current(root, policy):
         if not (root/x['path']).is_file():raise ValueError('Missing current review artifact: '+x['path'])
     text='# ChatGPT 审阅入口\n\n当前实验：'+cur['title']+'\n\n'+cur['summary']+'\n\n[本轮报告](../'+report+')、[项目状态](../docs/PROJECT_STATE.json)、[实验索引](../docs/EXPERIMENT_INDEX.md)。\n\n'
     text+='；'.join('['+x['label']+'](../'+x['path']+')' for x in links)+'。\n\n'
-    text+='本地审阅包尚未提交或推送。模型参考不是人工金标准；来源定位与程序测试不证明法律正确。历史来源分卷 SOURCES_01–04 属于旧关系基线，不是当前输入。\n'
+    text+='发布状态以实际提交及远端核对为准。模型参考不是人工金标准；来源定位与程序测试不证明法律正确。历史来源分卷 SOURCES_01–04 属于旧关系基线，不是当前输入。\n'
     save(root,'review/START_HERE.md',text)
     save(root,'review/RESULTS.md','# 当前开发结果\n\n'+(root/report).read_text())
     save(root,'review/CODE.md',code_bundle(root,policy))

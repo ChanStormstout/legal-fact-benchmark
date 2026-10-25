@@ -1,0 +1,1691 @@
+{
+  "context_length_exceeded_behavior": "error",
+  "max_tokens": 65536,
+  "min_p": 0.0,
+  "model": "Qwen/Qwen3.5-9B",
+  "n": 1,
+  "reasoning": {
+    "enabled": false
+  },
+  "repetition_penalty": 1.0,
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "legal_stage",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "SReed36566ae07ad62": {
+            "type": "object",
+            "properties": {
+              "object_hash": {
+                "type": "string",
+                "enum": [
+                  "eed36566ae07ad627ee4503b8ed614db3d881bbbbf83948d45fc4698a85476d5"
+                ]
+              },
+              "observed_owner": {
+                "type": "string",
+                "enum": [
+                  "O4acbaf9c2380cdc3",
+                  "O2a667cb316625b90",
+                  "O79b4ce993cb7b127",
+                  "Ob1d1362460b8a526",
+                  "SOURCE_LOCAL_UNNAMED",
+                  "UNRESOLVED"
+                ]
+              },
+              "observed_content_role": {
+                "type": "string",
+                "enum": [
+                  "ATTRIBUTION",
+                  "OBSERVATION",
+                  "LEGAL_ASSESSMENT",
+                  "VIEW_LIMIT",
+                  "UNRESOLVED"
+                ]
+              },
+              "observed_status": {
+                "type": "string",
+                "enum": [
+                  "PARTY_CLAIM",
+                  "COURT_RECORDED",
+                  "REPORTED_EVIDENCE",
+                  "LIMITATION",
+                  "UNRESOLVED"
+                ]
+              },
+              "field_checks": {
+                "type": "object",
+                "properties": {
+                  "meaning": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "owner_label": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "participant_roles": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "procedure": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  }
+                },
+                "required": [
+                  "meaning",
+                  "owner_label",
+                  "participant_roles",
+                  "event_time",
+                  "procedure"
+                ],
+                "additionalProperties": false
+              },
+              "reading_alignment": {
+                "type": "object",
+                "properties": {
+                  "meaning": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "owner_label": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "participant_roles": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "procedure": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  }
+                },
+                "required": [
+                  "meaning",
+                  "owner_label",
+                  "participant_roles",
+                  "event_time",
+                  "procedure"
+                ],
+                "additionalProperties": false
+              },
+              "reading_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "OR2d9280a2a824b66c",
+                    "OR4fce8280db3dd988",
+                    "OR4578deb33418ccc8",
+                    "OR29a8c834b74ca217",
+                    "OR6d116e921f9600c1",
+                    "OR4d9e4b4c783c25cc",
+                    "OR46a0e1c02fa0c6e1",
+                    "ORca6d6deccdd6b360",
+                    "OR5a2e0a6226db3a04",
+                    "OR4bc6d0398bc9c4cc",
+                    "OR885b6383ff05e929",
+                    "OR1b1a8d6351729282",
+                    "OR1c85580a0af1c47a",
+                    "OR31953ffe34fcd962",
+                    "OR934334ff490a807d",
+                    "OR29f2ac7c7fb7f890",
+                    "ORde554619bccbbce1",
+                    "ORc304cdc5bc58c654",
+                    "OR8f33703b778ec8df",
+                    "ORd3b1e6b68e1d2092",
+                    "ORd3d8caf1fc92e477",
+                    "OR6340d61d2bd5ca30",
+                    "ORf5819d9619d38d78",
+                    "OR01afaec8cdf96158",
+                    "OR2785f0d5c21d450c",
+                    "ORf4c1199227315e4e",
+                    "ORa38a1398d21715da",
+                    "ORf57aff837a76ec44"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 8,
+                "uniqueItems": true
+              },
+              "field_findings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "enum": [
+                        "meaning",
+                        "source_owner",
+                        "owner_label",
+                        "status",
+                        "content_role",
+                        "participant_roles",
+                        "actors",
+                        "properties",
+                        "event",
+                        "time",
+                        "court",
+                        "procedure"
+                      ]
+                    },
+                    "finding": {
+                      "type": "string",
+                      "enum": [
+                        "CONTRADICTED",
+                        "INSUFFICIENT_CONTEXT",
+                        "MISSING_IDENTITY",
+                        "REVIEW_DISAGREEMENT"
+                      ]
+                    },
+                    "witnesses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "span_id": {
+                            "type": "string",
+                            "enum": [
+                              "We856a8f27d5a",
+                              "Wa202f3c2ac04",
+                              "Wcb87ae75f474",
+                              "Wbca8d308e34d",
+                              "W2dff9f6b8605",
+                              "W21c30eba4ee2",
+                              "W17b9af76dbe8",
+                              "W688442941677",
+                              "Wcb1a539fc1d5",
+                              "Wfe87e2524db7",
+                              "Wbf1e656cd798",
+                              "W2927255f2278",
+                              "W68de7d943528",
+                              "W4d8eff619d23",
+                              "W2383fab2f6d3",
+                              "Wb377661dbe31",
+                              "W44c8bd95b087",
+                              "Wead2262b1c19",
+                              "W3e958af361cb",
+                              "We9fcecb1fc58",
+                              "W6963edae5f5c",
+                              "Wcba8bc9a9964",
+                              "W7f99dccdd57f",
+                              "W652b22d5b9c8",
+                              "W68fb0de178ef",
+                              "W4db3803e5b53",
+                              "W87aeb6179f69",
+                              "W43dff9488c01",
+                              "W06ed1bef9e6c",
+                              "Wbd45924aba6f"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "span_id"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 3,
+                      "uniqueItems": false
+                    },
+                    "conflict": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Write a complete concise statement, normally within 180 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                    }
+                  },
+                  "required": [
+                    "field",
+                    "finding",
+                    "witnesses",
+                    "conflict"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 8,
+                "uniqueItems": false
+              },
+              "source_meaning": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Write a complete concise statement, normally within 320 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+              },
+              "witnesses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "span_id": {
+                      "type": "string",
+                      "enum": [
+                        "We856a8f27d5a",
+                        "Wa202f3c2ac04",
+                        "Wcb87ae75f474",
+                        "Wbca8d308e34d",
+                        "W2dff9f6b8605",
+                        "W21c30eba4ee2",
+                        "W17b9af76dbe8",
+                        "W688442941677",
+                        "Wcb1a539fc1d5",
+                        "Wfe87e2524db7",
+                        "Wbf1e656cd798",
+                        "W2927255f2278",
+                        "W68de7d943528",
+                        "W4d8eff619d23",
+                        "W2383fab2f6d3",
+                        "Wb377661dbe31",
+                        "W44c8bd95b087",
+                        "Wead2262b1c19",
+                        "W3e958af361cb",
+                        "We9fcecb1fc58",
+                        "W6963edae5f5c",
+                        "Wcba8bc9a9964",
+                        "W7f99dccdd57f",
+                        "W652b22d5b9c8",
+                        "W68fb0de178ef",
+                        "W4db3803e5b53",
+                        "W87aeb6179f69",
+                        "W43dff9488c01",
+                        "W06ed1bef9e6c",
+                        "Wbd45924aba6f"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "span_id"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 3,
+                "uniqueItems": false
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Write a complete concise statement, normally within 240 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "S5d64227f2f7b",
+                    "S0a9a8dc68607",
+                    "S4229e2cf54d0",
+                    "S17c404653270",
+                    "S4e66d246790f",
+                    "S1b5d070c6f58",
+                    "S29c47135bf1b",
+                    "Sa38d8918c9ac",
+                    "Sda84b44fc34d",
+                    "S764c24b293df",
+                    "Sc4986463e975",
+                    "Sad53ad8225a2",
+                    "Sf7cdab5aa0ca",
+                    "S9f014ca2f861",
+                    "S3dc313ddd1ca",
+                    "S7d30876f6b68",
+                    "S65959eb57e13",
+                    "S487ef87e25a2",
+                    "Sb842c2dece3b",
+                    "S7861a3aa3085",
+                    "Sc8d43e93b852",
+                    "Sad7168b54d36",
+                    "S5fb14e6ff05b",
+                    "Sf9ce70b49f1a",
+                    "S134e4fba6e50",
+                    "S71f0e4fd9183",
+                    "Sef7502ffa07b",
+                    "Scd01843d342e",
+                    "S455c559dbee6",
+                    "Sd510ad69329d"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 12,
+                "uniqueItems": true
+              },
+              "decision": {
+                "type": "string",
+                "enum": [
+                  "ACCEPT",
+                  "REJECT",
+                  "UNRESOLVED"
+                ]
+              }
+            },
+            "required": [
+              "object_hash",
+              "observed_owner",
+              "observed_content_role",
+              "observed_status",
+              "field_checks",
+              "reading_alignment",
+              "reading_ids",
+              "field_findings",
+              "source_meaning",
+              "witnesses",
+              "reason",
+              "refs",
+              "decision"
+            ],
+            "additionalProperties": false
+          },
+          "SRa746011471fbff7e": {
+            "type": "object",
+            "properties": {
+              "object_hash": {
+                "type": "string",
+                "enum": [
+                  "a746011471fbff7eda6a0dca187110f08cef294a18d2b54b6cfb8a533bc85289"
+                ]
+              },
+              "observed_owner": {
+                "type": "string",
+                "enum": [
+                  "O4acbaf9c2380cdc3",
+                  "O2a667cb316625b90",
+                  "O79b4ce993cb7b127",
+                  "Ob1d1362460b8a526",
+                  "SOURCE_LOCAL_UNNAMED",
+                  "UNRESOLVED"
+                ]
+              },
+              "observed_content_role": {
+                "type": "string",
+                "enum": [
+                  "ATTRIBUTION",
+                  "OBSERVATION",
+                  "LEGAL_ASSESSMENT",
+                  "VIEW_LIMIT",
+                  "UNRESOLVED"
+                ]
+              },
+              "observed_status": {
+                "type": "string",
+                "enum": [
+                  "PARTY_CLAIM",
+                  "COURT_RECORDED",
+                  "REPORTED_EVIDENCE",
+                  "LIMITATION",
+                  "UNRESOLVED"
+                ]
+              },
+              "field_checks": {
+                "type": "object",
+                "properties": {
+                  "meaning": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "owner_label": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "participant_roles": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "procedure": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  }
+                },
+                "required": [
+                  "meaning",
+                  "owner_label",
+                  "participant_roles",
+                  "event_time",
+                  "procedure"
+                ],
+                "additionalProperties": false
+              },
+              "reading_alignment": {
+                "type": "object",
+                "properties": {
+                  "meaning": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "owner_label": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "participant_roles": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "procedure": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  }
+                },
+                "required": [
+                  "meaning",
+                  "owner_label",
+                  "participant_roles",
+                  "event_time",
+                  "procedure"
+                ],
+                "additionalProperties": false
+              },
+              "reading_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "OR2d9280a2a824b66c",
+                    "OR4fce8280db3dd988",
+                    "OR4578deb33418ccc8",
+                    "OR29a8c834b74ca217",
+                    "OR6d116e921f9600c1",
+                    "OR4d9e4b4c783c25cc",
+                    "OR46a0e1c02fa0c6e1",
+                    "ORca6d6deccdd6b360",
+                    "OR5a2e0a6226db3a04",
+                    "OR4bc6d0398bc9c4cc",
+                    "OR885b6383ff05e929",
+                    "OR1b1a8d6351729282",
+                    "OR1c85580a0af1c47a",
+                    "OR31953ffe34fcd962",
+                    "OR934334ff490a807d",
+                    "OR29f2ac7c7fb7f890",
+                    "ORde554619bccbbce1",
+                    "ORc304cdc5bc58c654",
+                    "OR8f33703b778ec8df",
+                    "ORd3b1e6b68e1d2092",
+                    "ORd3d8caf1fc92e477",
+                    "OR6340d61d2bd5ca30",
+                    "ORf5819d9619d38d78",
+                    "OR01afaec8cdf96158",
+                    "OR2785f0d5c21d450c",
+                    "ORf4c1199227315e4e",
+                    "ORa38a1398d21715da",
+                    "ORf57aff837a76ec44"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 8,
+                "uniqueItems": true
+              },
+              "field_findings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "enum": [
+                        "meaning",
+                        "source_owner",
+                        "owner_label",
+                        "status",
+                        "content_role",
+                        "participant_roles",
+                        "actors",
+                        "properties",
+                        "event",
+                        "time",
+                        "court",
+                        "procedure"
+                      ]
+                    },
+                    "finding": {
+                      "type": "string",
+                      "enum": [
+                        "CONTRADICTED",
+                        "INSUFFICIENT_CONTEXT",
+                        "MISSING_IDENTITY",
+                        "REVIEW_DISAGREEMENT"
+                      ]
+                    },
+                    "witnesses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "span_id": {
+                            "type": "string",
+                            "enum": [
+                              "We856a8f27d5a",
+                              "Wa202f3c2ac04",
+                              "Wcb87ae75f474",
+                              "Wbca8d308e34d",
+                              "W2dff9f6b8605",
+                              "W21c30eba4ee2",
+                              "W17b9af76dbe8",
+                              "W688442941677",
+                              "Wcb1a539fc1d5",
+                              "Wfe87e2524db7",
+                              "Wbf1e656cd798",
+                              "W2927255f2278",
+                              "W68de7d943528",
+                              "W4d8eff619d23",
+                              "W2383fab2f6d3",
+                              "Wb377661dbe31",
+                              "W44c8bd95b087",
+                              "Wead2262b1c19",
+                              "W3e958af361cb",
+                              "We9fcecb1fc58",
+                              "W6963edae5f5c",
+                              "Wcba8bc9a9964",
+                              "W7f99dccdd57f",
+                              "W652b22d5b9c8",
+                              "W68fb0de178ef",
+                              "W4db3803e5b53",
+                              "W87aeb6179f69",
+                              "W43dff9488c01",
+                              "W06ed1bef9e6c",
+                              "Wbd45924aba6f"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "span_id"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 3,
+                      "uniqueItems": false
+                    },
+                    "conflict": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Write a complete concise statement, normally within 180 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                    }
+                  },
+                  "required": [
+                    "field",
+                    "finding",
+                    "witnesses",
+                    "conflict"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 8,
+                "uniqueItems": false
+              },
+              "source_meaning": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Write a complete concise statement, normally within 320 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+              },
+              "witnesses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "span_id": {
+                      "type": "string",
+                      "enum": [
+                        "We856a8f27d5a",
+                        "Wa202f3c2ac04",
+                        "Wcb87ae75f474",
+                        "Wbca8d308e34d",
+                        "W2dff9f6b8605",
+                        "W21c30eba4ee2",
+                        "W17b9af76dbe8",
+                        "W688442941677",
+                        "Wcb1a539fc1d5",
+                        "Wfe87e2524db7",
+                        "Wbf1e656cd798",
+                        "W2927255f2278",
+                        "W68de7d943528",
+                        "W4d8eff619d23",
+                        "W2383fab2f6d3",
+                        "Wb377661dbe31",
+                        "W44c8bd95b087",
+                        "Wead2262b1c19",
+                        "W3e958af361cb",
+                        "We9fcecb1fc58",
+                        "W6963edae5f5c",
+                        "Wcba8bc9a9964",
+                        "W7f99dccdd57f",
+                        "W652b22d5b9c8",
+                        "W68fb0de178ef",
+                        "W4db3803e5b53",
+                        "W87aeb6179f69",
+                        "W43dff9488c01",
+                        "W06ed1bef9e6c",
+                        "Wbd45924aba6f"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "span_id"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 3,
+                "uniqueItems": false
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Write a complete concise statement, normally within 240 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "S5d64227f2f7b",
+                    "S0a9a8dc68607",
+                    "S4229e2cf54d0",
+                    "S17c404653270",
+                    "S4e66d246790f",
+                    "S1b5d070c6f58",
+                    "S29c47135bf1b",
+                    "Sa38d8918c9ac",
+                    "Sda84b44fc34d",
+                    "S764c24b293df",
+                    "Sc4986463e975",
+                    "Sad53ad8225a2",
+                    "Sf7cdab5aa0ca",
+                    "S9f014ca2f861",
+                    "S3dc313ddd1ca",
+                    "S7d30876f6b68",
+                    "S65959eb57e13",
+                    "S487ef87e25a2",
+                    "Sb842c2dece3b",
+                    "S7861a3aa3085",
+                    "Sc8d43e93b852",
+                    "Sad7168b54d36",
+                    "S5fb14e6ff05b",
+                    "Sf9ce70b49f1a",
+                    "S134e4fba6e50",
+                    "S71f0e4fd9183",
+                    "Sef7502ffa07b",
+                    "Scd01843d342e",
+                    "S455c559dbee6",
+                    "Sd510ad69329d"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 12,
+                "uniqueItems": true
+              },
+              "decision": {
+                "type": "string",
+                "enum": [
+                  "ACCEPT",
+                  "REJECT",
+                  "UNRESOLVED"
+                ]
+              }
+            },
+            "required": [
+              "object_hash",
+              "observed_owner",
+              "observed_content_role",
+              "observed_status",
+              "field_checks",
+              "reading_alignment",
+              "reading_ids",
+              "field_findings",
+              "source_meaning",
+              "witnesses",
+              "reason",
+              "refs",
+              "decision"
+            ],
+            "additionalProperties": false
+          },
+          "SR1c55c29dfa814943": {
+            "type": "object",
+            "properties": {
+              "object_hash": {
+                "type": "string",
+                "enum": [
+                  "1c55c29dfa8149439594e40db16f01fa06ef628a342d24627df9e3b0a72e5c77"
+                ]
+              },
+              "observed_owner": {
+                "type": "string",
+                "enum": [
+                  "O4acbaf9c2380cdc3",
+                  "O2a667cb316625b90",
+                  "O79b4ce993cb7b127",
+                  "Ob1d1362460b8a526",
+                  "SOURCE_LOCAL_UNNAMED",
+                  "UNRESOLVED"
+                ]
+              },
+              "observed_content_role": {
+                "type": "string",
+                "enum": [
+                  "ATTRIBUTION",
+                  "OBSERVATION",
+                  "LEGAL_ASSESSMENT",
+                  "VIEW_LIMIT",
+                  "UNRESOLVED"
+                ]
+              },
+              "observed_status": {
+                "type": "string",
+                "enum": [
+                  "PARTY_CLAIM",
+                  "COURT_RECORDED",
+                  "REPORTED_EVIDENCE",
+                  "LIMITATION",
+                  "UNRESOLVED"
+                ]
+              },
+              "field_checks": {
+                "type": "object",
+                "properties": {
+                  "meaning": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "owner_label": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "participant_roles": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "procedure": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  }
+                },
+                "required": [
+                  "meaning",
+                  "owner_label",
+                  "participant_roles",
+                  "event_time",
+                  "procedure"
+                ],
+                "additionalProperties": false
+              },
+              "reading_alignment": {
+                "type": "object",
+                "properties": {
+                  "meaning": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "owner_label": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "participant_roles": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "procedure": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  }
+                },
+                "required": [
+                  "meaning",
+                  "owner_label",
+                  "participant_roles",
+                  "event_time",
+                  "procedure"
+                ],
+                "additionalProperties": false
+              },
+              "reading_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "OR2d9280a2a824b66c",
+                    "OR4fce8280db3dd988",
+                    "OR4578deb33418ccc8",
+                    "OR29a8c834b74ca217",
+                    "OR6d116e921f9600c1",
+                    "OR4d9e4b4c783c25cc",
+                    "OR46a0e1c02fa0c6e1",
+                    "ORca6d6deccdd6b360",
+                    "OR5a2e0a6226db3a04",
+                    "OR4bc6d0398bc9c4cc",
+                    "OR885b6383ff05e929",
+                    "OR1b1a8d6351729282",
+                    "OR1c85580a0af1c47a",
+                    "OR31953ffe34fcd962",
+                    "OR934334ff490a807d",
+                    "OR29f2ac7c7fb7f890",
+                    "ORde554619bccbbce1",
+                    "ORc304cdc5bc58c654",
+                    "OR8f33703b778ec8df",
+                    "ORd3b1e6b68e1d2092",
+                    "ORd3d8caf1fc92e477",
+                    "OR6340d61d2bd5ca30",
+                    "ORf5819d9619d38d78",
+                    "OR01afaec8cdf96158",
+                    "OR2785f0d5c21d450c",
+                    "ORf4c1199227315e4e",
+                    "ORa38a1398d21715da",
+                    "ORf57aff837a76ec44"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 8,
+                "uniqueItems": true
+              },
+              "field_findings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "enum": [
+                        "meaning",
+                        "source_owner",
+                        "owner_label",
+                        "status",
+                        "content_role",
+                        "participant_roles",
+                        "actors",
+                        "properties",
+                        "event",
+                        "time",
+                        "court",
+                        "procedure"
+                      ]
+                    },
+                    "finding": {
+                      "type": "string",
+                      "enum": [
+                        "CONTRADICTED",
+                        "INSUFFICIENT_CONTEXT",
+                        "MISSING_IDENTITY",
+                        "REVIEW_DISAGREEMENT"
+                      ]
+                    },
+                    "witnesses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "span_id": {
+                            "type": "string",
+                            "enum": [
+                              "We856a8f27d5a",
+                              "Wa202f3c2ac04",
+                              "Wcb87ae75f474",
+                              "Wbca8d308e34d",
+                              "W2dff9f6b8605",
+                              "W21c30eba4ee2",
+                              "W17b9af76dbe8",
+                              "W688442941677",
+                              "Wcb1a539fc1d5",
+                              "Wfe87e2524db7",
+                              "Wbf1e656cd798",
+                              "W2927255f2278",
+                              "W68de7d943528",
+                              "W4d8eff619d23",
+                              "W2383fab2f6d3",
+                              "Wb377661dbe31",
+                              "W44c8bd95b087",
+                              "Wead2262b1c19",
+                              "W3e958af361cb",
+                              "We9fcecb1fc58",
+                              "W6963edae5f5c",
+                              "Wcba8bc9a9964",
+                              "W7f99dccdd57f",
+                              "W652b22d5b9c8",
+                              "W68fb0de178ef",
+                              "W4db3803e5b53",
+                              "W87aeb6179f69",
+                              "W43dff9488c01",
+                              "W06ed1bef9e6c",
+                              "Wbd45924aba6f"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "span_id"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 3,
+                      "uniqueItems": false
+                    },
+                    "conflict": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Write a complete concise statement, normally within 180 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                    }
+                  },
+                  "required": [
+                    "field",
+                    "finding",
+                    "witnesses",
+                    "conflict"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 8,
+                "uniqueItems": false
+              },
+              "source_meaning": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Write a complete concise statement, normally within 320 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+              },
+              "witnesses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "span_id": {
+                      "type": "string",
+                      "enum": [
+                        "We856a8f27d5a",
+                        "Wa202f3c2ac04",
+                        "Wcb87ae75f474",
+                        "Wbca8d308e34d",
+                        "W2dff9f6b8605",
+                        "W21c30eba4ee2",
+                        "W17b9af76dbe8",
+                        "W688442941677",
+                        "Wcb1a539fc1d5",
+                        "Wfe87e2524db7",
+                        "Wbf1e656cd798",
+                        "W2927255f2278",
+                        "W68de7d943528",
+                        "W4d8eff619d23",
+                        "W2383fab2f6d3",
+                        "Wb377661dbe31",
+                        "W44c8bd95b087",
+                        "Wead2262b1c19",
+                        "W3e958af361cb",
+                        "We9fcecb1fc58",
+                        "W6963edae5f5c",
+                        "Wcba8bc9a9964",
+                        "W7f99dccdd57f",
+                        "W652b22d5b9c8",
+                        "W68fb0de178ef",
+                        "W4db3803e5b53",
+                        "W87aeb6179f69",
+                        "W43dff9488c01",
+                        "W06ed1bef9e6c",
+                        "Wbd45924aba6f"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "span_id"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 3,
+                "uniqueItems": false
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Write a complete concise statement, normally within 240 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "S5d64227f2f7b",
+                    "S0a9a8dc68607",
+                    "S4229e2cf54d0",
+                    "S17c404653270",
+                    "S4e66d246790f",
+                    "S1b5d070c6f58",
+                    "S29c47135bf1b",
+                    "Sa38d8918c9ac",
+                    "Sda84b44fc34d",
+                    "S764c24b293df",
+                    "Sc4986463e975",
+                    "Sad53ad8225a2",
+                    "Sf7cdab5aa0ca",
+                    "S9f014ca2f861",
+                    "S3dc313ddd1ca",
+                    "S7d30876f6b68",
+                    "S65959eb57e13",
+                    "S487ef87e25a2",
+                    "Sb842c2dece3b",
+                    "S7861a3aa3085",
+                    "Sc8d43e93b852",
+                    "Sad7168b54d36",
+                    "S5fb14e6ff05b",
+                    "Sf9ce70b49f1a",
+                    "S134e4fba6e50",
+                    "S71f0e4fd9183",
+                    "Sef7502ffa07b",
+                    "Scd01843d342e",
+                    "S455c559dbee6",
+                    "Sd510ad69329d"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 12,
+                "uniqueItems": true
+              },
+              "decision": {
+                "type": "string",
+                "enum": [
+                  "ACCEPT",
+                  "REJECT",
+                  "UNRESOLVED"
+                ]
+              }
+            },
+            "required": [
+              "object_hash",
+              "observed_owner",
+              "observed_content_role",
+              "observed_status",
+              "field_checks",
+              "reading_alignment",
+              "reading_ids",
+              "field_findings",
+              "source_meaning",
+              "witnesses",
+              "reason",
+              "refs",
+              "decision"
+            ],
+            "additionalProperties": false
+          },
+          "SR6d32c450c21a4f5f": {
+            "type": "object",
+            "properties": {
+              "object_hash": {
+                "type": "string",
+                "enum": [
+                  "6d32c450c21a4f5f21f62f61e7b887024ad19bc20810f9731be6c142e1d121cb"
+                ]
+              },
+              "observed_owner": {
+                "type": "string",
+                "enum": [
+                  "O4acbaf9c2380cdc3",
+                  "O2a667cb316625b90",
+                  "O79b4ce993cb7b127",
+                  "Ob1d1362460b8a526",
+                  "SOURCE_LOCAL_UNNAMED",
+                  "UNRESOLVED"
+                ]
+              },
+              "observed_content_role": {
+                "type": "string",
+                "enum": [
+                  "ATTRIBUTION",
+                  "OBSERVATION",
+                  "LEGAL_ASSESSMENT",
+                  "VIEW_LIMIT",
+                  "UNRESOLVED"
+                ]
+              },
+              "observed_status": {
+                "type": "string",
+                "enum": [
+                  "PARTY_CLAIM",
+                  "COURT_RECORDED",
+                  "REPORTED_EVIDENCE",
+                  "LIMITATION",
+                  "UNRESOLVED"
+                ]
+              },
+              "field_checks": {
+                "type": "object",
+                "properties": {
+                  "meaning": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "owner_label": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "participant_roles": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  },
+                  "procedure": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTED",
+                      "CONTRADICTED",
+                      "UNRESOLVED"
+                    ]
+                  }
+                },
+                "required": [
+                  "meaning",
+                  "owner_label",
+                  "participant_roles",
+                  "event_time",
+                  "procedure"
+                ],
+                "additionalProperties": false
+              },
+              "reading_alignment": {
+                "type": "object",
+                "properties": {
+                  "meaning": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "owner_label": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "participant_roles": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  },
+                  "procedure": {
+                    "type": "string",
+                    "enum": [
+                      "AGREES",
+                      "CONTRADICTS",
+                      "NOT_COVERED"
+                    ]
+                  }
+                },
+                "required": [
+                  "meaning",
+                  "owner_label",
+                  "participant_roles",
+                  "event_time",
+                  "procedure"
+                ],
+                "additionalProperties": false
+              },
+              "reading_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "OR2d9280a2a824b66c",
+                    "OR4fce8280db3dd988",
+                    "OR4578deb33418ccc8",
+                    "OR29a8c834b74ca217",
+                    "OR6d116e921f9600c1",
+                    "OR4d9e4b4c783c25cc",
+                    "OR46a0e1c02fa0c6e1",
+                    "ORca6d6deccdd6b360",
+                    "OR5a2e0a6226db3a04",
+                    "OR4bc6d0398bc9c4cc",
+                    "OR885b6383ff05e929",
+                    "OR1b1a8d6351729282",
+                    "OR1c85580a0af1c47a",
+                    "OR31953ffe34fcd962",
+                    "OR934334ff490a807d",
+                    "OR29f2ac7c7fb7f890",
+                    "ORde554619bccbbce1",
+                    "ORc304cdc5bc58c654",
+                    "OR8f33703b778ec8df",
+                    "ORd3b1e6b68e1d2092",
+                    "ORd3d8caf1fc92e477",
+                    "OR6340d61d2bd5ca30",
+                    "ORf5819d9619d38d78",
+                    "OR01afaec8cdf96158",
+                    "OR2785f0d5c21d450c",
+                    "ORf4c1199227315e4e",
+                    "ORa38a1398d21715da",
+                    "ORf57aff837a76ec44"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 8,
+                "uniqueItems": true
+              },
+              "field_findings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "enum": [
+                        "meaning",
+                        "source_owner",
+                        "owner_label",
+                        "status",
+                        "content_role",
+                        "participant_roles",
+                        "actors",
+                        "properties",
+                        "event",
+                        "time",
+                        "court",
+                        "procedure"
+                      ]
+                    },
+                    "finding": {
+                      "type": "string",
+                      "enum": [
+                        "CONTRADICTED",
+                        "INSUFFICIENT_CONTEXT",
+                        "MISSING_IDENTITY",
+                        "REVIEW_DISAGREEMENT"
+                      ]
+                    },
+                    "witnesses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "span_id": {
+                            "type": "string",
+                            "enum": [
+                              "We856a8f27d5a",
+                              "Wa202f3c2ac04",
+                              "Wcb87ae75f474",
+                              "Wbca8d308e34d",
+                              "W2dff9f6b8605",
+                              "W21c30eba4ee2",
+                              "W17b9af76dbe8",
+                              "W688442941677",
+                              "Wcb1a539fc1d5",
+                              "Wfe87e2524db7",
+                              "Wbf1e656cd798",
+                              "W2927255f2278",
+                              "W68de7d943528",
+                              "W4d8eff619d23",
+                              "W2383fab2f6d3",
+                              "Wb377661dbe31",
+                              "W44c8bd95b087",
+                              "Wead2262b1c19",
+                              "W3e958af361cb",
+                              "We9fcecb1fc58",
+                              "W6963edae5f5c",
+                              "Wcba8bc9a9964",
+                              "W7f99dccdd57f",
+                              "W652b22d5b9c8",
+                              "W68fb0de178ef",
+                              "W4db3803e5b53",
+                              "W87aeb6179f69",
+                              "W43dff9488c01",
+                              "W06ed1bef9e6c",
+                              "Wbd45924aba6f"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "span_id"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 3,
+                      "uniqueItems": false
+                    },
+                    "conflict": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Write a complete concise statement, normally within 180 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                    }
+                  },
+                  "required": [
+                    "field",
+                    "finding",
+                    "witnesses",
+                    "conflict"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 8,
+                "uniqueItems": false
+              },
+              "source_meaning": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Write a complete concise statement, normally within 320 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+              },
+              "witnesses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "span_id": {
+                      "type": "string",
+                      "enum": [
+                        "We856a8f27d5a",
+                        "Wa202f3c2ac04",
+                        "Wcb87ae75f474",
+                        "Wbca8d308e34d",
+                        "W2dff9f6b8605",
+                        "W21c30eba4ee2",
+                        "W17b9af76dbe8",
+                        "W688442941677",
+                        "Wcb1a539fc1d5",
+                        "Wfe87e2524db7",
+                        "Wbf1e656cd798",
+                        "W2927255f2278",
+                        "W68de7d943528",
+                        "W4d8eff619d23",
+                        "W2383fab2f6d3",
+                        "Wb377661dbe31",
+                        "W44c8bd95b087",
+                        "Wead2262b1c19",
+                        "W3e958af361cb",
+                        "We9fcecb1fc58",
+                        "W6963edae5f5c",
+                        "Wcba8bc9a9964",
+                        "W7f99dccdd57f",
+                        "W652b22d5b9c8",
+                        "W68fb0de178ef",
+                        "W4db3803e5b53",
+                        "W87aeb6179f69",
+                        "W43dff9488c01",
+                        "W06ed1bef9e6c",
+                        "Wbd45924aba6f"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "span_id"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 3,
+                "uniqueItems": false
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Write a complete concise statement, normally within 240 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "S5d64227f2f7b",
+                    "S0a9a8dc68607",
+                    "S4229e2cf54d0",
+                    "S17c404653270",
+                    "S4e66d246790f",
+                    "S1b5d070c6f58",
+                    "S29c47135bf1b",
+                    "Sa38d8918c9ac",
+                    "Sda84b44fc34d",
+                    "S764c24b293df",
+                    "Sc4986463e975",
+                    "Sad53ad8225a2",
+                    "Sf7cdab5aa0ca",
+                    "S9f014ca2f861",
+                    "S3dc313ddd1ca",
+                    "S7d30876f6b68",
+                    "S65959eb57e13",
+                    "S487ef87e25a2",
+                    "Sb842c2dece3b",
+                    "S7861a3aa3085",
+                    "Sc8d43e93b852",
+                    "Sad7168b54d36",
+                    "S5fb14e6ff05b",
+                    "Sf9ce70b49f1a",
+                    "S134e4fba6e50",
+                    "S71f0e4fd9183",
+                    "Sef7502ffa07b",
+                    "Scd01843d342e",
+                    "S455c559dbee6",
+                    "Sd510ad69329d"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 12,
+                "uniqueItems": true
+              },
+              "decision": {
+                "type": "string",
+                "enum": [
+                  "ACCEPT",
+                  "REJECT",
+                  "UNRESOLVED"
+                ]
+              }
+            },
+            "required": [
+              "object_hash",
+              "observed_owner",
+              "observed_content_role",
+              "observed_status",
+              "field_checks",
+              "reading_alignment",
+              "reading_ids",
+              "field_findings",
+              "source_meaning",
+              "witnesses",
+              "reason",
+              "refs",
+              "decision"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "SReed36566ae07ad62",
+          "SRa746011471fbff7e",
+          "SR1c55c29dfa814943",
+          "SR6d32c450c21a4f5f"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "seed": 20261001,
+  "stream": true,
+  "temperature": 0.0,
+  "top_k": 0,
+  "top_p": 1.0,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Describe and check the supplied original record, not the answer to a lawsuit. A party claim, a prior finding and an open legal question are distinct recordable contents. Reporting a prior finding does not endorse it. Do not require the hidden target outcome to describe visible proceedings. No target question, proposed legal conclusion or executable law is authority for this stage. All readings remain fallible model assessments; never invent a missing identity or acceptance.\nIndependently read CASE originals and assess each exact source record. Review the statement's speaker, content, status, actors, property, event, date role and procedural location together. The proposed source record is fallible. Select witnesses supporting every substantive field; reject disagreement and leave insufficient context unresolved. ACCEPT means faithful source description, never acceptance of its merits or legal effect. Do not test the claim against success of the lawsuit. An accurately reported party argument remains a party argument. An unnamed lower court may be identified by its source-local role; never replace it with a guessed named court. Return observed owner/status/content_role, exact object hash and a reason. Do not repair the candidate while reviewing it. Compare each candidate against the candidate-blind original reading as well as the originals. For each field select AGREES, CONTRADICTS, or NOT_COVERED; do not silently reconcile conflicting readings. When identifying a problem, give the field, exact counter-witnesses, and the conflict, rather than repeating the candidate's explanation. ACCEPT with a contradiction is invalid. A missing actor identity must be reported, not replaced by an unrelated registered person. A source-local unnamed role is valid. Readings are not a gold answer.\nReturn one complete JSON object using this schema:\n{\"type\":\"object\",\"properties\":{\"SReed36566ae07ad62\":{\"$ref\":\"#/$defs/D1\"},\"SRa746011471fbff7e\":{\"$ref\":\"#/$defs/D23\"},\"SR1c55c29dfa814943\":{\"$ref\":\"#/$defs/D25\"},\"SR6d32c450c21a4f5f\":{\"$ref\":\"#/$defs/D27\"}},\"required\":[\"SReed36566ae07ad62\",\"SRa746011471fbff7e\",\"SR1c55c29dfa814943\",\"SR6d32c450c21a4f5f\"],\"additionalProperties\":false,\"$defs\":{\"D2\":{\"type\":\"string\",\"enum\":[\"eed36566ae07ad627ee4503b8ed614db3d881bbbbf83948d45fc4698a85476d5\"]},\"D3\":{\"type\":\"string\",\"enum\":[\"O4acbaf9c2380cdc3\",\"O2a667cb316625b90\",\"O79b4ce993cb7b127\",\"Ob1d1362460b8a526\",\"SOURCE_LOCAL_UNNAMED\",\"UNRESOLVED\"]},\"D4\":{\"type\":\"string\",\"enum\":[\"ATTRIBUTION\",\"OBSERVATION\",\"LEGAL_ASSESSMENT\",\"VIEW_LIMIT\",\"UNRESOLVED\"]},\"D5\":{\"type\":\"string\",\"enum\":[\"PARTY_CLAIM\",\"COURT_RECORDED\",\"REPORTED_EVIDENCE\",\"LIMITATION\",\"UNRESOLVED\"]},\"D6\":{\"type\":\"object\",\"properties\":{\"meaning\":{\"type\":\"string\",\"enum\":[\"SUPPORTED\",\"CONTRADICTED\",\"UNRESOLVED\"]},\"owner_label\":{\"type\":\"string\",\"enum\":[\"SUPPORTED\",\"CONTRADICTED\",\"UNRESOLVED\"]},\"participant_roles\":{\"type\":\"string\",\"enum\":[\"SUPPORTED\",\"CONTRADICTED\",\"UNRESOLVED\"]},\"event_time\":{\"type\":\"string\",\"enum\":[\"SUPPORTED\",\"CONTRADICTED\",\"UNRESOLVED\"]},\"procedure\":{\"type\":\"string\",\"enum\":[\"SUPPORTED\",\"CONTRADICTED\",\"UNRESOLVED\"]}},\"required\":[\"meaning\",\"owner_label\",\"participant_roles\",\"event_time\",\"procedure\"],\"additionalProperties\":false},\"D7\":{\"type\":\"object\",\"properties\":{\"meaning\":{\"type\":\"string\",\"enum\":[\"AGREES\",\"CONTRADICTS\",\"NOT_COVERED\"]},\"owner_label\":{\"type\":\"string\",\"enum\":[\"AGREES\",\"CONTRADICTS\",\"NOT_COVERED\"]},\"participant_roles\":{\"type\":\"string\",\"enum\":[\"AGREES\",\"CONTRADICTS\",\"NOT_COVERED\"]},\"event_time\":{\"type\":\"string\",\"enum\":[\"AGREES\",\"CONTRADICTS\",\"NOT_COVERED\"]},\"procedure\":{\"type\":\"string\",\"enum\":[\"AGREES\",\"CONTRADICTS\",\"NOT_COVERED\"]}},\"required\":[\"meaning\",\"owner_label\",\"participant_roles\",\"event_time\",\"procedure\"],\"additionalProperties\":false},\"D9\":{\"type\":\"string\",\"enum\":[\"OR2d9280a2a824b66c\",\"OR4fce8280db3dd988\",\"OR4578deb33418ccc8\",\"OR29a8c834b74ca217\",\"OR6d116e921f9600c1\",\"OR4d9e4b4c783c25cc\",\"OR46a0e1c02fa0c6e1\",\"ORca6d6deccdd6b360\",\"OR5a2e0a6226db3a04\",\"OR4bc6d0398bc9c4cc\",\"OR885b6383ff05e929\",\"OR1b1a8d6351729282\",\"OR1c85580a0af1c47a\",\"OR31953ffe34fcd962\",\"OR934334ff490a807d\",\"OR29f2ac7c7fb7f890\",\"ORde554619bccbbce1\",\"ORc304cdc5bc58c654\",\"OR8f33703b778ec8df\",\"ORd3b1e6b68e1d2092\",\"ORd3d8caf1fc92e477\",\"OR6340d61d2bd5ca30\",\"ORf5819d9619d38d78\",\"OR01afaec8cdf96158\",\"OR2785f0d5c21d450c\",\"ORf4c1199227315e4e\",\"ORa38a1398d21715da\",\"ORf57aff837a76ec44\"]},\"D8\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/D9\"},\"minItems\":1,\"maxItems\":8,\"uniqueItems\":true},\"D12\":{\"type\":\"string\",\"enum\":[\"meaning\",\"source_owner\",\"owner_label\",\"status\",\"content_role\",\"participant_roles\",\"actors\",\"properties\",\"event\",\"time\",\"court\",\"procedure\"]},\"D13\":{\"type\":\"string\",\"enum\":[\"CONTRADICTED\",\"INSUFFICIENT_CONTEXT\",\"MISSING_IDENTITY\",\"REVIEW_DISAGREEMENT\"]},\"D16\":{\"type\":\"string\",\"enum\":[\"We856a8f27d5a\",\"Wa202f3c2ac04\",\"Wcb87ae75f474\",\"Wbca8d308e34d\",\"W2dff9f6b8605\",\"W21c30eba4ee2\",\"W17b9af76dbe8\",\"W688442941677\",\"Wcb1a539fc1d5\",\"Wfe87e2524db7\",\"Wbf1e656cd798\",\"W2927255f2278\",\"W68de7d943528\",\"W4d8eff619d23\",\"W2383fab2f6d3\",\"Wb377661dbe31\",\"W44c8bd95b087\",\"Wead2262b1c19\",\"W3e958af361cb\",\"We9fcecb1fc58\",\"W6963edae5f5c\",\"Wcba8bc9a9964\",\"W7f99dccdd57f\",\"W652b22d5b9c8\",\"W68fb0de178ef\",\"W4db3803e5b53\",\"W87aeb6179f69\",\"W43dff9488c01\",\"W06ed1bef9e6c\",\"Wbd45924aba6f\"]},\"D15\":{\"type\":\"object\",\"properties\":{\"span_id\":{\"$ref\":\"#/$defs/D16\"}},\"required\":[\"span_id\"],\"additionalProperties\":false},\"D14\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/D15\"},\"minItems\":1,\"maxItems\":3,\"uniqueItems\":false},\"D17\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Write a complete concise statement, normally within 180 characters. Finish the thought and close the string naturally; do not copy a long passage or pad.\"},\"D11\":{\"type\":\"object\",\"properties\":{\"field\":{\"$ref\":\"#/$defs/D12\"},\"finding\":{\"$ref\":\"#/$defs/D13\"},\"witnesses\":{\"$ref\":\"#/$defs/D14\"},\"conflict\":{\"$ref\":\"#/$defs/D17\"}},\"required\":[\"field\",\"finding\",\"witnesses\",\"conflict\"],\"additionalProperties\":false},\"D10\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/D11\"},\"minItems\":0,\"maxItems\":8,\"uniqueItems\":false},\"D18\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Write a complete concise statement, normally within 320 characters. Finish the thought and close the string naturally; do not copy a long passage or pad.\"},\"D19\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/D15\"},\"minItems\":0,\"maxItems\":3,\"uniqueItems\":false},\"D20\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Write a complete concise statement, normally within 240 characters. Finish the thought and close the string naturally; do not copy a long passage or pad.\"},\"D22\":{\"type\":\"string\",\"enum\":[\"S5d64227f2f7b\",\"S0a9a8dc68607\",\"S4229e2cf54d0\",\"S17c404653270\",\"S4e66d246790f\",\"S1b5d070c6f58\",\"S29c47135bf1b\",\"Sa38d8918c9ac\",\"Sda84b44fc34d\",\"S764c24b293df\",\"Sc4986463e975\",\"Sad53ad8225a2\",\"Sf7cdab5aa0ca\",\"S9f014ca2f861\",\"S3dc313ddd1ca\",\"S7d30876f6b68\",\"S65959eb57e13\",\"S487ef87e25a2\",\"Sb842c2dece3b\",\"S7861a3aa3085\",\"Sc8d43e93b852\",\"Sad7168b54d36\",\"S5fb14e6ff05b\",\"Sf9ce70b49f1a\",\"S134e4fba6e50\",\"S71f0e4fd9183\",\"Sef7502ffa07b\",\"Scd01843d342e\",\"S455c559dbee6\",\"Sd510ad69329d\"]},\"D21\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/D22\"},\"minItems\":0,\"maxItems\":12,\"uniqueItems\":true},\"D1\":{\"type\":\"object\",\"properties\":{\"object_hash\":{\"$ref\":\"#/$defs/D2\"},\"observed_owner\":{\"$ref\":\"#/$defs/D3\"},\"observed_content_role\":{\"$ref\":\"#/$defs/D4\"},\"observed_status\":{\"$ref\":\"#/$defs/D5\"},\"field_checks\":{\"$ref\":\"#/$defs/D6\"},\"reading_alignment\":{\"$ref\":\"#/$defs/D7\"},\"reading_ids\":{\"$ref\":\"#/$defs/D8\"},\"field_findings\":{\"$ref\":\"#/$defs/D10\"},\"source_meaning\":{\"$ref\":\"#/$defs/D18\"},\"witnesses\":{\"$ref\":\"#/$defs/D19\"},\"reason\":{\"$ref\":\"#/$defs/D20\"},\"refs\":{\"$ref\":\"#/$defs/D21\"},\"decision\":{\"type\":\"string\",\"enum\":[\"ACCEPT\",\"REJECT\",\"UNRESOLVED\"]}},\"required\":[\"object_hash\",\"observed_owner\",\"observed_content_role\",\"observed_status\",\"field_checks\",\"reading_alignment\",\"reading_ids\",\"field_findings\",\"source_meaning\",\"witnesses\",\"reason\",\"refs\",\"decision\"],\"additionalProperties\":false},\"D24\":{\"type\":\"string\",\"enum\":[\"a746011471fbff7eda6a0dca187110f08cef294a18d2b54b6cfb8a533bc85289\"]},\"D23\":{\"type\":\"object\",\"properties\":{\"object_hash\":{\"$ref\":\"#/$defs/D24\"},\"observed_owner\":{\"$ref\":\"#/$defs/D3\"},\"observed_content_role\":{\"$ref\":\"#/$defs/D4\"},\"observed_status\":{\"$ref\":\"#/$defs/D5\"},\"field_checks\":{\"$ref\":\"#/$defs/D6\"},\"reading_alignment\":{\"$ref\":\"#/$defs/D7\"},\"reading_ids\":{\"$ref\":\"#/$defs/D8\"},\"field_findings\":{\"$ref\":\"#/$defs/D10\"},\"source_meaning\":{\"$ref\":\"#/$defs/D18\"},\"witnesses\":{\"$ref\":\"#/$defs/D19\"},\"reason\":{\"$ref\":\"#/$defs/D20\"},\"refs\":{\"$ref\":\"#/$defs/D21\"},\"decision\":{\"type\":\"string\",\"enum\":[\"ACCEPT\",\"REJECT\",\"UNRESOLVED\"]}},\"required\":[\"object_hash\",\"observed_owner\",\"observed_content_role\",\"observed_status\",\"field_checks\",\"reading_alignment\",\"reading_ids\",\"field_findings\",\"source_meaning\",\"witnesses\",\"reason\",\"refs\",\"decision\"],\"additionalProperties\":false},\"D26\":{\"type\":\"string\",\"enum\":[\"1c55c29dfa8149439594e40db16f01fa06ef628a342d24627df9e3b0a72e5c77\"]},\"D25\":{\"type\":\"object\",\"properties\":{\"object_hash\":{\"$ref\":\"#/$defs/D26\"},\"observed_owner\":{\"$ref\":\"#/$defs/D3\"},\"observed_content_role\":{\"$ref\":\"#/$defs/D4\"},\"observed_status\":{\"$ref\":\"#/$defs/D5\"},\"field_checks\":{\"$ref\":\"#/$defs/D6\"},\"reading_alignment\":{\"$ref\":\"#/$defs/D7\"},\"reading_ids\":{\"$ref\":\"#/$defs/D8\"},\"field_findings\":{\"$ref\":\"#/$defs/D10\"},\"source_meaning\":{\"$ref\":\"#/$defs/D18\"},\"witnesses\":{\"$ref\":\"#/$defs/D19\"},\"reason\":{\"$ref\":\"#/$defs/D20\"},\"refs\":{\"$ref\":\"#/$defs/D21\"},\"decision\":{\"type\":\"string\",\"enum\":[\"ACCEPT\",\"REJECT\",\"UNRESOLVED\"]}},\"required\":[\"object_hash\",\"observed_owner\",\"observed_content_role\",\"observed_status\",\"field_checks\",\"reading_alignment\",\"reading_ids\",\"field_findings\",\"source_meaning\",\"witnesses\",\"reason\",\"refs\",\"decision\"],\"additionalProperties\":false},\"D28\":{\"type\":\"string\",\"enum\":[\"6d32c450c21a4f5f21f62f61e7b887024ad19bc20810f9731be6c142e1d121cb\"]},\"D27\":{\"type\":\"object\",\"properties\":{\"object_hash\":{\"$ref\":\"#/$defs/D28\"},\"observed_owner\":{\"$ref\":\"#/$defs/D3\"},\"observed_content_role\":{\"$ref\":\"#/$defs/D4\"},\"observed_status\":{\"$ref\":\"#/$defs/D5\"},\"field_checks\":{\"$ref\":\"#/$defs/D6\"},\"reading_alignment\":{\"$ref\":\"#/$defs/D7\"},\"reading_ids\":{\"$ref\":\"#/$defs/D8\"},\"field_findings\":{\"$ref\":\"#/$defs/D10\"},\"source_meaning\":{\"$ref\":\"#/$defs/D18\"},\"witnesses\":{\"$ref\":\"#/$defs/D19\"},\"reason\":{\"$ref\":\"#/$defs/D20\"},\"refs\":{\"$ref\":\"#/$defs/D21\"},\"decision\":{\"type\":\"string\",\"enum\":[\"ACCEPT\",\"REJECT\",\"UNRESOLVED\"]}},\"required\":[\"object_hash\",\"observed_owner\",\"observed_content_role\",\"observed_status\",\"field_checks\",\"reading_alignment\",\"reading_ids\",\"field_findings\",\"source_meaning\",\"witnesses\",\"reason\",\"refs\",\"decision\"],\"additionalProperties\":false}}}"
+    },
+    {
+      "role": "user",
+      "content": "{\"sources\":{\"S5d64227f2f7b\":{\"original_id\":\"IKWEB-1252014:L155\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L155\",\"origin_group\":\"1252014\",\"span\":[0,350],\"parent_id\":\"S5d64227f2f7b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"We856a8f27d5a\",\"start\":0,\"end\":350,\"text\":\"CIVIL APPELLATE JURISDICTION: Civil Appeal No. 57 of 1951. Appeal from a judgment dated 18th May, 1948, of the High Court of East Punjab at Simla (Khosla and Teja Singh JJ.) in Letters Patent Appeal No. 189 of 1946 arising out of the judgment dated 11 th February, 1946, of the Senior Subordinate Judge, Ambala. The facts are set out in the judgment.\"}]},\"S0a9a8dc68607\":{\"original_id\":\"IKWEB-1252014:L157\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L157\",\"origin_group\":\"1252014\",\"span\":[0,60],\"parent_id\":\"S0a9a8dc68607\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wa202f3c2ac04\",\"start\":0,\"end\":60,\"text\":\"Gopinath Kunzru (B.C. Misra, with him) for the appel- lants.\"}]},\"S4229e2cf54d0\":{\"original_id\":\"IKWEB-1252014:L159\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L159\",\"origin_group\":\"1252014\",\"span\":[0,59],\"parent_id\":\"S4229e2cf54d0\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wcb87ae75f474\",\"start\":0,\"end\":59,\"text\":\"Rang Behari Lal (N.C. Sen, with him) for the respond- ents.\"}]},\"S17c404653270\":{\"original_id\":\"IKWEB-1252014:L160\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L160\",\"origin_group\":\"1252014\",\"span\":[0,406],\"parent_id\":\"S17c404653270\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wbca8d308e34d\",\"start\":0,\"end\":406,\"text\":\"1952. March 7. The judgment of the Court was delivered by MUKHERJEA J.--This appeal is on behalf of the judgment- debtor in a proceeding for execution of a money decree and it is directed against the judgment of a Letters Patent Bench of the Punjab High Court dated 18th of May, 1949. by which the learned Judges 546 affirmed, in appeal, a decision of a single Judge of that court dated 29th October, 1946.\"}]},\"S4e66d246790f\":{\"original_id\":\"IKWEB-1252014:L161\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L161\",\"origin_group\":\"1252014\",\"span\":[0,425],\"parent_id\":\"S4e66d246790f\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W2dff9f6b8605\",\"start\":0,\"end\":425,\"text\":\"The original order against which the appeal was taken to the High Court was made by the Senior Subordinate Judge, Ambala, in Execution Case No. 18 of 1945 dismissing the objections preferred by the appel- lants under section 47 of the Civil Procedure Code. To appreciate the contentions that have been raised in this appeal, it would be necessary to give a short narrative of the material events in their chronological order.\"}]},\"S1b5d070c6f58\":{\"original_id\":\"IKWEB-1252014:L162\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L162\",\"origin_group\":\"1252014\",\"span\":[0,399],\"parent_id\":\"S1b5d070c6f58\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W21c30eba4ee2\",\"start\":0,\"end\":399,\"text\":\"On September 30, 1925, Baldev Das, the father of the appel- lants, who was, at that time the manager of a joint Hindu family, consisting of himself and his sons, executed a mortgage bond in favour of Mst. Naraini, the original-re- spondent No. 1, and another person named Talok Chand, by which certain movable properties belonging to the joint family were hypothecated to secure a loan of Rs 16,000.\"}]},\"S29c47135bf1b\":{\"original_id\":\"IKWEB-1252014:L163\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L163\",\"origin_group\":\"1252014\",\"span\":[0,490],\"parent_id\":\"S29c47135bf1b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W17b9af76dbe8\",\"start\":0,\"end\":490,\"text\":\"On April 16, 1928, the appellants along with a minor brother of theirs named Sumer Chand filed a suit:--being Suit No. 23 of 1928 in the Court of the Subordinate Judge of Shahjahanpur against their father Baldev Das for partition of the joint family properties. The suit culminated in a final decree for partition on 20th July, 1928, and the joint family properties were divided by metes and bounds and separate possession was taken by the father and the sons. On 29th September, 1934, Mst.\"}]},\"Sa38d8918c9ac\":{\"original_id\":\"IKWEB-1252014:L164\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L164\",\"origin_group\":\"1252014\",\"span\":[0,401],\"parent_id\":\"Sa38d8918c9ac\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W688442941677\",\"start\":0,\"end\":401,\"text\":\"Naraini filed a suit in the Court of the Senior Subordinate Judge, Ambala, against Baldev Das for recovery of a sum of Rs. 12;500 only on the basis of the mortgage bond referred to above. It was stated in the plaint that the money was borrowed by the defendant as manager of a joint Hindu family and the plaintiff prayed for a decree against the mortgaged property as well as against the joint family.\"}]},\"Sda84b44fc34d\":{\"original_id\":\"IKWEB-1252014:L165\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L165\",\"origin_group\":\"1252014\",\"span\":[0,301],\"parent_id\":\"Sda84b44fc34d\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wcb1a539fc1d5\",\"start\":0,\"end\":301,\"text\":\"On 18th December, 1934, the appellants made an application before the Subordinate Judge under Order I, Rule 10, and Order XXXIV, Rule 1, Civil Procedure Code, praying that they might be added as parties defendants to the suit and the points in issue arising therein might be decided in their presence.\"}]},\"S764c24b293df\":{\"original_id\":\"IKWEB-1252014:L166\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L166\",\"origin_group\":\"1252014\",\"span\":[0,301],\"parent_id\":\"S764c24b293df\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wfe87e2524db7\",\"start\":0,\"end\":301,\"text\":\"It was asserted in the 547 petition that Baldev Das was not the manager of a joint family and that the family properties had been partitioned by a decree of the court, as a result of which the proper- ties alleged to be the subject-matter of the mortgage were allotted to the share of the petitioners.\"}]},\"Sc4986463e975\":{\"original_id\":\"IKWEB-1252014:L167\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L167\",\"origin_group\":\"1252014\",\"span\":[0,397],\"parent_id\":\"Sc4986463e975\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wbf1e656cd798\",\"start\":0,\"end\":397,\"text\":\"In reply to this petition, the plaintiff's counsel stated in court on 7th February, 1935, that his client would give up the claim for a mortgage decree against the properties in suit and would be satisfied only with a money decree against Baldev Das personally. The plaint was amended accordingly, deleting all reference to the joint family and abandoning the claim against the mortgaged property.\"}]},\"Sad53ad8225a2\":{\"original_id\":\"IKWEB-1252014:L168\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L168\",\"origin_group\":\"1252014\",\"span\":[0,383],\"parent_id\":\"Sad53ad8225a2\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W2927255f2278\",\"start\":0,\"end\":383,\"text\":\"Upon this the appellants withdrew their application for being made parties to the suit and reserved their right to take proper legal action if and when necessary. On April 17, 1935, Baldev Das died and on 2nd September following the appellants as well as their mother, who figures as respondent No. 5 in this appeal, were brought on the record as legal representatives of Baldev Das.\"}]},\"Sf7cdab5aa0ca\":{\"original_id\":\"IKWEB-1252014:L169\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L169\",\"origin_group\":\"1252014\",\"span\":[0,414],\"parent_id\":\"Sf7cdab5aa0ca\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W68de7d943528\",\"start\":0,\"end\":414,\"text\":\"On October 9, 1935, the appellants filed a written statement in which a number of pleas were taken in answer to the plaintiff's claim and it was asserted in paragraph 10 of the written statement that Baldev Das dealt Badri or specu- lative transactions, and if any money was due to the plain- tiff at all in connection with such transactions the debt was illegal and immoral and not binding on the family property.\"}]},\"S9f014ca2f861\":{\"original_id\":\"IKWEB-1252014:L170\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L170\",\"origin_group\":\"1252014\",\"span\":[0,490],\"parent_id\":\"S9f014ca2f861\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W4d8eff619d23\",\"start\":0,\"end\":490,\"text\":\"On the same day the court recorded an order to the effect that as the plaintiff had given up her claim for a mortgage decree, the legal representatives of the deceased could not be allowed to raise pleas relating to the validity or otherwise of the mortgage. On 20th November, 1935, the parties arrived at a compromise and on the basis of the same, a simple money decree was passed in favour of the plaintiff for the full amount claimed in the suit together with half costs amounting to Rs.\"}]},\"S3dc313ddd1ca\":{\"original_id\":\"IKWEB-1252014:L171\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L171\",\"origin_group\":\"1252014\",\"span\":[0,92],\"parent_id\":\"S3dc313ddd1ca\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W2383fab2f6d3\",\"start\":0,\"end\":92,\"text\":\"425 annas odd against the estates of Baldev Das in the hands of his legal representa- tives.\"}]},\"S7d30876f6b68\":{\"original_id\":\"IKWEB-1252014:L172\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L172\",\"origin_group\":\"1252014\",\"span\":[0,454],\"parent_id\":\"S7d30876f6b68\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wb377661dbe31\",\"start\":0,\"end\":454,\"text\":\"After certain attempts at execution of this decree which did not prove successful, 548 the present application for execution was flied by the decree holder on March 13, 1945, in the court of the Senior Subordinate Judge, Ambala, and in accordance with the prayer contained therein, the court directed the attachment of certain immovable properties consisting of a number of shops in possession of the appellants and situated at a place called Abdullaput.\"}]},\"S65959eb57e13\":{\"original_id\":\"IKWEB-1252014:L173\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L173\",\"origin_group\":\"1252014\",\"span\":[0,370],\"parent_id\":\"S65959eb57e13\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W44c8bd95b087\",\"start\":0,\"end\":370,\"text\":\"On April 23, 1945, the appellants filed objections under section 47, Civil Procedure Code, -and they opposed the attachment of the properties substantially on the ground that those properties did not belong to Baldev Das but were the separate and exclusive properties of the objectors which they obtained on partition with their father long before the decree was passed.\"}]},\"S487ef87e25a2\":{\"original_id\":\"IKWEB-1252014:L174\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L174\",\"origin_group\":\"1252014\",\"span\":[0,204],\"parent_id\":\"S487ef87e25a2\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wead2262b1c19\",\"start\":0,\"end\":204,\"text\":\"It was asserted that these properties could not be made liable for the satisfac- tion of the decretal dues which had to be realised under the terms of the decree itself from the estate left by Baldev Das.\"}]},\"Sb842c2dece3b\":{\"original_id\":\"IKWEB-1252014:L175\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L175\",\"origin_group\":\"1252014\",\"span\":[0,477],\"parent_id\":\"Sb842c2dece3b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W3e958af361cb\",\"start\":0,\"end\":477,\"text\":\"After hearing the parties and the evidence adduced by them the Subordinate Judge came to the conclusion that there was in fact a partition between Baldev Das and his sons in the year 1928 and as a result of the same, the properties, which were attached at the instance of the decree holder, were allotted to the share of the sons. The decree sought to be executed was obtained after the partition, but it was in respect of a debt which was contracted by the father prior to it.\"}]},\"S7861a3aa3085\":{\"original_id\":\"IKWEB-1252014:L176\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L176\",\"origin_group\":\"1252014\",\"span\":[0,325],\"parent_id\":\"S7861a3aa3085\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"We9fcecb1fc58\",\"start\":0,\"end\":325,\"text\":\"It was held in these circumstances that the separate share of the sons which they obtained on partition was liable under the Hindu law for the pre-partition debt of their father if it was not immoral and under section 53 of the Civil Procedure Code the decreeholder was entitled to execute the decree against such properties.\"}]},\"Sc8d43e93b852\":{\"original_id\":\"IKWEB-1252014:L177\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L177\",\"origin_group\":\"1252014\",\"span\":[0,414],\"parent_id\":\"Sc8d43e93b852\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W6963edae5f5c\",\"start\":0,\"end\":414,\"text\":\"As no point was raised by the objectors in their petition alleging that the debt covered by the decree was tainted with immorality, the objections under section 47, Civil Procedure Code, were dismissed. The objectors thereupon took an appeal to the High Court of East Punjab which was heard by Rahman J. sitting singly. The learned judge dismissed the appeal and affirmed the decision of the Subordinate 549 Judge.\"}]},\"Sad7168b54d36\":{\"original_id\":\"IKWEB-1252014:L178\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L178\",\"origin_group\":\"1252014\",\"span\":[0,205],\"parent_id\":\"Sad7168b54d36\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wcba8bc9a9964\",\"start\":0,\"end\":205,\"text\":\"A further appeal taken to a Division Bench under the Letters Patent was also dismissed and it is the propriety of the judgment of the Letters Patent Bench that has been challenged before us in this appeal.\"}]},\"S5fb14e6ff05b\":{\"original_id\":\"IKWEB-1252014:L179\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L179\",\"origin_group\":\"1252014\",\"span\":[0,397],\"parent_id\":\"S5fb14e6ff05b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W7f99dccdd57f\",\"start\":0,\"end\":397,\"text\":\"Mr. Kunzru appearing for the appellants put forward a three-fold contention in support of the appeal. He contended in the first place that under the terms of the compromise decree the decreeholder could proceed only against the properties of Baldev Das in the hands of his legal represen- tatives and no property belonging to the appellants could be made liable for the satisfaction of the decree.\"}]},\"Sf9ce70b49f1a\":{\"original_id\":\"IKWEB-1252014:L180\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L180\",\"origin_group\":\"1252014\",\"span\":[0,281],\"parent_id\":\"Sf9ce70b49f1a\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W652b22d5b9c8\",\"start\":0,\"end\":281,\"text\":\"The second contention put forward is that as the decree in the present case was obtained after partition of the joint family property between the father and his sons, the separate property of the sons obtained on partition was not liable under Hindu law for the debt of the father.\"}]},\"S134e4fba6e50\":{\"original_id\":\"IKWEB-1252014:L181\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L181\",\"origin_group\":\"1252014\",\"span\":[0,459],\"parent_id\":\"S134e4fba6e50\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W68fb0de178ef\",\"start\":0,\"end\":459,\"text\":\"It is urged last of all that in any event if there was any pious obligation on the part of the sons to pay the father's debt incurred before partition, such obligation could be enforced against the sons, only in a properly constituted suit and not by way of execution of a decree obtained in a suit which was brought against the father alone during his lifetime and to which the sons were made parties only as legal representa- tives after the father's death.\"}]},\"S71f0e4fd9183\":{\"original_id\":\"IKWEB-1252014:L183\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L183\",\"origin_group\":\"1252014\",\"span\":[0,344],\"parent_id\":\"S71f0e4fd9183\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W4db3803e5b53\",\"start\":0,\"end\":344,\"text\":\"> \\\"It is ordered that the parties having compromised, a decree in accordance with the terms of the compromise be and the same is hereby passed in favour of the plaintiff against the estate of Baldev Das deceased in possession of his legal representatives. It is also ordered that the defendants do also pay Rs. 425-7-0, half costs of the suit.\\\"\"}]},\"Sef7502ffa07b\":{\"original_id\":\"IKWEB-1252014:L185\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L185\",\"origin_group\":\"1252014\",\"span\":[0,6],\"parent_id\":\"Sef7502ffa07b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W87aeb6179f69\",\"start\":0,\"end\":6,\"text\":\"71 550\"}]},\"Scd01843d342e\":{\"original_id\":\"IKWEB-1252014:L186\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L186\",\"origin_group\":\"1252014\",\"span\":[0,316],\"parent_id\":\"Scd01843d342e\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W43dff9488c01\",\"start\":0,\"end\":316,\"text\":\"There was no petition of compromise filed by the parties and made part of the decree, but there are on the record two statements, one made by Pannalal, the appellant No. 1, on behalf of himself and his mother, and the other by Lala Haraprasad, the special agent of the plaintiff, setting out terms of the compromise.\"}]},\"S455c559dbee6\":{\"original_id\":\"IKWEB-1252014:L187\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L187\",\"origin_group\":\"1252014\",\"span\":[0,234],\"parent_id\":\"S455c559dbee6\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W06ed1bef9e6c\",\"start\":0,\"end\":234,\"text\":\"The terms are worded much in the same manner as in the decree itself and are to the effect that a decree for the amount in suit together with half costs would be awarded against the property of Baldev Das deceased. It is argued by Mr.\"}]},\"Sd510ad69329d\":{\"original_id\":\"IKWEB-1252014:L188\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L188\",\"origin_group\":\"1252014\",\"span\":[0,369],\"parent_id\":\"Sd510ad69329d\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wbd45924aba6f\",\"start\":0,\"end\":369,\"text\":\"Kunzru that the expression \\\"estate of Baldev Das deceased\\\" occurring in the decree must mean and refer to the property belonging to Baldev Das at the date of his death and could not include any property which the sons obtained on partition with their father during the father's lifetime and in respect of which the latter possessed no interest at the time of his death.\"}]}},\"material\":{\"subjects\":{\"SReed36566ae07ad62\":{\"text\":\"On December 18, 1934, appellants applied to be added as defendants to the recovery suit, asserting that properties were partitioned and allotted to them, not liable for father's debt.\",\"source_owner\":\"O2a667cb316625b90\",\"owner_label\":\"Appellants\",\"status\":\"COURT_RECORDED\",\"content_role\":\"OBSERVATION\",\"participant_roles\":[{\"object_id\":\"O2a667cb316625b90\",\"role\":\"Appellants (Sons)\",\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"}]},{\"object_id\":\"O79b4ce993cb7b127\",\"role\":\"Mst. Naraini (Plaintiff)\",\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"}]}],\"actors\":[\"O2a667cb316625b90\",\"O4acbaf9c2380cdc3\"],\"properties\":[],\"event\":\"Application to add appellants as parties to suit\",\"time\":\"December 18, 1934\",\"date_role\":\"EVENT_DATE\",\"procedure\":\"Proceedings in Senior Subordinate Judge, Ambala\",\"court\":\"UNKNOWN\",\"court_position\":\"OTHER\",\"refs\":[\"Sda84b44fc34d\",\"S764c24b293df\"],\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"}]},\"SRa746011471fbff7e\":{\"text\":\"Plaintiff's counsel abandoned claim against mortgaged property on February 7, 1935, seeking only a money decree against Baldev Das personally; appellants withdrew application to be added as parties.\",\"source_owner\":\"O79b4ce993cb7b127\",\"owner_label\":\"Plaintiff's Counsel\",\"status\":\"COURT_RECORDED\",\"content_role\":\"OBSERVATION\",\"participant_roles\":[{\"object_id\":\"O79b4ce993cb7b127\",\"role\":\"Plaintiff's Counsel\",\"witnesses\":[{\"span_id\":\"Wbf1e656cd798\"}]},{\"object_id\":\"O2a667cb316625b90\",\"role\":\"Appellants (Sons)\",\"witnesses\":[{\"span_id\":\"Wbf1e656cd798\"}]}],\"actors\":[\"O2a667cb316625b90\",\"O4acbaf9c2380cdc3\"],\"properties\":[],\"event\":\"Amendment of plaint and withdrawal of application\",\"time\":\"February 7, 1935\",\"date_role\":\"EVENT_DATE\",\"procedure\":\"Court hearing\",\"court\":\"UNKNOWN\",\"court_position\":\"OTHER\",\"refs\":[\"Sc4986463e975\",\"Sad53ad8225a2\"],\"witnesses\":[{\"span_id\":\"Wbf1e656cd798\"},{\"span_id\":\"W2927255f2278\"}]},\"SR1c55c29dfa814943\":{\"text\":\"On April 17, 1935, Baldev Das died; on September 2, appellants and their mother were brought on record as legal representatives of Baldev Das.\",\"source_owner\":\"O2a667cb316625b90\",\"owner_label\":\"Narrator\",\"status\":\"COURT_RECORDED\",\"content_role\":\"OBSERVATION\",\"participant_roles\":[{\"object_id\":\"O4acbaf9c2380cdc3\",\"role\":\"Baldev Das (Deceased)\",\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]},{\"object_id\":\"O2a667cb316625b90\",\"role\":\"Appellants (Legal Representatives)\",\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]}],\"actors\":[\"O4acbaf9c2380cdc3\",\"O2a667cb316625b90\"],\"properties\":[],\"event\":\"Death of Baldev Das and substitution of parties\",\"time\":\"April 17, 1935 to September 2, 1935\",\"date_role\":\"EVENT_DATE\",\"procedure\":\"Court order\",\"court\":\"UNKNOWN\",\"court_position\":\"OTHER\",\"refs\":[\"Sad53ad8225a2\",\"Sf7cdab5aa0ca\"],\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]},\"SR6d32c450c21a4f5f\":{\"text\":\"On November 20, 1935, parties compromised; a money decree was passed against Baldev Das's estate in hands of legal representatives for Rs 425 annas odd plus half costs.\",\"source_owner\":\"O79b4ce993cb7b127\",\"owner_label\":\"Narrator\",\"status\":\"COURT_RECORDED\",\"content_role\":\"OBSERVATION\",\"participant_roles\":[{\"object_id\":\"O79b4ce993cb7b127\",\"role\":\"Plaintiff (Decree-holder)\",\"witnesses\":[{\"span_id\":\"W4d8eff619d23\"}]},{\"object_id\":\"O2a667cb316625b90\",\"role\":\"Legal Representatives\",\"witnesses\":[{\"span_id\":\"W4d8eff619d23\"}]}],\"actors\":[\"O2a667cb316625b90\",\"O4acbaf9c2380cdc3\"],\"properties\":[\"O031e7e8dddc48a7e\"],\"event\":\"Compromise and passing of money decree\",\"time\":\"November 20, 1935\",\"date_role\":\"EVENT_DATE\",\"procedure\":\"Court decree\",\"court\":\"UNKNOWN\",\"court_position\":\"OTHER\",\"refs\":[\"S9f014ca2f861\",\"S3dc313ddd1ca\",\"S71f0e4fd9183\"],\"witnesses\":[{\"span_id\":\"W4d8eff619d23\"},{\"span_id\":\"W2383fab2f6d3\"}]}},\"objects\":{\"O4acbaf9c2380cdc3\":{\"name\":\"Baldev Das\",\"kind\":\"PERSON\",\"description\":\"Father of the appellants and original judgment-debtor who contracted the pre-partition debt and died in 1935.\",\"refs\":[\"S1b5d070c6f58\",\"Sad53ad8225a2\",\"S71f0e4fd9183\",\"Sd510ad69329d\"],\"extent\":\"NOT_PROPERTY\"},\"O2a667cb316625b90\":{\"name\":\"Appellants (Sons)\",\"kind\":\"PARTY\",\"description\":\"Legal representatives of Baldev Das and owners of the partitioned property sought to be attached.\",\"refs\":[\"S0a9a8dc68607\",\"S65959eb57e13\",\"S7861a3aa3085\",\"Sd510ad69329d\"],\"extent\":\"NOT_PROPERTY\"},\"O79b4ce993cb7b127\":{\"name\":\"Senior Subordinate Judge, Ambala\",\"kind\":\"COURT\",\"description\":\"Trial court that dismissed the execution objections under Section 47 CPC and affirmed the decree against the sons' share.\",\"refs\":[\"S4e66d246790f\",\"S7d30876f6b68\",\"Sb842c2dece3b\"],\"extent\":\"NOT_PROPERTY\"},\"Ob1d1362460b8a526\":{\"name\":\"High Court of East Punjab\",\"kind\":\"COURT\",\"description\":\"Appellate court that affirmed the Subordinate Judge's decision in both single judge and Letters Patent appeals.\",\"refs\":[\"S17c404653270\",\"Sc8d43e93b852\",\"Sad7168b54d36\"],\"extent\":\"NOT_PROPERTY\"},\"Od7447823280c9676\":{\"name\":\"Partition Decree of 1928\",\"kind\":\"EVENT\",\"description\":\"Court decree dividing joint family properties between Baldev Das and his sons, occurring before the debt decree.\",\"refs\":[\"S29c47135bf1b\",\"S764c24b293df\",\"Sb842c2dece3b\"],\"extent\":\"NOT_PROPERTY\"},\"O8fd3b7187ac55db4\":{\"name\":\"Compromise Decree\",\"kind\":\"EVENT\",\"description\":\"Money decree passed on November 20, 1935, against the estate of Baldev Das following a compromise in the mortgage suit.\",\"refs\":[\"S9f014ca2f861\",\"S3dc313ddd1ca\",\"S71f0e4fd9183\",\"S455c559dbee6\"],\"extent\":\"NOT_PROPERTY\"},\"O031e7e8dddc48a7e\":{\"name\":\"Shops at Abdullaput\",\"kind\":\"PROPERTY\",\"description\":\"Immovable properties attached during execution, identified as the sons' separate share obtained in the 1928 partition.\",\"refs\":[\"S7d30876f6b68\",\"S65959eb57e13\"],\"extent\":\"HETEROGENEOUS_COLLECTION\",\"member_ids\":[\"Od2a7ad4c5e136595\"]},\"Od2a7ad4c5e136595\":{\"name\":\"Shops at Abdullaput\",\"description\":\"Immovable properties attached during execution, identified as the sons' separate share obtained in the 1928 partition.\",\"extent\":\"SINGLE_UNIT\",\"refs\":[\"S7d30876f6b68\",\"S65959eb57e13\"],\"kind\":\"PROPERTY\",\"parent_object\":\"O031e7e8dddc48a7e\"}},\"candidate_blind_reading\":{\"observations\":{\"OR2d9280a2a824b66c\":{\"speaker_label\":\"Narrator\",\"content\":\"Mst. Naraini filed suit for recovery against Baldev Das; appellants applied to be added as parties defendants.\",\"participants\":[{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff in recovery suit\"},{\"name_or_role\":\"Baldev Das\",\"role\":\"Defendant in recovery suit\"},{\"name_or_role\":\"Appellants\",\"role\":\"Applicants to be added as parties\"}],\"event\":\"Recovery suit filed; appellants applied to be added as parties defendants\",\"time\":\"April 16, 1928 to December 18, 1934\",\"procedure_and_court\":\"Suit in Court of Senior Subordinate Judge, Ambala\",\"witnesses\":[{\"span_id\":\"W688442941677\"},{\"span_id\":\"Wcb1a539fc1d5\"}]},\"OR4fce8280db3dd988\":{\"speaker_label\":\"Narrator\",\"content\":\"Plaintiff abandoned claim against mortgaged property; appellants withdrew application to be added as parties.\",\"participants\":[{\"name_or_role\":\"Plaintiff\",\"role\":\"Mst. Naraini\"},{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives of Baldev Das\"}],\"event\":\"Plaint amended to seek money decree only; appellants withdrew party application\",\"time\":\"February 7, 1935 to April 17, 1935\",\"procedure_and_court\":\"Court of Senior Subordinate Judge, Ambala\",\"witnesses\":[{\"span_id\":\"Wbf1e656cd798\"},{\"span_id\":\"W2927255f2278\"}]},\"OR4578deb33418ccc8\":{\"speaker_label\":\"Narrator\",\"content\":\"Parties compromised; simple money decree passed against estate of Baldev Das in hands of legal representatives.\",\"participants\":[{\"name_or_role\":\"Plaintiff\",\"role\":\"Mst. Naraini\"},{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives of Baldev Das\"}],\"event\":\"Compromise reached and money decree passed for Rs 425 annas odd\",\"time\":\"November 20, 1935\",\"procedure_and_court\":\"Court of Senior Subordinate Judge, Ambala\",\"witnesses\":[{\"span_id\":\"W68de7d943528\"},{\"span_id\":\"W4d8eff619d23\"},{\"span_id\":\"W2383fab2f6d3\"},{\"span_id\":\"W7f99dccdd57f\"}]},\"OR29a8c834b74ca217\":{\"speaker_label\":\"Narrator\",\"content\":\"Decree ordered against estate of Baldev Das deceased in possession of legal representatives with half costs.\",\"participants\":[{\"name_or_role\":\"Court\",\"role\":\"Adjudicator in original suit\"},{\"name_or_role\":\"Plaintiff\",\"role\":\"Mst. Naraini\"}],\"event\":\"Compromise decree passed against estate of Baldev Das\",\"time\":\"November 20, 1935\",\"procedure_and_court\":\"Court of Senior Subordinate Judge, Ambala\",\"witnesses\":[{\"span_id\":\"W4db3803e5b53\"}]},\"OR6d116e921f9600c1\":{\"speaker_label\":\"Court\",\"content\":\"On December 18, 1934, appellants applied to be added as defendants to the recovery suit, asserting that properties were partitioned and allotted to them, not liable for father's debt.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Sons seeking to be added as defendants\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff\"}],\"event\":\"Application to add appellants as parties to suit\",\"time\":\"December 18, 1934\",\"procedure_and_court\":\"Subordinate Judge\",\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"}]},\"OR4d9e4b4c783c25cc\":{\"speaker_label\":\"Court\",\"content\":\"Plaintiff's counsel abandoned claim against mortgaged property on February 7, 1935, seeking only a money decree against Baldev Das personally; appellants withdrew application to be added as parties.\",\"participants\":[{\"name_or_role\":\"Plaintiff's Counsel\",\"role\":\"Representing Mst. Naraini\"},{\"name_or_role\":\"Appellants\",\"role\":\"Sons\"}],\"event\":\"Amendment of plaint and withdrawal of application\",\"time\":\"February 7, 1935\",\"procedure_and_court\":\"Court hearing\",\"witnesses\":[{\"span_id\":\"Wbf1e656cd798\"}]},\"OR46a0e1c02fa0c6e1\":{\"speaker_label\":\"Court\",\"content\":\"On April 17, 1935, Baldev Das died; on September 2, appellants and their mother were brought on record as legal representatives of Baldev Das.\",\"participants\":[{\"name_or_role\":\"Baldev Das\",\"role\":\"Deceased\"},{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives\"},{\"name_or_role\":\"Mother\",\"role\":\"Legal representative\"}],\"event\":\"Death of Baldev Das and substitution of parties\",\"time\":\"April 17, 1935 to September 2, 1935\",\"procedure_and_court\":\"Court order\",\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]},\"ORca6d6deccdd6b360\":{\"speaker_label\":\"Court\",\"content\":\"On November 20, 1935, parties compromised; a money decree was passed against Baldev Das's estate in hands of legal representatives for Rs 425 annas odd plus half costs.\",\"participants\":[{\"name_or_role\":\"Plaintiff\",\"role\":\"Decree-holder\"},{\"name_or_role\":\"Legal Representatives\",\"role\":\"Respondents\"}],\"event\":\"Compromise and passing of money decree\",\"time\":\"November 20, 1935\",\"procedure_and_court\":\"Court decree\",\"witnesses\":[{\"span_id\":\"W4d8eff619d23\"}]},\"OR5a2e0a6226db3a04\":{\"speaker_label\":\"Narrator\",\"content\":\"On April 16, 1928, the appellants and a minor brother sued their father Baldev Das for partition of joint family properties, resulting in a final decree on July 20, 1928.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Sons of Baldev Das\"},{\"name_or_role\":\"Baldev Das\",\"role\":\"Father/Defendant in partition suit\"}],\"event\":\"Filing and conclusion of partition suit leading to division of joint family properties.\",\"time\":\"April 16, 1928 to July 20, 1928\",\"procedure_and_court\":\"Suit No. 23 of 1928 in Court of Subordinate Judge, Shahjahanpur.\",\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]},\"OR4bc6d0398bc9c4cc\":{\"speaker_label\":\"Narrator\",\"content\":\"On September 29, 1934, Mst. Naraini filed a suit against Baldev Das for recovery of Rs 12,500 based on the 1925 mortgage bond.\",\"participants\":[{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff/Decree-holder\"},{\"name_or_role\":\"Baldev Das\",\"role\":\"Defendant\"}],\"event\":\"Filing of suit for recovery of money based on mortgage bond.\",\"time\":\"September 29, 1934\",\"procedure_and_court\":\"Suit in Court of Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"}]},\"OR885b6383ff05e929\":{\"speaker_label\":\"Appellants\",\"content\":\"On December 18, 1934, appellants applied to be added as party defendants, asserting Baldev Das was not the manager and properties had been partitioned.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Sons of Baldev Das\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff\"}],\"event\":\"Application to be added as party defendants in mortgage recovery suit.\",\"time\":\"December 18, 1934\",\"procedure_and_court\":\"Proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"}]},\"OR1b1a8d6351729282\":{\"speaker_label\":\"Plaintiff's Counsel\",\"content\":\"On February 7, 1935, plaintiff's counsel stated client would abandon claim against mortgaged property and seek only money decree against Baldev Das personally.\",\"participants\":[{\"name_or_role\":\"Plaintiff's Counsel\",\"role\":\"Representing Mst. Naraini\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff\"}],\"event\":\"Amendment of plaint to abandon claim against mortgaged property.\",\"time\":\"February 7, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"Wbf1e656cd798\"}]},\"OR1c85580a0af1c47a\":{\"speaker_label\":\"Appellants\",\"content\":\"Upon plaintiff's amendment, appellants withdrew their application to be added as parties but reserved right to take legal action if necessary.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Sons of Baldev Das\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff\"}],\"event\":\"Withdrawal of application to be added as party defendants.\",\"time\":\"After February 7, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]},\"OR31953ffe34fcd962\":{\"speaker_label\":\"Narrator\",\"content\":\"On April 17, 1935, Baldev Das died; on September 2, appellants and their mother were brought on record as legal representatives.\",\"participants\":[{\"name_or_role\":\"Baldev Das\",\"role\":\"Deceased Defendant\"},{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives\"}],\"event\":\"Death of Baldev Das and substitution of legal representatives.\",\"time\":\"April 17, 1935 to September 2, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]},\"OR934334ff490a807d\":{\"speaker_label\":\"Appellants\",\"content\":\"On October 9, 1935, appellants filed written statement alleging Baldev Das engaged in speculative transactions and debt was illegal and immoral.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives of Baldev Das\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff\"}],\"event\":\"Filing of written statement raising plea of illegality and immorality of debt.\",\"time\":\"October 9, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W68de7d943528\"}]},\"OR29f2ac7c7fb7f890\":{\"speaker_label\":\"Court\",\"content\":\"On October 9, 1935, court recorded order that since plaintiff abandoned mortgage claim, legal representatives could not raise pleas on validity of mortgage.\",\"participants\":[{\"name_or_role\":\"Court\",\"role\":\"Senior Subordinate Judge, Ambala\"},{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives\"}],\"event\":\"Court order restricting legal representatives from raising mortgage validity pleas.\",\"time\":\"October 9, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W4d8eff619d23\"}]},\"ORde554619bccbbce1\":{\"speaker_label\":\"Narrator\",\"content\":\"On November 20, 1935, parties compromised; simple money decree passed against estates of Baldev Das in hands of legal representatives for Rs 425 annas odd.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff/Decree-holder\"}],\"event\":\"Compromise and passing of money decree against estate of Baldev Das.\",\"time\":\"November 20, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W4d8eff619d23\"},{\"span_id\":\"W2383fab2f6d3\"}]},\"ORc304cdc5bc58c654\":{\"speaker_label\":\"Narrator\",\"content\":\"Decree ordered payment against 'estate of Baldev Das deceased in possession of his legal representatives' including Rs 425-7-0 half costs.\",\"participants\":[{\"name_or_role\":\"Court\",\"role\":\"Senior Subordinate Judge, Ambala\"},{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives\"}],\"event\":\"Passing of compromise decree against estate of Baldev Das.\",\"time\":\"November 20, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W4db3803e5b53\"}]},\"OR8f33703b778ec8df\":{\"speaker_label\":\"Narrator\",\"content\":\"On September 29, 1934, Mst. Naraini filed a suit against Baldev Das for recovery of Rs 12,500 based on the 1925 mortgage bond.\",\"participants\":[{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff/Decree-holder\"},{\"name_or_role\":\"Baldev Das\",\"role\":\"Defendant\"}],\"event\":\"Filing of suit for recovery of money based on mortgage.\",\"time\":\"September 29, 1934\",\"procedure_and_court\":\"Suit in Court of Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"}]},\"ORd3b1e6b68e1d2092\":{\"speaker_label\":\"Appellants\",\"content\":\"On December 18, 1934, appellants applied to be added as parties-defendants, asserting Baldev Das was not the manager and properties had been partitioned.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Sons of Baldev Das\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff\"}],\"event\":\"Application to be added as parties-defendants in mortgage recovery suit.\",\"time\":\"December 18, 1934\",\"procedure_and_court\":\"Proceedings in Court of Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"}]},\"ORd3d8caf1fc92e477\":{\"speaker_label\":\"Plaintiff's Counsel\",\"content\":\"On February 7, 1935, plaintiff's counsel stated client would abandon claim against mortgaged property and seek only a money decree against Baldev Das personally.\",\"participants\":[{\"name_or_role\":\"Plaintiff's Counsel\",\"role\":\"Representing Mst. Naraini\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff\"}],\"event\":\"Amendment of plaint to abandon claim against mortgaged property.\",\"time\":\"February 7, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"Wbf1e656cd798\"}]},\"OR6340d61d2bd5ca30\":{\"speaker_label\":\"Appellants\",\"content\":\"Upon plaintiff's amendment, appellants withdrew their application to be added as parties but reserved right to take legal action if necessary.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Sons of Baldev Das\"}],\"event\":\"Withdrawal of application to be added as parties.\",\"time\":\"After February 7, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]},\"ORf5819d9619d38d78\":{\"speaker_label\":\"Narrator\",\"content\":\"On April 17, 1935, Baldev Das died; on September 2, appellants and their mother were brought on record as his legal representatives.\",\"participants\":[{\"name_or_role\":\"Baldev Das\",\"role\":\"Deceased Defendant\"},{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives\"}],\"event\":\"Death of Baldev Das and substitution of legal representatives.\",\"time\":\"April 17, 1935 to September 2, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W2927255f2278\"}]},\"OR01afaec8cdf96158\":{\"speaker_label\":\"Appellants\",\"content\":\"On October 9, 1935, appellants filed written statement alleging debt was illegal and immoral due to speculative transactions by Baldev Das.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives of Baldev Das\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff\"}],\"event\":\"Filing of written statement raising plea of illegal and immoral debt.\",\"time\":\"October 9, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W68de7d943528\"}]},\"OR2785f0d5c21d450c\":{\"speaker_label\":\"Narrator\",\"content\":\"On November 20, 1935, parties compromised; simple money decree passed against estates of Baldev Das in hands of legal representatives for full amount plus half costs.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives\"},{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff/Decree-holder\"}],\"event\":\"Compromise and passing of money decree.\",\"time\":\"November 20, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W4d8eff619d23\"},{\"span_id\":\"W2383fab2f6d3\"}]},\"ORf4c1199227315e4e\":{\"speaker_label\":\"Narrator\",\"content\":\"Decree ordered parties to pay Rs. 425-7-0 half costs against estate of Baldev Das deceased in possession of legal representatives.\",\"participants\":[{\"name_or_role\":\"Court\",\"role\":\"Senior Subordinate Judge, Ambala\"},{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives\"}],\"event\":\"Passing of compromise decree.\",\"time\":\"November 20, 1935\",\"procedure_and_court\":\"Court proceedings in Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W4db3803e5b53\"}]},\"ORa38a1398d21715da\":{\"speaker_label\":\"Court\",\"content\":\"On September 29, 1934, Mst. Naraini filed suit for recovery of Rs 12,500 against Baldev Das based on mortgage bond; plaintiff later abandoned claim against mortgaged property.\",\"participants\":[{\"name_or_role\":\"Mst. Naraini\",\"role\":\"Plaintiff/Decree-holder\"},{\"name_or_role\":\"Baldev Das\",\"role\":\"Defendant\"}],\"event\":\"Suit filed for recovery; amended to seek money decree only against Baldev Das personally.\",\"time\":\"September 29, 1934 to February 7, 1935\",\"procedure_and_court\":\"Suit in Court of Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"W688442941677\"},{\"span_id\":\"Wbf1e656cd798\"}]},\"ORf57aff837a76ec44\":{\"speaker_label\":\"Court\",\"content\":\"Appellants applied to be added as parties defendants; court recorded order that legal representatives could not raise pleas on mortgage validity after plaintiff abandoned mortgage claim.\",\"participants\":[{\"name_or_role\":\"Appellants\",\"role\":\"Legal representatives of Baldev Das\"},{\"name_or_role\":\"Plaintiff\",\"role\":\"Mst. Naraini\"}],\"event\":\"Application to add parties dismissed; compromise reached; money decree passed against estate of Baldev Das.\",\"time\":\"December 18, 1934 to November 20, 1935\",\"procedure_and_court\":\"Proceedings in Court of Senior Subordinate Judge, Ambala.\",\"witnesses\":[{\"span_id\":\"Wcb1a539fc1d5\"},{\"span_id\":\"W2927255f2278\"},{\"span_id\":\"W4d8eff619d23\"}]}},\"source_dispositions\":{\"S3dc313ddd1ca\":\"READ_WITH_OBSERVATIONS\",\"S71f0e4fd9183\":\"READ_WITH_OBSERVATIONS\",\"S764c24b293df\":\"READ_WITH_OBSERVATIONS\",\"S9f014ca2f861\":\"READ_WITH_OBSERVATIONS\",\"Sad53ad8225a2\":\"READ_WITH_OBSERVATIONS\",\"Sc4986463e975\":\"READ_WITH_OBSERVATIONS\",\"Sda84b44fc34d\":\"READ_WITH_OBSERVATIONS\",\"Sf7cdab5aa0ca\":\"READ_WITH_OBSERVATIONS\"},\"original_reading_hash\":\"389e8dc40e4f3d08c42e0778ac336aa99aef5ee78d773de9a1061984911cc644\"}},\"assessment_scope\":\"SOURCE_DESCRIPTION_SEPARATE_FROM_TARGET_LEGAL_RESOLUTION\",\"source_visibility\":{\"read_ids\":[\"S5d64227f2f7b\",\"S0a9a8dc68607\",\"S4229e2cf54d0\",\"S17c404653270\",\"S4e66d246790f\",\"S1b5d070c6f58\",\"S29c47135bf1b\",\"Sa38d8918c9ac\",\"Sda84b44fc34d\",\"S764c24b293df\",\"Sc4986463e975\",\"Sad53ad8225a2\",\"Sf7cdab5aa0ca\",\"S9f014ca2f861\",\"S3dc313ddd1ca\",\"S7d30876f6b68\",\"S65959eb57e13\",\"S487ef87e25a2\",\"Sb842c2dece3b\",\"S7861a3aa3085\",\"Sc8d43e93b852\",\"Sad7168b54d36\",\"S5fb14e6ff05b\",\"Sf9ce70b49f1a\",\"S134e4fba6e50\",\"S71f0e4fd9183\",\"Sef7502ffa07b\",\"Scd01843d342e\",\"S455c559dbee6\",\"Sd510ad69329d\"],\"not_in_this_window\":[],\"coverage_ledger\":null,\"no_absence_inference\":true},\"history_documents\":{},\"witness_address_policy\":\"Choose displayed span_id; do not write or paraphrase quotations. Every original character is preserved.\"}"
+    }
+  ],
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  }
+}

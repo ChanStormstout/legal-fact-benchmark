@@ -1,0 +1,229 @@
+{
+  "context_length_exceeded_behavior": "error",
+  "max_tokens": 65536,
+  "min_p": 0.0,
+  "model": "Qwen/Qwen3.5-9B",
+  "n": 1,
+  "reasoning": {
+    "enabled": false
+  },
+  "repetition_penalty": 1.0,
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "legal_stage",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "observations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "speaker_label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Write a complete concise statement, normally within 100 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                },
+                "content": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Write a complete concise statement, normally within 240 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                },
+                "participants": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name_or_role": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Write a complete concise statement, normally within 80 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                      },
+                      "role": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Write a complete concise statement, normally within 80 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                      }
+                    },
+                    "required": [
+                      "name_or_role",
+                      "role"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 0,
+                  "maxItems": 6,
+                  "uniqueItems": false
+                },
+                "event": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Write a complete concise statement, normally within 120 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                },
+                "time": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Write a complete concise statement, normally within 80 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                },
+                "procedure_and_court": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Write a complete concise statement, normally within 120 characters. Finish the thought and close the string naturally; do not copy a long passage or pad."
+                },
+                "witnesses": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "span_id": {
+                        "type": "string",
+                        "enum": [
+                          "We856a8f27d5a",
+                          "Wa202f3c2ac04",
+                          "Wcb87ae75f474",
+                          "Wbca8d308e34d",
+                          "W2dff9f6b8605",
+                          "W21c30eba4ee2",
+                          "W17b9af76dbe8",
+                          "W688442941677",
+                          "Wcb1a539fc1d5",
+                          "Wfe87e2524db7",
+                          "Wbf1e656cd798",
+                          "W2927255f2278",
+                          "W68de7d943528",
+                          "W4d8eff619d23",
+                          "W2383fab2f6d3",
+                          "Wb377661dbe31",
+                          "W44c8bd95b087",
+                          "Wead2262b1c19",
+                          "W3e958af361cb",
+                          "We9fcecb1fc58",
+                          "W6963edae5f5c",
+                          "Wcba8bc9a9964",
+                          "W7f99dccdd57f",
+                          "W652b22d5b9c8",
+                          "W68fb0de178ef",
+                          "W4db3803e5b53",
+                          "W87aeb6179f69",
+                          "W43dff9488c01",
+                          "W06ed1bef9e6c",
+                          "Wbd45924aba6f"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "span_id"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 4,
+                  "uniqueItems": false
+                }
+              },
+              "required": [
+                "speaker_label",
+                "content",
+                "participants",
+                "event",
+                "time",
+                "procedure_and_court",
+                "witnesses"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0,
+            "maxItems": 24,
+            "uniqueItems": false
+          },
+          "source_dispositions": {
+            "type": "object",
+            "properties": {
+              "Sb842c2dece3b": {
+                "type": "string",
+                "enum": [
+                  "READ_WITH_OBSERVATIONS",
+                  "NO_RELEVANT_STATEMENT",
+                  "INSUFFICIENT_CONTEXT"
+                ]
+              },
+              "S7861a3aa3085": {
+                "type": "string",
+                "enum": [
+                  "READ_WITH_OBSERVATIONS",
+                  "NO_RELEVANT_STATEMENT",
+                  "INSUFFICIENT_CONTEXT"
+                ]
+              },
+              "Sc8d43e93b852": {
+                "type": "string",
+                "enum": [
+                  "READ_WITH_OBSERVATIONS",
+                  "NO_RELEVANT_STATEMENT",
+                  "INSUFFICIENT_CONTEXT"
+                ]
+              },
+              "Sad7168b54d36": {
+                "type": "string",
+                "enum": [
+                  "READ_WITH_OBSERVATIONS",
+                  "NO_RELEVANT_STATEMENT",
+                  "INSUFFICIENT_CONTEXT"
+                ]
+              },
+              "S5fb14e6ff05b": {
+                "type": "string",
+                "enum": [
+                  "READ_WITH_OBSERVATIONS",
+                  "NO_RELEVANT_STATEMENT",
+                  "INSUFFICIENT_CONTEXT"
+                ]
+              },
+              "Sf9ce70b49f1a": {
+                "type": "string",
+                "enum": [
+                  "READ_WITH_OBSERVATIONS",
+                  "NO_RELEVANT_STATEMENT",
+                  "INSUFFICIENT_CONTEXT"
+                ]
+              }
+            },
+            "required": [
+              "Sb842c2dece3b",
+              "S7861a3aa3085",
+              "Sc8d43e93b852",
+              "Sad7168b54d36",
+              "S5fb14e6ff05b",
+              "Sf9ce70b49f1a"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "observations",
+          "source_dispositions"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "seed": 20261001,
+  "stream": true,
+  "temperature": 0.0,
+  "top_k": 0,
+  "top_p": 1.0,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Describe and check the supplied original record, not the answer to a lawsuit. A party claim, a prior finding and an open legal question are distinct recordable contents. Reporting a prior finding does not endorse it. Do not require the hidden target outcome to describe visible proceedings. No target question, proposed legal conclusion or executable law is authority for this stage. All readings remain fallible model assessments; never invent a missing identity or acceptance.\nRead the supplied original CASE passages before seeing any proposed source record. No candidate answer, target question, prior review or object registry is given. Describe the material positions and events in these focus passages, using surrounding originals only to resolve attribution. Separate the speaker from the actor; explicitly identify unnamed plaintiff/defendant roles, parent versus child, court levels, event dates, and who prevailed on WHICH issue in EACH earlier proceeding. Preserve negation and opposing positions. Do not decide the target case or add legal effects. Use only the original's literal role/name when a person is unnamed. Select witnesses for every observation; a citation is not itself evidence of your interpretation. Record missing context explicitly. These observations are fallible model readings, not accepted facts.\nReturn one complete JSON object using this schema:\n{\"type\":\"object\",\"properties\":{\"observations\":{\"$ref\":\"#/$defs/D1\"},\"source_dispositions\":{\"$ref\":\"#/$defs/D12\"}},\"required\":[\"observations\",\"source_dispositions\"],\"additionalProperties\":false,\"$defs\":{\"D3\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Write a complete concise statement, normally within 100 characters. Finish the thought and close the string naturally; do not copy a long passage or pad.\"},\"D4\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Write a complete concise statement, normally within 240 characters. Finish the thought and close the string naturally; do not copy a long passage or pad.\"},\"D7\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Write a complete concise statement, normally within 80 characters. Finish the thought and close the string naturally; do not copy a long passage or pad.\"},\"D6\":{\"type\":\"object\",\"properties\":{\"name_or_role\":{\"$ref\":\"#/$defs/D7\"},\"role\":{\"$ref\":\"#/$defs/D7\"}},\"required\":[\"name_or_role\",\"role\"],\"additionalProperties\":false},\"D5\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/D6\"},\"minItems\":0,\"maxItems\":6,\"uniqueItems\":false},\"D8\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Write a complete concise statement, normally within 120 characters. Finish the thought and close the string naturally; do not copy a long passage or pad.\"},\"D11\":{\"type\":\"string\",\"enum\":[\"We856a8f27d5a\",\"Wa202f3c2ac04\",\"Wcb87ae75f474\",\"Wbca8d308e34d\",\"W2dff9f6b8605\",\"W21c30eba4ee2\",\"W17b9af76dbe8\",\"W688442941677\",\"Wcb1a539fc1d5\",\"Wfe87e2524db7\",\"Wbf1e656cd798\",\"W2927255f2278\",\"W68de7d943528\",\"W4d8eff619d23\",\"W2383fab2f6d3\",\"Wb377661dbe31\",\"W44c8bd95b087\",\"Wead2262b1c19\",\"W3e958af361cb\",\"We9fcecb1fc58\",\"W6963edae5f5c\",\"Wcba8bc9a9964\",\"W7f99dccdd57f\",\"W652b22d5b9c8\",\"W68fb0de178ef\",\"W4db3803e5b53\",\"W87aeb6179f69\",\"W43dff9488c01\",\"W06ed1bef9e6c\",\"Wbd45924aba6f\"]},\"D10\":{\"type\":\"object\",\"properties\":{\"span_id\":{\"$ref\":\"#/$defs/D11\"}},\"required\":[\"span_id\"],\"additionalProperties\":false},\"D9\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/D10\"},\"minItems\":1,\"maxItems\":4,\"uniqueItems\":false},\"D2\":{\"type\":\"object\",\"properties\":{\"speaker_label\":{\"$ref\":\"#/$defs/D3\"},\"content\":{\"$ref\":\"#/$defs/D4\"},\"participants\":{\"$ref\":\"#/$defs/D5\"},\"event\":{\"$ref\":\"#/$defs/D8\"},\"time\":{\"$ref\":\"#/$defs/D7\"},\"procedure_and_court\":{\"$ref\":\"#/$defs/D8\"},\"witnesses\":{\"$ref\":\"#/$defs/D9\"}},\"required\":[\"speaker_label\",\"content\",\"participants\",\"event\",\"time\",\"procedure_and_court\",\"witnesses\"],\"additionalProperties\":false},\"D1\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/D2\"},\"minItems\":0,\"maxItems\":24,\"uniqueItems\":false},\"D13\":{\"type\":\"string\",\"enum\":[\"READ_WITH_OBSERVATIONS\",\"NO_RELEVANT_STATEMENT\",\"INSUFFICIENT_CONTEXT\"]},\"D12\":{\"type\":\"object\",\"properties\":{\"Sb842c2dece3b\":{\"$ref\":\"#/$defs/D13\"},\"S7861a3aa3085\":{\"$ref\":\"#/$defs/D13\"},\"Sc8d43e93b852\":{\"$ref\":\"#/$defs/D13\"},\"Sad7168b54d36\":{\"$ref\":\"#/$defs/D13\"},\"S5fb14e6ff05b\":{\"$ref\":\"#/$defs/D13\"},\"Sf9ce70b49f1a\":{\"$ref\":\"#/$defs/D13\"}},\"required\":[\"Sb842c2dece3b\",\"S7861a3aa3085\",\"Sc8d43e93b852\",\"Sad7168b54d36\",\"S5fb14e6ff05b\",\"Sf9ce70b49f1a\"],\"additionalProperties\":false}}}"
+    },
+    {
+      "role": "user",
+      "content": "{\"sources\":{\"S5d64227f2f7b\":{\"original_id\":\"IKWEB-1252014:L155\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L155\",\"origin_group\":\"1252014\",\"span\":[0,350],\"parent_id\":\"S5d64227f2f7b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"We856a8f27d5a\",\"start\":0,\"end\":350,\"text\":\"CIVIL APPELLATE JURISDICTION: Civil Appeal No. 57 of 1951. Appeal from a judgment dated 18th May, 1948, of the High Court of East Punjab at Simla (Khosla and Teja Singh JJ.) in Letters Patent Appeal No. 189 of 1946 arising out of the judgment dated 11 th February, 1946, of the Senior Subordinate Judge, Ambala. The facts are set out in the judgment.\"}]},\"S0a9a8dc68607\":{\"original_id\":\"IKWEB-1252014:L157\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L157\",\"origin_group\":\"1252014\",\"span\":[0,60],\"parent_id\":\"S0a9a8dc68607\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wa202f3c2ac04\",\"start\":0,\"end\":60,\"text\":\"Gopinath Kunzru (B.C. Misra, with him) for the appel- lants.\"}]},\"S4229e2cf54d0\":{\"original_id\":\"IKWEB-1252014:L159\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L159\",\"origin_group\":\"1252014\",\"span\":[0,59],\"parent_id\":\"S4229e2cf54d0\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wcb87ae75f474\",\"start\":0,\"end\":59,\"text\":\"Rang Behari Lal (N.C. Sen, with him) for the respond- ents.\"}]},\"S17c404653270\":{\"original_id\":\"IKWEB-1252014:L160\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L160\",\"origin_group\":\"1252014\",\"span\":[0,406],\"parent_id\":\"S17c404653270\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wbca8d308e34d\",\"start\":0,\"end\":406,\"text\":\"1952. March 7. The judgment of the Court was delivered by MUKHERJEA J.--This appeal is on behalf of the judgment- debtor in a proceeding for execution of a money decree and it is directed against the judgment of a Letters Patent Bench of the Punjab High Court dated 18th of May, 1949. by which the learned Judges 546 affirmed, in appeal, a decision of a single Judge of that court dated 29th October, 1946.\"}]},\"S4e66d246790f\":{\"original_id\":\"IKWEB-1252014:L161\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L161\",\"origin_group\":\"1252014\",\"span\":[0,425],\"parent_id\":\"S4e66d246790f\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W2dff9f6b8605\",\"start\":0,\"end\":425,\"text\":\"The original order against which the appeal was taken to the High Court was made by the Senior Subordinate Judge, Ambala, in Execution Case No. 18 of 1945 dismissing the objections preferred by the appel- lants under section 47 of the Civil Procedure Code. To appreciate the contentions that have been raised in this appeal, it would be necessary to give a short narrative of the material events in their chronological order.\"}]},\"S1b5d070c6f58\":{\"original_id\":\"IKWEB-1252014:L162\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L162\",\"origin_group\":\"1252014\",\"span\":[0,399],\"parent_id\":\"S1b5d070c6f58\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W21c30eba4ee2\",\"start\":0,\"end\":399,\"text\":\"On September 30, 1925, Baldev Das, the father of the appel- lants, who was, at that time the manager of a joint Hindu family, consisting of himself and his sons, executed a mortgage bond in favour of Mst. Naraini, the original-re- spondent No. 1, and another person named Talok Chand, by which certain movable properties belonging to the joint family were hypothecated to secure a loan of Rs 16,000.\"}]},\"S29c47135bf1b\":{\"original_id\":\"IKWEB-1252014:L163\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L163\",\"origin_group\":\"1252014\",\"span\":[0,490],\"parent_id\":\"S29c47135bf1b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W17b9af76dbe8\",\"start\":0,\"end\":490,\"text\":\"On April 16, 1928, the appellants along with a minor brother of theirs named Sumer Chand filed a suit:--being Suit No. 23 of 1928 in the Court of the Subordinate Judge of Shahjahanpur against their father Baldev Das for partition of the joint family properties. The suit culminated in a final decree for partition on 20th July, 1928, and the joint family properties were divided by metes and bounds and separate possession was taken by the father and the sons. On 29th September, 1934, Mst.\"}]},\"Sa38d8918c9ac\":{\"original_id\":\"IKWEB-1252014:L164\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L164\",\"origin_group\":\"1252014\",\"span\":[0,401],\"parent_id\":\"Sa38d8918c9ac\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W688442941677\",\"start\":0,\"end\":401,\"text\":\"Naraini filed a suit in the Court of the Senior Subordinate Judge, Ambala, against Baldev Das for recovery of a sum of Rs. 12;500 only on the basis of the mortgage bond referred to above. It was stated in the plaint that the money was borrowed by the defendant as manager of a joint Hindu family and the plaintiff prayed for a decree against the mortgaged property as well as against the joint family.\"}]},\"Sda84b44fc34d\":{\"original_id\":\"IKWEB-1252014:L165\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L165\",\"origin_group\":\"1252014\",\"span\":[0,301],\"parent_id\":\"Sda84b44fc34d\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wcb1a539fc1d5\",\"start\":0,\"end\":301,\"text\":\"On 18th December, 1934, the appellants made an application before the Subordinate Judge under Order I, Rule 10, and Order XXXIV, Rule 1, Civil Procedure Code, praying that they might be added as parties defendants to the suit and the points in issue arising therein might be decided in their presence.\"}]},\"S764c24b293df\":{\"original_id\":\"IKWEB-1252014:L166\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L166\",\"origin_group\":\"1252014\",\"span\":[0,301],\"parent_id\":\"S764c24b293df\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wfe87e2524db7\",\"start\":0,\"end\":301,\"text\":\"It was asserted in the 547 petition that Baldev Das was not the manager of a joint family and that the family properties had been partitioned by a decree of the court, as a result of which the proper- ties alleged to be the subject-matter of the mortgage were allotted to the share of the petitioners.\"}]},\"Sc4986463e975\":{\"original_id\":\"IKWEB-1252014:L167\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L167\",\"origin_group\":\"1252014\",\"span\":[0,397],\"parent_id\":\"Sc4986463e975\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wbf1e656cd798\",\"start\":0,\"end\":397,\"text\":\"In reply to this petition, the plaintiff's counsel stated in court on 7th February, 1935, that his client would give up the claim for a mortgage decree against the properties in suit and would be satisfied only with a money decree against Baldev Das personally. The plaint was amended accordingly, deleting all reference to the joint family and abandoning the claim against the mortgaged property.\"}]},\"Sad53ad8225a2\":{\"original_id\":\"IKWEB-1252014:L168\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L168\",\"origin_group\":\"1252014\",\"span\":[0,383],\"parent_id\":\"Sad53ad8225a2\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W2927255f2278\",\"start\":0,\"end\":383,\"text\":\"Upon this the appellants withdrew their application for being made parties to the suit and reserved their right to take proper legal action if and when necessary. On April 17, 1935, Baldev Das died and on 2nd September following the appellants as well as their mother, who figures as respondent No. 5 in this appeal, were brought on the record as legal representatives of Baldev Das.\"}]},\"Sf7cdab5aa0ca\":{\"original_id\":\"IKWEB-1252014:L169\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L169\",\"origin_group\":\"1252014\",\"span\":[0,414],\"parent_id\":\"Sf7cdab5aa0ca\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W68de7d943528\",\"start\":0,\"end\":414,\"text\":\"On October 9, 1935, the appellants filed a written statement in which a number of pleas were taken in answer to the plaintiff's claim and it was asserted in paragraph 10 of the written statement that Baldev Das dealt Badri or specu- lative transactions, and if any money was due to the plain- tiff at all in connection with such transactions the debt was illegal and immoral and not binding on the family property.\"}]},\"S9f014ca2f861\":{\"original_id\":\"IKWEB-1252014:L170\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L170\",\"origin_group\":\"1252014\",\"span\":[0,490],\"parent_id\":\"S9f014ca2f861\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W4d8eff619d23\",\"start\":0,\"end\":490,\"text\":\"On the same day the court recorded an order to the effect that as the plaintiff had given up her claim for a mortgage decree, the legal representatives of the deceased could not be allowed to raise pleas relating to the validity or otherwise of the mortgage. On 20th November, 1935, the parties arrived at a compromise and on the basis of the same, a simple money decree was passed in favour of the plaintiff for the full amount claimed in the suit together with half costs amounting to Rs.\"}]},\"S3dc313ddd1ca\":{\"original_id\":\"IKWEB-1252014:L171\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L171\",\"origin_group\":\"1252014\",\"span\":[0,92],\"parent_id\":\"S3dc313ddd1ca\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W2383fab2f6d3\",\"start\":0,\"end\":92,\"text\":\"425 annas odd against the estates of Baldev Das in the hands of his legal representa- tives.\"}]},\"S7d30876f6b68\":{\"original_id\":\"IKWEB-1252014:L172\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L172\",\"origin_group\":\"1252014\",\"span\":[0,454],\"parent_id\":\"S7d30876f6b68\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wb377661dbe31\",\"start\":0,\"end\":454,\"text\":\"After certain attempts at execution of this decree which did not prove successful, 548 the present application for execution was flied by the decree holder on March 13, 1945, in the court of the Senior Subordinate Judge, Ambala, and in accordance with the prayer contained therein, the court directed the attachment of certain immovable properties consisting of a number of shops in possession of the appellants and situated at a place called Abdullaput.\"}]},\"S65959eb57e13\":{\"original_id\":\"IKWEB-1252014:L173\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L173\",\"origin_group\":\"1252014\",\"span\":[0,370],\"parent_id\":\"S65959eb57e13\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W44c8bd95b087\",\"start\":0,\"end\":370,\"text\":\"On April 23, 1945, the appellants filed objections under section 47, Civil Procedure Code, -and they opposed the attachment of the properties substantially on the ground that those properties did not belong to Baldev Das but were the separate and exclusive properties of the objectors which they obtained on partition with their father long before the decree was passed.\"}]},\"S487ef87e25a2\":{\"original_id\":\"IKWEB-1252014:L174\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L174\",\"origin_group\":\"1252014\",\"span\":[0,204],\"parent_id\":\"S487ef87e25a2\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wead2262b1c19\",\"start\":0,\"end\":204,\"text\":\"It was asserted that these properties could not be made liable for the satisfac- tion of the decretal dues which had to be realised under the terms of the decree itself from the estate left by Baldev Das.\"}]},\"Sb842c2dece3b\":{\"original_id\":\"IKWEB-1252014:L175\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L175\",\"origin_group\":\"1252014\",\"span\":[0,477],\"parent_id\":\"Sb842c2dece3b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W3e958af361cb\",\"start\":0,\"end\":477,\"text\":\"After hearing the parties and the evidence adduced by them the Subordinate Judge came to the conclusion that there was in fact a partition between Baldev Das and his sons in the year 1928 and as a result of the same, the properties, which were attached at the instance of the decree holder, were allotted to the share of the sons. The decree sought to be executed was obtained after the partition, but it was in respect of a debt which was contracted by the father prior to it.\"}]},\"S7861a3aa3085\":{\"original_id\":\"IKWEB-1252014:L176\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L176\",\"origin_group\":\"1252014\",\"span\":[0,325],\"parent_id\":\"S7861a3aa3085\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"We9fcecb1fc58\",\"start\":0,\"end\":325,\"text\":\"It was held in these circumstances that the separate share of the sons which they obtained on partition was liable under the Hindu law for the pre-partition debt of their father if it was not immoral and under section 53 of the Civil Procedure Code the decreeholder was entitled to execute the decree against such properties.\"}]},\"Sc8d43e93b852\":{\"original_id\":\"IKWEB-1252014:L177\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L177\",\"origin_group\":\"1252014\",\"span\":[0,414],\"parent_id\":\"Sc8d43e93b852\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W6963edae5f5c\",\"start\":0,\"end\":414,\"text\":\"As no point was raised by the objectors in their petition alleging that the debt covered by the decree was tainted with immorality, the objections under section 47, Civil Procedure Code, were dismissed. The objectors thereupon took an appeal to the High Court of East Punjab which was heard by Rahman J. sitting singly. The learned judge dismissed the appeal and affirmed the decision of the Subordinate 549 Judge.\"}]},\"Sad7168b54d36\":{\"original_id\":\"IKWEB-1252014:L178\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L178\",\"origin_group\":\"1252014\",\"span\":[0,205],\"parent_id\":\"Sad7168b54d36\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wcba8bc9a9964\",\"start\":0,\"end\":205,\"text\":\"A further appeal taken to a Division Bench under the Letters Patent was also dismissed and it is the propriety of the judgment of the Letters Patent Bench that has been challenged before us in this appeal.\"}]},\"S5fb14e6ff05b\":{\"original_id\":\"IKWEB-1252014:L179\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L179\",\"origin_group\":\"1252014\",\"span\":[0,397],\"parent_id\":\"S5fb14e6ff05b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W7f99dccdd57f\",\"start\":0,\"end\":397,\"text\":\"Mr. Kunzru appearing for the appellants put forward a three-fold contention in support of the appeal. He contended in the first place that under the terms of the compromise decree the decreeholder could proceed only against the properties of Baldev Das in the hands of his legal represen- tatives and no property belonging to the appellants could be made liable for the satisfaction of the decree.\"}]},\"Sf9ce70b49f1a\":{\"original_id\":\"IKWEB-1252014:L180\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L180\",\"origin_group\":\"1252014\",\"span\":[0,281],\"parent_id\":\"Sf9ce70b49f1a\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W652b22d5b9c8\",\"start\":0,\"end\":281,\"text\":\"The second contention put forward is that as the decree in the present case was obtained after partition of the joint family property between the father and his sons, the separate property of the sons obtained on partition was not liable under Hindu law for the debt of the father.\"}]},\"S134e4fba6e50\":{\"original_id\":\"IKWEB-1252014:L181\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L181\",\"origin_group\":\"1252014\",\"span\":[0,459],\"parent_id\":\"S134e4fba6e50\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W68fb0de178ef\",\"start\":0,\"end\":459,\"text\":\"It is urged last of all that in any event if there was any pious obligation on the part of the sons to pay the father's debt incurred before partition, such obligation could be enforced against the sons, only in a properly constituted suit and not by way of execution of a decree obtained in a suit which was brought against the father alone during his lifetime and to which the sons were made parties only as legal representa- tives after the father's death.\"}]},\"S71f0e4fd9183\":{\"original_id\":\"IKWEB-1252014:L183\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L183\",\"origin_group\":\"1252014\",\"span\":[0,344],\"parent_id\":\"S71f0e4fd9183\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W4db3803e5b53\",\"start\":0,\"end\":344,\"text\":\"> \\\"It is ordered that the parties having compromised, a decree in accordance with the terms of the compromise be and the same is hereby passed in favour of the plaintiff against the estate of Baldev Das deceased in possession of his legal representatives. It is also ordered that the defendants do also pay Rs. 425-7-0, half costs of the suit.\\\"\"}]},\"Sef7502ffa07b\":{\"original_id\":\"IKWEB-1252014:L185\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L185\",\"origin_group\":\"1252014\",\"span\":[0,6],\"parent_id\":\"Sef7502ffa07b\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W87aeb6179f69\",\"start\":0,\"end\":6,\"text\":\"71 550\"}]},\"Scd01843d342e\":{\"original_id\":\"IKWEB-1252014:L186\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L186\",\"origin_group\":\"1252014\",\"span\":[0,316],\"parent_id\":\"Scd01843d342e\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W43dff9488c01\",\"start\":0,\"end\":316,\"text\":\"There was no petition of compromise filed by the parties and made part of the decree, but there are on the record two statements, one made by Pannalal, the appellant No. 1, on behalf of himself and his mother, and the other by Lala Haraprasad, the special agent of the plaintiff, setting out terms of the compromise.\"}]},\"S455c559dbee6\":{\"original_id\":\"IKWEB-1252014:L187\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L187\",\"origin_group\":\"1252014\",\"span\":[0,234],\"parent_id\":\"S455c559dbee6\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"W06ed1bef9e6c\",\"start\":0,\"end\":234,\"text\":\"The terms are worded much in the same manner as in the decree itself and are to the effect that a decree for the amount in suit together with half costs would be awarded against the property of Baldev Das deceased. It is argued by Mr.\"}]},\"Sd510ad69329d\":{\"original_id\":\"IKWEB-1252014:L188\",\"domain\":\"CASE\",\"locator\":\"IKWEB-1252014:L188\",\"origin_group\":\"1252014\",\"span\":[0,369],\"parent_id\":\"Sd510ad69329d\",\"document_id\":\"IKWEB-1252014\",\"passages\":[{\"span_id\":\"Wbd45924aba6f\",\"start\":0,\"end\":369,\"text\":\"Kunzru that the expression \\\"estate of Baldev Das deceased\\\" occurring in the decree must mean and refer to the property belonging to Baldev Das at the date of his death and could not include any property which the sons obtained on partition with their father during the father's lifetime and in respect of which the latter possessed no interest at the time of his death.\"}]}},\"material\":{\"focus_source_ids\":[\"Sb842c2dece3b\",\"S7861a3aa3085\",\"Sc8d43e93b852\",\"Sad7168b54d36\",\"S5fb14e6ff05b\",\"Sf9ce70b49f1a\"]},\"assessment_scope\":\"SOURCE_DESCRIPTION_SEPARATE_FROM_TARGET_LEGAL_RESOLUTION\",\"source_visibility\":{\"read_ids\":[\"S5d64227f2f7b\",\"S0a9a8dc68607\",\"S4229e2cf54d0\",\"S17c404653270\",\"S4e66d246790f\",\"S1b5d070c6f58\",\"S29c47135bf1b\",\"Sa38d8918c9ac\",\"Sda84b44fc34d\",\"S764c24b293df\",\"Sc4986463e975\",\"Sad53ad8225a2\",\"Sf7cdab5aa0ca\",\"S9f014ca2f861\",\"S3dc313ddd1ca\",\"S7d30876f6b68\",\"S65959eb57e13\",\"S487ef87e25a2\",\"Sb842c2dece3b\",\"S7861a3aa3085\",\"Sc8d43e93b852\",\"Sad7168b54d36\",\"S5fb14e6ff05b\",\"Sf9ce70b49f1a\",\"S134e4fba6e50\",\"S71f0e4fd9183\",\"Sef7502ffa07b\",\"Scd01843d342e\",\"S455c559dbee6\",\"Sd510ad69329d\"],\"not_in_this_window\":[],\"coverage_ledger\":null,\"no_absence_inference\":true},\"history_documents\":{},\"witness_address_policy\":\"Choose displayed span_id; do not write or paraphrase quotations. Every original character is preserved.\"}"
+    }
+  ],
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  }
+}

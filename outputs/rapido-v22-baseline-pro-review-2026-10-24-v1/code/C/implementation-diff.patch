@@ -1,0 +1,447 @@
+--- V21.1/README.md
++++ V22/README.md
+@@ -1,5 +1,7 @@
+-# RAPIDO V21.1 授权标识一致性修正
++# RAPIDO V22 transport recovery
+ 
+-V21 启动前发现 APIProvider 仍只接受 V20 授权标识。此版本仅统一底层适配器和启动器的 V21 标识，并更新版本号；模型、输入、提示、规则、语料和语义流程保持 V21。V21 原冻结文件和验收记录保留。
++独立本地修复，语义流程继承冻结 V21.1。见 [修复报告](report-zh.md)。
+ 
+-用户已明确批准 1251841、1252014 各一次完整 C 按实际用量运行，并保留未知用量预留。本轮唯一运行目录为 private/run，不重复启动或重跑失败。详见 report-zh.md。
++真实服务根因未定位；没有新 Qwen 调用、真实终稿或质量改善结论。execute.py 默认不执行，必须经过 V22 专属费用授权及未知用量处理。原 V21.1 与失败结果保留，主入口不变。
++
++离线验收：tests/whole_workflow.py 为既有虚构整案；tests/transport_acceptance.py 回放 39 份真实流并用禁止网络的 HTTP 替身通过实际 APIProvider 执行整案。测试不生成真实模型答案。
+--- V21.1/execute.py
++++ V22/execute.py
+@@ -15,7 +15,7 @@
+ from common import read, save, digest
+ 
+ CASES = ['1251841', '1252014']
+-MODE = 'V21_TWO_CASE_ACTUAL_USAGE_NEW_APPROVAL'
++MODE = 'V22_SCOPED_ACTUAL_USAGE_APPROVAL'
+ 
+ 
+ def verify():
+@@ -56,6 +56,7 @@
+         raise RuntimeError('EXISTING_ATTEMPT_PRESERVED_NO_RESUME_OR_RERUN')
+     cfg.update(execution_enabled=True, paid_api_enabled=True,
+                billing_authorization_mode=MODE,
++               allow_unknown_usage_reserve_continuation=auth.get('allow_unknown_usage_reserve_continuation') is True,
+                authorized_cumulative_usd=None, maximum_new_usd=None,
+                cumulative_authorization='Explicit actual-usage exception for these two C attempts only.',
+                implementation_hash=digest(frozen['files']))
+@@ -88,7 +89,7 @@
+                 'outcome': result, 'new_accounted_usd': provider.spent,
+                 'cumulative_accounted_usd': prior + provider.spent})
+             print('CASE_FINISHED', cid, json.dumps(result, ensure_ascii=False), flush=True)
+-            if provider.halt:
++            if provider.dispatch_stop:
+                 break
+     except BaseException as exc:
+         error = type(exc).__name__ + ':' + str(exc)
+@@ -101,6 +102,9 @@
+             'cumulative_accounted_usd': prior + provider.spent,
+             'usage': {cid + '/' + arm: row for (cid, arm), row in provider.usage.items()},
+             'elapsed_seconds': time.monotonic() - started, 'exception': error,
++            'service_halted':provider.halt,'billing_hold':provider.billing_hold,
++            'unknown_usage_reserves':provider.unknown_requests,
++            'failed_case_keys':[list(k) for k in sorted(provider.blocked_cases)],
+             'billing_authorization_mode': MODE, 'independent_quality_score': None,
+             'exposed_development_only': True, 'cost_matched_comparison': False,
+             'old_run_resumed': False})
+--- V21.1/protocol.json
++++ V22/protocol.json
+@@ -36,7 +36,7 @@
+   },
+   "context_length": 262144,
+   "local_per_call_seconds": 2400,
+-  "version": "RAPIDO_SOURCE_RECOVERY_V21_1",
++  "version": "RAPIDO_TRANSPORT_RECOVERY_V22",
+   "execution_enabled": false,
+   "paid_api_enabled": false,
+   "provider": "TOGETHER_API",
+@@ -87,7 +87,7 @@
+   "endpoint": "https://api.together.ai/v1/chat/completions",
+   "api_model": "Qwen/Qwen3.5-9B",
+   "authorized_cumulative_usd": 23,
+-  "prior_conservative_usd": 23.370991590000017,
++  "prior_conservative_usd": 23.592845480000015,
+   "maximum_new_usd": 0,
+   "prices": {
+     "input": 0.17,
+@@ -99,7 +99,7 @@
+   "server_weight_revision_verified": false,
+   "api_format_policy": "SAME_SCHEMA_CONSUMER_AND_SERVER_SYSTEM_INSTRUCTIONS_USER_SOURCE_DATA",
+   "input_reservation_policy": "Explicit65536 completion capacity; remaining262144 context bounds input for unknown usage accounting; provider context overflow must error, no source truncation",
+-  "cumulative_authorization": "NO_NEW_PAID_RUN_APPROVAL. The completed V20 two-case exception is not reused.",
++  "cumulative_authorization": "No new paid attempt authorized; previous once-per-case V21 scope is not reset.",
+   "blank_progress_limit_chars": 1024,
+   "blank_progress_policy": "abort_without_semantic_retry_no_json_completion",
+   "count_type": "JSON_INTEGER_ENUM",
+@@ -114,7 +114,7 @@
+   "law_coverage_file": "law-coverage.json",
+   "new_mechanism_status": "OFFLINE_IMPLEMENTED_AWAITING_MODEL_QUALITY_VALIDATION",
+   "text_length_policy": "SOFT_CONCISION_TARGET_NO_HARD_FREE_TEXT_MAXLENGTH",
+-  "source_method": "outputs/rapido-source-grounded-repair-v20-2026-10-24-v1",
++  "source_method": "outputs/rapido-source-recovery-v21-1-2026-10-24-v1",
+   "witness_policy": "MODEL_SELECTS_SPANS_PROGRAM_RESOLVES_ORIGINAL_IDS",
+   "report_review_policy": "SOURCE_BOUND_RECORD_ROUTING_AND_SEPARATE_REPORT_ANSWERABILITY",
+   "report_omission_marker": "OMITTED",
+@@ -123,12 +123,12 @@
+   "history_assessment_policy": "ISOLATED_PER_DOCUMENT_READING_THEN_COMPARISON_AND_DOCUMENT_BOUND_REVIEW",
+   "credit_balance_verified_positive": false,
+   "credit_retry_backoff_seconds": 60,
+-  "transport_version": "V11_CREDIT_RECOVERY_T1",
+-  "protocol_name": "V21_1_UNIFIED_LAUNCHER_AND_PROVIDER_BILLING_ID",
++  "transport_version": "V22_FRAMED_SSE_CASE_ISOLATION",
++  "protocol_name": "V22_TRANSPORT_REPAIR_NOT_YET_AUTHORIZED_FOR_MODEL_EXECUTION",
+   "case_selection": "Previously selected1251841 and1252014 retained; execution disabled.",
+   "comparison_limit": "Capacity diagnostic only. Two complete fresh C attempts, no A0 run, not a cost-matched baseline comparison or a general quality claim.",
+   "baseline_policy": "ONE_PLAIN_TEXT_QWEN_CALL_NO_RAG_NO_DECOMPOSITION_NO_REVIEW_NO_REVISION_NO_TECHNICAL_RETRY",
+-  "budget_ledger": "outputs/rapido-source-grounded-repair-v20-2026-10-24-v1/private/validation-evaluation-v1/budget-ledger.json",
++  "budget_ledger": "outputs/rapido-source-recovery-v21-1-2026-10-24-v1/private/validation-evaluation-v1/budget-ledger.json",
+   "new_calls_estimate": null,
+   "previous_same_three_cost_usd": 0.84272137,
+   "quality_claim": "OFFLINE_ENGINEERING_ONLY_REAL_MODEL_UNVERIFIED",
+@@ -190,16 +190,17 @@
+   "retained_limits": "Explicit65536 output token capacity per call; provider262144 total context; error on overflow;2400s timeout;blank progress; one technical retry,one semantic repair; finite source/task/record/history capacities retained. Not unlimited generation.",
+   "diagnostic_output_tokens": 65536,
+   "output_capacity_policy": "EXPLICIT_65536_NO_STAGE_SQUEEZE_NO_DEFAULT_FALLBACK_ERROR_ON_CONTEXT_OVERFLOW",
+-  "output_capacity_service_acceptance_verified": false,
++  "output_capacity_service_acceptance_verified": true,
+   "object_contract": "DISJOINT_ANYOF_KIND_EXTENT_COMPONENTS_SHARED_INITIAL_PATCH_AND_CONSUMER",
+   "api_schema_service_acceptance_verified": false,
+   "source_reading_policy": "ALL_ALLOWED_CASE_PASSAGES_BEFORE_CANDIDATES_WITH_EMPTY_REGISTRY_COVERAGE_AND_FIELD_COMPARISON",
+-  "unknown_usage_policy": "HOLD_FOR_RECONCILIATION",
++  "unknown_usage_policy": "RESERVE_AND_ISOLATE_FAILED_CASE",
+   "repetition_min_chars": 2048,
+   "repetition_min_repeats": 8,
+   "repetition_window_chars": 32768,
+   "history_failure_policy": "RETAIN_PAIR_FAILURE_ALLOW_PARTIAL_REPORT_IF_PROVIDER_USABLE",
+   "rule_screen_policy": "EVERY_FROZEN_RULE_WITH_EXPLICIT_DISPOSITION_NO_AUTO_APPLICABILITY",
+   "source_read_batch_size": 6,
+-  "authorization_adapter_parent": "outputs/rapido-source-recovery-v21-2026-10-24-v1"
++  "authorization_adapter_parent": "outputs/rapido-source-recovery-v21-2026-10-24-v1",
++  "allow_unknown_usage_reserve_continuation": false
+ }
+--- V21.1/report-zh.md
++++ V22/report-zh.md
+@@ -1,5 +1,44 @@
+-# V21.1 实际执行与授权接线
++# V22：流式响应故障定位与隔离修复
+ 
+-V21 离线整链验收没有覆盖真实 APIProvider 的授权构造条件。启动前检查发现启动器允许 V21、适配器仍要求 V20；当时尚未发出 API 请求。保留 V21 后另建 V21.1，只统一该标识和版本元数据。构造验收已确认旧标识被拒绝、新标识获准，未调用模型。
++本版完成本地传输与调度修复，未新增 Qwen 调用。V21.1 首案没有最终报告，第二案未派发；这些旧结果保持不变。真实服务提前结束的原因仍未知，不能把离线验收解释为服务异常已消失或报告质量已改善。
+ 
+-语义方法保持 [V21](../rapido-source-recovery-v21-2026-10-24-v1/report-zh.md)；本轮用户批准仍限定原两案各一次 C。运行费用和结果另存 private，不能将工程验收当报告质量。最终结果见 private/validation-evaluation-v1/report-zh.txt（完成后生成）。
++## 已确认的失败及原因边界
++
++1251841/C 的第 39 次请求（bundles-0）返回 HTTP 200，约 5.38 秒后结束。正文只有 1,149 个字符，JSON 停在字符串内部；流中有 `[DONE]`，没有非空 finish_reason，也没有 usage。没有出现本地超时、空白或重复保护触发；请求输出容量为 65,536 token。这次不能归因为达到阶段 token 上限。
++
++对全部 39 份实际原始 SSE 逐字回放，新旧解析所得正文、完成状态及用量完全一致：38 份正常、1 份仍为 STREAM_INCOMPLETE。因此没有证据说明旧解析器丢掉了本次答案。缺少服务端日志，尚不能区分上游生成提前结束、网关异常或结构化解码故障。请求 schema 的基本结构排查未发现直接矛盾，也不能据此排除服务端 schema 支持问题。
++
++旧版把请求失败、未知用量和服务不可用共用停止状态；遇到未知用量就停止整个批次，导致独立第二案未派发。费用核对要求本身必须保留；可以修复的是把费用许可与单案失败分别表示，不能通过把未知费用记为零来继续。
++
++## 实际修订
++
++| 部件 | 修订 | 验收依据 |
++| --- | --- | --- |
++| src/api_provider.py | 按 SSE 事件边界解析，保留原始字节、事件计数、哈希、完成标记、用量帧和服务错误。分别判断传输结束、模型完成和结构完整性，不补齐半截 JSON。 | 39 份真实响应回放一致；注释、多行事件、CRLF、末尾无空行、用量独立帧和错误帧的离线验证通过。 |
++| src/api_provider.py、execute.py | 分开服务停止、费用核对等待和失败案例。仅在明确允许保留未知费用预留、且预算允许时，失败案例单独结束，独立授权案例可以继续；否则仍停止派发。未知费用失败不自动重试。 | 通过真实 APIProvider 接口的离线整案模拟：获准时第二案到达终检；未获准时第二案没有派发。 |
++| src/communication.py、src/api_provider.py | 技术重试保留原请求正文，不再追加一句新的提示词；校验请求哈希。只在原协议允许且已知用量的技术失败下做一次重试。 | 完整离线案例中保留第一次失败，一次重试的实际请求字节完全一致，并到达最终检查。 |
++| src/runner.py | 失败记录分别保存内容状态、费用等待、案例阻断及服务停止原因。 | 失败不会变成 UNKNOWN 法律答案，也不会把尚未运行的第二案记成模型错误。 |
++
++本版不修改法律规则、原文、历史语料、语义提示词或普通 A0 基线。新增解析器用于可靠保存证据，不能声称它已经修复服务端异常。对未返回 usage 但完成内容有效的请求，内容完成状态与费用状态分别记录；是否继续仍受费用许可约束。
++
++## 离线验收与原件保护
++
++既有 26 个虚构整案场景通过；新增整案传输验收覆盖首案失败后独立案例继续、未经授权继续被阻断、一次同请求技术重试，以及内容完成但用量缺失。测试使用本地 HTTP 替身，禁止实际网络连接，没有模型生成；模拟响应和虚构案例明确标记，不计作真实质量成绩。
++
++详细记录分别位于 private/engineering/1792853472336900000、private/transport-acceptance/1792853595994400000。真实流回放保留各原文件哈希。旧文件保护结果见 preservation.json；新增实现与旧版差异见 implementation-diff.patch。离线验收摘要见 acceptance-summary.json。
++
++## 仍未解决的问题
++
++原始 Qwen 阅读仍混淆银行与后来原告、不同法院与叙述归属；来源核验重复接受了部分误读。重点分批阅读也会重复整案叙述。字段中已允许未命名主体及未决状态，因此不能简单归因为没有 UNKNOWN 出口。本版没有通过填入正确答案、补 ACCEPT 或改变语义提示词掩盖这些问题。
++
++历史阅读、比较和复核曾实际执行，但首案未到报告阶段，无法评价最终贡献。真实规则推导、报告修订和最终报告仍未完成。这些能力不能用本次离线模拟替代验收。
++
++## 运行与费用边界
++
++本次新增模型调用和费用均为 0，执行默认关闭。账本沿用 V21.1 累计保守 23.59284548 美元，含三笔共 0.14942208 美元的未知用量预留；最新一笔 0.04980736 美元仍待核对或明确接受预留。该值是保守记账，不是确认实际扣费。
++
++启动器要求 V22 专属费用授权、对应冻结摘要与已知账本一致；不会把 V21 已结束的首案授权自动变成重跑许可。旧版第二案仍未派发，没有恢复旧批次。未训练、切换默认入口、提交或推送。
++
++## 查阅的官方接口依据
++
++[Together Chat Completions API](https://docs.together.ai/reference/chat-completions) 的流式接口描述和响应字段，以及 [Structured Outputs](https://docs.together.ai/docs/inference/chat/structured-outputs) 的 schema 与错误处理说明已核对。当前官方参数表未列出 stream_options，因此没有盲目套用另一服务的 include_usage 参数；接口文档也不能解释本请求缺失 finish_reason 的具体服务端原因。
+--- V21.1/src/api_provider.py
++++ V22/src/api_provider.py
+@@ -1,23 +1,108 @@
+ """Counted Together transport. No local model, implicit retries or oracle repair."""
+-import json,time,urllib.request,urllib.error,signal
++import json,time,urllib.request,urllib.error,signal,hashlib
+ from pathlib import Path
+ from common import save,read,digest
+ from communication import request_wire,canonical_id_sets,ProgressWriter,BlankNoProgress,RepeatedTextNoProgress
+ from runner import ResourceStop,CallFailure
+ from contracts import validate,loads
+ from schema_contract import ContractError
+-from scripts.proof_together_diagnostic import credential,stream_event
++from scripts.proof_together_diagnostic import credential
++
++
++class StreamProtocolError(ValueError):
++    pass
++
++
++def consume_sse(lines, raw, content, reasoning, receipt):
++    """Preserve every received byte and parse SSE frames, without completing JSON.
++
++    DONE closes the stream; it does not certify that the model completed its
++    answer. Usage-only frames and comments are legal and never discarded.
++    """
++    data=[];frame_type=None;events=0;byte_count=0;terminal=False
++    started=time.monotonic();first=None;last=None;framing_hash=hashlib.sha256()
++    def emit():
++        nonlocal events,terminal,first,last
++        if not data:return
++        payload='\n'.join(data)
++        events+=1;now=time.monotonic();first=now if first is None else first;last=now
++        if terminal:raise StreamProtocolError('DATA_AFTER_DONE')
++        if payload=='[DONE]':
++            terminal=True;receipt['done_received']=True;return
++        try:event=json.loads(payload)
++        except json.JSONDecodeError as exc:raise StreamProtocolError('MALFORMED_SSE_JSON') from exc
++        if not isinstance(event,dict):raise StreamProtocolError('NON_OBJECT_SSE_EVENT')
++        if event.get('error') or frame_type=='error':
++            receipt['provider_error']=event.get('error',event)
++            raise StreamProtocolError('PROVIDER_STREAM_ERROR')
++        for key in ('id','model'):
++            if key in event and receipt.get(key) not in (None,event[key]):
++                raise StreamProtocolError('STREAM_'+key.upper()+'_CHANGED')
++        for key in ('id','model','created','system_fingerprint'):
++            if key in event:receipt[key]=event[key]
++        if event.get('usage') is not None:
++            receipt['usage']=event['usage'];receipt['usage_event_count']=receipt.get('usage_event_count',0)+1
++        if event.get('warnings'):receipt.setdefault('provider_warnings',[]).extend(event['warnings'])
++        for choice in event.get('choices',[]):
++            if choice.get('index',0)!=0:raise StreamProtocolError('UNEXPECTED_EXTRA_CHOICE')
++            delta=choice.get('delta',choice.get('message',{})) or {}
++            if delta.get('content'):
++                if receipt.get('finish_reason') is not None:raise StreamProtocolError('CONTENT_AFTER_FINISH')
++                content.write(delta['content']);content.flush()
++            for key in ('reasoning','reasoning_content'):
++                if delta.get(key):reasoning.write(delta[key]);reasoning.flush()
++            finish=choice.get('finish_reason')
++            if finish is not None:
++                if receipt.get('finish_reason') not in (None,finish):raise StreamProtocolError('FINISH_REASON_CHANGED')
++                receipt['finish_reason']=finish
++                receipt['finish_event_count']=receipt.get('finish_event_count',0)+1
++    try:
++        for encoded in lines:
++            if isinstance(encoded,str):encoded=encoded.encode('utf-8')
++            raw.write(encoded);raw.flush();byte_count+=len(encoded);framing_hash.update(encoded)
++            line=encoded.decode('utf-8').rstrip('\r\n')
++            if not line:
++                emit();data=[];frame_type=None
++            elif line.startswith(':'):continue
++            else:
++                field,sep,value=line.partition(':')
++                if value.startswith(' '):value=value[1:]
++                if field=='data':data.append(value)
++                elif field=='event':frame_type=value
++        emit()
++    finally:
++        receipt['stream_evidence']={'event_count':events,'received_bytes':byte_count,
++            'received_sha256':framing_hash.hexdigest(),'first_event_seconds':None if first is None else first-started,
++            'last_event_seconds':None if last is None else last-started,
++            'done_received':receipt.get('done_received',False),'finish_reason':receipt.get('finish_reason'),
++            'usage_received':isinstance(receipt.get('usage'),dict),'raw_bytes_preserved':True}
++
++
++def reported_usage(receipt):
++    value=receipt.get('usage')
++    if not isinstance(value,dict):return None
++    keys=('prompt_tokens','completion_tokens')
++    if any(type(value.get(k)) is not int or value[k]<0 for k in keys):return None
++    if 'total_tokens' in value and (type(value['total_tokens']) is not int or value['total_tokens']<sum(value[k] for k in keys)):
++        return None
++    return {k:value[k] for k in keys}
+ 
+ class APIProvider:
+     kind='TOGETHER_QWEN_NEW_MODEL_EXECUTION'
+     def __init__(self,cfg,work):
+         if not (cfg.get('execution_enabled') and cfg.get('paid_api_enabled')):
+             raise RuntimeError('MODEL_EXECUTION_NOT_AUTHORIZED_IN_SIDE_REPAIR')
+-        if cfg.get('capacity_diagnostic') and cfg.get('billing_authorization_mode')!='V21_TWO_CASE_ACTUAL_USAGE_NEW_APPROVAL':
++        if cfg.get('capacity_diagnostic') and cfg.get('billing_authorization_mode')!='V22_SCOPED_ACTUAL_USAGE_APPROVAL':
+             raise RuntimeError('EXPLICIT_TWO_CASE_BILLING_AUTHORIZATION_REQUIRED')
+         self.cfg=cfg;self.work=Path(work);self.spent=0.;self.counts={};self.usage={};self.arm_started={};self.receipts=[];self.charges=[];self.halt=False;self.cache={};self.credit_retry_pending={}
++        self.billing_hold=False;self.blocked_cases=set();self.wire_hashes={};self.unknown_requests=[]
++        self.reserve_continuation=(cfg.get('unknown_usage_policy')=='RESERVE_AND_ISOLATE_FAILED_CASE'
++            and cfg.get('allow_unknown_usage_reserve_continuation') is True)
+         self.client=self  # Same accounting interface used by the frozen orchestrator.
+         save(self.work/'protocol.json',cfg)
++    @property
++    def dispatch_stop(self):
++        return self.halt or self.billing_hold
+     def charge_shared(self,cid,arm,receipts):
+         key=(cid,arm);u=self.usage.setdefault(key,{'prompt_tokens':0,'completion_tokens':0});seconds=0
+         for rc in receipts:
+@@ -56,6 +141,8 @@
+         # Full provider context reservation bounds unknown-usage failures without
+         # pretending the local tokenizer is an exact hosted billing tokenizer.
+         if self.halt:raise CallFailure('API_SERVICE_HALTED','REVIEW_LAST_RECEIPT_BEFORE_FURTHER_DISPATCH',True)
++        if self.billing_hold:raise CallFailure('BILLING_RECONCILIATION_REQUIRED','UNKNOWN_USAGE_POLICY_HOLD',False)
++        if key in self.blocked_cases:raise CallFailure('CASE_ATTEMPT_ALREADY_FAILED','FAILED_CASE_NOT_REPEATED',False)
+         if not diagnostic and self.counts.get(key,0)>=self.cfg['max_calls_per_arm']:raise ResourceStop('API_CALL_CAP')
+         if not diagnostic and any(u[k]+reserve[k]>self.cfg['max_'+('input' if k=='prompt_tokens' else 'output')+'_tokens_per_arm'] for k in u):
+             save(self.work/cid/arm/'resource-stops'/f'{tag}-attempt{attempt}.json',{
+@@ -69,7 +156,7 @@
+         upper=self.cost(reserve)
+         if not diagnostic and self.spent+upper>self.cfg['maximum_new_usd']+1e-10:raise ResourceStop('CUMULATIVE_USD_CAP_NO_DISPATCH')
+         token=credential()  # Existing authorized credential; never saved/logged.
+-        wire=request['plain_wire'] if arm=='A0' else request_wire(request,self.cfg,0 if same_wire_retry is not None else attempt)
++        wire=request['plain_wire'] if arm=='A0' else request_wire(request,self.cfg,0)
+         if diagnostic:
+             if wire.get('max_tokens')!=self.cfg['diagnostic_output_tokens'] or wire['max_tokens']!=output_cap:
+                 raise ResourceStop('DIAGNOSTIC_WIRE_CAPACITY_MISMATCH')
+@@ -78,12 +165,19 @@
+         if dest.exists():raise ResourceStop('EXISTING_DISPATCH_NOT_REPEATED')
+         if same_wire_retry is not None and digest(wire)!=same_wire_retry:
+             raise ResourceStop('CREDIT_RETRY_WIRE_CHANGED')
++        logical=(cid,arm,tag,reqhash)
++        if attempt:
++            if attempt>self.cfg['max_technical_retries'] or self.wire_hashes.get(logical)!=digest(wire):
++                raise ResourceStop('TECHNICAL_RETRY_WIRE_MISMATCH_OR_LIMIT')
++        else:self.wire_hashes[logical]=digest(wire)
+         save(dest/'request.json',wire)
+         save(dest/'start.json',{'pipeline_request_hash':reqhash,'wire_hash':digest(wire),'reserved_usd':upper,'reserved_usage':reserve,'started_epoch':time.time(),'api_dispatch_planned':True})
+         self.spent+=upper;self.counts[key]=number+1
+         for field in u:u[field]+=reserve[field]
+         rc={'case_id':cid,'arm':arm,'tag':tag,'attempt':attempt,'pipeline_request_hash':reqhash,'wire_hash':digest(wire),
+-            'actual_provider':'TOGETHER_API','api_dispatch':True,'server_weight_revision_verified':False,'done_received':False,'source_input_truncated':False,'reserved_usd':upper,'receipt_path':str(dest/'receipt.json')}
++            'actual_provider':'TOGETHER_API','api_dispatch':True,'server_weight_revision_verified':False,'done_received':False,'source_input_truncated':False,'reserved_usd':upper,'receipt_path':str(dest/'receipt.json'),
++            'retry_wire_identical':bool(attempt),'unknown_usage_policy':self.cfg.get('unknown_usage_policy'),
++            'reserve_continuation_authorized':self.reserve_continuation}
+         start=time.monotonic();value=None;guard=None
+         def timeout(*args):raise TimeoutError('FROZEN_API_CALL_OR_ARM_TIME_CAP')
+         previous=signal.signal(signal.SIGALRM,timeout);signal.setitimer(signal.ITIMER_REAL,min(seconds,self.cfg['local_per_call_seconds']))
+@@ -92,15 +186,11 @@
+             req=urllib.request.Request(self.cfg['endpoint'],data=json.dumps(wire).encode(),headers={'Authorization':'Bearer '+token,'Content-Type':'application/json','Accept':'text/event-stream','User-Agent':'legal-ai-research/1.0'},method='POST')
+             with urllib.request.urlopen(req,timeout=180) as response:
+                 rc.update(http_status=response.status,request_id=response.headers.get('x-request-id'),service_date=response.headers.get('date'))
+-                with (dest/'raw-sse.txt').open('x') as raw,(dest/'response.txt').open('x') as out,(dest/'reasoning.txt').open('x') as reason:
+-                    event=[];guard=ProgressWriter(out,self.cfg['blank_progress_limit_chars'],
++                rc['response_headers']={k:response.headers.get(k) for k in ('content-type','x-request-id','date','server','retry-after') if response.headers.get(k) is not None}
++                with (dest/'raw-sse.txt').open('xb') as raw,(dest/'response.txt').open('x') as out,(dest/'reasoning.txt').open('x') as reason:
++                    guard=ProgressWriter(out,self.cfg['blank_progress_limit_chars'],
+                         self.cfg['repetition_min_chars'],self.cfg['repetition_min_repeats'],self.cfg['repetition_window_chars'])
+-                    for line in response:
+-                        line=line.decode();raw.write(line);raw.flush()
+-                        if line.strip():
+-                            if line.startswith('data:'):event.append(line[5:].strip())
+-                        elif event:stream_event('\n'.join(event),guard,reason,rc);event=[]
+-                    if event:stream_event('\n'.join(event),guard,reason,rc)
++                    consume_sse(response,raw,guard,reason,rc)
+             rc['status']=completion_status(rc)
+             if (dest/'reasoning.txt').stat().st_size or rc.get('model')!=self.cfg['api_model']:
+                 rc['status']='MODEL_CONFIGURATION_MISMATCH';self.halt=True
+@@ -118,6 +208,8 @@
+                 whitespace_limit=self.cfg['blank_progress_limit_chars'],no_json_completion=True)
+         except RepeatedTextNoProgress as exc:
+             rc.update(status='REPEATED_TEXT_NO_PROGRESS',error=str(exc),no_retry=True,no_json_completion=True)
++        except StreamProtocolError as exc:
++            rc.update(status='STREAM_PROTOCOL_ERROR',error=str(exc))
+         except (ContractError,json.JSONDecodeError) as exc:
+             rc.update(status='FORMAT_ERROR',error=str(exc))
+         except TimeoutError as exc:
+@@ -130,15 +222,23 @@
+             rc.update(status='TECHNICAL_FAILURE',error=type(exc).__name__+':'+str(exc).replace(token,'[REDACTED]'))
+         finally:
+             signal.setitimer(signal.ITIMER_REAL,0);signal.signal(signal.SIGALRM,previous)
+-        actual=rc.get('usage',{});known=all(isinstance(actual.get(k),int) and actual[k]>=0 for k in reserve)
+-        charged={k:actual[k] for k in reserve} if known else reserve
++        actual=reported_usage(rc);known=actual is not None
++        charged=actual if known else reserve
+         actual_cost=self.cost(charged);self.spent+=actual_cost-upper
+         # Reserve and actual usage remain separate. A schema/repetition fix does
+         # not authorize a different billing policy or declare the reserve paid.
+         if not known:
+-            self.halt=True
+-            rc.update(billing_state='USAGE_UNKNOWN_RESERVED',halt_reason='USAGE_RECONCILIATION_REQUIRED')
++            self.unknown_requests.append({'request_id':rc.get('request_id'),'receipt_path':rc['receipt_path'],'reserve_usd':upper})
++            self.billing_hold=not self.reserve_continuation
++            rc.update(billing_state='USAGE_UNKNOWN_RESERVED',billing_hold=self.billing_hold,
++                halt_reason='USAGE_RECONCILIATION_REQUIRED' if self.billing_hold else None)
++            # Unknown-cost failures are never retried. With explicit reserve
++            # policy, the failed case is isolated; independent authorized cases
++            # may proceed with the full reserve still charged to the ledger.
++            if rc['status']!='OK':self.blocked_cases.add(key);rc['no_retry']=True
+         else:rc['billing_state']='USAGE_REPORTED_NOT_INVOICE_VERIFIED'
++        rc['content_status']=rc['status']
++        if not known and self.billing_hold and rc['status']=='OK':rc['status']='USAGE_UNRESOLVED'
+         for field in u:u[field]+=charged[field]-reserve[field]
+         if any(charged[k]>reserve[k] for k in reserve):rc['status']='SERVICE_RESERVATION_EXCEEDED';self.halt=True
+         rc.update(accounted_usd=actual_cost,known_cost_usd=actual_cost if known else None,resource_charge=charged,
+@@ -148,13 +248,15 @@
+             rc['request_elapsed_seconds']=rc['elapsed_seconds']
+             rc['elapsed_seconds']+=recovery_wait_seconds
+             rc.update(credit_transport_retry=True,credit_retry_backoff_seconds=self.cfg['credit_retry_backoff_seconds'],retry_wire_identical=True)
+-        recoverable_credit=(arm!='A0' and rc.get('http_status')==402 and attempt==0 and self.cfg.get('credit_balance_verified_positive')
++        recoverable_credit=(known and arm!='A0' and rc.get('http_status')==402 and attempt==0 and self.cfg.get('credit_balance_verified_positive')
+             and (diagnostic or self.spent+upper<=self.cfg['maximum_new_usd']+1e-10))
+         if recoverable_credit:rc['one_credit_transport_retry_permitted']=True
+         if guard is not None:rc['stream_progress']=guard.diagnostic()
+         rc['free_text_hard_length_limit']=False
+         rc.update(manual_output_token_limit_omitted=False,explicit_output_token_capacity=wire['max_tokens'],
+             resource_budget_enforced=not diagnostic,aggregate_resource_budget_enforced=not diagnostic)
++        rc.update(service_halted=self.halt,billing_hold=self.billing_hold,case_blocked=key in self.blocked_cases,
++            dispatch_stop=self.dispatch_stop,unknown_usage_is_not_confirmed_charge=not known)
+         save(dest/'receipt.json',rc);self.receipts.append(rc)
+         print('END_API',cid,arm,tag,rc['status'],'usd',actual_cost,flush=True)
+         if rc['status']!='OK':
+@@ -162,7 +264,7 @@
+                 self.halt=False
+                 self.credit_retry_pending[retry_key]=digest(wire)
+                 err=RuntimeError('API:HTTP402_ONE_BOUNDED_TRANSPORT_RETRY');err.receipts=[rc];raise err
+-            err=CallFailure(rc['status'],rc.get('halt_reason'),self.halt) if self.halt or rc.get('no_retry') else RuntimeError('API:'+rc['status']);err.receipts=[rc];raise err
++            err=CallFailure(rc['status'],rc.get('halt_reason'),self.halt) if self.dispatch_stop or rc.get('no_retry') else RuntimeError('API:'+rc['status']);err.receipts=[rc];raise err
+         self.cache[(cid,arm,reqhash)]=(value,rc)
+         return value,rc
+ 
+--- V21.1/src/common.py
++++ V22/src/common.py
+@@ -8,7 +8,7 @@
+ 
+ ROOT = Path(__file__).resolve().parents[1]
+ REPO = ROOT.parents[1]
+-VERSION = 'RAPIDO_SOURCE_RECOVERY_V21_1'
++VERSION = 'RAPIDO_TRANSPORT_RECOVERY_V22'
+ SCOPE_FIELDS = {'entities':('actors','properties','participant_roles'),'time':('time',),
+     'stage_court':('stage','court','procedure','jurisdiction'),'request':('request',),'record_attribution':('record_level',)}
+ SPEAKER_KINDS = ('PARTY','PERSON','ORGANIZATION','COURT')
+--- V21.1/src/communication.py
++++ V22/src/communication.py
+@@ -249,7 +249,7 @@
+     """One source dictionary, one displayed schema, same schema for decoding/checking."""
+     system=request['policy']+'\n'+request['task']
+     system+='\nReturn one complete JSON object using this schema:\n'+json.dumps(compact_schema(request['schema']),ensure_ascii=False,separators=(',',':'))
+-    if attempt:system+='\nOne technical retry of the same request, with no supplied semantic corrections.'
++    # Retry identity is a transport property. Do not change the model's prompt.
+     wire={**cfg['parameters'],'max_tokens':request.get('output_token_cap',cfg['parameters']['max_tokens']),'messages':[{'role':'system','content':system},
+         {'role':'user','content':json.dumps(request['material'],ensure_ascii=False,separators=(',',':'))}],
+         'response_format':{'type':'json_schema','json_schema':{'name':'legal_stage','schema':request['schema']}},
+--- V21.1/src/runner.py
++++ V22/src/runner.py
+@@ -30,7 +30,9 @@
+     status=getattr(exc,'status',None) or last.get('status')
+     if status:return {'stop_reason':status,'failure_stage':last.get('tag'),
+         'billing_state':last.get('billing_state'),'dispatch_halt_reason':getattr(exc,'halt_reason',None) or last.get('halt_reason'),
+-        'provider_halted':getattr(exc,'provider_halted',False)}
++        'provider_halted':getattr(exc,'provider_halted',False),
++        'content_status':last.get('content_status',status),'billing_hold':last.get('billing_hold',False),
++        'case_blocked':last.get('case_blocked',False),'dispatch_stop':last.get('dispatch_stop',getattr(exc,'provider_halted',False))}
+     return {'stop_reason':'RESOURCE_LIMIT' if isinstance(exc,ResourceStop) else 'TECHNICAL_FAILURE'}
+ 
+ class Session:

@@ -1,11 +1,11 @@
 # ChatGPT 审阅入口
 
-当前实验：V20.9.2最终答案来源与主体修复：三案冻结交付
+当前实验：RAPIDO V22两案与普通基线：真实输入、完整证据及待独立复核评价
 
-V20.9.2独立支线交付已冻结：三个已暴露开发案例通过模型来源核验和当前请求覆盖验收；本次独立重放一致，85项工程测试通过，7份冻结清单和480个旧文件哈希一致。发布仅保存代码与证据，不切换主实验入口、不恢复原批次、不新增模型调用或训练；不是人工金标准、未见测试收益或律师批准。
+A0两案一次调用均交付；C第一案77次生成报告但有错误，第二案43次调用中超时。允许CASE/LAW与问题一致；C有额外历史/规则及计算。主指标、覆盖和严重错误分开，现有判断待Pro独立核对。实际请求、响应、源码、prompt、来源和失败均已纳入本审阅包。
 
-[本轮报告](../outputs/proof-final-bindings-v20-8/report-zh.md)、[项目状态](../docs/PROJECT_STATE.json)、[实验索引](../docs/EXPERIMENT_INDEX.md)。
+[本轮报告](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/README.md)、[项目状态](../docs/PROJECT_STATE.json)、[实验索引](../docs/EXPERIMENT_INDEX.md)。
 
-[实现边界](../docs/FINAL_BINDINGS_V20_8.md)；[三案验收](../outputs/proof-final-bindings-v20-8/results.json)；[冻结清单](../outputs/proof-final-bindings-v20-8/delivery-01/freeze/protocol.json)；[独立发布核对](../outputs/proof-final-bindings-v20-8/publication-2026-10-13/pre-push-verification.json)。
+[评价标准](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/QUESTIONS_AND_RUBRIC.md)；[实际输入与pipeline](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/PIPELINE_AND_INPUT_AUDIT.md)；[完整审阅prompt](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/PRO_REVIEW_PROMPT.md)；[证据清单](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/EVIDENCE_MANIFEST.json)。
 
-本地审阅包尚未提交或推送。模型参考不是人工金标准；来源定位与程序测试不证明法律正确。历史来源分卷 SOURCES_01–04 属于旧关系基线，不是当前输入。
+发布状态以实际提交及远端核对为准。模型参考不是人工金标准；来源定位与程序测试不证明法律正确。历史来源分卷 SOURCES_01–04 属于旧关系基线，不是当前输入。
