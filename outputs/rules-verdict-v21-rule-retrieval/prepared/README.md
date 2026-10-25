@@ -1,3 +1,3 @@
-# V21状态
+# V21 Status
 
-本轮纳入0案，没有案件任务或法律包。冻结的空样本与法源库在../freeze，代码入口为scripts/rule_retrieval_v21.py。
+Zero cases were admitted; there are no case tasks or legal packages. The frozen empty sample and legal-source library are in `../freeze`; the entry point is `scripts/rule_retrieval_v21.py`.

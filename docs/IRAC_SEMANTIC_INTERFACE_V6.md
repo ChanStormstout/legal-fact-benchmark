@@ -1,31 +1,71 @@
-# V6：语义接口修复后的两案比较
+# V6: two-case comparison after semantic-interface repair
 
-本轮只比较112400、188721101的直接回答A与“中间提议P＋完整来源回答”B。两案均参与过开发。V5来源、法律模板与范围保持不变；本轮没有C、网页调用、参考标注、GNN训练或新增法源。结果入口为 `outputs/irac-semantic-interface-v6/`。
+Compare direct A with original proposal P plus complete sources B on exposed cases
+112400/188721101. V5 sources,legal templates,scope unchanged. No C,web calls,reference
+annotation,GNN training,new authorities. Outputs: `outputs/irac-semantic-interface-v6/`.
 
-## 修复如何进入计算
+## Computational changes
 
-P分为独立记录、具体安排、条件分析和局部限制。记录以数组位置引用，由程序生成记录编号；记录没有唯一父级安排。同一记录可在不同条件分析中分别说明用途。陈述者和法院阶段保存在记录文本及陈述状态中，不作为创建新交易的程序条件；模型仍可能错误区分安排，需在运行后评价。
+P separates records,arrangements,condition analyses,local limitations. Records reference
+array positions and receive program IDs, without a unique parent arrangement. One record
+can serve different uses. Speaker/court stage remain in text/status and do not force
+new transactions; model arrangement errors require subsequent evaluation.
 
-每条条件分析引用一个安排、一个完整法律命题和若干证据用途。SUPPORT／OPPOSE只说明模型提出的证据方向，汇总在 `evidence_use_summary`；程序不据其数量、单侧存在或缺少反对证据产生条件真值。模型的 `assessment` 与解释单独保存。合法、具备相关连接的明确判断可作为布尔组合的模型前提；程序不证明该连接有法律意义或证据已经充分。记录矛盾、未知及局部阻止始终保留。模型即使提出错误判断，也可能得到条件化的错误请求结果，因此检查只用于离线审计。
+Each analysis references an arrangement,a full legal proposition,and evidence uses.
+SUPPORT/OPPOSE are proposed directions summarized in evidence_use_summary. Counts,
+one-sided support,or absent opposition do not create truth. Model assessment/reasons
+remain separate. Explicit judgments with legal addresses/relevant declared links can
+enter Boolean combination as model premises; code does not prove their legal meaning
+or sufficiency. Conflicts,unknowns,local blocks remain. Wrong model premises can yield
+wrong conditional claim results; checks are offline audit only.
 
-来源角色由冻结输入容器确定。本案来源须属于目标文书；法律包条目标为法源。法源单独作为本案事实的依据时，对应用途被隔离，原记录和其他合法用途保留。源地址有效不是语义核验；本案段落内部的引述究竟意味着什么仍由模型分析与集中来源审阅检查。
+Frozen source containers determine roles. Case sources belong to the target document;
+authority-package entries are legal sources. Uses relying only on authorities for
+current-case facts are isolated, preserving records/other legal uses. Address validity
+is not semantic review; embedded quotations still need interpretation/source review.
 
-法律模板生成唯一、可读的条件目录，原条件编号或完整子分支编号对应完整命题。模型不再维护独立ADDR、test、branch三套字段，也不负责生成内部图边或执行依赖。模板的原AND／OR／NOT及法源地位保持不变。程序组合显式模型前提，不把一个安排失败解释成全案无其他实例。
+Legal templates supply one readable condition catalog with full propositions for original
+IDs/subbranch IDs. Models no longer maintain separate ADDR/test/branch fields or generate
+internal graph edges/dependencies. AND/OR/NOT and authority status remain unchanged.
+Explicit model premises combine; one failed arrangement does not imply no other instance.
 
-限制按安排、条件和证据用途定位。只针对某条记录的限制不会消除其他记录或其他安排。明确针对整个命题的限制，即使引文失效，也保留该范围的待核验状态。不能定位的限制作为覆盖不足保存，不扩成全案否定。模型写在gaps中的普通备注不自动封锁全部组合。
+Limits address arrangement,condition,use. Record-specific limits preserve other records/
+arrangements. Whole-proposition limits retain pending-review scope even if their citations
+fail. Unlocatable limits become coverage gaps, not whole-case negation. Generic gaps
+notes do not automatically block every combination.
 
-最终回答沿用原字段，加入固定请求恰好回答一次及至少一条决定性分析的校验。空answers、漏答、重复请求、空理由不算技术完成；失败答案为null。最终预测仍二选一，但reason与gaps须说明已知依据、法律应用缺口及预测假设，不能把未知统一当否定。
+Final answers retain fields and must answer each fixed request exactly once with at
+least one decisive analysis. Empty answers,missing/duplicate requests,empty reasons
+fail technical completion and yield null. Final prediction is binary; reasons/gaps
+must distinguish known support,application gaps,assumptions,without treating all unknowns
+as negatives.
 
-## 输入与验收边界
+## Inputs and acceptance
 
-A与B使用同一最终提示、Schema、完整允许来源与法律包。B只增加本轮原始P，绝不增加import结果或program checks。P原文、独立证据账本、用途隔离、条件前提与完整检查另外保存。源段落沿用V5确定性原文排序与可逆显示，不增加或删改允许材料。
+A/B share final prompt,schema,complete permitted sources/legal package. B adds only raw
+new P, not import results/program checks. Raw P,evidence ledger,use isolation,condition
+premises,full checks are separately saved. V5 source ordering/reversible display add
+or remove no permitted content.
 
-新Schema的数字位置索引在真实tokenizer检查中曾暴露字符串enum误声明，已在首次模型调用前改为integer enum。模型、约束器和生成参数没有因此改变；该问题未消耗模型调用。工程测试同时走实际完成、保存、导入与任务装配入口。旧输出重放只是地址及用途映射，不修改旧答案，不把新判断补入旧提议。
+Real-tokenizer checks found numeric-position enums wrongly declared as strings; corrected
+to integers before the first model call. Model,constraints,settings unchanged; no model
+call consumed. Tests exercised actual completion,saving,import,assembly. Old replay
+checks addresses/use mappings without rewriting answers or filling new judgments.
 
-E检验上述接口是否实现；M检验模型是否正确组织安排、事实和条件；L检验最终答案是否忠实于材料和法律。E通过不证明M或L通过。最终结果、成本和投入决定见本轮报告；不以JSON完整、条件状态改变或二元预测作为法律正确性证据。
+E measures implementation; M arrangement/fact/condition organization; L source/legal
+fidelity of final answers. E success implies neither M nor L. JSON completeness,state
+changes,binary predictions are not legal correctness. Results/costs/decision are in
+the version's report.
 
-## 冻结与停止
+## Freeze and stopping
 
-固定Qwen3.5-9B-4bit revision `8b2b98c00a6b4d291155e4890773ca8f769aee53`、MLX-VLM0.7.4、LMFE0.11.2及修复约束，greedy、seed20261001、repetition_penalty1、thinking关闭。P4096、最终3072输出tokens，总上下文32768。按112400 A/P/B、188721101 A/P/B顺序，最多六调用、总生成1800秒、重试0。单个技术失败仅阻止依赖步骤；资源故障或时间耗尽停止整轮。
+Qwen3.5-9B-4bit revision `8b2b98c00a6b4d291155e4890773ca8f769aee53`,MLX-VLM0.7.4,
+LMFE0.11.2,repaired constraint,greedy,seed20261001,repetition_penalty1,thinking off.
+P4,096/final3,072 output,total32,768 context. Fixed112400 A/P/B then188721101 A/P/B,
+at most six calls/1,800 generation seconds/no retries. Individual failure blocks dependents;
+resource/time exhaustion stops the round.
 
-首次生成前的源码、提示、Schema、材料哈希、参数与评价规则见 `freeze/config.json`。旧A因最终契约和实际prompt改变不兼容，本轮不冒充复用。整批运行后仅一次集中来源审阅，标记为模型辅助审阅，非人工gold；完成后不自动修语义、重跑、扩案或提交推送。
+freeze/config.json fixes code,prompts,schemas,materials,parameters,evaluation before
+generation. Old A is incompatible with changed final contracts/prompts and is not reused.
+One centralized model-assisted source review, not human gold. No automatic semantic
+repair,rerun,expansion,commit,push after completion.

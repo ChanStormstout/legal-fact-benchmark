@@ -1,34 +1,44 @@
-# 五案校准 v6
+# Five-case calibration V6
 
-五案校准 v6：独立参考、研究接受政策与条件性重建
+This version completes source-reference collection, one consolidated source review, two-track checking of ten bounded requests, and clickable explanations. It is retrospective reconstruction, not pre-decision prediction, an independent test, or legal certification. Website references are source-reviewed model outputs, not human gold. The maintainer assembled derivations from existing drafts and this review; they are not end-to-end automatic model derivations.
 
-本轮已完成五案的来源参考获取、一次集中来源审阅、10项限定请求的双轨检查及可点击说明。不是判前预测、独立测试或法律认证。网页参考为模型生成并经来源审阅，不是人工gold；推导由维护者根据已有草案及本轮审阅组装，不能冒充端到端模型自动生成。
+Five ordinary High calls ran in separate temporary chats. The interface initially showed GPT-6 and each chat showed High. There was no Pro, paid API, local model, retry, or new source. Submission order was 840688, 161859415, 74028, 522414, and 1144022, with overlapping generation. The interface warned that temporary chats might still access memory, plugins, and custom instructions. Tasks prohibited external retrieval and other conversations; global account settings were not changed and complete isolation is not claimed.
 
-实际运行：5次普通High，界面开始时显示选中GPT-6，五个独立临时对话均显示High；无Pro、付费API、本地模型、重试或新来源。按840688、161859415、74028、522414、1144022顺序提交，生成时间重叠。界面明确提示临时对话仍可能读取记忆、插件与自定义指令；统一任务禁止外部检索与其他对话，未修改账户全局设置，不声称完全隔离。
+## References and errors
 
-参考与错误
-5份完整JSON文本均保存。161859415、522414符合整体合同；其余三案各输出31项，超过冻结的30项上限，正式run answer为null、状态FORMAT_ERROR。没有删除第31项、改合同或追问重答；这些完整文本仅作为本地定性审阅材料，不能计为结构化任务成功。
-146项记录均符合单项字段合同，144项引文可定位；这一数字只说明地址/字符检查。840688第21项多写Mr.，引文不接受，原文L183-L186另行核查；161859415第30项是起诉日期缺失的UNKNOWN且引文为空，不能强行补一条肯定证据。全文没有给出该案原始起诉日，判决日期不能替代六个月起诉条件。
-一次集中审阅仅覆盖决定性推理、反论及范围，没有建立146项金标准。1144022反论第5项把高院恢复占有称为provisional restoration，措辞不准确：L68-L69/L140-L141说明临时申请已转为审理诉讼并作出§6判决，另行保留产权争议不等于该判决只是临时救济。原始回复保留，修正单独显示。
+All five complete JSON responses were saved. Cases 161859415 and 522414 passed the whole-response contract. Each of the other three returned 31 items, exceeding the frozen limit of 30: their formal answers remain null with FORMAT_ERROR. No item was deleted, contract relaxed, or follow-up answer requested. Those complete texts support qualitative review only, not structured-task success.
 
-研究接受政策与逐案结果
-原40项草案保存不动。新政策接受36项为具有明确地位的研究记录，3项法律命题/相反先例留在规则及反论层，不作事实输入；840688的P7因未明确“失效法条的假设性讨论”而保留范围问题，不作为现行法条前提。接受当事人主张的记录不等于接受其内容为真，原UNKNOWN不改为TRUE。
-10条规则另存version 2，补上明确的输入槽、对象和结论边界，仍是OPEN_TEXT；未把法律评价伪装成简单AND。两个轨道共用同一份推导：
-— engine-only：10项均INCOMPLETE_EXECUTION，答案null，原因是开放法律评价未计算。不是事实都未知，也不是法律反证。
-— attributed-reconstruction：明确加载经来源审阅的法院评价后，10项均CONDITIONAL_RECONSTRUCTION。TRUE只针对各自限定的归属重建命题；不是程序证明底层事实、法律适用或裁判正确。正式批准全部PENDING。
+All 146 records satisfied individual field contracts; 144 quotations were locatable. This measures address/character agreement only. Item 21 of 840688 added “Mr.” and its quotation was rejected; source lines L183–L186 were checked separately. Item 30 of 161859415 correctly records an unknown filing date with an empty citation. The full judgment does not supply the original filing date; the judgment date cannot establish the six-month filing condition.
 
-840688 Kewal Chand Mimani：重建租期届满、国家征用占有与自动返还请求之间的区别；同时保留高院程序处理不当与最高法院依据Article 136自行审查实体问题。不能泛化为租期届满即可强制驱逐。已失效征用法条的讨论仅属假设性补充。
-161859415 Sadashiv：保留下级法院关于租户被逐的认定，重建房东通过租户保有法律占有及诉权；再连接“租户加入可以适当但不总是必要”。产权、原始文件真实性、起诉日期未被补造。普通程序与special leave的区别也保留。
-74028 Hindustan Petroleum：同时保存审理法院和高院的相反占有/合同看法，说明最高法院针对临时禁令分析的不足，尤其反对理由与损害赔偿是否足够的问题。未据此终局判定合同撤销有效、实际占有或赔偿数额；未把其他先例的30日条款搬到本案。
-522414 Sheodhyan：先保留法院对khata、面积、边界及没有另一块160号地的身份认定，再连接到“数字错写不使该项1060号地请求失败”。程序检查的是归属及依赖，不是独立核验地籍；没有边界时可能不同，其他两块地另有问题。
-1144022 East India Hotels：分别保存Kasliwal与Ramaswamy的两条意见，明确在不同评价下分别拒绝或支持§6救济。两项条件性TRUE表示各自意见被重建，不能共同证明谁应胜诉。L257的提交更大合议庭只作程序结果对照，不用来证明某一实体观点。
+The consolidated review covered decisive reasoning, counterarguments, and scope, not a 146-item gold standard. Counterargument 5 of 1144022 incorrectly called the High Court's possession restoration “provisional restoration.” Lines L68–L69 and L140–L141 state that the interim application became a tried suit with a section 6 judgment. Reserving a separate title dispute does not make that judgment interim relief. The original response remains intact; the correction is separate.
 
-工程验收与局限
-通过独立进程实际运行10份凭据；跨步骤前提与研究假设继续传递。4项固定入口控制通过：等价次序调整保留；错误地块、统一合议庭结论升级、两意见规则互换被拒绝。这是合成合同控制，不是发现4个自然法律错误，也不测拒绝率。1047项旧文件原字节保持；冻结检查器未改，586个原文片段完整留在任务中。新驱动只负责保存、审阅政策装配与实际入口调用，未修改核心检查算法。
-研究接受政策会使用本轮参考和原文；因此不能用这些结果估计独立模型准确率。开放评价仍依赖来源审阅。10项从未计算变成条件性重建来自明确增加法院评价假设，不是检查器突然学会法律，也不是同信息方法的净收益。检查器不能自动发现被错误审阅批准的语义，现有3案的检查前后研究与本批校准另列。
+## Research acceptance policy and case results
 
-成本与投入决定
-任务文件19,631—75,338字节；完整JSON输出26,497—51,139字符。提交准备记录至首次观察完成约267—383秒/案，含排队、流式显示及观察间隔；不能当作精确生成时间或相加作为墙钟时间。精确tokens、内存及采样参数不可得。详见cost.json。
-继续保留来源—接受政策—凭据—独立检查的限定重建方向。这批5案现在可用于校准来源地位、范围和错误归因；尚不足以评价图排序、自动规则学习或法律认证。下一步的实质准备对象是负责人可审阅的前提/规则批准材料，以及在固定政策下的自然提议检查效果；不需要继续增加图结构来处理这次三份超项文本。未训练、启封SEALED、扩案、提交或推送。
+The original 40 drafts remain unchanged. The new policy accepts 36 as research records with explicit status. Three legal propositions/opposing precedents remain at the rule/counterargument layer, not factual inputs. P7 of 840688 retains a scope issue because it failed to identify a hypothetical discussion of an expired statute; it is not a current-law premise. Accepting a record of a party's assertion does not make the assertion true. UNKNOWN was not changed to TRUE.
 
-入口：walkthrough.md；逐案comparison.csv；cases/*/source-review.json及两种checker-result.json；工程entry-acceptance.json；原始回复、完整任务及运行位置均在cases/*/。
+Ten rules were saved as version 2 with explicit input slots, objects, and conclusion boundaries. They remain OPEN_TEXT, not simplified AND conditions. Both tracks use identical derivations:
+
+- Engine-only: all ten are INCOMPLETE_EXECUTION with null answers because open legal assessments were not computed. This does not mean every fact is unknown or legally disproved.
+- Attributed reconstruction: explicitly loading source-reviewed court assessments produces ten CONDITIONAL_RECONSTRUCTION results. TRUE applies only to each bounded attribution/reconstruction proposition. It does not prove underlying facts, legal applicability, or adjudicative correctness. Formal approval remains PENDING throughout.
+
+**840688, Kewal Chand Mimani:** distinguishes lease expiry, state requisition possession, and automatic return. It preserves both the High Court's procedural error and the Supreme Court's merits review under Article 136. It does not establish a general right to forcible eviction on lease expiry. Discussion of expired requisition legislation is a hypothetical supplement.
+
+**161859415, Sadashiv:** preserves the lower-court finding of the tenant's dispossession, reconstructs the landlord's legal possession through the tenant and standing, and connects that to joinder being proper but not always necessary. Title, document authenticity, and filing date were not invented. Ordinary proceedings and special leave remain distinct.
+
+**74028, Hindustan Petroleum:** preserves opposing trial-court and High Court views of possession/contract and the Supreme Court's criticism of the interim-injunction analysis, especially counterarguments and adequacy of damages. It does not finally decide contract rescission, actual possession, or damages, or import another precedent's 30-day term.
+
+**522414, Sheodhyan:** preserves the court's findings about khata, area, boundaries, and absence of another plot 160 before connecting them to the conclusion that the numerical error does not defeat the claim to plot 1060. The program checks attribution/dependencies, not land records independently. Missing boundaries could change the analysis; two other plots have separate issues.
+
+**1144022, East India Hotels:** preserves Kasliwal's and Ramaswamy's separate opinions, which respectively reject/support section 6 relief under different assessments. Two conditional TRUE results reconstruct two opinions; they do not jointly decide a winner. Referral to a larger bench at L257 is a procedural comparator, not proof of either merits position.
+
+## Engineering acceptance and limitations
+
+Ten certificates ran through the independent process, with cross-step premises and research assumptions propagated. Four fixed entry controls passed: equivalent ordering was preserved; wrong plot identity, promotion to a unified bench conclusion, and swapping the opinions' rules were rejected. These are synthetic contract controls, not four natural legal errors or a rejection-rate estimate. All 1,047 old files remain byte-identical. The frozen checker is unchanged and all 586 source passages remain in the tasks. The new driver saves records, assembles review policy, and invokes the real entry point; it does not modify the core checker.
+
+The acceptance policy uses this batch's references and sources, so these results cannot estimate independent model accuracy. Open assessments still depend on source review. Moving ten requests from uncomputed to conditional reconstruction reflects added court-assessment assumptions, not newly acquired legal understanding or a same-information method gain. The checker cannot automatically detect incorrectly approved semantics. The existing three-case before/after study and this calibration are reported separately.
+
+Tasks contain 19,631–75,338 bytes; complete JSON outputs contain 26,497–51,139 characters. Preparation/submission records to first observed completion span approximately 267–383 seconds per case, including queuing, streaming, and observation intervals. These are not exact generation times and cannot be summed as wall-clock time. Exact tokens, memory, and sampling parameters are unavailable; see `cost.json`.
+
+Continue the bounded source → acceptance policy → certificate → independent check workflow. These cases calibrate source status, scope, and error attribution; they do not establish graph-ranking, automatic rule-learning, or legal-certification performance. Next prepare reviewable premise/rule approvals and measure checking of natural proposals under a fixed policy. Additional graph structure is unnecessary to handle the three over-limit responses. No training, SEALED access, case expansion, commit, or push occurred.
+
+Entry points: `walkthrough.md`, per-case `comparison.csv`, `cases/*/source-review.json`, both `checker-result.json` tracks, and `entry-acceptance.json`. Original responses, complete tasks, and run locations remain under `cases/*/`.

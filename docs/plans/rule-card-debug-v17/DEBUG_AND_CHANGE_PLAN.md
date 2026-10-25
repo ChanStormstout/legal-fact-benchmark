@@ -1,209 +1,204 @@
-# 规则提取与完整法律回答：debug及修改方案
+# Rule extraction and complete legal answers: debugging and change plan
 
-状态：方案已生成，应用代码尚未实施，模型实验尚未运行。编写日期：2026-10-03（America/Phoenix）。本文件不授权自动生成、提交或推送。
+Status at creation: plan prepared; application code not implemented; model experiment not run. Date: October 3, 2026, America/Phoenix. This document does not authorize automatic generation, commit, or push.
 
-## 1. 本轮要解决什么
+## 1. Question and scope
 
-先回答一个可以用现有材料检验的问题：在1134266的相同允许案情、法律包和三份法源原文上，额外加入V16实际抽出的9张规则卡，是否使完整法律回答更忠实、更充分，或者引入摘要遗漏和范围迁移错误。该案已参与开发，结果只能用于决定下一步投入，不能称为独立测试或跨案件泛化证据。
+On the same permitted facts, legal package, and three original authorities for 1134266, does adding V16's nine actual extracted cards improve fidelity/completeness or introduce summary omissions/scope-transfer errors? This exposed development case guides investment only, not independent testing/generalization.
 
-V15加入的是研究者选取的规则摘要与原文片段；V16的规则由三个独立网页任务从法源取得。V15的分析改善不能直接证明V16自动产物有用。必须把V16实际产物放入最终回答，观察完整答案，而不继续用规则数量、出处有效或检索排名代替方法收益。
+V15 added researcher-selected summaries/passages; V16 extracted rules in three independent website tasks. V15 improvement does not establish V16 usefulness. Actual V16 cards must enter complete answers; counts, valid provenance, and ranks cannot substitute for final benefit.
 
-代码核对还发现，共同法律包本身含3张历史卡，来自69305、661475。因此，本轮不是“完全没有规则卡”对“有规则卡”，准确名称为“共同材料”对“共同材料加9张V16候选卡”。不为获得纯净实验名称而删除共同卡；两边完整保留它们及既有范围限制。
+The shared legal package already contains three historical cards from 69305/661475. Correct comparison: “shared material” versus “shared material + nine V16 candidates,” not no-cards versus cards. Keep all common cards/limitations rather than deleting them for a cleaner experiment name.
 
-第一轮只实现任务组装、材料对照、引用恢复和结果记录所必需的代码；不修改V16规则语义、重新抽取规则、修正BM25、添加法源或重新标注事实。这样可以先判断现有组件值得保留什么，再决定修改哪个环节。
+Round one changes only task assembly, material comparison, citation recovery, and recording. Do not alter V16 semantics, re-extract, repair BM25, add law, or relabel facts before learning what existing components contribute.
 
-## 2. 已确认的问题与尚未证实的解释
+## 2. Evidence and unconfirmed explanations
 
-| 位置 | 实际证据 | 当前判断 | 第一轮怎样处理 |
-| --- | --- | --- | --- |
-| 规则提取 | `rule_transfer_v16.schema`把每份法源限制为3卡；General Radio回复也说明优先选择其他规则 | 信息覆盖损失，尚不能证明某段代码错误 | 原卡不改；两边都读取完整既存原文，观察最终回答是否补回卡中未表达的区别 |
-| 重要内容遗漏 | General Radio P10转述Delhi条款不排除非自愿出售，但9卡没有完整保留该命题 | 原文有内容，摘要没有；不是引文地址错误 | 作为运行后评价线索，不能写入受测提示词 |
-| 关键词检索 | `authority_index.search`对词项使用OR并按BM25排序；Delhi诊断查询把Telesound暂定意见排第一 | 词汇相关性未实现法律适用判断；不是已证实的BM25 bug | 不使用top-k裁剪；按固定法源顺序同时呈现三份现有材料 |
-| 法源范围 | 卡中包含AP、Bombay及Delhi不同法律环境；HP有专门法背景，Telesound保留最终问题 | 适用范围不同，需要解释，不能一律移植或删除 | 保留每卡scope、source_kind、exceptions和limits；最终模型回读原文 |
-| 来源上下文 | General Radio、HP分别有10、16页文本；Telesound只有第12段部分完整句与第16段 | Telesound输入不完整；不能把它当全文 | 原样标明覆盖范围，不补全文、不猜元数据 |
-| 元数据 | V16 metadata主要记录获取地址与哈希，未统一保存完整法院、判决日期和法条标题 | 输入的结构化元数据不足，不等于模型遗漏已给出的字段 | 允许从现有正文阅读这些信息；程序不按URL或卡文字猜补 |
-| 出处检查 | `inspect_reply`验证结构、卡ID和证据ID，恢复原文；不证明命题受支持 | 工程检查与语义判断之间存在明确边界 | 保持`semantic_certification=false`，不把通过导入改成已验证 |
-| 最终分析 | V15仍遗漏房东关于其他降低股本路径的反驳，且部分论点归属和日期精度不足 | 最终模型的整合问题，不能先归咎提取器 | 两份答案完成后统一检查决定性内容，包括答案未主动引用的段落 |
-| 新案不足 | 62个已有完整未使用候选没有确认两个同类公司合并案；三处词命中属于其他场景 | 现有准备材料不足；不证明整个数据集缺少同类案 | 本轮用旧案做开发诊断，不再把新样本准备当运行前提 |
+| Area | Evidence | Assessment | First-round handling |
+|---|---|---|---|
+| Extraction | `rule_transfer_v16.schema` caps three cards/source; General Radio response prioritizes other rules | Coverage loss, not proven code bug | Keep cards; give both arms complete existing sources |
+| Omission | General Radio P10 describes Delhi provisions not excluding involuntary sale; nine cards omit the full distinction | Source-to-summary omission, not citation-address failure | Evaluation clue only, never tested prompt |
+| Retrieval | `authority_index.search` uses OR terms/BM25; Delhi diagnostic ranks Telesound's tentative view first | Lexical relevance is not applicability; no confirmed BM25 bug | No top-k pruning; fixed three-source order |
+| Scope | AP/Bombay/Delhi contexts differ; HP has special legislation; Telesound reserves the final question | Interpret scope rather than uniformly transplant/delete | Preserve scope/source_kind/exceptions/limits; reread originals |
+| Context | General Radio 10 pages, HP 16; Telesound part of paragraph 12 and paragraph 16 | Telesound is an excerpt | Mark coverage, no new full text/guessed metadata |
+| Metadata | V16 chiefly records retrieval addresses/hashes, not full court/date/statute fields | Structured metadata deficit, not omission of already supplied fields | Read available text; no URL/card-based guesses |
+| Citation checks | `inspect_reply` checks structure/card/evidence IDs and restores text | Engineering, not proposition support | Keep `semantic_certification=false` |
+| Final synthesis | V15 omits landlord's alternative capital-reduction argument, with attribution/date precision issues | Final integration defect, not automatically extractor fault | Review decisive content, including uncited passages |
+| New cases | No two matching merger cases confirmed among 62 complete unused candidates; three keyword hits concern other settings | Prepared-material limitation, not corpus-wide absence | Use old-case diagnosis; no new-case prerequisite |
 
-此前自由文本JSON结束token被屏蔽的问题已有独立修复证据。此次使用网页High，未接入本地逐token约束，不重跑约束诊断，也不把法律误读解释为那个旧技术故障复发。模型提示、法源顺序、卡上限对质量的影响仍是待验证解释，不能提前当作根因。
+An earlier masked JSON termination token has separate repair evidence. This round uses website High without local token constraints; do not rerun that diagnosis or attribute legal misreading to its recurrence. Prompt/order/card caps remain hypotheses, not confirmed root causes.
 
-## 3. 固定的完整流程
+## 3. Fixed complete flow
 
 ```text
-1134266既有允许案情（19个片段，保留40个排除编号）
-    ＋ 原共同法律包（6个原文片段、3张历史卡）
-    ＋ V16三份法源原文（10页、16页、2段摘录）
-                    │
-             确定性组装、编号与哈希检查
-                    │
-          ┌─────────┴──────────┐
-          │                    │
- A：共同材料，空中间材料     B：完全相同共同材料
-          │                  ＋9张V16实际卡
-          │                    │
-    新普通High对话一次     新普通High对话一次
-          │                    │
-       完整法律回答          完整法律回答
-          └─────────┬──────────┘
-               结构检查与原文恢复
-                    │
-          一次集中来源审阅与成本比较
-                    │
-       保留候选卡／优先原文／收益无法判断
+Existing 1134266 facts: 19 passages, 40 excluded IDs
++ shared package: six original passages, three historical cards
++ V16 original authorities: ten pages, sixteen pages, two excerpts
+                      ↓
+            Assembly, IDs, hashes
+              ↙                 ↘
+A: shared material          B: identical shared material
+empty intermediate block    + nine actual V16 cards
+one new ordinary High chat  one new ordinary High chat
+              ↘                 ↙
+        Complete answers; structure/source recovery
+                      ↓
+       One consolidated source/cost review
+                      ↓
+       Retain cards / prefer originals / inconclusive
 ```
 
-程序负责材料一致性、地址恢复及记录，不产生法律裁判。网页模型负责解释给定法律材料、连接案情、处理反对理由并给出该争点的实验性分析。模型可能误读原文；来源ID有效不会改变这一点。本轮没有规则归纳、法律规则自动编译或法源检索效果评价。
+Programs ensure material consistency, address recovery, and records, not adjudication. The model interprets supplied law, connects facts, considers opposition, and gives experimental issue analysis. Valid source IDs cannot prevent misreading. No rule induction, automatic legal compilation, or retrieval-effectiveness experiment occurs here.
 
-值得检验的机制是，规则卡把前提、效果、适用范围和例外集中展示，可能减少模型在长篇法源中寻找这些关系的负担；原文仍同时存在，允许模型纠正摘要。相反，卡也可能突出不适用的观点、遗漏关键限制，或挤占对原文反对理由的注意。两种方向都能产生具体来源证据，不能先按“结构化更清晰”假定B更好。
+Cards might reduce the burden of locating conditions/effects/scope/exceptions in long authorities while originals allow correction. They might also emphasize inapplicable views, omit restrictions, or divert attention from counterarguments. Both directions require source evidence; do not assume structured input is superior.
 
-## 4. 输入怎样准备，怎样控制答案泄漏
+## 4. Input preparation and leakage
 
-基底使用`outputs/rules-verdict-v14-web-direct/tasks/1134266/`保存的实际`prompt.txt`、`schema.json`、`source.json`、`law-package.json`及`retrieval.json`，而不是从当前代码重新生成一份近似的历史提示。该提示已经包含允许案情、共同法律材料、两个虚构教学示例和固定法律问题。
+Use actual saved V14 `prompt.txt`, `schema.json`, `source.json`, `law-package.json`, and `retrieval.json` under `outputs/rules-verdict-v14-web-direct/tasks/1134266/`, not a current-code approximation. The prompt already includes facts, common law, two fictional examples, and the fixed question.
 
-新增共同法源只读取`outputs/rules-verdict-v16-rule-transfer/sources/{GENERAL_RADIO,HINDUSTAN_PETROLEUM,TELESOUND}.json`。全部已有segments按保存顺序进入两边输入，原text不改，保留headnote、OCR和覆盖说明。Telesound明确为摘录。不同案件的最终裁判可以作为这些历史法源的组成部分；被排除的是目标1134266的最终裁判与理由，不能将两者混淆。
+Read additional common law only from V16 `sources/{GENERAL_RADIO,HINDUSTAN_PETROLEUM,TELESOUND}.json`. All saved segments/text enter both arms in order, including headnotes/OCR/coverage. Mark Telesound as excerpts. Other historical cases' outcomes can belong to authority text; excluded target 1134266 outcomes/reasons remain different.
 
-将共同法源块在基底的`TARGET INTERMEDIATE MATERIAL (UNVERIFIED)`之前插入一次。A保留原空中间材料。B在该中间材料位置放入V16的实际bundles，保留全部9卡、每卡条件、来源性质、适用范围、例外、formalization_limits及每份回复的limitations。不导入V16的人工撰写审阅、V15手写规则摘要或既有最终答案。
+Insert the shared authority block once before `TARGET INTERMEDIATE MATERIAL (UNVERIFIED)`. A keeps its empty intermediate block. B receives actual V16 bundles: all nine cards, conditions, source nature, scope, exceptions, formalization limits, and response limitations. Exclude hand-authored V16 reviews, V15 summaries, and prior answers.
 
-共同法源固定按General Radio、Hindustan Petroleum、Telesound排列，不以模型对目标案的预期立场或BM25分数重排。B的卡顺序按原bundles及各bundle数组顺序，不重新挑选。所有卡都是可错的提议，来源地址不是认证。
+Fixed order: General Radio, Hindustan Petroleum, Telesound, independent of expected position/BM25. Preserve bundle/card order. Cards remain fallible proposals; addresses are not certification.
 
-两边使用同一最终Schema，保留原字段和数量上限，仅把34个共同原始法源ID（原6个加新增28个）的有效地址集用于law_refs枚举。案情仍只允许原19个case_refs。卡ID不能充当原文证据，不能允许B用自己的摘要作为独立法源。教学示例ID和目标排除段落ID不得加入地址集。检查重复ID；发生碰撞时停止准备，不能覆盖映射。
+Use the same final schema/fields/caps, expanding only `law_refs` to 34 original law IDs (six old + 28 new). Facts remain the 19 old `case_refs`. Card IDs cannot be independent source evidence. Example IDs/excluded target IDs stay outside valid enums. Duplicate IDs stop preparation, never overwrite maps.
 
-组装需证明：剥离新增共同块及B卡块后可恢复实际基底；两边案情、原法律包、新法源、问题、示例、执行要求和Schema各自哈希一致；只有中间卡块不同。不要要求整个A/B prompt哈希相等。共同法律包已有3张历史卡这一点写入protocol，不能把A登记成无规则基线。
+Prove that removing added common/card blocks restores the actual base. Facts, old package, added sources, question, examples, instructions, and schemas must match across arms; only intermediate cards differ. Whole prompts need not hash equally. Record the three existing common cards; A is not a rule-free baseline.
 
-V14/V16报告、来源审阅、旧A/B答案、参考标签、错误清单及目标最终裁判不进入任务。任务文件使用明确允许名单，不将整个review ZIP上传给受测模型。法源内其他案件的人物、日期和事实仍属于那些法源，不能转移成目标案事实。
+Tasks exclude V14/V16 reports/reviews, old A/B answers, reference labels, error lists, and target outcomes. Use an explicit allowlist, never the whole review ZIP. Historical-source people/dates/facts do not become target-case facts.
 
-## 5. 第一轮需要哪些代码修改
+## 5. Necessary code only
 
-新增版本化入口，不编辑历史冻结方法。
+Create a versioned entry, preserving frozen methods.
 
-| 拟新增位置 | 职责 | 明确不做 |
-| --- | --- | --- |
-| `legal_bench/rules_verdict_v1/rule_application_v17.py` | 共同来源视图、双任务组装、材料一致性检查、最终引文恢复 | 不修改卡值、不筛选法律观点、不猜判决结果 |
-| `scripts/prepare_v17_rule_application.py` | 读允许名单、保存实际任务和Schema、输入哈希、调用顺序及运行前冻结 | 不启动模型，不覆盖已存在实验目录 |
-| `scripts/report_v17_rule_application.py` | 读取两份原始回复与集中审阅，生成并列结果、失败和成本报告 | 不把历史评价硬编码成新答案正确性，不根据结论删结果 |
-| `tests/test_rule_application_v17.py` | 少量材料等同性、引用恢复、无覆盖和纯格式处理测试 | 不测试本案应支持或反对腾退，不新增真实模型试跑 |
+| Planned file | Responsibility | Exclusion |
+|---|---|---|
+| `legal_bench/rules_verdict_v1/rule_application_v17.py` | Shared view, paired assembly, equality checks, citation recovery | No card edits, viewpoint selection, guessed outcomes |
+| `scripts/prepare_v17_rule_application.py` | Allowlist, tasks/schema, hashes/order/freeze | No model start or directory overwrite |
+| `scripts/report_v17_rule_application.py` | Two raw replies/review to comparison/failure/cost report | No hardcoded historical correctness or result deletion |
+| `tests/test_rule_application_v17.py` | Few equality/recovery/no-overwrite/format tests | No expected eviction conclusion or real model preview |
 
-这些是待实现文件名，不是已经存在的程序。新结果拟保存到`outputs/rules-verdict-v17-rule-application/`，开始实施时先在`docs/repository-artifacts.json`注册。现在不创建空实验结果、不将计划写成完成实验。
+These are planned names at this checkpoint, not claims of existing programs. Register `outputs/rules-verdict-v17-rule-application/` before implementation outputs. Do not create empty results or completed-experiment entries for a plan.
 
-复用`contracts.validate`作结构检查；复用原始来源ID恢复；采用既有严格格式导入思想，只去掉能明确识别的Markdown代码围栏和独立END。可以在局部新入口处理包装顺序，但不能借此修句子、补字段、删除反证或补齐截断JSON。解析后字符串需与原始回复中的JSON内容一致。结构不完整时保留失败；完整文本即使不符合格式也可以单独定性审阅，不能登记成结构通过。
+Reuse `contracts.validate`, original ID recovery, and strict import. Strip only recognizable Markdown fences and standalone END. Local wrapper-order handling cannot repair sentences, fields, counterevidence, or truncated JSON. Parsed strings must match raw JSON. Incomplete structures fail; full nonconforming text can support separate qualitative review, not structural success.
 
-`rule_transfer_v16.py`、`authority_index.py`、`final_v9.py`及既有runtime在第一轮保持原字节。现有最终模板使用`point/assessment/explanation/reason`：assessment判断point命题本身，reason说明这些命题产生的法律后果。没有必要在此次增加法院表、事实ontology或新的最终输出字段。
+Keep `rule_transfer_v16.py`, `authority_index.py`, `final_v9.py`, and runtime byte-identical in round one. Existing point/assessment/explanation/reason suffice: assessment concerns point; reason explains legal consequences. No new court table, ontology, or final fields.
 
-## 6. 不调用模型也能检查的工程行为
+## 6. Offline engineering acceptance
 
-只运行新增组装及导入所需测试，不重跑历史全套法律实验。必要行为可合成到少量测试中：
+Run only necessary assembly/import tests, not historical legal experiments:
 
-1. A/B的共享案情、法源、示例、问题和Schema完全相同；B唯一多出的内容是原9卡。新增块只插入一次，恢复基底成功。
-2. 原9卡全部保留，未知、冲突、例外、来源性质及回复limitations没有因压缩而消失。原文恢复逐字一致；被排除的目标段落不会成为有效引用。
-3. 引用不存在、用卡ID替代LAW ID、重复来源ID和重复准备已有目录均明确失败，不猜测修复或覆盖。
-4. 明确的格式包装可去除，含糊尾部、残缺字段和未闭合JSON不能被补成成功答案。JSON完成但grounds为空时，报告“缺少决定性分析”，不自动解释为法律正确或技术崩溃。
+1. Identical shared facts/law/examples/question/schema; B adds only original nine cards. Single insertion and exact base recovery.
+2. Preserve all cards, unknowns/conflicts/exceptions/source nature/limitations. Exact source recovery; excluded target IDs invalid.
+3. Missing citations, card-as-law IDs, duplicate IDs, and duplicate preparation fail without guessing/overwrite.
+4. Recognizable wrappers may be stripped; ambiguous tails, missing fields, and open JSON cannot be completed. Complete JSON with empty grounds means missing decisive analysis, not automatic legal correctness or technical crash.
 
-另做材料核对，检查提示、Schema、卡数、片段数、内容哈希与运行清单。该核对不是对法律语义的测试。字符数可精确记录；网页真实token数和内部读取覆盖通常不可见，不根据字符数虚构已验证的上下文余量。
+Check prompts/schema/counts/hashes/manifests. This is not semantic testing. Character counts are exact; website tokens/internal reading coverage are usually unavailable. Do not invent context headroom from characters.
 
-## 7. 冻结、网页运行和失败定义
+## 7. Freeze, website execution, failures
 
-实施完成并通过相关测试后，在首次提交前保存HEAD、分支、未提交修改、实际源代码哈希、所有输入哈希、最终prompt/Schema、普通High设置要求、A后B顺序、评价与停止规则。计划编写时的audit不是实验冻结，不能声称已经冻结尚未实施的代码。
+After implementation/checks and before submission, save HEAD/branch/pre-existing changes, actual code/input hashes, final tasks/schema, ordinary High setting, A-then-B order, evaluation/stops. Plan-time audit is not an experiment freeze of unimplemented code.
 
-最多两个新的普通High独立对话，一案A一次、B一次。无Pro、付费API、本地生成、额外抽取或重试。A/B不共享聊天历史。沿用同一可见模型与模式，记录界面实际值；型号未显示则null，不根据此前会话猜测。不能声称网页复用了本地greedy、seed、thinking off或逐tokenSchema约束。
+At most two new independent ordinary High chats: one A, one B. No Pro, paid API, local generation, additional extraction, or retry. No shared chat history. Use the same visible model/mode and record actual UI; undisplayed model is null. Website execution cannot be described as local greedy/seed/thinking-off/token-schema constraints.
 
-优先提交自包含任务文件。记录发送文本、上传文件哈希和字节数，并检查可见文件内容/附件预览没有截断或替换；这只能证明提交运输，不能认证模型内部阅读全文。只依据任务材料、禁止外部检索的执行要求两边相同。不要求网页为格式失败再次生成，也不让它讨论方案后重答。
+Prefer self-contained task files. Record sent text, attachment hashes/bytes, and visible content/preview without truncation/substitution. This establishes transport, not internal reading. Both instructions prohibit external retrieval. Do not regenerate formatting failures or discuss the plan before re-answering.
 
-每条件最多观察15分钟，总模型等待预算30分钟；按实际提交时间计观察等待，不冒充精确生成耗时。超时保存已观察状态和会话URL，不发送继续或续写。A格式失败、截断或超时不自动取消B；访问或框架故障确实影响B时停止并登记SKIPPED。下载同一已完成输出不算新生成；B不得等待A结果后改变任务。
+Observe at most 15 minutes/arm, 30 total, measured from submission rather than exact generation time. Timeout retains state/URL, no continuation prompt. A's format/truncation/timeout does not cancel independent B; access/framework failure blocking B records SKIPPED. Downloading an existing completed response is not new generation. B's task cannot change after A.
 
-分开保存technical_status、format_status与内容评价。技术失败的正式answer为null。UNDETERMINED是完整答案可能使用的法律结论，不能代替TIMEOUT、INPUT_TOO_LONG或OUTPUT_INCOMPLETE。若只得到完整自由文本，保留文本及FORMAT_ERROR，允许定性审阅，但不冒充JSON契约通过。出现外部资料或历史污染则记录比较无效或受限，不静默重跑。
+Separate technical_status, format_status, and content evaluation. Technical formal answers are null. Legal UNDETERMINED is not TIMEOUT/INPUT_TOO_LONG/OUTPUT_INCOMPLETE. Complete free text remains FORMAT_ERROR with optional qualitative review. External-source/history contamination invalidates/limits comparison without silent rerun.
 
-## 8. 一次集中评价怎样判断收益
+## 8. One consolidated evaluation
 
-只审阅两份最终答案的决定性依据，不重新标注全部9卡或全部案情。先在运行前封存同一评价标准，具体历史错误线索只能放评价文件中，不放受测任务。原文是核对依据，V15/V16的旧审阅只是定位线索；若旧评价有错误，应保留旧版并对A/B使用同一修正标准。
+Review decisive grounds in both final answers, not all nine cards or all facts again. Seal shared criteria before execution; historical error clues belong only to evaluation files. Originals are evidence; old V15/V16 reviews only locate issues. Preserve wrong old reviews and apply identical corrected criteria to both arms.
 
-统一检查：事实是否符合允许原文；陈述者、法院层级和审理阶段是否保留；转移对象、许可主体和事件日期是否正确；不同法域、专门法及暂定意见是否被无依据扩大；双方决定性反对内容是否遗漏；法律条件的AND/OR、必要性及否定是否改变；已知事实是否被无关缺口抹去；真实事实缺口、法源缺口和模型遗漏是否区分；point、assessment、explanation与reason是否一致。
+Check facts, speakers/court levels/stages, transferred object/licensor/dates, unsupported cross-jurisdiction/special-law/tentative-view expansion, decisive opposition omissions, changed AND/OR/necessity/negation, reliable facts erased by unrelated gaps, distinction between fact gaps/law gaps/model omissions, and consistency of point/assessment/explanation/reason.
 
-必须对照答案未主动引用的决定性案情，尤其不能用“每个引用都有效”代替遗漏检查。把原文明确给出的内容说成缺失，归为遗漏或误读；原文只有当事人观点，不能要求模型当成法院已认定。原材料未能解决的事实和法律效果允许未决，不要求猜回被排除的历史裁判。
+Review decisive uncited material too: valid citations do not establish completeness. Calling explicit source content missing is omission/misreading; party views cannot be demanded as judicial findings. True unresolved facts/effects may remain unresolved, without guessing excluded target outcomes.
 
-每条关键发现保存：条件A/B、对应ground、模型具体表述、原文ID及必要引文、问题类别、是否影响最终推断、是否存在真实解释争议。问题类别至少区分SOURCE_MISREAD、ATTRIBUTION_ERROR、SCOPE_ERROR、OMISSION、INTERNAL_CONTRADICTION、FACT_GAP、LAW_GAP及TECHNICAL_FAILURE。本轮没有程序裁判；模型不得把“程序未实现”当成材料法律缺口。
+Each finding records arm, ground, exact model wording, source ID/quote, category, inference impact, and genuine interpretation dispute. Categories include SOURCE_MISREAD, ATTRIBUTION_ERROR, SCOPE_ERROR, OMISSION, INTERNAL_CONTRADICTION, FACT_GAP, LAW_GAP, TECHNICAL_FAILURE. No program adjudicator exists here; unimplemented software is not a legal-material gap.
 
-正确论点若同时见于原文与卡，只能说明新增卡这一整体输入的净作用，不能证明改善来自某个程序机制。B可重新阅读原文，不能把它答对自动归功规则卡。B新增卡也增加输入长度和注意力条件，本轮没有等总计算成本，也不单独识别结构化形式的因果作用。
+Where correct arguments occur in both sources/cards, observed differences concern the net added-card input, not a specific program mechanism. B can reread originals; correctness cannot automatically be credited to cards. Cards add length/attention demands. Compute is not equalized and the isolated causal effect of structured format is not identified.
 
-评价标记为模型辅助来源审阅，不是人工gold。没有人类标注者不阻止这一开发诊断，也不能因此把模型一致当真。单案不计算准确率排名、不估算规则在数据集中的出现比例、不声称自动检索或规则归纳有效。
+Evaluation is model-assisted source review, not human gold. Lack of human annotators does not block this development diagnosis or make model agreement truth. One case supports no accuracy leaderboard, corpus prevalence estimate, or claim of effective automatic retrieval/induction.
 
-## 9. 决定下一步投入的标准
+## 9. Investment decisions
 
-| 观察 | 本轮决定 | 后续修改指向 |
-| --- | --- | --- |
-| B至少有一项影响法律分析的具体改善，且未出现同等严重的新错误 | 保留新增候选卡，作为继续开发信号 | 后续再用同类新案检查；不立即扩大ontology |
-| A与B同等，或者A更完整且成本更低 | 优先原文流程，暂停把卡作为必经步骤 | 卡可留作索引和离线审阅，不为保留结构化而加字段 |
-| B有改善，同时新增决定性错误 | 记录收益与伤害，暂不选赢家 | 依据错误来源，仅考虑一个最小修改 |
-| 两边正确保留已知内容，但都受同一真实法律/事实缺口限制 | 材料限制使净收益无法判断 | 明确缺少的材料，不修格式解决不存在的证据 |
-| 两边继续遗漏或误述相同的明确来源 | 共同理解/整合问题 | 暂停复杂化检索和执行器；不能先认定卡修复会解决 |
-| 无完整配对或材料污染 | 技术/比较条件不足 | 不评价方法优劣，交付失败与范围限制后结束 |
+| Observation | Decision | Next direction |
+|---|---|---|
+| B has a material sourced improvement without an equally serious new error | Retain added cards as a development signal | Later same-family new cases, not immediate ontology expansion |
+| Equal quality, or A more complete/cheaper | Prefer original-text workflow; pause mandatory cards | Cards may remain indexing/offline-review aids |
+| B improves some content but adds decisive error | Report both, no winner | At most one source-supported minimal change |
+| Both preserve known content but share a true material gap | Benefit inconclusive due to sources | Identify missing material, not format repairs for nonexistent evidence |
+| Both omit/misstate the same clear source | Shared comprehension/integration bottleneck | Pause more complex retrieval/execution; do not assume card fixes suffice |
+| No complete pair or contaminated material | Insufficient technical/comparison conditions | Deliver failures/limits, no superiority claim |
 
-“严重”指改变法律适用、把必要缺口变成确定事实、混淆决定性陈述状态，或实质影响最终推断；不把措辞差异与这些错误加总成一个分数。结果方向混合时不以更多正面条目掩盖更严重错误。
+Serious errors change applicability, turn necessary gaps into facts, confuse decisive status, or materially alter inference. Wording differences do not offset them in a summed score; numerous small positives cannot conceal one larger harm.
 
-## 10. 条件触发的修改方案，第一轮不同时实施
+## 10. Conditional later changes, not simultaneous first-round work
 
-以下是完整debug路线中的后续选项，不是两个网页回答之后自动开始的新实验。每次仅选择来源审阅确认的一项主要故障，新版本保存；不能将这批已暴露问题的旧案重跑称为独立测试。
+These require a separately selected, source-confirmed primary defect and new version. They do not start automatically after two replies, and exposed-case reruns are not independent tests.
 
-### 10.1 规则摘要导致决定性内容损失
+### 10.1 Decisive summary loss
 
-若B遗漏卡外原文、而A能使用它，或者B因卡摘要错误改变法律判断，修改提取接口的覆盖说明，不直接无限增加卡数。候选方案为：保留详细RuleCard，同时增加一个有限的来源要点目录。目录只记录命题短句、原文地址、采用/转述/暂定地位，以及是否展开成卡；没有展开的要点仍能指向原文。它不是新法律规则，也不宣称覆盖全部法源。
+If B misses outside-card content used by A or changes judgment through wrong summaries, improve coverage reporting rather than unlimited card counts. Retain detailed cards plus a bounded source-point directory: short proposition, source address, adopted/quoted/tentative status, and whether expanded into a card. Unexpanded points still link to sources; this is not new law or exhaustive coverage.
 
-新版本应定义有限目录预算，要求达到上限时明确记录覆盖不完整。支持、限制、例外、相反解释和重要转述都可以占目录位置；不能只按法院直接结论优先而系统丢失相反材料。不得在通用提示里写入本案缺失规则或“请提取P10”式答案提示。触发后先用与目标案无关的虚构来源检查目录到原文可追溯、未展开命题仍保留、未知不被补造；再另行确定一次有预算的提取检验，不连环补查。
+Define finite directory budgets and mark cap-induced incompleteness. Support, restrictions, exceptions, contrary views, and important quotations can all occupy slots; do not prioritize only final adopted conclusions. No case-answer hints such as “extract P10.” First check source tracing/unexpanded retention/nonfabrication on unrelated fictional sources, then separately authorize one bounded extraction test.
 
-预计改动位置是新`rule_transfer_v17.py`及新Schema；V16字段和原输出保持不动。成功要求原文中的重要区别实际进入最终分析，而不以卡数量增加或目录填满验收。
+Potential new `rule_transfer_v17.py`/schema; preserve V16 fields/outputs. Success requires important distinctions in final analysis, not more cards/full directories.
 
-### 10.2 候选检索被误用为适用规则选择
+### 10.2 Retrieval mistaken for applicability
 
-本轮没有运行top-k应用，所以不能用它证明排序错误影响了最终答案。后续确需自动法源选择时，保留BM25作为候选获取，新增单独的适用分析记录，分开保存：争点相关性、法条/地域/时间/程序范围是否兼容、来源是采用规则还是暂定/转述、以及迁移解释是否有依据。
+This round has no top-k application, so it cannot prove ranking caused final error. Future automatic selection retains BM25 recall and separate assessments of issue relevance, statute/geography/time/stage compatibility, adopted versus tentative/quoted status, and supported transfer reasoning.
 
-这些维度有UNKNOWN和DISPUTED，不能用一个0/1分数掩盖。程序只能对已证实的元数据检查，法律类比与范围解释由模型提出并保留证据。暂定意见可作为相关材料进入分析，但不能仅因排名第一被当作控制性规则；另一法域判例也可能有解释价值，不能一律丢弃。某法条必要条件未满足，仍可能是反对请求的依据，不能按条件满足性删法源。
+Allow UNKNOWN/DISPUTED rather than one binary score. Programs check verified metadata; models propose sourced analogy/scope judgments. Tentative views can be relevant without controlling merely through rank; other jurisdictions may be informative. Unmet conditions may support denial and do not justify deleting law.
 
-第一版避免拍脑袋设计法院权重或自动宣称先例优先级。先建立可解释的候选/范围记录和原文覆盖，报告遗漏与错误迁移，再决定是否值得学习排序。这需要对应的新实验授权，不能在当前两调用中附加第三次规则选择调用。
+Avoid invented court weights/precedence hierarchies. First record explainable candidates/scopes/coverage and missed/wrong transfers, then decide on learning. Requires new authorization, not an extra third selection call in the two-call round.
 
-### 10.3 原文有信息，但两边最终答案遗漏
+### 10.3 Shared final-answer omissions
 
-如果主要问题是最终整合，而非卡缺失，保持提取和检索不变。后续只调整最终回答对支持、反对和关键缺口的职责说明，保留原point/assessment/explanation/reason契约。不加入当前案的答案，不新增法院表或独立审阅模型，不对六句话反复试prompt。
+If final synthesis dominates, keep extraction/retrieval unchanged. Later revise only responsibilities for support, opposition, and critical gaps under the same four-field contract. No current answers, court tables, extra reviewer models, or repeated six-sentence prompt trials.
 
-用完整虚构例子表达“已有事实可以成立，法律效果仍未定”和“反对论点不等于法院认定”。是否值得实施，取决于集中评价是否确认相同缺陷；不能因为所有结果UNDETERMINED就自动启动。一次冻结版本的检验完成后停止，不在同案上无限修订。
+Use complete fictional examples distinguishing established facts/unresolved effects and opposing arguments/judicial findings. Proceed only if consolidated review confirms the defect, not merely because all outcomes are UNDETERMINED. Stop after one frozen evaluation.
 
-### 10.4 原文或元数据确实不足
+### 10.4 Genuine source/metadata gaps
 
-将缺口作为有出处的独立记录保存，不补造事实。程序可从原始结构字段拷贝真实metadata，或把正文中可定位的标题/日期提取为带证据的候选；不能用URL路径或旧手写卡推断缺失的法院、法条及判决日期。正文OCR相互矛盾时保留原字节并标记争议，不能悄悄改成有利结论。
+Save sourced gap records, never invented facts. Copy actual structured metadata or propose locatable title/date text with evidence; do not infer court/statute/date from URLs or handwritten cards. Conflicting OCR retains bytes/dispute flags.
 
-如果缺口阻止法律应用，后续只获取直接对应缺口的材料，记录为什么需要、输入范围和时间适用性，不重新抓整库。其结果属于法源覆盖扩展，应与此次规则卡输入比较分开。获取新案同样要预先约定数量和来源，不用反复换样本得到成功例。
+If applicability is blocked, acquire only directly relevant gap material, with rationale, permitted scope, and temporal relevance, not a corpus recrawl. This is source expansion, separate from card-input effects. New-case acquisition also has preset counts/sources, not repeated sample replacement.
 
-### 10.5 格式、来源恢复或记录出现工程错误
+### 10.5 Engineering failure
 
-若明确是纯技术错误，最小修复只改新组装/导入模块，并用合成数据复现。保存原失败，不改语义、不补JSON、不靠网页重新回答修复。新模型运行后发现的修复不能隐形回填当前结果；如另行重算，必须声明是开发重跑。明确不属于工程错误的规则误读，不能借格式修复处理。
+Minimal repairs affect new assembly/import only and reproduce with synthetic data. Keep original failures, no semantic/JSON completion or website re-answering. Post-run repairs cannot invisibly backfill current results; separately recomputed output is a development rerun. Rule misinterpretation is not a formatting defect.
 
-## 11. 执行顺序与停止条件
+## 11. Execution and stops
 
-| 阶段 | 工作 | 完成或停止条件 |
-| --- | --- | --- |
-| P0 | 检查HEAD、dirty状态、V14基底及V16卡/来源是否存在 | 复用兼容任务；原件缺失、内容冲突或不能保持允许范围时停在准备，不新检索补足 |
-| P1 | 实现局部双任务组装、来源恢复和结果入口 | 必要工程检查通过；任何共享材料差异查清前不提交模型 |
-| P2 | 保存协议、实际任务、Schema、所有哈希及评价文件 | 冻结完成，绝无参考/错误清单进入受测输入 |
-| P3 | A新对话一次，随后B新对话一次 | 最多2次；独立失败不取消可运行条件；访问故障或预算耗尽停止 |
-| P4 | 保存raw及结构/文本状态，集中审阅决定性依据 | 一次审阅，不要求消除全部争议，不再次抽取或续写 |
-| P5 | 完整比较表、投入决定、成本、文档和本地审阅包 | 交付后结束，不自动触发第10节修改或新样本准备 |
+| Stage | Work | Gate |
+|---|---|---|
+| P0 | HEAD/dirty state, V14 base, V16 cards/sources | Reuse compatible tasks; missing/conflicting originals or scope failure stops preparation, no new retrieval |
+| P1 | Paired assembly/recovery/report entry | Necessary checks; resolve shared-material differences before submission |
+| P2 | Protocol/tasks/schema/hashes/evaluation files | Freeze; no reference/error-list leakage |
+| P3 | One fresh A chat then one B | At most two; independent failure does not cancel possible arm; access/budget stops |
+| P4 | Raw/structure/text preservation; decisive-source review | One review; no re-extraction/continuation |
+| P5 | Complete comparison, investment decision, cost/docs/local review | End; no automatic section-10 changes/new samples |
 
-本次用户请求的是生成方案；本次没有模型调用或应用实验。实际执行时，准备可以独立完成，但两次网页任务需作为该轮执行工作，不能因本计划进入仓库就当作已经运行。
+The original request was a plan, so it made no model calls/application experiment. Local preparation can be independent; website tasks require actual authorized execution and are not completed by committing a plan.
 
-## 12. 交付与保存
+## 12. Delivery and preservation
 
-执行轮次拟交付：两份完整答案及raw、实际任务/Schema、冻结与起始状态、共同来源及ID映射、卡引用恢复、传输与运行元数据、一次集中来源审阅、比较表、中文报告及停止记录。比较表分开技术完成、来源支持、决定性遗漏、范围错误、内部矛盾、真实缺口、最终结论和输入/等待成本。
+Planned execution delivers both complete answers/raw replies, actual tasks/schema, freeze/starting state, shared sources/IDs, card citation recovery, transport/run metadata, one source review, comparison/report, and stop record. Separate technical completion, support, decisive omissions, scope errors, contradiction, real gaps, conclusions, and input/wait costs.
 
-网页可见思考时长和发送至完成的观察间隔分别记录。无法取得的准确tokens、精确生成时间和峰值内存为null；不能用字符数换算成精确token成本。B的增加输入与既有V16三次提取成本分别列出；一轮A/B仅有两次新回答，不把先前提取成本说成不存在。
+Visible thinking time differs from observed submission-to-completion. Unavailable exact tokens/generation time/peak memory stay null; character estimates are not exact tokens. Report B's extra input and V16's three prior extraction calls separately. Two new answers do not erase prior extraction cost.
 
-全部历史来源、卡、失败、报告和冻结快照保持原字节。新输出目录注册后才进入发布允许名单。更新CHANGELOG、实际实验目录索引和项目状态；计划阶段不添加已完成实验条目。运行`repository_bridge.py prepare`，检查PUBLICATION清单，再`verify`并导出本地审阅包。prepare/export不等于GitHub已经更新。本轮计划及后续执行均不自动提交或推送，仍保留当前未提交工作。
+Original experiment sources/cards/failures/reports/freezes remain as run evidence. Register new outputs before publication inclusion. Update changelog/actual experiment index/state only for completed work, not plans. Prepare the bridge, inspect PUBLICATION, verify, and export locally. Preparation/export is not GitHub publication. No automatic commit/push; preserve existing uncommitted work.
 
-## 13. 证据入口与实现定位
+## 13. Evidence and code pointers
 
-- [V16来源审阅](../../../outputs/rules-verdict-v16-rule-transfer/final-source-review.json)：三卡遗漏、范围问题和检索诊断的具体证据。
-- [V16规则原输出](../../../outputs/rules-verdict-v16-rule-transfer/rule-collection.json)：第一轮B必须原样使用的9卡。
-- [V15报告](../../../outputs/rules-verdict-v15-rule-supplement/report-zh.txt)：手工选取规则后的收益与剩余问题，不是V16效果证明。
-- [实际V14基底](../../../outputs/rules-verdict-v14-web-direct/tasks/1134266/prompt.txt)：第一轮任务组装的实际提示来源。
-- [规则接口](../../../legal_bench/rules_verdict_v1/rule_transfer_v16.py)：schema第11–22行、prompt第37–43行、结构检查第60–76行、检索第79–92行。
-- [BM25入口](../../../legal_bench/rules_verdict_v1/authority_index.py)：search第41–54行，只实现候选词汇排序。
-- [最终模板](../../../legal_bench/rules_verdict_v1/final_v9.py)：第8–10行Schema、第32–43行最终提示；参考其契约，基底仍以保存的实际prompt为准。
-- [拟议协议](protocol-proposed.json)及[编写时核对](audit-at-plan.json)：明确哪些已经核对，哪些尚未实施或运行。
+- [V16 source review](../../../outputs/rules-verdict-v16-rule-transfer/final-source-review.json): omissions, scope, retrieval diagnostics.
+- [V16 original collection](../../../outputs/rules-verdict-v16-rule-transfer/rule-collection.json): all nine cards for B unchanged.
+- [V15 report](../../../outputs/rules-verdict-v15-rule-supplement/report-zh.txt): hand-selected-rule benefit/limits, not V16 evidence.
+- [Actual V14 base](../../../outputs/rules-verdict-v14-web-direct/tasks/1134266/prompt.txt): task assembly source.
+- [Rule interface](../../../legal_bench/rules_verdict_v1/rule_transfer_v16.py): historical lines 11–22 schema, 37–43 prompt, 60–76 checks, 79–92 retrieval.
+- [BM25 entry](../../../legal_bench/rules_verdict_v1/authority_index.py): historical search lines 41–54; lexical candidates only.
+- [Final template](../../../legal_bench/rules_verdict_v1/final_v9.py): historical schema lines 8–10, prompt lines 32–43; actual saved prompt remains authoritative.
+- [Proposed protocol](protocol-proposed.json) and [plan-time audit](audit-at-plan.json): verified versus unimplemented/unrun work.

@@ -1,20 +1,17 @@
-# 五案校准材料准备
+# Five-case calibration preparation
 
-完成5案校准材料准备：按固定顺序核读9份完整判决，4份限定裁判链及1份分歧意见案，40项命题、10条OPEN_TEXT规则草案。5份英文独立参考任务保存但未提交；零模型调用、训练及正式批准。实际入口来源/合同/装配检查通过，940项旧文件保持；尚未产生本批凭据或法律验收结果。
+Preparation is complete: nine full judgments were read in a fixed order, yielding four bounded adjudication chains and one divided-opinion case, 40 propositions, and ten OPEN_TEXT rule drafts. Five English independent-reference tasks were saved but not submitted. There were no model calls, training, or formal approvals. Source, contract, and assembly checks passed through the actual entry point; 940 old files were preserved. This batch has not yet produced certificates or legal acceptance results.
 
-复用realcase_contracts和source_identity_v2，通过scripts/proof_calibration_v5.py build/check建立来源、命题和规则草案。程序没有改法律判断函数，未训练、生成凭据或调用模型。
+The preparation reuses `realcase_contracts` and `source_identity_v2` through `scripts/proof_calibration_v5.py build/check`. No legal judgment function was changed; no certificates were generated, models called, or training run.
 
+The local scan covered 6,954 database records. Full-text metadata produced 89 hits; restricting to facts/issues left 29 candidates. Existing rank took priority, with document ID ordering otherwise. Only the first 11 positions were inspected; two Guide cases were not reread. Exclusion reasons were recorded for 739777 (pre-emption eligibility), 603019 (a compensation order), 1805807 (lease/license status and supervisory review), and 1027285 (Criminal Procedure Code sections 145/146). Retrieval hits are candidate signals, not original facts or labels.
 
-本地数据库扫描6954条记录，全文元数据命中89条，限定facts/issues后形成29条候选。既有rank优先，无rank按文书ID排序；只读顺序前11个位置，其中2个Guide案件未重新核读。739777实际为优先购买资格，603019为补偿命令，1805807为租赁/许可身份和监督审查，1027285为刑事诉讼法145/146程序，分别记录排除依据。检索命中只作候选信号，不作事实原文或标签。
+The five selected cases concern civil possession protection or recovery, but their procedures and rules remain distinct: requisition return, summary recovery, interim injunction, plot identity, and divided opinions. They are intended as TRAIN calibration material but have not been assigned to a formal split. The old database already contains derived analysis, so they are not unexposed test cases. SEALED contents were not read and existing groups were not changed; protected-ID membership must still be checked before formal allocation. Available party/property information revealed no shared dispute with the Guide cases or other selected cases. This is not an exhaustive corpus-wide related-litigation audit.
 
-这5案属于民事占有保护/恢复占有家族，但程序与规则不能合并：征用返还、摘要恢复、临时禁令、地块身份及分歧意见各有边界。它们拟作TRAIN校准材料，尚未写入正式数据划分。旧数据库已有派生分析，不能称未暴露测试。未读取SEALED内容或改变旧分组；正式分配前仍需做受保护ID的成员核对。基于现有当事人和物业未发现与Guide及本批其他案件同纠纷，不声称完成全库关联审查。
+The actual preparation entry validated five facts/rules contracts, recovered 586 source passages from original responses, checked 191 proposition/rule quotations, assembled complete English reference tasks, and checked that final dispositions were not used to prove themselves. All 940 old hashes remained unchanged. Additional object-specific source review supplements the original entity-entry citations; one entry passage is not sufficient identity verification. These are engineering and source-preparation checks, not blind review, automatic derivation, or legal validation.
 
-本轮验收：
-实际准备入口完成5份facts/rules合同校验、586个来源片段的原始响应恢复、191处命题/规则引文检查、完整英文独立参考任务装配及最终处分不作自证前提检查。940项旧文件保持原哈希。原始提议的实体入口引用另有逐对象补充出处审阅，不将单个入口段视为充分身份核验。这些均属工程处理与来源辅助准备；没有盲审，未运行自动推导或验证法律正确性。
+Each saved independent-reference task contains only the selected reconstruction question, existing reference contract, and full judgment. It excludes this batch's proposition/rule drafts and was not sent to the website. All ten rules remain OPEN_TEXT: open legal assessments are not represented as implemented deterministic operations. Missing approval did not prevent source preparation. Independent source references, an explicit acceptance policy, and necessary rule translation are the actual dependencies for the next research certificates. Qualified legal approval is required separately for formal legal acceptance.
 
-5份英文独立参考任务已保存，内容只含选定重建问题、既有参考合同和完整判决，不含本次命题/规则草案，也未提交网页。10条规则均保留OPEN_TEXT，不把开放法律评价伪装为已支持的确定运算。这里没有因为批准缺失暂停来源工作：可做的本地材料准备已完成；独立来源参考、明确接受政策及必要规则翻译是生成下一批研究凭据的实际依赖。合格法律批准只限制正式法律验收。
+Nine public judgment sources were added; cited precedents were not recursively acquired. There were zero targeted searches, web-model calls, local-model calls, or training runs. Observed preparation time is in `cost-and-readiness.json`; active per-case labor and human review time were not measured or estimated. After one direct HTTP 403 and one refused proxy connection, the existing web retrieval route succeeded. Original responses were retained.
 
-成本与投入决定：
-新增9份公开判决源，未递归取得所引先例；定向搜索0次，网页模型0次，本地模型0次，训练0次。观察总准备时间见cost-and-readiness.json；未计量逐案主动工时和人工审阅时长，不估造。直接HTTP取回一次403、代理一次拒绝连接后使用已有web来源读取成功，原始响应均保留。
-
-继续真实判决重建方向，下一项应在这些固定完整材料上建立独立来源参考，再形成明确政策下的凭据；不需要先训练GNN或扩充本体。分歧意见案保留用于检查归属与冲突，不能为凑训练标签强行定一个胜方。五案草案准备完成不等于Guide的30/10/20试点或五案法律验收完成。本轮不提交、不推送，旧结果不覆盖。
+Continue bounded reconstruction from real judgments by establishing independent references on these fixed materials and then certificates under an explicit policy. GNN training or ontology expansion is not a prerequisite. Keep the divided-opinion case to examine attribution and conflict; do not invent a single winner for training labels. Preparation of five drafts does not complete the Guide's 30/10/20 pilot or five-case legal acceptance. No commit, push, or overwrite of old results occurred.

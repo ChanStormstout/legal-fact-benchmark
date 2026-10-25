@@ -1,3 +1,3 @@
-# V21状态
+# V21 Status
 
-网页及本地模型调用均为0，没有raw或最终答案。技术接口的库运行检查在../engineering；它们不是法律回答。
+Web and local model calls are both zero; there are no raw responses or final answers. Library-interface engineering checks are in `../engineering`; they are not legal answers.

@@ -180,42 +180,51 @@ write_new(ROOT / 'cost-ledger.json', {'actual_calls': 6, 'input_tokens': total_i
           'B_stage_shared_once': True, 'program_check_display_extra_final_input_tokens': metas['B-C']['prompt_tokens'] - metas['B-P']['prompt_tokens'],
           'all_token_id_counts_include_end_token': True, 'timings_not_simultaneous_performance_benchmark': True})
 table = '\n'.join(f"| {r['condition']} | {r['technical_status']} | {r['final_outcome']} | {r['final_input_tokens']} / {r['final_output_token_ids']} | {r['final_seconds']} | {r['logical_method_seconds']} |" for r in rows)
-report = f'''V11：修复约束下的中间分析消融，69305
+report = f'''V11: intermediate-analysis ablation with repaired constraints, 69305
 
-结论与投入决定：仅保留程序离线审计。六次生成全部完成，但没有一个条件得到来源充分支持的完整法律回答。A-clean文本笔记和B-P结构化提议都减少了D的部分过度判断，仍遗漏决定性下级认定；B-C加入整个检查块后新增了直接反于原文的可采性判断与观点归属错误。本配置下不继续将该检查块加入最终判断输入，保留轨迹用于离线审计。这不等于认可D，也不等于永久排除轻量结构化；没有进行单案准确率排名或统计、泛化推断。
+Decision: retain program traces for offline audit only. All six generations completed, but no condition produced a complete legally source-supported answer. A-clean text notes and B-P structured proposals reduced some D overstatement while missing decisive lower-court findings. Adding the entire check block to B-C introduced source-contradicting admissibility and attribution errors. Under this configuration, do not continue adding that block to final input. This endorses neither D nor permanent rejection of lightweight structure. There is no single-case accuracy ranking, statistical claim, or generalization inference.
 
-实际版本与执行
-起点HEAD与审查基点均为{start['head']}，分支{start['branch']}。开始前只有未追踪local_chunk_v11.py，未修改，且排除发布清单。新实验独立保存；首次生成前冻结源码、原V8实际中间prompt/schema、final_v9模板及完整虚构示例、输入与法律包哈希、调用顺序和停止规则。
-固定Qwen3.5-9B-4bit revision8b2b98c00a6b4d291155e4890773ca8f769aee53、MLX-VLM0.7.4、LMFE0.11.2、greedy、seed20261001、repetition_penalty1、thinking off，每次实际max_tokens3072，总上下文32768。修复回归5项全部通过、零跳过；真实tokenizer fixture及旧实际token回放完成，之后才生成。使用已验证FIXED入口；每次mask均生效，实际参数、token IDs、raw、finish_reason及解析结果完整保存，零格式或语义补写。
-与V8运行入口的差异见runtime-differences.json和runtime-entry-diff.txt：约束补回合法复合引号token，新增运行审计；采样、预算和止损阈值不变。v9保护额外监测explanation，该字段不在两份第一阶段Schema内，不改变中间生成止损规则。保护检测同一JSON字符串内非重叠64字符片段出现四次，不要求四次紧邻；不跨字段。
-顺序为D、A-notes、A-clean、B-proposal、B-P、B-C，六次均OK/stop，网页0、重试0、额外诊断模型调用0。推理{result['inference_seconds']:.1f}秒，整轮{result['round_wall_seconds']:.1f}秒，均小于30分钟；模型加载另计{result['model_load_seconds_excluded_from_inference']:.1f}秒。实际总输入{total_in}、输出token IDs{total_out}，输出口径含结束token。没有截断来源、重复中止、格式修补或资源失败。
+Version and execution
+Starting HEAD/review base {start['head']}, branch {start['branch']}. Only untracked local_chunk_v11.py existed initially; it was unchanged/excluded from publication. The experiment is separate. Code, actual V8 intermediate prompts/schema, final_v9 templates/full synthetic examples, case/legal hashes, call order, and stop rules were frozen before generation.
 
-| 条件 | 技术状态 | 最终结论 | 最终输入/输出tokens | 最终秒 | 含中间阶段秒 |
+Fixed Qwen3.5-9B-4bit revision8b2b98c00a6b4d291155e4890773ca8f769aee53, MLX-VLM0.7.4, LMFE0.11.2, greedy, seed20261001, repetition_penalty1, thinking off, actual max_tokens3072, context32768. Five repair regressions passed without skips; real-tokenizer fixtures and old-token replay preceded generation. The verified FIXED entry applied masks on every call and preserved parameters, IDs, raw text, finish reasons, and parses without format/semantic additions.
+
+runtime-differences.json/runtime-entry-diff.txt document restored compound-quote tokens and added runtime audit relative to V8. Sampling, budgets, and stop thresholds are unchanged. V9 additionally monitors explanation, absent from both first-stage schemas, so intermediate stopping is unchanged. The guard detects four nonoverlapping occurrences of an identical 64-character fragment within one JSON string, not necessarily consecutive and never across fields.
+
+Order: D, A-notes, A-clean, B-proposal, B-P, B-C. All six were OK/stop, with zero browser calls/retries/extra diagnostic calls. Inference {result['inference_seconds']:.1f} seconds, round wall time {result['round_wall_seconds']:.1f}, both below30 minutes; loading separately {result['model_load_seconds_excluded_from_inference']:.1f}. Total input {total_in}, output IDs {total_out}, including end tokens. No source truncation, repetition stop, format repair, or resource failure.
+
+| Condition | Technical status | Final conclusion | Final input/output tokens | Final seconds | Including intermediate seconds |
 | --- | --- | --- | --- | --- | --- |
 {table}
 
-D只用一次调用，不是等调用预算基线。A-clean和B路径各需两阶段，B第一阶段实际共用一次；方法账本不能重复相加为整轮成本。B-C比B-P多{metas['B-C']['prompt_tokens'] - metas['B-P']['prompt_tokens']}输入tokens。完整36组合及48项独立连接全部保留，检查展示只复用原转换并核验可逆。成本不因调用次数相同而相同。
+D uses one call, not an equal-call-budget comparator. A-clean/B use two stages; B's first stage is physically shared once, so method ledgers must not be added as if separately billed. B-C adds {metas['B-C']['prompt_tokens'] - metas['B-P']['prompt_tokens']} input tokens over B-P. All36 combinations and48 independent links remain; compact display reuses the original reversible conversion. Equal call counts do not imply equal cost.
 
-一次集中来源审阅：共同依据
-允许片段p0004.s002明确记载：“The Rent Controller, as well as, the appellate authority held that the afore-mentioned term of the lease was not inadmissible and the appellant was enti- tled to rely upon the same, but ordered eviction on the ground that M/s. United Automobiles was inducted in the premises as a sub-lessee.” 必须保留下级允许依赖条款及sub-lessee认定，同时不能升级成被排除的最高法院最终认可。同段开头“United Automobiles can not be assumed…”延续p0004.s001中房东立场，不是法院否定associate的认定。
-租约1961年成立及associate proviso文字在p0003.s003/s004；租户关于佣金、相同租金、代理身份的论点在p0004.s003，collateral purpose论点在s004。法律包给出S14(1)(b)日期、转移和书面同意基础条件，没有解决该附条件条款与S49的完整适用解释。未知可保留，但不能说材料完全没有法院认定。
+Single consolidated source review: shared evidence
+Allowed p0004.s002 states: “The Rent Controller, as well as, the appellate authority held that the afore-mentioned term of the lease was not inadmissible and the appellant was enti- tled to rely upon the same, but ordered eviction on the ground that M/s. United Automobiles was inducted in the premises as a sub-lessee.” Preserve lower-court reliance/sub-lessee findings without promoting them to excluded Supreme Court endorsement. “United Automobiles can not be assumed…” continues the landlord's position from p0004.s001, not a court rejection of associate status.
 
-四种回答具体发生了什么
-D反对腾退，核心依据是“法院接受United为associate”及“条款构成有效法定例外”。前者只来自租户律师主张，后者超出给定法源；D还把未展示同意文件当成法院认定无同意，reason加入房东未反对的说法。决定性基础不成立，不能因为它给出确定结论就认定更有用。
-A-clean改为无法判断，并正确区分指控与事实成立；但声称没有法院或下级决定解决转移方式，遗漏可见sub-lessee认定。第二行point说“租户提出抗辩”，实际已被原文支持，却标UNRESOLVED，评价对象发生变化。动机无关解释有法源，但被错误写成vacuously satisfied条件。文本笔记减少过度判断，同时传播了虚构信息缺口。
-B-P保留条款文字，将associate资格与专门同意保留未决，没有捏造法院认可，也没有从未见文件推出同意不存在。其日期判断使用1961租约及后续引入的时间下界，属于可解释推断而非具体日期认定。但仍漏掉两项下级认定；reason一面说无需进一步同意，一面要求特别同意来trigger该例外，混淆了合同预先许可与本次额外许可。它提供局部改善信号，没有构成完整正确答案。
-B-C沿用完全相同B提议，新增检查块后称法院认为条款不可采，直接反于“was not inadmissible”；又将房东关于associate的异议写成法院明确否定，UNRESOLVED标签与解释冲突。它承认1961租约却因缺少精确引入日期把1952阈值判为无法核实，未处理已有时间下界；reason还把需判断是否associate的United写成appellant。它没有消除B-P的决定性遗漏，并新增严重错误。
+The1961 lease/associate proviso appear at p0003.s003/s004. Commission/equal-rent/agency arguments at p0004.s003 and collateral-purpose arguments at s004 belong to tenant counsel. The legal package supplies S14(1)(b) date/transfer/consent basics but not full conditional-clause/S49 interpretation. Unknowns remain valid; saying no court findings exist does not.
 
-中间材料和程序作用的边界
-新旧中间输出不同，完整旧/新文件及文本diff已保存，仅用于诊断，不是gold或完整方法比较。新A仍写下级事实认定缺失，A-clean复述这个缺失。新B主要引用p0003，列举同一引入事件的三种模式均未决，未保留p0004.s002；coverage还误称1961租约早于1952。只查看这些影响最终答案的线索，没有逐字段重标注。
-程序36组合均未决，角色短语没有通过原文精确提及检查，连接不能确认；局部PROPOSED_SUPPORT不是语义认证。程序没有声称法院认定条款不可采，B-C的错误属于最终模型给出的错误解释。B-P/B-C比较只说明提供整个检查块的净影响；不能据此分离输入长度、权威感或注意力原因。
+What happened in the four answers
+D opposes eviction based on court acceptance of United as associate and a valid statutory exception. The former is counsel's argument; the latter exceeds supplied law. D also converts absent consent documents into a court finding of no consent and adds lack of landlord objection. A definite answer is not more useful when its decisive basis fails.
 
-材料真实缺口与模型错误须分开
-条款和sub-lessee的下级认定已在输入内，遗漏或反向理解不是案件事实缺失。associate资格的完整解释、合同预先许可是否满足法定要求及S49完整规则未提供，属于事实/法律范围仍未决。程序未实现这些法律解释是程序覆盖限制。四份最终答案均可回读原文，不能把最终错误全部归因于抽取，更不能要求它们猜回被排除的目标历史裁判。
+A-clean becomes indeterminate and separates allegations from established facts, but claims no court/lower decision resolved transfer mode, omitting the sub-lessee finding. Ground2's point says the tenant raised a defense, which is sourced, yet labels it UNRESOLVED, changing the assessed proposition. A sourced motive-irrelevance explanation becomes a mistaken vacuously-satisfied condition. Text notes reduce overstatement but propagate an invented information gap.
 
-交付与停止
-完整四份答案见final-answer-slots.md、final-answers.json及各runs/parsed.json；逐条件comparison-table.json/csv分开技术状态、决定性来源正确性、遗漏、内部矛盾、法律缺口与结论。final-source-review.json保存本次模型辅助来源审阅，不是人工gold。两份新中间结果、完整和紧凑检查、来源恢复、全部实际prompt/schema/raw/token记录、成本、版本哈希及停止记录均保留。
-本案反复参与开发，使用后出法源、下级法院信息及既有目标来源公式限制，仍是回顾性开发，不是独立预测。{len(start['historical_outputs'])}个历史文件及{len(start['code_hashes'])}个原有代码文件核验原字节不变。新轮更新本地状态和审阅包，不提交、不推送。下一步投入建议仅为保留准确下级认定并区分法律解释未决；未实施新修改、补跑或V12。本轮结束。
+B-P preserves the clause and leaves associate eligibility/specific consent unresolved, without invented court endorsement or inferring absent consent from an unseen document. Its1961 lease/subsequent-introduction lower bound is an explainable inference, not an explicit transfer date. It still omits both lower-court findings. Its reason says no further consent is needed while requiring specific consent to trigger the exception, confusing prior contractual and additional transaction permission. This is local improvement, not a fully correct answer.
+
+B-C uses the identical B proposal but, after receiving the check block, says courts held the clause inadmissible, reversing “was not inadmissible.” It recasts landlord objections as express judicial rejection, contradicting UNRESOLVED labels. Despite acknowledging the1961 lease, it treats the1952 threshold as unverifiable without an exact introduction date, ignoring the existing lower bound. Its reason also calls United the appellant. It fails to cure B-P's decisive omissions and introduces serious errors.
+
+Intermediate material and program boundaries
+Old/new intermediate texts and diffs are saved for diagnosis, not gold or complete-method comparison. New A still claims lower-court findings absent; A-clean repeats that. New B mainly cites p0003, leaves three transfer modes unresolved, omits p0004.s002, and incorrectly says the1961 lease predates1952. Only these final-answer-relevant clues were inspected, without field-by-field relabeling.
+
+All36 program combinations remain unresolved. Role phrases fail exact-source-mention checks, leaving links unconfirmed; local PROPOSED_SUPPORT is not semantic certification. The program never says the clause is inadmissible; B-C's explanation is a final-model error. B-P/B-C isolates the net effect of the whole check block, not input length, perceived authority, or attention as separate causes.
+
+Separate real gaps from model errors
+Clause/sub-lessee findings are present: omission/reversal is not missing case facts. Full associate eligibility, statutory effect of prior contractual permission, and complete S49 rules remain genuine factual/legal scope gaps. Missing program implementation of those interpretations is a program limit. All four final answers can reread originals, so errors cannot all be attributed to extraction; excluded historical outcomes should not be guessed.
+
+Delivery and stopping
+See final-answer-slots.md, final-answers.json, and runs/parsed.json for all four answers. comparison-table.json/csv separate technical status, decisive-source correctness, omissions, contradictions, legal gaps, and conclusions. final-source-review.json is model-assisted source review, not human gold. Both new intermediates, complete/compact checks, restored sources, actual prompt/schema/raw/token records, costs, hashes, and stop records are saved.
+
+This repeatedly exposed case uses later authorities, lower-court information, and an existing researcher-supplied target-source formula; it is retrospective development, not independent prediction. All {len(start['historical_outputs'])} historical files and {len(start['code_hashes'])} original code files were byte-identical. Local state/review updates did not commit or push. Preserving accurate lower-court findings and distinguishing open legal interpretation is only a proposed next focus. No further changes, reruns, or V12 occurred in this round.
 '''
 (ROOT / 'report-zh.txt').write_text(report, encoding='utf-8')
 print(json.dumps({'complete_final_answers': 4, 'calls': 6, 'decision': review['decision'],

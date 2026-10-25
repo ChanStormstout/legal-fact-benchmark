@@ -1,20 +1,40 @@
-# IRAC V5：工程契约修复与两案完整流程验收
+# IRAC V5: contract repair and two-case end-to-end acceptance
 
-本轮已经结束：E工程处理通过，M事实组织与L完整回答仍未通过。两案8次本地调用完成，2份提议和6份最终回答完整，生成总时间19.31分钟。没有重试、网页调用、新训练、提交或推送。
+Round complete: engineering E passed; factual organization M and full answering L did
+not. Two cases/eight local calls produced two proposals/six complete answers in19.31
+minutes, with no retries, web calls, new training, or publication.
 
-完整[中文报告](../outputs/irac-contract-repair-v5/continuation-01/report-zh.txt)、[答案入口](../outputs/irac-contract-repair-v5/continuation-01/answers.md)、[来源审阅](../outputs/irac-contract-repair-v5/continuation-01/final-source-review.json)与[E/M/L验收](../outputs/irac-contract-repair-v5/continuation-01/acceptance.json)分开保存。原V5初始工程检查点、V4原始结果和失败不改写。
+[Report](../outputs/irac-contract-repair-v5/continuation-01/report-zh.txt),
+[Answers](../outputs/irac-contract-repair-v5/continuation-01/answers.md),
+[Source review](../outputs/irac-contract-repair-v5/continuation-01/final-source-review.json),
+and [E/M/L acceptance](../outputs/irac-contract-repair-v5/continuation-01/acceptance.json)
+are separate. Original V5 engineering checkpoint and V4 outputs/failures are unchanged.
 
-`contract_v5.py`复用合法条件地址、限制范围和原文排序，补完证据账本与可计算用途分离。每条原始证据按位置和值独立保存；无绑定、无效用途和源地址问题按依赖限制计算，不擦除原文或其他有效用途。空的可读提议允许继续原文回答；技术失败仍为null。程序只检验已声明结构，不证明提议含义。
+contract_v5.py reuses legal condition addresses, scoped limits, and source ordering,
+separating evidence storage from computational eligibility. Every record retains position
+and value. Missing bindings, invalid uses, and source-address problems affect dependent
+computation without deleting original text or other valid uses. Empty readable proposals
+can continue to source-based answering; technical failures stay null. Structural checks
+do not prove proposal meaning.
 
-`scripts/irac_contract_v5_run.py`是真实冻结和运行入口，调用`execute_slot → finish_attempt → process`。22项相关测试通过；不变Schema、约束器和材料下复用15个真实tokenizer样例及5项修复回归。8个实际输入送达核验通过，13条证据全部保留，1条跨绑定限制局部隔离。B/C使用同一份未改写的新提议，C另读确定性检查。
+`scripts/irac_contract_v5_run.py` is the freeze/run entry, using execute_slot →
+finish_attempt → process. Twenty-two tests passed; fifteen real-tokenizer examples/five
+constraint regressions reused unchanged schemas/constraints/materials. Eight actual
+input-delivery checks passed; all thirteen records retained, one cross-binding limitation
+isolated. B/C share the same unchanged new proposal; C additionally receives deterministic
+checks.
 
-M仍存在同一安排按法律问题或认定拆分、源记录与用途方向不一致；188721101的六条用途甚至全部指向时间条件。L中B有局部纠错，但保留或新增无依据推断；C没有可靠额外净收益。六份答案均预测拒绝，不等于判断正确。本轮没有训练GNN，不能由此否定整个图方法。
+M still splits one arrangement by legal issue/finding and misaligns source records/use
+direction; all six uses in188721101 point to the time condition. B locally corrects some
+errors but retains/adds unsupported inferences; C has no reliable extra net benefit.
+All six answers predict rejection, which is not correctness. No GNN training occurred;
+these results do not refute all graph methods.
 
-实际运行版本是`outputs/irac-contract-repair-v5/continuation-01/freeze/code`；父目录的`engineering/snapshot`是先前工程检查点，两者不可混用。已完成的`freeze`拒绝覆盖，`run`仅能兼容复用现有结果，不会重试半成品。没有开启下一轮的授权。
+Actual code is continuation-01/freeze/code; parent engineering/snapshot is an earlier
+checkpoint and cannot be substituted. Completed freeze refuses overwrite; run only
+reuses compatible saved results and does not retry partial output. No next-round
+authorization is implied. Relevant checks are tests.test_irac_contract_v5,
+tests.test_irac_contract_v5_run, and `scripts/irac_contract_v5_run.py preserved`.
 
-```sh
-python3 -m unittest tests.test_irac_contract_v5 tests.test_irac_contract_v5_run -v
-python3 scripts/irac_contract_v5_run.py preserved
-```
-
-报告使用一次模型辅助来源审阅，不是人工金标准。所有来源、模型输出、程序检查与缺口按原有位置可追溯。旧2,426项保留清单核验未变；生成代码、Schema、来源及法源冻结哈希保持一致。
+One model-assisted source review, not human gold. Sources, outputs, checks, and gaps
+remain traceable. All2,426 old files and generation/schema/source/authority hashes match.

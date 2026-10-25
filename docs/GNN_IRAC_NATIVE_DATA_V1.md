@@ -1,25 +1,25 @@
-# IRAC-native 数据与输入图 V1
+# IRAC-native data and input graphs V1
 
-本阶段从现有案件数据库重新发现候选，不继续修复旧八案。范围仍是 Delhi Rent Control Act §14(1)(b)，规则作为给定信息，不评价规则检索。数据库的历史裁判字段只服务候选发现；不能直接复制为未来模型输入。
+This stage discovers new candidates in the existing database rather than continuing repairs to the old eight cases. Scope remains Delhi Rent Control Act section 14(1)(b). Rules are supplied; rule retrieval is not evaluated. Historical decision fields serve candidate discovery only and must not be copied directly into future model inputs.
 
-## 数据顺序与边界
+## Data order and boundaries
 
-先固定最多16个候选，再独立筛查。至少六个符合条件的候选才启动最多八案的构建。构建按独立规则拆解、阶段划分、盲绑定、目标构建、独立来源审阅的顺序执行。规则拆解任务只看争点和独立法源；盲绑定只看冻结的规则、条件及获准的来源记录。目标只能在全部盲绑定冻结后单独构建。每一步另存原始回复和冻结哈希，不用审阅意见反复修订直到通过。
+Fix at most 16 candidates before independent screening. Construction starts only with at least six eligible candidates and covers at most eight cases. Order: independent rule decomposition, stage assignment, blind binding, target construction, independent source review. Rule decomposition sees only the issue and independent legal sources. Blind binding sees frozen rules, conditions, and permitted source records. Targets are constructed separately after all blind bindings freeze. Every step retains raw responses and freeze hashes; review feedback is not used for repeated revisions until success.
 
-`inputs/<case>.json`、`targets/<case>.json` 和 audit 文件分开。来源引用使用多个独立 `{source_id, quote}` 对象，每项引文单独连续。定位只允许空白等价，不修正OCR、否定或引文含义。
+`inputs/<case>.json`, `targets/<case>.json`, and audit files are separate. Citations use separate `{source_id, quote}` objects, each a continuous passage. Location matching permits whitespace equivalence only; it does not repair OCR, negation, or meaning.
 
-## 可执行接口
+## Executable interfaces
 
-`legal_bench.rules_verdict_v1.irac_native_schema_v1.load_input(path)` 读取并校验 input；错误抛出 `ContractError`。`input_from_case` 是显式拆分接口，只读取 envelope 中的 `input`，不修改 input 内部字段，也不读取 target。`validate_targets` 是独立监督审计入口，不能用于图特征。
+`legal_bench.rules_verdict_v1.irac_native_schema_v1.load_input(path)` validates input or raises `ContractError`. `input_from_case` explicitly selects only envelope `input`, without changing its fields or reading target. `validate_targets` is a separate supervision-audit entry, never graph features.
 
-`legal_bench.rules_verdict_v1.irac_graph_builder_v1.build_input_graph(input_record)` 只接受 input。节点包含 Issue、Rule、Condition、Fact、Evidence、Entity；边只使用有来源的明示关系和冻结的模型候选绑定。图中保留 CLAIMED、PRIOR_FOUND、UNKNOWN 等状态。候选 SUPPORTS 表示“该记录如成立，其方向支持此条件”，不代表法院采纳或条件满足。
+`legal_bench.rules_verdict_v1.irac_graph_builder_v1.build_input_graph(input_record)` accepts input only. Nodes are Issue, Rule, Condition, Fact, Evidence, and Entity. Edges use sourced explicit relations and frozen proposed bindings. CLAIMED, PRIOR_FOUND, UNKNOWN, and other states remain. Candidate SUPPORTS means that the record, if established, supports a condition; it does not mean judicial acceptance or condition satisfaction.
 
-所有来源和记录执行同一阶段许可。允许 PRE_TARGET_RECORD、PRIOR_COURT_FINDING、TARGET_STAGE_PARTY_ARGUMENT；禁止 TARGET_COURT_REASONING、TARGET_DISPOSITION、AMBIGUOUS。下级法院认定保留法院层级，不提升为目标法院认可。排除对象后，依赖对象的记录递归排除，原记录与原因保存在 audit。缺失对象不会被补造。
+All records/sources follow one stage policy. PRE_TARGET_RECORD, PRIOR_COURT_FINDING, and TARGET_STAGE_PARTY_ARGUMENT are permitted; TARGET_COURT_REASONING, TARGET_DISPOSITION, and AMBIGUOUS are prohibited. Prior findings retain court level rather than becoming target-court acceptance. Excluding an object recursively excludes dependent records, retaining originals/reasons in audit. Missing objects are not fabricated.
 
-input 根对象字段固定，target/audit 字段禁止进入；阶段 sidecar 只保存 policy_version，其余阶段信息保存在具体记录。节点只使用阶段、陈述状态、对象类型、当事人角色、法院层级、极性、可获得性、来源标记和文本。未实现编码、训练、梯度或模型评测。
+Input-root fields are fixed; target/audit fields are prohibited. The stage sidecar stores only `policy_version`; actual stage information belongs to records. Nodes use stage, statement status, object type, party role, court level, polarity, availability, source markers, and text. Encoding, training, gradients, and model evaluation are not implemented here.
 
-## 验证的含义
+## Meaning of validation
 
-相关单元测试覆盖 target 隔离、改变 target 不改变图哈希、阶段许可、级联端点排除、绑定状态及来源不变、独立规则来源、分段引文、UNKNOWN 保留、举证失败与事实为假的区别。合成 fixture 只用于接口验证，不能计为真实案例或组内 canonical 产物。
+Tests cover target isolation, graph-hash invariance to target changes, stage permission, cascading endpoint exclusion, unchanged bindings/sources, independent rule sources, segmented quotations, UNKNOWN retention, and failure of proof versus factual falsity. Synthetic fixtures verify interfaces, not real cases or canonical within-group artifacts.
 
-来源定位和程序测试不验证法律含义。真实案例仍需要独立来源审阅及完整链准入；图构建成功不自动成为 READY。本轮不训练模型、不启封 SEALED、不提交或推送。
+Source location and software checks do not establish legal meaning. Real cases still require independent source review and complete-chain admission; successful graph construction is not automatic READY. No training, SEALED access, commit, or push.

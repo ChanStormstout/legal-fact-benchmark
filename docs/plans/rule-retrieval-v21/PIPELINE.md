@@ -1,27 +1,27 @@
-# V21：规则辅助法源检索的实际实现
+# V21: implemented rule-assisted legal-source retrieval
 
-本文件描述已实现的代码；早期`rules-and-verdict-v1/PIPELINE.md`仍是历史设计建议。当前没有新案法律回答结果：限定盘点未确认合格、未参与回答或方法调整的新目标。代码准备完成不代表完整法律能力已验证。
+This document describes implemented code. `rules-and-verdict-v1/PIPELINE.md` remains an earlier design proposal. There are no new-case legal-answer results: the bounded inventory did not identify an eligible new target unused in answering/method adjustment. Code preparation does not validate complete legal capability.
 
-数据按以下顺序处理：保存的原文与出处 → 稳定来源编号及可逆阅读视图 → 原始法源索引／规则描述索引 → 同一个预先固定的中性查询 → A/B排名 → 原始法源与依赖恢复 → 同一最终回答任务 → 原始网页输出导入 → 一次来源审阅。
+Flow: saved text/provenance → stable source IDs and reversible reading view → raw-law/rule-description indexes → one neutral query fixed in advance → A/B ranking → original-law/dependency recovery → identical final-answer task → raw website-output import → one source review.
 
-阅读视图只去除无歧义的引用包装字符，保留可见文字、编号及逐字符对应。跨行处理要求同一来源文档且原始行号连续；不满足条件就保留标记。程序不合并陈述者、不猜测OCR、不总结案情。目标最终结果及决定性最终推导的排除仍需明确的人工配置范围与模型辅助来源核对，不能靠关键词自动证明无泄漏。
+Reading views remove only unambiguous citation wrapper characters, preserving visible text, numbering, and character mappings. Cross-line handling requires the same source document and consecutive original lines; otherwise markers remain. Programs do not merge speakers, guess OCR corrections, or summarize facts. Excluding target outcomes/decisive reasoning still needs explicit configured scope and model-assisted source review; keywords cannot prove no leakage.
 
-法源库保存完整的所选逻辑单元、原文范围、法院或发布者、日期、法制范围、来源地位与版本缺口。原文用SQLite FTS5 BM25建索引。已有规则卡的文字原样进入第二个索引，只用于提示检索；不把卡当作新法律，不把失败的条件当作法源无关。本轮保留两张可映射原文的旧卡；Telesound旧卡依赖非连续的第12段摘录，保留但不启用。新取得的银行材料尚未生成规则卡，不能宣称规则索引已均衡覆盖三个法制范围。
+The legal corpus retains complete selected logical units, source spans, courts/publishers, dates, jurisdiction, source status, and version gaps. SQLite FTS5 BM25 indexes raw text. Existing rule-card text enters a second index unchanged as a retrieval aid, not new law. Unsatisfied conditions do not imply irrelevant law. Two old cards map to source text; the Telesound card depends on noncontiguous paragraph-12 excerpts and remains saved but disabled. Newly acquired banking sources lack cards, so rule-index balance across three legal scopes is not established.
 
-A从原文最多取40候选。B从同一原文取20、规则索引取20；先按卡所指的原始法律单元去重，再用现有RRF，参数k=60融合。多个卡指向同一单元不重复投票。两边采用相同、事先配置的明确范围排除；版本或范围不明保留标记，不自动判相容。
+A retrieves up to 40 raw-text candidates. B retrieves 20 raw-text plus 20 rule-index candidates, deduplicates cards by original legal unit, and merges with existing RRF at k=60. Multiple cards for one unit do not vote repeatedly. Both share explicit scope exclusions configured in advance. Unknown versions/scope retain flags rather than assumed compatibility.
 
-依次尝试排名中的单元及其全部配置依赖。任一依赖缺失、被明确排除，或整体超过8单元／20,000字符，就跳过这个完整组合并记录原因，不切掉条件或例外。字符数按最终实际展示的原文和metadata计算。没有全面证明所有外部交叉引用都已恢复；该缺口在法源库覆盖文件中保留。
+Ranked units are attempted with every configured dependency. Missing/excluded dependencies or a combined size above eight units/20,000 characters skips the whole bundle with a reason, rather than cutting conditions/exceptions. Counts use actual presented text/metadata. Complete recovery of every external cross-reference is unproven and disclosed in corpus coverage.
 
-最终模型只读选中的法源原文及metadata、同一允许案情、同一问题、两个完整虚构例子和相同回答要求。规则卡、程序检查、旧答案及评价要点不进入最终输入。两边完整输入逐字相同时，仅安排一份共享回答。否则每案交错A/B顺序，独立普通High网页对话，自包含任务；不使用Pro或付费API。
+Final models see selected original legal text/metadata, identical permitted facts/question, two complete fictional examples, and shared answer requirements. Rule cards, program checks, old answers, and evaluation points are excluded. Byte-identical A/B inputs schedule one shared answer; otherwise case order alternates A/B, using independent ordinary High self-contained website chats. No Pro or paid API.
 
-导入保留完整raw。合法完整JSON、必需字段和类型是硬要求；ground数量、引用数量和写作长度只产生警告，不删内容。非法或不完整JSON的答案是null；引用不存在单独记来源问题，不能把结构成功当语义成功。`assessment`判断本行命题，最终`reason`解释它对当前法律理由的后果。
+Import preserves full raw output. Complete valid JSON and required fields/types are mandatory; ground/citation counts and writing lengths only warn, never delete content. Invalid/incomplete JSON yields null. Missing citations are source errors, separate from structural success. `assessment` evaluates the row proposition; final `reason` explains its consequence for the current legal ground.
 
-运行前冻结允许来源、法源库、配置、问题、3–5个决定性评价要点、顺序、prompt、Schema和代码。运行后只集中审阅决定性依据和遗漏，区分来源未取得、输入范围排除、法源库缺失、检索未选中、模型误读、法律适用、技术失败及真实解释争议。参考是模型辅助来源审阅，不是人工gold；没有新案配对时，不作方法收益评价。
+Before execution, freeze sources, corpus, configuration, questions, three to five decisive evaluation points, order, prompts, schema, and code. One consolidated review distinguishes unavailable sources, excluded input scope, corpus gaps, retrieval misses, model misreading, applicability errors, technical failure, and real interpretation disputes. References remain model-assisted, not human gold. Without new-case pairs, no method-benefit evaluation is claimed.
 
-入口：[scripts/rule_retrieval_v21.py](../../../scripts/rule_retrieval_v21.py)，方法：[rule_retrieval_v21.py](../../../legal_bench/rules_verdict_v1/rule_retrieval_v21.py)。`prepare`只生成并冻结本地文件，`verify`核验冻结哈希，`import`保存一次已经完成的网页输出；这些命令不会调用模型或推送GitHub。
+Entry: [scripts/rule_retrieval_v21.py](../../../scripts/rule_retrieval_v21.py); method: [rule_retrieval_v21.py](../../../legal_bench/rules_verdict_v1/rule_retrieval_v21.py). `prepare` saves/freezes local files, `verify` checks hashes, and `import` saves one completed website response. None calls models or pushes GitHub.
 
 ```sh
 python3 scripts/rule_retrieval_v21.py verify --out outputs/rules-verdict-v21-rule-retrieval
 ```
 
-本轮样本清单为空、运行顺序为空。不能向本轮冻结文件补进新样本或新卡后继续称为同一配置；后续是否扩展来源或改变争点需要新决定，本轮不自动启动。
+This round has an empty sample manifest and execution order. Adding cases/cards to the freeze would create a different configuration. Future source/issue expansion requires a new decision; it does not start automatically.

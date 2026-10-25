@@ -1,28 +1,45 @@
-# 与老师方案对齐的法律分析实验
+# Legal-analysis experiment aligned with the professor's design
 
-本轮在 `outputs/gnn-irac-aligned-v1/` 独立保存，主任务是允许材料下的法律分析。旧法院处理标签仅作辅助，不迁移为材料支持性标签。17个既有问题包均为开发材料；不读取SEALED，不提交或推送。
+This independent round is saved in `outputs/gnn-irac-aligned-v1/`. The task is legal
+analysis under permitted materials. Earlier court-disposition labels are auxiliary,
+not material-support labels. All seventeen question packets are development data;
+no SEALED access or publication occurred.
 
-## 实现对应
+## Implementation map
 
-| 老师概念 | 新实现 | 语义边界 |
-|---|---|---|
-| 请求／抗辩—要件—检验 | 独立法律模板及表达式节点 | 模板包含研究者翻译和未覆盖项，不声称完整法体系 |
-| 事实与证据 | 复用旧来源断言，补局部提议 | 判决对证据的记载不是原件；保留陈述状态 |
-| 支持／反对图 | `aligned_graph.py` | 所有语义连接保留模型提议身份，错误地址局部隔离 |
-| ANCO-HITS | `aligned_anco.py` | 2013绝对度数交替归一化；数值退化不是法律未知 |
-| 同信息Flat与R-GCN | `aligned_models.py` | 四种方法共享节点、三元组、限制和来源；两种增加ANCO特征 |
-| 条件组合 | `aligned_logic.py` | 只在有连接依据的同一绑定内组合，不跨合同拼接，不推定举证失败 |
-| 参考与训练 | `aligned_quality.py`、`irac_aligned_train.py` | 独立材料参考与输入隔离，局部监督；旧历史标签不进入输入 |
-| canonical接口 | 当前native图 | 尚无真实组内样本验证，不声称完成真实集成 |
+| Design concept | Implementation | Boundary |
+| --- | --- | --- |
+| Claim/defense, elements, tests | Independent legal templates and expression nodes | Researcher translations and coverage gaps, not a complete legal system |
+| Facts/evidence | Prior source assertions plus local proposals | Judgment descriptions are not original exhibits; preserve statement status |
+| Support/opposition graph | `aligned_graph.py` | Semantic links remain model proposals; bad addresses isolated locally |
+| ANCO-HITS | `aligned_anco.py` | 2013 absolute-degree alternating normalization; numerical collapse is not legal uncertainty |
+| Same-information Flat/R-GCN | `aligned_models.py` | Four methods share nodes, triples, limits, and sources; two add ANCO features |
+| Condition combination | `aligned_logic.py` | Combine within grounded compatible bindings, not across contracts; no assumed burden failure |
+| References/training | `aligned_quality.py`, `irac_aligned_train.py` | Independent material references isolated from inputs; local supervision only |
+| Canonical interface | Native input graph | No real group sample validates complete upstream integration |
 
-## 执行入口
+`scripts/irac_aligned_study.py prepare` copies permitted sources and creates template
+tasks; import-template creates independent review tasks; import-review admits templates
+and prepares case-input/reference tasks. Writes refuse overwriting. Each task retains
+full submission, mode, web URL, and raw JSON. No semantic retries or invented content.
 
-`python3 scripts/irac_aligned_study.py prepare` 复制允许来源并生成法律模板任务；`import-template`生成独立审阅任务；`import-review`完成模板导入并准备逐案输入提议与参考任务。各阶段使用不可覆盖写入。同一任务保留完整提交、模式、网页URL和原始JSON。失败不重试语义，不由程序补造内容。
+Only one centralized source review can enable local supervision masks; valid format
+and located citations are not semantic review. Splits/code freeze precede training.
+Project MLX runs four fixed models, three seeds, at most three folds/36 fits, without
+in-run tuning. Insufficient references leave failed/unrun states, not fallback court labels.
 
-新参考通过一次集中来源审阅后才可设置局部监督掩码；格式和引文定位不是语义审阅。训练前保存划分和源码冻结。MLX训练使用项目原环境，固定四种模型、三种子、最多三折，共36次拟合；运行中不调参。没有足够可用参考时保留失败或未运行状态，不改用旧法院标签。
+Analysis retains model states, program source/binding checks, and unverified semantics.
+Scores/graph paths are not legal proofs. The round ended with seventeen packets,58
+ordinary-High calls,96/117 material references. Predictions from36 fits were saved,
+but weight/training-log export failed and was not rerun. Flat/R-GCN/ANCO did not exceed
+the conditional prior or add whole-analysis benefit. Retain source interfaces and pause
+graph expansion. Not independent testing/human gold; tests are not legal-performance
+scores. SEALED unread, no publication.
 
-完整分析必须同时保留模型状态、来源／绑定的程序检查结果及未验证的语义判断。分数和图路径不是法律证明。本轮已经停止。17包、58次普通High、96/117项材料参考；36拟合已保存预测但权重/训练日志导出失败，原失败保留，未重训。Flat/R-GCN及ANCO均未超过条件先验，未显示完整分析额外收益。保留来源接口，暂停扩大图。非独立测试、非人工gold，SEALED未读，未提交推送。 程序测试不计为法律能力成绩。
-
-## 实际边界
-
-法律来源提取与研究者组合分别标记；本轮未实施跨案规则归纳。旧关系模式缺兼容谓词，未作为发现模式特征；E5仅生成规范化候选，真实canonical待接入。多绑定尚非独立监督头，组合限制仍偏保守。训练入口保存权重失败，报告仅用既存预测做开发诊断；权重和逐轮日志无法恢复。新安全入口scripts/irac_aligned_train_checked.py未在本轮重跑。
+Express legal-source extraction and researcher combination are labeled separately;
+no cross-case rule induction. Old relation patterns lacked compatible predicates and
+were not discovery features. E5 generates normalization candidates only; real canonical
+integration remains missing. Multiple bindings lack separate supervision heads and
+combination limits remain conservative. Missing weights/per-epoch logs cannot be
+recovered; reports use saved predictions for development diagnosis. The safer
+`scripts/irac_aligned_train_checked.py` was not rerun in this round.

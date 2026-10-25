@@ -180,36 +180,45 @@ for n,o in names:
     sections.append('\n## '+n+'：'+label+'\n\n```json\n'+(ROOT/'runs'/n/'parsed.json').read_text()+'\n```\n')
 (ROOT/'final-answer-slots.md').write_text(''.join(sections),encoding='utf-8')
 b = metas['B-P-thinking']; bo = read(ROOT/'lineage/B-P/run.json')
-report = f'''V12：有限thinking开关开发对照，69305
+report = f'''V12: bounded thinking-switch development control, 69305
 
-决定：暂不采用thinking作为当前流程的默认配置。本轮有局部改善，但未得到更忠实、一致的完整法律回答。D的保留生成文本不再捏造法院认可associate资格、无同意认定或房东未反对，却仍误称没有转移定性和可采性认定。B-P开始保留下级法院以转租为由命令腾退，并区分没有目标最高法院最终处理；但g4称材料没有法院定性，g5又承认下级转租腾退，形成新的内部矛盾，仍漏掉下级允许依赖条款。不能用更保守的UNDETERMINED当作正确。
+Decision: do not adopt thinking as this pipeline's default yet. There were local improvements, not a more faithful and consistent complete legal answer. D's retained text no longer invents judicial associate endorsement, no-consent findings, or lack of landlord objection, but still denies existing transfer/admissibility findings. B-P starts preserving lower-court eviction for subletting and distinguishes the missing Supreme Court disposition. However, g4 denies judicial characterization while g5 acknowledges lower-court subletting eviction, creating a contradiction; it still omits permission to rely on the clause. A more cautious UNDETERMINED label is not correctness.
 
-技术状态与执行偏差
-仅两次新生成，D-thinking后B-P-thinking；网页0、重试0、额外模型预跑0。两份最终JSON都生成结束，没有截断或字段重复中止。D在输出保存、解析之后，运行元数据序列化失败：actual_parameters字典被后续加入不可JSON序列化的约束对象。D正式run_status为RUN_LOG_ERROR，answer为null；raw、推理、最终JSON、完整token IDs、约束轨迹已保留，精确耗时和峰值内存缺失。其文本审阅仅作技术失败输出的诊断，不作为完成实验答案。
-遵照单次失败不取消尚未开始B的规则，在独立版本仅把日志参数字典改为副本；差异验证和源码冻结addendum在B调用前保存。没有改变模型、prompt、生成设置、约束算法、法律语义或任何D输出，没有重跑D。B-P为OK/stop，完整答案UNDETERMINED。加载模型两次是日志错误进程退出后的恢复，不是额外推理诊断；实际推理调用仍为2。
+Technical status and execution deviation
+Only two new generations ran, D-thinking then B-P-thinking, without browser calls, retries, or pre-runs. Both final JSON generations ended, without truncation/field-repetition stops. After D's output was saved/parsed, runtime metadata serialization failed: a non-JSON constraint object had been added to actual_parameters. D formally remains RUN_LOG_ERROR with null answer. Raw text, reasoning, final JSON, complete IDs, and constraint traces remain, but exact time/peak memory are missing. Review of D text is diagnostic review of failed output, not a completed experimental answer.
 
-接口、冻结与预算
-起点HEAD {start['head']}，分支{start['branch']}；已有V11未提交修改与local_chunk_v11.py保留。固定9B revision8b2b98c00a6b4d291155e4890773ca8f769aee53、MLX-VLM0.7.4、LMFE0.11.2，greedy、seed20261001、repetition_penalty1。两份prompt及schema逐字复用各自V11实际输入，B同一提议不修正、不含检查块。唯一聊天模板变化为空thinking预填段变成开放<think>换行。
-本地9项直接检查全过、零跳过，无模型预跑。实际约束轨迹显示推理token未进入JSON解析或字段重复检测，</think>后解析器从generated_count0开始。跨流块分离的原始文本可精确还原。重复保护仍是同一JSON字符串内四次至少64字符的非重叠相同片段，不是必须相邻的连续重复。
-每次max_tokens8192，总上下文32768；D输入8914、B输入10777，均完整不截断。框架原生thinking_budget4096在计数超过4096后强制换行和</think>，实际每份thinking4098、边界1。没有独立final预算参数，不声称已保留3072。最终分别766、760内容tokens，EOS各1，未耗尽总生成预算。总推理上限20分钟；B沿D开始时间的保守共同墙钟截止执行，连日志处理间隔也计入。
+Under the predefined rule that one failure does not cancel unstarted B, an independent version copied only the logging-parameter dictionary. Diff verification and a source-freeze addendum preceded B. Model, prompts, settings, constraints, legal semantics, and D output were unchanged; D was not rerun. B-P was OK/stop with a complete UNDETERMINED answer. Two model loads reflect recovery after the logging-error process exit, not extra inference diagnoses; actual inference calls remain two.
 
-一次集中来源审阅
-关键来源p0004.s002明确记载：下级Rent Controller及上诉机构认为条款was not inadmissible，租户entitled to rely，并以United被引入为sub-lessee命令腾退。没有最高法院最终处理不能被解释成没有任何法院定性。D仍称这两项法院认定不存在；B只恢复腾退认定且在另一项解释中否定其存在。
-p0004.s003的佣金、同额租金和经销资格以及p0004.s004的S49解释均为租户律师论点；D-thinking不再把这些升级为法院采纳。B-P原来已经不这样升级，本轮不能重复认领为thinking收益。B-P旧reason要求特定同意trigger无需进一步同意例外的明示矛盾不再出现，但合同条款存在、适用于United及满足法定书面同意仍没有完整法律分析。
-两份新答案都把1961租约日期直接用于转移阈值。该时间下界可能有依据，但须解释租约后引入United的事件连接，不能称原文明示转移日期。D reason明确说establishes date of transfer，是新增过度表述；B比旧B-P省略了随后引入的说明，证据解释变弱。B g1引用缺少许可条款续段；g2把absence与unknown合并到一个命题，目标含糊。没有新增转移方向或公司身份的明确颠倒，但抽象称谓和遗漏使对象依据不够具体。
-给定法源仍没有完整解决associate资格、合同预先许可的法定效果与S49解释；这些属于真实法律覆盖缺口。已经展示的下级认定遗漏属于模型错误，二者不能混合。没有程序检查输入，不能归因为程序未实现。既不要求猜回被排除的历史结论，也不以JSON完成、来源ID有效或UNKNOWN减少判正确。此次仅审阅最终决定性依据，未逐句评分推理、未重标注事实、无网页复核；参考标记为模型辅助来源审阅，非人工金标准。
+Interfaces, freeze, and budgets
+Starting HEAD {start['head']}, branch {start['branch']}; existing uncommitted V11 work and local_chunk_v11.py were retained. Fixed9B revision8b2b98c00a6b4d291155e4890773ca8f769aee53, MLX-VLM0.7.4, LMFE0.11.2, greedy, seed20261001, repetition_penalty1. Both prompts/schema reuse their actual V11 inputs verbatim. B's proposal is unchanged and excludes checks. The only chat-template change replaces the empty thinking prefill with an open <think> newline.
 
-成本（生成ID总数包含边界和EOS，final内容单独列）
-| 条件 | V11总生成 | 新thinking / final / 总生成 | 输入 | 耗时 | MLX峰值 |
+Nine direct local checks passed without skips or model pre-runs. Traces show reasoning tokens never enter JSON parsing or field-repetition checks; after </think>, parsing starts at generated_count0. Text split across streaming chunks reconstructs exactly. Repetition stopping still requires four nonoverlapping identical fragments of at least64 characters within one JSON string, not consecutive repetition.
+
+Each call has max_tokens8192/context32768. D input8914 and B10777 are complete/untruncated. Native thinking_budget4096 forces newline/</think> once counting exceeds4096, yielding thinking4098 and one boundary token each. There is no independent final budget; a reserved3072 final allowance is not claimed. Final contents were766/760 tokens plus one EOS each, within total generation limits. Total inference cap20 minutes; B uses a conservative shared wall-clock deadline starting with D, including logging-recovery intervals.
+
+One consolidated source review
+p0004.s002 expressly records the lower Rent Controller/appellate authority holding the term was not inadmissible, allowing reliance, and ordering eviction because United entered as sub-lessee. Missing Supreme Court disposition does not erase all court characterization. D still denies both findings; B recovers eviction while denying it elsewhere.
+
+Commission/equal rent/dealer eligibility at p0004.s003 and S49 interpretation at s004 are tenant-counsel arguments. D-thinking no longer promotes them to court adoption. Old B-P already avoided this, so it cannot be claimed again as a thinking gain. B-P's old explicit contradiction requiring specific consent to trigger a no-further-consent exception disappears, but the clause's existence, application to United, and statutory written-consent effect still lack complete analysis.
+
+Both new answers directly use the1961 lease date for the transfer threshold. A lower bound may be supported, but requires explaining United's introduction after the lease, not claiming an explicit transfer date. D's reason says it establishes date of transfer, a new overstatement. B omits old B-P's subsequent-introduction explanation, weakening the evidence. B g1 lacks the continuation passage containing permission; g2 merges absence and unknown into one ambiguous proposition. No new definite transfer-direction/company-identity reversal appears, but abstract descriptions/omissions weaken object grounding.
+
+Authorities still do not fully resolve associate eligibility, statutory effects of contractual prior permission, or S49. These are real legal-coverage gaps, separate from omitted visible lower-court findings. No program-check block entered input, so missing program implementation is not the cause here. Neither guessing the hidden historical outcome nor JSON completion, valid IDs, or fewer UNKNOWN labels establishes correctness. This review covers decisive final-answer evidence only, not sentence-level reasoning scores, fact relabeling, or browser review. References are model-assisted source review, not human gold.
+
+Costs: generated IDs include boundaries/EOS; final content listed separately
+| Condition | V11 total generated | New thinking / final / total | Input | Time | MLX peak |
 | --- | --- | --- | --- | --- | --- |
-| D | 583 | 4098 / 766 / 4866 | 8914 | 精确缺失；文件时间戳估计321.1秒（旧53.1秒） | 缺失（旧6.943569GB） |
-| B-P | 689 | 4098 / 760 / 4860 | 10777 | {b['elapsed_seconds']:.1f}秒（旧{bo['elapsed_seconds']:.1f}秒） | {b['peak_mlx_memory_gb']:.6f}GB（旧{bo['peak_mlx_memory_gb']:.6f}GB） |
-D总生成增加4283，最终内容较旧582增加184；精确时间/内存增量无法确认。B总生成增加4171，最终内容较旧688增加72；耗时增加{b['elapsed_seconds']-bo['elapsed_seconds']:.1f}秒，约{b['elapsed_seconds']/bo['elapsed_seconds']:.2f}倍；MLX峰值变化约{(b['peak_mlx_memory_gb']-bo['peak_mlx_memory_gb'])*1000:.2f}MB，未观察到明显增加。B进程RSS1.595GB（旧1.779GB），与MLX峰值含义不同，不能相加为机器总内存或解释成优化。运行顺序与进程不同，不构成内存性能基准。
-两次总生成9726，其中推理8196、最终内容1526、边界及EOS4；输入19691。总推理精确值缺失，以D文件时间戳加B实测估计824.9秒，不冒充精确计时。比较是增加推理计算后的质量和成本，不是等计算预算的纯开关效应。
+| D | 583 | 4098 / 766 / 4866 | 8914 | Exact unavailable; file-timestamp estimate321.1s (old53.1s) | Unavailable (old6.943569GB) |
+| B-P | 689 | 4098 / 760 / 4860 | 10777 | {b['elapsed_seconds']:.1f}s (old{bo['elapsed_seconds']:.1f}s) | {b['peak_mlx_memory_gb']:.6f}GB (old{bo['peak_mlx_memory_gb']:.6f}GB) |
 
-交付与停止
-comparison-table.json/csv分别记录技术状态、来源问题、遗漏/新增矛盾、结论、token分段、耗时与内存。final-answers.json中D为null，保留的parsed路径明确标记诊断；B完整回答单独保存。final-source-review.json保存本次唯一来源审阅；restored-final-sources.json恢复每项引文；runs保留raw/推理/最终文本、IDs、mask和预算轨迹。freeze保留首次配置和B前日志addendum。
-{len(start['historical_outputs'])}历史输出及{len(start['preexisting_code_hashes'])}原有源码文件原字节未变；V11和所有失败仍保留。此为单个旧案例的回顾性开发，继承后出法源、下级法院信息、非独立开发及研究者基础公式限制，不能估计准确率或thinking普遍能力。本轮到此结束，不调参、不补跑、不扩案、不提交、不推送。
+D adds4283 generated IDs and184 final-content tokens over the old582; exact time/memory differences are unknown. B adds4171 generated IDs and72 final-content tokens over old688. Time increases by {b['elapsed_seconds']-bo['elapsed_seconds']:.1f}s, about {b['elapsed_seconds']/bo['elapsed_seconds']:.2f} times. MLX peak changes by approximately {(b['peak_mlx_memory_gb']-bo['peak_mlx_memory_gb'])*1000:.2f}MB, with no clear observed increase. B process RSS is1.595GB versus old1.779GB, distinct from MLX peak; they cannot be added into total machine memory or treated as optimization. Different run order/processes preclude a memory benchmark.
+
+Total generated9726 comprises8196 reasoning,1526 final-content, and4 boundary/EOS tokens; input19691. Exact total inference is unavailable. D file timestamps plus B measurement estimate824.9s, not exact timing. This compares quality/cost with added reasoning computation, not a pure equal-compute switch effect.
+
+Delivery and stopping
+comparison-table.json/csv record technical status, source errors, omissions/new contradictions, conclusions, token segments, time, and memory separately. D remains null in final-answers.json, with its parsed artifact marked diagnostic. B's complete answer is saved separately. final-source-review.json holds the single review; restored-final-sources.json restores citations; runs retain raw/reasoning/final text, IDs, masks, and budget traces. freeze retains original configuration and B's logging addendum.
+
+All {len(start['historical_outputs'])} historical outputs and {len(start['preexisting_code_hashes'])} original source files were unchanged. V11/all failures remain. This is one exposed retrospective case with later authorities, lower-court information, nonindependent development, and researcher-supplied formulas; it cannot estimate accuracy or general thinking capability. Stop without tuning, reruns, expansion, commit, or push.
 '''
 (ROOT/'report-zh.txt').write_text(report,encoding='utf-8')
 print(json.dumps({'report':str(ROOT/'report-zh.txt'),'decision':review['decision'],'calls':2,'stop':True}))

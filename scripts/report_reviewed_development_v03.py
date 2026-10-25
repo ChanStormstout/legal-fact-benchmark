@@ -54,42 +54,42 @@ def main():
     agreement = {'common_repeated_candidate_ids': sorted(a_ids & b_ids), 'A_only': sorted(a_ids - b_ids), 'B_only': sorted(b_ids - a_ids),
                  'interpretation': 'Independent extraction/reference-process diagnostic; not accuracy or independent cases'}
     write_new(root / 'AB-pattern-overlap.json', agreement)
-    lines = ['Legal AI：五案来源核查接入与开发实验', '',
-             '结论：核查清单已接入，类型与角色按明确的任务定义统一，五案查询和模式搜索已完成。较窄的占有／租赁核心词表没有达到两案重复门槛；扩展词表出现重复候选，但大部分只是诉讼程序结构。程序通过独立有限语言检查，这批结果尚不证明发现了有法律价值的事实规律。', '',
-             '1. 核查结果怎样进入计算', '',
-             '原401条事实／程序记录都保留核查结论；其中212条获准限定使用，12条只批准命题核心，没有批准对象连接。程序逐案校验原始文件、段落内容哈希和核查版本，十份输入与side chat快照一致。保留未知及排除决定，没有自动应用核查模型建议的改写，也没有重做标注。',
-             '原字段值仍保存供追溯；只有approved_fields中的字段进入执行器和候选生成。角色改名时批准和未知原因一起改名，不能借统一角色重新批准某个对象。精确时间与金额没有获批，因此原JSON中即使有日期或金额，也不进入这些比较。',
-             '例如755721 B的起诉记录a6虽然保存property=o5，但审核只批准事件核心，归入SUIT_FILING_RECORD后仍不能用o5连接财产。184866874 B的a35明确是A.S.上诉，归入APPEAL_FILING_RECORD；a3/a31才是O.S.起诉记录，行政请求没有被归为起诉。', '',
-             '2. 类型统一与搜索边界', '',
-             'type-cards.json和逐案registry.json保存14个任务类型及原始定义、角色映射、使用边界和输入哈希。LEASE_PROPERTY、EXECUTE_LEASE、LET_PROPERTY归为较弱的租赁记录类型；并不声称它们严格等价或属于同一个事件。经营活动三个名称也按来源定义统一。租金数额不归为实际支付，收到通知不归为回复，原审法院不改成受理上诉法院。',
-             'CORE用于原占有／租赁查询；ATLAS在事先声明的类型清单中加入经营与程序行为；NATIVE保留原生谓词／角色集合，仅作语法对照。CORE固定查询保留法律状态记录，CORE／ATLAS的可观察事件搜索将法律状态另行排除；NATIVE保留原生类型作对照，不将其全部认定为物理事件。ATLAS不是根据表现挑出来的模式集合，全部候选均保存。',
-             '搜索两个不同记录、一个或两个共享对象连接，至多附加一个获准时间／属性条件。本次没有获准时间／属性，因此搜索只生成结构条件。支持数按案件，不按记录数或匹配数；A/B分别运行，不能合并成十个案件。记录ID不同不能证明现实事件不同，同类配对和仅法院连接另列。', '',
-             '3. 固定开发查询', '']
+    lines = ['Legal AI: Source-Review Integration and Five-Case Development', '',
+             'Conclusion: Review decisions are integrated, types and roles standardized under explicit task definitions, and five-case queries and pattern searches complete. The possession/lease CORE vocabulary yields no candidates recurring in two cases. The expanded vocabulary yields recurring candidates, mostly procedural structures. Independent finite-language checks passed; these results do not establish legally valuable factual regularities.', '',
+             '1. How Review Results Enter Computation', '',
+             'Review decisions are retained for all 401 original factual/procedural records. Of these, 212 permit limited use; 12 approve only the proposition core, not object joins. Original files, paragraph-content hashes and review versions are checked per case; all ten inputs match the side-conversation snapshots. Unknown and exclusion decisions remain preserved. Suggested model rewrites were not applied automatically and annotations were not redone.',
+             'Original field values remain traceable; only approved_fields enter execution and candidate generation. Role renaming carries permissions and unknown reasons with it and cannot reauthorize an object. Exact times and amounts were not approved, so dates or amounts present in the original JSON do not enter those comparisons.',
+             'For example, suit record a6 in 755721 B retains property=o5, but only its event core is approved. Mapping it to SUIT_FILING_RECORD does not authorize property joins using o5. Record a35 in 184866874 B explicitly describes an A.S. appeal and maps to APPEAL_FILING_RECORD; a3/a31 are O.S. suit records. Administrative requests were not classified as suits.', '',
+             '2. Type Standardization and Search Scope', '',
+             'type-cards.json and each registry.json preserve 14 task types, original definitions, role mappings, use limits and input hashes. LEASE_PROPERTY, EXECUTE_LEASE and LET_PROPERTY map to a weaker lease-record type without claiming strict equivalence or event identity. Three business-activity names are standardized from source definitions. Rent amounts do not become actual payments, receiving notice does not become replying, and the trial court does not become the appellate court.',
+             'CORE serves the original possession/lease queries; ATLAS adds business and procedural acts from a predefined type list; NATIVE retains original predicates/roles as a syntactic control. Fixed CORE queries retain legal-status records; observable-event search in CORE/ATLAS excludes them separately. NATIVE retains original types without treating all as physical events. ATLAS was not selected for performance and all candidates are preserved.',
+             'Search uses two distinct records, one or two shared-object joins and at most one approved time/attribute condition. No time/attribute fields are approved here, so only structural conditions are generated. Support is counted by case, not records or matches. A/B run separately and cannot be combined into ten cases. Distinct record IDs do not prove distinct events; same-type pairs and court-only joins are listed separately.', '',
+             '3. Fixed Development Queries', '']
     for side in ['A', 'B']:
         info = summary['runs'][side + '/CORE']
-        lines += ['%s：八个查询×五案，共40项，状态%s；相对“输入字段准确”的旧运行，有%d项状态改变。' %
+        lines += ['%s: eight queries across five cases yield 40 judgments, with statuses %s; %d statuses differ from the earlier run assuming accurate input fields.' %
                   (side, info['fixed_statuses'], info['changed_after_source_review'])]
-    lines += ['Q1/Q2分别检查付租与租赁是否指向同一财产，以及租客是否就是付款人；Q3检查占有与租赁财产；Q4/Q5涉及权利状态与占有；Q6检查占有与起诉财产；Q7检查失去占有与占有财产；Q8还需要租赁早于起诉的时间比较。全部问题保持原自然语言含义，没有为获得更多匹配修改定义。',
-              'Q8在具有相关记录的输入中因时间未获批而保留未知。有些旧确定结果被撤回，有些原“未找到”改为未知，因为核查没有批准此前依赖的身份或状态。NOT_FOUND只表示当前可用记录范围没有匹配，不能解读为原文或现实中没有事实。fixed-query-statuses.csv和逐项JSON保存全部结果与证据。', '',
-              '4. 模式搜索结果', '', '版本／范围 | 生成并执行候选 | 至少两案重复候选 | 包含事实记录的重复候选']
+    lines += ['Q1/Q2 test shared property and tenant-payer identity between payment and lease records; Q3 tests possession/lease property; Q4/Q5 involve rights status and possession; Q6 tests possession/suit property; Q7 tests loss-of-possession/possession property; Q8 additionally requires lease-before-suit timing. Natural-language meanings remain unchanged; definitions were not adjusted to increase matches.',
+              'Q8 remains unknown where relevant records exist but timing is unapproved. Some formerly definite results are withdrawn; some NOT_FOUND results become UNKNOWN because required identity or status fields were not approved. NOT_FOUND means no match in currently usable records, not absence in the source or reality. fixed-query-statuses.csv and per-item JSON preserve every result and its evidence.', '',
+              '4. Pattern Search Results', '', 'Version/scope | Generated and executed candidates | Candidates recurring in at least two cases | Recurring candidates containing factual records']
     for side in ['A', 'B']:
         for profile in ['CORE', 'ATLAS', 'NATIVE']:
             info = summary['runs'][side + '/' + profile]
             lines.append('%s %s | %d/%d | %d | %d' % (side, profile, info['generated'], info['executed'], info['repeated'], info['repeated_with_fact_witnesses']))
-    lines += ['', '本次全部生成候选都在1000预算内执行，未发生截断。ATLAS的A/B重复候选为22/7；其中20/6仅含程序行为，另2/1包含事实与程序的组合，没有纯事实组合达到两案重复门槛。只连接法院的重复候选为4/2；A还有7个同类记录配对，可能反映重复表述或不同阶段，未认定现实事件不同。这些标签可以重叠，不能直接相减当成剩余有效模式数。',
-              'A/B共同重复候选%d个；提取差异及字段批准范围仍会改变发现结果。' % len(a_ids & b_ids),
-              '一个两份标注都出现的例子是：“存在占有记录及撤销判决记录，指向同一财产ID”，出现在1064407与184866874。它只说明这些限定记录连接到同一个对象，未连接到同一个请求或同一个时期，不能推出占有合法或某方应胜诉。A另有“租客与上诉人同一对象”的两案候选，仍主要反映参与程序的身份结构。',
-              '原条件性运行A/B的6/3个核心重复候选，在相同旧候选集合上读取核查后的记录，重复数均为0；previous-pattern-change-trace.json列出每个旧实例为何不再得到确定匹配。不能把这解释成真实模式必定不存在，原因可能是记录被限制、对象连接未获批准、来源不确定或样本缺少可比事实。', '',
-              '5. 程序验证及实验解释', '',
-              '独立穷举程序为CORE A/B各检查827个模板，为ATLAS检查6527/5032个模板；有确定实例的候选与搜索器完全相同。全部范围的候选执行状态、确定绑定、未知绑定及支持数通过独立程序比较。NATIVE验证了全部已生成候选的执行，未声称穷举原生语言的所有模板。程序独立不等于来源核查独立，也不证明模式的法律用途。',
-              '本地程序测试共91项通过。新增测试检查角色改名不提升权限、已知日期未获批仍不可计算、未知源角色随改名继续受限、双连接枚举、同案计数及输入不变。人工构造例子仅验证程序；这五案是真实开发数据，但不是20案独立检查集。',
-              '关系与共现会得到不同状态；本次没有独立逐查询答案，因此没有把所有差异计作真实错误或报告准确率。来源审核是模型生成并经来源核查的参考材料，不是人类金标准。没有胜败标签训练、付费API或新的网页任务。', '',
-              '6. 下一步', '',
-              '现在已完成接入、任务类型统一及开发运行。冻结20案前需要固定具体请求类型与抽样单位；目前五案混合租赁、征地、信托及管理权，适合检查流程，但不能用这批程序重复模式证明事实抽象能够跨同类案件复用。下一批应按材料完整性和纠纷分组选同类案件，而不是按本轮预测正确率或是否出现模式选样本。',
-              '仍需在冻结配置下完成模型直接阅读、模型结构化后回答与执行器的预定对照；本报告只完成本地程序实验。不要通过改写这五案或调整重复门槛来制造模式。对于已有清单指出的关键修正，只有预定查询确实需要时才制作有版本和证据的局部修订，不重新抽取所有记录。', '',
-              '复现：python3 scripts/run_reviewed_development_v03.py --out 新目录',
-              '中断恢复：同一参数加--resume，输入／代码哈希变化时拒绝复用。',
-              '报告：python3 scripts/report_reviewed_development_v03.py --run 运行目录']
+    lines += ['', 'All generated candidates fit within the 1,000-candidate budget, without truncation. ATLAS yields 22/7 recurring candidates for A/B: 20/6 contain only procedural acts and 2/1 mix facts with procedure. No purely factual combination reaches two-case support. Court-only joins account for 4/2; A also has 7 same-type record pairs that may reflect repeated descriptions or stages, not established distinct events. Categories overlap and cannot be subtracted to count remaining valid patterns.',
+              'A/B share %d recurring candidates. Extraction differences and field-approval scope still change discovery results.' % len(a_ids & b_ids),
+              'An example present in both annotations links a possession record and a judgment-reversal record to the same property ID in 1064407 and 184866874. This establishes only that those scoped records share an object, not a request or period, lawful possession or entitlement to win. A also has a two-case tenant-appellant identity candidate, mainly reflecting procedural participation.',
+              'The earlier conditional run yielded 6/3 recurring CORE candidates for A/B. On the same old candidate sets with reviewed records, both counts become 0. previous-pattern-change-trace.json explains why each old instance loses definite support. This does not prove the patterns absent: restrictions, unapproved joins, uncertain sources or missing comparable facts may explain the change.', '',
+              '5. Engineering Validation and Interpretation', '',
+              'The independent enumerator checks 827 templates per CORE side and 6,527/5,032 ATLAS templates. Candidates with definite instances exactly match the searcher. Execution statuses, definite/unknown bindings and support counts agree across all scopes. NATIVE checks every generated candidate, without claiming exhaustive coverage of its language. Program independence is not source-review independence or proof of legal usefulness.',
+              'All 91 local tests passed. Added checks cover permission-preserving role renaming, unapproved known dates remaining unusable, unknown source roles staying restricted after renaming, double-join enumeration, per-case counting and unchanged inputs. Synthetic cases validate programs; these five real development cases are not an independent 20-case evaluation set.',
+              'Relation and co-occurrence methods yield different statuses, but no independent per-query answers are available. Differences are therefore not counted as errors or accuracy. Source reviews are source-checked model references, not human gold. No outcome-label training, paid API calls or new web tasks occurred.', '',
+              '6. Next Step', '',
+              'Integration, task-type standardization and development execution are complete. A 20-case freeze still requires a fixed request type and sampling unit. The current mix of leases, acquisition, trusts and management rights tests workflow, but recurring procedural patterns do not establish reusable factual abstraction across comparable cases. Select the next cases by source completeness and dispute grouping, not prediction success or pattern occurrence.',
+              'The prespecified comparison of direct model reading, model-structured answering and the executor remains to run under a frozen configuration; this report covers local program experiments only. Do not rewrite these five cases or adjust support thresholds to manufacture patterns. Make versioned, evidenced local corrections only when fixed queries require corrections already identified in the review list; do not re-extract everything.', '',
+              'Reproduce: python3 scripts/run_reviewed_development_v03.py --out NEW_DIRECTORY',
+              'Resume with the same arguments and --resume; changed input/code hashes prevent reuse.',
+              'Report: python3 scripts/report_reviewed_development_v03.py --run RUN_DIRECTORY']
     content = '\n'.join(lines) + '\n'
     path = root / 'report-v2.txt'
     if path.exists() and path.read_text() != content:

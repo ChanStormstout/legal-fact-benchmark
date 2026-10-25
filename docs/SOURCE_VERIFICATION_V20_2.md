@@ -1,34 +1,34 @@
-# V20.2：十项代码修复与缓存验收
+# V20.2: ten code repairs and cache acceptance
 
-本版本承接 V20.1 的原始缓存，新增入口 `scripts/proof_source_verification_v20_2.py`；结果保存在 `outputs/proof-source-verification-repair-v20-2`。用户授权的是集中修复 F01–F10，并用缓存和真实调用链验收。旧批次继续暂停，本轮未生成模型回答、运行嵌入推理、训练或提交网页任务。旧源码、提议、失败输出、预算和规则合同保持原字节。
+This version consumes V20.1 originals through `scripts/proof_source_verification_v20_2.py`, saving results in `outputs/proof-source-verification-repair-v20-2`. Authorization covered consolidated F01–F10 repair and acceptance through caches/actual call chains. The old batch stays paused. No model generation, embedding inference, training, or website submission ran. Old code, proposals, failed outputs, budgets, and contracts remain byte-identical.
 
-P 指模型的初次结构化提议，Q 指随后针对来源的核验及局部补充。SUPPORTED、UNSUPPORTED、UNRESOLVED 分别表示来源支持声明、来源不支持声明、语义上无法确定。未核验的声明没有这三个标签，保存为 null；程序为了限制未核验内容的使用，可以将其应用状态设为 UNRESOLVED，但会同时保存原始标签和应用状态。
+P is an initial structured proposal; Q is subsequent source review/local supplementation. SUPPORTED, UNSUPPORTED, and UNRESOLVED mean source support, lack of support, and semantic uncertainty. Unreviewed claims have null labels, not one of those three. Application may restrict them as UNRESOLVED while separately retaining original label and application state.
 
-| 问题 | 修复及验收依据 |
-| --- | --- |
-| F01：非法局部 EV 依赖在生产应用中被滤除，独立检查仍保留，导致整案拒绝 | 生产应用与独立检查分别检查原始依赖中的非法标记和越界编号，仅将对应用途保留为未决；五案缓存中旧两案拒绝降为零，故障注入仍能检出未经授权的转换。 |
-| F02：反对来源 counter_refs 被忽略 | UNSUPPORTED 可由有效主来源或反对来源支撑；SUPPORTED 仍要求主来源。仅含反对来源的正向判断隔离并保留引用，不能据此产生正向支持。 |
-| F03：网页分数覆盖本地技术状态 | 本地运行记录和正式回答共同决定技术状态；空回答不能完成，评分导入不得改写该状态。截断且空回答的故障注入不再获得完成或语义成功分数。 |
-| F04：评分缺少提交与输入来源链 | 每个评分批次绑定任务、回复、接收记录、规则与来源、检查清单、固定盲序及实际回答哈希；严格核对批次的预定回答编号，并拒绝跨批重复。 |
-| F05：未核验、隔离和技术失败混为语义 UNRESOLVED | 每项声明保存 REVIEWED、NOT_REVIEWED 或 QUARANTINED，另存核验执行原因；正式语义标签可为 null。核验覆盖率明确不属于语义准确率。 |
-| F06：取合并结果的 answer 后丢失 PARTIAL 和分包失败 | 候选装配、应用、独立检查和最终材料传递完整执行上下文，保存 P/Q 分包状态与组合快照。执行状态供最终回答读取，Q 自评标签、核验理由和执行状态不进入分类器特征。 |
-| F07：旧合并文件永久复用 | 每次按分包运行与正式输出的哈希计算组合身份；新完成分包产生新的不可变快照，旧快照保留。全局装配须等所有 Q 位置终结，单案缓存验收可以显式处理部分结果。 |
-| F08：冻结漏掉真实依赖和配置 | AST 递归解析本地导入，包括函数内部及相对导入；显式入口补充编码子进程和验收入口。冻结 106 个依赖源码文件及 3 个关键配置，并验证材料与配置漂移。 |
-| F09：暂停只保护生成入口 | P、Q、最终回答、fit、fit-one、encode 均在构造执行器前检查暂停；P 连续失败停止条件在重入时保持。六个暂停入口均返回 PAUSED。 |
-| F10：缺失或重复预测仍输出正式数值指标 | 严格核对编号唯一性、概率合法性及标签一致性；缺失、空集或 null 预测将正式 F1、错误率和 NLL 置为 null，已完成子集仅作诊断，禁止参与完整方法比较。 |
+| Issue | Repair and evidence |
+|---|---|
+| F01: production dropped invalid local EV dependencies while the checker retained them, rejecting whole cases | Both independently inspect original invalid markers/out-of-range IDs and leave only affected uses unresolved. Two old cache rejections became zero across five cases; injected unauthorized transformations remain detected. |
+| F02: ignored `counter_refs` | UNSUPPORTED can use valid primary/opposing sources; SUPPORTED still needs primary sources. Positive judgments with only counterevidence remain isolated with citations retained. |
+| F03: website scores overwrote technical status | Local run records and formal answers jointly determine technical status. Empty/truncated answers cannot be scored completed or semantically successful, and imports cannot rewrite that status. |
+| F04: missing scoring submission/input provenance | Each batch binds task, reply, receipt, rules/sources, checklist, fixed blind order, and answer hashes. Planned answer IDs must match; cross-batch duplicates are rejected. |
+| F05: unreviewed/quarantined/technical failures conflated with semantic UNRESOLVED | Claims retain REVIEWED, NOT_REVIEWED, or QUARANTINED plus execution reasons; semantic labels may be null. Review coverage is not accuracy. |
+| F06: extracting merged `answer` lost PARTIAL/partition failures | Candidate assembly, application, checks, and final material propagate P/Q statuses and combined snapshots. Final writing reads execution state; classifiers exclude Q self-labels/reasons/execution status. |
+| F07: permanently reused old merged files | Partition run/output hashes define composition identity. New completions create new immutable snapshots; old ones remain. Global assembly awaits every Q terminal slot; explicit per-case cache acceptance may process partial results. |
+| F08: incomplete dependency/config freeze | Recursive AST import discovery covers local, in-function, and relative imports; explicit entries add encoding subprocess/acceptance dependencies. Freeze includes 106 source files and three key configs with drift checks. |
+| F09: pause guarded generation only | P, Q, final, fit, fit-one, and encode check pause before constructing executors. P consecutive-failure stopping persists on reentry. All six paused entries return PAUSED. |
+| F10: missing/duplicate predictions still yielded formal metrics | Strict ID/probability/label validation; missing, empty, or null predictions make formal F1/error/NLL null. Completed-subset metrics are diagnostic only, not full-method comparisons. |
 
-## 真正进入验收的调用链
+## Actual acceptance chain
 
-统一入口为 `scripts/proof_source_verification_accept_v20_2.py`。36 项既有相关测试和 18 项新增回归测试全部通过，共 54 项。验收先复制旧缓存，再通过新实际入口组合 P/Q、装配候选和共同输入、应用 Q 判断、执行独立检查、构造最终材料。最终提示使用真实本地 tokenizer 计数，未加载模型权重。验收在冻结后重放同一调用链，并核对旧材料哈希。
+`scripts/proof_source_verification_accept_v20_2.py` is the unified entry. All 36 existing and 18 new regression tests passed (54 total). Acceptance copies old caches, then uses the new real entry to combine P/Q, assemble candidates/shared inputs, apply Q judgments, run independent checks, and construct final material. The real local tokenizer counts final prompts without model weights. The same chain replays after freeze and verifies old hashes.
 
-五案缓存为 277181、280457、444449、569555、923000。A、C、D 使用实际来源与缓存；E/F/G 使用显式注入的合成 SUPPORTED 判断，只测试预测接口、应用和最终材料保真；这些判断没有经过训练，也不能用于能力比较。B 的真实分派入口在单元测试中通过合成传输验证，缓存验收中缺少真实 A 时按依赖拒绝。网页评分来源链用合成记录验证，未新增网页评分。
+Cases: 277181, 280457, 444449, 569555, 923000. A/C/D use real sources/caches. E/F/G inject explicit synthetic SUPPORTED judgments solely for prediction-interface/application/final-material fidelity; they are untrained and cannot compare capabilities. B's real dispatch entry uses synthetic transport in unit tests; cache acceptance rejects missing real A by dependency. Synthetic records verify website-scoring provenance; no new website scoring occurred.
 
-验收分别确认了 951 个旧批次文件与旧冻结源码，以及 631 个复制缓存文件的字节哈希。新输入快照和最终材料仅保存于新版本目录。模型输入、编码与监督数据在拟合前后检查哈希；E/F/G 最终入口同时核对预测文件、拟合输入及当前组合材料。新输出根已登记，原始任务、缓存、私密记录、权重及冻结源码副本排除在本地发布清单之外。
+Hashes confirm preservation of 951 old batch files/frozen code and 631 copied cache files. New snapshots/final material stay in the new directory. Input/encoding/supervision hashes are checked around fitting. E/F/G final entries also match prediction files, fit inputs, and current material. The new output root is registered; raw tasks, caches, private records, weights, and frozen-code copies are excluded from publication.
 
-## 仍然没有取得的研究结果
+## Research results not established
 
-五案共 748 项待核验声明，旧缓存中正式可用的 Q 判断由 73 项恢复至 80 项，新增的 7 项均为具有有效反对来源的 UNSUPPORTED；6 项仅有反对来源的 SUPPORTED 仍隔离。80/748 表示核验覆盖情况，不能表示准确率。对象错绑、法院阶段混淆、OPEN_TEXT 规则和缺少共享变量合同仍需来源层面的后续研究。
+Across five cases, 748 claims await review. Formally usable old Q judgments increased from 73 to 80; all seven recovered judgments are UNSUPPORTED with valid opposing sources. Six SUPPORTED judgments with only opposing citations remain isolated. 80/748 is coverage, not accuracy. Wrong bindings, court-stage confusion, OPEN_TEXT, and missing shared-variable contracts still require source-level research.
 
-277181、569555、923000 的 D–G 最终材料在预留 8,192 输出 tokens 和 256 模板余量后超过 65,536 上下文预算。接口已能构造并检查材料，真实生成仍须按既有容量门禁拒绝，不能通过截断来源来声明问题已解决。10 个 DEV 仍没有 P，完整回答与训练比较尚未运行。
+D–G material for 277181, 569555, and 923000 exceeds the 65,536 context budget after reserving 8,192 output tokens and 256 template tokens. Interfaces construct/check material, but real generation must still reject it under existing capacity gates; sources cannot be truncated to claim resolution. Ten DEV cases still lack P. Final-answer/training comparisons have not run.
 
-本轮完成工程修复与本地审阅包；原批次暂停持续有效。后续恢复、训练、生成或网页评分需要对应授权，工程验收不授予法律批准，也不证明学习模型改善了最终回答。
+This round completed engineering repairs and local review preparation, not legal approval or demonstrated learned-model final-answer improvement. The old batch remains paused. Resume, training, generation, and website scoring require their corresponding authorization.

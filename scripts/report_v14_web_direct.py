@@ -130,32 +130,38 @@ write(ROOT/'preservation-check.json',{'historical_files':len(start['historical_f
     'initial_preparation_script_hash':start['code'].get('scripts/prepare_v14_web_direct.py'),'frozen_actual_preparation_script_hash':sha('scripts/prepare_v14_web_direct.py')})
 write(ROOT/'stop.json',{'reason':'TWO_INDEPENDENT_WEB_ANSWERS_AND_ONE_SOURCE_REVIEW_COMPLETE','web_answers':2,'retries':0,'new_local_calls':0,
     'no_semantic_repair':True,'no_next_round_commit_or_push':True})
-report=f'''V14：相同材料的普通High网页直接回答对照
+report=f'''V14: same-material ordinary High browser direct-answer comparison
 
-投入决定：网页High配置在两案明显减少基础来源错误，值得继续考虑；暂缓给9B流程增加复杂组件。这个结果说明本轮那些来源误读并非在相同任务材料下不可避免，但不能证明错误根因只在参数规模。网页界面只显示ChatGPT和High/高，没有具体型号；本轮只能比较实际网页配置，不能将它标成已确认的GPT型号。两份答案都是UNDETERMINED，但改善证据来自具体来源处理，而不是标签一致。
+Decision: browser High substantially reduces basic source errors in both cases and merits consideration; defer extra complexity in9B. These misreadings are not inevitable with the same materials, but parameter scale is not established as their sole cause. The UI shows ChatGPT and High, not an exact model. This compares the actual browser configuration, not a confirmed GPT model. Both answers are UNDETERMINED; improvements are specific source-handling changes, not label agreement.
 
-范围及执行
-661475、1134266各一个新普通High对话，各一次回答，固定顺序。两案V13 D实际prompt前缀原字节、问题、完整示例、允许来源和各自法律包保持一致，附上同一Schema；新增文字只说明完整读取任务、禁止外部搜索/其他版本/其他对话及一次性输出。附件不含旧答案、B提议、检查、评价提示或被排除的目标最终理由。网页无本地逐token约束；内部thinking、采样、预算及文件处理不同，属于同信息范围跨模型/运行配置开发诊断。源材料仍是两个历史开发案件，保留回顾性、后出法源、下级信息及研究者基础公式边界。
-Chrome文件上传的file URL权限未启用，没有改浏览器权限。通过网页输入框完整粘贴，由界面自动生成文本附件；逐字比较网页附件预览与实际提交文本，两案均完全相等。保留完整任务文件、实际附件、正文、哈希与对话URL。模型是否内部逐字阅读所有内容不可独立观察；回复引用了本案各个主要来源，没有看到读取失败、外部搜索或混入项目历史的迹象，不冒称内部机制相同。
-两份回答完整结束，原始回复均在已闭合JSON后附独立END。本地仅删除该后缀，字段/内容不改，使用现有contracts.validate验证同一Schema；1134266复制出的附件引用名保留于reason。没有补字段、改状态或借网页修复旧答案。网页未给下载JSON链接，因此保存完整原回复和解析文件，没有追问生成文件。
+Scope and execution
+One new ordinary High chat and answer each for661475/1134266, in fixed order. Actual V13 D prompt prefixes, questions, full examples, allowed originals, case legal packages, and schema are unchanged. Added text only requests full reading, forbids outside search/versions/chats, and specifies one output. Attachments exclude old answers, B proposals, checks, evaluation hints, and target final reasons. Browser generation lacks local token-by-token constraints and differs in thinking, sampling, budgets, and file handling. This is a same-information cross-configuration development diagnosis, retaining retrospective/later-law/lower-court/researcher-formula limits.
 
-661475：减少的错误与仍未确定的部分
-网页g2准确保存Rent Controller的两儿子独占、父亲交出占有认定，并说明共同经营抗辩因缺少财务资料被否定。这比本地D遗漏主要反对理由更完整。网页g3明确1965起诉/后续裁定日期不是转移事件日期，避免本地D用起诉时间证明1952之后；g4明确父亲许可来自租户而非房东，且没有材料证明房东具体书面同意或其不存在。reason正确保留“缺乏书面同意”这个条件的否定方向，没有把正面书面同意当腾退成立的必要条件。
-原文p0001.s004：“the first appellant has parted with possession of their portion to them”；同段明确没有接受joint business。p0002.s002@0:412只是父亲许可儿子占用的律师论点。已有下级认定仍保留，转移日期与房东同意状态未定不使它消失。网页没有要求必须另证subletting/assignment才接受parting。未发现同等严重新增错误；g3日期描述的引用没有准确指向p0001.s001，是较轻引用精度问题。未完整复述两次上诉的程序结果，未在最终回答展开历史版本边界，不视为全部法律分析已完备。
+Chrome file-URL upload permission was unavailable and not changed. Full tasks were pasted into the editor, which created text attachments. Preview and actual submitted text matched verbatim in both cases. Full tasks, attachments, bodies, hashes, and chat URLs are saved. Internal word-by-word reading cannot be independently observed. Replies cite major case sources, with no observed reading failure, external search, or project-history contamination; identical internal mechanisms are not claimed.
 
-1134266：减少的错误及重要遗漏
-网页g1正确保留原租户American Company与registered lease deed，避免本地D反写unregistered并套用另一案不可采规则。g2保存Bombay High Court于31.12.1981批准及权利转归Indian Company，g3另行保留其是否构成S14特定转移的法律争议，没有再把批准事实说成缺失。g4没有把房东无同意指控和缺少反证当成无同意已经成立。g5保留ARC驳回、Tribunal反转、Delhi High Court维持的程序层级，同时不猜这些结果背后的具体条件认定，更不升级为目标最高法院最终认可。
-p0002.s001原文：“vide a registered lease deed dated 11.7.1966”；p0002.s003：“which was allowed on 31.12.1981, and a scheme of amalgamation was sanctioned”。这些是本地D反写/遗漏而网页保留的明确内容。网页没有新增V13 B-P的“法院批准等于房东默示同意”抗辩，也没有将另案associate concern/家庭许可事实搬入公司案。
-网页仍没有充分处理租户FERA强制/HP抗辩及房东“降低股本可有多种路径、没有命令必须合并”的具体反驳。审阅已对照p0002.s007、p0003.s006–s008和p0004.s001，而非只看网页引用。g3主要保留corporate-shell争议，完整法律回答仍有重要遗漏；“1981 amalgamation”只能稳定理解为批准方案的称呼，不能证明权利转归的具体生效日，不从被排除材料补答案。批准/归属事实已知而法定定性未决，是合法区分；包中未提供完整公司合并及强制抗辩的法律处理，不要求猜回历史结论。
+Both replies completed, with independent END suffixes after closed JSON. Local processing removes only that suffix, preserving fields/content and validating the same schema with contracts.validate. The copied attachment reference name in1134266's reason remains. No fields/statuses were repaired and browser output did not replace old answers. No downloadable JSON links were provided; complete raw replies/parses were saved without asking for regenerated files.
 
-成本与记录
-网页回答2、本地模型0、API0、重试0、额外网页复核0；两次只生成直接回答。界面思考时长显示29s和49s，不能当总生成时间。发送到首次确认完整结束的观察上界分别{runs[0]['observed_submit_to_completion_upper_bound_seconds']:.1f}秒和{runs[1]['observed_submit_to_completion_upper_bound_seconds']:.1f}秒，包含观察间隔，不是精确模型耗时；网页输入/输出tokens、峰值内存、底层采样参数均不可得，保持null，不据此计算相对9B成本倍数。本地D记录为64.2/64.8秒，但生成机制不同，不声称成本完全可比。
-661475：{runs[0]['conversation_url']}
-1134266：{runs[1]['conversation_url']}
+661475: reduced errors and remaining uncertainty
+Browser g2 preserves the Rent Controller's sons-exclusive-occupation/father-parting findings and rejection of joint business for missing financial records, more complete than local D. g3 separates1965 filing/later judgment dates from transfer timing, avoiding the unsupported post1952 inference. g4 attributes permission to the tenant father, not landlord, and retains uncertainty about specific landlord written consent/absence. The reason correctly preserves the negative without-consent condition rather than requiring positive consent for eviction.
 
-解释与停止
-两案均减少明确事实反写、来源角色混淆及制造缺口；661475额外保留反对理由，1134266额外保留下级程序层级。未确认与本地D同等严重新增错误，但1134266仍有重要反对理由遗漏，不把网页答案称gold或完全正确。V13 B-P只作背景，未新增受测条件。法源真正覆盖不足与模型误读分别记录，旧审阅依据无须修订。现有证据支持暂缓复杂化9B流程并考虑实际网页High配置；不能断言模型大小是唯一原因、9B普遍无能力或网页具独立裁判准确率。
-完整答案、actual submission/source/schema/hash、原始回复、格式处理、比较表及来源恢复均保留。评价标记模型辅助来源审阅、非人工金标准，不计算两案准确率排名。{len(start['historical_files'])}历史文件原字节不变，算法/运行器没有改动；准备脚本的路径包装修正发生在首个模型提交前，单独记录，不混成受测方法修复。更新本地文档、实验索引和审阅包并完整性核验后停止；不补跑、不修改算法、不加法源、不重答、不提交或推送。
+p0001.s004 states “the first appellant has parted with possession of their portion to them” and rejects joint business. p0002.s002@0:412 is counsel's father-permission argument only. Unknown transfer timing/landlord consent does not erase lower findings. The browser does not demand separate subletting/assignment proof before accepting parting. No comparably serious new error was found. g3's date citation fails to point precisely to p0001.s001, a lesser citation-precision issue. The answer does not fully recount both appeals or historical-version limits; complete legal analysis is not established.
+
+1134266: reduced errors and important omissions
+g1 preserves the American Company as original tenant and a registered lease, avoiding local D's reversal/inapposite inadmissibility rule. g2 retains Bombay High Court approval on31.12.1981 and vesting in Indian Company; g3 separately leaves S14 characterization disputed rather than erasing approval. g4 does not turn landlord allegations/no displayed rebuttal into established absence of consent. g5 retains ARC dismissal, Tribunal reversal, and Delhi High Court affirmance without inventing their condition-level findings or Supreme Court endorsement.
+
+p0002.s001 says “vide a registered lease deed dated 11.7.1966”; p0002.s003 says “which was allowed on 31.12.1981, and a scheme of amalgamation was sanctioned”. These are explicit facts local D reversed/omitted. The browser adds neither V13 B-P's implied-consent theory nor another case's associate/family-permission facts.
+
+It still inadequately handles FERA-compulsion/HP defenses and the landlord's capital-reduction alternatives/no-mandatory-merger rebuttal. Review included uncited p0002.s007, p0003.s006–s008, and p0004.s001. g3 mainly retains the corporate-shell dispute, leaving important omissions. “1981 amalgamation” reliably names scheme approval, not a separate vesting effective date; excluded material is not used to fill it. Known approval/vesting and unresolved statutory characterization are distinct. The package lacks complete merger/compulsion doctrine; historical outcomes should not be guessed.
+
+Costs and records
+Two browser answers, zero local generations/API/retries/extra browser reviews; direct answers only. Visible thinking29s/49s is not total generation time. Send-to-first-confirmed-completion upper bounds are {runs[0]['observed_submit_to_completion_upper_bound_seconds']:.1f}s and {runs[1]['observed_submit_to_completion_upper_bound_seconds']:.1f}s, including observation intervals. Browser input/output tokens, peak memory, and sampling are unavailable/null; no relative9B cost multiplier is inferred. Local D recorded64.2/64.8s, but differing generation mechanisms preclude fully comparable cost claims.
+661475: {runs[0]['conversation_url']}
+1134266: {runs[1]['conversation_url']}
+
+Interpretation and stopping
+Both cases reduce factual reversals, role confusion, and invented gaps;661475 additionally restores counterarguments and1134266 procedural levels. No equally serious new error was confirmed, but1134266 retains important omissions; neither browser answer is gold or fully correct. V13 B-P is background only, not a newly tested condition. True legal-coverage gaps and source misreading remain separate; old source reviews need no revision. Evidence supports deferring9B complexity and considering actual browser High, not declaring size the sole cause,9B universally incapable, or independent adjudication accuracy.
+
+Complete answers, submissions/sources/schema/hashes, raw replies, format treatment, comparison tables, and recovered sources are saved. Evaluation is model-assisted source review, not human gold or two-case accuracy ranking. All {len(start['historical_files'])} historical files are byte-identical; algorithms/runners were unchanged. A preparation-script path-wrapper repair preceded the first submission and is separately recorded, not conflated with method repair. Stop after local docs/index/review updates and integrity checks, without reruns, algorithm/source changes, reanswering, commit, or push.
 '''
 (ROOT/'report-zh.txt').write_text(report,encoding='utf-8')
 print(json.dumps({'root':str(ROOT),'answers':2,'decision':review['decision'],'format_normalizations':2},ensure_ascii=False))

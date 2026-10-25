@@ -1,21 +1,21 @@
-# V19：固定本地LLM的完整流程比较
+# V19: complete-pipeline comparison with a fixed local LLM
 
-本版保持判决推理重建任务及原30 TRAIN／10 DEV。77份P任务和70份A—G完整回答为冻结的预定清单，不是完成数。V18仍暂停，历史失败不改写。本轮不读取TEST／SEALED、不下载模型、不搜索法源、不提交推送。
+The task remains judgment-reasoning reconstruction with the original 30 TRAIN/10 DEV split. The 77 P tasks and 70 A–G final answers are a frozen planned list, not completion counts. V18 remains paused; historical failures are unchanged. No TEST/SEALED access, model downloads, law search, commit, or push.
 
-P按现有规则的前提目录逐项整理事实记载、陈述地位、对象、用途及整体判断。多个对象判断保留为独立记录；NOT_ANALYZED与分析后UNKNOWN区分。程序生成内部地址和版本，模型提出的语义连接与必要组成部分始终未经独立法律批准。
+P organizes factual records, statement status, objects, uses, and overall judgments against each existing rule's premise catalog. Multiple object-specific judgments remain separate. NOT_ANALYZED differs from UNKNOWN after analysis. The program assigns internal addresses/versions; model semantic links and necessary components remain without independent legal approval.
 
-证据依赖使用明确的“必要组成部分AND／独立替代OR／一组用途AND”。用途可用不会自行生成前提TRUE；补充引文失效局部隔离；必要依据失效时，只限制依赖它且没有合法替代的前提。支持、反对、背景及整个前提状态分开保存，反论进入实际处理。规则仅执行现有ALL／ANY；201条OPEN_TEXT和不存在合同的跨规则连接继续注明未实现。
+Dependencies explicitly distinguish AND across necessary components, OR across independent alternatives, and AND within a use group. Usability does not generate premise TRUE. Invalid supplementary citations are isolated locally; invalid necessary support affects only dependent premises without a lawful alternative. Support, opposition, background, and whole-premise state are separate, with counterarguments entering computation. Only existing ALL/ANY operations execute. The 201 OPEN_TEXT rules and cross-rule links lacking contracts remain unimplemented.
 
-角色类型不作为变量或身份。未声明跨前提相等关系的角色保留局部地址；显式对象链接保留来源及MODEL_PROPOSED地位，不能通过同名或同类型自动合并。程序能够检查明确地址、引用、类型冲突及指定阶段，不自动证明自由文字中的身份、阶段或方向解释正确。
+Role type does not establish a variable or identity. Roles lacking declared equality retain local addresses. Explicit object links retain sources and MODEL_PROPOSED status; matching names/types do not merge objects. Programs check explicit addresses, references, type conflicts, and declared stages, not the correctness of free-text identity, stage, or directional interpretation.
 
-来源优先完整输入。39案每份P均含完整允许案情；1887042超容量时沿用三份既有窗口，按规则分组的来源并集完整。不得摘要替换或删反证。最终回答均读取完整允许来源。
+Complete sources take priority. Each P in 39 cases receives all permitted case material. Over-capacity case 1887042 uses three pre-existing windows whose rule-group source union is complete. No summary substitution or removal of counterevidence. Every final answer receives all permitted sources.
 
-保存入口采用版本化合并检查点及派发前后暂停检查。已开始而未确认的任务不自动重发；尚未启动、技术失败、依赖跳过和主动暂停区分。预测文件校验类别顺序、输入版本、哈希和完整候选ID；E／F／G不回退P自评。
+Saving uses versioned merge checkpoints and pause checks before/after dispatch. Started but unconfirmed tasks are not resent automatically. Not-started, technical-failure, dependency-skip, and deliberate-pause states differ. Prediction files validate class order, input version/hash, and complete candidate IDs; E/F/G do not fall back to P self-assessment.
 
-Flat、CrossEncoder、R-GCN共用原P、规则、恢复原文和实际关系。原文在共同材料池中唯一保存，CrossEncoder缓存共同token块，以语义记录边界形成完整窗口；超长块分段注明限制。保留既有平均窗口分数，全部token编码不证明跨窗口法律关系已被理解。架构、优化器与单种子预算不变。
+Flat, CrossEncoder, and R-GCN share original P, rules, restored sources, and actual relations. Sources are stored once in a shared pool. CrossEncoder caches shared token blocks and constructs complete windows at semantic-record boundaries; oversized blocks are split with limitations recorded. Existing mean window scoring remains. Encoding every token does not prove understanding of cross-window legal relations. Architectures, optimizers, and single-seed budgets are unchanged.
 
-首个DEV136109先运行P及A／B／C／D。最前两次正式P如同类重复或截断且不可读取，即停止后续P；A／B仍独立，依赖条件明确为null或跳过，不调prompt重跑。新用途监督只能核验本轮实际P；原P和TRAIN先验是局部基线，最终评分参考在首个DEV答案之前冻结。
+DEV136109 first runs P and A/B/C/D. If the first two formal P attempts exhibit the same unreadable repetition/truncation failure, subsequent P dispatch stops. A/B remain independent; dependent results explicitly become null or skipped, without prompt tuning or reruns. New use supervision may evaluate only actual P from this batch. Original P and TRAIN priors are local baselines; final scoring references freeze before the first DEV answer.
 
-工程验收使用17项直接相关测试、实际tokenizer与修复约束器回放、实际E5编码和CrossEncoder token输入检查，以及真实调度入口的模拟流暂停／保存／恢复／合并。模拟流不是生成模型成绩；独立检查重算明确的来源、对象、阶段、依赖与组合，不能独立证明模型法律含义。
+Engineering acceptance used 17 directly relevant tests, actual-tokenizer/repaired-constraint replay, actual E5 encoding and CrossEncoder token-input checks, and simulated streaming through real dispatch/pause/save/resume/merge. Simulated streams are not generation scores. Independent checks recompute explicit source/object/stage/dependency/composition constraints without independently proving model legal meanings.
 
-运行入口为 `scripts/proof_local_comparison_v19.py`，阶段为capacity、freeze、early、P、encoding、rows、fit和final；编码与盲化评分入口为 `scripts/proof_local_integrate_v19.py`。运行前校验冻结源码与材料哈希。实际原始输出、token IDs、训练权重、账户截图及评分任务仅在本地保存，公开审阅包只包含允许的报告、合同、元数据和代码。
+Entry: `scripts/proof_local_comparison_v19.py`, with capacity, freeze, early, P, encoding, rows, fit, and final stages. Encoding/blinded scoring: `scripts/proof_local_integrate_v19.py`. Frozen code/material hashes are checked before execution. Raw outputs, token IDs, weights, account screenshots, and scoring tasks remain local. Public review includes only permitted reports, contracts, metadata, and code.

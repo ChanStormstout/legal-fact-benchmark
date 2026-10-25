@@ -23,7 +23,7 @@ def main():
  before=read(R/'preservation-before.json');bad=[p for p,h in before.items() if not Path(p).exists() or hashlib.sha256(Path(p).read_bytes()).hexdigest()!=h];save(R/'preservation-after.json',{'checked':len(before),'changed':bad});assert not bad
  verify();save(R/'freeze-integrity.json',{'passed':True,'all_live_and_snapshot_hashes_unchanged':True})
  with (R/'answer-slots.md').open('w') as f:
-  f.write('# 原始答案入口\n\n')
-  for x in results:f.write(f"- {x['slot']}: {x['run_status']} — [结果](runs/{x['slot']}/result.json)\n")
+  f.write('# Original-answer index\n\n')
+  for x in results:f.write(f"- {x['slot']}: {x['run_status']} — [Result](runs/{x['slot']}/result.json)\n")
  print(json.dumps(cost,indent=2))
 if __name__=='__main__':main()

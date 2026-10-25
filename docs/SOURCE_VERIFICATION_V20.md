@@ -1,47 +1,47 @@
-# V20：来源核验与完整回答的实现边界
+# V20: source verification and complete-answer implementation boundaries
 
-本版本实现[来源语义核验方案](SOURCE_GROUNDED_VERIFICATION_PLAN.md)。旧生成批次的实际状态由[V20.1续接报告](../outputs/proof-source-verification-v20/continuation-01/report-zh.md)和[续接冻结协议](../outputs/proof-source-verification-v20/continuation-01/freeze/protocol.json)确定；[原V20报告](../outputs/proof-source-verification-v20/report-zh.md)保留暂停原因。接口已经接通，不代表所有阶段已经运行，更不代表法律分析得到改善。
+This version implements the [source-semantic verification plan](SOURCE_GROUNDED_VERIFICATION_PLAN.md). The [V20.1 continuation report](../outputs/proof-source-verification-v20/continuation-01/report-zh.md) and [protocol](../outputs/proof-source-verification-v20/continuation-01/freeze/protocol.json) establish the old generation batch's status. The [original V20 report](../outputs/proof-source-verification-v20/report-zh.md) preserves its pause reason. Connected interfaces do not mean every stage ran or legal analysis improved.
 
-V20.2已按后续授权完成十项代码修复与缓存工程验收，见[新实现边界](SOURCE_VERIFICATION_V20_2.md)和[五案验收报告](../outputs/proof-source-verification-repair-v20-2/report-zh.md)。原生成批次继续暂停，无新增训练或最终回答。下文保存V20的研究协议；本轮修复不变更其来源、规则、预算或数据划分。
+V20.2 later completed ten authorized code repairs and cache engineering acceptance; see its [implementation boundaries](SOURCE_VERIFICATION_V20_2.md) and [five-case report](../outputs/proof-source-verification-repair-v20-2/report-zh.md). The original batch remains paused, with no new training/final answers. The V20 research protocol below is historical; repairs did not change its sources, rules, budgets, or split.
 
-## 从原文到最终回答
+## Original sources to final answers
 
-P是同一本地LLM的初次结构化提议。Q是该模型随后读取完整允许来源、固定规则和原P后提出的来源核验及局部补充。原P保持不变，Q拥有单独的证据、对象、用途和前提判断记录。程序为两者生成不同地址，保存其生产版本。Q无法通过声称“已经核验”获得研究审阅或法律批准。
+P is the fixed local LLM's initial structured proposal. Q is the same model's source review/local supplementation after reading all permitted sources, fixed rules, and original P. P remains unchanged. Q has separate evidence/object/use/premise-judgment records, distinct addresses, and producer versions. Claiming verification does not grant research or legal approval.
 
-共同候选包含四种待核验声明：证据的陈述归属、对象绑定、具体证据用途、整个前提的依据。分类器统一回答来源是否支持这项明确声明，输出SUPPORTED、UNSUPPORTED或UNRESOLVED。这个标签的含义由声明决定：支持“证据反对命题p”不会使p成立；拒绝一个前提依据也不会把前提判为FALSE。
+Shared candidates represent four reviewable claims: evidence attribution, object binding, concrete evidence use, and whole-premise basis. Classifiers predict source support for the exact claim as SUPPORTED, UNSUPPORTED, or UNRESOLVED. Supporting “evidence opposes p” does not establish p; rejecting a premise basis does not make that premise FALSE.
 
-| 阶段 | 自动计算的内容 | 保留的限制 |
-| --- | --- | --- |
-| P与Q生成 | 固定来源目录和命题地址；模型提出语义连接 | 模型可能漏读、错绑或混淆法院阶段 |
-| 候选装配 | 为原P与补充记录生成地址；隔离无效、重复或无法引用的核验结果 | 不根据标签猜补人物或改写原始记录 |
-| 共同输入 | 引用原文、Q见证与反对依据及同文书相邻片段；完整记录关系 | 学习模型核验的是共同证据包，不能声称检出全文所有遗漏 |
-| 学习判定 | Flat、CrossEncoder、R-GCN预测相同候选的来源支持状态 | 模型不能创造候选、法律规则或批准记录 |
-| 局部应用 | 只限制失败的对象绑定、用途或前提依据；独立内容保留 | 支持性边不直接等于完整前提成立 |
-| 推导与独立检查 | 重算已有明确合同；检查转换保真、局部应用及结论范围 | 缺少共享变量合同和OPEN_TEXT规则保持边界 |
-| 最终回答 | 同一本地LLM读取完整来源、规则和对应方法的中间视图 | 程序检查通过不能替代最终来源审阅 |
+| Stage | Automatic computation | Remaining limitation |
+|---|---|---|
+| P/Q generation | Fixed source catalog/proposition addresses; proposed semantic links | Missed text, wrong objects, or court-stage confusion |
+| Candidate assembly | Addresses for P/supplements; isolation of invalid/duplicate/unreferenceable review | No guessed people or rewritten records based on labels |
+| Shared input | Cited sources, Q witnesses/opposition, neighboring same-document passages, full relations | Learners review this evidence package, not every omission in the full judgment |
+| Learned judgment | Flat, CrossEncoder, R-GCN predict the same candidates' support states | No new candidates, rules, or approvals |
+| Local application | Restricts failed bindings, uses, or premise bases; retains independent content | Supporting edges do not establish whole premises |
+| Derivation/checking | Recomputes explicit contracts; checks conversion, application, conclusion scope | Missing shared-variable contracts/OPEN_TEXT remain limitations |
+| Final answer | Same local LLM reads full sources, rules, and method-specific intermediate view | Program checks cannot replace final source review |
 
-来源核验LLM读取完整允许来源；三个学习模型读取相同的确定性证据包和关系信息。Flat使用编码后的同一信息，CrossEncoder对固定窗口的输出作聚合，R-GCN沿类型化关系传播。完整来源、证据恢复范围、编码分段和实际输入分别保存，不以其中一层代替另一层。Q的自评标签和核验理由不作为分类器的输入特征；待核验声明本身的命题状态仍属于任务内容。
+The verification LLM reads complete permitted sources. The three learned models share deterministic evidence packages and relations: Flat uses their encodings, CrossEncoder aggregates fixed windows, and R-GCN propagates typed relations. Sources, recovered evidence, encoding segments, and actual inputs are saved separately. Q self-labels/reasons are not classifier features; the claim's own proposition state remains task content.
 
-## 规则与对象合同
+## Rule and object contracts
 
-已有明确变量映射的规则按原哈希复用。其他规则保留原有完整前提，不通过名字相似、类型相同或同名角色推断身份。一个完整前提暂作为一个组件，并不声称完成了语义分解。缺少跨前提共享变量声明的规则明确标为未映射，相应程序路线不能报告为已检查成立。
+Rules with explicit variable maps reuse original hashes. Others retain complete premises without identity inference from names, types, or role-name equality. Treating one whole premise as one component does not claim semantic decomposition. Missing cross-premise shared-variable declarations are explicitly unmapped; affected routes cannot be reported checked and established.
 
-局部证据可能分别提供不同角色，但程序只使用已有明确连接。未知对象不等于错误对象；相同类型也不等于相同人物。整个前提的模型判断、外部法院评价、规则组合和正式法律批准分开保存。最终回答可以分析给定规则中的开放问题，报告必须说明这些解释没有由程序独立证明。
+Separate evidence may provide different roles, but computation uses explicit existing connections only. Unknown objects are not incorrect objects; matching types are not matching people. Whole-premise assessments, external court assessments, rule combinations, and legal approvals remain separate. Final answers may discuss open questions in supplied rules, clearly indicating those interpretations were not independently proved by the program.
 
-## 训练、评价和版本
+## Historical training/evaluation protocol
 
-固定30个TRAIN、10个已暴露DEV，不读取TEST／SEALED。监督针对本轮实际候选，旧USABLE标签不整体转换。TRAIN内部按纠纷哈希确定验证组；官方DEV不参与早停。所有候选均可进入推理，未标注只意味着不计入监督损失。
+Use 30 TRAIN and ten exposed DEV cases, without TEST/SEALED access. Supervision concerns actual current candidates; old USABLE labels are not globally converted. Dispute hashes define validation groups inside TRAIN; official DEV does not drive early stopping. All candidates may enter inference; unlabeled ones are excluded only from supervision loss.
 
-新网页参考使用实际显示的Extra High，保留提交文件哈希、设置、原始回复和时间记录。明确负例不会仅因不同意P而被当作争议；只有参考判断本身存在尚未解决的合理分歧，才标记dispute。需要模型不可见材料的标签暂不用于监督，不能按参考把正确段落补进受测输入。
+New website references record visible Extra High, submission hashes, settings, raw replies, and times. Clear negatives are not disputes merely because they disagree with P. Only unresolved reasonable disagreement about the reference itself is `dispute`. Labels requiring model-invisible sources do not enter supervision, and references cannot supply missing correct passages to tested inputs.
 
-A直接回答，B复核自己的A，C读取原P。D使用Q和共同程序处理；E、F、G在同一候选与程序上分别应用三个学习模型的判断。D相对C增加了一次来源核验，不能称为等计算量比较；D与E/F/G的区别才是固定候选上的判定来源。
+The historical A–G design was: A direct answer; B reviews its own A; C reads original P; D uses Q/common processing; E/F/G replace judgment sources with three learned models on identical candidates/programs. D adds a source-review call over C and is not equal-compute. D versus E/F/G isolates candidate judgment sources. These historical comparators do not authorize mechanisms in the user's current minimal baseline.
 
-完整回答使用生成前固定的共同来源清单评分，方法名称隐藏、顺序固定随机化。报告关键项覆盖、无依据实质判断、重大错误、完整性和成本，不用一个临时加权分数选赢家。每个纠纷等权，局部连接不能冒充独立案件。接口恢复、模型纠错和最终回答变化分别归因。
+Final answers use a common source checklist frozen before generation, with hidden method labels and fixed randomized order. Report critical-item coverage, unsupported substantive judgments, major errors, completeness, and cost without selecting a winner through an improvised weighted score. Disputes have equal weight; local links are not independent cases. Attribute interface recovery, model corrections, and final-answer changes separately.
 
-## 可重现记录和停止行为
+## Reproduction and stopping
 
-原入口是`scripts/proof_source_verification_v20.py`，续接入口是`scripts/proof_source_verification_v20_1.py`；生产逻辑与独立应用检查仍分别位于`source_verification_v20.py`和`source_verification_check_v20.py`。V20.1只另存约束前缀可完成性修复和失败前缀记录，法律prompt及Schema不变，已有成功P经过原样token回放后复用，失败不重试。执行顺序为准备、验收、冻结、P、Q、共同输入、参考导入、编码、三个固定拟合、A—G回答及集中评分。每次派发检查冻结源码和材料哈希，动态Q与最终输入在调用前保存。对已开始但状态不明的任务不重发，对历史结果不覆盖。
+Original entry: `scripts/proof_source_verification_v20.py`; continuation: `scripts/proof_source_verification_v20_1.py`. Production and independent application checking remain `source_verification_v20.py` and `source_verification_check_v20.py`. V20.1 separately saves prefix-completability repair and failed prefixes without changing legal prompts/schema. Successful old P is reused after exact token replay; failures are not retried. Order: prepare, accept, freeze, P, Q, shared inputs, reference import, encoding, three fixed fits, A–G answers, consolidated scoring. Every dispatch checks frozen code/material hashes; dynamic Q/final inputs save before calls. Started but uncertain tasks are not resent; old results are not overwritten.
 
-生成总预算36小时，P、Q、最终回答各预留12小时；训练总上限24小时。77份P、80份Q、70份最终回答是冻结位置，不是成功数量。连续两次P同类重复或截断触发停止派发；单项技术失败保存null，其他独立步骤按依赖继续。不得用UNKNOWN填补失败，不根据语义结果修改同批合同或重新生成。
+Generation budget is 36 hours, reserving 12 each for P, Q, and final answers; training limit is 24 hours. The 77 P/80 Q/70 final slots are planned positions, not successes. Two consecutive same-kind P repetition/truncation failures stop dispatch. Individual technical failures remain null; independent work may continue by dependency. UNKNOWN cannot fill failures, and semantic outcomes cannot trigger same-batch contract changes or regeneration.
 
-32项工程检查及真实tokenizer回放只证明所测行为。最终验收还需要实际训练记录、四类声明的来源支持评价，以及完整回答的共同来源审阅。权重、私密记录、浏览器材料及大批原始任务只在本地保存；本轮不提交或推送。
+The 32 engineering checks and real-tokenizer replay establish tested behavior only. Final acceptance still requires actual training, source-support evaluation across four claim types, and common-source review of complete answers. Weights, private/browser records, and bulk raw tasks remain local. No commit or push in this round.

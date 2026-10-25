@@ -1,31 +1,27 @@
-# Legal AI：最终推荐方案与会议 slides（v4）
+# Recommended Algorithm Design and Meeting Slides (v4)
 
-2026-09-29。本版整合独立文献调研与 ChatGPT Pro 最新完整答复，替代 v2、v3 的默认算法方案和会议 slides。旧文件保留为讨论记录。
+Historical design dated September 29, 2026. It integrates independent literature research with the latest complete ChatGPT Pro response and supersedes v2/v3's default algorithms and meeting slides. Earlier files remain discussion records.
 
-## 会议材料
+## Meeting materials
 
-- [8 页可编辑 PowerPoint](slides/Legal_AI_Final_Methods.pptx)
-- [8 页 PDF 阅读版](slides/Legal_AI_Final_Methods.pdf)
-- [逐页中文讲稿](slides/中文讲稿.md)
-- [整套预览](slides/Slides_Preview.png)
+[Eight editable PowerPoint slides](slides/Legal_AI_Final_Methods.pptx) · [PDF](slides/Legal_AI_Final_Methods.pdf) · [English speaker script](slides/中文讲稿.md) · [full preview](slides/Slides_Preview.png).
 
-英文 slides 讲解三个算法的输入、执行过程、例子与设计理由，中文讲稿也已写入 PPTX 的每页备注。PPTX 中的文字、图形和表格可编辑；PDF 由最终 PPTX 的渲染图生成，用于稳定阅读，文字不是可选取的矢量文本。
+English slide bodies explain three algorithms, their inputs, execution, examples and rationale. The PPTX speaker notes have also been translated into English; slide contents and layout are unchanged. Text, shapes and tables are editable. The PDF uses rendered slide images for stable reading, not selectable vector text.
 
-## 方案与依据
+## Design and evidence
 
-- [完整最终算法方案](最终算法方案.md)：数据表示、A/B/C 步骤、搜索上限、例外政策、实现次序与验证方案。
-- [文献依据与最终取舍](文献依据与最终取舍.md)：阅读覆盖、原始来源及采纳或放弃方法的理由。
-- [Pro 最新完整答复](Pro完整方案答复.txt)：保存的外部讨论记录，不能替代原论文核查。
+- [Complete algorithm proposal](最终算法方案.md): representation, A/B/C steps, search limits, exception policy, implementation order and validation.
+- [Literature and final choices](文献依据与最终取舍.md): reading coverage, primary sources and adoption/rejection rationale.
+- [Complete Pro reply](Pro完整方案答复.txt): an external discussion record, not a substitute for checking original papers.
 
-A 用共同定义保存事实，并按具体用途判断未解析限定是否阻碍计算；B 从真实片段产生可执行关系，以来源和执行错误修正；C 从法源取得规则与事实桥接，保留例外、反驳和缺失前提。C 可直接读取 A，B 中的频率或压缩收益不决定法律事实能否被使用。
+A represents facts under shared definitions and determines whether unresolved qualifications block a particular use. B proposes executable relations from real passages and revises them using source and execution errors. C derives rules and factual links from legal sources while preserving exceptions, rebuttals and missing premises. C can read A directly; B's frequency or compression benefit does not determine whether a legal fact is usable.
 
-## 可编辑框架图
+## Editable framework
 
-- [draw.io 源文件](slides/Core_Framework.drawio)
-- [SVG](slides/Core_Framework.svg) · [PNG](slides/Core_Framework.png) · [PDF](slides/Core_Framework.pdf)
+[draw.io](slides/Core_Framework.drawio) · [SVG](slides/Core_Framework.svg) · [PNG](slides/Core_Framework.png) · [PDF](slides/Core_Framework.pdf).
 
-## 验证与研究边界
+## Validation limits
 
-最终 PPTX 共 8 页、8 页备注、2 张原生表格。已通过文件结构、页面几何、字体声明与重新导入检查，并逐页查看重新导入后的 8 张渲染图；未在 Microsoft PowerPoint 中验证原生显示。独立框架图已检查结构与导出图。方案、slides 与讲稿使用同一示例，寄出与收到通知的日期分开，同一合同中的不同债务分开。
+The final PPTX contains eight slides, eight note pages and two native tables. File structure, geometry, fonts and reimport were checked, followed by visual inspection of all eight reimported renders. Native Microsoft PowerPoint display was not verified. The separate framework structure and export were checked. Design, slides and script share one example, distinguishing notice dispatch from receipt and separate obligations within a contract.
 
-这是待实现和实验验证的推荐设计。没有声称已证明优于原文备选方案，也没有把组合已有方法本身当作已成立的 novelty。会议应重点讨论：按用途处理未解析限定，能否在相同审阅预算下同时减少误用并保留更多有效证据。
+This is a proposed design requiring implementation and experiments. Superiority to the original alternatives and novelty from combining existing methods are not established. The proposed question is whether purpose-specific treatment of unresolved qualifications reduces misuse while retaining more valid evidence under the same review budget. Historical filenames are preserved.

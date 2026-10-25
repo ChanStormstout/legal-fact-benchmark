@@ -101,11 +101,11 @@ def main():
         'generations': executed, 'maximum': 2, 'retries': 0, 'additional_experiment': False,
         'semantic_fixes_applied_after_outputs': False, 'commit_or_push': False})
     (ROOT/'report-zh.txt').write_text(review['report_zh'], encoding='utf-8')
-    pieces = ['# V17 完整回答\n\n两边共享3张历史卡和相同原文，B另有9张V16候选卡。不是无规则对有规则的纯比较。\n']
+    pieces = ['# V17 Complete Answers\n\nBoth sides share three historical cards and identical source text; B additionally has nine V16 candidate cards. This does not isolate absence versus presence of rules.\n']
     for run in runs:
-        pieces.append('\n## ' + run['method'] + '\n\n技术状态：' + run['technical_status'] + '；格式状态：' + run['format_status'] + '\n\n')
+        pieces.append('\n## ' + run['method'] + '\n\nTechnical status: ' + run['technical_status'] + '; format status: ' + run['format_status'] + '\n\n')
         pieces.append('```json\n' + json.dumps(run['answer'], ensure_ascii=False, indent=2) + '\n```\n')
-        pieces.append('\n[原始回复](runs/' + run['method'] + '/raw-response.txt)\n')
+        pieces.append('\n[Raw reply](runs/' + run['method'] + '/raw-response.txt)\n')
     (ROOT/'final-answer-slots.md').write_text(''.join(pieces), encoding='utf-8')
     print(json.dumps({'conditions': len(runs), 'calls': executed, 'decision': review['decision']}, ensure_ascii=False))
 

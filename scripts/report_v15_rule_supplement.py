@@ -107,35 +107,38 @@ rows=[
 save(ROOT/'comparison-table.json',rows)
 with (ROOT/'comparison-table.csv').open('x',encoding='utf-8') as f:
     writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
-(ROOT/'final-answer-slots.md').write_text('# V15 完整网页回答\n\n对话：'+completion['conversation_url']+'\n\n仅移除闭合JSON后的独立END。所有JSON字段及附件引用显示文本保留；不是人工gold。\n\n```json\n'+(run/'answer.json').read_text()+'\n```\n\n基线：../rules-verdict-v14-web-direct/runs/1134266/answer.json\n')
+(ROOT/'final-answer-slots.md').write_text('# V15 Complete Web Answer\n\nConversation: '+completion['conversation_url']+'\n\nOnly the standalone END after closed JSON is removed. All JSON fields and displayed attachment-reference text are preserved; this is not human gold.\n\n```json\n'+(run/'answer.json').read_text()+'\n```\n\nHistorical comparator: ../rules-verdict-v14-web-direct/runs/1134266/answer.json\n')
 save(ROOT/'preservation-check.json',{'historical_files_unchanged':len(audit['historical_files']),'preexisting_code_unchanged':len(audit['preexisting_code']),
     'frozen_files_verified':len(freeze['files']),'base_case_law_examples_requirements_preserved':True,
     'semantic_output_repairs':0,'format_suffix_only':True})
 save(ROOT/'stop.json',{'reason':'ONE_NEW_WEB_ANSWER_AND_ONE_CONCENTRATED_SOURCE_REVIEW_COMPLETE','web_answers':1,
     'local_calls':0,'paid_api_calls':0,'retries':0,'new_extractions':0,'no_commit_push_next_round':True})
-(ROOT/'report-zh.txt').write_text(f'''V15：1134266补充有来源规则后的直接法律回答
+(ROOT/'report-zh.txt').write_text(f'''V15: direct legal answer for1134266 with source-grounded rule supplementation
 
-投入决定：保留有来源的规则提取与应用方向。三份相关法源让网页答案产生具体法律分析增益：区分公司合并的权利转归与租赁法后果，识别Telesound保留的腾退问题，区分Hindustan Petroleum依赖的专门法保护。没有确认同等严重新增来源反写。但它仍未充分处理双方主要论点，不能称为完整法律回答已经正确；本案不继续修prompt或追问。
+Decision: retain source-grounded rule extraction/application as a direction. Three authorities yield concrete gains: distinguish merger vesting from tenancy consequences, identify Telesound's reserved eviction issue, and distinguish HP's special-law protection. No comparably serious new source reversal was confirmed. Major arguments remain inadequately handled, so a fully correct legal answer is not established. Do not further edit prompts or follow up on this case.
 
-固定范围与材料
-仅1134266，V14网页High直接回答保持为基线，不重新生成。案情、原法律包、问题、两个教学示例和最终合同完整保留；只插入冻结的三份早期判例规则与七个原文片段，Schema仅扩展law_refs地址枚举。首次生成前冻结源码、材料、选择理由、评价和停止规则。没有旧答案、参考判断、错误清单、特定目标段落提示或目标最终理由。新的独立网页High对话，非Pro，网页没有本地逐token约束。界面只显示ChatGPT/High，具体型号不明；内部知识、文件读取和采样无法独立观测。
+Fixed scope and materials
+Only1134266; the unchanged V14 browser High direct answer is the historical comparator, not regenerated. Facts, old legal package, question, two teaching examples, and final contract remain complete. Only three frozen earlier-precedent rules and seven original passages are inserted; schema only extends law_refs IDs. Code, materials, selection reasons, evaluation, and stopping were frozen before generation. No old answers, references, error lists, target-passage hints, or target final reasons enter input. A fresh ordinary High chat, not Pro, has no local token constraints. Exact model is unknown from ChatGPT/High UI; internal knowledge, reading, and sampling are unobservable.
 
-规则包包含General Radio（最高法院1986，主要适用安得拉邦租赁法，并描述Delhi Parasaram先例）、Hindustan Petroleum（最高法院1988，专门Esso收购法、通知、s396合并及孟买s15A保护）、Telesound（德里高院1980，1983为报告年份，公司方案批准、prima facie意见及明确保留的租赁审理权限）。不把法院批准等同房东许可，不创造一般强制转移豁免，不提供当前案专用适用结论。General Radio与HP的片段逐字来自PDF提取；HP扫描OCR原样保存。Telesound直连403，改用web工具已读取的原判决文字：第12段明确标为不连续完整句摘录，第16段完整保留。Delhi法条官方PDF下载超时，未添加猜测文本；共检查4个不同文档，使用3个，在最多5份范围内停止。获取失败与本地准备阶段的空白锚点修正均发生于冻结/模型提交前，保留记录；不是受测回答重试。没有启动自动检索算法评价或跨案规则归纳。
+The package includes General Radio (Supreme Court1986, primarily AP tenancy law, reporting Delhi Parasaram), Hindustan Petroleum (Supreme Court1988, special Esso acquisition legislation/notification/s396 merger/Bombay s15A), and Telesound (Delhi High Court1980, reported1983, company-scheme approval, prima facie opinion, expressly reserved tenancy jurisdiction). Court approval is not landlord consent; there is no invented universal compulsory-transfer exemption or target-specific answer. General Radio/HP passages are verbatim PDF extraction; HP scan OCR is unchanged. Telesound direct access returned403, so previously read original judgment text was used: paragraph12 explicitly consists of noncontiguous complete sentences, paragraph16 is complete. The official Delhi statute PDF timed out; no guessed text was added. Four documents were checked and three used, stopping within the five-document cap. Retrieval failures and whitespace-anchor repairs preceded freeze/submission and were retained, not answer retries. No automatic-retrieval evaluation or cross-case induction occurred.
 
-具体变化
-V14 g3因缺少合并法源保留定性未知，主要复述corporate-shell争议。V15 g3引用General Radio的转移分析及其Delhi先例描述，给出有依据的转移定性推论，并正确指出Telesound保留Delhi腾退问题、HP依赖不同专门法承继。其法律依据确实来自新包，不是单纯引用ID增加。V15不再把缺少目标法院最终理由当作无法分析该问题的理由。这些是可核验的分析进步，但跨AP/Delhi法条迁移只简略提及，不能把SUPPORTED视为已由目标法院判定。
-两份outcome均UNDETERMINED。V15仍保留1966已登记租赁、American/Indian公司的正确关系、31.12.1981法院批准及租赁权转归；没有从新判例的无同意事实推导本案无同意，也没有把批准等同房东同意。g4保留Tribunal/High Court层级，原Rent Controller驳回在本次回答未展开。g3支持转移定性、g4无同意未决，与最终标签没有极性矛盾。
+Specific changes
+V14 g3 left merger characterization unknown for missing authorities and mainly restated the corporate-shell dispute. V15 g3 uses General Radio's transfer reasoning/Delhi precedent discussion, recognizes Telesound's reservation and HP's distinct special-law succession, and offers a supported characterization inference. This uses new legal content, not just more citation IDs. It no longer treats absent target final reasons as an inability to analyze. These are verifiable gains, but AP/Delhi statutory transfer is only briefly justified; SUPPORTED is not a target-court finding.
 
-仍存在的问题
-最重要的遗漏仍是p0003.s007：房东主张降低股本可用其他路径，RBI并未要求具体合并。答案只区分股本要求与租户声称的合并强制，没有明确比较这一反驳；不能宣称“双方论点已完整处理”。p0002.s006承接租户律师陈述、p0002.s002记录其抗辩，双方都提股本要求，但无独立RBI命令；g3称其target narration，表述应限于双方陈述的共同前提，而非法院已认定命令。g2把合并称31 December 1981，原文明确的是批准日，不能确定单独生效日；此精度问题基线已有。g3SUPPORTED是法律推论，仍需说明主案AP法与Delhi宽泛转移条款为何可比较。reason以没有adopted finding说明无同意未定，条件过紧：一般可从充分证据作有依据分析，并非必须已有法院认定；但本次允许材料仍未独立解决同意，保留未决有依据。
-真正未提供的是本案书面同意或其不存在的充分事实、实际RBI命令及具体强制合并状态；本包也未新增完整历史FERA文本或举证责任规则。法律材料可以帮助定性，不能制造这些事实。未读取被排除的目标最终理由，也不要求恢复历史裁判。
+Both outcomes remain UNDETERMINED. V15 retains the registered1966 lease, American/Indian roles,31.12.1981 approval, and vesting. It does not import another precedent's no-consent facts or equate approval with landlord consent. g4 retains Tribunal/High Court levels but does not elaborate the Rent Controller dismissal. Supported transfer characterization with unresolved consent is not a polarity contradiction with the final label.
 
-评价与成本
-一次集中来源审阅，包括答案未引用的p0003.s007等主要反对内容，无新gold、整案重标、网页复核或审阅agent；标记为模型辅助来源审阅，非人工金标准。一次新网页回答、本地生成0、API0、重试0、抽取0。新附件53517字符，预览与实际提交逐字一致。原始回复保留，只有完整JSON后的独立END被移除，附件引用显示文字仍在reason。格式及ID通过现有校验不代表语义正确。
-界面思考时长158秒，基线49秒；这是可见思考阶段增加109秒，不是精确总推理耗时。发送至首次确认完成的观察上界{observed:.1f}秒，含观察间隔；输入输出tokens、精确生成时间和峰值内存不可得，保持null。不能声称等输入成本或纯规则语义因果收益：规则摘要、原文、输入长度和注意力变化共同加入，单次旧案开发观察没有排除生成波动。
+Remaining problems
+The principal omission is p0003.s007: the landlord argues capital reduction had alternatives and RBI did not require this merger. The answer distinguishes equity requirements from claimed merger compulsion without directly comparing that rebuttal; it does not completely handle both sides. p0002.s006 continues tenant counsel and s002 records the defense. Both parties mention equity requirements, but no independent RBI order appears. g3's target-narration wording should remain a common premise in party statements, not a judicially established order. g2's31 December1981 merger date is actually an approval date, not a confirmed separate effective date; this precision problem also existed in the comparator. g3's SUPPORTED is a legal inference needing an AP/Delhi compatibility explanation. Requiring an adopted finding to resolve consent is overly restrictive: sufficient evidence can support analysis without an existing judgment. Here, however, consent is independently unresolved, so uncertainty remains justified.
 
-交付与停止
-完整答案、原始回复、实际任务/Schema、三份规则及原文、来源URL/哈希、逐项审阅和比较表均保存。原5041个历史输出与既有方法代码原字节不变；V14基线不改，不把新增法源回填旧实验。修订文档、实验索引和本地审阅包，核验发布清单后结束；不再搜索、重答、重抽、改算法、提交或推送。结果支持继续考虑规则提取和适用分析组件，尚未验证自动取得规则、完整裁判可靠性或跨案泛化。
-对话：{completion['conversation_url']}
+Missing material includes sufficient facts establishing consent/absence, the actual RBI order, and compulsory-merger status. No complete historical FERA text or burden rules were added. Legal materials aid characterization but cannot create facts. Excluded target final reasons were unread and historical outcomes were not required.
+
+Evaluation and costs
+One consolidated source review included important uncited opposing material such as p0003.s007. There was no new gold, full-case relabeling, browser recheck, or reviewer agent. This is model-assisted review, not human gold. One new browser answer; no local generation/API/retry/extraction. The53,517-character attachment matched preview/submission verbatim. Raw reply is retained; only standalone END after complete JSON was removed, preserving attachment-reference text in reason. Format/ID validation does not establish semantics.
+
+Visible thinking158s versus49s is a109s increase in visible thinking, not exact total inference. Send-to-first-confirmed-completion upper bound is {observed:.1f}s including observation intervals. Tokens, exact generation time, and peak memory are null. This is neither equal-input-cost nor isolated rule-semantic causality: rule summaries, originals, length, and attention change together; one exposed case does not eliminate generation variability.
+
+Delivery and stopping
+Complete answer/raw reply/actual task/schema, three rules/originals, URLs/hashes, item-level review, and comparison table are saved. All5,041 old outputs and existing method files are unchanged. V14 is not backfilled with new law. After docs/index/local review updates and publication-manifest inspection, stop without further search, reanswering, reextraction, algorithm changes, commit, or push. Results support considering extraction/application components, not automatic rule acquisition, complete adjudication reliability, or cross-case generalization.
+Chat: {completion['conversation_url']}
 ''')
 print(json.dumps({'web_answers':1,'status':'OK','outcome':answer['outcome'],'decision':review['decision'],'observed_upper_bound_seconds':observed},ensure_ascii=False))

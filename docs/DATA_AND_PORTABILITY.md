@@ -1,23 +1,40 @@
-# 数据与复现范围
+# Data and reproducibility
 
-本仓库公开代码、研究文档、选取的判决文本、模型参考答案和实验输出，用于方法审阅。
-判决文本保留提供者 URL、段落编号及原始文字；其中的姓名是判决中的当事人姓名。
-仓库不宣称拥有来源材料的著作权，也不为第三方数据重新授予许可证。代码与其他原创
-研究材料本次未另行选择许可证；公开访问不等于所有内容均可无限制再发布。
+The repository makes selected code, research documents, judgment texts, model-reference
+answers, and experimental outputs available for method review. Judgment records retain
+provider URLs, paragraph identifiers, original wording, and names as published in the
+judgments. The project does not claim copyright in third-party sources or relicense
+them. No separate license was selected for the code and original research material in
+the publication described here; public access is not unrestricted redistribution permission.
 
-模型环境、权重、完整6,954条JSONL、第三方论文副本、浏览器截图／界面状态、硬件
-信息、下载日志和多GB展开轨迹不上传。公开文件由 repository-artifacts.json 明确选择；
-每份包含与排除记录见 review/PUBLICATION.json，哈希见 review/MANIFEST.json。
-原始本地文件不删除。不上传的历史文件可能仍在旧报告中被引用，这些是历史记录，
-不能解释为仓库已包含那些文件。
+## Published and local-only files
 
-代码与冻结快照按原字节保存；旧 JSON、日志和脚本可能记录原机器的绝对路径。
-文件在仓库内的位置以审阅清单的相对路径为准。标准库测试与结果分析无需MLX。
-生成脚本需要Apple Silicon及项目独立环境；运行前应登记一个新的版本，不能覆盖
-已完成目录。原生成入口保留冻结保护，不把克隆仓库等同于已经安装模型的机器。
+`repository-artifacts.json` explicitly selects publication files. See
+`review/PUBLICATION.json` for inclusion and exclusion records and `review/MANIFEST.json`
+for hashes. Model environments and weights, the full 6,954-record JSONL, third-party
+paper copies, browser captures and UI state, hardware information, download logs, and
+multi-gigabyte expanded traces remain local. References in an old report do not imply
+that all referenced files are present in a clone. Local source files are not deleted
+by the publication tool.
 
-模型固定为 mlx-community/Qwen3.5-9B-4bit，revision
-8b2b98c00a6b4d291155e4890773ca8f769aee53。框架、配置和资源结果保存在最新实验目录。
-如果要恢复原机运行环境，在独立环境安装其 environment/requirements.lock.txt，
-下载同revision的模型，并在对应实验的被忽略 environment/model-path.txt 指定本地位置。
-这些是运行前提，不是让审阅者立即启动模型的指令。
+Original experimental sources, annotations, requests, responses, failures, and frozen
+method snapshots retain their bytes. Older JSON, logs, and scripts may contain
+machine-specific absolute paths; use the manifest's relative paths to locate published
+files. Documentation translations do not change experimental inputs or outcomes.
+
+## Execution requirements
+
+The basic CLI, review tooling, and standard-library-only checks do not require MLX.
+Some experiment scripts and tests need additional dependencies. Local MLX generation
+requires Apple Silicon and the experiment's isolated environment. Register a new
+version before execution; do not overwrite a completed run.
+
+The historical local model is `mlx-community/Qwen3.5-9B-4bit`, revision
+`8b2b98c00a6b4d291155e4890773ca8f769aee53`. Its framework and parameter records belong
+to the relevant experiment directory. Later API runs have separate provider and
+model metadata; do not treat their weights as identical to the local snapshot.
+
+To reconstruct a historical local environment, use that run's
+`environment/requirements.lock.txt`, obtain its exact model revision, and set the
+ignored `environment/model-path.txt` to the local location. These are prerequisites,
+not authorization to start a model. A repository clone is not a ready-to-run model installation.

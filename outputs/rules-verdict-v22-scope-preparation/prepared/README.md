@@ -1,1 +1,1 @@
-没有受测任务、回答或法律包。范围未定，尚未冻结；来源和离线检索诊断另存。
+No evaluated tasks, answers or legal packages exist. Scope remains undecided and unfrozen. Sources and offline retrieval diagnostics are stored separately.

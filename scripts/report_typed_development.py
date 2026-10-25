@@ -20,56 +20,56 @@ for p in ps['pools']['typed']:
 extra=[x for x in replay if x['previous_method']=='cooccurrence_extra']
 recovered=sum(any(v['result']['status']=='MATCH' for v in x['typed_variants']) for x in extra)
 lines=[
- '20案方法开发实验：直接成员关系与部分关系（v2）', '',
- '已完成：沿用原20案和277条事件／断言，不重新抽取事实。补充原文支持的直接对象关系，重跑共现、精确身份及新增关系查询，完成固定6项匹配核查。全部结果仍为开发数据；没有冻结正式检查集，也没有独立测试准确率。', '',
- '1. 本轮改了什么',
- 'same(A,B)要求两个角色指向同一个已解析对象。part_of(A,B)要求A是B的一个有原文依据的直接物理部分。member_of(A,B)要求个人或机构A是当事人群体B的一个明确成员。后两种关系有方向，不等于身份相等。',
- '程序仅使用已保存的直接关系证据，不计算传递闭包；个人属于群体，不会自动继承群体的行为；房屋的一部分，也不会自动继承整栋楼的法律属性。模型补充关系不能解除旧记录中的未知字段或限定阻止。缺少关系记录时保持未知，材料没提到不等于关系不存在。陈述的来源阶段保留，但当前查询没有证明跨记录在同一时期成立。', '',
- '2. 来源和补充核查',
- '17案存在本轮目标，针对10组已有父子房产对象和22个已进入主请求记录的群体提交一次局部网页任务。另3案没有这些目标，仍参与20案计算。任务提供已有对象和相应原文上下文，要求逐项核查，不重做事件标注。',
- '网页结果支持8条部分关系和9条成员关系，另2条部分关系未知；没有因为未识别成员而推断群体为空。所有17案任务和目标都有覆盖记录，0条关系因格式、引用或引文定位问题被拒绝。这些是模型参考关系，不是人工金标准或完整关系图。',
- '两条未知关系涉及八间店铺的集合与其中一间、其余七间。文书没有充分识别一个共同物理整体，本轮不将“属于店铺集合”强制编码成物理part_of。此处需要另外的集合关系，当前仍未知。', '',
- '3. 固定配置与全部结果',
- '支持门槛仍为至少2份文书，每池1000个唯一候选，按规范化查询字符串排序。使用同一事实与陈述状态；至多两个记录、一个关系条件，不搜索时间、金额、结果标签或法律充分条件。只对有来源的直接边生成新候选，所有候选、未搜索项、匹配、未知与失败原因保留。',
- '方法 | 候选数 | 执行数 | 重复查询变体 | 有重复变体的展示骨架组',
+ '20-Case Method Development: Direct Membership and Part Relations (v2)', '',
+ 'Completed: reuse of the original 20 cases and 277 events/assertions without re-extraction; addition of source-supported direct object relations; reruns of co-occurrence, exact-identity and new relational queries; and a fixed six-match audit. All results remain development data. No formal evaluation set is frozen and no independent test accuracy is established.', '',
+ '1. Changes in This Iteration',
+ 'same(A,B) requires two roles to reference the same resolved object. part_of(A,B) requires source evidence that A is a direct physical part of B. member_of(A,B) requires explicit membership of person or institution A in party group B. The latter relations are directional and do not imply identity.',
+ 'Only recorded direct relation evidence is used, without transitive closure. Individuals do not inherit group actions, and property parts do not inherit whole-building legal attributes. Model-added relations do not lift old unknown-field restrictions or qualifications. Missing relation records remain unknown; silence does not prove absence. Source stage is preserved, but queries do not establish that records hold in the same period.', '',
+ '2. Sources and Supplementary Review',
+ 'Seventeen cases contain eligible targets: 10 existing parent-child property pairs and 22 groups already present in main-request records were submitted in one local web task. The other three cases have no such targets but remain in all 20-case computations. Existing objects and source contexts were supplied for itemwise review, without new event annotation.',
+ 'The web result supports 8 part relations and 9 membership relations, with 2 part relations unknown. Unidentified members do not imply an empty group. Coverage is recorded for all 17 cases and targets; no relations were rejected for formatting, references or quote location. These are model-reference relations, not human gold or a complete relation graph.',
+ 'The two unknown relations concern a set of eight shops, one shop and the remaining seven. The document does not adequately identify a common physical whole. Membership in a shop collection is not forced into physical part_of; a separate set relation is needed and the status remains unknown.', '',
+ '3. Frozen Configuration and Complete Results',
+ 'The support threshold remains at least two documents, with 1,000 unique candidates per pool ordered by canonical query strings. Facts and statement statuses are shared. Queries use at most two records and one relation condition, not time, amounts, outcomes or legally sufficient conditions. New candidates arise only from sourced direct edges. Candidates, unsearched items, matches, unknowns and failures remain preserved.',
+ 'Method | Candidates | Executed | Recurring query variants | Display skeleton groups with recurring variants',
 ]
-for pool,label in [('cooccurrence','事实类型共现'),('identity','精确身份连接'),('typed','新增直接成员／部分关系')]:
+for pool,label in [('cooccurrence','Fact-type co-occurrence'),('identity','Exact-identity joins'),('typed','New direct membership/part relations')]:
     m=s['pools'][pool];lines.append('%s | %d | %d | %d | %d'%(label,m['generated'],m['executed'],m['repeated'],m['repeated_display_families']))
 lines += [
- '三池均未触及预算上限。新增65个查询中，3个支持2案，其他62个只支持1案；没有为了增加重复数修改门槛或补换案件。',
- '原有113个共现重复查询、205个身份重复查询的支持数共318项逐项重放一致。旧报告中的“76种带状态组合”表述不准确：那个计数只取了记录类型，未纳入状态。本轮明确按类型、陈述状态及关系算子组织展示，205个重复身份查询属于96个骨架组。',
- '骨架组只方便阅读：同类记录对可以连受益人、受影响当事人或房产，含义仍不同，所有角色变体均单独保留。它们不是自动发现的事实family或已证明等价的语义cluster。',
- '重复查询按声明的记录类型分类：'+json.dumps(categories,ensure_ascii=False),
- '身份查询中62个仅含程序行为、93个混合事实与程序行为、50个仅含事实。程序结构不能直接解释为法律要件或胜败规则。', '',
- '4. 所有新增重复模式',
+ 'None of the three pools reached its budget. Of 65 new queries, 3 have support in two cases and 62 in one. Thresholds and cases were not changed to increase recurrence.',
+ 'Support counts replay exactly for all 318 old recurring queries: 113 co-occurrence and 205 identity queries. The prior description of 76 status-qualified combinations was inaccurate: that count used record types only. Display grouping now explicitly uses type, statement status and relation operator; the 205 recurring identity queries occupy 96 skeleton groups.',
+ 'Skeleton groups aid reading only. Same-type record pairs may join beneficiaries, affected parties or property, with different meanings; all role variants remain separate. These are not automatically discovered fact families or proven-equivalent semantic clusters.',
+ 'Recurring queries classified by declared record type:'+json.dumps(categories,ensure_ascii=False),
+ 'Among identity queries, 62 contain only procedural acts, 93 mix facts and procedure, and 50 contain facts only. Procedural structures are not legal elements or outcome rules.', '',
+ '4. All New Recurring Patterns',
 ]
 for p in ps['pools']['typed']:
     if p['repeated']:
-        lines += ['查询ID '+p['id']+'；支持 '+str(p['support'])+' 案；'+p['category'],json.dumps(p['query'],ensure_ascii=False)]
+        lines += ['Query ID '+p['id']+'; support '+str(p['support'])+' cases; '+p['category'],json.dumps(p['query'],ensure_ascii=False)]
 lines += [
- '这三个结构分别表达：有转租记录的房产是另一个所有权记录所述房产的部分；另行提起程序的人属于腾退请求的被请求人群体；租赁记录中的租户属于腾退请求的被请求人群体。它们描述判决中可追溯的记录结构，不意味着所有权状态与转租在同一时期成立，也不证明某种腾退请求在法律上成立。', '',
- '5. 上轮三个额外共现组合如何处理',
- '三个组合仍不满足原来的精确身份条件；本轮全部找到直接成员或部分关系。原身份判断没有被改写，新增关系回答的是另一个有明确定义的问题。',
- '“上诉人和第二被告”群体与“上诉人”个人：身份不相等，个人属于群体成立。“转租的部分房间”与“整栋楼”：身份不相等，部分属于整体成立。“请求腾退的底层”与“原所有权记录中的整栋楼”：同样以部分关系连接。不能把身份不相等统称为不相关，也不能把有部分／成员关系统称为同一对象。',
- '固定组合重放：%s/%s找到直接关系。这是已知错误分析材料上的设计检查，不是新样本成绩。'%(recovered,len(extra)),
- '65个新查询在20案中，精确身份条件与有方向的关系条件的配对状态计数：'+json.dumps(dict(changes),ensure_ascii=False),
- '不同算子回答不同含义；状态变化和匹配增加不是准确率提升。', '',
- '6. 固定小规模原文核查',
- '取顺序最前3个重复新查询，加固定随机种子抽取的3个其他查询；每项取首个匹配，实际6项。全部返回，全部引文定位通过。断言、角色绑定与直接关系的判定统计：'+str(dict(audit_counts)),
- '6项均得到原文支持，其中3项对应重复查询，另3项对应单案查询。多项复用同一案件／对象关系；新对话审阅仍使用相同模型，不能当成独立人工验证或把6/6称为整体准确率。',
+ 'The three structures express: subleased property is part of property described in an ownership record; a person initiating separate proceedings belongs to the respondent group in an eviction request; and a lease tenant belongs to that group. These are traceable record structures, not proof that ownership and subletting were simultaneous or that eviction is legally justified.', '',
+ '5. Treatment of the Three Additional Co-occurrence Combinations',
+ 'All three still fail the original exact-identity condition, but now have direct membership or part relations. Original identity judgments remain unchanged; new relations answer a different, explicitly defined question.',
+ 'The appellant is not identical to the group comprising appellant and second defendant, but belongs to it. Sublet rooms are not identical to the whole building, but are part of it. The ground floor sought to be vacated similarly links by part relation to the building in the ownership record. Unequal identity does not mean unrelated, and membership/part relations do not mean identity.',
+ 'Fixed-combination replay finds direct relations in %s/%s items. This is a design check on known error-analysis material, not a new-sample result.'%(recovered,len(extra)),
+ 'Paired status counts for exact identity and directional relations across 65 new queries and 20 cases:'+json.dumps(dict(changes),ensure_ascii=False),
+ 'Different operators answer different questions; changed statuses and additional matches do not establish accuracy gains.', '',
+ '6. Fixed Small Source Audit',
+ 'The first three recurring new queries plus three other queries sampled with a fixed seed each contribute their first match, yielding six items. All replies returned and all quotes were locatable. Assertion, role-binding and direct-relation judgments:'+str(dict(audit_counts)),
+ 'All six items have source support: three recurring-query matches and three single-case matches. Several reuse the same case/object relation. A new review conversation still uses the same model and is not independent human validation; 6/6 is not overall accuracy.',
 ]
 for i in audit['items']:
     lines.append(i['id']+' | assertions='+i['assertions_supported']+' | bindings='+i['bindings_supported']+' | relation='+i['relation_holds']+' | '+i['explanation'])
 lines += [
- '', '7. 仍未解决的部分和下一轮',
- '新增关系只能补充已抽取对象之间的明确连接，不修复事实遗漏、原文状态误解、对象身份未解析或任意限定。本轮新查询共1300个文书判断中，68次匹配、872次未知、360次未找到。这个未知计数同时受旧记录的限定阻止和新增边覆盖不足影响，不能直接归因于标注质量差。',
- '下一轮先把未知按原文缺少信息、抽取未解析、限定影响哪个用途、缺少哪种对象关系分开。对无法使用的记录做有限的用途限定处理，仍保存原来的保守版本。需要集合关系时另定义“元素属于集合”／“集合包含子集”，不要把它们混入物理部分或个人成员关系。',
- '在改善可计算覆盖之前，不以扩大模式数量或引入结果预测作为成功标准。继续在这20案开发；之后才使用新案件评估泛化。', '',
- '8. 工程验收与文件',
- '138项程序测试通过，其中16项新增测试覆盖方向、未知、冲突、不推导传递关系、不继承群体事件、旧限定继续生效及引用完整性。逐条检查14540个轨迹行，所有事件／证据／关系引用都能解析。',
- '所有原输入哈希仍与上轮相同，旧结果保存。完整轨迹改为案件／事件／关系引用，原文、字段与关系证据在inputs/保存一次；traces.jsonl.gz约%.2f MB，所有失败和未知轨迹保留，没有只保留成功样例。'%(RUN.joinpath('traces.jsonl.gz').stat().st_size/1e6),
- '本轮网页调用：1个关系补充对话、1个固定匹配核查对话，均为普通High、非Pro，0次付费API调用。界面未暴露确切模型编号。关系任务257004字符，回复69100字符；核查任务86211字符，回复9897字符。本地执行约%.2f秒。'%(s['elapsed_local_seconds']),
- '入口：config.json、input-manifest.json；relations/逐案关系；web-tasks/原始任务、回复、URL、截图、引文校验；runs/first-run/patterns.json、candidates.json、traces.jsonl.gz、prior-audit-binding-replay.json、artifact-validation.json。',
+ '', '7. Remaining Gaps and Next Iteration',
+ 'New relations connect already extracted objects but do not repair missing facts, misunderstood statement status, unresolved identity or arbitrary qualifications. The 1,300 document judgments for new queries contain 68 matches, 872 unknowns and 360 NOT_FOUND results. Unknowns reflect both old record restrictions and incomplete new-edge coverage, not necessarily poor annotation.',
+ 'Next distinguish unknowns caused by absent source information, unresolved extraction, purpose-specific qualifications and missing object-relation types. Apply limited purpose restrictions to unusable records while retaining the conservative version. Define element-of-set and subset relations separately when needed; do not conflate them with physical parts or individual membership.',
+ 'Before improving computational coverage, do not treat pattern-count growth or outcome prediction as success. Continue development on these 20 cases, then evaluate generalization on new cases.', '',
+ '8. Engineering Acceptance and Files',
+ 'All 138 program tests passed, including 16 new tests for direction, unknowns, conflicts, no transitive inference, no group-action inheritance, persistent old restrictions and reference integrity. All event/evidence/relation references resolve across 14,540 trace rows.',
+ 'Original input hashes match the prior run and old results remain preserved. Full traces now reference cases/events/relations; inputs/ stores source text, fields and relation evidence once. traces.jsonl.gz is approximately %.2f MB, retaining all failures and unknowns rather than only successful examples.'%(RUN.joinpath('traces.jsonl.gz').stat().st_size/1e6),
+ 'This run used one relation-supplement conversation and one fixed-match review conversation, both ordinary High rather than Pro, with 0 paid API calls. The exact model ID was not visible. Relation tasks contain 257,004 characters and replies 69,100; review tasks contain 86,211 and replies 9,897. Local execution took approximately %.2f seconds.'%(s['elapsed_local_seconds']),
+ 'Entry points: config.json, input-manifest.json; relations/ for per-case relations; web-tasks/ for raw tasks, replies, URLs, screenshots and quote checks; runs/first-run/patterns.json, candidates.json, traces.jsonl.gz, prior-audit-binding-replay.json and artifact-validation.json.',
 ]
 (RUN/'report-zh.txt').write_text('\n\n'.join(lines)+'\n')
 complete_listing=[]

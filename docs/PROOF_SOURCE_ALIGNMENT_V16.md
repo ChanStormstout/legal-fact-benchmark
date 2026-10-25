@@ -1,21 +1,51 @@
-# V16：局部接受与可逆排版来源恢复
+# V16: scoped acceptance and reversible source-layout recovery
 
-本轮沿用判决推理重建任务。V15四案只做缓存回归；剩余六个既有DEV纠纷按保存队列选入，一个请求按稳定ID选择已有依赖候选的首项，包括OPEN_TEXT。来源、原始P、规则意义和分组保持不变。无本地模型调用、训练、TEST/SEALED读取或发布。
+Judgment-reasoning reconstruction continues. Four V15 cases receive cache regression
+only. The remaining six DEV disputes follow the saved queue; each request selects the
+first existing dependency candidate by stable ID, including OPEN_TEXT. Sources, P,
+rule meaning, and grouping remain unchanged. No local model calls, training,
+TEST/SEALED access, or publication.
 
-## 引文定位
+## Quotation alignment
 
-`quote_locator_v16.py`首先执行原有精确、可逆来源定位。仅当同一允许文书内另有完整单词，且断词的两个片段没有独立单词出现时，才允许将字母间的连字符加空白恢复为完整词。定位返回原文、规范化文字、字符位置映射和具体编辑；多个匹配保持歧义。非排版词差异、否定遗漏、null、跨文书及错误地址不修补。规则展示引用恢复另存修订记录，旧规则不改。这个策略有意不覆盖所有OCR问题，也不能批准语义。
+`quote_locator_v16.py` first applies exact reversible matching. It may join a letter-
+internal hyphen plus whitespace only when the full word also occurs in the permitted
+document and neither broken fragment occurs independently. It returns original/normalized
+text, a character-position map, and explicit edits. Multiple matches stay ambiguous.
+Non-layout word changes, omitted negation, nulls, cross-document references, and wrong
+addresses are not repaired. Rule quotation-display corrections are separate revision
+records, not edits to old rules. The policy intentionally does not solve all OCR errors
+or approve meaning.
 
-## 四种局部范围
+## Four review scopes
 
-审阅记录使用同一地址，并明确ALIGNMENT、BINDING（角色）、USE（从1开始的用途编号）或WHOLE_PREMISE范围。旧记录没有scope时按整项处理，旧整项REJECT不产生任何局部批准。冲突或重复范围未决。完整前提声明明确依赖哪些用途；执行所需对象角色直接来自固定规则，不能由模型删掉。
+Review records share addresses and explicitly specify ALIGNMENT, BINDING(role),
+USE(one-based use number), or WHOLE_PREMISE. Old unscoped records remain whole-item;
+a whole-item REJECT grants no local acceptance. Conflicting/duplicate scopes stay
+unresolved. Whole-premise claims state use dependencies. Required execution roles
+come from fixed rules and cannot be removed by the model.
 
-程序分别保留独立的条件性前提判断、绑定检查、用途检查、依赖传播后的执行状态、实际审阅接受和正式批准。错误绑定不删除独立证据或判断；相关规则依然要求有效绑定。否定只针对固定命题的范围，没有“FALSE都无需对象”的通道。部分、背景和可用证据不能生成整个前提。
+Code separately records conditional premise judgments, binding checks, use checks,
+dependency-propagated execution states, actual reviewer acceptance, and formal approval.
+Bad binding does not delete independent evidence/judgments, but the rule still requires
+valid binding. Negation applies only to the fixed proposition; FALSE does not globally
+bypass object requirements. Partial/background/usable evidence cannot generate a whole
+premise.
 
-模型辅助审阅可单独接受一个狭义法院判断而拒绝对象对应；这仍不是法律批准。OPEN_TEXT保留未执行状态，允许显示有来源的外部法院判断和条件性记录，不强行改成AND。
+Model-assisted review may accept a narrow court assessment while rejecting entity
+correspondence. This is not legal approval. OPEN_TEXT remains unexecuted while allowing
+source-grounded external court assessments/conditional records to be displayed; it is
+not forced into AND.
 
-## 真实入口
+## Actual entry
 
-`python3 scripts/proof_source_alignment_v16.py prepare|freeze|import|run`保存完整任务与材料。`scripts/check_semantic_v16.py`在独立进程检查，自行加载冻结来源与合同，不导入提议或参考生成器。技术失败写null，跳过依赖步骤；缓存回归、程序修复影响、新提议及新审阅成本分别报告。
+`scripts/proof_source_alignment_v16.py prepare|freeze|import|run` saves complete tasks
+and materials. `scripts/check_semantic_v16.py` independently loads frozen sources/contracts
+without importing proposal/reference generators. Technical failure is null with dependent
+steps skipped. Cache regression, repair effects, new proposals, and review costs are
+reported separately.
 
-25项直接相关工程测试包含15项V16及10项V15回归；四案缓存通过真实独立进程重放。工程测试不验证法律语义。六案后集中来源评价，结果只用于开发投入决定，不估计泛化或法律认证能力。
+Twenty-five engineering tests include fifteen V16 and ten V15 regressions; four-case
+caches replay through a real independent process. These do not validate legal semantics.
+Central source review after six cases informs development investment, not estimates
+of generalization or legal certification.

@@ -156,40 +156,52 @@ for c in CASES:
     for m in ['D','B-P']:parts.append('\n## '+c+' '+m+'\n\n```json\n'+(ROOT/'runs'/c/m/'parsed.json').read_text()+'\n```\n')
 (ROOT/'final-answer-slots.md').write_text(''.join(parts),encoding='utf-8')
 table='\n'.join(f"| {r['case']} | {r['method']} | {r['technical_status']} | {r['outcome']} | {r['total_input_tokens']} / {r['total_output_ids']} | {r['total_seconds']:.1f} |" for r in rows)
-report=f'''V13：固定现有方法，两个已有案件的开发检验
+report=f'''V13: fixed-method development check on two existing cases
 
-投入决定：两案收益方向不同，暂不选赢家，也不把结构化前置设为强制步骤。661475中D和B-P都保留下级交出占有认定，但B-P新增虚构分隔日期和转移方式组合错误；1134266中B-P比D准确保留法院批准合并，减少明确来源误读，仍增加“法院批准等于房东默示同意”的无依据抗辩。没有一致的完整答案净收益，不认定D可靠或结构化普遍无效。停止围绕旧案增加字段、检查或提示，保留当前组件作为可复现候选，本轮不启动修复或下一轮。
+Decision: benefits differ by case; choose no winner and do not require a structured front end. In661475, D/B-P preserve lower-court parting-with-possession findings, but B-P adds an invented partition date and erroneous combination of transfer modes. In1134266, B-P better preserves court-approved merger and reduces clear source errors, but invents a defense equating approval with implied landlord consent. There is no consistent complete-answer net benefit. Neither D reliability nor general ineffectiveness of structure is established. Stop adding fields/checks/prompts around old cases; retain components as reproducible candidates, without another repair round.
 
-实际运行与版本
-HEAD {start['head']}，分支{start['branch']}。既有未提交V11/V12代码、文档及local_chunk_v11.py全部保留。原两案在V6/V7已经开发过，因此称跨案件开发检验，不是独立测试；各案允许来源、法律包和检索结果原字节复用，D/B看到相同材料，但两案原法律包不同。661475保留后出法源和历史版本未验证限制；1134266排除目标专用规则卡，仍继承研究者提供的目标来源基础公式，不是规则盲测。
-模型revision8b2b98c00a6b4d291155e4890773ca8f769aee53、MLX-VLM0.7.4、LMFE0.11.2、greedy、seed20261001、repetition_penalty1、thinking off、FIXED约束、max_tokens3072、总上下文32768全部与V11实际一致。V11的D/B-P最终模板、完整示例、Schema和B提议合同都通过实际prompt重建核验。本轮只换案件/既有法律包/合法来源编号，不含旧答案、参考事实、正确段落提示或程序检查块。
-运行器逐字复用V11，actual_parameters由过滤后的新字典保存，不含mask对象；V12日志修复核对确实仅两处字典副本，其旧D失败和null原样保留，没有补计旧成本。约束回归5项通过、零跳过，真实tokenizer fixture和回放沿用V11已完成记录并核验相同源码；无额外模型预跑。生成前冻结代码、模板、schema、材料哈希、顺序及停止规则；动态B-P实际输入在各次调用前保存并检查预算。
-指定六次调用全部OK/stop，四个最终结论均UNDETERMINED。推理{result['inference_seconds']:.1f}秒、整轮{result['round_wall_seconds']:.1f}秒，加载另计{result['model_load_seconds']:.1f}秒；网页0、重试0、额外预跑0。没有截断来源、补写JSON、修提议、改提示或thinking；未因错误换案。技术完成不等于法律回答正确。
+Execution and version
+HEAD {start['head']}, branch {start['branch']}. Existing uncommitted V11/V12 code/docs and local_chunk_v11.py were retained. Both cases were already used in V6/V7, so this is cross-case development, not independent testing. Allowed sources/legal packages/retrieval results are reused byte-for-byte; D/B share materials within a case, while the two cases' old legal packages differ. For661475, later authorities and unverified historical applicability remain limits. For1134266, target-specific rule cards are excluded, but researcher-supplied target-source formulas remain; this is not a rule-blind test.
 
-| 案件 | 方法 | 技术状态 | 最终结论 | 含抽取总输入/输出IDs | 含抽取秒 |
+Model revision8b2b98c00a6b4d291155e4890773ca8f769aee53, MLX-VLM0.7.4, LMFE0.11.2, greedy, seed20261001, repetition_penalty1, thinking off, FIXED constraints, max_tokens3072/context32768 match actual V11. Reconstructed actual prompts verify V11 D/B-P final templates, full examples, schema, and B proposal contracts. Only cases/existing legal packages/valid source IDs change; no old answers, reference facts, correct-passage hints, or program-check blocks enter input.
+
+The runner reuses V11 verbatim; actual_parameters is saved in a fresh filtered dictionary without mask objects. V12's logging repair was verified as only two dictionary copies. Old D failure/null remain, without backfilled costs. Five constraint regressions passed without skips. Existing V11 real-tokenizer fixtures/replay records were reused after matching source hashes, with no model pre-runs. Code/templates/schema/material hashes/order/stop rules were frozen before generation; dynamic B-P inputs were saved/budget-checked before each call.
+
+All six scheduled calls were OK/stop; all four final conclusions UNDETERMINED. Inference {result['inference_seconds']:.1f}s, round wall time {result['round_wall_seconds']:.1f}s, loading separately {result['model_load_seconds']:.1f}s. No browser calls/retries/pre-runs, source truncation, JSON completion, proposal repair, prompt/thinking changes, or replacement cases. Technical completion is not legal correctness.
+
+| Case | Method | Technical status | Final conclusion | Total input/output IDs including extraction | Seconds including extraction |
 | --- | --- | --- | --- | --- | --- |
 {table}
-B-P两阶段成本相对D分别约2.83倍、3.48倍，总输入约2.14倍、2.20倍。其最终输入还分别多1571、2030 tokens，另有完整抽取调用成本。比较的是添加结构化前置的净收益/成本；不能声称同调用预算，也不能把收益全归表示形式。
 
-661475：正确保留了什么，错误在哪里
-允许来源p0001.s004写明Rent Controller认定两儿子独占其部分、父亲交出占有；p0001.s005写明共同经营抗辩未成立。D g1准确保留前一认定，没有升级为最高法院终审。B-P g1同样保留分隔和独占事实，但g4又要求明确SUBLET或ASSIGN，忽略法律包中PART_WITH_POSSESSION已是三方式择一之一，reason再据此制造模式缺口；这是条件整合及内部不一致，不是原文没有交出占有认定。
-D把1965-01-12起诉日期用于证明转移在1952以后；B-P更进一步称分隔当天发生。来源没有该事件日期，起诉日期只能给先前事件上界，不能给所需1952下界。B提议d2已经填入虚构分隔日期，coverage又说模式/共同经营未裁定，最终复述对应错误；这是传播线索，不能据内容相似断言完整因果机制。
-许可出自租户律师关于父亲允许两儿子占用的主张，不是房东许可。D g3较正确区分主张，但g4 point错写房东一般许可；B-P g3引用不对应的p0001.s002/s003，g4称房东主张许可。B提议t2将房东写成租户，x1/x2受让人也写成房东；最终没有明确照抄该错误人名，不能说每项提议错误都传播。两边reason将肯定的written consent说成腾退必要条件，未正确解释法条要求的是without consent以及该事实未定如何影响结论。
-真实缺口包括转移是否在1952后、房东具体书面同意/缺乏同意、历史法条适用范围。UNDETERMINED可以有依据，但当前解释混入虚构日期和条件错误，两份不能认证为完整正确。D遗漏共同经营被否定；B-P g4保留该认定，却未将它与已确认交出占有及择一法条正确结合。两边未展开否定共同经营的具体证据；审阅没有只看模型引用的段落。
+B-P two-stage time is about2.83x/3.48x D, with total input2.14x/2.20x. Final inputs alone add1571/2030 tokens, plus full extraction calls. This measures net benefit/cost of a structured front end, not equal-call-budget performance or representation alone.
 
-1134266：B-P有局部收益，仍有遗漏和改写
-p0002.s001明确registered lease deed，D g3反写unregistered，并把69305未登记租约条款不可采规则搬到本案；来源也没给出目标存在该许可条款。D g2/reason还称没有证据证明Bombay High Court批准合并，直接反于p0002.s003明确31.12.1981批准及租赁/占有等权利转归Indian Company。法律效果争议不能使批准事件缺失。D g1把房东无书面同意指控及未展示反证，当成absence established，混淆主张和事实。
-B-P g1准确将无同意归为房东指控，g3保留批准及归属，不再套用不可采规则，reason认识到RC-05的程序性规则不能证明合并例外。这是相对D具体可核验的改善。它仍在g4增加租户把法院批准当房东默示同意的说法，原文主张的是FERA强制合并使S14不适用，不是房东同意。提议c3把法院批准列入consents且保留未决字段，与最终改写有对应；不能确定收益/错误全归结构形式。
-两边未保留ARC驳回、Tribunal反转命令腾退、Delhi High Court维持的明确层级变化。B-P也未具体处理房东“仅要求降股本、合并是可选择行为”的主要反驳，且没有明确registered事实。B-P g3承认归属，reason强调没有法院确认parting，必须区分既有归属事件和未决S14法定定性；不能直接将vesting等同parting，也不能将定性未决说成没有归属事实。因此保留解释争议，不强行判此为同69305一样的直接矛盾。
-本案包内只有特定书面同意、未登记条款和迟提出家庭许可等规则，确实没有完整合并/法定强制的S14解释；目标自己的RC-01/RC-02没有恢复。无法判断可包含真实法源覆盖缺口，但不能用没有目标最终裁判作为唯一理由，更不能要求模型猜回历史判决。
+661475: preserved facts and errors
+p0001.s004 records the Rent Controller finding that the sons exclusively occupied their parts and the father parted with possession; s005 rejects the joint-business defense. D g1 preserves the former without Supreme Court promotion. B-P g1 does too, but g4 demands SUBLET or ASSIGN despite PART_WITH_POSSESSION already being one alternative in the legal package. Its reason invents a missing-mode gap. This is condition-integration/internal inconsistency, not missing source findings.
 
-是否复现69305问题与方法投入
-另外两案仍出现许可主体/主张归属混淆、已知事实被改写为缺失、条件极性和内部不一致；同类错误不只出现在69305。但661475两边确实保留下级交出占有认定，1134266 B-P保留法院批准，不应概括成每份答案都抹去所有法院事实。没有一份在全部关键依据上被确认可靠；也不能因为全部UNDETERMINED就判定全部错误。661475的时间/同意缺口、1134266合并法律解释缺口都应保留。
-两案的收益方向不同：661475增加前置提议没有收益并新增严重错误，1134266减少D明确误读而成本增加且仍有语义问题。因此暂不选赢家，不设置强制结构化前置，不为表现较差案调整提示。当前证据支持报告共同理解/整合问题，不能证明结构化普遍无效、D普遍更好或裁判能力已验证。
+D uses the1965-01-12 filing date to establish a post1952 transfer; B-P says partition occurred on that date. No source gives the event date. Filing supplies an upper bound for an earlier transfer, not the needed1952 lower bound. B proposal d2 already invents the date, and coverage says transfer/joint business were undecided. Final repetition is a propagation clue, not a complete causal mechanism established by textual similarity.
 
-交付与停止
-四份完整答案见final-answer-slots.md及final-answers.json；两份原样提议见intermediates；comparison-table.json/csv区分技术状态、原文支持、已确认错误、遗漏/矛盾、真实缺口、结论及含抽取成本。final-source-review.json保存唯一集中来源审阅，标记模型辅助来源审阅，非人工金标准；关键引用逐段恢复于restored-final-sources.json。完整来源、既有法律包/检索、实际prompt/schema、raw、token IDs、mask轨迹和元数据均保留。offline-checks仅验证来源地址/提议结构/连接限制，未供最终模型读取，也不认证语义。
-{len(start['historical_outputs'])}历史文件和{len(start['preexisting_code_hashes'])}原有源码文件原字节不变；旧V12日志失败/null不修补。更新实验索引、状态及本地审阅包后核验完整性，不提交、不推送，不重跑69305、不换模型、不增加字段/法源/样本、不启动下一轮。本轮结束。
+Permission comes from tenant counsel's claim that the father allowed his sons to occupy, not landlord permission. D g3 distinguishes the claim, but g4's point assigns general permission to the landlord. B-P g3 cites unrelated p0001.s002/s003, and g4 also assigns the claim to the landlord. Proposal t2 calls the landlord the tenant; x1/x2 name the landlord as transferee. Final text does not explicitly repeat the wrong names, so not every proposal error propagated. Both reasons treat positive written consent as necessary for eviction rather than explaining the statutory without-consent condition and its unresolved evidence.
+
+Real gaps concern post1952 transfer timing, specific landlord written consent/absence, and historical statutory scope. UNDETERMINED may be warranted, but invented dates/condition errors prevent acceptance of either complete answer. D omits rejection of joint business; B-P retains it but fails to integrate it with possession findings and alternative statutory modes. Both omit specific evidence against joint business. Review included uncited passages.
+
+1134266: local B-P benefit, with omissions and rewritten arguments
+p0002.s001 expressly says registered lease deed. D g3 reverses this and applies69305's unregistered-clause inadmissibility rule, though no source establishes that clause in the target lease. D g2/reason deny evidence of Bombay High Court merger approval, contradicting p0002.s003's31.12.1981 approval and vesting of lease/possession rights in Indian Company. Disputed legal effects do not erase the approval event. D g1 turns the landlord's no-consent allegation and absence of displayed counterevidence into established absence.
+
+B-P g1 correctly attributes no consent to the landlord's allegation; g3 preserves approval/vesting, avoids the inadmissibility rule, and recognizes that procedural RC-05 cannot prove a merger exception. These are verifiable improvements over D. But g4 invents a tenant argument that approval is implied landlord consent. The source instead argues FERA-compelled merger makes S14 inapplicable. Proposal c3 classifies approval under consents with unresolved fields, matching the final rewrite; representation alone cannot be assigned all gains/errors.
+
+Both omit ARC dismissal, Tribunal reversal/eviction, and Delhi High Court affirmance. B-P also omits the landlord's central rebuttal that capital reduction had alternatives and merger was voluntary, and fails to state registration explicitly. B-P g3 recognizes vesting while its reason stresses no judicial parting characterization. Existing vesting events and unresolved S14 characterization must be distinguished: vesting is not automatically statutory parting, nor does unresolved characterization imply no vesting fact. This interpretive issue is retained rather than forced into the same direct-contradiction category as69305.
+
+The package includes specific-consent, unregistered-clause, and late-family-permission rules, but not full S14 merger/statutory-compulsion interpretation. Target RC-01/RC-02 were not restored. Indeterminacy can reflect a real legal-source gap, but absence of the target's final judgment is not the sole reason and historical outcomes must not be guessed.
+
+Recurrence and investment decision
+Permission-subject/claim-attribution confusion, known facts recast as missing, condition polarity, and contradictions recur beyond69305, but not every error in every answer. Both661475 answers preserve lower-court possession findings;1134266 B-P preserves merger approval. It is wrong to say all answers erase all judicial facts. None is confirmed reliable on every decisive basis; equally, all UNDETERMINED answers are not automatically wrong. Retain661475 timing/consent gaps and1134266 merger-interpretation gaps.
+
+The direction differs:661475 gains nothing from the proposal and adds serious errors;1134266 reduces D misreadings at higher cost while retaining semantic issues. Choose no winner, impose no mandatory structure, and do not tune prompts for the worse case. Evidence supports shared comprehension/integration problems, not universal structural failure, universal D superiority, or verified adjudication capability.
+
+Delivery and stopping
+Four complete answers are in final-answer-slots.md/final-answers.json; two unchanged proposals in intermediates. comparison-table.json/csv separate technical status, source support, confirmed errors, omissions/contradictions, genuine gaps, conclusions, and extraction-inclusive costs. final-source-review.json is the single model-assisted review, not human gold. restored-final-sources.json restores key citations. Complete originals, old legal/retrieval packages, actual prompts/schema/raw text/IDs/masks/metadata remain. offline-checks validate addresses/proposal structure/link restrictions only; they neither enter final-model input nor certify semantics.
+
+All {len(start['historical_outputs'])} historical files and {len(start['preexisting_code_hashes'])} original source files are byte-identical. Old V12 logging failure/null remain. After local index/state/review updates and integrity checks, stop without commit/push, rerunning69305, changing models, adding fields/authorities/cases, or starting another round.
 '''
 (ROOT/'report-zh.txt').write_text(report,encoding='utf-8')
 print(json.dumps({'report':str(ROOT/'report-zh.txt'),'decision':review['decision'],'calls':6}))

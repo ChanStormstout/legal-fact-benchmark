@@ -21,7 +21,7 @@ def build():
     assert all(hf(p)==h for p,h in reg['starting_irac_code_hashes'].items())
     review=read(R/'final-source-review.json')
     assert review['review_rounds']==1 and review['after_batch_complete']
-    costs=[];audits=[];links=[];answers=['# V6 完整原始答案与提议\n\n模型输出原样展示，不代表经核验的法律判断。\n']
+    costs=[];audits=[];links=[];answers=['# V6 complete original answers and proposals\n\nModel outputs are displayed unchanged, not as verified legal judgments.\n']
     for cid,stage in ORDER:
         out=R/'runs'/cid/stage;res=read(out/'result.json')
         meta=read(out/'run.json') if (out/'run.json').exists() else {}
@@ -87,26 +87,26 @@ def build():
     save(R/'acceptance.json',{'E':'PASS_WITH_DECLARED_ENGINEERING_SCOPE','M':{c:review['cases'][c]['M'] for c in CASES},
           'L':{c:{m:review['cases'][c]['methods'][m]['L'] for m in ('A','B')} for c in CASES},
           'decision':review['decision'],'full_legal_pipeline_accepted':False,'reference_role':review['reference_role']})
-    lines=['IRAC V6：语义接口修复后的两案完整流程比较\n',review['decision_zh'],
-      '\n运行：%d次本地调用，生成%.2f秒（%.2f分钟），网页0、重试0。两案均为旧案开发验证。未运行C，程序检查仅离线保存。' % (batch['generation_calls'],batch['elapsed_generation_seconds'],batch['elapsed_generation_seconds']/60),
-      '\nE：23项相关测试及17个真实tokenizer完整样例通过。证据独立保存、用途局部隔离；方向不自动成为条件满足；法源单独证明本案事实的用途受阻；AND/OR/NOT只组合显式模型前提；空答、漏答及重复请求拒收。源码、完整来源与法律包冻结后未变。工程通过不证明语义正确。',
-      '中间数字索引Schema的类型声明错误已在无模型tokenizer检查中修复，未改约束框架。旧提议仅作结构映射重放，未补写旧判断；旧A与新实际prompt/Schema不兼容，本轮均重新运行。']
+    lines=['IRAC V6: two-case full-flow comparison after semantic-interface repair\n',review['decision_zh'],
+      '\nExecution: %d local calls, %.2f generation seconds (%.2f minutes), no browser calls or retries. Both are exposed development cases. C was not run; program checks were saved offline only.' % (batch['generation_calls'],batch['elapsed_generation_seconds'],batch['elapsed_generation_seconds']/60),
+      '\nE: 23 tests and 17 complete real-tokenizer examples passed. Evidence is stored independently and invalid uses isolated locally. Direction does not automatically satisfy a condition. Uses attempting to prove case facts solely with legal authorities are blocked. AND/OR/NOT combine explicit model premises only. Empty answers, omissions, and repeated requests are rejected. Code, complete sources, and legal packages were unchanged after freezing. Engineering acceptance does not establish semantic correctness.',
+      'A type declaration in the intermediate numeric-index schema was repaired during model-free tokenizer checking, without changing the constraint framework. Old proposals served only structural-mapping replay, not backfilled judgments. Old A was incompatible with the new actual prompt/schema, so this batch ran both afresh.']
     for cid in CASES:
         c=review['cases'][cid];lines+=['\n'+cid+'：'+c['comparison'], 'P：'+c['proposal_summary']]
         for method in ('A','B'):
-            d=c['methods'][method];lines += [method+'：'+d['supported']+' 已确认问题：'+d['errors']+' 重要遗漏／矛盾：'+d['omissions']]
-        lines+=['真实缺口：'+'；'.join(x.rstrip('。') for x in c['real_gaps'])+'。']
-    lines+=['\n逐调用成本：','|案件|阶段|状态|输入tokens|输出tokens|生成秒|','|---|---|---|---:|---:|---:|']
+            d=c['methods'][method];lines += [method+'：'+d['supported']+' Confirmed problems: '+d['errors']+' Important omissions/contradictions: '+d['omissions']]
+        lines+=['Actual gaps: '+'；'.join(x.rstrip('。') for x in c['real_gaps'])+'。']
+    lines+=['\nPer-call costs: ','|Case|Stage|Status|Input tokens|Output tokens|Generation seconds|','|---|---|---|---:|---:|---:|']
     for r in costs:lines.append('|%s|%s|%s|%s|%s|%.2f|'%(r['case_id'],r['stage'],r['run_status'],r['input_tokens'],r['output_tokens'],r['seconds']))
     for cid in CASES:
         a,b=[x for x in method_costs if x['case_id']==cid]
-        lines.append('%s：A %.2f秒；P+B %.2f秒，增加%.2f秒；输入tokens %d→%d。'%(cid,a['seconds'],b['seconds'],b['seconds']-a['seconds'],a['input_tokens'],b['input_tokens']))
+        lines.append('%s: A %.2f seconds; P+B %.2f seconds, an increase of %.2f seconds; input tokens %d→%d.'%(cid,a['seconds'],b['seconds'],b['seconds']-a['seconds'],a['input_tokens'],b['input_tokens']))
     peaks=[c['peak_mlx_gb'] for c in costs if c['peak_mlx_gb'] is not None];rss=[c['peak_rss_gb'] for c in costs if c['peak_rss_gb'] is not None]
-    lines+=['MLX峰值最大%.3fGB；进程峰值RSS最大%.3fGB，口径不同不相加。模型加载另计%.2f秒。'%(max(peaks),max(rss),read(R/'environment.json')['loaded_seconds']),
-      '\n配置：固定9B revision 8b2b98c00a6b4d291155e4890773ca8f769aee53、MLX-VLM0.7.4、LMFE0.11.2、greedy、seed20261001、repetition_penalty1、thinking关闭；P4096、最终3072、上下文32768。',
-      '冻结配置SHA256：'+hf(R/'freeze/config.json')+'。历史保留检查%d文件原字节不变。'%keep['files_checked'],
-      '\n评价：一次集中模型辅助来源审阅，非人工gold；检查允许材料中的决定性内容及反论，不只检查模型引用。两案历史结论不作为必须猜回的正确答案。本轮没有评估程序检查送入模型的效果，没有训练或否定整个图方法，也不声称单字段、示例或结构单独有效。',
-      '交付：answers.md含全部原始输出；case-comparison.csv/json为逐案比较；final-source-review.json为来源依据；runs内含实际prompt/schema/raw/token/run及离线checks；delivery-validation.json、preservation-after.json、freeze/config.json、engineering/保存核验。完成后停止，不自行开启下一轮，不提交或推送。']
+    lines+=['Maximum MLX peak %.3f GB; maximum process peak RSS %.3f GB. These measures differ and are not added. Model loading separately took %.2f seconds.'%(max(peaks),max(rss),read(R/'environment.json')['loaded_seconds']),
+      '\nConfiguration: fixed 9B revision 8b2b98c00a6b4d291155e4890773ca8f769aee53, MLX-VLM0.7.4, LMFE0.11.2, greedy, seed20261001, repetition_penalty1, thinking off; P4096, final3072, context32768.',
+      'Frozen configuration SHA256: '+hf(R/'freeze/config.json')+'. Preservation check: %d files unchanged byte-for-byte.'%keep['files_checked'],
+      '\nEvaluation: one consolidated model-assisted source review, not human gold. Review covers decisive allowed content and counterarguments, not just citations selected by the model. Historical outcomes are not answers the model must reconstruct. This run did not evaluate feeding program checks into the model, train or reject graph methods generally, or establish independent benefits of a field, example, or structure.',
+      'Delivery: answers.md contains all raw outputs; case-comparison.csv/json contains case comparisons; final-source-review.json records source evidence. runs retains actual prompt/schema/raw/token/run files and offline checks. Verification is in delivery-validation.json, preservation-after.json, freeze/config.json, and engineering/. Stop on completion without automatically starting another round, committing, or pushing.']
     (R/'report-zh.txt').write_text('\n\n'.join(lines).replace('|\n\n|','|\n|')+'\n')
     print('REPORT BUILT',R)
 

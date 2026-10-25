@@ -1,17 +1,44 @@
-# V15 自动来源对齐与条件性推导
+# V15: automatic source alignment and conditional derivation
 
-本版本处理四个既有DEV请求：396336/Q1::R1、594273/Q2::R5、121775/Q2::R6、907531/Q1::R1。前两案参与V14深度校准；后两案按原DEV队列和实际可执行ALL/ANY合同选择。136109与885778虽然P声称ALL，例外未进入可执行合同，因此保留OPEN_TEXT并不纳入；不删除例外来改变选择。
+Four existing DEV requests are used:396336/Q1::R1,594273/Q2::R5,121775/Q2::R6,
+907531/Q1::R1. The first two underwent V14 calibration; the others follow the DEV queue
+and actual executable ALL/ANY contracts. Although136109/885778 P claimed ALL, their
+exceptions were not executable, so they remain OPEN_TEXT and are excluded. Exceptions
+are not deleted to change selection.
 
-新提议通过补充记录保存，原P保持不变。程序生成候选／前提地址目录、恢复来源、检查明确地址及版本。模型提出角色—变量—对象对应、具体证据功能、单独的完整前提状态和组成覆盖。所有提议标为MODEL_PROPOSED，引用找到不代表语义已经正确。
+New proposals are supplemental records; original P stays unchanged. Code creates
+candidate/premise addresses, restores sources, and checks explicit addresses/versions.
+The model proposes role–variable–object correspondence, evidence functions, separate
+whole-premise states, and component coverage. All are MODEL_PROPOSED; locating a
+citation does not establish semantic correctness.
 
-三个视图共享相同来源、确定性适配、候选和规则。D使用原P的独立用途与前提判断；P增加实际自动提议并计算条件性结果；R只允许实际独立来源审阅接受的提议进入接受视图。D和P保留未独立核验的模型语义假设。R属于模型辅助研究审阅，不是人工gold或正式法律批准。审阅未完成不得被包装为模型无法判断。
+Three views share sources, deterministic adaptation, candidates, and rules. D uses
+original P's independent use/premise judgments. P adds actual automatic proposals and
+conditional computation. R accepts only proposals approved by actual independent source
+review. D/P retain unverified model assumptions; R is model-assisted research review,
+not human gold or legal approval. Incomplete review is not model uncertainty.
 
-证据相关性／可用性、整个前提真值和法律后果分别保存。背景与部分支持不能单独使前提为真；反对证据可以有效使用。NOT_APPLICABLE仅表示模型以具体来源说明某个不存在事件的角色不适用，不将null视为相同对象。程序并不独立证明该不存在命题。
+Evidence relevance/usability, whole-premise truth, and legal consequence stay separate.
+Background/partial support cannot establish a premise; opposing evidence can be usable.
+NOT_APPLICABLE means the model gives concrete source reasons why an absent event's
+role does not apply, not that null objects are equal. Code does not independently
+prove the absence assertion.
 
-每个请求保留全部现有候选及替代路线。一个用途、引用或对象失败只限制依赖项；明确ALL/ANY/例外按固定规则组合。OPEN_TEXT不变为AND；解释阶段不增加事实。结果TRUE/FALSE表示所选规则及其范围下的结果／适用性，不是整案胜败。
+Each request retains all candidates/alternative paths. A failed use, reference, or object
+affects only its dependents. Fixed ALL/ANY/exceptions compose explicitly; OPEN_TEXT does
+not become AND, and explanation adds no facts. TRUE/FALSE concerns the selected rule
+and scope, not whole-case victory.
 
-独立检查入口是`scripts/check_semantic_v15.py`，由`scripts/proof_source_alignment_v15.py`通过独立进程调用。检查器不读取任务装配器、参考标签、学习模型或V14校准答案。法律语义仍需要来源审阅。旧规则引文只有唯一的大小写展示差异可确定性恢复；旧null引文不会补写。旧版本与新恢复地址同时保留。
+`scripts/proof_source_alignment_v15.py` invokes independent
+`scripts/check_semantic_v15.py`. The checker does not read task assembly, reference
+labels, learned models, or V14 calibration answers. Legal semantics still need source
+review. Only a unique case-only quotation display difference can be restored
+mechanically; null quotations are not filled. Old versions/restored locations coexist.
 
-冻结后最多四次提议、再四次独立审阅，均为普通High独立临时会话。英文任务与Schema使用完整合成示例。没有本地模型、训练、网页法律检索、语义重试、TEST/SEALED读取或发布。精确网页tokens、实际内部上下文与生成耗时不可得；只能核对提交文件完整性、原始回复和可观察时间。
-
-最终结果和投入决定见[中文报告](../outputs/proof-source-alignment-v15/report-zh.md)。
+After freezing, at most four proposals and four independent reviews use separate
+ordinary-High temporary chats, English tasks, schemas, and complete synthetic examples.
+No local models, training, web legal research, semantic retries, TEST/SEALED access,
+or publication. Exact web tokens, internal context, and generation time are unavailable;
+only submission completeness, raw replies, and observable time can be checked.
+See the [report](../outputs/proof-source-alignment-v15/report-zh.md) for results and the
+resource decision.

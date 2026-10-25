@@ -1,36 +1,50 @@
-# Codex 与 ChatGPT 网页版的协作
+# Reviewing the project with ChatGPT
 
-GitHub 保存可追踪的版本；ChatGPT 阅读仓库并提出建议；Codex 在授权后实施建议、验证、
-更新文件并推送。仓库不会自动把网页聊天写回来，也没有后台付费API或自动推送任务。
+Git stores traceable versions. A reviewer reads a specified snapshot and returns
+findings; an authorized development task decides whether to implement them. Browser
+conversations are not automatically synchronized into this repository. Preparing a
+review package neither launches experiments nor commits or pushes changes.
 
-入口是 ../review/START_HERE.md；完整审阅请求是 ../review/REVIEW_REQUEST.md。
-其中记录内容快照编号、当前结果、应读文件和原文链接。请让网页先复述快照编号，
-并区分“文件已读”“只读到摘要”“链接打不开”。不能把没读到的代码当作已review。
+## Share a specific snapshot
 
-当前审阅分支为`research/rules-and-verdict`，入口是
-[该分支的START_HERE](https://github.com/ChanStormstout/legal-fact-benchmark/blob/research/rules-and-verdict/review/START_HERE.md)。
-仓库默认分支仍是`main`；仅提供仓库首页可能读到已有发布版本。
-请同时指定分支和内容快照；固定审阅版本时用提交SHA替换URL中的分支名。
+Start with [review/START_HERE.md](../review/START_HERE.md) and
+[review/REVIEW_REQUEST.md](../review/REVIEW_REQUEST.md). The registered review branch
+is `research/rules-and-verdict`. Specify both the branch and the snapshot identifier;
+for a fixed published revision, replace the branch in a GitHub URL with its commit SHA.
+A repository homepage alone may show a different branch or older publication.
 
-优先在ChatGPT支持的GitHub连接中授权 ChanStormstout/legal-fact-benchmark，然后指定
-仓库和文件路径。可用模式随账号和界面不同；官方说明该连接按需读取已授权内容，
-不是自动同步索引，网页连接只读，代码推送由Codex完成。
-来源：[OpenAI官方说明](https://help.openai.com/en/articles/11145903-connecting-github-to-chatgpt)。
+Ask the reviewer to distinguish full-file reading, summary-only reading, and inaccessible
+links. A file that was not retrieved cannot be claimed as reviewed. If repository
+access is unavailable, share accessible raw links or upload the matching Markdown
+review files. `python3 scripts/repository_bridge.py export` creates a local ZIP; whether
+a particular chat can read that ZIP depends on its available tools.
 
-未连接GitHub或读取不完整时，可以分享公开raw链接，或下载并上传审阅文件：
-review/CODE.md、review/RESULTS.md及四份review/SOURCES_*.md分别保存代码、全部预定题结果、
-完整判决。全文依据来自SOURCES或原实验文件，不能只看RESULTS中的引文就声称核验全文。
-本地 `python3 scripts/repository_bridge.py export` 另生成ZIP归档，便于下载或手工解包。
-ChatGPT能否直接解析ZIP取决于该对话工具；不能解析时上传其中的Markdown文件即可。
+## Read the right evidence
 
-网页意见以问题、文件/行号、证据、修改建议和应验证的测试表达。结构化反馈格式见
-../review/feedback/schema.json。网页回复可原样保存为review/feedback中的新文件，或由
-用户写入GitHub Issue；同一内容快照下的旧意见不能当作已解决。这里没有自动接受或
-实施网页建议，也没有自动发评论的工具。
+`review/CODE.md` contains selected source code. `review/RESULTS.md` contains the selected
+report. `review/MANIFEST.json` records the snapshot and file hashes. The historical
+`SOURCES_*.md` volumes belong to earlier relation experiments and are not automatically
+the sources for a later run. Use the selected protocol and its actual source records;
+quoted snippets in a results summary do not replace the underlying material.
 
-每次已授权更新后：修改相应文档与版本化实验目录，更新CHANGELOG和EXPERIMENTS，执行
-`python3 scripts/repository_bridge.py prepare`，检查新增公开清单，然后执行
-`python3 scripts/repository_bridge.py sync --message "Describe the concrete change"`。
-sync先核对当前分支与登记目标，再生成文件、核验哈希、仅提交白名单中的变更并推送
-`docs/repository-artifacts.json`登记的分支，当前为`research/rules-and-verdict`；其他已暂存文件会导致
-停止。失败时保留提交，不强推、不回滚、不覆盖远端。正式实验仍须遵守其冻结规则。
+Feedback should identify the issue, file or line, supporting evidence, proposed change,
+and appropriate validation. The structured format is in
+[review/feedback/schema.json](../review/feedback/schema.json). Save replies unchanged
+when they are used as review evidence. Suggestions are not automatically accepted,
+implemented, or posted to GitHub.
+
+## Update locally, publish only when authorized
+
+After an authorized change, update the relevant documentation and catalog, then run:
+
+```sh
+python3 scripts/repository_bridge.py prepare
+python3 scripts/repository_bridge.py verify
+```
+
+Inspect `review/PUBLICATION.json` before any publication. The separate `sync` command
+stages allowlisted files, commits, and pushes; it requires applicable publication
+authorization and is not part of ordinary documentation editing. It checks the registered
+repository and branch and refuses unrelated staged files. A failed push is not permission
+to force-push, roll back, or overwrite a remote branch. Frozen experiment requirements
+continue to apply.

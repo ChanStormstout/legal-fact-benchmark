@@ -1,41 +1,113 @@
-# 研究方向与实验影响
+# Research direction and experimental implications
 
-2026-10-01，用户明确更正：项目尚未确定以benchmark为主要产出。主要问题是能否从给定案件的事实与争点取得规则，用于新案件的适用法规检索和有依据的判决判断。以下目标已确认；方法与实验部分是据此提出的设计建议，尚未实施或冻结。
+On 2026-10-01, the user clarified that a benchmark had not been selected as the main
+research output. The main question is whether rules grounded in a case's facts and
+issues can help retrieve applicable authorities and support reasoned decisions in new
+cases. The goals below were confirmed; the methods and experiments in this dated
+note were proposals, not completed or frozen work.
 
-## 目标与现有证据
+## Objective and existing evidence
 
-目标有两个：找到与当前请求、争点、法域、时间和审理阶段相适用的法律条文、测试与必要先例；依据事实和规则，解释各项要件是否满足、抗辩是否成立，以及当前阶段的请求或程序结果。研究中的结果预测不等于证明法院裁判在法律上唯一正确。
+There are two objectives: identify statutory provisions, legal tests, and necessary
+precedents applicable to the claim, issue, jurisdiction, time, and procedural stage;
+and use facts and rules to explain whether requirements and defenses are established
+and what claim-level or procedural consequence follows at that stage. Predicting an
+outcome does not prove that the court's decision is the only legally correct answer.
 
-现有三个问题分别检查转租部分与整处房产的关系、另案提起人与腾退被请求人群体的关系、租户与该群体的关系。这些是表示和匹配的诊断题，不能直接当作法律规则，也不能证明找法或判决能力。旧实验、失败输出、参考和配置保持原样。
+The three early questions examine relationships between a sublet portion and the
+whole property, between a separate action's initiator and the eviction respondents,
+and between the tenant and that respondent group. These diagnose representation and
+matching; they are not legal rules and do not demonstrate authority retrieval or
+adjudication ability. Earlier experiments, failures, references, and configurations
+remain separate evidence.
 
-## 方法应怎样调整
+## Proposed method
 
-来源断言、身份与角色、陈述状态、限定条件、字段依赖和原文追踪继续使用。事实抽象应针对明确的请求与争点，并接受适用法律条件的检查；不能为了预测正确而改变原文事实。
+Retain source assertions, identities and roles, statement status, qualifications,
+field dependencies, and source traceability. Abstract facts for an explicit claim or
+issue and check the abstraction against applicable legal conditions. Never change
+source facts to obtain the desired prediction.
 
-区分三类对象：描述性事实模式；法条或判决明确表达、经来源核对的规则；跨案件归纳的候选规则。明文规则提取不等于发现新原则，跨案候选保留支持与反例及未决解释。频率或胜败关联都不能自动赋予候选法律效力；材料只能支持提取时，不强行声称完成归纳。
+Distinguish descriptive fact patterns, source-checked rules expressly stated in
+statutes or judgments, and candidate rules inferred across cases. Extracting an
+express rule is not discovering a new principle. Cross-case candidates retain support,
+counterexamples, and unresolved interpretations. Frequency and outcome correlations
+do not automatically confer legal authority. Do not claim induction when the material
+supports only extraction.
 
-建议在开发案例中连接事实、争点、法院的适用规则及其法律来源，形成规则库。对新案件，以事实与争点提出规则和法源候选，检查原始条文、解释、有效时间与适用范围，在兼容的完整对象绑定内组合条件。来源阶段与当前分析阶段分开，允许读取的历史事实可参与当前判断，不能沿用已被撤销的事实认定。法律条件反过来提示补查缺口，但不能补造事实。涉及合理性、程度或权衡时，保留模型判断和争议。
+For development cases, link facts, issues, the court's applied rules, and their legal
+sources. For a new case, propose candidate rules and authorities from the facts and
+issues, then check the original provision, interpretation, effective period, and scope.
+Combine conditions only within compatible complete entity bindings. Keep the source
+stage separate from the current analytical stage. Permitted historical facts may inform
+analysis, but overturned findings cannot simply remain accepted. Legal conditions may
+identify missing evidence; they cannot manufacture facts. Open-ended reasonableness,
+degree, and balancing judgments retain their model origin and disputed status.
 
-法源相关性、范围兼容、条件证据状态和法律后果分别记录。必要条件未满足时，控制性法源仍可能支持驳回请求；查询未找到不能自动变成条件被否定。双事件模式搜索上限不限制法律规则的实际条件数。[方案评审R2](reviews/2026-10-01-pro-rgcn-v1-review.md)记录选型依据；当前具体数据流与接口见[完整pipeline](plans/rules-and-verdict-v1/PIPELINE.md)，阶段验收与比较见[实施计划](plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md)。
+Record authority relevance, scope compatibility, evidential status of conditions, and
+legal consequences separately. A controlling authority can support rejecting a claim
+when a necessary condition fails. Failure to retrieve evidence is not proof that a
+condition is false. A two-event pattern-search limit does not limit the number of
+conditions in a legal rule. See the [R2 design review](reviews/2026-10-01-pro-rgcn-v1-review.md),
+[historical pipeline proposal](plans/rules-and-verdict-v1/PIPELINE.md), and
+[implementation proposal](plans/rules-and-verdict-v1/IMPLEMENTATION_PLAN.md).
 
-无需等全局事实聚类或开放模式搜索全部完成，才试验这条法律任务链。已有可解释关系可作为特征和诊断工具；罕见但重要的法律例外不能按频率排除。
+The legal-task workflow need not wait for global fact clustering or unrestricted
+pattern search. Existing interpretable relations may serve as features and diagnostics;
+rare but legally important exceptions must not be excluded for low frequency.
 
-## 实验应怎样调整
+## Proposed evaluation
 
-分开开发历史案例和新案件输入。开发期可读取完整历史推理与结果来取得候选规则；新案件预测只允许使用在预定决策阶段已知的事实、请求、争点和材料。目标案件的最终结论、决定性推理及直接暴露答案的引用不能进入预测输入。先例库及法规版本也要符合预定时间；已有判决材料不能支持真实判前证据可得性的强主张。
+Separate historical development material from new-case inputs. Development may inspect
+historical reasoning and outcomes to obtain candidate rules. New-case prediction may
+use only facts, claims, issues, and materials available at the defined decision stage.
+Exclude the target case's final outcome, decisive reasoning, and answer-revealing
+citations. Precedent and statutory versions must also respect the designated time.
+Existing judgments alone cannot establish real pre-decision evidence availability.
 
-建议依次进行适用法源检索、给定规则的应用、完整流程三个小实验，分别定位找错法、翻译错规则、事实抽取错、绑定错或应用错。法源评价检查具体条款、范围和引用支持；不能将法院引用列表视为穷尽全部正确法源。结果评价以请求、争点及审理阶段为单位，区分实体结论、程序驳回、撤销发回和部分支持。
+The original proposal distinguished authority retrieval, application of a given rule,
+and the complete workflow to diagnose wrong authorities, rule translation, fact
+extraction, entity binding, and application. Retrieval assessment checks provisions,
+scope, and citation support; a court's citation list is not an exhaustive reference
+set. Assess outcomes at the claim, issue, and procedural-stage level, separating merits,
+procedural dismissal, remand, and partial relief.
 
-端到端对照先包含直接回答、原文加法源检索、结构化事实与明确规则的应用；归纳材料具备后再加入跨案候选。每个比较使用同一受测模型、案件信息范围和明确记录的预算。9B首轮用于控制变量，不能据此概括全部LLM；形成跨模型主张前，再以其他受测模型重复关键对照。推迟从零训练GNN源于监督及接口不足，仍可后续评估预训练图模型迁移。结果、对象绑定、关键条件和来源理由分别检查，不以匹配增加或UNKNOWN减少代替。
+The dated proposal included direct answering, answering with retrieved authorities,
+and structured fact-and-rule application as distinct comparators, with cross-case
+induction conditional on suitable data. These are historical proposals, not permission
+to add mechanisms to the ordinary baseline. The current ordinary baseline is one LLM
+call on permitted raw materials and the question; additional mechanisms require explicit
+approval. Use the same tested model, information scope, and recorded resources within
+each comparison. An initial 9B-model result cannot characterize all LLMs. Cross-model
+claims require separate approved comparisons.
 
-仍无人工标注者；参考可以由普通High网页模型生成并依据原文复核，明确标为模型参考。实际判决提供历史裁判结果，不能自动证明所有法律解释唯一正确。程序测试、来源核查、相对模型参考的一致性及真实判前能力分别报告。
+Limited supervision and incomplete interfaces motivated postponing GNN training from
+scratch; transfer from pretrained graph models could be evaluated later. Check outcomes,
+bindings, decisive conditions, and source-grounded reasons separately. More matches or
+fewer UNKNOWN answers are not sufficient evidence of improvement.
 
-## 下一步建议及当前边界
+Human annotators were unavailable. Browser-model references may be checked against the
+sources but remain model references. Judgments supply historical outcomes, not proof
+that every legal interpretation is uniquely correct. Report engineering tests, source
+checks, reference agreement, and genuinely pre-decision ability separately.
 
-先按固定来源顺序选一个法律范围兼容的腾退争点，用最多5个已有开发案例串起原文事实、明文规则、条款和条件应用。先实现任务契约与抽取格式，在最多2个开发案例上检查输出及资源；随后建立法源/规则库与完整绑定执行。配置冻结后，最多10个新案依次比较找法、同法源下的应用与完整流程。跨案归纳依材料决定，GNN与补查反馈另设启动条件。以上均为待实施计划；没有因此启动模型运行、扩充标注或改写旧实验。
+## Historical next-step proposal and boundaries
 
-老师提供的GlassBox材料第12页包含模式连接法源和要件规则归纳，第13页包含找法、找先例与逐请求结果预测。该内容与本次更正相符，但不代表现有代码已实现全部环节。
+The proposed starting point was one legally compatible eviction issue and at most five
+existing development cases linking source facts, express rules, provisions, and condition
+application. It proposed contracts and extraction formats, output/resource checks on at
+most two development cases, followed by rule/authority storage and complete-binding
+execution. After freezing, at most ten new cases would compare retrieval, application
+under common authorities, and the full workflow. Cross-case induction depended on the
+materials; GNNs and further-evidence feedback had separate entry conditions. Recording
+these proposals did not start models, expand annotations, or change old experiments.
 
-相关工作分别讨论了规则归纳和外部法律材料辅助判决：
-[Legal Rule Induction](https://arxiv.org/html/2505.14104v2)、
-[NyayaRAG](https://aclanthology.org/2025.ijcnlp-long.92/)。它们可用于设计对照，不能替代本项目实验，也不能据此声称我们的组合有效或原创。
+The professor's GlassBox material, page 12, discusses connecting patterns to authorities
+and inducing element-based rules; page 13 discusses retrieving authorities and precedents
+and predicting claim-level outcomes. This agrees with the objective but does not show
+that the existing implementation completed every stage.
+
+[Legal Rule Induction](https://arxiv.org/html/2505.14104v2) and
+[NyayaRAG](https://aclanthology.org/2025.ijcnlp-long.92/) were cited as related work on rule
+induction and externally supported legal decisions. They may inform comparisons; they
+do not establish the effectiveness or novelty of this project's combination.

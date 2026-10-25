@@ -56,12 +56,12 @@ def main():
         m=next(x for x in manifest if x['case_id']==ident);inp=read(R/'inputs'/f'{ident}.json')
         case_studies.append(dict(case_id=ident,selection='PREDECLARED' if ident in protocol['fixed_cases'] else 'PREDECLARED_PROBABILITY_DISTANCE_RULE',analysis=notes[ident],target_conditions=target[ident]['adapted_targets'],input_sources=inp['provenance'],oof_predictions=[x for x in rows if x['package_id']==ident],reference_kind='MODEL_ASSISTED_SOURCE_REVIEW_NOT_HUMAN_GOLD',no_post_fit_label_or_feature_change=True))
     save(R/'case-study.json',dict(protocol=protocol,distance_ranking=sorted(distance,key=lambda x:(-x['mean_probability_l1'],x['case_id'])),selected=selected,cases=case_studies))
-    lines=['# 一次集中案例分析','', '预先固定112400、114533、50313565，另按种子20261006的Flat/Graph平均概率L1差异选择1114159和1870868。未按正确与否选例，没有修标签或重新训练。','']
+    lines=['# One Concentrated Case Analysis','', 'Cases 112400, 114533 and 50313565 were fixed in advance; 1114159 and 1870868 were selected by Flat/Graph mean-probability L1 differences under seed 20261006. Selection was not based on correctness; labels were not repaired and models were not retrained.','']
     for s in case_studies:
         lines += [f"## {s['case_id']}",'',s['analysis'],'']
         for t in s['target_conditions']:
             if t['supervision_mask']:
-                lines += [t['condition_id']+' → '+t['target']+'；依据：'+', '.join(x['source_id'] for x in t['target_refs']), '']
+                lines += [t['condition_id']+' → '+t['target']+'; evidence: '+', '.join(x['source_id'] for x in t['target_refs']), '']
     (R/'case-study.md').write_text('\n'.join(lines))
     # These are independent invariants, not accuracy certification.
     initial=read(R/'historical-preservation-before.json');changed=[];missing=[]
@@ -76,38 +76,38 @@ def main():
     save(R/'web/tool-display-anomalies.json',dict(tasks=ui_errors,count=len(ui_errors),interpretation='UI analysis/tool error remained visible; complete retained JSON or static original literals were imported separately. This does not certify the web file tool succeeded, or establish semantic correctness. No model retry.'))
     ledger=read(R/'web/ledger.json');save(R/'cost.json',dict(ordinary_High_calls=len(ledger),Pro=0,paid_api=0,semantic_retries=0,format_model_retries=0,web_ui_error_tasks=ui_errors,actual_visible_model='Latest',mode='High',exact_model=None,web_tokens=None,web_elapsed_exact=None,mlx_real_fits=len(summary['runs']),real_fit_seconds=sum(x['seconds'] for x in summary['runs']),encoder=read(R/'text-cache/encoding.json')|{'audit':'see text-cache/encoding.json'},peak_mlx_bytes=max(x['peak_mlx_memory_bytes'] for x in summary['runs']),engineering_smoke_not_legal_evaluation=True))
     save(R/'status.json',dict(status='COMPLETED_REAL_GROUPED_DEVELOPMENT_COMPARISON',packages=len(manifest),supervised_conditions=sum(counts.values()),supervised_groups=8,real_fits=18,ordinary_High_calls=34,sealed_read=False,new_legal_answers=0,committed=False,pushed=False,decision='NO_EVIDENCE_TO_EXPAND_GRAPH; RETAIN_RUNNABLE_INTERFACE; NEXT_RESEARCH_NEEDS_CONTRASTIVE_SUPERVISION_NOT_PARAMETER_SEARCH',stopped=True))
-    table='\n'.join(f"{x['method']}: F1 {x['macro_f1_mean']:.3f}（范围{x['macro_f1_range'][0]:.3f}–{x['macro_f1_range'][1]:.3f}），纠纷组平均正确比例{x['dispute_mean_correct']:.3f}，组均概率损失{x['dispute_balanced_logloss']:.3f}，DEFEATED召回{','.join(str(v) for v in x['defeated_recall'])}" for x in comparison)
-    report=f'''IRAC条件适用开发实验01：已经完成真实训练，暂不扩大图模型
+    table='\n'.join(f"{x['method']}: F1 {x['macro_f1_mean']:.3f} (range {x['macro_f1_range'][0]:.3f}–{x['macro_f1_range'][1]:.3f}), dispute-group mean correctness {x['dispute_mean_correct']:.3f}, group-balanced log loss {x['dispute_balanced_logloss']:.3f}, DEFEATED recall {','.join(str(v) for v in x['defeated_recall'])}" for x in comparison)
+    report=f'''IRAC condition-application development01: real training completed; graph expansion paused
 
-本轮完成31份已有完整来源的集中筛查、两套独立法源模板、17个真实问题包与图、34次普通High任务、冻结E5缓存，以及三折×三种子×Flat/Graph共18次真实拟合。训练已实际反向传播和更新参数，不是合成接口演示。没有完整法律回答、自动找法、胜败预测、规则归纳、SEALED访问、提交或推送。
+Completed consolidated screening of31 existing complete sources, two independent legal templates,17 real question packs/graphs,34 ordinary High tasks, frozen E5 caches, and18 actual fits across three folds × three seeds × Flat/Graph. Backpropagation and parameter updates actually occurred; this was not synthetic interface demonstration. No complete legal answers, automatic legal retrieval, outcome prediction, rule induction, SEALED access, commit, or push occurred.
 
-实际任务与数据
-预测对象是给定法律标准下目标法院对单个条件的实体裁判状态。不是“事实现实为真”，也不是整案胜败。2案属于历史住宅需要14(1)(e)，15案属于14(1)(b)。两类各6个固定条件，计划102条件；只有8个问题包的13条件有来源审阅且输入充分的目标：10 SATISFIED、3 DEFEATED、0 UNRESOLVED。全体监督覆盖13/102=12.75%；参与分组比较的8包覆盖13/48=27.08%，其余9包仍有安全输入图，但无监督，不进入拟合或留出计分。
+Task and data
+The target is the target court's merits assessment of an individual condition under a given legal standard, not real-world factual truth or whole-case outcome. Two cases concern historical residential need14(1)(e),15 concern14(1)(b). Each family has six fixed conditions,102 planned in total. Only13 conditions in eight packs have source-reviewed targets with sufficient input: ten SATISFIED, three DEFEATED, zero UNRESOLVED. Supervision covers13/102=12.75% overall and13/48=27.08% in the eight grouped-comparison packs. Nine other packs retain safe input graphs but no supervision, fitting, or held-out scoring.
 
-42项NOT_DECIDED明确不入损失；46项输入充分性未确认，与其他屏蔽原因有重叠。未知标签不是否定，程序性恢复/驳回不倒推所有实体条件。引文地址的可逆显示标记映射只恢复1870868的一个条件，初始12条件结果及原字节保留。其他页脚跳过或内容不连续引文继续失败。84524189的一项对象引文失败，13条依赖记录局部隔离，其余2事实仍可构图。来源审阅未新增隔离，不等于已经证明全部语义正确。
+All42 NOT_DECIDED items are excluded from loss. Input sufficiency is unconfirmed for46 items, overlapping other masks. Unknowns are not negatives; procedural restoration/dismissal does not imply every merits condition. Reversible citation-display mapping restores only one1870868 condition; the initial12-condition results/bytes remain. Other skipped-footer/noncontiguous quotations continue to fail. One84524189 object citation fails, locally isolating13 dependent records while two other facts remain graphable. No new source-review isolation does not prove complete semantic correctness.
 
-模型与隔离
-输入任务只见批准子跨度与独立给定规则；目标和监督mask另存，不参与条件节点有无、边或文本特征。Issue/Rule/Condition/Fact/Evidence/Entity六种节点保留身份、陈述状态和阶段。所有事实/证据与条件生成无支持方向的候选连接，标记为计算关系而非证据证明。Flat读取同样节点及有向关系三元组；Graph仅增加两层R-GCN传播。E5-small-v2 revision ffb93f3bd4047442299a41ebb6fa998a38507c52，query前缀、384维、全token覆盖分块，不微调。本轮271个独立节点文本未超过单块容量。给定模板是oracle选择，不证明自动检索；法条当前复制与历史范围不确定、住宅旧条文缺Explanation覆盖均已保留。组内canonical没有真实接入，此处使用本地native接口。
+Models and isolation
+Input tasks see approved subspans and independently supplied rules only. Targets/supervision masks are separate and do not determine condition-node presence, edges, or features. Issue/Rule/Condition/Fact/Evidence/Entity nodes preserve identity, status, and stage. Facts/evidence connect to conditions through direction-free candidate links marked computational, not evidentiary proof. Flat reads the same nodes/directed-relation triples; Graph adds two R-GCN layers. Frozen E5-small-v2 revisionffb93f3bd4047442299a41ebb6fa998a38507c52 uses query prefixes,384 dimensions, complete-token chunking, no fine-tuning. None of271 distinct node texts exceeds one chunk. Supplied templates are oracle selection, not automatic retrieval. Current/historical statutory uncertainty and missing old residential Explanation coverage remain. Real group canonical data are not connected; this uses the local native interface.
 
-按DOC纠纷组分三折，内部验证组独立早停，种子20261006/7/8。未发现已知同纠纷跨文书，但关联核验不完整，不能声称8组完全独立。所有案例暴露过开发/历史筛查，不是sealed或独立测试。48个留出条件节点中只有13有目标，模型对其他节点仍可输出概率但不作为已知正确性评分。固定18次拟合均成功；每次初始梯度非零，参数更新非零。Flat45,571参数，Graph78,491参数，信息相同但容量不严格相同。
+Three DOC-dispute folds use independent internal validation/early stopping and seeds20261006/7/8. No known cross-document shared dispute was found, but relationship checks are incomplete; eight fully independent groups are not claimed. All cases were exposed in development/screening, not sealed independent testing. Of48 held-out condition nodes, only13 have targets; probabilities on others are not correctness scores. All18 fits succeeded with nonzero initial gradients/parameter changes. Flat has45,571 parameters; Graph78,491, so information is matched but capacity is not.
 
-分组留出结果（相对模型来源审阅参考，非人工金标准）
+Grouped held-out results, against source-reviewed model references, not human gold
 {table}
 
-三个DEFEATED全部位于Fold1留出组，该折拟合数据恰好只有SATISFIED。这是预先随机分组在极小数据上的重要限制，不改折、不补造负例。Flat所有种子输出全SATISFIED，Graph两种子同样全SATISFIED，另一种子还错掉一个SATISFIED。两种网络相对P的表面正确比例增加不能证明利用了案件事实；这与直接全猜多数类一致，而且神经模型概率损失明显恶化，出现高置信误判。DEFEATED的0召回和第三类完全未覆盖，比总体正确比例更决定本轮结论。
+All three DEFEATED items fall in Fold1's held-out group, leaving only SATISFIED training examples in that fold. This is a major limitation of the predefined random split on tiny data; folds/negative examples were not changed or fabricated. Flat predicts all SATISFIED for every seed. Graph does so for two seeds and additionally misses one SATISFIED for the third. Apparent correctness gains over P do not establish use of case facts; majority guessing explains them, while neural probability loss worsens with confident errors. Zero DEFEATED recall and no third-class coverage are more decisive than overall correctness.
 
-以组为单位、先跨种子平均的2000次描述性bootstrap：Flat−P均值+0.125、95%范围[0,0.375]；Graph−Flat −0.0139、范围[−0.0417,0]。这不是独立测试显著性。按family及完整阶段的细分见training/summary.json；每个阶段样本极少，不能据细分选有利范围。
+After averaging seeds within groups,2,000 descriptive bootstrap samples give Flat−P mean+0.125,95% interval[0,0.375], and Graph−Flat−0.0139, interval[−0.0417,0]. These are not independent-test significance claims. Family/full-stage breakdowns are in training/summary.json; strata are too small for selecting favorable scopes.
 
-一次案例分析
-固定112400、114533、50313565，按预定概率差异加入1114159、1870868。114533的“未证明转租”被两网络误判成立；50313565缺目标法院依赖的营业文件，不硬要求还原其未充分输入的条件；112400部分构成条件标签依赖历史请求成立的推认，需视为较弱参考；1114159最高概率同类的差异不证明推理改善；1870868保留1954租约与下级转租认定，不能把已知来源或日期变成已验证网络机制。关键原文位置、允许来源、各条件依据与全部预测见case-study.json/md。没有训练后改标签、扩例或返工。
+One case analysis
+Fixed112400,114533,50313565 and added1114159/1870868 under predefined probability-difference rules. Both networks misclassify114533's unproved subletting as satisfied.50313565 lacks business documents used by the target court, so unsupported-input conditions are not forced to match its result. Some112400 labels infer conditions from historical claim success and are weaker references. Same-class probability differences for1114159 do not prove better reasoning.1870868 retains a1954 lease/lower-court subletting finding; known sources/dates are not verified network mechanisms. See case-study.json/md for anchors, allowed sources, condition grounds, and all predictions. No post-training relabeling, expansion, or rework occurred.
 
-成本与验证
-34次普通High（8筛查、2规则、1规则审阅、9输入、9目标、5集中来源审阅），实际界面Latest/High，确切型号、网页tokens及精确生成耗时不可得，不写成GPT-6。没有语义/格式模型重试；下载失败通过已保存可见JSON或工具生成代码的静态字面量恢复，未执行第三方代码、未修语义。提交文件部分在提交后从未修改任务原文补存，不能称作全程发送前快照。E5 CPU编码约{read(R/'text-cache/encoding.json')['seconds']:.2f}秒，进程峰值RSS约373.2MiB；18拟合内部计时合计{sum(x['seconds'] for x in summary['runs']):.2f}秒，不包含网页、数据准备、初始化与报告。MLX峰值与每次epoch/损失、梯度、参数变化、weights保存在本地日志，权重不入审阅包。19项直接相关测试通过，只证明工程行为。冻结前路径相对/绝对混用阻止freeze，已改通用路径规范化，原失败日志保留；发生于任何真实拟合之前。8,243个历史文件原字节及训练冻结哈希另行核验。
+Costs and verification
+Thirty-four ordinary High calls: eight screens, two rules, one rule review, nine inputs, nine targets, five source reviews. UI Latest/High did not expose exact model, browser tokens, or exact generation times; it was not labeled GPT-6. No semantic/format model retries occurred. Failed downloads were recovered from visible saved JSON or static literals in generated code, without running third-party code or changing semantics. Some submission files were saved afterward from unchanged task text, not falsely presented as complete pre-send snapshots. E5 CPU encoding took about {read(R/'text-cache/encoding.json')['seconds']:.2f}s, peak process RSS about373.2MiB. Internal18-fit time totals {sum(x['seconds'] for x in summary['runs']):.2f}s, excluding browser/data preparation/initialization/reporting. MLX peaks, epochs/losses/gradients/parameter changes/weights remain in local logs; weights are excluded from review packages. Nineteen tests establish engineering behavior only. A relative/absolute path mix blocked preparation freeze and was generically normalized before any fit; failed logs remain. All8,243 old-file bytes and training-freeze hashes were checked separately.
 
-投入决定
-保留已实现的条件级数据接口、部分监督、Flat/R-GCN可运行训练；本轮没有支持扩大GNN或宣称法律适用收益的证据。也不能断言Flat取得事实条件化能力：少数类漏检、概率过度自信、反例集中于一折与两个family覆盖不均，使这次比较更接近监督质量和任务可判别性诊断。下一步若另行授权，应先取得同一模板/条件在不同纠纷中有明确相反实体判断、且允许输入足够的监督，再评价是否超过不读案件的先验；不继续参数扫描。本轮已按预算完成并停止，SEALED继续封存。全部产物本地另存，旧实验不改。
+Decision
+Retain condition-level interfaces, partial supervision, and runnable Flat/R-GCN training, without evidence for graph expansion or legal-application benefit. Flat has not demonstrated factual conditioning either. Minority misses, overconfidence, all negatives in one fold, and family imbalance make this mainly a supervision/task-discriminability diagnosis. If later authorized, obtain sufficient permitted inputs and opposite explicit merits judgments for the same conditions across disputes before testing against case-blind priors. Do not continue parameter sweeps. This budgeted round is complete/stopped, SEALED stays sealed, and separate local artifacts preserve old experiments.
 '''
-    report=report.replace('提交文件部分在提交后',f'{len(ui_errors)}个保存页面另显示“分析出错”，完整可读JSON或静态原始数据另行保存导入，不能将其称为网页工具全部成功；详见web/tool-display-anomalies.json。提交文件部分在提交后')
+    report=report.replace('Some submitted files after submission',f'{len(ui_errors)} saved pages also show an analysis error; complete readable JSON or static raw data were separately saved and imported. Do not claim universal web-tool success; see web/tool-display-anomalies.json. Some submitted files after submission')
     (R/'report-zh.txt').write_text(report)
     print(json.dumps(dict(comparison=comparison,case_study=selected,historical_changed=len(changed),frozen_changed=len(fail)),ensure_ascii=False,indent=2))
 if __name__=='__main__':main()

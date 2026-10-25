@@ -1,41 +1,41 @@
-# 最终答案来源与主体修复：V20.8 → V20.9.2
+# Final-answer sources and actor repair: V20.8 → V20.9.2
 
-本实现独立于 `legal_bench/historical_contrasts_v1/` 和其测试。没有修改检索/GNN模块、旧绑定门禁、主实验入口、共享索引或发布桥，也没有训练、提交或推送。共享文件的注册和主入口接线留给整合阶段，避免与另一条 side chat 同时写入。本地入口和全部结果在 `outputs/proof-final-bindings-v20-8`；具体验收结果见该目录的 `report-zh.md` 与 `results.json`。
+This implementation is independent of `legal_bench/historical_contrasts_v1/` and its tests. It did not change retrieval/GNN modules, old binding gates, the main experiment entry, shared index, or publication bridge, and did not train, commit, or push. Shared registration/entry wiring was left to integration to avoid concurrent side-chat writes. Local entries/results are in `outputs/proof-final-bindings-v20-8`; see its `report-zh.md` and `results.json`.
 
-## 原因与修复
+## Causes and repairs
 
-480字符截断是此前给多个字段共用的文字规则加长度上限造成的工程问题；摘要和正文不能沿用辅助说明的上限。已有V20.7修复保留，当前字面渲染同样不对摘要切片，实际长度与完整原句另行验收。旧1954254自由生成的服务提前结束是另一项技术失败，唯一服务端原因仍未确认，不能与480字符问题混为一谈。
+The earlier 480-character truncation came from adding a limit to a shared text-schema object. Summaries/bodies must not inherit an auxiliary-field limit. V20.7's fix remains; literal rendering also avoids summary slicing, with length and original sentences checked separately. The old 1954254 free-generation service response ended prematurely for a separate, still-unconfirmed server-side reason. These failures must not be conflated.
 
-主体错配同时涉及实现接口和语义核验。分析单元内部的 `OBJ:1` 在不同前提下代表不同对象，合并数组的位置也不能充当实体身份。此前最终输入没有完整身份定义；分析声明的法院级别表示记录/采纳该声明的法院，却与最终行为主体的法院级别混用。569555和1187427旧输出在原始JSON中就把法院裁定绑定到房东，原始输出与解析结果一致，因而不是解析过程改坏了编号。
+Actor mismatches involve both interfaces and semantic review. Local OBJ:1 can identify different objects in different premises; merged-array positions are not identities. Earlier final inputs omitted full identity definitions. A claim's reporting/adopting court level was conflated with the final acting court's level. Old 569555/1187427 JSON already bound judicial decisions to landlords; parsing preserved those IDs rather than corrupting them.
 
-`final_bindings_v20_8.build_bridge` 为原声明建立带案例、来源快照、分包、前提和原编号的业务地址，并另存合并数组位置映射。对象数量、顺序、内容或局部引用不一致就拒绝；不会按名字自动合并。完整来源、原声明、依赖、旧阻断判断和规则计算状态保留。分析声明的 `reporting_court_level` 与最终主体自身的 `court_level` 分开，当事人和政府没有法院级别。
+`final_bindings_v20_8.build_bridge` assigns addresses including case, source snapshot, partition, premise, and original ID, with separate merged-position maps. Object-count/order/content/local-reference mismatches are rejected, not merged by name. Complete sources, claims, dependencies, old blockers, and rule states remain. Claim `reporting_court_level` differs from actor `court_level`; parties/governments have no court level.
 
-新人物、法院、政府、物业、事件及旧对象身份链接先组成独立候选，由完整原文来源核验。法院裁定的行为主体与受影响当事人分别存储；听审法院与记录该事件的法院分别存储；政府通知和退休使用独立事件类别。新实体有新的来源核验记录，旧错误声明保持阻断，不能靠改名升级为已接受前提。
+New people, courts, government, property, events, and old-object identity links form independent candidates reviewed against complete sources. Judicial actors differ from affected parties; hearing courts differ from courts reporting the event. Government notice and retirement have separate event categories. New entities require new source reviews; renaming cannot promote blocked claims to accepted premises.
 
-固定主体事件表仍不能约束自由文字：V20.8第一次真实自由写作中，主体表正确，摘要却把下级法院认定写成高等法院认定。这个失败保留。后续选择旧声明的实验又暴露出声明库不完整和身份定义缺失。因此当前入口采用V20.9的完整类型声明包。
+An accurate actor/event table does not constrain free text. In the first real V20.8 writing attempt, the table was correct but the summary attributed a lower-court finding to the High Court. That failure remains. Later old-claim selection exposed incomplete claim libraries and identity definitions. The current entry therefore uses V20.9's complete typed statement pack.
 
-## 当前最终写作与验收
+## Final writing and acceptance
 
-`final_statement_pack_v20_9.py` 保存每条声明的原句、主体、物业、事件、来源、角色、采纳状态、裁判阶段及所属章节。章节包括摘要、依据、相反观点和裁判范围/未决问题。声明包与事件框架分别绑定来源和内容哈希，逐条来源核验全部支持后才能进入最终任务。
+`final_statement_pack_v20_9.py` stores each original statement sentence, actor, property, event, sources, role, adoption status, stage, and section. Sections cover summary, grounds, opposing views, and disposition scope/unresolved issues. Pack/event frame bind source/content hashes. Every statement must receive supported source review before entering the final task.
 
-Qwen只输出声明编号的顺序，每条实际声明必须恰好出现一次，不能输出新事实文字。程序逐字渲染全部声明及已核验事件表，保留“下级认定”“当事人主张”“最高法院多数意见”“异议”和条件计算UNKNOWN的区别。摘要中的每条原句也保留归属与阶段。最终模型不能重新绑定行为主体、补写假设或偷偷省略已核验声明。
+Qwen emits only statement IDs in order, with every statement exactly once and no new factual text. The program renders all sentences and the reviewed event table verbatim, preserving prior findings, party assertions, Supreme Court majority/dissent, and conditional UNKNOWN. Summary sentences retain attribution/stage. The final model cannot rebind actors, add assumptions, or silently omit reviewed statements.
 
-`final_statement_review_v20_9_1.py` 将每个原对象的实际定义及旧地址到原文行号的映射送入整份答案核验。机器编号本身不证明对象身份，原文也不必打印该机器编号；核验者必须对照定义、原文和新对象。身份来源、每个字段以及11项整案覆盖全部支持后才产生正式答案。缺核验、错哈希、未决判断或技术失败时，正式答案保持null；没有降低验收条件。
+`final_statement_review_v20_9_1.py` sends actual old-object definitions and old-address-to-source-line maps to whole-answer review. Machine IDs do not prove identity and need not appear in source text; reviewers compare definitions, sources, and new objects. Identity sources, every field, and all 11 coverage checks must pass before a formal answer. Missing review, wrong hashes, unresolved judgments, or technical failure leave null. Acceptance was not relaxed.
 
-1187427重核时发现退休日期与任职期间占用政府房屋被过度合并。修正版分别表达日期与占用范围，重新核验事件框架后，保留原26条声明与原API排序输出。569555整案核验进一步指出两项裁判保留遗漏及联合判决对原承租人Association的影响；新快照保留原22条声明，补入重新来源核验的S23/S24并修正E03受影响当事人。
+Re-review of 1187427 found retirement date and government-housing occupancy had been overcombined. A revision separates date from occupancy scope and rechecks the event frame, retaining all 26 original statements and API order. Whole-answer review of 569555 identified two missing disposition reservations and the joint judgment's effect on the original tenant Association. A new snapshot retains the original 22 statements, adds source-reviewed S23/S24, and corrects E03's affected parties.
 
-`proof_final_statement_completion_v20_9_2.py` 对这两条新增保留进行透明的缓存回放：旧22条声明与模型顺序前缀必须完全不变，新增内容仅能是来源核验通过的裁判范围声明，事件修正也必须与已记录的改动完全相符。回放收据明确记录没有新API调用；它不是重新生成实验，最终整案核验仍须重做。
+`proof_final_statement_completion_v20_9_2.py` transparently replays those two additions from cache. The old 22 statements and model-order prefix must stay identical; additions must be reviewed disposition-scope statements and event changes must exactly match documented edits. The receipt states there was no new API call. This is not a generation rerun; whole-answer review must still be repeated.
 
-1954254的整案来源判定全部支持，但核验回复抄错一个哈希字符。程序首先拒绝，随后网页核验会话用Python从原Schema提取绑定值并合并原核验记录。本地再次确认177项字段、11项覆盖和所有理由完全不变，只改了绑定字段。旧拒绝结果保留，修正后的验收另存。
+All source judgments for 1954254 were supported, but review copied one hash character incorrectly. The program first rejected it. The website review session then extracted the binding from the original schema in Python and merged the unchanged review. Local checks confirmed that all 177 field assessments, 11 coverage checks, and reasons were identical; only the binding changed. Old rejection and corrected acceptance remain separate.
 
-## 实验边界与信息流
+## Experimental boundaries and information flow
 
-本轮包含7次真实Qwen API调用：一次自由写作、三次旧声明选择、三次完整类型声明排序。失败输出、请求、服务返回、冻结源码、核验记录和缓存回放均保留。自由写作与仅生成编号的输出长度不是同一种任务，不能用后者的短输出宣称长自由写作的截断能力已经改善。
+Seven real Qwen API calls ran: one free-writing attempt, three old-statement selections, and three typed-pack ordering tasks. Failed outputs, requests, service returns, frozen code, reviews, and cache replay remain. Free writing and ID ordering are different tasks; short ID output does not prove improved long-form truncation behavior.
 
-85项工程检查通过；标签注入测试只验证程序，不是语义准确率。缓存比对验证完整原文、338个局部声明、171个全局对象位置、509个已接受声明与102个被阻断声明及依赖保留。声明包包含开发过程中的模型提议与来源核对补充；最终答案是否覆盖当前请求由整案核验评估，不能将“原信息保存在缓存”视为“所有原信息都展示在最终答案”。
+All 85 engineering checks passed. Injected labels test software, not semantic accuracy. Cache comparison confirmed retention of full sources, 338 local claims, 171 global object positions, 509 accepted claims, 102 blocked claims, and dependencies. Statement packs include development model proposals and source-reviewed additions. Whole-answer review evaluates current-question coverage; information retained in cache is not necessarily displayed in the final answer.
 
-原声明与依赖完整保存在桥接文件；Qwen排序输入使用完整来源、核验后的主体事件表及当前声明包，原对象身份链接的详细定义单独用于身份审阅与整案核验。旧前提的规则计算状态保留在任务和验收上下文中，来源支持不会把UNKNOWN改为TRUE，最终案例重建也不是可执行的法律证明。
+Bridge files retain original claims/dependencies. Qwen ordering reads full sources, reviewed actor/event frames, and the current statement pack. Detailed old-object definitions serve identity and whole-answer review separately. Rule computation states remain in task/acceptance context. Source support does not change UNKNOWN to TRUE; case reconstruction is not an executable legal proof.
 
-API预算保持原0.50美元上限。孤立运输层 `provider_token_budget_v20_9.py` 使用真实token编号序列计数，避免将分词器返回字典的字段数误当作token数；输入保留完整，异常时回到UTF-8字节保守估算。当前1.5倍余量加4096的策略在7个已观察请求上核对通过，不构成未来任意请求token上限的保证；此前2倍校准记录保留，最终校准另存。API费用不包含ChatGPT Web订阅的来源核验使用。
+The original API cap remains $0.50. Isolated transport `provider_token_budget_v20_9.py` counts actual token-ID sequences rather than tokenizer dictionary fields. Inputs remain complete; failures fall back to conservative UTF-8 byte estimates. The current 1.5× margin plus 4,096 policy passed checks on seven observed requests, not every possible future input. Earlier 2× calibration remains; final calibration is separate. API cost excludes ChatGPT Web subscription use for source review.
 
-这些是已暴露开发案例的工程与模型来源回归，不是人工金标准、自动提取准确率、未见测试集效果、Paper机制收益、GNN收益或律师批准。原1954254服务端提前结束的唯一原因仍未知；当前接口通过生成编号、逐字渲染已核验文字，避免让模型重新生成长事实正文。主实验入口尚未切换。
+These are engineering and model-source regressions on exposed development cases, not human gold, automatic extraction accuracy, unseen-test performance, paper-mechanism/GNN benefit, or lawyer approval. The unique server-side cause of 1954254's early termination remains unknown. ID generation and verbatim rendering now avoid regenerating long factual prose. The main experiment entry was not switched.

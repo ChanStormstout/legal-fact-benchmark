@@ -51,11 +51,11 @@ def main():
  with (ROOT/'comparison.csv').open('x',newline='') as f:
   w=csv.DictWriter(f,fieldnames=['case_id','request_id','D','P','R','finding','boundary','natural_problem']);w.writeheader()
   for r in rows:w.writerow({k:r[k] for k in w.fieldnames})
- md=['# V16 来源到限定推导的轨迹','','本轮六个固定请求的根规则均为OPEN_TEXT。前提连接及来源可审阅，开放法律解释未由程序执行。技术失败为null，UNKNOWN只用于真实保存的分析。正式法律批准缺失。','']
+ md=['# V16 source-to-bounded-derivation traces','','All six fixed requests have OPEN_TEXT root rules. Premise links and sources are reviewable; open legal interpretation is not executed by the program. Technical failure is null; UNKNOWN applies only to actually saved analysis. Formal legal approval is absent.','']
  for r in rows:
-  cid=r['case_id'];md +=[f"## {cid} / {r['request_id']}",'',f"D={r['D']}，P={r['P']}，R={r['R']}。{r['finding']}",'',r['boundary'],'',r['natural_problem'],'',f'[完整来源与逐步记录](paths/{cid}/trace.json)','']
+  cid=r['case_id'];md +=[f"## {cid} / {r['request_id']}",'',f"D={r['D']}，P={r['P']}，R={r['R']}。{r['finding']}",'',r['boundary'],'',r['natural_problem'],'',f'[Complete sources and step records](paths/{cid}/trace.json)','']
   for s in r['slots']:
-   md +=[f"- {s['address']} / {s['premise_id']}：{s['proposition']}。原提议={s['raw_model_state']}；条件性执行前提={s['conditional_state']}；独立判断={s['independent_conditional_judgment']}；审阅后执行前提={s['accepted_state']}；审阅后独立判断={s['accepted_independent_judgment']}。阻碍：{', '.join(s['pending']) or ('未取得提议，结构检查不可评价' if s['raw_model_state'] is None else '无结构阻碍')}。"]
+   md +=[f"- {s['address']} / {s['premise_id']}：{s['proposition']}。Original proposal={s['raw_model_state']}；Conditional executable premise={s['conditional_state']}；Independent assessment={s['independent_conditional_judgment']}；Post-review executable premise={s['accepted_state']}；Post-review independent assessment={s['accepted_independent_judgment']}。Blockers: {', '.join(s['pending']) or ('No proposal obtained; structural checks unevaluable' if s['raw_model_state'] is None else 'No structural blockers')}。"]
   md+=['']
  textsave(ROOT/'walkthrough.md','\n'.join(md))
  print(json.dumps({'counts':dict(summary),'web_calls':len(costs),'rows':[{'case':r['case_id'],'D':r['D'],'P':r['P'],'R':r['R']} for r in rows]},ensure_ascii=False,indent=2))

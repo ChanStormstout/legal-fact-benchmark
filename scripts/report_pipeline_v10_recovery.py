@@ -105,34 +105,37 @@ write_new(ROOT / 'preservation-check.json', {'old_files_checked': len(start['old
 frozen = read(ROOT / 'freeze/config.json')
 assert all(digest(Path(name).read_bytes()) == value for name, value in {**frozen['files'], **frozen['live_code']}.items())
 (ROOT / 'final-answer-slots.md').write_text(
-    '# 69305恢复后的完整回答\n\n[A文本笔记后的完整回答](runs/A/parsed.json)；'
-    '[B部分事实与程序检查后的完整回答](runs/B/parsed.json)。\n\n'
-    'A为本轮唯一新调用，B复用约束诊断FIXED结果，两份V8中间结果未重新生成。'
-    '完整原始输出、来源恢复、成本与一次集中审阅均保留；开发审阅不是人工金标准。\n', encoding='utf-8')
+    '# Complete Recovered Answers for 69305\n\n[A: complete answer after text notes](runs/A/parsed.json)；'
+    '[B: complete answer after partial facts and program checks](runs/B/parsed.json)。\n\n'
+    'A is the only new call. B reuses the FIXED constraint-diagnostic result; neither V8 intermediate result was regenerated.'
+    'Full raw outputs, source recovery, costs and one concentrated review are preserved. Development review is not human gold.\n', encoding='utf-8')
 a, b = rows
-report = f'''V10：修复约束后的69305同案最终回答比较
+report = f'''V10: same-case final-answer comparison for 69305 after constraint repair
 
-结论：同案配对已恢复，A和B都完整生成并回答UNDETERMINED，但决定性依据均有错误。本案暂优先文本流程继续开发：未发现B完整答案的可核查整体改善，B新增了转移方式的确定判断与解释矛盾，并增加输入负担。A也不能作为可靠法律方法。本结论是一个旧案例下的投入决定，不是泛化能力或准确率排名。
+The within-case pair recovered: A and B both completed and answered UNDETERMINED, but both have errors in decisive reasoning. Text remains provisionally preferred for development on this case. B has no verifiable overall complete-answer gain, adds an unjustified definite transfer characterization and contradictory explanation, and increases input burden. A is not a reliable legal method either. This is an investment decision for one exposed case, not a generalization or accuracy ranking.
 
-实际运行
-A复用V8文本笔记，使用原V9最终prompt与修复约束，只新调用一次。B复用JSON约束诊断中已完成的FIXED结果；逐字核对prompt、Schema、共同来源、法源包、生成设置及修复mask定义，兼容后直接采用，没有补跑B。两份中间材料均来自旧约束下已完成的V8提议，因此这是恢复后的最终阶段比较，不是把整套两阶段方法都用新约束重新跑一遍。
-Qwen3.5-9B-4bit revision8b2b98c00a6b4d291155e4890773ca8f769aee53、MLX-VLM0.7.4、greedy、repetition_penalty1、thinking off、Schema约束不变；每次最终上限3072，总预算32768，没有截断原文。A输入{a['final_input_tokens']}、输出token IDs{a['final_output_token_ids']}、{a['final_seconds']}秒；B输入{b['final_input_tokens']}、输出token IDs{b['final_output_token_ids']}、{b['final_seconds']}秒。两边均stop，无重复保护触发、格式修补或重试。输出计数沿用保存的token IDs口径，包含结束token。新调用1、复用最终调用1、网页0、重试0。
-历史第一阶段耗时A{a['intermediate_seconds']}秒、B{b['intermediate_seconds']}秒。连同恢复最终阶段账本为A{a['recorded_two_stage_seconds']}、B{b['recorded_two_stage_seconds']}秒，未包含历史失败尝试或额外诊断调用；这些运行发生于不同时间，不能当作严格同步性能测试。
+Actual execution
+A reused V8 text notes with the original V9 final prompt and repaired constraints, in one new call. B reused the completed FIXED diagnosis result after verbatim compatibility checks of prompts, schema, shared case/legal sources, settings, and repaired mask; B was not regenerated. Both intermediate artifacts came from completed V8 proposals under old constraints. This compares recovered final stages, not complete two-stage reruns under new constraints.
 
-两份答案具体哪里成立，哪里有问题
-1. A正确区分房东提出“未经同意转租”的主张与主张本身是否成立。但A第二项与总理由说材料没有可采性的法院判断。原文p0004.s002明确写Rent Controller及上诉机构认定租约条款“was not inadmissible”，允许租户依赖，并以United Automobiles被引入为sub-lessee为由命令腾退。A把可见的下级认定丢失了；不能用目标最高法院理由被排除来解释下级认定不存在。
-2. B第二项保留associate concern身份尚未明确的争点，这与允许材料一致。B第三项却断言“转移方式已依法确定为parting with possession而非subletting”，标SUPPORTED，解释又说具体方式尚未核实。原文记载的是下级法院认定sub-lessee。旧提议x2同样把该记录填成PART_WITH_POSSESSION，程序局部PROPOSED_SUPPORT仅基于提议。错误可能沿这条链传播；最终文字与提议相似不能证明模型必然依赖程序。
-3. 双方仍须区分租约中存在有条件的associate例外，与该例外在Section14(1)(b)下是否等同本次交易的书面同意。共同法源提供转移行为、书面同意及日期的基本条件，没有提供解决Section49 collateral purpose和本案associate定义的完整解释。B把条款称为written consent for subletting，不能仅以来源编号有效就认为法定效果已核验。A第三项还把应由原租户向associate转移的权限写得像由United Automobiles继续assign，角色表达不够准确。
+Qwen3.5-9B-4bit revision8b2b98c00a6b4d291155e4890773ca8f769aee53, MLX-VLM0.7.4, greedy, repetition_penalty1, thinking off, and schema constraints are unchanged. Final output cap3072, total context32768, with no original-text truncation. A input {a['final_input_tokens']}, output IDs {a['final_output_token_ids']}, time {a['final_seconds']} seconds; B input {b['final_input_tokens']}, output IDs {b['final_output_token_ids']}, time {b['final_seconds']} seconds. Both ended stop without repetition, format repair, or retries. Saved-ID output counts include the end token. One new call, one reused final call, no browser calls/retries.
 
-结构化材料的作用与限制
-B保留了一部分下级裁判信息，并未在最终答案照抄旧提议中混入的American/Indian公司合并身份。然而A没有该身份错误，不能把B的自我纠错算成胜过A。B未纠正转移方式，程序54个组合UNRESOLVED也没有带来明确、可靠的最终判断增益。两边最终UNDETERMINED可以是合理的谨慎标签，但标签相同不代表理由正确。本轮没有用历史案件胜败要求模型猜回被排除的最终判决。
+Historical first-stage times were A {a['intermediate_seconds']} and B {b['intermediate_seconds']} seconds. Recorded two-stage totals including recovered finals are A {a['recorded_two_stage_seconds']} and B {b['recorded_two_stage_seconds']} seconds, excluding historical failures/extra diagnosis. Runs occurred at different times and are not a synchronized performance benchmark.
 
-三种缺口
-材料明确提供了下级法院的可采性和sub-lessee认定，这不是事实缺失。允许输入未给出完整associate资格裁判细节，需保留范围限定。法源包没有解决关键合同/登记法解释，这是法律覆盖缺口。程序没有实现这些开放法律解释，是程序覆盖缺口，不能改说原文没记载。两个最终判断器有完整原文，因此可见认定被遗漏也不能全部归责于抽取字段。
+Supported content and actual errors
+1. A distinguishes the landlord's allegation of unauthorized subletting from its truth. But ground2/reason claim no judicial admissibility finding. Source p0004.s002 explicitly states that the Rent Controller/appellate authority found the lease term “was not inadmissible,” allowed reliance, and ordered eviction because United Automobiles entered as sub-lessee. A loses visible lower-court findings; withholding the Supreme Court's reasoning does not remove them.
+2. B ground2 retains the unresolved associate-concern issue. Ground3 nevertheless declares the transfer legally established as parting with possession rather than subletting, marks SUPPORTED, and says its precise mode is unverified. The source records a lower-court sub-lessee finding. Old proposal x2 similarly records PART_WITH_POSSESSION; local PROPOSED_SUPPORT is based only on that proposal. This suggests possible propagation, not proof that the model relied on the program.
+3. Both must distinguish a conditional associate exception in the lease from whether it constitutes statutory written consent for this transaction under Section14(1)(b). Shared authorities supply transfer/consent/date conditions, not full Section49 collateral-purpose or associate-definition interpretation. B's description of the clause as written consent for subletting is not semantically verified by valid source IDs. A ground3 also makes the original tenant's permission to transfer to an associate sound like permission for United Automobiles to assign onward, misexpressing roles.
 
-范围、交付与停止
-仅69305一个已反复参与开发的旧案，复用已有检索、允许来源、法律包和中间结果；含下级裁判信息及后于目标年份的法源，仍是回顾性开发材料。原V1–V9及约束诊断结果未覆盖，首次A生成前冻结当前源码、prompt、Schema、设置、来源哈希、调用和审阅规则。只对两份最终答案做一次集中决定性来源审阅，没有全量中间标注、网页复核、新gold或额外模型调用。完整答案、raw、逐案表、引用恢复、B检查轨迹与兼容审计均保存。
-下一轮最值得修改的是最终判断如何保留已经给出的法院认定，并把事实未决与法律解释未决分开；本轮只提出建议，未改prompt或重新生成。本轮结束，不扩案、不自动启动下一轮、不提交或推送。
+Structured-material contribution and limits
+B retains some lower-court history and does not copy American/Indian merger identities contaminating the old proposal. A lacks that identity error too, so B's self-correction is not superiority over A. B does not correct transfer characterization. All 54 program combinations being UNRESOLVED provides no clear reliable final-judgment benefit. Both UNDETERMINED labels may be cautious, but equal labels do not establish correct reasons. The model was not required to reconstruct the excluded historical final judgment.
+
+Three distinct gaps
+Lower-court admissibility/sub-lessee findings are present, not missing facts. Complete associate-eligibility adjudication details are absent from allowed input and require scope qualification. Missing contract/registration-law interpretation is a legal-coverage gap. Unimplemented open legal interpretation is a program-coverage gap, not missing source text. Both final models read full originals, so omissions cannot all be blamed on extraction fields.
+
+Scope, delivery, and stopping
+Only repeatedly exposed case69305 was used, with existing retrieval, allowed sources, authorities, and intermediate outputs. Lower-court information and later authorities make this retrospective development material. V1–V9/constraint-diagnosis outputs remain unchanged. Before A generation, current sources, prompts, schema, settings, source hashes, calls, and review rules were frozen. One consolidated decisive-source review covered both final answers, without complete intermediate relabeling, browser recheck, new gold, or extra calls. Complete answers, raw text, comparison tables, recovered citations, B traces, and compatibility audits are saved.
+
+The next proposed focus is preserving supplied court findings and distinguishing unresolved facts from legal interpretation. That recommendation was not implemented through prompt edits or regeneration here. This round ends without case expansion, automatic continuation, commit, or push.
 '''
 (ROOT / 'report-zh.txt').write_text(report, encoding='utf-8')
 print(json.dumps({'new_calls': results['new_model_calls'], 'complete_final_answers': 2,

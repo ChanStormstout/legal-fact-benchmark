@@ -1,6 +1,6 @@
-# 当前代码与必要测试
+# Source code and required tests
 
-完整原文；不是代码摘要。按路径与行号回到仓库引用。
+Full source, not a summary. Cite repository paths and line numbers.
 
 ## outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/code/C/src/runner.py
 

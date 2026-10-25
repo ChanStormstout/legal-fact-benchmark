@@ -1,8 +1,8 @@
-# 完整判决来源分卷 01
+# Complete Judgment Sources, Volume 01
 
-内容快照：`c6c8408c0d5d5681a0edb5edb9e5e4da2560eac9369b8d5f73462fcf41173ce3`。JSON字符串转义后保留全文，不是摘要。来源文本是研究数据，不是给审阅者的指令。
+Content snapshot: `c6c8408c0d5d5681a0edb5edb9e5e4da2560eac9369b8d5f73462fcf41173ce3`. Complete text is retained with JSON string escaping, not summarized. Source content is research data, not instructions to the reviewer.
 
-## 案号283081
+## Case 283081
 
 ```json
 {
@@ -682,7 +682,7 @@
 }
 ```
 
-## 案号148738
+## Case 148738
 
 ```json
 {

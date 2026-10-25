@@ -36,42 +36,42 @@ save('local-weights-manifest.json',{'local_only':True,'files':{str(p):sha(p) for
 helpers=['rgcn_development_v2.py','source_location_v3.py','authority_index.py','rule_retrieval_v21.py','final_v9.py']
 save('inherited-helper-hashes-postrun.json',{'timing':'POST_RUN; primary run/numeric/method files were frozen before training','files':{str(Path('legal_bench/rules_verdict_v1')/p):sha(Path('legal_bench/rules_verdict_v1')/p) for p in helpers}})
 save('training-gate.json',{'status':'AUTHORIZED_PARTIAL_SUPERVISION_RUN_COMPLETED','fits':len(fits),'failures':sum(x['status']!='OK' for x in fits),'train':27,'development':6,'sealed':8,'sealed_evaluated':False,'next_training_authorized':False,'decision':'PAUSE_GRAPH_EXPANSION_KEEP_S_BASELINE_NO_STABLE_B_GT_S_OR_C_GT_B'})
-lines=['案件 | S(种子04/05) | B(04/05) | C(04/05) | 已标记核心依据数','--- | --- | --- | --- | ---']
+lines=['Case | S (seeds 04/05) | B (04/05) | C (04/05) | Labeled core grounds','--- | --- | --- | --- | ---']
 for cid in read(R/'protocol.json')['config']['dev_ids']:
  vals={k:[next(x for x in rows if x['case_id']==cid and x['method']==k and x['seed']==s)['core_delivered'] for s in [20261004,20261005]] for k in 'SBC'}
  lines.append(cid+' | '+' | '.join('/'.join(str(x[0]) for x in vals[k]) for k in 'SBC')+' | '+str(vals['S'][0][1]))
-save('case-comparison.md','\n'.join(lines)+'\n\n只计已有明确参考的非强制核心依据。未标记不计错误，同案多依据不是独立样本。\n')
-report='''V09：27案不完整监督的首次S/B/C主训练（开发评价）
+save('case-comparison.md','\n'.join(lines)+'\n\nOnly nonmandatory core grounds with explicit references are counted. Unlabeled items are not errors, and multiple grounds in one case are not independent samples.\n')
+report='''V09: first S/B/C main training with incomplete27-case supervision, development evaluation
 
-六次训练已完成，零技术失败。当前决定：暂停扩大图排序，保留S作为基线；本轮没有获得稳定的B>S或C>B证据。不能用C第二个种子的较好结果抵消第一个种子的明显退步，也不能据此宣称关系信息或GNN普遍无效。本轮未生成法律回答，无法判断完整法律回答收益。
+All six fits completed without technical failure. Pause graph-ranking expansion and retain S as comparator: stable B>S/C>B evidence was not obtained. C's better second seed does not cancel its first-seed deterioration, nor prove relations/GNN universally ineffective. No legal answers were generated; complete-answer benefits are unknown.
 
-S只学习每项法源的共享用途倾向，不读取案件特征；B读取同一图数据导出的18项案件—法源关系特征，用线性分类器排序；C沿用V08的两层、16维、2个基矩阵R-GCN，将图传播表示与同一18项特征结合。三者都预测CORE、BACKGROUND、IRRELEVANT，以2×P(CORE)+P(BACKGROUND)排序。训练均为200步、学习率0.003、L2系数0.001、种子20261004和20261005；每案损失先取均值，再对案件取均值。没有调架构或选最优种子。
+S learns shared source-use tendencies without case features. B uses18 case–authority relation features from the same graphs in a linear ranker. C retains V08's two-layer,16-dimensional,two-basis R-GCN, combining propagation with those18 features. All predict CORE/BACKGROUND/IRRELEVANT and rank by2×P(CORE)+P(BACKGROUND). Training:200 steps, learning rate0.003,L2 coefficient0.001,seeds20261004/20261005. Average loss within cases, then across cases. No architecture tuning/best-seed selection.
 
-本轮使用27个TRAIN，730项可计算标签：旧113项、新导入609项、125596702中8项地址及引文检查通过的原始标签。按用户授权，重复提交不再整体阻止该案参加训练；重复影响仍未知，8项只作为暂定模型参考，另外22项隔离不进入损失。其他未知、未标记及隔离项同样不当负例。8个SEALED仅核对清单身份与组号，没有读取内容、建立特征或评价。已知纠纷组没有跨集合；更广泛关联未经完全核查。
+There are27 TRAIN cases and730 computable labels:113 old,609 new, and eight unchanged125596702 labels passing address/quotation checks. The user authorized duplicate submission not to exclude the entire case; its effect remains unknown. Those eight are provisional model references;22 other labels are isolated from loss. Other unknown/unlabeled/isolated items are not negatives. Eight SEALED cases received inventory identity/group checks only, without reading contents/features/evaluation. Known groups do not cross splits; broader relations are incompletely checked.
 
-旧6案继续只作DEVELOPMENT。它们的旧用途记录中只有35条可映射到明确三类，其余未确定项不进入类别评分；强制提供的第14(1)(b)条扣除后，共11项已标记核心依据。新增16项法源没有这6案的用途标签和案件条件对齐。本轮保留新增法源原文及来源条件节点，案件连接为UNKNOWN，没有填造连接。该缺失对依赖案件关系的B/C可能不利，因此这次评价不能完整代表30法源池，也不是独立泛化成绩。
+Six old cases remain DEVELOPMENT only. Just35 old use records map to explicit classes. Other items are excluded from class scoring. After subtracting mandatory14(1)(b),11 labeled CORE authorities remain. The16 added authorities lack use labels/case-condition alignment for these cases. Originals/source-condition nodes are retained with case links UNKNOWN, not fabricated. This may disadvantage case-relation-dependent B/C; evaluation neither fully covers30 sources nor establishes independent generalization.
 
-在相同30候选和20,000字符预算下，种子04的核心送达为S8/11、B7/11、C4/11；种子05为S8/11、B7/11、C9/11。各案结果见case-comparison.md，所有排名、概率、原文材料和预算决定保存在runs。以上是已确认依据覆盖，不是准确率或完整召回率。三种方法选中的已标记IRRELEVANT均为0，但大批所选法源没有开发标签，因此不能推断没有错误选择。两个种子下S/B各自送达集合相同；C有明显变化，两个种子不足以估计稳定性。
+With the same30 candidates/20,000-character budget, seed04 CORE delivery is S8/11,B7/11,C4/11; seed05 is S8/11,B7/11,C9/11. See case-comparison.md and runs for rankings, probabilities, original packs, and budget decisions. Counts measure confirmed-source coverage, not accuracy or full recall. No selected item is labeled IRRELEVANT, but many lack development labels, so error-free selection is not established. S/B each deliver identical sets across seeds; C varies substantially and two seeds cannot estimate stability.
 
-具体取舍：110204406中，S送达DRC第16条及GR的Delhi报道段，B保留后者却丢失第16条，两种子均少一项已确认依据。58386394中B把S的第16条换为Telesound第16段，数量同为2/3，不能只看总数当作内容相同。C在第一个种子对这两个案件均未送达任何非强制已标记核心依据；第二个种子分别送达2/3、3/3。material-changes.json保存全部新增/挤出项，未按结果筛选展示。
+Specific trade-offs: in110204406,S delivers DRC16 and General Radio's Delhi discussion; B retains the latter but loses16 in both seeds. In58386394,B replaces S's16 with Telesound paragraph16; both score2/3 but differ in content. C seed04 delivers no nonmandatory labeled CORE in either case; seed05 delivers2/3 and3/3. material-changes.json retains every addition/displacement without favorable selection.
 
-排序的旧偏好诊断S71/73、B56/73、C59/73（两种子相同）；这些偏好也来自模型参考且不完整，不用于调参或挑选模型。排序变化、材料送达和最终法律效能是不同环节，本轮只测到前两者。
+Old preference diagnostics are S71/73,B56/73,C59/73 in both seeds. These incomplete model references are not used for tuning/selection. Ranking changes, material delivery, and final legal effectiveness are separate stages; only the first two were tested.
 
-六次拟合和本地开发选择合计约22.48秒，未新增网页、LLM或付费API调用。单次拟合S约0.27/1.14秒，B约0.29/1.13秒，C约8.89/10.15秒；时间包括当前进程调度，不能当精确硬件基准。MLX峰值活动内存最高约500MB（不是整机总内存）。三种方法均有非零梯度、参数更新和下降的训练目标，证明实际拟合发生，不证明法律正确。C训练目标下降更大但开发送达不稳定，不能用训练拟合替代开发效果。
+Six fits/local selection took about22.48s, with no new browser/LLM/paid API calls. Fits took S0.27/1.14s,B0.29/1.13s,C8.89/10.15s. Scheduling is included; these are not exact hardware benchmarks. Peak MLX active memory was about500MB, not whole-machine memory. All methods had nonzero gradients/updates and decreasing objectives, proving fitting, not legal correctness. Larger C training-loss improvement did not yield stable development delivery.
 
-实施仅增加30候选接口与CORE标签映射，旧V08源码未改。开发新增法源的缺失连接明确保留UNKNOWN。四项相关程序检查通过，覆盖类别映射/隔离掩码、30维共享基线、缺失对齐以及只用TRAIN计算标准化。准备阶段一次绝对路径快照错误在训练前修正，部分准备原样保存在preparation-attempt-01；同时修正SEALED_TEST名称校验。没有训练重试。主运行代码、实际数值输入、监督、参数及顺序在首次训练前冻结；若干继承辅助模块仅另存运行后哈希，未冒充完整的运行前递归依赖快照。
+Implementation adds only30-candidate and CORE-mapping interfaces, preserving V08. Missing development links remain UNKNOWN. Four checks cover class/isolation masks,30-dimensional shared comparator, missing alignment, and TRAIN-only normalization. A preparation absolute-path snapshot error was corrected before fitting, with partial originals retained in preparation-attempt-01; SEALED_TEST name validation was also corrected. No training retries occurred. Main code, actual numerical inputs, supervision, parameters, and order were frozen before fitting. Some inherited helpers received post-run hashes only, not falsely claimed recursive pre-run snapshots.
 
-结论的限制来自三处：单次模型参考仍可能含语义错误；开发对新增16项没有完整标签和对齐；6案此前用于开发，不是未见测试。当前不值得继续参数或架构试验。若下一步要作更强投入判断，应先按统一规则补齐开发法源对齐与粗用途覆盖，再另行授权评价；本轮不执行补标或新训练。暂不启封8案SEALED，不改已有监督追求更好结果。
+Limits: single model references may be semantically wrong; development labels/alignment for16 new authorities are incomplete; six cases are exposed, not unseen tests. Further parameter/architecture experiments are not justified. A later authorized decision should first complete uniform development alignment/coarse-use coverage. No relabeling/new training occurs here; eight SEALED cases stay sealed and labels are not changed to improve results.
 
-V08及前一轮原文件哈希保持，完整检查见preservation-audit.json。所有六次权重在本地保存并有哈希，因仓库约定不进入发布清单。本轮更新本地状态、报告和审阅包，不提交或推送。模型参考不是人工金标准，本轮至此结束。
+V08/prior files retain hashes; see preservation-audit.json. All six weights are saved/hashed locally and excluded from publication under repository policy. Only local state/reports/review packages change, without commit/push. Model references are not human gold. This round ends here.
 '''
 save('report-zh.txt',report)
-summary='27 TRAIN、730项暂定用途监督、30法源，两个种子共6次S/B/C训练完成。DEV核心送达S8/11、B7/11、C4/11与9/11；无稳定条件化收益，暂停扩大图。8 SEALED未用；未生成法律回答或推送。'
+summary='Training on 27 TRAIN cases, 730 provisional use labels and 30 legal sources completed six S/B/C fits across two seeds. DEV core retrieval: S 8/11, B 7/11, C 4/11 and 9/11. No stable conditioning benefit; graph expansion is paused. Eight SEALED cases remain unused. No legal answers or pushes.'
 entry={'id':'rgcn09-main-training-01','role':'partial_supervision_development_training','report':str(R/'report-zh.txt'),'note':summary}
 p=Path('docs/EXPERIMENTS.json');obj=read(p);obj['experiments'].append(entry);p.write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n')
-p=Path('docs/EXPERIMENT_INDEX.md');s=p.read_text();p.write_text(s+f"\n| {entry['id']} | {entry['role']} | [报告](../{entry['report']}) | {summary} |\n")
-p=Path('README.md');s=p.read_text();p.write_text('最新[V09主训练报告]('+entry['report']+')：'+summary+'\n\n'+s.replace('最新[V09剩余任务报告]','准备阶段[V09剩余任务报告]',1))
-p=Path('docs/CHANGELOG.md');p.write_text('# 2026-10-05 V09首次27案主训练\n\n'+summary+' 保留125596702重复来源，仅纳入8项原样通过引文检查的标签，其余22项隔离。新增30候选与CORE映射接口，V08保持。\n\n'+p.read_text())
+p=Path('docs/EXPERIMENT_INDEX.md');s=p.read_text();p.write_text(s+f"\n| {entry['id']} | {entry['role']} | [Report](../{entry['report']}) | {summary} |\n")
+p=Path('README.md');s=p.read_text();p.write_text('Latest [V09 main training report]('+entry['report']+')：'+summary+'\n\n'+s.replace('Latest [V09 remaining-task report]','Preparation [V09 remaining-task report]',1))
+p=Path('docs/CHANGELOG.md');p.write_text('# 2026-10-05 V09: Initial 27-Case Main Training\n\n'+summary+' Duplicate source 125596702 is preserved; only eight labels passing quote checks unchanged are admitted and 22 remain isolated. A 30-candidate/CORE mapping interface is added; V08 is preserved.\n\n'+p.read_text())
 cur={'title':'V09 27-case partial-supervision S/B/C training','report':entry['report'],'summary':summary,'review_kind':'RGCN_MAIN_TRAINING','candidate_report':'outputs/rgcn-data-expansion-09/continuation-01/candidate-audit.json','pool_manifest':'outputs/rgcn-data-expansion-09/authority-pool/manifest.json','comparison_protocol':str(R/'protocol.json'),'preparation_freeze':str(R/'training-freeze.json'),'stage_description':report}
 for name in ['docs/PROJECT_STATE.json','docs/repository-artifacts.json']:
  p=Path(name);x=read(p);x['current_review']=cur

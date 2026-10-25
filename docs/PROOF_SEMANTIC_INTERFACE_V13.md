@@ -1,15 +1,47 @@
-# V13：共同接口、DEV恢复和条件训练
+# V13: common interfaces, DEV recovery, and conditional training
 
-任务是复核原P提出的证据用途，重建判决采用的限定推理。P的自评标签与解释保留为输入；USABLE包括有效反对证据，不代表命题为真。已有TRAIN标签与原始资料不修改，当前TEST/SEALED正文和特征不读取。
+The task reviews evidence uses proposed by P and reconstructs bounded reasoning adopted
+in a judgment. P's self-assessed labels/explanations remain inputs. USABLE includes
+valid opposing evidence and does not mean that a proposition is true. Existing TRAIN
+labels/raw materials are unchanged; TEST/SEALED bodies and features are not read.
 
-版本化入口为`scripts/proof_semantic_run_v13.py`，独立检查为`check_semantic_v13.py`，用途预测接入为`proof_semantic_apply_v13.py`。类型声明保存为role_types；只有明确的同角色变量地址或已声明的符号对应才能转换。对象值仍是模型提议，精确相同不等于来源语义批准。图中对象提及按事实记录与角色分别建节点，不按同名字符串自动合并。未知对应只限制相应槽。多证据组合可分别提供不同角色，明确冲突仍保留。
+The versioned entry is `scripts/proof_semantic_run_v13.py`, independent checker
+`check_semantic_v13.py`, and use-prediction adapter `proof_semantic_apply_v13.py`.
+role_types stores type declarations. Only explicit same-role variable addresses or
+declared symbolic correspondences convert. Objects remain model proposals; exact
+string equality is not semantic approval. Graph mentions are separate for each fact
+record/role, without same-name merging. Unknown correspondence affects only its slot.
+Evidence combinations may supply different roles; explicit conflicts remain visible.
 
-原文恢复按引用ID及同文书相邻一个片段确定，顺序来自原始位置，完整保留每段，并保存可逆的3000字符分段。E5用现有固定编码器完整token分块；CrossEncoder对完整左侧命题和全部右侧材料分窗，每个窗口保留完整左侧，最终等权平均全部窗口logits。没有删掉长段的否定或反证。只恢复已引用片段和固定上下文，不能声称发现全文全部遗漏。
+Source restoration uses citation IDs and one adjacent same-document fragment in original
+order, preserving each complete passage with reversible 3,000-character segmentation.
+Fixed E5 encodes all tokens in chunks. CrossEncoder windows retain the complete left-hand
+proposition and all right-hand material, averaging logits equally. Negation and opposing
+evidence are not dropped. Only cited passages/fixed context are restored, not every
+possible omission in the full document.
 
-关系来自P的明确有限sign/type/relation，或uses.opposition中的现有fact ID；自由文字、未知端点均保存为未编码记录，没有从参考标签造正负边。Flat/R-GCN共享节点、全部文本及三元组；CE也读取同一案件的完整提议、规则、关系及恢复原文。图传播是方法差异，语义信息不是。既有规则依赖只有精确命题与明确对应才能产生；没有关系不造关系。
+Relations come from P's explicit bounded sign/type/relation or existing fact IDs in
+uses.opposition. Free text and unknown endpoints remain unencoded records; references
+do not manufacture positive/negative edges. Flat/R-GCN share nodes, all text, and triples;
+CE reads the same complete proposals, rules, relations, and restored sources. Message
+passing is the method difference, not semantic information. Rule dependencies require
+exact propositions and explicit correspondence; missing relations are not invented.
 
-OPEN_TEXT继续未执行；ALL/ANY/例外只组合P单独提出的whole-premise状态与出处。用途可用性不能补出缺失真值，法院判断不是程序证明。全部实际检查输出是未正式法律批准、依赖模型语义假设的研究轨迹。
+OPEN_TEXT remains unexecuted. ALL/ANY/exceptions combine P's separately proposed whole-
+premise states/provenance. Usability cannot supply missing truth values; court assessments
+are not program proofs. Actual traces depend on model semantics and have no formal
+legal approval.
 
-`scripts/proof_semantic_fit_v13.py`在读权重之前验证冻结的数据/资源门槛，架构和优化继续复用V12。新特征与旧权重不兼容，不把旧权重称为用V13原文和关系训练过。门槛未满足时交付修复与诊断，模型加载及拟合均不启动。旧V12当前CrossEncoder允许正常完成，其余种子保持暂停。
+`scripts/proof_semantic_fit_v13.py` checks frozen data/resource gates before loading
+weights and reuses V12 architecture/optimization. New features are incompatible with
+old weights, which must not be described as trained on V13 sources/relations. Unmet gates
+produce repairs/diagnosis without loading or fitting. The existing V12 CrossEncoder
+may finish its current run; other seeds stay paused.
 
-DEV沿冻结队列恢复，P任务字节复用V12；独立来源参考复用兼容旧结果，新增用途审阅隐藏P自评标签、用途辩护及整个前提状态。旧P可见参考与新盲用途参考分开登记，均不是人工gold。失败保留null，不补写或重试。正式数据与推导结果见本轮报告和final-audit-03/data-task-audit.json。10DEV中8纠纷195有效用途，原P173/195；86项用途参考替换诊断全部未决，真实完整路径门槛不满足，V13拟合0。
+DEV follows the frozen queue with byte-identical V12 P tasks. Compatible old independent
+references are reused; new use reviews hide P's self-labels, use defenses, and whole-
+premise states. P-visible old references and new blind use references are registered
+separately; neither is human gold. Failures remain null, without fabrication or retries.
+See the report and final-audit-03/data-task-audit.json: ten DEV inputs/eight disputes,
+195 valid uses, original P173/195. Replacing references for86 uses left every diagnostic
+unresolved; the real complete-path gate failed, so V13 performed zero fits.

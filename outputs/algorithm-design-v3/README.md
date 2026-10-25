@@ -1,10 +1,8 @@
-> 当前推荐方案与8页slides已更新至 [v4](../algorithm-design-v4/README.md)。本目录保留历史版本，不能作为最新算法说明。
+# Independent Algorithm Design (v3)
 
-# 独立算法方案 v3
+Historical proposal dated September 29, 2026, prepared independently without further ChatGPT Pro discussion. It replaced v2's default algorithm selection and was subsequently superseded by [v4 and its eight-slide deck](../algorithm-design-v4/README.md). The v2 deck was not synchronized to v3.
 
-2026-09-29。按最新要求独立整理，暂不继续与 ChatGPT Pro 讨论。
+- [Complete design](算法重设计.md): A/B/C inputs and outputs, initialization, candidates, edits, acceptance, stopping, a running example, alternatives, implementation and validation.
+- [Search coverage and independent selection](检索覆盖与独立选型.md): cross-field research, full-method reading versus screening, and adoption/rejection rationale.
 
-- [完整算法设计](算法重设计.md)：A/B/C 输入输出、启动、候选、编辑、接受、停止、贯穿实例、与文档备选方法的关系、实施及验证。
-- [检索覆盖与独立选型](检索覆盖与独立选型.md)：跨方向调研、方法核读与初筛的区别、实际采用与不采用的理由。
-
-状态：可评审的研究方案，尚未实现并验证真实数据上的性能优势。此版替代 v2 默认算法选型；v2 的八页 slides 尚未同步，不能作为本版算法说明。
+Status: a reviewable research proposal, without implemented and verified performance gains on real data. Original linked filenames remain unchanged.

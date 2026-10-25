@@ -1,44 +1,44 @@
-# V20.7：最终答案的来源与完整性约束
+# V20.7: final-answer source and completeness constraints
 
-本版本在支线中实现最终摘要长度修复、已核验声明到最终写作的连接、人物与事件归属检查，以及针对具体最终答案的来源核验入口。代码为 `legal_bench/proof_carrying/final_source_guard_v20_7.py`，命令入口为 `scripts/proof_final_source_guard_v20_7.py`。主线程入口、项目当前审阅版本和旧批次暂停状态保持原样。
+This side-branch version repairs summary length, connects reviewed claims to final writing, checks person/event attribution, and provides source review for a specific final answer. Code: `legal_bench/proof_carrying/final_source_guard_v20_7.py`; entry: `scripts/proof_final_source_guard_v20_7.py`. The main entry, registered review version, and old-batch pause are unchanged.
 
-## 长度限制
+## Length limits
 
-旧规则通过共享字符串对象描述正文和辅助字段。对辅助字段设置 480 字符时，正文也受到限制；普通 `deepcopy` 会保留这些共享关系。新版本逐个复制规则出现位置，只给缺口等辅助数组设置条数和单条长度限制。最终摘要、论点、解释不再受到这个 480 字符限制。原始 schema 和旧失败答案不改写。
+The old schema shared string objects between body and auxiliary fields. Setting a 480-character auxiliary limit also limited the body; ordinary `deepcopy` preserved this aliasing. The new version copies each occurrence separately and limits only auxiliary arrays such as gaps, including item count/length. Summaries, arguments, and explanations no longer inherit 480 characters. Original schemas and failed answers remain.
 
-解除字段限制不能保证模型在总输出预算内写完。最终核验还需要检查半句话、遗漏和结论范围；模型耗尽总预算或传输失败仍保存为技术失败，答案为 null。
+Removing a field limit does not ensure completion within total output budget. Final review must still inspect unfinished sentences, omissions, and conclusion scope. Budget exhaustion/transport failure remains technical failure with a null answer.
 
-## 核验声明与最终写作
+## Reviewed claims and writing
 
-准备入口复用已保存的来源核验，调用原局部应用、合并和独立检查，再建立可选声明表。只有来源核验状态为 REVIEWED、标签为 SUPPORTED、引用非空且有效、所有声明依赖也通过这些条件的记录可以被选择。被排除或未决的记录继续完整保存在应用与原始核验文件中；写作材料只展示这些记录的编号和状态。
+Preparation reuses saved source reviews, invokes original local application/merge/independent checking, and constructs selectable claims. Eligibility requires REVIEWED, SUPPORTED, nonempty valid citations, and the same conditions for every dependency. Excluded/unresolved records remain complete in application/raw-review files; writing materials show only their IDs/status.
 
-每个可选编号 C001 等都有 `origin_declaration_id`，对应原部件和 EV、USE、ROLE 或 J 编号；`declaration_aliases` 可恢复原地址，声明内容不改写，依赖编号可以双向恢复。来源枚举和声明枚举用 `$defs` 共享，避免格式规则多次列出完整清单。完整原文保存在 `source.json`，并完整进入写作和最终核验输入。空白段不作为证据选项，原段落及 SRC 序号仍保留。
+Each C001-style ID has `origin_declaration_id` linking to the original partition and EV/USE/ROLE/J address. `declaration_aliases` restores old addresses; content is unchanged and dependencies round-trip. Source/claim enums share `$defs` to avoid repeated full lists. `source.json` preserves full text, which enters both writing and final review. Blank passages are not evidence options; original paragraphs/SRC numbering remain.
 
-每个 J:n 使用自己的审计状态和计算错误，避免同一前提的多个判断全部继承首个判断的状态。SUPPORTED 表示声明受到来源支持，不意味着法律前提为 TRUE。UNKNOWN、CONFLICTED 和 OPEN_TEXT 仍约束结论。
+Each J:n uses its own audit status/errors, rather than inheriting the first judgment's status. SUPPORTED means a sourced claim, not a TRUE legal premise. UNKNOWN, CONFLICTED, and OPEN_TEXT still constrain conclusions.
 
-本任务重建实际案件，`assumptions` 必须为空。没有证据的事实只能作为未解决缺口，不能通过假设重新成为结论依据。另做假设场景需要单独的任务；本版本未实现假设场景工作流。直接从原文发现的新事实也不能绕过声明核验进入论据、事件或结论，需先新增来源核验记录并准备新任务。
+Actual-case reconstruction requires empty `assumptions`. Unsupported facts remain gaps, not assumed grounds for conclusions. Hypothetical scenarios need a separate task; that workflow is not implemented here. Newly noticed facts cannot bypass claim review into arguments/events/conclusions: they need new review records and a new prepared task.
 
-## 人物、物业和程序行为
+## People, property, and procedural acts
 
-最终结构新增 `case_frame`，保存具体当事人及身份、物业描述、事件主体、事件发生的法院、法院层级和程序阶段。论据、反驳及事件都必须关联可选声明。程序检查至少两个当事人、至少一处物业、编号唯一、引用对应关系、当事人行为与法院行为类别。法院不能成为 `PARTY_APPLICATION` 的申请人，私人当事人不能成为 `COURT_REMAND` 的发回主体，发回事件的法院主体和法院上下文必须一致。
+`case_frame` records parties/identities, property descriptions, event actors, acting courts, court levels, and stages. Arguments, rebuttals, and events must link to selectable claims. Checks require at least two parties, one property, unique IDs, matching citations, and compatible party/court action categories. A court cannot apply as a PARTY_APPLICATION party; a private party cannot issue COURT_REMAND; the remanding court actor must match court context.
 
-这些程序检查只检查结构和明确的类别冲突。同属法院的两个编号写反、真实名称或日期错读，以及当事人主张是否被法院采纳，仍需具体答案的来源核验。人物和物业字段存在，不证明字段内容正确。
+These checks detect structure and explicit category conflicts. Swapped court IDs, misread names/dates, and whether a claim was adopted still require source review of the actual answer. Field presence does not prove correctness.
 
-## 具体最终答案的验收
+## Final-answer acceptance
 
-`review_task` 在格式和关联检查通过后，为每一个文字字段生成核验单元，覆盖摘要、论据、反驳、解释、缺口、处理理由、人物名称、事件描述和阶段分类。核验输入包含具体答案、完整来源、固定请求、规则、每个前提的计算状态和可选声明表，并保存任务、答案、来源、规则和声明表的哈希。
+After format/link checks, `review_task` creates units for every text field: summary, arguments, rebuttals, explanation, gaps, treatment reasons, names, event descriptions, and stage classifications. Review receives the specific answer, full sources, fixed request, rules, per-premise computation state, and claim table. Task/answer/source/rule/table hashes are saved.
 
-还须完成 11 项整案检查：人物、物业、事件归属、法院阶段、采纳的推理、决定性反驳、不确定性、结论范围、被排除事实是否重新出现、最终文字与所选声明是否相符，以及叙述是否完整。直接来源支持不能代替缺失的中间声明核验；条件句不能成为已发生的付款，有争议的日期不能改写成确定日期。
+Eleven whole-case checks additionally cover people, property, event attribution, court/stage, adopted reasoning, decisive rebuttals, uncertainty, conclusion scope, resurfacing excluded facts, text/claim agreement, and narrative completeness. Direct source support does not replace missing intermediate-claim review. Conditional payments cannot become actual payments; disputed dates cannot become certain dates.
 
-没有核验记录时，`accept_final` 返回 `PENDING_WHOLE_ANSWER_SOURCE_REVIEW`，答案为 null。核验不支持、未决、缺项、引用缺失、重复 JSON 字段，或者任一哈希不匹配时，也不接受答案。原始候选和原始核验文本另外保存，不删除失败内容。正确表达“不知道”的答案可以被核验为忠实重建；核验记录本身尚未解决时不开放验收。
+Without review, `accept_final` returns PENDING_WHOLE_ANSWER_SOURCE_REVIEW with null answer. Unsupported/unresolved/missing review, missing citations, duplicate JSON keys, or any hash mismatch also rejects acceptance. Original candidates/reviews remain separately saved. Correctly expressed unknowns can pass as faithful reconstruction; unresolved review itself does not unlock acceptance.
 
-全部通过的状态为 `MODEL_SOURCE_REVIEW_ACCEPTED_NOT_LEGAL_SUCCESS`，仍标记为模型来源核验、非人工金标准，`legal_approval=false`。外部核验器仍可能误读原文；本版本不把核验标签当作语义正确的程序证明。
+Full acceptance is MODEL_SOURCE_REVIEW_ACCEPTED_NOT_LEGAL_SUCCESS, explicitly model-based/non-human reference with `legal_approval=false`. Fallible external review labels are not programmatic proof of semantic correctness.
 
-## 运行与交接
+## Execution and handoff
 
-最终验证材料位于 `outputs/proof-final-source-guard-v20-7/validated-01`。根目录的第一次准备材料和冻结副本保留为工程迭代记录；第一次准备没有调用模型。采用 `validated-01/freeze/protocol.json` 核对当前实现。
+Validated material is in `outputs/proof-final-source-guard-v20-7/validated-01`. Initial root preparation/freeze remain as engineering history; that first preparation made no model calls. Use `validated-01/freeze/protocol.json` for the implementation.
 
-命令入口仅做本地准备、核对和候选验收，不生成答案、不提交网页核验、不训练、不恢复旧队列：
+These entries only prepare/check/accept locally; they do not generate answers, submit website reviews, train, or resume queues:
 
 ```sh
 python3 -B scripts/proof_final_source_guard_v20_7.py prepare
@@ -47,8 +47,8 @@ python3 -B scripts/proof_final_source_guard_v20_7.py review-task --case-id 19542
 python3 -B scripts/proof_final_source_guard_v20_7.py accept --case-id 1954254 --candidate /absolute/candidate.json --review /absolute/review.json --output-dir /absolute/separate-acceptance-directory
 ```
 
-输出目录必须独立于原候选目录。`review-task` 只保存待核验材料，未发送；`accept` 只读取已有核验。即使已有生成器使用新任务生成了符合 schema 的 JSON，也必须经过此入口，不能再通过旧 `local_pipeline_v19_8.accept_final` 放行。
+Outputs must be separate from candidate directories. `review-task` saves unsent material; `accept` reads existing review. Schema-valid generation must still use this entry, never old `local_pipeline_v19_8.accept_final`.
 
-初轮 `validated-01` 对 1954254 和 569555 应用了来源核验，可选声明分别为 219 和 153 条；1187427 当时缺少保存的核验，未填充假标签。后续用户授权尝试真实验收，结果另存于 `real-acceptance-01`：1187427 的 111 条旧核验已取回、应用，形成 137 条可选声明；三案各实际生成一次，完整验收通过数为 0/3。1954254 的响应在引用字段中途结束，后两案完整 JSON 的主体关系检查失败。全部旧材料与 `validated-01` 保留，详见 [真实验收报告](../outputs/proof-final-source-guard-v20-7/real-acceptance-01/report-zh.md)。
+Initial `validated-01` applied reviews for 1954254/569555, yielding 219/153 selectable claims. Missing 1187427 review was not fabricated. Subsequent authorized real acceptance is in `real-acceptance-01`: 111 old reviews for 1187427 were recovered/applied, yielding 137 selectable claims. One actual generation per case produced **0/3 complete acceptances**. 1954254 ended midway through references; both other complete JSON responses failed actor-relation checks. Old material/validated-01 remain. See the [real acceptance report](../outputs/proof-final-source-guard-v20-7/real-acceptance-01/report-zh.md).
 
-本地 tokenizer 初轮估算两案输入分别为 92,764 和 86,878 tokens，另预留 16,384 输出 tokens，均超过原本地 65,536 预算。后续真实验收重新确认服务上下文为 262,144，完成三次服务调用，没有删减来源；1954254 未返回用量，后两案实际输入分别为 86,878 和 80,729 tokens。服务调用完成不代表答案通过验收，仍不能直接接入原本地预算。
+Initial local-tokenizer input estimates were 92,764/86,878 tokens plus 16,384 output reserve, exceeding the local 65,536 budget. Real acceptance later confirmed a service context of 262,144 and made three calls without removing sources. 1954254 returned no usage; the other inputs were 86,878/80,729 tokens. Completed service calls do not imply acceptance or compatibility with the old local budget.

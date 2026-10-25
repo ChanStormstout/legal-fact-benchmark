@@ -1,37 +1,22 @@
-# 历史对照检索接口与实现 V1
+# Historical-contrast retrieval: interfaces and implementation V1
 
-本轮实现独立的历史案例检索组件，不切换当前 V20.4 入口，不恢复原批次，
-不训练、提交或推送。实现和调用说明见
-[模块说明](../legal_bench/historical_contrasts_v1/README.md)，实际验收见
-[报告](../outputs/historical-contrasts-v1/report-zh.md)。
+This independent historical-case retrieval component does not switch the V20.4 entry, resume the old batch, train, commit, or push. See the [module guide](../legal_bench/historical_contrasts_v1/README.md) and [acceptance report](../outputs/historical-contrasts-v1/report-zh.md).
 
-实现顺序是旧缓存适配与校验、图及编号映射、完整文本编码、共同候选集合、
-简单检索与 GraphSAGE 排序、历史对照核对、原门禁交接。排序提供相关性线索；
-进入规则计算的数据仍须通过原门禁。历史案例中的事实不能自动成为查询案例事实。
+Implementation order: old-cache adaptation/validation, graph and ID maps, full-text encoding, shared candidates, simple retrieval/GraphSAGE ranking, historical-contrast review, and handoff to existing gates. Ranking offers relevance signals. Data entering rule computation still require original gates. Historical facts do not become current-case facts.
 
-| 接口 | 必要内容 | 不变量 |
-| --- | --- | --- |
-| CasePacket | 完整旧材料、共享来源、对象/证据/用途/绑定、选定查询、版本与状态 | 原值和数组顺序保持；局部引用命中实际声明；来源与记录可追溯 |
-| GraphRelease | 类型化节点与边、全局 UID、节点索引、来源与可见性 | 节点和边与原材料对应；编号不充当特征；监督与审阅结论不进消息边 |
-| CandidatePool | 案例—争议—路径、范围检查、检索通道及排除原因 | 查询争议组排除；未知不作负例；不同方法共用候选集合 |
-| RankRequest | 全局查询 UID、图/特征/候选哈希、模型角色、采样与预算 | 任务和所有依赖一致；随机权重不能冒充已训练权重 |
-| RankResult | 全部候选分数、确定性排名、前 k 项、实际计算覆盖 | 不造编号、不漏项；有限数值；高分不改变证据/审阅状态 |
-| ContrastBundle | 两侧路径、结果与区别、来源及核对记录 | 未核对的路径/结果/区别保持待核对；不把整案胜负当路径结果 |
+| Interface | Required content | Invariant |
+|---|---|---|
+| CasePacket | Complete old material, shared sources, objects/evidence/uses/bindings, selected query, versions/status | Preserve values/order; local references resolve to declarations; sources/records are traceable |
+| GraphRelease | Typed nodes/edges, global UIDs, node indices, sources/visibility | Correspond to original material; IDs are not features; supervision/review decisions are not message edges |
+| CandidatePool | Case–issue–path, scope checks, retrieval channels/exclusions | Exclude the query dispute; unknown is not negative; methods share candidates |
+| RankRequest | Query UID; graph/feature/candidate hashes; model role; sampling/budget | Match task/dependencies; random weights cannot be presented as trained |
+| RankResult | Every candidate score, deterministic ranking, top k, actual coverage | No invented/missing IDs; finite values; scores do not change evidence/review states |
+| ContrastBundle | Both paths, results/differences, sources/reviews | Unreviewed items stay pending; case-level winner is not a path result |
 
-材料快照和提议快照分开。前者决定来源和案例节点身份，后者限定局部 EV/OBJ/USE
-及角色绑定。SRC:1 等旧编号和来源顺序原样保存，图中的全局 UID 不替换旧编号。
-文本偏移按冻结文本的 Unicode 字符位置计算，原文件另核对字符/字节范围。
-规则原版本完整保存在原规则和快照中，版本变化会改变提议/图及缓存身份；未核对
-的法律时期、请求类型、路径等价关系不作自动推断。
+Material and proposal snapshots are separate. The former establishes source/case-node identity; the latter scopes local EV/OBJ/USE IDs and bindings. Original SRC:1-style IDs and order remain; global graph UIDs do not replace them. Text offsets use frozen Unicode character positions, with original-file character/byte ranges separately checked. Original rule versions remain complete; changes alter proposal/graph/cache identity. Unreviewed legal period, request type, and path equivalence are not inferred automatically.
 
-来源文件、冻结文本、图、编码、采样和推理计算分别记录。编码器逐窗口读取
-全部 BPE token；GNN 只读取采样子图；原推理器继续读取自己的完整必要条件。
-完整编码不能证明模型理解了所有关系，采样覆盖不能冒充完整材料覆盖。
+Source files, frozen text, graphs, encoding, sampling, and inference are recorded separately. Encoders read every BPE token across windows; GNNs read sampled subgraphs; original reasoners read their complete required conditions. Full encoding does not prove relational understanding, and sample coverage is not full-material coverage.
 
-接口发现状态矛盾、越界、错位、旧版本或来源变化时拒绝计算，保留原数据和
-具体原因。真实语义错误继续由来源核对处理。训练与法律审批分别保持未完成。
-当前原门禁按整个分包阻断；本轮没有把它改成按依赖路径局部放行。
+State conflicts, out-of-range/misaligned references, stale versions, or changed sources reject computation while preserving originals/reasons. Semantic errors require source review. Training/legal approval remain incomplete. Existing gates block entire partitions; this version does not introduce dependency-local release.
 
-当前 source view 使用已暴露的判决材料，仅用于工程验收。生产 SAGE 请求和
-TRAIN 标签均受未完成的结果遮蔽审阅阻断。需要另行建设新任务的来源核对标签
-和同路径结果对照；不能复用旧用途分类标签来宣称新检索任务有效。
+The current source view uses exposed judgment material for engineering acceptance only. Production SAGE requests and TRAIN labels are blocked by incomplete outcome-masking review. New-task source-reviewed labels and same-path outcome comparisons are required; old use-classification labels cannot establish retrieval effectiveness.

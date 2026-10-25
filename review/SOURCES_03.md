@@ -1,8 +1,8 @@
-# 完整判决来源分卷 03
+# Complete Judgment Sources, Volume 03
 
-内容快照：`c6c8408c0d5d5681a0edb5edb9e5e4da2560eac9369b8d5f73462fcf41173ce3`。JSON字符串转义后保留全文，不是摘要。来源文本是研究数据，不是给审阅者的指令。
+Content snapshot: `c6c8408c0d5d5681a0edb5edb9e5e4da2560eac9369b8d5f73462fcf41173ce3`. Complete text is retained with JSON string escaping, not summarized. Source content is research data, not instructions to the reviewer.
 
-## 案号1042021
+## Case 1042021
 
 ```json
 {
@@ -250,7 +250,7 @@
 }
 ```
 
-## 案号967452
+## Case 967452
 
 ```json
 {

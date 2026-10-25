@@ -1,21 +1,49 @@
-# IRAC 局部依赖与明确决策 v3
+# IRAC v3: local dependencies and explicit decisions
 
-本轮在六个已暴露开发案件（1114159、112400、188721101、52547606、55384096、68065690）比较直接回答A、语义提议后回答B、同一提议加程序检查后回答C。最多24次本地调用，0网页、0GNN训练、0重试。固定Qwen3.5-9B-4bit、已验证的MLX-VLM与Schema修复、thinking关闭、3072输出tokens、32768总上下文。完整允许来源与给定法律不变；不以历史胜败评分。
+Six exposed development cases:1114159,112400,188721101,52547606,55384096,68065690.
+Compare historical direct A, proposal-then-answer B, and the same proposal plus program
+checks C. At most24 local calls, no web/GNN training/retries. Fixed Qwen3.5-9B-4bit,
+verified MLX-VLM/schema repair, thinking off,3,072 output/32,768 total context. Full
+permitted sources/given law unchanged; historical case outcomes are not scoring labels.
 
-条件和请求预测必须二选一，证据评估仍可以未决或不支持。前者是模型在有限材料下的方向，后者说明依据状态；技术失败的预测为null。旧三分类GNN概率及参考不转换为二分类。LLM负责理解来源、提议用途与预测，程序仅验证地址、已声明的用途和同一绑定内的布尔组合；来源定位成功不是法律正确。
+Condition/claim predictions are binary; evidence assessment may remain unresolved or
+unsupported. Prediction gives model direction under limited materials; assessment gives
+support status. Technical-failure prediction is null. Old three-class GNN probabilities/
+references are not converted to binary. The LLM interprets, proposes uses, and predicts;
+code validates addresses, declared uses, and within-binding Boolean combinations.
+Located citations do not prove correctness.
 
-`hybrid_v3.analyze`是实际提议入口。限制对应evidence_ids、binding_id、test_id、branch_id和use；LINK/COMBO前缀没有法律效力。记录和陈述地位始终保留，某条用途受限不删除另一条独立记录，也不消除反对意见。重复来源不按票数累加；来源独立性未得到语义认证。程序输出的“可用”仅表示按模型声明和地址能够使用，不等于来源已经证实模型含义。
+hybrid_v3.analyze applies limits keyed to evidence_ids,binding_id,test_id,branch_id,use.
+LINK/COMBO prefixes have no legal force. Records/status remain; restricted use does not
+delete independent records or objections. Duplicate sources do not accumulate votes;
+source independence is not semantically certified. Program usability only means the
+declared addresses/relations permit use, not that sources establish the interpretation.
 
-自住模板只展开既有C03：本人居住 OR（家属居住 AND 家属依赖）。所有权等其他条件保持独立，法律版本和覆盖限制继续保存。旧模型没有子分支标签，因此17包旧预测重放只恢复原始预测和逐来源限制审计；`BRANCH_DETAIL_UNAVAILABLE`及旧见证归属不足不能伪装成完整分支证明。实际新接口的分支组合由合成及真实来源回归检查，并由本轮模型自行生成提议，不将回归的预期答案写进受测prompt。
+Only existing C03 expands as personal residence OR(family residence AND dependence).
+Other conditions, legal versions, and coverage limits stay separate. Old models lack
+subbranch labels, so seventeen-packet replay restores old predictions/local-limit audits
+only. BRANCH_DETAIL_UNAVAILABLE and insufficient witness attribution are not branch
+proofs. New branch logic uses synthetic/real-source regressions, while the tested model
+creates proposals without receiving expected regression answers.
 
-输入提议使用紧凑记录、原source ID和明确的证据用途；最终A/B/C用相同模板及两个完整虚构教学示例。C提供全部用途轨迹，不能将其当作正确裁判命令。B/C共享同一未修正提议；接口完整但语义错误的内容保留。提议失败只阻止依赖的B/C，A、其他案件继续；资源或框架失败停止整轮。
+Compact proposals use original source IDs/explicit uses. A/B/C share the final template
+and two complete fictional teaching examples. C receives all use traces, not authoritative
+orders. B/C share the same uncorrected proposal and retain semantic errors. Proposal
+failure blocks only dependent B/C; A/other cases continue. Resource/framework failure
+stops the batch.
 
-实际入口：`scripts/irac_hybrid_v3.py`；汇总入口：`scripts/report_irac_hybrid_v3.py`。运行前冻结源码、模板、来源、任务格式、设置及旧预测哈希；每次保留完整prompt、schema、raw、token IDs、结束状态及成本。报告和审阅结束后不自动重跑、扩案、提交或推送。
+Entry: scripts/irac_hybrid_v3.py; reporting: scripts/report_irac_hybrid_v3.py. Freeze code,
+templates,sources,formats,settings,old-prediction hashes; save each full prompt/schema/raw,
+token IDs,status,cost. No automatic rerun, expansion, or publication after review.
 
-## 实际结果与限制
+Sixteen local calls completed; ten final answers all predicted rejection, eight positions
+skipped for dependency failure. Two proposals failed coverage/two truncated. Both complete
+pairs retained polarity/source errors; all188721101 use-branch addresses were wrong.
+112400 correctly retained C03 support with SELF supported and FAMILY/DEPENDENT unresolved,
+showing local OR behavior. In188721101, element IDs in branch_id isolated ten uses,
+preventing a sufficient test of a valid checker block. In55384096, omitted conditions
+for a second binding blocked the first too, an unresolved interface burden. Old replay
+cannot reconstruct missing witness/subbranch proofs. No claim-level gold exists.
 
-六案16次本地调用完成：10最终回答均预测拒绝，8位置依赖失败跳过。局部用途和OR修复接通，但两份提议因覆盖门槛失败、两份截断；两完整配对仍有极性／来源误读，188721101全部用途分支地址错误。暂不增加组件，不宣称完整分析已修好。
-
-112400实际SELF支持、FAMILY／DEPENDENT未决时C03仍保留支持，证明OR局部行为接通。188721101模型把要件ID填入branch_id，十条用途全部隔离；不能据此充分检验有效检查块的收益。新增准入要求每个绑定列全条件，55384096的第二绑定未列条件导致第一绑定也无法进入B/C，是未解决的工程负担。旧预测没有见证归属和子分支标签，重放保留原方向并报告边界，不能恢复证明。
-
-所有完成的请求预测拒绝，不等于正确；没有请求级gold。既有明确条件的方向一致也可能伴随错误理由。参见[本轮报告](../outputs/irac-hybrid-decision-v3/report-zh.txt)。本轮已停止，不补跑或自动修复。
+See [report](../outputs/irac-hybrid-decision-v3/report-zh.txt). Round stopped without
+supplemental reruns/automatic repair; no complete-analysis repair claim or new components.

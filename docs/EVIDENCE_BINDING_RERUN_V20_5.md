@@ -1,9 +1,23 @@
-# V20.5 四项实际重跑与 V20.5.1 后置验收
+# V20.5: four actual reruns and V20.5.1 post-generation acceptance
 
-用户在支线明确要求真实重跑后，完成四项固定 P 任务：569555/P01、1187427/P01、1954254/P01、1954254/P02。生成采用冻结 V20.5，保持完整来源、固定模型与原 16,384 token 输出上限，各调用一次。
+After explicit side-thread authorization, four fixed P tasks ran once each:
+569555/P01,1187427/P01,1954254/P01,1954254/P02. Frozen V20.5 retained complete sources,
+fixed model, and original16,384-token output limit.
 
-四项分别输出 10,414、13,651、10,387、6,150 tokens，均自然结束，越界编号和空白引用均为零。重复未解决：1954254/P02 的说明列表出现两段完全相同的 1,684 字符文字，当前检测只比较一段文字内部的循环，漏过跨条目重复。该项实际分析也从上一版 10/13 降为 3/13。
+Outputs were10,414/13,651/10,387/6,150 tokens, all naturally terminated with no out-of-
+range or blank references. Repetition remained:1954254/P02 repeated an identical
+1,684-character paragraph across two list items. Existing detection checked loops
+inside one item and missed cross-item duplication. Analysis coverage also fell from
+10/13 in the previous version to3/13.
 
-来源核对确认四项都存在对象对应错误。另确认旧规则把法律用词 person 规范化为自然人类别，以及示例文字进入真实输出。对可选 UNMAPPED 的误挡已通过独立 V20.5.1 后置验收修正；冻结生成与旧输出不改。46 项相关测试、22 份旧缓存、4 份新输出的真实后置入口均已验收。旧错误没有放行，新结果都因确定的绑定错误被拒绝，未进入自动推理。
+Source review confirmed wrong object correspondence in all four. It also found an old
+rule normalizing legal 'person' to a natural-person type and example contamination.
+Independent V20.5.1 post-processing corrected false blocking of optional UNMAPPED
+without modifying frozen generation/old output. Forty-six related tests,22 old caches,
+and the four new outputs passed through actual post-processing entry checks. Old
+errors were not released: all new outputs were rejected for confirmed binding errors
+and never entered automatic reasoning.
 
-保留所有来源、错误答案和未决项；主线程入口及原批次暂停保留，不训练或推送。完整结果、来源理由与方法边界见 [本轮报告](../outputs/proof-evidence-binding-rerun-v20-5/report-zh.md)。
+Sources, incorrect answers, unresolved items, main entry, and original batch pause
+remain preserved; no training/push. See the [report](../outputs/proof-evidence-binding-rerun-v20-5/report-zh.md)
+for full results, source reasons, and limitations.

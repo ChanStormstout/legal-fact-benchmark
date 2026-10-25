@@ -1,17 +1,17 @@
-## 当前续接：宽裕预算恢复
+## Current continuation: recovery with a larger budget
 
-旧continuation-01在112400/P01正常结束后安全暂停；历史预算与输出保持。continuation-02使用实际支持范围内的65,536操作上下文、16,384 P输出及8,192最终输出、单次60分钟、总36小时，P24小时和最终12小时分别累计。新提议统一要求紧凑JSON及具体见证，不删除反论或条件；明确区分拒绝P与真实参考争议、必要不可见依据与补充说明。
+The old `continuation-01` paused safely after 112400/P01 ended normally; its budget and outputs remain. `continuation-02` uses an operational context of 65,536 within the supported range, 16,384 P output tokens, 8,192 final output tokens, 60 minutes per call, and 36 hours total, with separate cumulative P/final budgets of 24/12 hours. New proposals request compact JSON and concrete witnesses without removing counterarguments or conditions. They distinguish rejection of P from genuine reference disagreement, and required unavailable support from supplementary explanation.
 
-新入口为scripts/proof_local_comparison_v18_recovery.py；模型、权重、规则、30TRAIN／10DEV及87分包未变。原始P、原标签和失败保留，新方法重新冻结，旧P不选择性复用。实际入口检查已完成，模型与完整回答收益须待本批完成评价。
+Entry: `scripts/proof_local_comparison_v18_recovery.py`. Model, weights, rules, 30 TRAIN/10 DEV, and 87 partitions are unchanged. Original P, labels, and failures remain; the new method is frozen separately without selectively reusing old P. Actual-entry checks are complete; model and complete-answer benefits await batch evaluation.
 
-# V18共同接口与固定批次执行
+# V18: common interface and fixed-batch execution
 
-当前执行版本位于outputs/proof-local-comparison-v18/continuation-01。用户明确将P容量改为87、总本地容量157，70个最终回答和20小时生成预算保持。原容量停止报告、第二份87任务清单及准备快照原字节保留。当前已完成真实入口贯通、冻结并启动P批次；训练与完整回答评价尚未完成。
+The execution version is `outputs/proof-local-comparison-v18/continuation-01`. The user explicitly changed P capacity to 87 and total local-call capacity to 157, retaining 70 final answers and a 20-hour generation budget. The capacity-stop report, second 87-task list, and preparation snapshot remain byte-identical. The actual entry was connected, frozen, and the P batch started; training and complete-answer evaluation were not yet completed at this checkpoint.
 
-实际入口在scripts/proof_local_comparison_v18.py；接通审计、原P与纠纷等权TRAIN先验、盲化评分及传递追踪位于scripts/proof_local_integrate_v18.py与local_reporting_v18.py。E5完整token分块保留原文跨度；CE完整消费共同来源包、P、规则和关系文本；Flat与R-GCN共享相同编码，区别为图传播。不得将全文保存或平均编码解释成已经正确理解全文。完整回答仍读取全部允许来源。
+Entry: `scripts/proof_local_comparison_v18.py`. Integration auditing, original-P and dispute-balanced TRAIN priors, blinded scoring, and transmission traces are in `scripts/proof_local_integrate_v18.py` and `local_reporting_v18.py`. E5 chunks all tokens with original spans. CE consumes the complete shared source package, P, rules, and relation text. Flat and R-GCN share encodings, differing in graph propagation. Saving/mean-encoding full text does not establish comprehension. Final answers still receive all permitted sources.
 
-共同用途处理区分结构无效、模型拒绝、待定和条件性可用；具体用途标签不生成前提真值。前提状态及明确组合保持未独立验证模型假设。独立检查器重算单规则组合；当前301条规则没有明确跨规则依赖地址合同，未实现的跨规则和开放解释如实保留，不猜造通用法律引擎。
+Use handling distinguishes structural invalidity, model rejection, unresolved status, and conditional usability. Use labels do not generate premise truth. Premise states and explicit combinations remain model assumptions without independent validation. The checker recomputes single-rule combinations; the 301 current rules lack an explicit cross-rule dependency-address contract. Unimplemented cross-rule/open interpretation remains explicit, without inventing a general legal engine.
 
-模型运行后不得修改冻结构造、展示、预算或prompt。无损展示仅把同一数组中完全相同的条目替换成指向先前条目的地址，完整P、对象及局部限制仍保存；输入超限为技术null，不调整材料。安全暂停在每次保存后检查。日志和预测先保存、权重后导出并重载核验。局部指标与完整回答评价分开，变化不能自动归因于GNN。
+After model execution starts, frozen construction, presentation, budgets, and prompts must not change. Lossless presentation replaces only identical items within the same array with addresses to earlier items; full P, objects, and local limitations remain. Over-limit input produces technical null, without material adjustment. Safe pause is checked after each save. Logs/predictions are saved before weight export and reload verification. Local metrics and full-answer evaluation are separate; changes cannot automatically be attributed to GNNs.
 
-旧34项检查和276-token约束回放复用；新增一次实际原文编码与入口验收通过，只证明工程行为。网页已实际确认GPT-6／Extra High；旧342关键项参考仍是旧High的模型辅助来源审阅，不是人工金标准。私有页面、完整任务、批量来源、权重不在发布清单，不读取TEST／SEALED，不提交推送。
+The 34 old checks and 276-token constraint replay were reused. One additional real-source encoding/entry check passed, establishing engineering behavior only. The website actually displayed GPT-6/Extra High; the old 342 critical-item references remain High model-assisted source reviews, not human gold. Private pages, full tasks, bulk sources, and weights are excluded from publication. No TEST/SEALED access, commit, or push.

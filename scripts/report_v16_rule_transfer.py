@@ -76,34 +76,37 @@ def finish():
     save(ROOT/'stop.json',{'time':datetime.now(timezone.utc).isoformat(),
          'reason':'THREE_EXTRACTIONS_REVIEW_COMPLETE_NO_TWO_COMPATIBLE_PREPARED_TARGETS',
          'web_calls':3,'unused_application_call_budget':4,'no_source_expansion_old_case_rerun_or_push':True})
-    slots=['# V16 完整规则提取结果\n\n本轮没有新案最终回答；应用比较因样本不足未运行，答案为null。规则卡是模型提议，非人工金标准。\n']
+    slots=['# V16 Complete Rule-Extraction Results\n\nNo new-case final answers were produced. Insufficient samples prevented the application comparison; answers are null. Rule cards are model proposals, not human gold.\n']
     for name in NAMES:
         slots.append('## '+name+'\n\n'+read(ROOT/'runs'/name/'completion.json')['conversation_url']+'\n\n```json\n'+json.dumps(read(ROOT/'runs'/name/'rule-cards.json'),ensure_ascii=False,indent=2)+'\n```\n')
     (ROOT/'final-answer-slots.md').write_text('\n'.join(slots),encoding='utf-8')
-    (ROOT/'report-zh.txt').write_text('''V16：从法源原文提取规则与跨案应用准备
+    (ROOT/'report-zh.txt').write_text('''V16: extraction from original legal sources and preparation for cross-case application
 
-结论：三份独立网页High任务完成，得到9张未经语义补写的候选规则卡，规则导入、出处恢复和本地候选检索已运行。两件新案的A/B应用比较没有运行：现有完整来源候选中没有确认符合公司合并／法定承继争点的两个未使用案件。不能据此判断自动规则材料改善了新案回答，也不能把规则卡可读取解释为规则已被正确选择或具有法律效力。
+Three independent browser High tasks produced nine candidate rule cards without semantic backfilling. Import, source recovery, and local candidate retrieval ran. Two-new-case A/B application did not: no two unused complete-source cases with compatible merger/statutory-succession issues were confirmed. New-case answer improvement cannot be assessed, and readable cards do not establish correct selection or legal authority.
 
-已完成的工作
-沿用V15保存的General Radio、Hindustan Petroleum、Telesound原文，三者分别进入新的普通High对话，一份一次。网页没有看到1134266案情、V15手写规则卡、旧模型答案或来源评价。前两份提供完整既存PDF文本，分别10页、16页，保留OCR与headnote；Telesound仅有第12段选句与完整第16段，明确不是全文。完整任务40581、45810、8702字符；两个附件预览与实际任务逐字相同，短任务按编辑器文本节点与换行恢复后逐字相同。具体模型未显示，记录ChatGPT/High，不假定GPT-6型号；网页没有本地逐token约束。
+Completed work
+Reused V15 General Radio, Hindustan Petroleum, and Telesound originals, each in one fresh ordinary High chat. The model did not see1134266 facts, V15 hand-written cards, old answers, or source reviews. First two tasks used complete saved10-page/16-page PDF text with OCR/headnotes. Telesound had selected paragraph12 sentences and complete paragraph16, explicitly not full text. Tasks were40581/45810/8702 characters. Both attachment previews matched actual tasks; the short task matched after reconstructing editor text nodes/newlines. Exact model was undisplayed, recorded ChatGPT/High rather than assumed GPT-6. No local token constraints applied.
 
-实现复用V2 RuleCard字段及现有SQLite FTS5/BM25，增加两种来源性质：暂定且保留最终问题、对另一判例的转述。它们避免把来源地位统一成法院已经采用的最终规则，不新增事实ontology或法律执行器。程序检查字段、唯一卡ID和有效出处，原文按ID恢复；这些检查不认证语义。候选规则及条件都标为模型提议，空exceptions不解释为不存在例外。4项必要确定性测试通过，没有真实案件预跑、本地模型生成、付费API或新规则编译。
+Reused V2 RuleCard fields and SQLite FTS5/BM25, adding provisional/reserved and reported-precedent source statuses. These avoid treating all material as final adopted doctrine, without adding fact ontologies or legal executors. Field/unique-ID/source-address checks and original recovery do not certify semantics. Rules/conditions remain model proposals; empty exceptions do not establish no exceptions. Four deterministic checks passed. No real-case pre-runs, local model generation, paid APIs, or new rule compilation occurred.
 
-一次集中原文核查的发现
-General Radio保留AP法的转移／转租、书面同意与租约条件，以及公司自发提出合并后法院批准不自动产生豁免。模型还识别了第7页immune字句与上下文的表面矛盾，以第6、9、10页推理和结尾为依据，没有单独抽出相反法律效果。Hindustan Petroleum保留1973年既存licence产生的deemed tenancy、特定Esso收购法、通知和后续合并链，未把它扩成任何合并都无需许可。Telesound保留公司法上的权利转归，并把第16段关于许可和Delhi腾退的prima facie意见标为保留问题，没有升级为最终租赁法豁免。上述是本次模型辅助来源审阅，非人工gold；不据此计算规则准确率。
+One consolidated source review
+General Radio retains AP transfer/subletting, written consent, lease terms, and the lack of automatic exemption for voluntary merger approved by a court. The model identifies page7's apparent immune-wording contradiction using pages6/9/10 and the conclusion instead of extracting the opposite effect alone. HP retains deemed tenancy from a1973 licence, specific Esso acquisition legislation/notification/subsequent merger, without generalizing to all mergers. Telesound retains company-law vesting and marks paragraph16's licence/Delhi eviction opinion prima facie and reserved, not a final tenancy exemption. This is model-assisted review, not human gold or rule accuracy.
 
-最关键的遗漏发生在规则提取。General Radio第10页转述Parasaram，明确说Delhi条款的范围不排除非自愿出售；模型虽在GR-R2引文地址中包含该页，却没有在任何卡的命题、条件或效果中写出这条转述规则。模型的limitations说明因三卡预算优先选择了其他直接规则。出处正确和原文完整都不能防止规则摘要丢掉关键法律区别。
-第二个问题发生在规则选择。两个固定离线检索查询已保存全部9个候选及分数；Delhi合并查询第一名是Telesound的暂定意见，Bombay/Esso查询前列是HP材料。BM25只排序词汇相关性，不能决定先例层级、法条兼容性或暂定意见是否控制争点。目前不把它的第一名交给程序裁判。没有目标案件及独立检索参考，不能把这两次检索称为检索效果评价。
-第三个问题是表达与来源边界。Telesound卡C7把保留的法律问题放在UNKNOWN条件中，它不是可机械执行的事实前提；HP案例链的必要标签也仅适用于其具体场景。Telesound旧metadata与摘录未保存完整标题、法院、日期和法条标题，所以新卡保留这些来源缺口；这是任务材料不足，不能归因模型遗漏已经提供的信息。HP的licence定义跨第7、8页，卡只引用第8页时出处恢复不够完整。原始卡均不修改，问题留在审阅记录中。
+The key extraction omission is General Radio page10's Parasaram discussion: Delhi wording does not exclude involuntary sales. GR-R2 cites the page but no card proposition/condition/effect expresses that reported rule. The model's limitations say it prioritized other direct rules under the three-card cap. Correct addresses and complete originals do not prevent omission of a crucial distinction.
 
-为何没有进行两件新案比较
-按既有candidate-queue顺序和先前已完成的资格检查，排除55个此前使用／阅读案件，剩余62个已有完整来源的合格候选。仅在这些本地文件上检索公司合并、merger、vesting等争点词，不新下载或网页筛选。三个有词命中的案件分别涉及土地改革vesting规则、行政权限vesting和地区merger，不是公司合并转移租赁权。没有确认可用于本轮的两件新案；这一结果不声称1006个队列或所有判决都没有相关案件，也不认证纠纷独立性。选择和命中原文全部保存。未将普通转租案件强套公司合并规则，未复用1134266、69305补足新案，未启动4次应用回答。其状态为NOT_RUN，答案为null，不填写UNKNOWN冒充完成。
+Selection is another problem. Both fixed offline queries retain all nine candidates/scores. Telesound's provisional opinion ranks first for Delhi merger; HP leads Bombay/Esso. BM25 ranks lexical relevance, not precedent hierarchy, statutory compatibility, or controlling status. Its top result is not passed to automatic adjudication. With no target cases/independent retrieval references, these are not retrieval-effectiveness evaluations.
 
-成本与投入决定
-实际网页调用3、重试0、API0、本地生成0，三个回复全部可导入，共9张候选卡。General Radio／HP界面显示思考50／56秒，Telesound未显示可读取思考时长。精确tokens、总生成耗时及峰值内存不可得；逐任务表只保存可见时长和从提交至确认完成的观察上界，不能把观察间隔当精确生成成本。两次本地BM25是离线候选检索，不消耗模型调用。
-暂时保留有来源规则提取组件，但没有证据支持把候选排序直接当适用规则选择；跨案应用收益尚未测到。接下来需要两个已经隔离目标最终理由的同类公司合并／法定承继案件，或另行授权选定有样本的争点并建立对应法源包。继续修改69305事实格式不会补上这个样本与法源范围缺口。本轮按停止条件结束，不自行扩大筛选或获取新案。
+Expression/source limits remain. Telesound C7 places a reserved legal question in an UNKNOWN condition, not an executable factual premise. HP necessity labels apply only to its situation. Existing Telesound metadata/excerpts lack full title, court, date, and statutory title; new cards retain these task-source gaps rather than blaming the model for missing supplied information. HP's licence definition spans pages7/8, but a page8-only citation gives incomplete context. Original cards stay unchanged; review records the issues.
 
-完整prompt、schema、raw、对话URL、原文、恢复结果、候选排名、审阅、哈希与样本不足记录都在本目录。V1–V15和既有代码原字节核验；仅新增V16文件、项目状态与本地审阅包。不提交、不推送，不自动开启下一轮。
+Why the two-case comparison did not run
+Following existing candidate-queue order/eligibility decisions, excluded55 previously used/read cases, leaving62 eligible complete-source candidates. Searched these local files for company amalgamation, merger, vesting, and related issue terms, without downloads/browser screening. Three hits concerned land-reform vesting, administrative authority vesting, and territorial merger, not merger-transferred tenancy. No two new cases were confirmed. This does not show all1,006 queued judgments lack candidates or certify dispute independence. Selection/hit passages are saved. Ordinary subletting cases were not forced into merger rules;1134266/69305 were not reused to fill the quota. Four application answers remained NOT_RUN/null, not UNKNOWN masquerading as completion.
+
+Costs and decision
+Three browser calls, zero retries/API/local generations, all importable, producing nine candidates. Visible thinking was50/56s for General Radio/HP and unavailable for Telesound. Exact tokens, total generation time, and peak memory are unavailable. Task tables retain visible time and observed completion upper bounds, not precise generation costs. Two local BM25 queries use no model calls.
+
+Retain source-grounded extraction provisionally, without treating candidate rank as applicable-rule selection. Cross-case application benefit is unmeasured. Next requires two compatible merger/statutory-succession cases with target final reasons isolated, or separate authorization to choose a better-populated issue and appropriate authorities. Further69305 fact-format changes do not fill this sample/scope gap. Stop without autonomous screening expansion or new cases.
+
+Complete prompts/schema/raw replies/chat URLs/originals/recovery/rankings/review/hashes/sample-shortage records are retained here. V1–V15 and existing code are byte-checked unchanged. Only V16 files, state, and local review package are added. No commit, push, or automatic next round.
 ''',encoding='utf-8')
     print(json.dumps({'finished':str(ROOT),'web_calls':3,'rule_cards':9,'application_cases':0,'history_preserved':len(audit['historical_files'])}))
 

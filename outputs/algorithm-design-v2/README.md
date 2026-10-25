@@ -1,15 +1,7 @@
-> 当前推荐方案与8页slides已更新至 [v4](../algorithm-design-v4/README.md)。本目录保留历史版本，不能作为最新算法说明。
+# Algorithm Research and Meeting Materials (v2)
 
-# 核心算法研究与会议材料
+Historical design, September 29, 2026. The recommendation and eight-slide deck were superseded by [v4](../algorithm-design-v4/README.md). The intermediate [v3 design](../algorithm-design-v3/README.md) replaced v2's default algorithms before the v2 deck was updated.
 
-2026-09-29 更新：本目录保留 v2 历史材料。默认算法选型已由[独立方案 v3](../algorithm-design-v3/README.md)替代；下列八页 slides 尚未同步到 v3。
+Read the [algorithm design](算法设计方案.md) for the running example, A/B/C algorithms, assumptions and comparisons; the [eight-slide deck](slides/Legal_AI_Algorithm_Design.pptx) and [PDF](slides/Legal_AI_Algorithm_Design.pdf); the [speaker script](slides/中文讲稿.md); the [literature and selection rationale](文献与选型依据.md), including reading limits; and the [ChatGPT discussion record](ChatGPT协作与选型记录.md), covering four Pro and one Extra High conversations and accepted/rejected suggestions.
 
-建议阅读顺序：
-
-1. [算法设计方案](算法设计方案.md)：先读开头选型与贯穿例子，再按A/B/C查看具体算法、假设和比较。
-2. [8页slides](slides/Legal_AI_Algorithm_Design.pptx) 与 [PDF预览](slides/Legal_AI_Algorithm_Design.pdf)。
-3. [中文讲稿](slides/中文讲稿.md)：把每页的算法和取舍讲给老师听。
-4. [文献与选型依据](文献与选型依据.md)：实际阅读范围、来源和未取得全文的缺口。
-5. [ChatGPT协作与选型记录](ChatGPT协作与选型记录.md)：四个Pro/一个Extra High网页对话、采纳与未采纳的意见。
-
-《机制样例.py》及结果只检查小型抽象计算，没有实现整个项目或测试真实法律效果。模型网页回复是参考材料，最终方案以《算法设计方案.md》为准。旧版meeting-slides保持原样，本目录是本次新版本。
+The mechanism example and its results check small abstract computations, not the full project or real legal performance. Web model replies are reference material; the synthesized design governs this historical proposal. Earlier meeting slides remain separate. Original linked filenames are retained for traceability.

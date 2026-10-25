@@ -99,28 +99,28 @@ def finish():
         writer.writeheader()
         writer.writerows(cases)
     base = (RUN / 'report-zh.md').read_text()
-    marker = '## 当前边界与剩余步骤'
+    marker = '## Current Limits and Remaining Steps'
     if marker in base:
         base = base.split(marker)[0]
-    base = base.replace('（进行中）', '（已结束）').replace(
-        'CrossEncoder正在按同一冻结协议运行。',
-        'CrossEncoder按同一冻结协议运行的结果及失败均已保存。')
-    lines = ['## 固定批次完成记录', '',
-             f"九个预定拟合位置中，{summary['successful_fits']}个保存并重载成功；其余失败或未启动位置保留，不替换或重试。", '',
-             '| 方法 | 种子 | 技术状态 | 误接受不可用用途 | 可用覆盖（56） | 训练秒数 |',
+    base = base.replace('(in progress)', '(finished)').replace(
+        'CrossEncoder is running under the same frozen protocol.',
+        'CrossEncoder results and failures under the same frozen protocol are preserved.')
+    lines = ['## Fixed-Batch Completion Record', '',
+             f"Of nine prespecified fit slots, {summary['successful_fits']} were saved and reloaded successfully. Failed or unstarted slots remain preserved without replacement or retry.", '',
+             '| Method | Seed | Technical status | Unusable uses falsely accepted | Usable coverage (56) | Training seconds |',
              '|---|---:|---|---:|---:|---:|']
     for result in results:
         e = result.get('evaluation', {})
         seconds = result.get('seconds', result.get('failure', {}).get('seconds'))
         lines.append(f"| {result['method']} | {result['seed']} | {result['status']} | "
-                     f"{e.get('false_accepts', '不可得')} | {e.get('confirmed_usable_predicted', '不可得')} | "
-                     f"{round(seconds, 2) if seconds is not None else '不可得'} |")
+                     f"{e.get('false_accepts', 'unavailable')} | {e.get('confirmed_usable_predicted', 'unavailable')} | "
+                     f"{round(seconds, 2) if seconds is not None else 'unavailable'} |")
     outcome_counts = collections.Counter()
     for item in delivery:
         outcome_counts.update(item['request_rule_outcomes'])
-    lines += ['', '下游请求×规则候选的状态总计（含各方法、种子重复，不作独立样本）：' + json.dumps(dict(outcome_counts), ensure_ascii=False) + '。',
-              '', '暂不扩大图排序，也不自动运行TEST或新完整法律回答。三案DEV参考有限，原提议已高度一致，完整推导存在共同对象连接与开放规则缺口；局部用途指标不足以证明完整法律收益。任何非未知结果仍须核对具体依赖，不能由标签自动认定改善。CrossEncoder与图方法的输入形式和计算成本也不同，不能把差异全部归于图传播。',
-              '', '峰值内存未被可靠记录，标为不可得；运行中抽样RSS不作为峰值。所有训练日志、权重、重载预测、失败和下游检查保留本地。无提交或推送。']
+    lines += ['', 'Downstream request-by-rule-candidate status totals (including repeated methods/seeds, not independent samples):' + json.dumps(dict(outcome_counts), ensure_ascii=False) + '。',
+              '', 'Do not expand graph ranking or automatically run TEST or new full legal answers. Three DEV references are limited and original proposals already agree closely. Shared object-link and open-rule gaps remain in full derivation; local use metrics do not establish end-to-end legal benefit. Non-unknown results still need dependency checks, not automatic credit from labels. CrossEncoder and graph methods differ in input form and compute cost, so differences cannot be attributed entirely to graph propagation.',
+              '', 'Peak memory was not reliably recorded and remains unavailable; sampled RSS is not a peak estimate. Training logs, weights, reloaded predictions, failures and downstream checks remain local. No commits or pushes.']
     (RUN / 'report-zh.md').write_text(base + '\n'.join(lines) + '\n')
     progress = read(RUN / 'training-progress.json')
     progress.update(status='FIXED_BATCH_FINISHED', successful_fits=summary['successful_fits'],
@@ -129,9 +129,9 @@ def finish():
     policy_path = ROOT / 'docs/repository-artifacts.json'
     policy = read(policy_path)
     old_summary = policy['current_review']['summary']
-    new_summary = (f"V12固定批次结束：30个TRAIN／722条监督、3个DEV／72条；33条审阅分歧屏蔽，"
-                   f"九个拟合位置中{summary['successful_fits']}个保存、重载成功。完整结果与失败保留，"
-                   '未运行TEST或新法律回答，暂不扩大图方法；无提交推送。')
+    new_summary = (f"V12 fixed batch finished: 30 TRAIN cases/722 labels and 3 DEV cases/72 labels; 33 review disagreements masked. "
+                   f"Of nine fit slots, {summary['successful_fits']} were saved and reloaded successfully. All results and failures remain preserved. "
+                   'No TEST or new legal-answer runs; graph expansion remains paused. No commits or pushes.')
     policy['current_review'].update(summary=new_summary, status='FIXED_BATCH_FINISHED')
     save(policy_path, policy)
     state_path = ROOT / 'docs/PROJECT_STATE.json'
@@ -143,7 +143,7 @@ def finish():
         path = ROOT / filename
         path.write_text(path.read_text().replace(old_summary, new_summary))
     changelog = ROOT / 'docs/CHANGELOG.md'
-    changelog.write_text('## V12固定三方法批次结束\n\n' + new_summary + '\n\n' + changelog.read_text())
+    changelog.write_text('## V12 Fixed Three-Method Batch Finished\n\n' + new_summary + '\n\n' + changelog.read_text())
     subprocess.run(['python3', 'scripts/repository_bridge.py', 'prepare'], cwd=ROOT, check=True)
     manifest = read(ROOT / 'review/MANIFEST.json')
     public = [x['path'] for x in manifest['source_files']

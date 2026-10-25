@@ -1,25 +1,25 @@
-# V20.3：共享来源集合与四个截断任务重跑
+# V20.3: shared source sets and four truncated-task reruns
 
-本版本只处理初次提议 P 的来源引用表示。用户授权实现共享来源集合、验证缓存无信息损失，并重跑 569555/P01、1187427/P01、1954254/P01、1954254/P02。旧结果保持，原 V20.1 批次继续暂停；不运行 Q、训练、网页任务或完整回答，不提交或推送。
+This version changes source-reference representation for initial proposals P only. The authorized work implemented shared source sets, checked lossless cache conversion, and reran 569555/P01, 1187427/P01, 1954254/P01, and 1954254/P02. Old results remain intact and the original V20.1 batch stays paused. It does not run Q, training, website tasks, or complete answers, and does not commit or push.
 
-## 生成格式与恢复
+## Generation and restoration
 
-`source_sets` 是模型首先生成的来源表，每项为非空、无重复的 SRC 编号数组。第一项叫 C1，第二项叫 C2，依此类推。C0 仅表示原来允许为空的引用数组，不占表项。同一有序来源数组只定义一次，其他字段引用其短编号。C 编号只表示来源集合，不表示人物身份、判断真假或法律批准。
+The model first generates `source_sets`: nonempty arrays of unique SRC IDs, named C1, C2, and so on by position. C0 represents only an originally permitted empty reference array and occupies no table entry. Each ordered source array is defined once and reused by short ID. C IDs identify source sets, not people, truth judgments, or legal approval.
 
-证据、对象和判断限制的 `refs` 改为 `ref_set`。用途中的见证由 `source` 改为 `source_set`，必要性属性仍保留。一组见证只有在属性相同且相邻时合并；属性不同就保留分别的组。程序随后恢复每个编号及其原属性，保留引用和见证的原始顺序，恢复后的数据仍由原有 Schema、转换、合并、独立检查和条件性计算入口处理。
+Evidence, object, and judgment-limitation `refs` become `ref_set`. Use witnesses change `source` to `source_set`, retaining necessity attributes. Only adjacent witnesses with identical attributes are grouped; different attributes keep separate groups. The program restores each source ID and its original attributes, preserving reference/witness order. Restored data then enter the original schema, conversion, merge, independent check, and conditional computation.
 
-生成约束要求来源表先完成，只允许引用已经定义的 C 编号。来源表中的 SRC 仍受原来源目录和唯一枚举约束保护；重复定义相同有序集合不能正常关闭。独立校验拒绝未定义集合、空见证集合、重复集合、来源越界，以及恢复后不符合原 Schema 的内容。完整允许来源和固定法律规则保持原样；改变的是输出引用表示及对应指令。
+Constraints require the source table first and allow only declared C IDs. SRC IDs retain the original catalog and uniqueness constraints. A repeated definition of the same ordered set cannot close normally. Independent validation rejects undefined sets, empty witness sets, duplicate sets, out-of-range sources, and restored data violating the original schema. Complete permitted sources and fixed legal rules are unchanged; only reference representation and its instructions change.
 
-编码器和展开器位于 `shared_sources_v20_3.py`；独立恢复校验按原 Schema 重建预期值，不调用生产展开函数。约束器另存 `mlx_json_constraint_v20_3.py`，模型运行入口另存 `local_runtime_v20_3.py`。旧源码和冻结版本均不修改。
+`shared_sources_v20_3.py` contains encoding/expansion. Independent restoration reconstructs expected values against the original schema without calling the production expander. Constraints and runtime are separately saved in `mlx_json_constraint_v20_3.py` and `local_runtime_v20_3.py`. Old source and frozen versions are unchanged.
 
-## 缓存验收
+## Cache acceptance
 
-18 份完整 P 的数据经共享表示和恢复后与原数据相等，包括数组顺序、判断、对象绑定、见证必要性及限制。两种表示分别进入真实处理入口；除序列化键顺序可能造成原始字节哈希不同外，转换、检查、条件性计算和学习输入结果一致。四份失败输出只检查已经完整写出的分析单元，不补写缺失单元，也不把它们变成旧正式成功答案。
+Eighteen complete P records round-trip exactly, including array order, judgments, object bindings, witness necessity, and limitations. Both representations pass through the real processing entry. Conversion, checks, conditional computation, and learning inputs match; serialization key order can still change raw-byte hashes. Four failed outputs contribute only fully written analysis units: missing units are not completed and old formal failures are not promoted to success.
 
-63 项相关测试通过。来自 1954254/P01 失败前缀的共享表示经过真实 tokenizer 和约束器逐 token 回放，5,872 个 token 全部获准，正常结束符可用；这一验证不加载模型权重。缓存转换长度在同一紧凑序列化方式下计数，避免把移除缩进当作共享引用的收益。
+All 63 relevant tests passed. The shared representation of the 1954254/P01 failure prefix passed token-by-token replay through the real tokenizer/constraint engine: all 5,872 tokens were permitted and EOS was available. No model weights were loaded. Length comparisons use identical compact serialization, so removing indentation is not counted as a shared-reference benefit.
 
-## 四次真实重跑的解释边界
+## Interpretation of the four real reruns
 
-模型、版本、温度、种子、65,536 上下文及 16,384 输出上限沿用旧设置。每个指定任务只有一次新尝试，失败也保存；总时间上限四小时，每次上限一小时，并记录旧 P 已消耗的预算，不重置历史成本。原批次暂停不会被取消，本版本的限定授权仅适用于四个列明任务。
+Model, version, temperature, seed, 65,536-token context, and 16,384-token output limit retain the old settings. Each named task receives one new attempt, including retained failures. Limits are four hours total and one hour per attempt; previously consumed P budget remains recorded rather than reset. The original batch remains paused; this authorization covers only the four listed tasks.
 
-重跑按技术状态、正常结束、输出长度、来源表定义次数、集合复用次数及完整分析目录检查结果报告。短输出可能仍有未分析前提或错误判断，所以不把正常结束等同法律正确。旧失败与新结果并列保存；不得根据新结果改写旧提议、训练标签或法律规则。
+Report technical status, normal termination, output length, source-set definition/reuse counts, and complete analysis-directory checks. Short output may still omit premises or contain wrong judgments; normal termination is not legal correctness. Old failures and new results remain separate. New results must not rewrite old proposals, training labels, or legal rules.

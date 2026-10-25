@@ -29,42 +29,42 @@ cost = {'extraction_conversations': len(model_metadata), 'cases_per_conversation
         'observed_setting': 'Ordinary High, not Pro; exact model ID not exposed by UI'}
 (run / 'costs.json').write_text(json.dumps(cost, indent=2))
 lines = [
-    '20案方法开发实验：首轮完整报告', '',
-    '结论：已完成20案的单次网页抽取、两种方法的本地搜索，以及预定少量匹配核查。精确对象连接能够区分这次抽查中共现方法无法表达的身份差异。证据只覆盖选中的具体匹配，尚不能证明一般准确率、法律价值或预测优势。', '',
-    '1. 数据和实际完成状态',
-    '从已有固定候选顺序中选取20份完整判决，均属于租赁腾退／返还占有请求类。已确认同纠纷重复文书排除，未确认关联保留标记；不宣称20案全部独立。全部数据为开发集，可用于修改方法，正式检查集尚未冻结。',
-    '实际完成：20案导入成功，0案待处理，0案导入失败。277条主请求相关记录可以进入字段受限的计算；96条其他请求或伴随诉讼记录另行保存。引文定位与对象引用通过确定性检查，但这不能证明抽取无遗漏或语义全部正确。',
-    '277条记录中有167条事实、110条程序行为；191条满足本轮候选生成条件。主张、否定、争议及未解析限定均保存，但不自动当成确定的肯定事实。模型参考来自ChatGPT网页版普通High模式，非Pro、无付费API。界面没有显示确切模型编号，提交元数据如实记为未观察到。', '',
-    '2. 方法怎样比较',
-    '先把案件事实表达为固定类型、角色、对象身份、陈述状态和原文出处。共现方法检查两种记录是否同时出现；关系方法再要求其中指定角色连接到同一个明确对象。配对比较使用完全相同的事实、类型、状态及肯定条件，只去掉对象连接。两个记录编号不同不等于两个物理事件不同。',
-    '预先固定支持门槛为至少2份文书，每种方法最多1000个唯一候选，按规范化查询字符串排序。只搜索两个记录及至多一个对象连接，没有搜索时间、金额、胜败或法律充分条件。本轮使用预定义事实类型，未评价自动发现事实类别的能力。', '',
-    '3. 全部搜索结果',
-    '方法 | 生成候选 | 实际执行 | 支持至少2案的查询变体',
+    '20-Case Method Development: First Complete Run', '',
+    'Conclusion: Single-pass web extraction, local search with two methods and the prespecified small match audit are complete for 20 cases. Exact object joins distinguish identity differences that co-occurrence cannot express in this audit. Evidence covers only the selected matches, not general accuracy, legal value or predictive advantage.', '',
+    '1. Data and Actual Completion',
+    'Twenty complete judgments were selected in the existing fixed candidate order, all involving tenant eviction or recovery of possession. Confirmed same-dispute duplicates were excluded; uncertain relationships remain flagged. Independence of all 20 cases is not established. These are development data; the formal evaluation set is not frozen.',
+    'All 20 cases imported successfully, with 0 pending and 0 failed. Field-constrained computation can use 277 records concerning the main request; 96 records about other requests or related proceedings are stored separately. Deterministic quote-location and object-reference checks passed, which does not establish extraction completeness or semantic correctness.',
+    'The 277 records include 167 facts and 110 procedural acts; 191 qualify for candidate generation. Assertions, negations, disputes and unparsed qualifications remain preserved and are not automatically definite positive facts. Model references came from ordinary High mode in ChatGPT Web, not Pro or paid API calls. The exact model ID was not visible and is recorded as unobserved.', '',
+    '2. Comparison Design',
+    'Case facts use fixed types, roles, object identities, statement statuses and source locations. Co-occurrence checks whether two record types occur; the relational method additionally requires specified roles to refer to the same explicit object. Paired comparisons keep facts, types, statuses and positive conditions identical and remove only object joins. Different record IDs do not imply different physical events.',
+    'The prespecified support threshold is at least 2 documents, with at most 1,000 unique candidates per method ordered by canonical query strings. Search covers two records and at most one object join, not time, amounts, outcomes or legally sufficient conditions. Fact types are predefined; automatic fact-category discovery was not evaluated.', '',
+    '3. Complete Search Results',
+    'Method | Generated candidates | Executed | Query variants supported by at least 2 cases',
 ]
-for method, label in [('cooccurrence', '事实类型共现'), ('relation', '共享对象关系')]:
+for method, label in [('cooccurrence', 'Fact-type co-occurrence'), ('relation', 'Shared-object relations')]:
     m = s['methods'][method]
     lines.append('%s | %s | %s | %s' % (label, m['generated'], m['executed'], m['repeated_patterns']))
 lines += [
-    '两种搜索均未触及预算上限。205个重复关系查询包含76种带状态的记录类型组合，不是205种独立法律概念。对象角色、程序阶段和相近查询会产生多个变体；数量较多不能说明质量更好。全部重复模式见report.txt，全部候选、匹配与失败轨迹见results.json或其同内容压缩文件results.json.gz。',
-    '450个关系查询×20案共9000次配对判断：936次两者都匹配；53次共现匹配而关系未找到匹配；249次共现匹配而关系信息不足；其余为2268次两者均未找到和5494次两者均信息不足。计数以模式×文书为单位，不能当成9000个独立样本。',
-    '对象连接排除了995个跨查询重复计数的记录组合，其中663个为明确对象ID不相等，332个为连接字段未知；合并相同案件内无序记录对后涉及586对。995不是错误数量，字段未知也不是事实不存在。空结果只表示在当前记录中未找到匹配。', '',
-    '4. 预定少量核查及具体例子',
-    '固定取查询顺序最前3个重复关系模式，再用种子20260930抽取3个其他候选；每个模式检查首个关系匹配及首个额外共现组合，实际9项。没有依据核查结果替换展示项。网页核查全部返回，9项引文均可定位。',
-    '6项关系匹配：断言、角色绑定及指定身份连接均得到模型核查支持。3项额外共现组合：断言与各自绑定得到支持，但指定身份连接不成立。多个核查项复用了同一对审级裁判记录，不能把6项视为6个独立成功案例，也不能报告6/6为整体准确率。',
-    '例子一：Achuta Bhat案中，一个裁判针对“上诉人和第二被告”这一群体，另一个针对“上诉人”个人。共现只知道两条腾退裁判都出现；精确身份连接知道群体不是个人。这个结论不否认个人属于该群体。',
-    '例子二：Pooran Chand案中，“整栋楼出租给父亲”与“部分房间被转租”都是真的，但查询若要求同一个精确房产对象，部分与整体不相等。它们仍然存在包含关系，不应由身份不相等进一步推断法律上无关。',
-    '例子三：同一请求的一审腾退裁判与二审恢复原裁判可以共享受影响当事人、受益人和房产。这是可追溯的程序结构，并不能据此推断腾退的法律要件或胜败规则。',
-    '核查判定统计：' + str(dict(counts)), '',
-    '5. 主要卡点与下一轮位置',
-    '首先是表示边界。群体与个人、整栋楼与一层需要分别表达“包含成员”和“部分属于整体”，不能全靠同一对象ID，也不能为增加匹配而强行合并。可以先在这20案的既有数据上实现显式成员／部分关系，仍保留精确身份连接作为独立条件。',
-    '其次是限定的使用范围。%s条记录的类型、状态、肯定性或整条记录受到限制；其中不少导致查询保持未知。日期未知仅限制日期问题，但本轮模型把一些多当事人或范围限定标成尚未解析，当前程序保守阻止整体使用。下一轮应明确哪些查询用途受限，保留原文及旧结果，不扩大整轮重标注。' % core_blocked,
-    '字段阻止次数（同一记录可重复）：' + json.dumps(dict(fields), ensure_ascii=False),
-    '最后是模式冗余和用途。当前大量重复变体来自同一事实／裁判对的不同角色连接、不同审级描述。下一轮需要区分事实结构与程序结构，并以相同定义去重／归组后再评价；不能把程序共现包装成法律条件。',
-    '本轮没有做完整标注审核，因此未衡量抽取召回率。没有训练／检查分离，不能报告跨案件泛化优势。后续改进可在这20案开发，最终需要新的未参与开发案件检验。', '',
-    '6. 成本、可复查文件和验收',
-    '5个网页抽取对话，每个4案，每案1次；另1个9项匹配核查对话。抽取prompt共%s字符，回复共%s字符；没有观测到token计数。并行网页处理与本地计算耗时不同，本地搜索约%.2f秒，不含大型轨迹文件序列化。' % (cost['extraction_prompt_characters'], cost['extraction_reply_characters'], cost['local_compute_seconds_excluding_serialization']),
-    '程序语义测试122项通过。原始输入与旧实验保留；实际任务、原始回复、原文来源、版本哈希、字段隔离、候选预算、匹配出处与失败原因均保存。当前工程交付完成，不以新方法优于共现为验收条件。',
-    '入口：sample.json与config.json；views/逐案计算输入；web-tasks/抽取及核查完整记录；runs/first-run/summary.json、diagnostics.json、costs.json、report.txt及results.json.gz。'
+    'Neither search reached its budget. The 205 recurring relational queries span 76 status-qualified record-type combinations, not 205 independent legal concepts. Object roles, procedural stages and related queries create variants; more variants do not imply higher quality. report.txt contains recurring patterns; results.json or its equivalent results.json.gz preserves all candidates, matches and failure traces.',
+    'The 450 relational queries across 20 cases produce 9,000 paired judgments: both match in 936; co-occurrence matches but relations find no match in 53; co-occurrence matches but relation information is insufficient in 249; neither finds a match in 2,268; both have insufficient information in 5,494. Units are pattern-by-document pairs, not 9,000 independent samples.',
+    'Object joins exclude 995 record combinations counted repeatedly across queries: 663 have explicitly unequal object IDs and 332 have unknown join fields. Deduplicating unordered within-case record pairs leaves 586 pairs. The 995 exclusions are not an error count, and unknown fields do not mean absent facts. Empty results mean only that no match was found in the current records.', '',
+    '4. Prespecified Small Audit and Examples',
+    'The audit takes the first 3 recurring relational patterns in query order plus 3 other candidates sampled with seed 20260930. For each it examines the first relational match and first additional co-occurrence combination, yielding 9 items. Displayed items were not replaced based on audit results. All web reviews returned and all 9 quotes were locatable.',
+    'The model audit supports assertions, role bindings and the specified identity join for 6 relational matches. For 3 additional co-occurrence combinations, assertions and their individual bindings are supported but the specified identity join fails. Several items reuse the same pair of decisions from different court levels. The 6 matches are not 6 independent successful cases, and 6/6 is not overall accuracy.',
+    'Example 1: In Achuta Bhat, one decision concerns the group of appellant and second defendant, while another concerns the appellant individually. Co-occurrence detects two eviction decisions; exact identity distinguishes a group from an individual. This does not deny individual membership in the group.',
+    'Example 2: In Pooran Chand, leasing the entire building to the father and subletting some rooms can both be true. A query demanding the same exact property object distinguishes part from whole. Containment remains possible; unequal identity does not imply legal irrelevance.',
+    'Example 3: A trial eviction decision and appellate restoration of that decision on the same request may share affected parties, beneficiaries and property. This is a traceable procedural structure, not an eviction test or outcome rule.',
+    'Audit judgments: ' + str(dict(counts)), '',
+    '5. Main Bottlenecks and Next Development Step',
+    'First, representation boundaries: group membership and property part-whole relations require explicit relations, not identity alone or forced object merging. Explicit membership/part relations can first be developed on these existing 20 cases while retaining exact identity as a separate condition.',
+    'Second, qualification scope: %s records have restrictions on type, status, positivity or the entire record, often leaving queries unknown. Unknown dates constrain only date questions, but the model marked some multi-party or scope qualifications as unparsed, causing conservative whole-record blocking. The next iteration should specify restricted query purposes while preserving sources and old results, without expanding into complete reannotation.' % core_blocked,
+    'Field-blocking counts (a record may contribute repeatedly): ' + json.dumps(dict(fields), ensure_ascii=False),
+    'Finally, redundancy and purpose: many recurring variants arise from different role joins or court-level descriptions of the same fact/decision pair. Separate factual and procedural structures and deduplicate/group under a shared definition before evaluation; procedural co-occurrence is not a legal condition.',
+    'Complete annotation review was not performed, so extraction recall is unmeasured. Without development/evaluation separation, no cross-case generalization advantage can be reported. These 20 cases can support development; final evaluation needs new cases unused in development.', '',
+    '6. Costs, Inspectable Files and Acceptance',
+    'Five web extraction conversations handled 4 cases each, once per case; one further conversation reviewed 9 matches. Extraction prompts total %s characters and replies %s characters; token counts were not observed. Concurrent web processing differs from local compute time: local search took about %.2f seconds excluding large trace serialization.' % (cost['extraction_prompt_characters'], cost['extraction_reply_characters'], cost['local_compute_seconds_excluding_serialization']),
+    'All 122 program-semantics tests passed. Original inputs and experiments remain preserved, together with tasks, raw replies, sources, version hashes, field isolation, candidate budgets, match provenance and failure reasons. Engineering delivery is complete; outperforming co-occurrence was not its acceptance criterion.',
+    'Entry points: sample.json and config.json; views/ for per-case computation inputs; web-tasks/ for full extraction/review records; runs/first-run/summary.json, diagnostics.json, costs.json, report.txt and results.json.gz.'
 ]
 (run / 'report-zh.txt').write_text('\n\n'.join(lines) + '\n')
 print({'report': str(run / 'report-zh.txt'), 'audit_items': len(audit['items']), 'costs': cost})

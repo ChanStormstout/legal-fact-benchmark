@@ -1,9 +1,32 @@
 # Historical contrasts V2
 
-完整训练和比较已完成，见[本轮报告](../outputs/historical-contrasts-v2/report-zh.md)和[组件接口](../legal_bench/historical_contrasts_v2/README.md)。28查询、10历史候选，17训练／3验证／8开发留出；实际16训练纠纷产生307排序配对。GPT-6 High标签作为本轮操作性ground truth：280条请求、276条接口及引用核对通过、4条无效引用排除、5条未知不当负例。历史结果单独保存，八个来源段落遮蔽，217,580正文token全部编码。
+Training/comparison completed; see the [report](../outputs/historical-contrasts-v2/report-zh.md)
+and [component interfaces](../legal_bench/historical_contrasts_v2/README.md).
+Twenty-eight queries/ten historical candidates, split17 train/3 validation/8 development
+holdout; sixteen training disputes produced307 ranking pairs. GPT-6 High labels served
+as operational references, not human gold:280 requested,276 passed interface/citation
+checks, four invalid references excluded, five unknowns not treated as negatives.
+Historical results stored separately, eight source passages masked, all217,580 text
+tokens encoded.
 
-五种子正式比较15次、嵌套数据量训练10次，共25次拟合与19,200次更新；原三次技术试跑保留另计。GNN、普通神经网络、去边GNN和训练候选频率排序留出NDCG@3均为1.0，未显示图结构额外收益。频率基线不读取查询，也达到指标上限；GNN实际前三位集合在八查询五种子始终相同。六个有正负候选的留出查询结论相同。仅16独立训练纠纷、10候选、留出正例比例85.9%，数据与评测难度不足，不能用低种子波动证明数据足够。
+Fifteen main five-seed fits plus ten nested-data-size fits yielded25 fits/19,200 updates;
+three earlier technical trials were preserved separately. GNN, ordinary neural network,
+no-edge GNN, and training-candidate-frequency ranker all reached held-out NDCG@3=1.0.
+No added graph-structure benefit. The query-free frequency ranker also saturated the
+metric; GNN top-three sets were identical across eight queries/five seeds. The same
+conclusion held for six holdout queries with positive and negative candidates. Sixteen
+training disputes, ten candidates, and85.9% positive holdout prevalence limit task
+difficulty; low seed variance cannot establish sufficient data.
 
-当前图只有来源、案例、争点和路径归属，没有完整对象／事件／条件／法律推导图。未见独立测试、完整法律回答收益和人工认证均未评价。正式模型选择在留出评分前冻结，没有为改善结果重标注或调参。
+The graph has source/case/issue/path membership only, not complete entity/event/condition/
+legal-derivation structure. Independent tests, whole legal-answer benefit, and human
+certification were not evaluated. Model selection froze before holdout scoring; no
+relabeling or tuning to improve results.
 
-统一验收重载25权重，重放420模型评分、80学习曲线留出评分、700简单方法评分，重算1,120份指标全部一致。21新接口测试与2汇总保护测试通过；此前45组件、46原门禁检查通过，合计114。运行中三个共享入口文档由其他工作更新，导致最后汇总检查停止；失败和原保留清单保存，其余576个旧模块／来源哈希一致。独立完成汇总没有额外训练或回退共享入口。主队列仍暂停；本轮未提交推送，主入口未由本实验切换。
+Acceptance reloaded25 weights and exactly replayed420 model scores,80 learning-curve
+holdout scores,700 simple-method scores, and1,120 metric records. Twenty-one new interface
+tests/two summary-protection tests plus prior45 component/46 original-gate checks total114.
+Concurrent changes to three shared entry documents stopped the final summary check;
+the failure/original preservation manifest remain. Other576 old modules/sources matched.
+Independent summary completion added no training or rollback of shared entries. Main
+queue paused; no publication or default-entry switch by this experiment.
