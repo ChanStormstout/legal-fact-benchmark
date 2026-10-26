@@ -24,6 +24,8 @@ consequences under the registered rules. Historical case facts support compariso
 not factual premises about the current case. Coverage and working stages vary by
 version; this diagram is the research workflow, not a claim that every run succeeds.
 
+Latest source-extraction checkpoint: [V15 / V16 and LW comparison](outputs/source-extraction-checkpoint-2026-10-26-v1/README.md). This is a captured partial-run status, not a live result or a success claim.
+
 ## Start here
 
 | You want to… | Read |

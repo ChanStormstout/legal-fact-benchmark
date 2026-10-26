@@ -1,0 +1,80 @@
+{
+  "parameters": {
+    "context_length_exceeded_behavior": "error",
+    "max_tokens": 65536,
+    "min_p": 0.0,
+    "model": "Qwen/Qwen3.5-9B",
+    "n": 1,
+    "reasoning": {
+      "enabled": false
+    },
+    "repetition_penalty": 1.0,
+    "response_format": {
+      "type": "json_object"
+    },
+    "seed": 20261001,
+    "stream": true,
+    "temperature": 0.0,
+    "top_k": 0,
+    "top_p": 1.0
+  },
+  "context_length": 262144,
+  "local_per_call_seconds": 2400,
+  "max_technical_retries": 1,
+  "endpoint": "https://api.together.ai/v1/chat/completions",
+  "api_model": "Qwen/Qwen3.5-9B",
+  "prices": {
+    "input": 0.17,
+    "output": 0.25
+  },
+  "concurrency": 1,
+  "server_weight_revision_verified": false,
+  "blank_progress_limit_chars": 1024,
+  "repetition_min_chars": 2048,
+  "repetition_min_repeats": 8,
+  "repetition_window_chars": 32768,
+  "credit_balance_verified_positive": false,
+  "credit_retry_backoff_seconds": 60,
+  "unknown_usage_policy": "RESERVE_AND_ISOLATE_FAILED_CASE",
+  "version": "BOUNDED_REFERENCE_SOURCE_READING_V12",
+  "cases": [
+    "1251841"
+  ],
+  "arms": [
+    "V12"
+  ],
+  "scope": "Whole-document source extraction only; no A0, full C, training, retrieval or prediction.",
+  "omit_max_tokens": false,
+  "execution_enabled": false,
+  "paid_api_enabled": false,
+  "prior_conservative_usd": 25.632901590000014,
+  "allow_unknown_usage_reserve_continuation": true,
+  "baseline_run_enabled": false,
+  "full_pipeline_run_enabled": false,
+  "publication_language": "ENGLISH",
+  "comparison_scope": "One repaired method attempt; preserved same-input V9/LW are descriptive development comparators, not newly randomized concurrent arms.",
+  "enforce_scoped_dollar_cap": true,
+  "source_stage_only": true,
+  "server_failure_cause": "UNKNOWN",
+  "group_max_chars": 2400,
+  "group_max_entries": 24,
+  "capacity_diagnostic": false,
+  "diagnostic_output_tokens": 65536,
+  "cohort_role": "EXPOSED_DEVELOPMENT_WITH_FOUR_ADDITIONAL_LOCAL_DISPUTE_GROUPS",
+  "maximum_new_usd": 5.67020195,
+  "annotation_status": "SOURCE_ONLY_PACKETS_PREPARED_REFERENCE_ANNOTATION_PENDING",
+  "no_semantic_reruns": true,
+  "old_accounting_is_not_new_authorization": true,
+  "arm_order_by_case": {
+    "1251841": [
+      "V12"
+    ]
+  },
+  "max_calls_per_arm": 188,
+  "max_input_tokens_per_arm": 49283072,
+  "max_output_tokens_per_arm": 12320768,
+  "local_total_seconds": 451200,
+  "max_logical_calls_per_arm": 94,
+  "resource_policy": "Common ceiling based on the largest complete frozen plan plus at most one identical technical retry per logical call; no source truncation.",
+  "expansion_gate": "Stop after the first whole document for source-based review; do not automatically run remaining cases."
+}

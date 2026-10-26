@@ -1,0 +1,414 @@
+{
+  "by_target": {
+    "R0000": {
+      "decision": "REPLACE",
+      "checks": {
+        "attribution": "ERROR",
+        "proposition": "SUPPORTED",
+        "scope": "SUPPORTED",
+        "qualifications": "SUPPORTED",
+        "evidence": "SUPPORTED",
+        "status": "ERROR"
+      },
+      "source_basis": "The record attributes the finding to the 'High Court of Judicature at Patna' and the stage 'Appeal from Original Decree No. 4 of 1941'. However, the text at L135 explicitly states the High Court dismissed the suit, but the context of the paragraph (L135-L136) describes the High Court's reasoning which was later overturned by the Supreme Court. The record's proposition 'Wazir Narayan Singh... had power to grant' is the High Court's holding, but the attribution metadata in the candidate record incorrectly lists the stage as 'Appeal from Original Decree No. 4 of 1941' (which is the trial court stage) rather than the High Court appeal stage mentioned in L118 ('Appeal from the Judgment and Decree dated the 26th January, 1944, of the High Court...'). Furthermore, the candidate record's attribution speaker is 'High Court of Judicature at Patna' but the forum is also 'High Court of Judicature at Patna', creating redundancy, while the time 'prior to 9th January 1946' is correct for the High Court decision before the Privy Council appeal admission. The primary error is the 'stage' field which should reflect the High Court appeal, not the original decree appeal.",
+      "evidence": [
+        {
+          "source_id": "IKWEB-1251841:L135",
+          "quote": "It therefore held that the lease was valid and was not affected by the plaintiff's mortgage, decree or by the execution sale under that decree and accordingly dismissed the plaintiff's suit."
+        },
+        {
+          "source_id": "IKWEB-1251841:L134",
+          "quote": "a calculation of some figures came to the conclusion that the lease of the disputed villages in favour of the defendants did not in any way render the security of the bank insufficient."
+        }
+      ],
+      "replacements": [
+        {
+          "kind": "COURT_FINDING",
+          "attribution": {
+            "speaker": "High Court of Judicature at Patna",
+            "forum": "High Court of Judicature at Patna",
+            "stage": "Appeal from Original Decree No. 4 of 1941",
+            "time": "prior to 9th January 1946"
+          },
+          "proposition": {
+            "subject": "Wazir Narayan Singh",
+            "relation": "had power to grant",
+            "object": "permanent lease of disputed villages",
+            "event_time": "5th November 1925",
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [
+            {
+              "type": "CONDITION",
+              "text": "The lease did not render the security of the Bank insufficient",
+              "evidence": [
+                {
+                  "source_id": "IKWEB-1251841:L134",
+                  "quote": "a calculation of some figures came to the conclusion that the lease of the disputed villages in favour of the defendants did not in any way render the security of the bank insufficient."
+                }
+              ]
+            }
+          ],
+          "evidence": [
+            {
+              "source_id": "IKWEB-1251841:L135",
+              "quote": "It therefore held that the lease was valid and was not affected by the plaintiff's mortgage, decree or by the execution sale under that decree and accordingly dismissed the plaintiff's suit."
+            }
+          ],
+          "uncertainties": []
+        }
+      ]
+    },
+    "R0001": {
+      "decision": "REPLACE",
+      "checks": {
+        "attribution": "SUPPORTED",
+        "proposition": "SUPPORTED",
+        "scope": "SUPPORTED",
+        "qualifications": "SUPPORTED",
+        "evidence": "SUPPORTED",
+        "status": "SUPPORTED"
+      },
+      "source_basis": "The record accurately reflects the High Court's finding that the plaintiff was subrogated to the Bank's position, as stated in L136. The attribution, proposition, and evidence are consistent with the source text.",
+      "evidence": [
+        {
+          "source_id": "IKWEB-1251841:L136",
+          "quote": "Both the Courts below found that the plaintiff was subrogated to the position of the Bank."
+        }
+      ],
+      "replacements": [
+        {
+          "kind": "COURT_FINDING",
+          "attribution": {
+            "speaker": "High Court of Judicature at Patna",
+            "forum": "High Court of Judicature at Patna",
+            "stage": "Appeal from Original Decree No. 4 of 1941",
+            "time": "prior to 9th January 1946"
+          },
+          "proposition": {
+            "subject": "Plaintiff",
+            "relation": "was subrogated to position of",
+            "object": "Bank",
+            "event_time": "during mortgage suit proceedings",
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [],
+          "evidence": [
+            {
+              "source_id": "IKWEB-1251841:L136",
+              "quote": "Both the Courts below found that the plaintiff was subrogated to the position of the Bank."
+            }
+          ],
+          "uncertainties": []
+        }
+      ]
+    },
+    "R0002": {
+      "decision": "REPLACE",
+      "checks": {
+        "attribution": "SUPPORTED",
+        "proposition": "SUPPORTED",
+        "scope": "SUPPORTED",
+        "qualifications": "SUPPORTED",
+        "evidence": "SUPPORTED",
+        "status": "SUPPORTED"
+      },
+      "source_basis": "The record accurately reflects the High Court's finding regarding Defendant 2's representation in the mortgage suit, as stated in L136. The attribution, proposition, and evidence are consistent with the source text.",
+      "evidence": [
+        {
+          "source_id": "IKWEB-1251841:L136",
+          "quote": "They also found that the defendant 2 was sufficiently represented in the mortgage suit."
+        }
+      ],
+      "replacements": [
+        {
+          "kind": "COURT_FINDING",
+          "attribution": {
+            "speaker": "High Court of Judicature at Patna",
+            "forum": "High Court of Judicature at Patna",
+            "stage": "Appeal from Original Decree No. 4 of 1941",
+            "time": "prior to 9th January 1946"
+          },
+          "proposition": {
+            "subject": "Defendant 2",
+            "relation": "was sufficiently represented in",
+            "object": "mortgage suit",
+            "event_time": "during mortgage suit proceedings",
+            "layer": "PROCEDURE"
+          },
+          "qualifications": [],
+          "evidence": [
+            {
+              "source_id": "IKWEB-1251841:L136",
+              "quote": "They also found that the defendant 2 was sufficiently represented in the mortgage suit."
+            }
+          ],
+          "uncertainties": []
+        }
+      ]
+    },
+    "R0003": {
+      "decision": "REPLACE",
+      "checks": {
+        "attribution": "SUPPORTED",
+        "proposition": "SUPPORTED",
+        "scope": "SUPPORTED",
+        "qualifications": "SUPPORTED",
+        "evidence": "SUPPORTED",
+        "status": "SUPPORTED"
+      },
+      "source_basis": "The record accurately reflects the Supreme Court's legal argument regarding the applicable law (pre-1929) and the existence of conflicting judicial decisions, as stated in L137. The attribution, proposition, qualifications, and evidence are consistent with the source text.",
+      "evidence": [
+        {
+          "source_id": "IKWEB-1251841:L137",
+          "quote": "The question whether Wazir Narayan Singh had such power has got to be determined under -the law as it stood prior to the enactment of cite13†section 65-A of 113 the cite12†Transfer of Property Act by Act XX of 1929."
+        },
+        {
+          "source_id": "IKWEB-1251841:L137",
+          "quote": "The mortgagor's power to lease the mortgaged property was the subject-matter of conflicting judicial decisions."
+        }
+      ],
+      "replacements": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "Supreme Court of India",
+            "forum": "Supreme Court of India",
+            "stage": "Civil Appeal No. 73 of 1950",
+            "time": "23 October 1952"
+          },
+          "proposition": {
+            "subject": "Wazir Narayan Singh",
+            "relation": "had power to grant",
+            "object": "permanent lease to defendants",
+            "event_time": "5th November 1925",
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [
+            {
+              "type": "LIMITATION",
+              "text": "The question must be determined under the law as it stood prior to the enactment of section 65-A of the Transfer of Property Act in 1929",
+              "evidence": [
+                {
+                  "source_id": "IKWEB-1251841:L137",
+                  "quote": "The question whether Wazir Narayan Singh had such power has got to be determined under -the law as it stood prior to the enactment of cite13†section 65-A of 113 the cite12†Transfer of Property Act by Act XX of 1929."
+                }
+              ]
+            }
+          ],
+          "evidence": [
+            {
+              "source_id": "IKWEB-1251841:L137",
+              "quote": "The mortgagor's power to lease the mortgaged property was the subject-matter of conflicting judicial decisions."
+            }
+          ],
+          "uncertainties": [
+            "Conflicting judicial decisions existed regarding the mortgagor's power to lease."
+          ]
+        }
+      ]
+    },
+    "R0004": {
+      "decision": "REPLACE",
+      "checks": {
+        "attribution": "SUPPORTED",
+        "proposition": "SUPPORTED",
+        "scope": "SUPPORTED",
+        "qualifications": "SUPPORTED",
+        "evidence": "SUPPORTED",
+        "status": "SUPPORTED"
+      },
+      "source_basis": "The record accurately reflects the Supreme Court's discussion of the English common law rule, as stated in L138. The attribution, proposition, qualifications, and evidence are consistent with the source text.",
+      "evidence": [
+        {
+          "source_id": "IKWEB-1251841:L138",
+          "quote": "Relying upon the rule of English common law under which the mortgagor had no power to lease, it was held in some cases that a mortgagor could not ordinarily without the concurrence of the mortgagee execute a lease which could be binding the mortgagee."
+        }
+      ],
+      "replacements": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "Supreme Court of India",
+            "forum": "Supreme Court of India",
+            "stage": "Civil Appeal No. 73 of 1950",
+            "time": "23 October 1952"
+          },
+          "proposition": {
+            "subject": "Mortgagor",
+            "relation": "could not ordinarily execute",
+            "object": "lease binding the mortgagee",
+            "event_time": "without concurrence of mortgagee",
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [
+            {
+              "type": "CONDITION",
+              "text": "Under the rule of English common law",
+              "evidence": [
+                {
+                  "source_id": "IKWEB-1251841:L138",
+                  "quote": "Relying upon the rule of English common law under which the mortgagor had no power to lease, it was held in some cases that a mortgagor could not ordinarily without the concurrence of the mortgagee execute a lease which could be binding the mortgagee."
+                }
+              ]
+            }
+          ],
+          "evidence": [
+            {
+              "source_id": "IKWEB-1251841:L138",
+              "quote": "Relying upon the rule of English common law under which the mortgagor had no power to lease, it was held in some cases that a mortgagor could not ordinarily without the concurrence of the mortgagee execute a lease which could be binding the mortgagee."
+            }
+          ],
+          "uncertainties": []
+        }
+      ]
+    },
+    "R0005": {
+      "decision": "REPLACE",
+      "checks": {
+        "attribution": "SUPPORTED",
+        "proposition": "SUPPORTED",
+        "scope": "SUPPORTED",
+        "qualifications": "SUPPORTED",
+        "evidence": "SUPPORTED",
+        "status": "SUPPORTED"
+      },
+      "source_basis": "The record accurately reflects the Supreme Court's discussion of the distinction between English and other mortgages, as stated in L139. The attribution, proposition, qualifications, and evidence are consistent with the source text.",
+      "evidence": [
+        {
+          "source_id": "IKWEB-1251841:L139",
+          "quote": "In other cases a distinction was drawn between English mortgages and other mortgages and it was considered that the mortgagor in India remained the owner and when in possession could prima facie exercise the rights of ownership inclusive of the power to grant leases of the mortgaged property."
+        }
+      ],
+      "replacements": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "Supreme Court of India",
+            "forum": "Supreme Court of India",
+            "stage": "Civil Appeal No. 73 of 1950",
+            "time": "23 October 1952"
+          },
+          "proposition": {
+            "subject": "Mortgagor in India",
+            "relation": "remained owner",
+            "object": "and could exercise rights of ownership",
+            "event_time": "when in possession",
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [
+            {
+              "type": "CONDITION",
+              "text": "Distinction drawn between English mortgages and other mortgages",
+              "evidence": [
+                {
+                  "source_id": "IKWEB-1251841:L139",
+                  "quote": "In other cases a distinction was drawn between English mortgages and other mortgages and it was considered that the mortgagor in India remained the owner and when in possession could prima facie exercise the rights of ownership inclusive of the power to grant leases of the mortgaged property."
+                }
+              ]
+            }
+          ],
+          "evidence": [
+            {
+              "source_id": "IKWEB-1251841:L139",
+              "quote": "In other cases a distinction was drawn between English mortgages and other mortgages and it was considered that the mortgagor in India remained the owner and when in possession could prima facie exercise the rights of ownership inclusive of the power to grant leases of the mortgaged property."
+            }
+          ],
+          "uncertainties": []
+        }
+      ]
+    },
+    "R0006": {
+      "decision": "REPLACE",
+      "checks": {
+        "attribution": "SUPPORTED",
+        "proposition": "SUPPORTED",
+        "scope": "SUPPORTED",
+        "qualifications": "SUPPORTED",
+        "evidence": "SUPPORTED",
+        "status": "SUPPORTED"
+      },
+      "source_basis": "The record accurately reflects the Supreme Court's discussion of the principle deduced by Jenkins C.J. in Balmukund v. Motilal, as stated in L140. The attribution, proposition, qualifications, and evidence are consistent with the source text.",
+      "evidence": [
+        {
+          "source_id": "IKWEB-1251841:L140",
+          "quote": "This was the principle deduced by Jenkins C.J. in Balmukund v. Motilal(1) from the old case of Banee Pershad v. Beet Bhunjun Singh(1)."
+        },
+        {
+          "source_id": "IKWEB-1251841:L139",
+          "quote": "The Question was decided with reference to cite14†section 66 of the Transfer of Property Act and it was held that the mortgagor could grant leases which were not wasteful in their effect the mortgagee's security."
+        }
+      ],
+      "replacements": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "Supreme Court of India",
+            "forum": "Supreme Court of India",
+            "stage": "Civil Appeal No. 73 of 1950",
+            "time": "23 October 1952"
+          },
+          "proposition": {
+            "subject": "Mortgagor",
+            "relation": "could grant leases",
+            "object": "which were not wasteful in effect on mortgagee's security",
+            "event_time": "under section 66 of Transfer of Property Act",
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [
+            {
+              "type": "CONDITION",
+              "text": "Principle deduced by Jenkins C.J. in Balmukund v. Motilal from Banee Pershad v. Beet Bhunjun Singh",
+              "evidence": [
+                {
+                  "source_id": "IKWEB-1251841:L139",
+                  "quote": "The Question was decided with reference to cite14†section 66 of the Transfer of Property Act and it was held that the mortgagor could grant leases which were not wasteful in their effect the mortgagee's security."
+                }
+              ]
+            }
+          ],
+          "evidence": [
+            {
+              "source_id": "IKWEB-1251841:L140",
+              "quote": "This was the principle deduced by Jenkins C.J. in Balmukund v. Motilal(1) from the old case of Banee Pershad v. Beet Bhunjun Singh(1)."
+            }
+          ],
+          "uncertainties": []
+        }
+      ]
+    }
+  },
+  "by_source": {
+    "IKWEB-1251841:L135": {
+      "state": "COMPLETE",
+      "source_basis": "High Court Judgment dismissing plaintiff's suit",
+      "additions": []
+    },
+    "IKWEB-1251841:L136": {
+      "state": "COMPLETE",
+      "source_basis": "High Court Judgment dismissing plaintiff's suit",
+      "additions": []
+    },
+    "IKWEB-1251841:L137": {
+      "state": "COMPLETE",
+      "source_basis": "Supreme Court Judgment",
+      "additions": []
+    },
+    "IKWEB-1251841:L138": {
+      "state": "COMPLETE",
+      "source_basis": "Supreme Court Judgment",
+      "additions": []
+    },
+    "IKWEB-1251841:L139": {
+      "state": "COMPLETE",
+      "source_basis": "Supreme Court Judgment",
+      "additions": []
+    },
+    "IKWEB-1251841:L140": {
+      "state": "COMPLETE",
+      "source_basis": "Supreme Court Judgment",
+      "additions": []
+    }
+  },
+  "conflicts": []
+}

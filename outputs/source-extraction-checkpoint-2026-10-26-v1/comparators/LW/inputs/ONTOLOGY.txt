@@ -1,0 +1,332 @@
+**LAND / PROPERTY DISPUTE — INDIA CONTEXT**
+│
+├── **Parties**
+│   ├── **Petitioner / Plaintiff / Claimant**
+│   │   * Identity [Type: String]	
+│   │   * Proceeding Posture [Type: Enumeration: Petitioner, Plaintiff, Appellant, Applicant, Claimant, Writ Petitioner]
+│   │   * Property Role [Type: Enumeration: Owner, Co-owner, Lessee, Sub-Lessee, Licensee, Tenant, Occupant, Allottee, Society, Society Member, Developer, Purchaser, Heir, Possessor]
+│   │   * Claimed Right [Type: Enumeration: Title, Possession, Leasehold Right, Sub-Lease Right, Tenancy Right, Development Right, Redevelopment Right, FSI/TDR Right, Rehabilitation Right, Compensation Right, Consent Right, Statutory Protection]
+│   │   * Possession Status [Type: Enumeration: In Possession, Dispossessed, Threatened Dispossession, Transit Occupant, Constructive Possession, Disputed Possession, Unknown]
+│   │
+│   ├── **Respondent / Defendant / Authority**
+│   │   * Identity [Type: String]
+│   │   * Proceeding Posture [Type: Enumeration: Respondent, Defendant, Appellant, Public Authority, Planning Authority, Development Authority, Revenue Authority, Municipal Authority, Society, Developer, Private Party]
+│   │   * Property Role [Type: Enumeration: State, Statutory Authority, Municipal Corporation, Planning Authority, Superior Lessor, Landlord, Owner, Acquiring Body, Developer, Society, Adverse Claimant, Encroacher]
+│   │   * Authority / Control Position [Type: Enumeration: Absolute Owner, Superior Lessor, Planning Controller, Executive Authority, Delegated Agency, Record Holder, Approving Authority, Adjudicatory Body, Disputed Authority]
+│   │   * Records Control [Type: Enumeration: Land Records, Revenue Records, Lease Records, Planning Records, Society Records, Development Records, Tender Records, No Control, Disputed Control]
+│   │
+│   ├── **Subject Property**
+│   │   * Property Identifier [Type: String]
+│   │   * Property Type [Type: Enumeration: Land, Building, Flat, Tenement, Agricultural Land, Non-Agricultural Land, Slum Property, Society Property, Leasehold Plot, Government Land, Redevelopment Layout]
+│   │   * Location / Survey Details [Type: String]
+│   │   * Tenure Type [Type: Enumeration: Freehold, Leasehold, Sub-Lease, License, Tenancy, Allotment, Occupancy Right, Possessory Claim, Government Grant, Disputed Tenure]
+│   │   * Land Use Classification [Type: Enumeration: Residential, Commercial, Industrial, Agricultural, Mixed-Use, Public Purpose, Reserved Land, Slum, Redevelopment Zone]
+│   │   * Encumbrance Status [Type: Enumeration: Clear, Mortgaged, Leased, Licensed, Tenanted, Reserved, Acquired, Encroached, Litigated, Unknown]
+│   │
+│   └── **Roles**
+│       * Claimant Role Label [Type: String]
+│       * Respondent Role Label [Type: String]
+│       * Property Relationship [Type: Enumeration: Owner-Authority, Lessee-Lessor, Sub-Lessee-Superior Lessor, Tenant-Landlord, Society-Authority, Occupier-Developer, Co-owner-Co-owner, Purchaser-Seller, Possessor-Title Holder, Citizen-State]
+│
+├── **Relationship**
+│   ├── Property Interest Relationship [Type: Enumeration: Ownership, Leasehold, Sub-Lease, Tenancy, License, Allotment, Possession, Development Right, Redevelopment Right, Rehabilitation Right, Easement, Inheritance]
+│   ├── Governing Instrument [Type: Enumeration: Sale Deed, Lease Deed, Sub-Lease Deed, Conveyance, Allotment Letter, Development Agreement, Redevelopment Agreement, Government Resolution, Tender, Sanction Plan, Revenue Record, Court Order]
+│   ├── Governing Statutory Framework [Type: Enumeration: Transfer of Property Act, Registration Act, Specific Relief Act, Limitation Act, Land Revenue Code, Co-operative Societies Act, Town Planning Law, Development Control Regulations, Slum Law, Land Acquisition Law, Municipal Law, Constitution of India]
+│   ├── Property Rights Claimed [Type: Enumeration: Title, Possession, Enjoyment, Development, Redevelopment, Consent, Rehabilitation, Compensation, FSI/TDR, Mutation, Injunction, Restoration]
+│   ├── Public Authority Relationship [Type: Enumeration: Regulator, Planning Authority, Lessor, Superior Lessor, Landowner, Acquiring Body, Redevelopment Authority, Revenue Authority, Municipal Authority, Tribunal Authority]
+│   ├── Society / Collective Relationship [Type: Enumeration: Co-operative Society, Society Member, Managing Committee, General Body, Federation, Cluster Group, Majority-Minority Group, Disputed Association]
+│   └── Constitutional / Equitable Relationship [Type: Enumeration: Article 14, Article 19(1)(c), Article 21, Article 226, Article 300A, Natural Justice, Legitimate Expectation, Promissory Estoppel, Public Trust, Equity]
+│
+├── **Patterns Instantiated**
+│   ├── Title / Ownership Dispute Pattern [Type: Category: Competing Title, Defective Conveyance, Sale Deed Challenge, Mutation Dispute, Inheritance Dispute, Boundary Dispute, Fraudulent Transfer]
+│   ├── Possession / Dispossession Pattern [Type: Category: Eviction, Threatened Dispossession, Demolition, Encroachment, Trespass, Adverse Possession, Illegal Occupation, Possessory Injunction]
+│   ├── Lease / Tenancy / Allotment Pattern [Type: Category: Lease Term Dispute, Sub-Lease Rights, Lease Termination, Rent / Premium Dispute, NOC Refusal, Allotment Cancellation, Occupancy Right, Renewal Dispute]
+│   ├── Redevelopment / Planning Pattern [Type: Category: Self-Redevelopment, Cluster Redevelopment, Public Authority Redevelopment, Developer Appointment, Consent Dispute, FSI/TDR Dispute, Rehabilitation Entitlement]
+│   ├── Constitutional Deprivation Pattern [Type: Category: Article 300A Deprivation, Expropriation Without Authority of Law, Illusory Compensation, Forced Eviction, Loss of Development Potential]
+│   ├── Executive Override / Ultra Vires Pattern [Type: Category: Executive Fiat Overriding Statute, Ultra Vires Government Resolution, Retrospective Policy Alteration, Delegated Power Excess, Statutory Safeguard Bypass]
+│   ├── Society / Collective Property Pattern [Type: Category: Co-operative Society Rights, Member Consent, Forced Amalgamation, Cluster Inclusion, Majority-Minority Conflict, Society Resolution Dispute, Managing Committee Authority]
+│   ├── Revenue / Land Record Pattern [Type: Category: Mutation Entry, 7/12 Extract, Property Card, Survey Record, Demarcation, Measurement, Record-of-Rights Correction]
+│   └── Procedural / Forum Pattern [Type: Category: Writ Petition, Civil Suit, Revenue Appeal, Co-operative Forum, Tribunal Proceeding, Alternative Remedy, Limitation, Laches, Res Judicata]
+│
+├── **Claims**
+│   │
+│   ├── **CLAIM 1: Title / Ownership / Declaratory Rights**
+│   │   │
+│   │   ├── **Issue**
+│   │   │   * Does the claimant hold a valid title, ownership interest, leasehold interest, allotment right, possessory right, development right, or other legally protected property interest in the subject property? [Type: String]
+│   │   │
+│   │   ├── **Elements**
+│   │   │   * Right / Interest: Legally recognized property interest. [Type: Enumeration: Ownership, Leasehold, Sub-Lease, Tenancy, Allotment, Possession, Easement, Development Right, Rehabilitation Right]
+│   │   │   * Source: Valid legal source of right. [Type: Enumeration: Sale Deed, Lease Deed, Conveyance, Allotment Letter, Inheritance, Statute, Revenue Record, Court Order, Long Possession]
+│   │   │   * Breach / Cloud: Competing claim, denial, cancellation, mutation dispute, encumbrance, or adverse action affecting the right. [Type: Category]
+│   │   │   * Harm: Loss, impairment, uncertainty, or threatened deprivation of property interest. [Type: Enumeration: Title Cloud, Possession Loss, Development Loss, Compensation Loss, Marketability Loss]
+│   │   │
+│   │   ├── **Facts**
+│   │   │   * Claimed property interest exists or is alleged. [Type: Boolean]
+│   │   │   * Chain of title or tenure is documented. [Type: Boolean]
+│   │   │   * Possession or enjoyment is established or disputed. [Type: Boolean]
+│   │   │   * Competing title or adverse claim exists. [Type: Boolean]
+│   │   │   * Property records support, contradict, or fail to reflect the claimed right. [Type: Enumeration: Support, Contradict, Incomplete, Missing, Disputed]
+│   │   │
+│   │   └── **Evidence**
+│   │       * Sale deeds, conveyances, lease deeds, sub-lease deeds, allotment letters, development agreements. [Type: Array/File]
+│   │       * Revenue records, mutation entries, 7/12 extracts, property cards, survey records, city survey records. [Type: Array/File]
+│   │       * Possession documents, tax receipts, utility bills, occupation records, society records. [Type: Array/File]
+│   │       * Maps, plans, demarcation reports, measurement records, sanctioned layouts. [Type: Array/File]
+│   │       * Witness testimony and expert title / survey evidence. [Type: Array/Transcript or Report]
+│   │
+│   ├── **CLAIM 2: Possession / Injunction / Dispossession**
+│   │   │
+│   │   ├── **Issue**
+│   │   │   * Is the claimant entitled to protection of possession, restoration of possession, or restraint against interference, eviction, demolition, construction, transfer, or dispossession? [Type: String]
+│   │   │
+│   │   ├── **Elements**
+│   │   │   * Possessory Right: Actual, constructive, lawful, settled, or protected possession. [Type: Enumeration]
+│   │   │   * Interference: Threat, dispossession, demolition, obstruction, encroachment, eviction, construction, transfer, or denial of access. [Type: Category]
+│   │   │   * Illegality / Lack of Due Process: Absence of notice, authority, hearing, statutory compliance, or lawful procedure. [Type: Category]
+│   │   │   * Harm: Loss of shelter, possession, access, use, enjoyment, livelihood, or property value. [Type: Enumeration]
+│   │   │
+│   │   ├── **Facts**
+│   │   │   * Claimant is in possession or claims settled possession. [Type: Boolean]
+│   │   │   * Respondent has interfered or threatened interference. [Type: Boolean]
+│   │   │   * Notice or due process is absent, defective, or disputed. [Type: Enumeration: Present, Absent, Defective, Disputed, Unknown]
+│   │   │   * Possession is lawful, unauthorized, disputed, or protected. [Type: Enumeration: Lawful, Unauthorized, Disputed, Protected, Unknown]
+│   │   │   * Urgent threat requiring interim protection exists. [Type: Boolean]
+│   │   │
+│   │   └── **Evidence**
+│   │       * Possession records, photographs, inspection reports, utility bills, tax receipts, society records. [Type: Array/File]
+│   │       * Notices, eviction orders, demolition notices, stop-work notices, panchanamas. [Type: Array/File]
+│   │       * Police complaints, municipal records, correspondence, access-denial records. [Type: Array/File]
+│   │       * Site plans, survey reports, occupation certificates, building records. [Type: Array/File]
+│   │       * Fact witness, neighbour, official, and surveyor testimony. [Type: Array/Transcript]
+│   │
+│   ├── **CLAIM 3: Lease / Tenancy / Allotment Rights**
+│   │   │
+│   │   ├── **Issue**
+│   │   │   * Did the respondent unlawfully impair, terminate, override, or deny lease, tenancy, sub-lease, allotment, occupancy, renewal, NOC, development, or enjoyment rights? [Type: String]
+│   │   │
+│   │   ├── **Elements**
+│   │   │   * Tenure Right: Leasehold, sub-lease, tenancy, license, allotment, or occupancy right. [Type: Enumeration]
+│   │   │   * Obligation: Duty under lease, statute, allotment terms, rent law, housing law, or authority regulations. [Type: Enumeration]
+│   │   │   * Breach: Unlawful termination, non-renewal, refusal of NOC, rent/premium dispute, redevelopment override, or denial of enjoyment. [Type: Category]
+│   │   │   * Harm: Loss of possession, use, renewal, development benefit, rehabilitation entitlement, FSI/TDR entitlement, or compensation. [Type: Enumeration]
+│   │   │
+│   │   ├── **Facts**
+│   │   │   * Tenure document exists or is alleged. [Type: Boolean]
+│   │   │   * Tenure is subsisting, expired, terminated, disputed, or renewable. [Type: Enumeration: Subsisting, Expired, Terminated, Disputed, Renewable, Unknown]
+│   │   │   * Breach or default is alleged by either side. [Type: Boolean]
+│   │   │   * Due process for termination or alteration is disputed. [Type: Boolean]
+│   │   │   * Superior statutory authority is invoked to override tenure rights. [Type: Boolean]
+│   │   │
+│   │   └── **Evidence**
+│   │       * Lease deeds, sub-lease deeds, license agreements, allotment letters, rent receipts, premium payment records. [Type: Array/File]
+│   │       * Termination notices, renewal requests, NOC applications, breach notices, correspondence. [Type: Array/File]
+│   │       * Authority regulations, government orders, board resolutions, society records. [Type: Array/File]
+│   │       * Payment records, arrears records, tax and maintenance records. [Type: Array/File]
+│   │       * Testimony from lessor, lessee, authority officials, society officers, and occupants. [Type: Array/Transcript]
+│   │
+│   ├── **CLAIM 4: Redevelopment / Planning / Development Rights**
+│   │   │
+│   │   ├── **Issue**
+│   │   │   * Is the challenged redevelopment, planning, tender, developer appointment, consent process, cluster inclusion, or rehabilitation scheme lawful and binding on affected property holders or occupants? [Type: String]
+│   │   │
+│   │   ├── **Elements**
+│   │   │   * Authority: Statutory, contractual, ownership, planning, society, or public-authority power to undertake redevelopment. [Type: Enumeration]
+│   │   │   * Compliance: Compliance with development regulations, planning law, consent requirements, tender process, rehabilitation standards, and due process. [Type: Enumeration]
+│   │   │   * Breach / Illegality: Lack of consent, lack of authority, arbitrary inclusion/exclusion, defective tender, non-compliance, discrimination, ultra vires action, or unfair rehabilitation terms. [Type: Category]
+│   │   │   * Harm: Loss of self-redevelopment right, displacement, inadequate rehabilitation, reduced area, loss of FSI/TDR, redevelopment delay, or property deprivation. [Type: Enumeration]
+│   │   │
+│   │   ├── **Facts**
+│   │   │   * Redevelopment scheme exists or is proposed. [Type: Boolean]
+│   │   │   * Scheme is self-redevelopment, authority-led, developer-led, cluster, slum, or integrated redevelopment. [Type: Enumeration]
+│   │   │   * Consent requirement is present, waived, disputed, or not applicable. [Type: Enumeration: Required, Waived, Disputed, Not Applicable, Unknown]
+│   │   │   * Public interest or planned development justification is asserted. [Type: Boolean]
+│   │   │   * Rehabilitation / compensation entitlement is provided, disputed, or absent. [Type: Enumeration: Provided, Disputed, Absent, Unknown]
+│   │   │
+│   │   └── **Evidence**
+│   │       * Development control regulations, planning permissions, sanctioned plans, government resolutions, circulars, policy directions. [Type: Array/File]
+│   │       * Tender documents, developer appointment records, redevelopment agreements, project reports. [Type: Array/File]
+│   │       * Consent records, society resolutions, meeting minutes, member ballots, objections, representations. [Type: Array/File]
+│   │       * Rehabilitation entitlement statements, area statements, rent/compensation offers, eligibility lists. [Type: Array/File]
+│   │       * Technical reports, structural reports, feasibility reports, FSI/TDR calculations, layout plans. [Type: Array/File]
+│   │
+│   ├── **CLAIM 5: Government Action / Constitutional Property Deprivation**
+│   │   │
+│   │   ├── **Issue**
+│   │   │   * Did a State, statutory authority, municipal body, revenue authority, or public agency deprive, restrict, dilute, or override property rights without authority of law, due process, equality, or fair compensation? [Type: String]
+│   │   │
+│   │   ├── **Elements**
+│   │   │   * State Action: Government resolution, acquisition, reservation, demolition, redevelopment, cancellation, refusal, mutation decision, tender, or regulatory restriction. [Type: Category]
+│   │   │   * Legal Authority: Statutory power, delegated power, planning power, revenue power, acquisition power, or executive policy. [Type: Enumeration]
+│   │   │   * Illegality: Ultra vires action, arbitrariness, discrimination, lack of notice, violation of natural justice, lack of compensation, or absence of authority of law. [Type: Category]
+│   │   │   * Harm: Deprivation, restriction, loss of use, loss of development potential, displacement, compulsory association, or denial of property benefit. [Type: Enumeration]
+│   │   │
+│   │   ├── **Facts**
+│   │   │   * Public authority action exists or is threatened. [Type: Boolean]
+│   │   │   * Statutory source of power is identified or disputed. [Type: Boolean]
+│   │   │   * Notice and hearing were given, denied, defective, or disputed. [Type: Enumeration: Given, Denied, Defective, Disputed, Unknown]
+│   │   │   * Article 300A / Article 14 / Article 21 / Article 19 issue is raised. [Type: Boolean]
+│   │   │   * Public interest justification is asserted. [Type: Boolean]
+│   │   │
+│   │   └── **Evidence**
+│   │       * Government resolutions, notifications, circulars, acquisition notices, planning directions, authority orders. [Type: Array/File]
+│   │       * Objections, representations, hearing records, speaking orders, minutes, file notings. [Type: Array/File]
+│   │       * Ownership, possession, lease, revenue, and development records. [Type: Array/File]
+│   │       * Comparative treatment evidence, similarly situated property records, exclusion/inclusion lists. [Type: Array/File]
+│   │       * Expert, official, planning, valuation, and constitutional-law evidence. [Type: Array/File or Transcript]
+│   │
+│   ├── **CLAIM 6: Ultra Vires Executive Action / Statutory Override**
+│   │   │
+│   │   ├── **Issue**
+│   │   │   * Did the State or public authority exceed executive, delegated, statutory, planning, or regulatory power by issuing directions that override binding law, statutory procedure, consent thresholds, or vested property rights? [Type: String]
+│   │   │
+│   │   ├── **Elements**
+│   │   │   * Power Source: Parent Act, delegated regulation, executive power, planning regulation, government policy, or authority circular. [Type: Enumeration]
+│   │   │   * Legal Limit: Statutory procedure, consent requirement, hearing requirement, compensation requirement, regulatory hierarchy, or constitutional safeguard. [Type: Enumeration]
+│   │   │   * Breach: Executive instruction, government resolution, tender condition, policy direction, or authority order conflicts with statute or exceeds delegated power. [Type: Category]
+│   │   │   * Harm: Loss of statutory protection, forced inclusion, arbitrary exclusion, reduced entitlement, procedural bypass, or unlawful burden. [Type: Enumeration]
+│   │   │
+│   │   ├── **Facts**
+│   │   │   * Parent statute or regulation prescribes procedure. [Type: Boolean]
+│   │   │   * Impugned action alters, waives, bypasses, or overrides that procedure. [Type: Boolean]
+│   │   │   * Action is administrative/executive rather than legislative amendment. [Type: Boolean]
+│   │   │   * Affected party’s statutory protection is diluted or removed. [Type: Boolean]
+│   │   │   * Similarly situated parties are treated differently. [Type: Boolean]
+│   │   │
+│   │   └── **Evidence**
+│   │       * Parent statute, delegated regulations, development control regulations, co-operative law provisions. [Type: Array/File]
+│   │       * Government resolutions, circulars, executive directions, policy notes, tender terms. [Type: Array/File]
+│   │       * Authority minutes, file notings, comparative treatment records, inclusion/exclusion lists. [Type: Array/File]
+│   │       * Objections, representations, legal opinions, and prior court orders. [Type: Array/File]
+│   │       * Judicial precedents on statutory hierarchy, delegated legislation, and executive limits. [Type: Array/File]
+│   │
+│   ├── **CLAIM 7: Co-operative Society / Associational Autonomy**
+│   │   │
+│   │   ├── **Issue**
+│   │   │   * Does the challenged action force a society, group, association, or member body into redevelopment, amalgamation, cluster treatment, or governance change without required consent, statutory process, or protection of associational autonomy? [Type: String]
+│   │   │
+│   │   ├── **Elements**
+│   │   │   * Associational Right: Society identity, member governance, consent right, general body control, or statutory autonomy. [Type: Enumeration]
+│   │   │   * Procedure: Required resolution, majority threshold, notice, general body process, registrar approval, or statutory amalgamation process. [Type: Enumeration]
+│   │   │   * Breach: Forced amalgamation, cluster inclusion, consent bypass, voting dilution, managing committee overreach, or denial of member participation. [Type: Category]
+│   │   │   * Harm: Loss of self-governance, forced association, dilution of voting power, loss of redevelopment choice, or member-right impairment. [Type: Enumeration]
+│   │   │
+│   │   ├── **Facts**
+│   │   │   * Claimant is a registered society, association, or member body. [Type: Boolean]
+│   │   │   * Scheme affects collective governance or society identity. [Type: Boolean]
+│   │   │   * Society-level or member-level consent is required or disputed. [Type: Enumeration: Required, Disputed, Not Required, Unknown]
+│   │   │   * Statutory amalgamation / redevelopment process was followed or bypassed. [Type: Enumeration: Followed, Bypassed, Defective, Disputed, Unknown]
+│   │   │   * Members objected, consented, split, or were not consulted. [Type: Enumeration: Objected, Consented, Split, Not Consulted, Unknown]
+│   │   │
+│   │   └── **Evidence**
+│   │       * Co-operative society registration records, bye-laws, general body minutes, managing committee records. [Type: Array/File]
+│   │       * Consent forms, member ballots, redevelopment resolutions, registrar records. [Type: Array/File]
+│   │       * Cluster scheme documents, tender conditions, amalgamation proposals, authority directions. [Type: Array/File]
+│   │       * Member objections, representations, correspondence, and meeting notices. [Type: Array/File]
+│   │       * Testimony from society officers, members, registrar officials, and redevelopment consultants. [Type: Array/Transcript]
+│   │
+│   └── **CLAIM 8: Adverse Possession / Limitation / Long Possession**
+│       │
+│       ├── **Issue**
+│       │   * Has long, open, continuous, hostile, and exclusive possession matured into a legally enforceable right, or is the property claim barred by limitation, delay, or laches? [Type: String]
+│       │
+│       ├── **Elements**
+│       │   * Possession: Actual, open, continuous, exclusive, and identifiable possession. [Type: Enumeration]
+│       │   * Hostility / Adverseness: Possession adverse to true owner, not permissive or derivative. [Type: Boolean]
+│       │   * Continuity / Limitation Period: Statutory period satisfied or disputed. [Type: Boolean]
+│       │   * Knowledge / Ouster: Owner knew or should have known of adverse claim. [Type: Boolean]
+│       │
+│       ├── **Facts**
+│       │   * Date or period of possession is pleaded. [Type: Boolean]
+│       │   * Nature of possession is owner-like, permissive, tenant-like, encroaching, or disputed. [Type: Enumeration]
+│       │   * True owner’s title is admitted, denied, or disputed. [Type: Enumeration: Admitted, Denied, Disputed, Unknown]
+│       │   * Limitation defense or adverse possession claim is raised. [Type: Boolean]
+│       │   * Delay, laches, acquiescence, or stale claim is alleged. [Type: Boolean]
+│       │
+│       └── **Evidence**
+│           * Revenue records, tax receipts, electricity/water bills, possession certificates, panchanamas. [Type: Array/File]
+│           * Maps, survey records, photographs, crop records, cultivation records, construction records. [Type: Array/File]
+│           * Notices, objections, prior suits, complaints, police records, authority correspondence. [Type: Array/File]
+│           * Witness testimony on possession, use, exclusion, and knowledge. [Type: Array/Transcript]
+│           * Limitation pleadings and prior litigation records. [Type: Array/File]
+│
+├── **Defenses / Counter-Narratives**
+│   │
+│   ├── **Title / Tenure Defense**
+│   │   * Defense Theory [Type: Category: No Title, Defective Title, Expired Lease, Breach of Lease, No Conveyance, No Mutation, Permissive Possession, Unauthorized Occupation]
+│   │   * Rebuttal Metadata [Type: Category: Chain of Title, Possession Proof, Payment Proof, Authority Recognition, Estoppel, Legitimate Expectation, Long Enjoyment, Statutory Protection]
+│   │
+│   ├── **Public Interest / Planning Policy Defense**
+│   │   * Defense Theory [Type: Category: Larger Public Interest, Urban Renewal, Housing Stock Increase, Infrastructure Upgrade, Sustainable Town Planning, Elimination of Haphazard Development, Safety, Executive Policy Discretion]
+│   │   * Rebuttal Metadata [Type: Category: Test Proportionality, Test Statutory Backing, Test Arbitrariness, Test Discrimination, Test Due Process, Test Compensation Adequacy, Verify Actual Infrastructure Need]
+│   │
+│   ├── **Statutory / Regulatory Subservience Defense**
+│   │   * Defense Theory [Type: Category: Lessee Rights Subservient to Superior Lessor, Special Statute Override, Authority-Owned Land, Statutory Power to Redevelop, Compliance with Parent Act]
+│   │   * Rebuttal Metadata [Type: Category: Excess of Delegated Power, Conflict with Parent Act, Vested Rights, Lease Protection, Failure to Follow Statutory Process, Article 300A]
+│   │
+│   ├── **Consent / Compliance Defense**
+│   │   * Defense Theory [Type: Category: Consent Not Required, Majority Consent, Statutory Waiver, Authority Ownership, Regulation Compliance, Tender Compliance, Rehabilitation Compliance]
+│   │   * Rebuttal Metadata [Type: Category: Consent Required, Defective Consent, Wrong Regulation, Improper Classification, Non-Compliance, Inadequate Rehabilitation, Forced Association]
+│   │
+│   ├── **Procedural / Forum Defense**
+│   │   * Defense Theory [Type: Category: Alternative Remedy, Delay, Laches, Limitation, Res Judicata, Maintainability, Jurisdiction, Non-Joinder, Prematurity, Tribunal First Instance]
+│   │   * Rebuttal Metadata [Type: Category: Constitutional Issue, Natural Justice Violation, Ultra Vires Action, Lack of Efficacious Remedy, Urgent Harm, Continuing Cause, Pure Question of Law]
+│   │
+│   └── **Equitable Defense**
+│       * Defense Theory [Type: Category: Acquiescence, Waiver, Estoppel, Unclean Hands, Suppression of Facts, Unauthorized Construction, Illegal Occupation, Encroachment]
+│       * Rebuttal Metadata [Type: Category: No Knowing Waiver, Authority Delay, Bona Fide Possession, Regularization, Public Records Support, Proportionality, Clean Hands]
+│
+├── **Evidence / Proof Matrix**
+│   │
+│   ├── **Title / Tenure Evidence**
+│   │   * Sale Deed / Conveyance / Gift / Partition / Will / Succession Records [Type: Array/File]
+│   │   * Lease Deed / Sub-Lease / License / Allotment Letter / Renewal Records [Type: Array/File]
+│   │   * Mutation Entries / 7/12 Extracts / Property Cards / Record of Rights [Type: Array/File]
+│   │   * Encumbrance Certificates / Registration Records / Index-II / Search Reports [Type: Array/File]
+│   │
+│   ├── **Possession / Site Evidence**
+│   │   * Possession Receipts / Tax Receipts / Utility Bills / Maintenance Records [Type: Array/File]
+│   │   * Survey Maps / Demarcation Reports / Measurement Sheets / Site Plans [Type: Array/File]
+│   │   * Photographs / Inspection Reports / Panchanamas / Occupancy Records [Type: Array/File]
+│   │   * Witness Statements / Local Inquiry / Neighbour Testimony [Type: Array/Transcript]
+│   │
+│   ├── **Planning / Redevelopment Evidence**
+│   │   * Development Regulations / Sanctioned Plans / Layout Plans / Building Permissions [Type: Array/File]
+│   │   * Government Resolutions / Notifications / Circulars / Policy Directions [Type: Array/File]
+│   │   * Tender Documents / Developer Agreements / Project Reports / Feasibility Reports [Type: Array/File]
+│   │   * Consent Records / Society Resolutions / Member Objections / Rehabilitation Statements [Type: Array/File]
+│   │
+│   ├── **Administrative / Procedural Evidence**
+│   │   * Notices / Orders / Hearing Records / Representations / Speaking Orders [Type: Array/File]
+│   │   * Tribunal / Authority Proceedings / Revenue Appeals / Prior Suits / Writ Records [Type: Array/File]
+│   │   * Alternative Remedy Records / Limitation Records / Prior Adjudications [Type: Array/File]
+│   │
+│   └── **Expert Evidence**
+│       * Title Search Report [Type: Array/File]
+│       * Surveyor / Architect / Planner Report [Type: Array/File]
+│       * Valuation Report [Type: Array/File]
+│       * Structural / Safety Report [Type: Array/File]
+│       * Rehabilitation / Compensation Assessment [Type: Array/File]
+│
+└── **Remedies**
+    │
+    ├── **Tier 1: Status Quo & Protection**
+    │   * Injunctive Relief [Type: Category: Status Quo Order, Anti-Dispossession Injunction, Demolition Stay, Eviction Stay, Construction Stay, Tender Stay, Transfer Restraint, Records Preservation Order]
+    │   * Possession Protection [Type: Category: Protection of Settled Possession, Restoration of Possession, Police Protection, Access Restoration, Transit Protection]
+    │   * Interim Redevelopment Protection [Type: Category: Stay of GR, Stay of Tender, Stay of Developer Appointment, Stay of Cluster Inclusion, Maintenance of Existing Rights]
+    │
+    ├── **Tier 2: Declaration & Administrative Correction**
+    │   * Declaratory Relief [Type: Category: Declaration of Title, Declaration of Leasehold Right, Declaration of Possession, Declaration of Invalid Order, Declaration of Development Right, Declaration of Article 300A Violation]
+    │   * Record Correction [Type: Category: Mutation Correction, Property Card Correction, Survey Correction, Revenue Entry Correction, Boundary Demarcation]
+    │   * Procedural Relief [Type: Category: Fresh Hearing, Speaking Order, Reconsideration, Notice Compliance, Remand to Authority, Consent Reconsideration]
+    │
+    ├── **Tier 3: Development / Rehabilitation / Compensation**
+    │   * Redevelopment Relief [Type: Category: Consent Enforcement, Self-Redevelopment Permission, Scheme Modification, Developer Restraint, Tender Quashing, Regulatory Compliance]
+    │   * Rehabilitation Relief [Type: Category: Alternate Accommodation, Transit Rent, Permanent Rehousing, Eligibility Recognition, Area Entitlement, Corpus / Hardship Compensation]
+    │   * Compensation Relief [Type: Category: Acquisition Compensation, Rent Compensation, Development Benefit, FSI/TDR Benefit, Damages for Loss of Use, Market Value Compensation]
+    │
+    └── **Tier 4: Final Structural Resolution**
+        * Title / Possession Resolution [Type: Category: Possession Decree, Eviction, Specific Performance, Cancellation of Instrument, Rectification of Instrument]
+        * Public Law Resolution [Type: Category: Quashing of GR/Notification/Order, Mandamus to Authority, Ultra Vires Declaration, Article 300A Relief, Article 14 Relief]
+        * Equitable Relief [Type: Category: Restitution, Mesne Profits, Accounting, Regularization, Legitimate Expectation Relief, Settlement Terms]
+        * Costs / Sanctions [Type: Category: Litigation Costs, Exemplary Costs, Delay Costs, Abuse-of-Process Costs]

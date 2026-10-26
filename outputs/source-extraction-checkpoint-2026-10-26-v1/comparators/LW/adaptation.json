@@ -1,0 +1,29 @@
+{
+  "upstream_commit": "156a0c32275682421bc0746678749e20a318debf",
+  "native_model": "qwen3-235b-a22b-instruct-2507",
+  "tested_model": "Qwen/Qwen3.5-9B",
+  "same_model_adaptation": true,
+  "not_native_performance": true,
+  "primary_input_hash": "35f76432e212292b0b243264214e3c399c8208c79b70f9336649afb2780a1e47",
+  "native_semantic_repair_enabled": false,
+  "label": "FULL_DOCUMENT_ADAPTATION_V10_NOT_NATIVE_UPSTREAM",
+  "prompt_changes": [
+    "generic attribution, event/effect and condition guidance",
+    "native candidate schema enforced during generation"
+  ],
+  "transport_changes": [
+    "Together endpoint and authorized credential",
+    "Qwen 9B shared parameters",
+    "shared 65536 output capacity",
+    "one identical technical retry maximum",
+    "serial execution",
+    "existing SSE and no-progress guards"
+  ],
+  "source_changes": [
+    "same full rendered judgment supplied to both Prompt 1A and Prompt 1B, including disposition",
+    "source IDs retained; arbitrary 6000-word refusal removed",
+    "full-document adaptation; native upstream 6000-8000-word chunk scheduling is not used"
+  ],
+  "auxiliary_ontology": "native upstream classification ontology, not executable law",
+  "not_a_single_call_A0_baseline": true
+}

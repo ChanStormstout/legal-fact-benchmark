@@ -1,0 +1,87 @@
+{
+  "structural": {
+    "valid": false,
+    "errors": [
+      "HOLDING Conclusion node_conclusion_002 has no outgoing RESOLVES LegalIssue relation"
+    ],
+    "warnings": [
+      "Precedent node_precedent_002 has no APPLIES_TO LegalIssue relation"
+    ],
+    "stats": {
+      "node_count": 25,
+      "edge_count": 48,
+      "knowledge_gap_count": 0,
+      "proof_chain_counts": {
+        "evidence_fact_claim": 5,
+        "precedent_issue": 1,
+        "court_conclusion_issue": 2
+      },
+      "node_type_counts": {
+        "Case": 1,
+        "Court": 1,
+        "Party": 5,
+        "Claim": 1,
+        "Fact": 5,
+        "Evidence": 5,
+        "LegalIssue": 2,
+        "Precedent": 2,
+        "Conclusion": 3
+      },
+      "relation_counts": {
+        "ASSERTS": 1,
+        "CONTESTS": 4,
+        "SUPPORTS": 8,
+        "RAISES": 2,
+        "APPLIES_TO": 1,
+        "RESOLVES": 2,
+        "ACCEPTS": 3,
+        "CONTAINS": 23,
+        "DECIDED_BY": 1,
+        "REACHES": 3
+      }
+    }
+  },
+  "grounding": {
+    "valid": true,
+    "errors": [],
+    "checked_refs": 73,
+    "checked_ontology_mappings": 0
+  },
+  "semantic_audit": {
+    "warnings": [],
+    "stats": {
+      "warning_count": 0,
+      "claim_profiles": [
+        {
+          "claim_node_id": "node_claim_001",
+          "court_status": "ACCEPTED",
+          "fact_relation_counts": {
+            "SUPPORTS": 3,
+            "DEFEATS": 0,
+            "CONTESTS": 2
+          }
+        }
+      ],
+      "suspicious_fact_nodes": [],
+      "suspicious_fact_claim_edges": [],
+      "possible_claim_restatements": [],
+      "possible_missing_material_fact_edges": [],
+      "issues_without_holding": [],
+      "possible_precedent_source_mismatches": [],
+      "precedent_edges_with_antecedent_only_provenance": [],
+      "possible_composite_conclusions": [],
+      "disposition_without_claim_outcome": [],
+      "evidence_count": 5,
+      "fallback_evidence_count": 3,
+      "identifiable_evidence_cues": [],
+      "possible_representable_allegation_gaps": [],
+      "holding_count": 2,
+      "disposition_count": 1,
+      "legal_issue_count": 2,
+      "conclusion_count": 3
+    },
+    "review_required": false
+  },
+  "hard_validation_valid": false,
+  "semantic_review_is_diagnostic_not_native_gate": true
+}

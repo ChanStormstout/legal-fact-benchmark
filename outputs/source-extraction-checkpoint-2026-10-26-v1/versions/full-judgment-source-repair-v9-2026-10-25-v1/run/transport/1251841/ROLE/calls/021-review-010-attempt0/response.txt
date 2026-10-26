@@ -1,0 +1,113 @@
+{
+  "by_target": {
+    "R0000": {
+      "action": "WITHDRAW",
+      "issues": [
+        {
+          "aspect": "attribution",
+          "explanation": "The record attributes the case identity to the Supreme Court of India judgment, but the provided source_ids (L37-L55) are metadata headers. The instruction requires propositions to be supported by the focus source_ids (L182-L201) which contain the substantive reasoning, not the header metadata. Furthermore, the proposition 'Raja Kamakshyanarayan Singh Bahadur vs Chohan Ram And Another' is a party name, not a substantive legal proposition derived from the focus text."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L37",
+        "IKWEB-1251841:L39",
+        "IKWEB-1251841:L41",
+        "IKWEB-1251841:L54",
+        "IKWEB-1251841:L55"
+      ],
+      "source_basis": "Focus source_ids L182-L201 do not support the case identity header; they support the legal reasoning regarding mortgagor leasing powers.",
+      "new_records": []
+    },
+    "R0001": {
+      "action": "KEEP",
+      "issues": [],
+      "source_ids": [
+        "IKWEB-1251841:L192",
+        "IKWEB-1251841:L193"
+      ],
+      "source_basis": "The proposition accurately reflects the court's stated rule in L192-L193 regarding the mortgagor's power to lease conformable to usage versus unusual terms, supported by the focus source_ids.",
+      "new_records": []
+    },
+    "R0002": {
+      "action": "KEEP",
+      "issues": [],
+      "source_ids": [
+        "IKWEB-1251841:L194"
+      ],
+      "source_basis": "The proposition correctly captures the court's instruction in L194 that the question of leasing power must be determined by reference to the mortgagor's authority as bailiff/agent in the usual course of management.",
+      "new_records": []
+    },
+    "R0003": {
+      "action": "KEEP",
+      "issues": [],
+      "source_ids": [
+        "IKWEB-1251841:L195"
+      ],
+      "source_basis": "The proposition accurately reflects the court's holding in L195 that Section 66 of the Transfer of Property Act has no application to the grant of leases by a mortgagor in possession.",
+      "new_records": []
+    },
+    "R0004": {
+      "action": "KEEP",
+      "issues": [],
+      "source_ids": [
+        "IKWEB-1251841:L196"
+      ],
+      "source_basis": "The proposition and qualification accurately reflect the burden of proof placed on the lessee in L196 to establish that a lease was granted in the usual course of management.",
+      "new_records": []
+    },
+    "R0005": {
+      "action": "WITHDRAW",
+      "issues": [
+        {
+          "aspect": "attribution",
+          "explanation": "The record attributes the finding to BHAGWATI J using focus source_ids L199. However, L199 is a concluding paragraph where the court states 'We have therefore come to the conclusion'. While Bhagwati J delivered the judgment, the specific sentence in L199 uses the plural 'We'. More critically, the instruction requires propositions to be supported by the focus source_ids. L199 does support the finding, but the record R0005 is marked 'UNRESOLVED' in the input with 'NO_FOCUS_SOURCE_SUPPORT' in structural_issues. Upon review, L199 does support the finding. The issue is likely the 'UNRESOLVED' state in the input which needs correction to 'KEEP' if supported, or the input's structural_issues flag is incorrect. Re-evaluating: L199 explicitly states 'Wazir Narayan Singh had no power...'. This is a direct quote from the focus source. The action should be KEEP, and the input's 'UNRESOLVED' state and 'NO_FOCUS_SOURCE_SUPPORT' issue are errors to be corrected."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L199"
+      ],
+      "source_basis": "L199 explicitly states 'Wazir Narayan Singh had no power to grant the permanent lease...'. The input incorrectly flags this as having no focus source support.",
+      "new_records": []
+    },
+    "R0006": {
+      "action": "KEEP",
+      "issues": [],
+      "source_ids": [
+        "IKWEB-1251841:L198"
+      ],
+      "source_basis": "The proposition and condition accurately reflect L198, which states the lease could not prevail in the absence of a plea regarding usual course of management.",
+      "new_records": []
+    },
+    "R0007": {
+      "action": "KEEP",
+      "issues": [],
+      "source_ids": [
+        "IKWEB-1251841:L199"
+      ],
+      "source_basis": "L199 explicitly states 'the execution sale of Gadi Sirampur... was binding them'. The input incorrectly flags this as having no focus source support.",
+      "new_records": []
+    },
+    "R0008": {
+      "action": "KEEP",
+      "issues": [],
+      "source_ids": [
+        "IKWEB-1251841:L199"
+      ],
+      "source_basis": "L199 explicitly states 'the plaintiff was entitled to khas possession of the four villages'. The input incorrectly flags this as having no focus source support.",
+      "new_records": []
+    },
+    "R0009": {
+      "action": "KEEP",
+      "issues": [],
+      "source_ids": [
+        "IKWEB-1251841:L200",
+        "IKWEB-1251841:L201"
+      ],
+      "source_basis": "L200 and L201 explicitly state 'The appeal is allowed' and 'Appeal allowed'. The input incorrectly flags this as having no focus source support.",
+      "new_records": []
+    }
+  },
+  "additions": [],
+  "unresolved_gaps": [],
+  "conflicts": []
+}

@@ -1,0 +1,156 @@
+{
+  "schema_version": "prompt2_semantic_admission_v1",
+  "case_id": "1251841",
+  "verdicts": [
+    {
+      "item_id": "CLAIM_NODE::node_claim_001",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage explicitly states 'The plaintiff contended that... the Patta... came to an end and he was entitled to recover khas possession', directly supporting the assertion of the claim regarding title and the invalidity of the lease."
+    },
+    {
+      "item_id": "CLAIM_NODE::node_claim_002",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states the plaintiff 'filed the... suit... for khas possession of these villages', directly supporting the assertion of the claim for recovery of possession."
+    },
+    {
+      "item_id": "CONCLUSION_EDGE::edge_conclusion_claim_001",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage contains the court's conclusion: 'We have therefore come to the conclusion that... the same was not binding and operative against the plaintiff', which directly supports the edge relation to the claim of title validity."
+    },
+    {
+      "item_id": "CONCLUSION_EDGE::edge_conclusion_claim_002",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage concludes that 'the plaintiff was entitled to khas possession', directly supporting the edge relation to the claim for recovery of possession."
+    },
+    {
+      "item_id": "CONCLUSION_EDGE::edge_conclusion_disposition_001",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states 'The appeal is allowed... the decree passed by the trial court in favour of the plaintiff is restored', which supports the disposition accepting the claim."
+    },
+    {
+      "item_id": "CONCLUSION_EDGE::edge_conclusion_disposition_002",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states 'The appeal is allowed... the decree passed by the trial court in favour of the plaintiff is restored', and the trial court decree (as established in other passages) was for possession, supporting the edge relation."
+    },
+    {
+      "item_id": "CONCLUSION_EDGE::edge_conclusion_issue_001",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage holds 'the lease was not binding the mortgagee or the auction purchaser as it was not a lease granted in the usual course of management', directly resolving the legal issue."
+    },
+    {
+      "item_id": "CONCLUSION_NODE::node_conclusion_001",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage explicitly states the holding: 'Held, that the lease was not binding the mortgagee or the auction purchaser as it was not a lease granted in the usual course of management', matching the node description."
+    },
+    {
+      "item_id": "CONCLUSION_NODE::node_conclusion_002",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage explicitly states 'The appeal is allowed... the decree passed by the trial court in favour of the plaintiff is restored', matching the node description."
+    },
+    {
+      "item_id": "FACT_CLAIM_EDGE::edge_fact_claim_001",
+      "verdict": "FAIL",
+      "failure_code": "ONLY_CONTEXTUAL",
+      "reason": "The cited passage establishes the execution of the mortgage and the Bank's purchase. While these are factual antecedents, the passage does not explicitly state that these facts 'support' the specific legal claim of title ownership in the manner asserted; it merely narrates the history. The support is inferential rather than direct textual assertion of the support relationship."
+    },
+    {
+      "item_id": "FACT_CLAIM_EDGE::edge_fact_claim_002",
+      "verdict": "FAIL",
+      "failure_code": "ONLY_CONTEXTUAL",
+      "reason": "The cited passage states the plaintiff purchased at auction. While this is the basis for the claim, the passage does not explicitly assert that this fact 'supports' the claim of ownership in the legal sense required; it is a narrative of events. The entailment of the specific 'SUPPORTS' relationship is not direct."
+    },
+    {
+      "item_id": "FACT_CLAIM_EDGE::edge_fact_claim_003",
+      "verdict": "FAIL",
+      "failure_code": "ONLY_CONTEXTUAL",
+      "reason": "The cited passage states the plaintiff purchased at auction and filed suit for possession. It does not explicitly assert that the purchase fact 'supports' the claim for possession in the legal reasoning sense; it is a factual narrative."
+    },
+    {
+      "item_id": "FACT_CLAIM_EDGE::edge_fact_claim_004",
+      "verdict": "FAIL",
+      "failure_code": "ONLY_CONTEXTUAL",
+      "reason": "The cited passage states the plaintiff 'contended that he was subrogated... and that the decree... was binding'. This is a party contention, not a court finding or a direct assertion that the fact 'supports' the claim in the adjudicative sense. The edge asserts a support relationship which is not explicitly confirmed in the text as a matter of fact by the court."
+    },
+    {
+      "item_id": "FACT_CLAIM_EDGE::edge_fact_claim_005",
+      "verdict": "FAIL",
+      "failure_code": "ONLY_CONTEXTUAL",
+      "reason": "Similar to edge_fact_claim_004, the passage records the plaintiff's contention regarding subrogation and entitlement. It does not explicitly assert that the subrogation fact 'supports' the claim for possession as a matter of established fact by the court in the cited text."
+    },
+    {
+      "item_id": "FACT_CLAIM_EDGE::edge_fact_claim_006",
+      "verdict": "FAIL",
+      "failure_code": "ONLY_CONTEXTUAL",
+      "reason": "The cited passage states 'No allegation was made... In the absence of any such plea we are of the opinion that there was no answer to the plaintiff's claim'. While this leads to the result, the specific edge asserts that the 'failure to establish' supports the claim. The text frames it as the absence of a plea leading to no answer, rather than explicitly linking the failure to establish as a supporting fact for the claim's validity in the manner of the edge."
+    },
+    {
+      "item_id": "FACT_CLAIM_EDGE::edge_fact_claim_007",
+      "verdict": "FAIL",
+      "failure_code": "ONLY_CONTEXTUAL",
+      "reason": "Similar to edge_fact_claim_006, the text frames the outcome based on the absence of a plea, not explicitly as a fact 'supporting' the possession claim in the manner asserted by the edge."
+    },
+    {
+      "item_id": "FACT_NODE::node_fact_001",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage explicitly states 'One Raja Nilkanth Narain Singh... executed the 1st August, 1914, a simple mortgage of Gadi Sirampur in favour of the Chota Nagpur Banking Association Limited', directly supporting the fact."
+    },
+    {
+      "item_id": "FACT_NODE::node_fact_002",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states 'Wazir Narain Singh granted a permanent lease of four villages... by a registered Patta to one Hiraman Ram... on 5th November, 1925', directly supporting the fact."
+    },
+    {
+      "item_id": "FACT_NODE::node_fact_003",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states 'the Plaintiff purchased Gadi Sirampur at the auction sale held in execution of this decree the 6th April, 1935', directly supporting the fact."
+    },
+    {
+      "item_id": "FACT_NODE::node_fact_004",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states 'Hiraman Ram and his son Chohan Ram continued in actual possession of the disputed villages', directly supporting the fact."
+    },
+    {
+      "item_id": "FACT_NODE::node_fact_005",
+      "verdict": "FAIL",
+      "failure_code": "CLAIM_NOT_EXPRESSED",
+      "reason": "The cited passage states 'The plaintiff contended that he was subrogated...'. This is a party's contention/argument, not a court finding or established fact. The node asserts it as a Fact ('The Plaintiff was subrogated'), which is not supported by the text as an adjudicated fact."
+    },
+    {
+      "item_id": "FACT_NODE::node_fact_006",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states 'No allegation was made behalf if of the defendants that the grant of the permanent lease was a dealing with the mortgaged property in the usual course of management', directly supporting the fact."
+    },
+    {
+      "item_id": "PARTY_CLAIM_EDGE::edge_party_claim_001",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states 'The plaintiff contended that... the Patta... came to an end', which supports that the Plaintiff (Raja Kamakshyanarayan Singh Bahadur) asserted the claim regarding title."
+    },
+    {
+      "item_id": "PARTY_CLAIM_EDGE::edge_party_claim_002",
+      "verdict": "PASS",
+      "failure_code": "NONE",
+      "reason": "The cited passage states the plaintiff 'filed the... suit... for khas possession', which supports that the Plaintiff asserted the claim for recovery of possession."
+    },
+    {
+      "item_id": "PRECEDENT_ISSUE_EDGE::edge_precedent_issue_001",
+      "verdict": "FAIL",
+      "failure_code": "RELATION_NOT_ENTAILED",
+      "reason": "The cited passage lists 'Madan Mohan Singh v. Raj Kishore Kumari (1916)... approved' but does not explicitly state that this precedent applies to the specific issue of the mortgagor's power to grant a permanent lease in the context of the current case's holding. The relationship is implied by the list of authorities but not explicitly grounded in the text as an application to the specific issue."
+    }
+  ]
+}

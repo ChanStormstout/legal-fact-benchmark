@@ -2,6 +2,14 @@
 
 Entries describe the state and authorization at the recorded time. They do not authorize new experiments or publication. Original experiment inputs, responses, annotations, and frozen snapshots remain in their source language.
 
+## 2026-10-26: Source extraction and specialist comparison checkpoint
+
+Published an isolated English snapshot of versioned extraction code, prompts,
+protocols, completed-call inputs/responses, retained failures, common judgment and
+LW same-model adaptation. V15 final review was pending and V16 was queued at capture;
+no final method advantage is claimed. Live experiments and main checkout remain
+unchanged. [Checkpoint and evidence limits](../outputs/source-extraction-checkpoint-2026-10-26-v1/README.md).
+
 ## 2026-10-25: English documentation and concise repository entry
 
 Reorganized README around purpose, workflow, status and navigation. Translated maintained documentation, descriptive catalog fields, authored research designs, meeting scripts/PowerPoint notes and report/navigation templates. Original experimental prompts, replies, sources, annotations, fixed inputs, failures, results and frozen snapshots remain unchanged. Added an English view of the registered historical review without changing its source selection. Historical filenames remain stable. Syntax, links, evidence preservation and local review-package verification are separate from model or legal-quality validation. No model calls, training, experiment reruns, commits or pushes. [Scope and preservation](ENGLISH_DOCUMENTATION.md).

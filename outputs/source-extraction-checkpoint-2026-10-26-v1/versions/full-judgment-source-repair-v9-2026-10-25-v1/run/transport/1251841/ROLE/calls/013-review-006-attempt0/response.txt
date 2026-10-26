@@ -1,0 +1,407 @@
+{
+  "by_target": {
+    "R0000": {
+      "action": "WITHDRAW",
+      "issues": [
+        {
+          "aspect": "attribution",
+          "explanation": "The proposition attributes the case identity to the court metadata, but the focus source IDs (L141-L154) do not contain this information. The metadata is in L37-L41, which are not in the focus list."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L37",
+        "IKWEB-1251841:L39",
+        "IKWEB-1251841:L41"
+      ],
+      "source_basis": "L37, L39, L41 contain the case title and citation.",
+      "new_records": []
+    },
+    "R0001": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The qualification cites L121, which is not in the focus source IDs. The proposition about the power to lease prior to 1929 is found in L137 and L142."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L137",
+        "IKWEB-1251841:L142"
+      ],
+      "source_basis": "L137 states the question must be determined under law prior to 1929. L142 mentions the conflict of decisions prior to the 1929 enactment.",
+      "new_records": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "mortgagor in possession",
+            "relation": "power to lease",
+            "object": "mortgaged property",
+            "event_time": null,
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [
+            {
+              "type": "CONDITION",
+              "text": "prior to the enactment of section 65-A of the Transfer of Property Act in 1929",
+              "source_ids": [
+                "IKWEB-1251841:L137",
+                "IKWEB-1251841:L142"
+              ]
+            }
+          ],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L137",
+            "IKWEB-1251841:L142"
+          ]
+        }
+      ]
+    },
+    "R0002": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The qualification cites L192 and L193, which are not in the focus source IDs. The relevant text is in L192 and L193, but the focus list provided in the prompt does not include them. However, the instruction says to extract from the supplied original document. The focus_source_ids in the input are L141-L154. The proposition in R0002 is supported by L192/L193 which are NOT in the focus list. Wait, the instruction says 'Read only the supplied original document... Extract what it says'. The 'focus_source_ids' in the input JSON are a subset. I must check if the proposition can be supported by the focus IDs. L192/L193 are NOT in the focus IDs. Therefore, the record should be WITHDRAWED or the qualification must be removed if the proposition itself is supported. The proposition 'mortgagor may make a lease conformable to usage...' is stated in L192. L192 is not in the focus list. Thus, the record cannot be supported by the focus IDs. However, the prompt asks to extract from the 'supplied original document' but the 'candidates' are based on 'focus_source_ids'. I will assume the task is to validate the candidates against the focus_source_ids. Since L192/L193 are not in the focus list, the qualification is unsupported by the focus list. But the proposition itself is also in L192. So the whole record is unsupported by the focus list. I will mark it as WITHDRAW."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L192",
+        "IKWEB-1251841:L193"
+      ],
+      "source_basis": "L192 and L193 contain the text, but they are not in the focus_source_ids list provided in the input JSON.",
+      "new_records": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "mortgagor in possession",
+            "relation": "may make a lease",
+            "object": "conformable to usage in the ordinary course of management",
+            "event_time": null,
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [
+            {
+              "type": "EXCEPTION",
+              "text": "not competent to grant a lease unusual terms or to alter the character of the land or to authorise its use in a manner, or for a purpose, different from the mode in which he himself had used it before he granted the mortgage",
+              "source_ids": [
+                "IKWEB-1251841:L192",
+                "IKWEB-1251841:L193"
+              ]
+            }
+          ],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L192",
+            "IKWEB-1251841:L193"
+          ]
+        }
+      ]
+    },
+    "R0003": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The proposition cites L196, which is not in the focus source IDs. The text is in L196."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L196"
+      ],
+      "source_basis": "L196 contains the text about the burden of proof, but it is not in the focus_source_ids list.",
+      "new_records": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "lessee",
+            "relation": "burden of proof",
+            "object": "establish that the lease was granted the usual terms in the ordinary course of management",
+            "event_time": null,
+            "layer": "PROCEDURE"
+          },
+          "qualifications": [],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L196"
+          ]
+        }
+      ]
+    },
+    "R0004": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The proposition cites L199, which is not in the focus source IDs."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L199"
+      ],
+      "source_basis": "L199 contains the finding, but it is not in the focus_source_ids list.",
+      "new_records": [
+        {
+          "kind": "COURT_FINDING",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "Wazir Narayan Singh",
+            "relation": "had no power",
+            "object": "to grant the permanent lease in question to the defendants",
+            "event_time": null,
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L199"
+          ]
+        }
+      ]
+    },
+    "R0005": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The proposition cites L199, which is not in the focus source IDs."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L199"
+      ],
+      "source_basis": "L199 contains the finding, but it is not in the focus_source_ids list.",
+      "new_records": [
+        {
+          "kind": "COURT_FINDING",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "permanent lease granted by Wazir Narayan",
+            "relation": "could not prevail",
+            "object": "against the plaintiff",
+            "event_time": null,
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L199"
+          ]
+        }
+      ]
+    },
+    "R0006": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The proposition cites L199, which is not in the focus source IDs."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L199"
+      ],
+      "source_basis": "L199 contains the finding, but it is not in the focus_source_ids list.",
+      "new_records": [
+        {
+          "kind": "COURT_FINDING",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "execution sale of Gadi Sirampur",
+            "relation": "was binding",
+            "object": "the defendants",
+            "event_time": null,
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L199"
+          ]
+        }
+      ]
+    },
+    "R0007": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The proposition cites L199, which is not in the focus source IDs."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L199"
+      ],
+      "source_basis": "L199 contains the finding, but it is not in the focus_source_ids list.",
+      "new_records": [
+        {
+          "kind": "COURT_FINDING",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "plaintiff",
+            "relation": "was entitled to",
+            "object": "khas possession of the four villages",
+            "event_time": null,
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L199"
+          ]
+        }
+      ]
+    },
+    "R0008": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The proposition cites L200 and L201, which are not in the focus source IDs."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L200",
+        "IKWEB-1251841:L201"
+      ],
+      "source_basis": "L200 and L201 contain the disposition, but they are not in the focus_source_ids list.",
+      "new_records": [
+        {
+          "kind": "COURT_FINDING",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "appeal",
+            "relation": "allowed",
+            "object": null,
+            "event_time": null,
+            "layer": "PROCEDURE"
+          },
+          "qualifications": [],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L200",
+            "IKWEB-1251841:L201"
+          ]
+        }
+      ]
+    },
+    "R0009": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The proposition cites L181, which is not in the focus source IDs."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L181"
+      ],
+      "source_basis": "L181 contains the statement that section 66 has no application, but it is not in the focus_source_ids list.",
+      "new_records": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "section 66",
+            "relation": "has no application",
+            "object": "to the mortgagor's power to lease the mortgaged property",
+            "event_time": null,
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L181"
+          ]
+        }
+      ]
+    },
+    "R0010": {
+      "action": "REPLACE",
+      "issues": [
+        {
+          "aspect": "proposition",
+          "explanation": "The proposition cites L194, which is not in the focus source IDs."
+        }
+      ],
+      "source_ids": [
+        "IKWEB-1251841:L194"
+      ],
+      "source_basis": "L194 contains the statement about authority to deal with property, but it is not in the focus_source_ids list.",
+      "new_records": [
+        {
+          "kind": "LEGAL_ARGUMENT",
+          "attribution": {
+            "speaker": "BHAGWATI J",
+            "forum": "Supreme Court of India",
+            "stage": "Judgment",
+            "time": "23 October, 1952"
+          },
+          "proposition": {
+            "subject": "mortgagor in possession",
+            "relation": "authority to deal",
+            "object": "property in the usual course of management",
+            "event_time": null,
+            "layer": "LEGAL_EFFECT"
+          },
+          "qualifications": [],
+          "uncertainties": [],
+          "source_ids": [
+            "IKWEB-1251841:L194"
+          ]
+        }
+      ]
+    }
+  },
+  "additions": [],
+  "unresolved_gaps": [],
+  "conflicts": []
+}

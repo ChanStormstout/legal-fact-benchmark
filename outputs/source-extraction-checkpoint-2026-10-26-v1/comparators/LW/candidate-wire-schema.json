@@ -1,0 +1,778 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "case_metadata",
+    "nodes",
+    "edges",
+    "knowledge_gaps"
+  ],
+  "properties": {
+    "schema_version": {
+      "enum": [
+        "prompt2_v5.2_llm_candidate"
+      ]
+    },
+    "case_id": {
+      "type": "string",
+      "enum": [
+        "1251841"
+      ]
+    },
+    "case_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_name",
+        "decision_date",
+        "citations"
+      ],
+      "properties": {
+        "case_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decision_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "node_id",
+              "node_type",
+              "local_id",
+              "label",
+              "description",
+              "party_side",
+              "record_status",
+              "court_status",
+              "ontology_mapping",
+              "canonical_merge_key",
+              "canonical_merge_key_basis",
+              "source_refs",
+              "conclusion_kind"
+            ],
+            "properties": {
+              "node_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "node_type": {
+                "type": "string",
+                "enum": [
+                  "Conclusion"
+                ]
+              },
+              "local_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "party_side": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "CLAIMANT_SIDE",
+                      "RESPONDENT_SIDE",
+                      "NEUTRAL_OR_OTHER",
+                      "UNKNOWN"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "enum": [
+                      null
+                    ],
+                    "type": "null"
+                  }
+                ]
+              },
+              "record_status": {
+                "enum": [
+                  "ALLEGED",
+                  "ADMITTED",
+                  "DISPUTED",
+                  "SUPPORTED",
+                  "UNSUPPORTED",
+                  "RECORDED",
+                  "NOT_STATED",
+                  "NOT_APPLICABLE",
+                  "UNKNOWN"
+                ]
+              },
+              "court_status": {
+                "enum": [
+                  "ACCEPTED",
+                  "PARTIALLY_ACCEPTED",
+                  "REJECTED",
+                  "NOT_ADJUDICATED",
+                  "NOT_STATED",
+                  "NOT_APPLICABLE",
+                  "UNKNOWN"
+                ]
+              },
+              "ontology_mapping": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "status",
+                      "concept_id",
+                      "concept_label",
+                      "basis"
+                    ],
+                    "properties": {
+                      "status": {
+                        "enum": [
+                          "MAPPED"
+                        ]
+                      },
+                      "concept_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "concept_label": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "basis": {
+                        "enum": [
+                          "ONTOLOGY_CONCEPT_ID"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "status",
+                      "concept_id",
+                      "concept_label",
+                      "basis"
+                    ],
+                    "properties": {
+                      "status": {
+                        "enum": [
+                          "UNMAPPED",
+                          "NOT_APPLICABLE",
+                          "UNKNOWN"
+                        ]
+                      },
+                      "concept_id": {
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "concept_label": {
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "basis": {
+                        "enum": [
+                          null
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "canonical_merge_key": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "canonical_merge_key_basis": {
+                "enum": [
+                  "ONTOLOGY_CONCEPT_ID",
+                  "NORMALIZED_PRECEDENT_CITATION",
+                  "NORMALIZED_COURT_ID",
+                  "NONE"
+                ]
+              },
+              "source_refs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "source_span_id"
+                  ],
+                  "properties": {
+                    "source_span_id": {
+                      "type": "string",
+                      "enum": [
+                        "CASE_SOURCE:P0000:S0001",
+                        "CASE_SOURCE:P0000:S0002",
+                        "CASE_SOURCE:P0000:S0003",
+                        "CASE_SOURCE:P0000:S0004",
+                        "CASE_SOURCE:P0000:S0005",
+                        "CASE_SOURCE:P0000:S0006",
+                        "CASE_SOURCE:P0000:S0007",
+                        "CASE_SOURCE:P0000:S0008",
+                        "CASE_SOURCE:P0000:S0009",
+                        "CASE_SOURCE:P0000:S0010",
+                        "CASE_SOURCE:P0000:S0011",
+                        "CASE_SOURCE:P0000:S0012",
+                        "CASE_SOURCE:P0000:S0013",
+                        "CASE_SOURCE:P0000:S0014",
+                        "CASE_SOURCE:P0000:S0015",
+                        "CASE_SOURCE:P0000:S0016",
+                        "CASE_SOURCE:P0000:S0017",
+                        "CASE_SOURCE:P0000:S0018",
+                        "CASE_SOURCE:P0000:S0019",
+                        "CASE_SOURCE:P0000:S0020",
+                        "CASE_SOURCE:P0000:S0021",
+                        "CASE_SOURCE:P0000:S0022",
+                        "CASE_SOURCE:P0000:S0023",
+                        "CASE_SOURCE:P0000:S0024",
+                        "CASE_SOURCE:P0000:S0025",
+                        "CASE_SOURCE:P0000:S0026",
+                        "CASE_SOURCE:P0000:S0027",
+                        "CASE_SOURCE:P0000:S0028",
+                        "CASE_SOURCE:P0000:S0029",
+                        "CASE_SOURCE:P0000:S0030",
+                        "CASE_SOURCE:P0000:S0031",
+                        "CASE_SOURCE:P0000:S0032",
+                        "CASE_SOURCE:P0000:S0033",
+                        "CASE_SOURCE:P0000:S0034",
+                        "CASE_SOURCE:P0000:S0035",
+                        "CASE_SOURCE:P0000:S0036",
+                        "CASE_SOURCE:P0000:S0037",
+                        "CASE_SOURCE:P0000:S0038",
+                        "CASE_SOURCE:P0000:S0039",
+                        "CASE_SOURCE:P0000:S0040",
+                        "CASE_SOURCE:P0000:S0041",
+                        "CASE_SOURCE:P0000:S0042",
+                        "CASE_SOURCE:P0000:S0043",
+                        "CASE_SOURCE:P0000:S0044",
+                        "CASE_SOURCE:P0000:S0045"
+                      ]
+                    }
+                  }
+                }
+              },
+              "conclusion_kind": {
+                "type": "string",
+                "enum": [
+                  "HOLDING",
+                  "DISPOSITION"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "node_id",
+              "node_type",
+              "local_id",
+              "label",
+              "description",
+              "party_side",
+              "record_status",
+              "court_status",
+              "ontology_mapping",
+              "canonical_merge_key",
+              "canonical_merge_key_basis",
+              "source_refs"
+            ],
+            "properties": {
+              "node_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "node_type": {
+                "enum": [
+                  "Case",
+                  "Court",
+                  "Party",
+                  "Claim",
+                  "Fact",
+                  "Evidence",
+                  "LegalIssue",
+                  "Precedent"
+                ]
+              },
+              "local_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "party_side": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "CLAIMANT_SIDE",
+                      "RESPONDENT_SIDE",
+                      "NEUTRAL_OR_OTHER",
+                      "UNKNOWN"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "enum": [
+                      null
+                    ],
+                    "type": "null"
+                  }
+                ]
+              },
+              "record_status": {
+                "enum": [
+                  "ALLEGED",
+                  "ADMITTED",
+                  "DISPUTED",
+                  "SUPPORTED",
+                  "UNSUPPORTED",
+                  "RECORDED",
+                  "NOT_STATED",
+                  "NOT_APPLICABLE",
+                  "UNKNOWN"
+                ]
+              },
+              "court_status": {
+                "enum": [
+                  "ACCEPTED",
+                  "PARTIALLY_ACCEPTED",
+                  "REJECTED",
+                  "NOT_ADJUDICATED",
+                  "NOT_STATED",
+                  "NOT_APPLICABLE",
+                  "UNKNOWN"
+                ]
+              },
+              "ontology_mapping": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "status",
+                      "concept_id",
+                      "concept_label",
+                      "basis"
+                    ],
+                    "properties": {
+                      "status": {
+                        "enum": [
+                          "MAPPED"
+                        ]
+                      },
+                      "concept_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "concept_label": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "basis": {
+                        "enum": [
+                          "ONTOLOGY_CONCEPT_ID"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "status",
+                      "concept_id",
+                      "concept_label",
+                      "basis"
+                    ],
+                    "properties": {
+                      "status": {
+                        "enum": [
+                          "UNMAPPED",
+                          "NOT_APPLICABLE",
+                          "UNKNOWN"
+                        ]
+                      },
+                      "concept_id": {
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "concept_label": {
+                        "enum": [
+                          null
+                        ]
+                      },
+                      "basis": {
+                        "enum": [
+                          null
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "canonical_merge_key": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "canonical_merge_key_basis": {
+                "enum": [
+                  "ONTOLOGY_CONCEPT_ID",
+                  "NORMALIZED_PRECEDENT_CITATION",
+                  "NORMALIZED_COURT_ID",
+                  "NONE"
+                ]
+              },
+              "source_refs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "source_span_id"
+                  ],
+                  "properties": {
+                    "source_span_id": {
+                      "type": "string",
+                      "enum": [
+                        "CASE_SOURCE:P0000:S0001",
+                        "CASE_SOURCE:P0000:S0002",
+                        "CASE_SOURCE:P0000:S0003",
+                        "CASE_SOURCE:P0000:S0004",
+                        "CASE_SOURCE:P0000:S0005",
+                        "CASE_SOURCE:P0000:S0006",
+                        "CASE_SOURCE:P0000:S0007",
+                        "CASE_SOURCE:P0000:S0008",
+                        "CASE_SOURCE:P0000:S0009",
+                        "CASE_SOURCE:P0000:S0010",
+                        "CASE_SOURCE:P0000:S0011",
+                        "CASE_SOURCE:P0000:S0012",
+                        "CASE_SOURCE:P0000:S0013",
+                        "CASE_SOURCE:P0000:S0014",
+                        "CASE_SOURCE:P0000:S0015",
+                        "CASE_SOURCE:P0000:S0016",
+                        "CASE_SOURCE:P0000:S0017",
+                        "CASE_SOURCE:P0000:S0018",
+                        "CASE_SOURCE:P0000:S0019",
+                        "CASE_SOURCE:P0000:S0020",
+                        "CASE_SOURCE:P0000:S0021",
+                        "CASE_SOURCE:P0000:S0022",
+                        "CASE_SOURCE:P0000:S0023",
+                        "CASE_SOURCE:P0000:S0024",
+                        "CASE_SOURCE:P0000:S0025",
+                        "CASE_SOURCE:P0000:S0026",
+                        "CASE_SOURCE:P0000:S0027",
+                        "CASE_SOURCE:P0000:S0028",
+                        "CASE_SOURCE:P0000:S0029",
+                        "CASE_SOURCE:P0000:S0030",
+                        "CASE_SOURCE:P0000:S0031",
+                        "CASE_SOURCE:P0000:S0032",
+                        "CASE_SOURCE:P0000:S0033",
+                        "CASE_SOURCE:P0000:S0034",
+                        "CASE_SOURCE:P0000:S0035",
+                        "CASE_SOURCE:P0000:S0036",
+                        "CASE_SOURCE:P0000:S0037",
+                        "CASE_SOURCE:P0000:S0038",
+                        "CASE_SOURCE:P0000:S0039",
+                        "CASE_SOURCE:P0000:S0040",
+                        "CASE_SOURCE:P0000:S0041",
+                        "CASE_SOURCE:P0000:S0042",
+                        "CASE_SOURCE:P0000:S0043",
+                        "CASE_SOURCE:P0000:S0044",
+                        "CASE_SOURCE:P0000:S0045"
+                      ]
+                    }
+                  }
+                }
+              },
+              "conclusion_kind": {
+                "type": "null"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "edge_id",
+          "source_node_id",
+          "target_node_id",
+          "relation_type",
+          "description",
+          "source_refs"
+        ],
+        "properties": {
+          "edge_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_node_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_node_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relation_type": {
+            "enum": [
+              "ASSERTS",
+              "CONTESTS",
+              "CONCEDES",
+              "ALLEGES",
+              "ADMITS",
+              "SUBMITS",
+              "RELIES_ON",
+              "RAISES",
+              "CITES",
+              "DISTINGUISHES",
+              "SUPPORTS",
+              "DEFEATS",
+              "RELEVANT_TO",
+              "APPLIES_TO",
+              "RESOLVES",
+              "ACCEPTS",
+              "PARTIALLY_ACCEPTS",
+              "REJECTS",
+              "FOLLOWS",
+              "DISAPPROVES",
+              "OVERRULES"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source_span_id"
+              ],
+              "properties": {
+                "source_span_id": {
+                  "type": "string",
+                  "enum": [
+                    "CASE_SOURCE:P0000:S0001",
+                    "CASE_SOURCE:P0000:S0002",
+                    "CASE_SOURCE:P0000:S0003",
+                    "CASE_SOURCE:P0000:S0004",
+                    "CASE_SOURCE:P0000:S0005",
+                    "CASE_SOURCE:P0000:S0006",
+                    "CASE_SOURCE:P0000:S0007",
+                    "CASE_SOURCE:P0000:S0008",
+                    "CASE_SOURCE:P0000:S0009",
+                    "CASE_SOURCE:P0000:S0010",
+                    "CASE_SOURCE:P0000:S0011",
+                    "CASE_SOURCE:P0000:S0012",
+                    "CASE_SOURCE:P0000:S0013",
+                    "CASE_SOURCE:P0000:S0014",
+                    "CASE_SOURCE:P0000:S0015",
+                    "CASE_SOURCE:P0000:S0016",
+                    "CASE_SOURCE:P0000:S0017",
+                    "CASE_SOURCE:P0000:S0018",
+                    "CASE_SOURCE:P0000:S0019",
+                    "CASE_SOURCE:P0000:S0020",
+                    "CASE_SOURCE:P0000:S0021",
+                    "CASE_SOURCE:P0000:S0022",
+                    "CASE_SOURCE:P0000:S0023",
+                    "CASE_SOURCE:P0000:S0024",
+                    "CASE_SOURCE:P0000:S0025",
+                    "CASE_SOURCE:P0000:S0026",
+                    "CASE_SOURCE:P0000:S0027",
+                    "CASE_SOURCE:P0000:S0028",
+                    "CASE_SOURCE:P0000:S0029",
+                    "CASE_SOURCE:P0000:S0030",
+                    "CASE_SOURCE:P0000:S0031",
+                    "CASE_SOURCE:P0000:S0032",
+                    "CASE_SOURCE:P0000:S0033",
+                    "CASE_SOURCE:P0000:S0034",
+                    "CASE_SOURCE:P0000:S0035",
+                    "CASE_SOURCE:P0000:S0036",
+                    "CASE_SOURCE:P0000:S0037",
+                    "CASE_SOURCE:P0000:S0038",
+                    "CASE_SOURCE:P0000:S0039",
+                    "CASE_SOURCE:P0000:S0040",
+                    "CASE_SOURCE:P0000:S0041",
+                    "CASE_SOURCE:P0000:S0042",
+                    "CASE_SOURCE:P0000:S0043",
+                    "CASE_SOURCE:P0000:S0044",
+                    "CASE_SOURCE:P0000:S0045"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "knowledge_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gap_id",
+          "category",
+          "description",
+          "affected_node_ids",
+          "source_refs"
+        ],
+        "properties": {
+          "gap_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "enum": [
+              "MISSING_SOURCE_MATERIAL",
+              "AMBIGUOUS_ATTRIBUTION",
+              "UNRESOLVED_RELATIONSHIP",
+              "ONTOLOGY_MAPPING_UNCERTAIN",
+              "INSUFFICIENT_EVIDENCE",
+              "OTHER"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "affected_node_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source_span_id"
+              ],
+              "properties": {
+                "source_span_id": {
+                  "type": "string",
+                  "enum": [
+                    "CASE_SOURCE:P0000:S0001",
+                    "CASE_SOURCE:P0000:S0002",
+                    "CASE_SOURCE:P0000:S0003",
+                    "CASE_SOURCE:P0000:S0004",
+                    "CASE_SOURCE:P0000:S0005",
+                    "CASE_SOURCE:P0000:S0006",
+                    "CASE_SOURCE:P0000:S0007",
+                    "CASE_SOURCE:P0000:S0008",
+                    "CASE_SOURCE:P0000:S0009",
+                    "CASE_SOURCE:P0000:S0010",
+                    "CASE_SOURCE:P0000:S0011",
+                    "CASE_SOURCE:P0000:S0012",
+                    "CASE_SOURCE:P0000:S0013",
+                    "CASE_SOURCE:P0000:S0014",
+                    "CASE_SOURCE:P0000:S0015",
+                    "CASE_SOURCE:P0000:S0016",
+                    "CASE_SOURCE:P0000:S0017",
+                    "CASE_SOURCE:P0000:S0018",
+                    "CASE_SOURCE:P0000:S0019",
+                    "CASE_SOURCE:P0000:S0020",
+                    "CASE_SOURCE:P0000:S0021",
+                    "CASE_SOURCE:P0000:S0022",
+                    "CASE_SOURCE:P0000:S0023",
+                    "CASE_SOURCE:P0000:S0024",
+                    "CASE_SOURCE:P0000:S0025",
+                    "CASE_SOURCE:P0000:S0026",
+                    "CASE_SOURCE:P0000:S0027",
+                    "CASE_SOURCE:P0000:S0028",
+                    "CASE_SOURCE:P0000:S0029",
+                    "CASE_SOURCE:P0000:S0030",
+                    "CASE_SOURCE:P0000:S0031",
+                    "CASE_SOURCE:P0000:S0032",
+                    "CASE_SOURCE:P0000:S0033",
+                    "CASE_SOURCE:P0000:S0034",
+                    "CASE_SOURCE:P0000:S0035",
+                    "CASE_SOURCE:P0000:S0036",
+                    "CASE_SOURCE:P0000:S0037",
+                    "CASE_SOURCE:P0000:S0038",
+                    "CASE_SOURCE:P0000:S0039",
+                    "CASE_SOURCE:P0000:S0040",
+                    "CASE_SOURCE:P0000:S0041",
+                    "CASE_SOURCE:P0000:S0042",
+                    "CASE_SOURCE:P0000:S0043",
+                    "CASE_SOURCE:P0000:S0044",
+                    "CASE_SOURCE:P0000:S0045"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
