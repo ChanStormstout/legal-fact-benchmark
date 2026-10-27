@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-10-27: RAPIDO-EVAL-2.0 report evaluation standard
+
+Added a maintained evaluation specification, metric rationale and primary-paper
+links, source-only GPT Web reference and blind grading instructions, explicit
+hash/provenance contracts, disagreement and missingness rules, and the improvement
+decision loop. Important-content coverage is primary; source-support precision,
+serious errors, main-answer adequacy, delivery and cost remain visible. Candidate
+preservation, correct rewriting and deletion are separated. An offline arithmetic
+tool checks identities and calculates bounds; it does not validate legal semantics.
+The old exposed twenty-item Codex assessment is archived byte-for-byte. Original Web replies were recovered after rendering failures; a source-only audit
+and 17-item reference preceded full blind grading of three reports. All 51 coverage
+decisions, 81 assertions, 12 serious-error records and seven source-adjudication
+changes are preserved, with the separately authorized Codex annotation as secondary
+evidence. Raw judgments and scores remain distinct from adjudicated scores. These
+records are published
+in the [evaluation artifact](../outputs/rapido-evaluation-framework-2026-10-27-v2/README.md).
+No new Qwen/model experiment, training, GPU use or default-entry change. Publication
+is explicitly authorized for this evaluation work only.
+
 Entries describe the state and authorization at the recorded time. They do not authorize new experiments or publication. Original experiment inputs, responses, annotations, and frozen snapshots remain in their source language.
 
 ## 2026-10-26: Source extraction and specialist comparison checkpoint

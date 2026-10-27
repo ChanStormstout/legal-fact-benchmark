@@ -1,0 +1,337 @@
+{
+  "case_id": "1251841",
+  "reference_sha256": "a48ea94d9c11679ff381fd552d7257364eb7da6e2ca5bf6d6cccc4a5ccbbadae",
+  "raw_labels_sha256": "96c1a6e111853474c74ff36a0de1adfd46008d3adb22b4ed20f8a2b810db2f8a",
+  "assessor": "Codex model; exposed development case; method mapping known",
+  "scope": "All 51 coverage decisions, all 81 assertion inventory entries, all 12 serious-error entries and all report paragraphs were read against the permitted source view. Raw records are retained. Unlisted label decisions are retained, not independently human validated.",
+  "reference_changed_after_grading": false,
+  "changes": [
+    {
+      "blind_id": "X27D",
+      "section": "coverage",
+      "item": "R13",
+      "before": {
+        "item_id": "R13",
+        "status": "CORRECT",
+        "report_quotes": [
+          "Both the trial court and the High Court found that the plaintiff was subrogated to the position of the Bank.",
+          "these findings were not challenged."
+        ],
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "Both the Courts below found that the plaintiff was subrogated to the position of the Bank."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "These findings were not challenged before us"
+          }
+        ],
+        "reason": "Correctly reports both courts and express nonchallenge, even though an earlier party-label line is erroneous."
+      },
+      "after": {
+        "item_id": "R13",
+        "status": "NOT_SATISFIED",
+        "report_quotes": [
+          "Both the trial court and the High Court found that the plaintiff was subrogated to the position of the Bank.",
+          "**Claimant Mortgagee (Plaintiff/Appellant):** The Bank (via subrogation to the position of the original mortgagee)"
+        ],
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "Both the Courts below found that the plaintiff was subrogated to the position of the Bank."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "These findings were not challenged before us"
+          }
+        ],
+        "reason": "The local both-courts/nonchallenge sentence is accurate, but the report explicitly equates the claimant with the Bank elsewhere. This contradicts the required distinct claimant-to-Bank subrogation relation. Under the frozen whole-report consistency rule R13 is not fully satisfied; the locally supported sentence remains recorded in the assertion inventory."
+      },
+      "decision_reason": "The local both-courts/nonchallenge sentence is accurate, but the report explicitly equates the claimant with the Bank elsewhere. This contradicts the required distinct claimant-to-Bank subrogation relation. Under the frozen whole-report consistency rule R13 is not fully satisfied; the locally supported sentence remains recorded in the assertion inventory."
+    },
+    {
+      "blind_id": "X27P",
+      "section": "coverage",
+      "item": "R14",
+      "before": {
+        "item_id": "R14",
+        "status": "CORRECT",
+        "report_quotes": [
+          "a finding by the trial court and High Court that was not challenged before the Privy Council"
+        ],
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "They also found that the defendant 2 was sufficiently represented in the mortgage suit."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "These findings were not challenged before us"
+          }
+        ],
+        "reason": "The substance, defendant identity, both courts and express lack of challenge match, though naming the later tribunal is an unsupported embellishment separately inventoried."
+      },
+      "after": {
+        "item_id": "R14",
+        "status": "NOT_SATISFIED",
+        "report_quotes": [
+          "a finding by the trial court and High Court that was not challenged before the Privy Council"
+        ],
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "They also found that the defendant 2 was sufficiently represented in the mortgage suit."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "These findings were not challenged before us"
+          }
+        ],
+        "reason": "The earlier representation finding is correct and remains supported as an assertion. The required later nonchallenge is explicitly assigned to the Privy Council. The permitted record reports an appeal admitted there in 1946 and a later 1952 judgment saying before us, without identifying that latter tribunal by name. The added tribunal binding is unverified and changes the required procedural attribution; it cannot earn full relational coverage."
+      },
+      "decision_reason": "The earlier representation finding is correct and remains supported as an assertion. The required later nonchallenge is explicitly assigned to the Privy Council. The permitted record reports an appeal admitted there in 1946 and a later 1952 judgment saying before us, without identifying that latter tribunal by name. The added tribunal binding is unverified and changes the required procedural attribution; it cannot earn full relational coverage."
+    },
+    {
+      "blind_id": "X27J",
+      "section": "coverage",
+      "item": "R14",
+      "before": {
+        "item_id": "R14",
+        "status": "CORRECT",
+        "report_quotes": [
+          "Defendant 2 (Chohan Ram) was sufficiently represented in the mortgage suit by his father Hiraman Ram",
+          "a finding by the trial court and High Court that was not challenged"
+        ],
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "They also found that the defendant 2 was sufficiently represented in the mortgage suit."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "These findings were not challenged before us"
+          }
+        ],
+        "reason": "Represents Chohan and both earlier courts and the lack of subsequent challenge correctly, subject to a separately labeled unsupported tribunal name."
+      },
+      "after": {
+        "item_id": "R14",
+        "status": "NOT_SATISFIED",
+        "report_quotes": [
+          "a finding by the trial court and High Court that was not challenged before the Privy Council"
+        ],
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "They also found that the defendant 2 was sufficiently represented in the mortgage suit."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "These findings were not challenged before us"
+          }
+        ],
+        "reason": "The earlier representation finding is correct and remains supported as an assertion. The required later nonchallenge is explicitly assigned to the Privy Council. The permitted record reports an appeal admitted there in 1946 and a later 1952 judgment saying before us, without identifying that latter tribunal by name. The added tribunal binding is unverified and changes the required procedural attribution; it cannot earn full relational coverage."
+      },
+      "decision_reason": "The earlier representation finding is correct and remains supported as an assertion. The required later nonchallenge is explicitly assigned to the Privy Council. The permitted record reports an appeal admitted there in 1946 and a later 1952 judgment saying before us, without identifying that latter tribunal by name. The added tribunal binding is unverified and changes the required procedural attribution; it cannot earn full relational coverage."
+    },
+    {
+      "blind_id": "X27P",
+      "section": "assertions",
+      "item": "A32",
+      "before": {
+        "id": "A32",
+        "proposition": "The partition issue was not among the later appeal’s surviving questions.",
+        "report_quote": "this issue was not raised before the Privy Council.",
+        "label": "SUPPORTED",
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "the only question which survived for our consideration was whether Wazir Narayan Singh had the power to grant a permanent lease to the defendants so as to bind the plaintiff."
+          },
+          {
+            "source_id": "Sd6e9439ddc2d",
+            "quote": "He also contended that there was a partition amongst the members of the joint family"
+          }
+        ],
+        "reason": "Its subject was not the sole surviving lease-power question; the report’s naming of the Privy Council is an unsupported embellishment separately inventoried."
+      },
+      "after": {
+        "id": "A32",
+        "proposition": "The partition issue was not among the later appeal’s surviving questions.",
+        "report_quote": "this issue was not raised before the Privy Council.",
+        "label": "UNSUPPORTED",
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "the only question which survived for our consideration was whether Wazir Narayan Singh had the power to grant a permanent lease to the defendants so as to bind the plaintiff."
+          },
+          {
+            "source_id": "Sd6e9439ddc2d",
+            "quote": "He also contended that there was a partition amongst the members of the joint family"
+          }
+        ],
+        "reason": "The report asserts that the partition issue was not raised before the Privy Council. The source establishes only that lease-making power was the sole question which survived in a later appeal; not surviving is not the same as never having been raised, and that later tribunal is not identified as the Privy Council. The original supported label paraphrased away these two unsupported relations."
+      },
+      "decision_reason": "The report asserts that the partition issue was not raised before the Privy Council. The source establishes only that lease-making power was the sole question which survived in a later appeal; not surviving is not the same as never having been raised, and that later tribunal is not identified as the Privy Council. The original supported label paraphrased away these two unsupported relations."
+    },
+    {
+      "blind_id": "X27P",
+      "section": "assertions",
+      "item": "A28",
+      "before": {
+        "id": "A28",
+        "proposition": "A Patta’s survival depends only on its validity under the Transfer of Property Act when granted.",
+        "report_quote": "the lease's survival depends on its validity under the Transfer of Property Act at the time of grant",
+        "label": "UNSUPPORTED",
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "the only question which survived for our consideration was whether Wazir Narayan Singh had the power to grant a permanent lease to the defendants so as to bind the plaintiff."
+          },
+          {
+            "source_id": "L4cb87a2c0ccd",
+            "quote": "he must not commit any act which is destructive\nor permanently injurious thereto, if the security is insufficient or will be rendered insufficient\nby such act."
+          },
+          {
+            "source_id": "L5d1f299e4f9f",
+            "quote": "where the interest of the lessor in the property terminates on, or his power to dispose of the same extends only to, the happening of any event—by the happening of such event;"
+          }
+        ],
+        "reason": "Historical authority and priority are relevant, but text does not establish an exclusive statutory validity criterion covering every possible termination/relief prerequisite."
+      },
+      "after": {
+        "id": "A28",
+        "proposition": "A Patta’s survival depends only on its validity under the Transfer of Property Act when granted.",
+        "report_quote": "the lease's survival depends on its validity under the Transfer of Property Act at the time of grant",
+        "label": "ANNOTATION_UNRESOLVED",
+        "evidence": [
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "the only question which survived for our consideration was whether Wazir Narayan Singh had the power to grant a permanent lease to the defendants so as to bind the plaintiff."
+          },
+          {
+            "source_id": "L4cb87a2c0ccd",
+            "quote": "he must not commit any act which is destructive\nor permanently injurious thereto, if the security is insufficient or will be rendered insufficient\nby such act."
+          },
+          {
+            "source_id": "L5d1f299e4f9f",
+            "quote": "where the interest of the lessor in the property terminates on, or his power to dispose of the same extends only to, the happening of any event—by the happening of such event;"
+          }
+        ],
+        "reason": "The report says survival depends on validity under the law at grant; it does not say only. The original grader inserted exclusivity in its proposition. As a necessary/relevant condition the statement is compatible with the High Court account, but as a complete governing legal rule it exceeds the supplied authority. Preserve this scope ambiguity rather than decide it by inserting an unstated only."
+      },
+      "decision_reason": "The report says survival depends on validity under the law at grant; it does not say only. The original grader inserted exclusivity in its proposition. As a necessary/relevant condition the statement is compatible with the High Court account, but as a complete governing legal rule it exceeds the supplied authority. Preserve this scope ambiguity rather than decide it by inserting an unstated only."
+    },
+    {
+      "blind_id": "X27P",
+      "section": "assertions",
+      "item": "A04",
+      "before": {
+        "id": "A04",
+        "proposition": "The binding effect of the Patta depends exclusively on the legal correctness of the High Court’s Bank-security sufficiency test.",
+        "report_quote": "The permanent lease granted in 1925 binds the plaintiff only if the High Court's conclusion that it did not render the mortgagee's security insufficient is legally correct",
+        "label": "UNSUPPORTED",
+        "evidence": [
+          {
+            "source_id": "L4cb87a2c0ccd",
+            "quote": "he must not commit any act which is destructive\nor permanently injurious thereto, if the security is insufficient or will be rendered insufficient\nby such act."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "the only question which survived for our consideration was whether Wazir Narayan Singh had the power to grant a permanent lease to the defendants so as to bind the plaintiff."
+          },
+          {
+            "source_id": "Sd3c548138ec6",
+            "quote": "the crucial test was whether the lease rendered the mortgagee's security insufficient."
+          }
+        ],
+        "reason": "The asserted only-if legal equivalence excludes the separate power-to-lease question, injurious-conduct predicate and applicable instrument/priority questions."
+      },
+      "after": {
+        "id": "A04",
+        "proposition": "A binding Patta requires the legal correctness of the High Court security-sufficiency conclusion.",
+        "report_quote": "The permanent lease granted in 1925 binds the plaintiff only if the High Court's conclusion that it did not render the mortgagee's security insufficient is legally correct",
+        "label": "UNSUPPORTED",
+        "evidence": [
+          {
+            "source_id": "L4cb87a2c0ccd",
+            "quote": "he must not commit any act which is destructive\nor permanently injurious thereto, if the security is insufficient or will be rendered insufficient\nby such act."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "the only question which survived for our consideration was whether Wazir Narayan Singh had the power to grant a permanent lease to the defendants so as to bind the plaintiff."
+          },
+          {
+            "source_id": "Sd3c548138ec6",
+            "quote": "the crucial test was whether the lease rendered the mortgagee's security insufficient."
+          }
+        ],
+        "reason": "Only if states a necessary condition, not an if-and-only-if equivalence. The unsupported label is retained because the sources do not establish that this particular High Court condition is necessary under every admissible legal basis. The reason does not rely on falsely reading only if as sufficiency."
+      },
+      "decision_reason": "Only if states a necessary condition, not an if-and-only-if equivalence. The unsupported label is retained because the sources do not establish that this particular High Court condition is necessary under every admissible legal basis. The reason does not rely on falsely reading only if as sufficiency."
+    },
+    {
+      "blind_id": "X27P",
+      "section": "serious_errors",
+      "item": "E03",
+      "before": {
+        "id": "E03",
+        "type": "SECTION_66_AS_AUTOMATIC_LEASE_VALIDATION_AND_EXCLUSIVE_CONDITION",
+        "report_quotes": [
+          "unless the lease was validated under Section 66",
+          "binds the plaintiff only if the High Court's conclusion that it did not render the mortgagee's security insufficient is legally correct"
+        ],
+        "source_evidence": [
+          {
+            "source_id": "L4cb87a2c0ccd",
+            "quote": "he must not commit any act which is destructive\nor permanently injurious thereto, if the security is insufficient or will be rendered insufficient\nby such act."
+          },
+          {
+            "source_id": "Sd3c548138ec6",
+            "quote": "the crucial test was whether the lease rendered the mortgagee's security insufficient."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "the only question which survived for our consideration was whether Wazir Narayan Singh had the power to grant a permanent lease to the defendants so as to bind the plaintiff."
+          }
+        ],
+        "materiality": "Turns a conditional waste restraint into an affirmative legal authorization and uses a single sufficiency condition to decide binding effect, skipping leasing-power and injury predicates.",
+        "severity_status": "CONFIRMED"
+      },
+      "after": {
+        "id": "E03",
+        "type": "SECTION_66_AS_AUTOMATIC_LEASE_VALIDATION_AND_EXCLUSIVE_CONDITION",
+        "report_quotes": [
+          "unless the lease was validated under Section 66",
+          "binds the plaintiff only if the High Court's conclusion that it did not render the mortgagee's security insufficient is legally correct"
+        ],
+        "source_evidence": [
+          {
+            "source_id": "L4cb87a2c0ccd",
+            "quote": "he must not commit any act which is destructive\nor permanently injurious thereto, if the security is insufficient or will be rendered insufficient\nby such act."
+          },
+          {
+            "source_id": "Sd3c548138ec6",
+            "quote": "the crucial test was whether the lease rendered the mortgagee's security insufficient."
+          },
+          {
+            "source_id": "S3f8801f7bc98",
+            "quote": "the only question which survived for our consideration was whether Wazir Narayan Singh had the power to grant a permanent lease to the defendants so as to bind the plaintiff."
+          }
+        ],
+        "materiality": "The introductory unless clause affirmatively portrays section 66 as a way to validate permanent leases, although its supplied text regulates injurious acts with a security condition. That authorization claim can determine the central issue. The later only-if sentence alone states necessity, not sufficiency; it is not treated as an equivalence.",
+        "severity_status": "CONFIRMED"
+      },
+      "decision_reason": "The introductory unless clause affirmatively portrays section 66 as a way to validate permanent leases, although its supplied text regulates injurious acts with a security condition. That authorization claim can determine the central issue. The later only-if sentence alone states necessity, not sufficiency; it is not treated as an equivalence."
+    }
+  ],
+  "unresolved": [
+    "Whether the conditionally worded subrogation/remedy assertion is a serious error; retained unresolved.",
+    "Void versus unenforceable in the plaintiff characterization; retained unresolved.",
+    "High Court adoption of decree-binding conclusion versus the narrower representation finding; retained unresolved.",
+    "Validity dependency interpreted as necessary versus exhaustive; now unresolved."
+  ],
+  "inventory_policy": "The web inventories remain model decompositions. Source adjudication found no additional unrepresented substantive relation requiring a new assertion ID, but this does not certify a uniquely correct atomization. Required-content coverage and assertion precision are distinct. Correct local assertions can coexist with a whole-report contradiction defeating a required item.",
+  "assertion_granularity_limitation": "Report-specific deduplicated relation inventories are not automatically comparable to the independently built side-chat inventories. No kappa is calculated across different inventories."
+}

@@ -33,6 +33,7 @@ Latest source-extraction checkpoint: [V15 / V16 and LW comparison](outputs/sourc
 | Understand the research question and evidence limits | [Research direction](docs/RESEARCH_DIRECTION.md) |
 | Find implementation modules and versioned runs | [Project guide](docs/PROJECT_GUIDE.md) |
 | Inspect results and failures | [Experiment index](docs/EXPERIMENT_INDEX.md) |
+| Evaluate and improve final reports | [RAPIDO evaluation standard](docs/evaluation/README.md) |
 | Review a reproducible code-and-evidence snapshot | [Review entry](review/START_HERE.md) |
 | Understand data availability and setup requirements | [Data and portability](docs/DATA_AND_PORTABILITY.md) |
 | Browse documentation | [Documentation index](docs/README.md) |

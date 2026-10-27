@@ -1,0 +1,73 @@
+{
+  "protocol_id": "RAPIDO-EVAL-2.0",
+  "date": "2026-10-27",
+  "role": "MAINTAINED_EVALUATION_SPECIFICATION_NOT_RETROACTIVE_PREREGISTRATION",
+  "baseline": {
+    "id": "A0",
+    "calls": 1,
+    "input": "Registered raw permitted materials and question",
+    "additional_mechanisms": false,
+    "changes_require_user_approval": true
+  },
+  "main_endpoint": "ACTUAL_DELIVERED_REPORT",
+  "candidate_endpoint": "SEPARATE_DIAGNOSTIC_ONLY",
+  "primary_metric": "IMPORTANT_CONTENT_COVERAGE_R",
+  "primary_item_weights": "ALL_ONE",
+  "coverage_labels": [
+    "CORRECT",
+    "NOT_SATISFIED",
+    "ANNOTATION_UNRESOLVED"
+  ],
+  "assertion_labels": [
+    "SUPPORTED",
+    "CONTRADICTED",
+    "UNSUPPORTED",
+    "ANNOTATION_UNRESOLVED"
+  ],
+  "main_answer_labels": [
+    "SUPPORTED_ANSWER",
+    "PARTIAL",
+    "WRONG_OR_OVERREACH",
+    "NO_SUBSTANTIVE_ANSWER",
+    "ANNOTATION_UNRESOLVED"
+  ],
+  "mandatory_companion_metrics": [
+    "SOURCE_SUPPORT_PRECISION_P",
+    "SERIOUS_ERROR_EVENTS_AND_CASE_RATE",
+    "MAIN_ANSWER_ADEQUACY",
+    "DELIVERY_AND_FAILURE_RATE",
+    "ACTUAL_COST_AND_LATENCY"
+  ],
+  "auxiliary_metric": "COVERAGE_SUPPORT_HARMONIC_H_NOT_CLASSICAL_F1",
+  "reference_type": "SOURCE_GROUNDED_MODEL_REFERENCE_NOT_HUMAN_GOLD",
+  "annotation_provider": "EXISTING_CHATGPT_WEB_ACCOUNT_ANNOTATION_ONLY",
+  "planned_source_reference_passes": [
+    "SOURCE_ONLY_CONSTRUCTION",
+    "SOURCE_ONLY_AUDIT",
+    "EXPLICIT_SOURCE_ADJUDICATION"
+  ],
+  "planned_blind_grading_passes": 2,
+  "single_pass_results_require_provisional_label": true,
+  "unknown_annotation_handling": "PRESERVE_DENOMINATOR_AND_REPORT_BOUNDS_OR_NULL_IF_INVENTORY_INCOMPLETE",
+  "failed_or_empty_delivery": {
+    "R": 0,
+    "P": null,
+    "H": 0,
+    "strict_report_success": 0
+  },
+  "prospective_primary_unit": "INDEPENDENT_DISPUTE",
+  "aggregate": "MACRO_OVER_REGISTERED_DISPUTES",
+  "development_target_R_increase_percentage_points": 5,
+  "serious_error_noninferiority_planning_margin_percentage_points": 2,
+  "confirmatory_R_requirement": "POINT_INCREASE_AT_LEAST_0.05_AND_PAIRED_95_PERCENT_BOOTSTRAP_LOWER_ABOVE_ZERO",
+  "confirmatory_serious_error_bound": "CP_C_UPPER_97.5_PERCENT_MINUS_CP_A0_LOWER_97.5_PERCENT_AT_MOST_0.02; CONSERVATIVE_SIMULTANEOUS_BOUND",
+  "confirmatory_sample_size": "10000_PILOT_WHOLE_DISPUTE_SIMULATIONS_PER_N_TARGET_80_PERCENT_JOINT_POWER; FREEZE_BEFORE_TEST_ACCESS; NOT_YET_ESTABLISHED",
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20261027,
+  "multiple_confirmatory_comparisons": "EXPLICIT_MULTIPLICITY_PLAN_REQUIRED",
+  "experiment_authorized_by_this_specification": false,
+  "web_annotations_are_experiment_model_calls": false,
+  "human_expert_availability_assumed": false,
+  "authorized_secondary_annotation_provider": "USER_REQUESTED_CODEX_SIDE_CHAT; SEPARATE_REFERENCE_AND_PROVENANCE; NOT_A_SUBSTITUTE_FOR_GPT_WEB_OR_HUMAN_GOLD",
+  "rendering_recovery": "VERIFY_JOB_IDENTITY; UP_TO_THREE_READY_STATE_CHECKED_RELOADS; INSPECT_EXISTING_FILES; NO_AUTOMATIC_REGENERATION"
+}

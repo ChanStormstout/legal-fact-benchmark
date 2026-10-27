@@ -1,5 +1,10 @@
 # Research direction and experimental implications
 
+The maintained [RAPIDO evaluation standard](evaluation/README.md) defines how future
+report quality is measured. It separates correct important-content coverage, source
+support, serious errors and actual delivery; exposed historical evaluations remain
+development evidence under their original protocols. A0 remains one ordinary call.
+
 On 2026-10-01, the user clarified that a benchmark had not been selected as the main
 research output. The main question is whether rules grounded in a case's facts and
 issues can help retrieve applicable authorities and support reasoned decisions in new

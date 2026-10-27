@@ -5,6 +5,8 @@
 - [Project guide](PROJECT_GUIDE.md): workflow, code map, and how to inspect a run.
 - [Research direction](RESEARCH_DIRECTION.md): research objective and original design boundaries.
 - [Experiment index](EXPERIMENT_INDEX.md): version-specific reports and limitations.
+- [Evaluation standard](evaluation/README.md): important-content scores, source support,
+  serious errors, report preservation, source-grounded GPT Web references, and change rules.
 - [Data and portability](DATA_AND_PORTABILITY.md): published data and environment requirements.
 - [Registered historical review in English](CURRENT_REVIEW_SUMMARY.md): translated explanation with unchanged original evidence.
 - [Review workflow](CHATGPT_REVIEW.md): preparing and reviewing a traceable snapshot.

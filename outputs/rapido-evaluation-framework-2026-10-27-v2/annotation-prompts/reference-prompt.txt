@@ -1,0 +1,20 @@
+You are creating source-grounded REFERENCE ANNOTATIONS for a Legal AI report evaluation, not producing an experimental system answer. No system outputs or scores are supplied in this session. Our task is an assessment of competing legal positions from the permitted record, including prior findings, objections, procedural scope and justified uncertainty. Ground truth here means a model-generated, source-auditable reference, NOT human gold or lawyer approval.
+
+Read the ENTIRE attached allowed-materials-1251841.json (all 41 CASE/LAW source entries). Use only those original texts, the question and the explicit scope. No web search, external law, case-memory completion, saved memories or other chats. Target court reasoning and disposition are withheld. A prior court's finding is evidence that THAT COURT found something; it is not automatically the present court's endorsement. A party's allegation is not an established fact. Printed statutes can have temporal/applicability gaps. Do not invent a definitive current answer where the permitted materials cannot establish one.
+
+Create the minimum IMPORTANT content-unit reference required for a legally useful answer to the supplied question. Each item must be one separately scoreable relation or conclusion (with its necessary actor, attribution, property, time, stage, polarity and qualifications). Select items because omitting them would change or materially weaken the requested analysis, not because every date/name deserves a point. Do not force a predetermined item count. Avoid overlapping items and prohibit multiple credit for paraphrases. Distinguish facts/descriptions, party positions, historical court findings, scoped legal analysis and genuinely open issues. List legitimately unavailable/withheld answers separately, not as missing factual content the report must somehow recover. Correct conditional or unresolved conclusions can satisfy a criterion when the reason and bounds are explicit; all-UNKNOWN cannot replace available facts.
+
+For each reference item provide an explicit full-credit criterion, mandatory binding/qualification constraints, importance reason, category, source IDs and short VERBATIM supporting source quotes. Quote exactly; source IDs must exist. No credit should be possible from a statement that reverses the source, swaps the party/court, silently converts a contention into a finding, or simultaneously asserts its opposite without distinguishing stages. Do not require a literal sentence, named current tribunal absent from the record, a JSON format, or citations merely for their formatting.
+
+Return exactly one complete fenced JSON object:
+{
+ "case_id":"1251841", "annotation_role":"SOURCE_ONLY_REFERENCE", "reading_complete":true,
+ "source_view_sha256":"17dc8fd14b9a964b15671731cefe7984c2c20493b44a5e3ea5efab7e8ce42389",
+ "question_interpretation":"...", "allowed_answer_boundary":"...",
+ "items":[{"id":"R01", "category":"ISSUE|PARTIES_SCOPE|MATERIAL_SEQUENCE|PARTY_POSITION|PRIOR_FINDING|LEGAL_ANALYSIS|OBJECTION_GATE|OPEN_ISSUE", "criterion":"...", "mandatory_constraints":["..."], "importance_reason":"...", "expected_state":"SOURCE_ESTABLISHED|ATTRIBUTED|CONDITIONAL|OPEN", "evidence":[{"source_id":"...","quote":"..."}]}],
+ "known_critical_errors_to_check":[{"type":"...", "error_definition":"...", "evidence":[{"source_id":"...","quote":"..."}]}],
+ "unavailable_or_forbidden":[{"question":"...","reason":"...","treatment":"DO_NOT_INVENT; a bounded statement of uncertainty is acceptable"}],
+ "reference_uncertainties":[{"issue":"...","source_ids":["..."],"handling":"..."}],
+ "reference_limitations":["Model-generated reference, not human or legal expert gold."]
+}
+If any attachment cannot be read in full, set reading_complete:false and identify the unread part; do not fabricate reference completeness. Do not provide hidden chain of thought; provide only the auditable criteria and source evidence requested.
