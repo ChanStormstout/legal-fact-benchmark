@@ -1,0 +1,106 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "SOURCE_SUPPORT",
+      "target": "The High Court affirmed the dismissal of the appeal, holding that the notice provision in Section 111(g) was not based on principles of justice, equity, and good conscience applicable to such pre-existing leases",
+      "question": "Did the High Court affirm the dismissal of the appeal?",
+      "original_answer": "Yes, the draft states the High Court affirmed the dismissal.",
+      "source_answer": "No. Source S721f1d767bf4 states the High Court 'dismissed the appeal' (meaning it rejected Defendant No. 1's second appeal). The draft incorrectly implies the High Court affirmed a lower court's dismissal or mischaracterizes the procedural outcome as an affirmation of dismissal rather than a rejection of the appeal.",
+      "source_ids": [
+        "S721f1d767bf4"
+      ],
+      "evidence": [
+        {
+          "source_id": "S721f1d767bf4",
+          "quote": "The High Court dismissed the appeal and allowed the cross-objections."
+        }
+      ],
+      "needed_change": "Correct to state that the High Court dismissed Defendant No. 1's second appeal.",
+      "keep": "The High Court's reasoning regarding Section 111(g) and equity."
+    },
+    {
+      "id": "F2",
+      "kind": "LEGAL_INFERENCE",
+      "target": "holding that the notice provision in Section 111(g) was not based on principles of justice, equity, and good conscience applicable to such pre-existing leases",
+      "question": "What was the specific legal basis for the High Court's decision on notice?",
+      "original_answer": "The draft infers the High Court held the provision was not based on justice/equity/good conscience *applicable to pre-existing leases*.",
+      "source_answer": "Source Sb9a6de106bd4 quotes the High Court stating the provision was 'not based upon any principle of justice, equity and good conscience.' It does not explicitly link this general statement to the 'pre-existing lease' distinction in the same sentence, though S397134992e08 notes the Chief Justice distinguished the present case from earlier ones. The draft conflates the general equitable observation with the specific temporal applicability argument without clear textual support for that specific linkage in the quoted excerpt.",
+      "source_ids": [
+        "Sb9a6de106bd4",
+        "S397134992e08"
+      ],
+      "evidence": [
+        {
+          "source_id": "Sb9a6de106bd4",
+          "quote": "that this provision in sub-section (g) of section III in regard to notice was not based upon any principle of justice, equity and good conscience."
+        }
+      ],
+      "needed_change": "Clarify that the High Court observed the notice provision was not based on justice/equity/good conscience, while separately noting the Chief Justice distinguished the case from prior decisions (S397134992e08), rather than merging them into a single unsupported inference about pre-existing leases.",
+      "keep": "The reference to the High Court's view on equity/justice."
+    },
+    {
+      "id": "F3",
+      "kind": "CONTRADICTION",
+      "target": "Relief had been granted previously in suits filed in 1913, 1928, and 1938.",
+      "question": "Was relief against forfeiture granted in the 1928 suit?",
+      "original_answer": "The draft lists 1928 as a year where relief was granted.",
+      "source_answer": "Source S3516027004fb states that in the 1928 suit, the plaintiff 'waived the forfeiture by accepting three years' rent'. Waiver is distinct from judicial relief against forfeiture under Section 114. Relief against forfeiture was explicitly granted in 1913 (Sb7af28402465) and 1938 (Se97eddf17deb).",
+      "source_ids": [
+        "S3516027004fb",
+        "Sb7af28402465",
+        "Se97eddf17deb"
+      ],
+      "evidence": [
+        {
+          "source_id": "S3516027004fb",
+          "quote": "The plaintiff subsequently waived the forfeiture by accepting three years' rent"
+        }
+      ],
+      "needed_change": "Remove 1928 from the list of suits where 'relief against forfeiture' was granted; note instead that forfeiture was waived by acceptance of rent in 1928.",
+      "keep": "The mention of relief granted in 1913 and 1938."
+    },
+    {
+      "id": "F4",
+      "kind": "OMISSION",
+      "target": "The record indicates unresolved tension regarding whether historical waivers of forfeiture (e.g., acceptance of arrears in 1928 and 1934) impact the current determination",
+      "question": "Is there evidence of a waiver in 1934?",
+      "original_answer": "The draft mentions acceptance of arrears in 1934 as part of the 'unresolved tension'.",
+      "source_answer": "Source S7e60a543f230 confirms that in 1934, the landlord 'accepted the arrears of rent and the forfeiture was again waived.' This is a factual finding of waiver, not merely an 'unresolved tension'. The draft should accurately reflect that waiver occurred in 1934, similar to 1928.",
+      "source_ids": [
+        "S7e60a543f230"
+      ],
+      "evidence": [
+        {
+          "source_id": "S7e60a543f230",
+          "quote": "He agreed and accepted the arrears of rent and the forfeiture was again waived."
+        }
+      ],
+      "needed_change": "State clearly that forfeiture was waived in 1934 by acceptance of arrears, rather than framing it solely as an unresolved tension.",
+      "keep": "The context of repeated defaults and waivers."
+    },
+    {
+      "id": "F5",
+      "kind": "SOURCE_SUPPORT",
+      "target": "who acquired tenancy rights via sale from Ladha Ibrahim Sheth in 1870",
+      "question": "Who sold the tenancy rights in 1870?",
+      "original_answer": "The draft says Defendant No. 1's ancestor acquired rights via sale from Ladha Ibrahim Sheth.",
+      "source_answer": "Source S3417d2a4167c states 'Ladha Ibrahim sold his tenancy rights to one Girdhari Balaram Lodhi'. Source S80566af1f5f0 identifies Defendant No. 1 as a grandson of Seth Girdhari Balaram. The draft is accurate but could be more precise that Girdhari Balaram was the direct purchaser, not Defendant No. 1 himself.",
+      "source_ids": [
+        "S3417d2a4167c",
+        "S80566af1f5f0"
+      ],
+      "evidence": [
+        {
+          "source_id": "S3417d2a4167c",
+          "quote": "Ladha Ibrahim sold his tenancy rights to one Girdhari Balaram Lodhi"
+        }
+      ],
+      "needed_change": "Minor clarification: Specify that Girdhari Balaram Lodhi purchased the rights, and Defendant No. 1 is his grandson.",
+      "keep": "The lineage connection."
+    }
+  ],
+  "unresolved": [
+    "The exact scope of the Supreme Court's final disposition is withheld per instructions, so the ultimate legal effect of the High Court's 'equity' reasoning vs. the District Court's 'pre-dating TPA' reasoning remains open for reconstruction."
+  ]
+}

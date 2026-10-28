@@ -24,7 +24,7 @@ consequences under the registered rules. Historical case facts support compariso
 not factual premises about the current case. Coverage and working stages vary by
 version; this diagram is the research workflow, not a claim that every run succeeds.
 
-Latest source-extraction checkpoint: [V15 / V16 and LW comparison](outputs/source-extraction-checkpoint-2026-10-26-v1/README.md). This is a captured partial-run status, not a live result or a success claim.
+Historical source-extraction checkpoint: [V15 / V16 and LW comparison](outputs/source-extraction-checkpoint-2026-10-26-v1/README.md). This is a captured partial-run status, not a live result or a success claim.
 
 ## Start here
 
@@ -74,9 +74,6 @@ The ordinary baseline is permitted raw materials and the question followed by on
 LLM call. Added retrieval, review, decomposition, or revision requires explicit
 approval. Older enhanced comparators retain their original definitions and results.
 
-The registered review snapshot is the [V22 two-case comparison](outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/README.md)
-([English summary](docs/CURRENT_REVIEW_SUMMARY.md)):
-the ordinary baseline delivered both reports; C delivered one report with errors and
-timed out on the other case. Whole-case superiority is unproven. This is a retrospective
-development review, not a twelve-case result or independent test. Original experimental
-records retain their source language and exact bytes.
+The registered review snapshot is now the [V51 ten-case development comparison](outputs/rapido-v51-ten-case-development-2026-10-28-v1/README.md): F combines source planning, complete writing and direct source editing. All ten A0/F reports and all five method endpoints are included. F has higher mean important-content coverage on the exposed development cohort, with one clear regression and one unresolved direction. Two missing A0 assertion inventories prevent a fully observed ten-case H mean; confirmatory significance and independent generalization remain unproven. [All endpoint data](outputs/rapido-v51-ten-case-development-2026-10-28-v1/comparison.html).
+
+The [V22 two-case review](outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/README.md) and [source-extraction checkpoint](outputs/source-extraction-checkpoint-2026-10-26-v1/README.md) remain historical evidence. Their original outputs and failures are not replaced by V51. Publication of selected records does not launch an experiment or complete full RAPIDO.

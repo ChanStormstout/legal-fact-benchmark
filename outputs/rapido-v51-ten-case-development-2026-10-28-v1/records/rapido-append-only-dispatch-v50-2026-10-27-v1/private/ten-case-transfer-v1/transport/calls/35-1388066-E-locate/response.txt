@@ -1,0 +1,103 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "SOURCE_SUPPORT",
+      "target": "The appellant, Gurbachan Singh, claimed to be the sole lawful heir and husband of Ram Piari",
+      "question": "Who is identified as the appellant in the record?",
+      "original_answer": "Identifies the appellant as Gurbachan Singh.",
+      "source_answer": "The source identifies Gurbachan Singh as counsel for the respondent, not the appellant. The appellant's name is not explicitly stated in the provided text snippets, only referred to as 'the plaintiff' or 'appellant'.",
+      "source_ids": [
+        "Sac440ce83951",
+        "Sa7984f7b8dcf"
+      ],
+      "evidence": [
+        {
+          "source_id": "Sac440ce83951",
+          "quote": "Gurbachan Singh (Jindra Lat, with him) for the respond- ent."
+        }
+      ],
+      "needed_change": "Remove the specific name 'Gurbachan Singh' from the appellant description or correct it to 'the plaintiff/appellant' unless external knowledge confirms he was the appellant (which contradicts the snippet listing him as respondent counsel).",
+      "keep": "The description of the claim regarding spousal inheritance priority."
+    },
+    {
+      "id": "F2",
+      "kind": "CONTRADICTION",
+      "target": "claiming Ram Piari had eloped with a motor driver in 1921 and returned to Raj Kumari’s estate in 1932",
+      "question": "What year did the respondents allege Ram Piari returned to the estate?",
+      "original_answer": "States she returned in 1932.",
+      "source_answer": "The source states she returned after about 11 years from 1921, which implies 1932, but the specific text says 'returned to Holta estate after about 11 years... Parvin Kumari who was then about 3 years old'. The draft's date '1932' is an inference, but more importantly, the source text for the return year is not explicitly '1932' in the snippet S8e8de02b9c7c, it calculates it. However, looking at S55b6c2be1fbc, the plaintiff claims she was taken in 1934-35. The respondent's case in S8e8de02b9c7c says she returned after 11 years from 1921 (approx 1932). This is consistent. Let's look closer. Actually, finding F1 is stronger. Is there another error? Yes, see F3.",
+      "source_ids": [
+        "S8e8de02b9c7c"
+      ],
+      "evidence": [
+        {
+          "source_id": "S8e8de02b9c7c",
+          "quote": "Ram Piari had been enticed away by a motor driver sometime in 1921, that she returned to Holta estate after about 11 years"
+        }
+      ],
+      "needed_change": "No change needed if 1932 is accepted as the calculated year, but ensure attribution is clear this is the respondent's case.",
+      "keep": "The summary of the respondent's counter-narrative."
+    },
+    {
+      "id": "F3",
+      "kind": "LEGAL_INFERENCE",
+      "target": "The High Court’s rejection of the marriage effectively mooted the custom argument for the husband, defaulting to Hindu law succession favoring the daughter.",
+      "question": "Did the High Court reject the marriage and *then* apply Hindu law because the marriage was rejected?",
+      "original_answer": "Suggests the marriage rejection caused the default to Hindu law.",
+      "source_answer": "The High Court made findings on custom *independently* of the marriage finding. It found no custom allowing husband preference over daughter for property given by a stranger (Raj Kumari), and applied Hindu law. Even if marriage were proven, the custom finding might still bar the husband's claim based on property provenance. The draft oversimplifies the legal logic; the custom finding was substantive, not just a fallback due to lack of marriage proof.",
+      "source_ids": [
+        "Sfa4924e67740"
+      ],
+      "evidence": [
+        {
+          "source_id": "Sfa4924e67740",
+          "quote": "(2) that there was no local or general custom allowing the plaintiff to succeed in preference to the daughter to the property left by Ram Piari which had been given to her by a stranger, namely, Raj Kumari"
+        }
+      ],
+      "needed_change": "Clarify that the High Court's application of Hindu law was also based on its independent finding that no applicable custom granted the husband priority over the daughter for the specific properties in question, regardless of the marriage status.",
+      "keep": "The statement that the High Court reversed the trial court."
+    },
+    {
+      "id": "F4",
+      "kind": "OMISSION",
+      "target": "Crucially, the High Court relied on contradictory statements: Ram Piari’s mother testified no marriage occurred [S2d87090d5919], Ram Piari’s will stated the same [S2d87090d5919]",
+      "question": "What specific evidence regarding the will did the High Court rely on to rebut the presumption of marriage?",
+      "original_answer": "Mentions the will stated no marriage occurred.",
+      "source_answer": "The source snippet S2d87090d5919 mentions the will's statement but cuts off with [...]. The draft asserts the will 'stated the same' (no marriage). While likely true based on context, the specific content of the will regarding marriage is not fully quoted in the permitted originals, only referenced as being 'to the same effect' as the mother's deposition. The draft should attribute this to the High Court's reliance on these depositions/will contents as reported.",
+      "source_ids": [
+        "S2d87090d5919"
+      ],
+      "evidence": [
+        {
+          "source_id": "S2d87090d5919",
+          "quote": "On the other hand, Ram Hari's own mother, Ganga, has deposed that the former was never married to the plaintiff, and the statement made by Ram Piari in her will [...] is to the same effect."
+        }
+      ],
+      "needed_change": "Ensure the phrasing reflects that the High Court relied on the *report* of these contents, noting the ellipsis in the source text prevents direct quotation of the will's exact words.",
+      "keep": "The reference to the mother's testimony."
+    },
+    {
+      "id": "F5",
+      "kind": "SOURCE_SUPPORT",
+      "target": "The appellant obtained a certificate under Sections 109 and 110 of the Code of Civil Procedure to appeal [S72d705116180].",
+      "question": "Which sections of the CPC are cited in the source for the certificate?",
+      "original_answer": "Cites Sections 109 and 110.",
+      "source_answer": "The source text S72d705116180 contains garbled characters/OCR errors: 'under  cite 12 sections 109 and  cite 13 110'. While 109/110 are standard for Supreme Court appeals, the draft presents them cleanly. This is acceptable synthesis, but strictly speaking, the source has artifacts. No major error here, but worth noting if strict fidelity is required. However, F1 is a definite factual error regarding party identity.",
+      "source_ids": [
+        "S72d705116180"
+      ],
+      "evidence": [
+        {
+          "source_id": "S72d705116180",
+          "quote": "after obtaining a certificate from the High Court under  cite 12 sections 109 and  cite 13 110 of the Code of Civil Procedure."
+        }
+      ],
+      "needed_change": "None, the synthesis is legally accurate despite OCR noise.",
+      "keep": "The procedural history."
+    }
+  ],
+  "unresolved": [
+    "The final disposition of the Supreme Court appeal is withheld, so the ultimate validity of the High Court's reasoning remains unconfirmed in the target judgment."
+  ]
+}

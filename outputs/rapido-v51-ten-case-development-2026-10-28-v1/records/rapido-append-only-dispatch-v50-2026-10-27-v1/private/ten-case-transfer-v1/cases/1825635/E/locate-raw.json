@@ -1,0 +1,87 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "LEGAL_INFERENCE",
+      "target": "The prior decree did not adjudicate the validity of an adoption made in 1943 under the new legal regime. Therefore, the specific issue of the 1943 adoption’s validity was not \"directly and substantially in issue\" in the former suit.",
+      "question": "Does the source text support the inference that res judicata is barred solely because the 1943 adoption occurred after a change in law?",
+      "original_answer": "Asserts that the 1943 adoption's validity was not directly and substantially in issue in the 1937 suit because it happened later under new law.",
+      "source_answer": "Source Sdd3b6960e932 confirms the 1937 decree addressed the 1934 adoption. Source Scb38f598e6f7 lists 'res judicata' as a contested point of law before the Federal Court, implying the lower court's rejection (S91731545b1c1) is subject to review, not established fact. The draft presents the legal conclusion on res judicata as definitive rather than an open issue for the target court.",
+      "source_ids": [
+        "Sdd3b6960e932",
+        "Scb38f598e6f7",
+        "S91731545b1c1"
+      ],
+      "evidence": [
+        {
+          "source_id": "Scb38f598e6f7",
+          "quote": "(1) Whether the present suit was barred by 'res judicata' by reason of the consent decree passed in suit No. 291 of 1937"
+        }
+      ],
+      "needed_change": "Reframe as an argument advanced by the Plaintiff or a finding of the lower courts, noting it remains a question of law for the Federal Court.",
+      "keep": "The factual distinction between the 1934 and 1943 adoptions."
+    },
+    {
+      "id": "F2",
+      "kind": "SOURCE_SUPPORT",
+      "target": "The Trial Court rejected the *res judicata* plea but held the Plaintiff estopped from claiming immediate possession, granting him only a declaration of valid adoption and rights after Defendant 1’s death",
+      "question": "Did the Trial Court grant rights after Defendant 1's death based on estoppel or property succession rules?",
+      "original_answer": "States the Trial Court granted rights after Defendant 1's death due to estoppel findings.",
+      "source_answer": "Source S3a43f85b5230 states the Judge held the Plaintiff was estopped from claiming possession *from* Defendant 1 and entitled to possession *after* her death. This reflects the widow's limited estate/succession rules, not merely estoppel barring immediate possession while allowing future possession. The draft conflates the estoppel bar with the nature of the interest granted.",
+      "source_ids": [
+        "S3a43f85b5230"
+      ],
+      "evidence": [
+        {
+          "source_id": "S3a43f85b5230",
+          "quote": "He, however, held that the Plaintiff was estopped from claiming possession of the properties from the Defendant 1 and was only entitled to possession of the properties belonging to the family after her death."
+        }
+      ],
+      "needed_change": "Clarify that the entitlement to possession after death stems from the nature of Defendant 1's interest (widow's estate), distinct from the estoppel bar on immediate possession.",
+      "keep": "The finding that immediate possession was barred by estoppel."
+    },
+    {
+      "id": "F3",
+      "kind": "OMISSION",
+      "target": "The remaining issues were purely questions of law: whether the 1937 decree operated as *res judicata* or created an estoppel against the 1943 claim [Scb38f598e6f7].",
+      "question": "What specific content of the 1937 award creates the estoppel argument regarding 'never becoming entitled'?",
+      "original_answer": "Mentions estoppel generally but omits the specific clause 'can never become entitled' which is central to the defense's argument.",
+      "source_answer": "Source Sf6f730f0b668 explicitly declares: 'It is declared that the Plaintiff is not and can never become entitled to the property belonging to the family'. This specific language is the basis for the estoppel/res judicata argument regarding future claims, which the draft mentions later but fails to link directly to the core legal analysis of the 1937 decree's scope.",
+      "source_ids": [
+        "Sf6f730f0b668"
+      ],
+      "evidence": [
+        {
+          "source_id": "Sf6f730f0b668",
+          "quote": "It is declared that the Plaintiff is not and can never become entitled to the property belonging to the family of Devarao Bapuji Deshpande."
+        }
+      ],
+      "needed_change": "Insert reference to the 'can never become entitled' clause when discussing the estoppel/res judicata arguments to show why the defense claims it bars the 1943 suit.",
+      "keep": "The general statement that estoppel is a key issue."
+    },
+    {
+      "id": "F4",
+      "kind": "CONTRADICTION",
+      "target": "The available record supports the conclusion that the 1943 adoption is legally distinct from the 1934 adoption... Thus, the later adoption supports the present property claim despite the compromise",
+      "question": "Does the record 'support the conclusion' that the claim succeeds, or does it leave the outcome open?",
+      "original_answer": "Concludes that the later adoption supports the claim despite the compromise.",
+      "source_answer": "Source Scb38f598e6f7 indicates these are points of law *canvassed before us* (Federal Court). The outcome is withheld. The draft asserts a conclusion ('supports the claim') that contradicts the procedural posture where the final decision is pending. The lower courts supported this view, but the Federal Court has not yet ruled.",
+      "source_ids": [
+        "Scb38f598e6f7",
+        "S8804b7a41057"
+      ],
+      "evidence": [
+        {
+          "source_id": "S8804b7a41057",
+          "quote": "the present appeal has thus come for hearing and final disposal before this Court."
+        }
+      ],
+      "needed_change": "Change 'supports the conclusion' to 'the lower courts concluded' or 'the Plaintiff argues', maintaining neutrality on the final disposition.",
+      "keep": "The factual distinction between the two adoptions."
+    }
+  ],
+  "unresolved": [
+    "Whether the phrase 'can never become entitled' in the 1937 award operates as a perpetual estoppel barring all future claims regardless of new legal developments or facts.",
+    "Whether the change in law (*Anant v. Shankar*) constitutes a new cause of action sufficient to overcome the res judicata effect of the consent decree regarding the same parties and property."
+  ]
+}

@@ -1,5 +1,11 @@
 # Changelog
 
+
+## 2026-10-28 — V51 completed ten-case development snapshot
+
+Publish the frozen V51 method and selected V48–V50 comparator code, all 50 endpoint slots/48 actual reports, source-grounded model annotations/adjudications, requests/responses/receipts, and full resource accounting. Report higher F mean R alongside the 1388066 regression,1489900 uncertainty, six unchanged edits, missing A0 H axes and 4.672 xcost. Preserve all original bytes and distinguish development improvement from confirmatory independent superiority. No new model call, baseline helper, method change, training, or default/main-branch change is part of publication. New independent-source preparation remains local and outside this archive.
+
+
 ## 2026-10-27: RAPIDO-EVAL-2.0 report evaluation standard
 
 Added a maintained evaluation specification, metric rationale and primary-paper

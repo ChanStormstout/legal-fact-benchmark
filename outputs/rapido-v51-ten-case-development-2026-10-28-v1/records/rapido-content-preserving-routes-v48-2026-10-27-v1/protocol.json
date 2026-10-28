@@ -1,0 +1,70 @@
+{
+  "parameters": {
+    "context_length_exceeded_behavior": "error",
+    "max_tokens": 12288,
+    "min_p": 0.0,
+    "model": "Qwen/Qwen3.8-Flash",
+    "n": 1,
+    "reasoning": {
+      "enabled": false
+    },
+    "repetition_penalty": 1.0,
+    "response_format": {
+      "type": "json_object"
+    },
+    "seed": 20261001,
+    "stream": true,
+    "temperature": 0.0,
+    "top_k": 0,
+    "top_p": 1.0
+  },
+  "context_length": 1000000,
+  "endpoint": "https://api.together.ai/v1/chat/completions",
+  "per_call_seconds": 900,
+  "socket_idle_seconds": 300,
+  "pricing": {
+    "input_per_million_usd": 0.15,
+    "output_per_million_usd": 0.47
+  },
+  "version": "V48_CONTENT_PLAN_AND_LOCAL_EDIT_SEPARATE_ROUTES",
+  "case_ids": [
+    "1251841",
+    "1252014"
+  ],
+  "methods": [
+    "P",
+    "E"
+  ],
+  "max_calls": 10,
+  "max_new_usd": 1.0,
+  "technical_retries": 0,
+  "stage_output_caps": {
+    "plan": 4096,
+    "draft": 6144,
+    "locate": 4096,
+    "edit": 5120
+  },
+  "A0_new_calls": 0,
+  "baseline": "REUSE_FROZEN_QWEN38_ORDINARY_A0_NO_HELPERS_NO_RERUN",
+  "sample_role": "EXPOSED_TWO_DISPUTE_DEVELOPMENT_NOT_SIGNIFICANCE",
+  "authorization": "User explicitly asks to implement/try the side-chat survey suggestions, with standing authorization for continuing experiments and no repeated budget questions. Qwen3.8Flash selected by user.",
+  "hypotheses": {
+    "P": "Source-addressed report items preserve question-material relations without requiring rule-premise acceptance; full originals remain visible.",
+    "E": "One relation-level error/omission diagnosis plus one exact-span edit can correct errors while preserving unaffected text. Whole-draft review or section rewrite is not sufficient evidence of local repair."
+  },
+  "same_permitted_materials_as_A0": true,
+  "originals_never_truncated": true,
+  "history_RAG": "Not in this frozen pilot for either route, same CASE/LAW permissions as A0. Optional future authority-gap filling remains separate; this is not a causal RAG-off result.",
+  "rules": "No automatic legal-rule augmentation or requirement that descriptions first pass inference. Described findings and warranted current conclusions are separate.",
+  "novelty_claim": null,
+  "model_alias_immutable_revision_verified": false,
+  "comparison": "P final; E candidate and E final; reuse V47 A0 and show V47 C as contextual comparison under same model/parameters/source information. P and E have different actual work (2 and 3 calls), report resources; neither is a same-compute ablation.",
+  "evaluation": "Published frozen R/P/H definitions and source-reference remain unchanged. GPTWeb final annotation only. Serious errors, main answer, correct-content retention, corrected/deleted/new errors, new correct items and no-op edits separately; unreceived labels null.",
+  "failure_policy": "No automatic retry. Usable E draft survives failed diagnosis/editor or invalid operation, with failed stage retained. Do not endorse known errors by fallback. P draft still runs from originals if plan fails.",
+  "execution": "One frozen whole-case run of both routes on two cases; no paid microchecks or field replacements. Any source/prompt/config change after start requires a later version.",
+  "training": false,
+  "GPU": false,
+  "push": false,
+  "default_entry_changed": false,
+  "goal_achieved": false
+}

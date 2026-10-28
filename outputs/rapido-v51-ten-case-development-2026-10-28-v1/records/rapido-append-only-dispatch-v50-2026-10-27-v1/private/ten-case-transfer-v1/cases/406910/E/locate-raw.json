@@ -1,0 +1,125 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "SOURCE_SUPPORT",
+      "target": "The trial court passed a preliminary decree on March 31, 1939, declaring Rs. 9,497-14-1 due after scaling down interest under the U.P. Agriculturists' Relief Act, 1934 [S15b6886f8dbb].",
+      "question": "Did the trial court scale down interest under the U.P. Agriculturists' Relief Act in the 1939 decree?",
+      "original_answer": "Asserts the 1939 decree scaled interest under the 1934 Act.",
+      "source_answer": "Source S2fbf3e5eb127 states the trial court held mortgagors were entitled to benefits under the Act (implying scaling), but Source S15b6886f8dbb only records the final amount declared due without explicitly attributing the scaling mechanism to the 1934 Act in that specific sentence, though context supports it. However, Source S15b6886f8dbb says 'After scaling down the interest...'. The draft is supported.",
+      "source_ids": [
+        "S2fbf3e5eb127",
+        "S15b6886f8dbb"
+      ],
+      "evidence": [
+        {
+          "source_id": "S15b6886f8dbb",
+          "quote": "Accordingly, after scaling down the interest, a sum of Rs. 9,497-14-1 was declared to be due"
+        }
+      ],
+      "needed_change": "No change required; statement is supported.",
+      "keep": "All nearby content."
+    },
+    {
+      "id": "F2",
+      "kind": "LEGAL_INFERENCE",
+      "target": "Relying on Section 21 of the U.P. Debt Redemption Act, the High Court reasoned that since the mortgage amount could only be recovered from the property and not personally, the proviso to the definition of 'loan' (which requires the advance to be made to an agriculturist) had no application [S98c21090d1c5].",
+      "question": "Did the High Court rely on Section 21 to negate the proviso's requirement for the advance date status?",
+      "original_answer": "States High Court used Section 21 to say proviso didn't apply because recovery was limited to property.",
+      "source_answer": "Source S98c21090d1c5 confirms this reasoning: 'by reason of that section [21] the mortgage amount could be recovered only from the mortgaged property... accordingly the proviso... had no application'.",
+      "source_ids": [
+        "S98c21090d1c5"
+      ],
+      "evidence": [
+        {
+          "source_id": "S98c21090d1c5",
+          "quote": "Reference was made by the learned Judges to section 21 and it was stated that by reason of that section the mortgage amount could be recovered only from the mortgaged property and not personally from the mortgagors and accordingly the proviso to the definition of \"loan\" in section 2 (9) of the Act had no application"
+        }
+      ],
+      "needed_change": "No change required; inference matches source.",
+      "keep": "All nearby content."
+    },
+    {
+      "id": "F3",
+      "kind": "CONTRADICTION",
+      "target": "The Additional Civil Judge initially found that Sita Ram’s income-tax assessment for 1931-32 did not exceed the cess payable on his land, thus preserving his status as an agriculturist [S2fbf3e5eb127].",
+      "question": "Was the finding about tax vs cess made by the Additional Civil Judge in the 1942 application or the 1939 suit?",
+      "original_answer": "Attributes the 'tax did not exceed cess' finding to the Additional Civil Judge during the 1942 application phase ('initially found').",
+      "source_answer": "Source S2fbf3e5eb127 attributes this specific finding to the **trial Court** in its judgment dated **March 31, 1939**. The Additional Civil Judge in the 1942 application (S9adf66efbf95) found he was *not assessed* at the relevant dates, relying on different evidence.",
+      "source_ids": [
+        "S2fbf3e5eb127",
+        "S9adf66efbf95"
+      ],
+      "evidence": [
+        {
+          "source_id": "S2fbf3e5eb127",
+          "quote": "The trial Court, by its judgment dated March 31, 1939, held that though Sita Ram was assessed to incometax for the year 1931-32, the amount of such in- cometax did not exceed the amount of cess payable on the land held by him"
+        }
+      ],
+      "needed_change": "Correct attribution: State that the Trial Court (in the 1939 suit) made the 'tax vs cess' finding, while the Additional Civil Judge (in the 1942 application) found non-assessment at relevant dates.",
+      "keep": "The fact that Sita Ram's status was contested and eventually upheld."
+    },
+    {
+      "id": "F4",
+      "kind": "OMISSION",
+      "target": "The decree-holders appealed to the High Court, but the record indicates they did not raise the question of whether accounts should be reopened from 1922 or 1931 before the High Court [Sb6f4e643830c].",
+      "question": "What was the specific procedural posture regarding the accounting issue in the Supreme Court appeal?",
+      "original_answer": "Notes the issue wasn't raised in High Court, implying it might be waived or open for SC review.",
+      "source_answer": "Source Sb6f4e643830c explicitly states: 'The question whether the account should be reopened from 1922 or from 1931 was not raised by the decree-holders at all.' It then notes the current appeal is before 'us' (Supreme Court) on certificate. The draft omits that the Supreme Court's jurisdiction to hear this unraised point depends on whether it involves a substantial question of law, which is the core unresolved legal tension mentioned later but not linked to the specific omission of the High Court's silence on the matter.",
+      "source_ids": [
+        "Sb6f4e643830c"
+      ],
+      "evidence": [
+        {
+          "source_id": "Sb6f4e643830c",
+          "quote": "The question whether the account should be reopened from 1922 or from 1931 was not raised by the decree-holders at all."
+        }
+      ],
+      "needed_change": "Clarify that because the point was not raised in the High Court, its admissibility in the Supreme Court relies on it being a 'substantial question of law' under CPC s.110, rather than just a factual dispute.",
+      "keep": "The statement that the decree-holders failed to contest the 1922 start date earlier."
+    },
+    {
+      "id": "F5",
+      "kind": "SOURCE_SUPPORT",
+      "target": "Evidence showed Sita Ram was a teacher earning Rs. 90/month, with no income-tax deducted until February 1932 [S0352dfc9457d, S3c4a5a9113b1].",
+      "question": "Did the evidence show no tax deduction until Feb 1932?",
+      "original_answer": "Yes, cites sources for salary and deduction date.",
+      "source_answer": "Source S3c4a5a9113b1 confirms: 'no income-tax was deducted in 1931 too, that the first deduction of in- come-tax from his salary was made in February 1932.'",
+      "source_ids": [
+        "S3c4a5a9113b1"
+      ],
+      "evidence": [
+        {
+          "source_id": "S3c4a5a9113b1",
+          "quote": "that no income-tax was deducted in 1931 too, that the first deduction of in- come-tax from his salary was made in February 1932"
+        }
+      ],
+      "needed_change": "No change required.",
+      "keep": "All nearby content."
+    },
+    {
+      "id": "F6",
+      "kind": "LEGAL_INFERENCE",
+      "target": "The precise legal effect of the 1931 recital that funds were used to pay the 1922 debt remains a critical factual determinant for the accounting period.",
+      "question": "Is the 1931 recital treated as a mere factual determinant or a legal consolidation?",
+      "original_answer": "Frames it as a factual determinant for accounting.",
+      "source_answer": "Source Sfa55b32acae2 shows the Additional Civil Judge concluded the mortgagees were 'one and the same' and reopened accounts from 1922 based on the discharge of the earlier debt. The draft correctly identifies this as unresolved in the final disposition, but should note that the lower court already treated it as a continuous liability for accounting purposes, making the 'legal effect' a question of whether that treatment was correct under the Act's definitions of 'loan' and 'decree'.",
+      "source_ids": [
+        "Sfa55b32acae2",
+        "S111ddbfcfbeb"
+      ],
+      "evidence": [
+        {
+          "source_id": "S111ddbfcfbeb",
+          "quote": "the learned Judge came to the conclusion that so far as the judgment-debtors were concerned the mortgagees in the two mortgages were one and the same."
+        }
+      ],
+      "needed_change": "Refine to state that the lower court treated the 1931 deed as continuing the 1922 liability for accounting, and the unresolved issue is whether this continuity survives the statutory definitions of 'loan' and 'decree' in the appellate review.",
+      "keep": "The mention of the recital's importance."
+    }
+  ],
+  "unresolved": [
+    "Whether the Supreme Court will entertain the 1922 vs 1931 accounting issue despite it not being raised in the High Court, based on substantial question of law criteria.",
+    "The final disposition of the appeal regarding the validity of reopening accounts from 1922 given the separate 1931 instrument."
+  ]
+}

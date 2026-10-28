@@ -1,0 +1,126 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "SOURCE_SUPPORT",
+      "target": "The Plaintiff subsequently appealed to the Supreme Court [S2c031f54c36e].",
+      "question": "What court did the plaintiff appeal to after the Chief Court of Avadh?",
+      "original_answer": "The draft states the plaintiff appealed to the Supreme Court.",
+      "source_answer": "Source S2c031f54c36e identifies the case as 'CIVIL APPELLATE JURISDICTION' and mentions a certificate granted by the High Court of Allahabad, but does not explicitly name the Supreme Court in the provided text snippet, though it is implied by the jurisdiction. However, strictly based on the provided text, it says 'come up to this court'. The label 'Supreme Court' is an external inference or correct identification of 'this court' in Civil Appellate Jurisdiction, but the source text itself just says 'this court'. More importantly, the draft cites S2c031f54c36e for the appeal to the Supreme Court, but that source describes the *current* judgment delivery. The procedural history in S18189f85fb34 shows the appeal was from the Chief Court. The draft's assertion is legally accurate for the context (Civil Appeal No. 147 of 1951 is a Supreme Court case), but the citation support is weak if interpreted strictly as the text saying 'Supreme Court'. Let's look for a clearer error.",
+      "source_ids": [
+        "S2c031f54c36e"
+      ],
+      "evidence": [
+        {
+          "source_id": "S2c031f54c36e",
+          "quote": "The Judgment of the Court was delivered by MUKHERJEA J.-This appeal is on behalf of the plaintiff..."
+        }
+      ],
+      "needed_change": "Clarify that the appeal is to the Supreme Court (implied by Civil Appellate Jurisdiction) or cite the header S18189f85fb34 which establishes the appellate chain, rather than relying solely on the judgment text which refers to 'this court'.",
+      "keep": "The fact that the plaintiff appealed further."
+    },
+    {
+      "id": "F2",
+      "kind": "LEGAL_INFERENCE",
+      "target": "Section 22(5) would then potentially prioritize the brother (Plaintiff) over the widow.",
+      "question": "Does Section 22(5) of the Oudh Estates Act prioritize the brother over the widow?",
+      "original_answer": "The draft asserts that Section 22(5) prioritizes the brother over the widow.",
+      "source_answer": "Source S08139e99b23b states the plaintiff argued he was entitled to succeed 'in preference to his widow' under Section 22(5). It presents this as the plaintiff's argument, not a confirmed statutory rule independent of the will's construction. The draft presents it as a potential priority without sufficiently attributing it to the plaintiff's contention vs. established law.",
+      "source_ids": [
+        "S08139e99b23b"
+      ],
+      "evidence": [
+        {
+          "source_id": "S08139e99b23b",
+          "quote": "the plaintiff, as the brother of Dhuj Siugh, would be entitled to succeed to the properties of the latter in preference to his widow."
+        }
+      ],
+      "needed_change": "Attribute the priority claim to the Plaintiff's argument rather than stating it as a definitive effect of Section 22(5) in isolation.",
+      "keep": "The reference to the Plaintiff's alternative statutory argument."
+    },
+    {
+      "id": "F3",
+      "kind": "CONTRADICTION",
+      "target": "If Dhuj Singh predeceases the testator (or presumably dies without issue, though the text says \"at the time of my death\")",
+      "question": "Did the will clause apply only if Dhuj Singh predeceased the testator?",
+      "original_answer": "The draft suggests the clause applies if Dhuj Singh predeceases the testator, adding 'presumably dies without issue' as an interpretation.",
+      "source_answer": "Source S060f91fbf4ce explicitly states: 'If God forbid, Dhuj Singh may not be living a the time of my death...'. This condition refers to predeceasing the testator. Dhuj Singh survived Raja Bisheshwar (who died in 1930; Dhuj died in 1940). Therefore, this specific clause regarding predeceasing the testator did not trigger. The draft's parenthetical '(or presumably dies without issue...)' misinterprets the conditional nature of Clause 4.",
+      "source_ids": [
+        "S060f91fbf4ce",
+        "S9f8a531db7f0"
+      ],
+      "evidence": [
+        {
+          "source_id": "S060f91fbf4ce",
+          "quote": "If God forbid, Dhuj Singh may not be living a the time of my death"
+        },
+        {
+          "source_id": "S9f8a531db7f0",
+          "quote": "Raja Bisheshwar died on 16th October, 1930... younger, whose name was Dhuj Singh, has died since then"
+        }
+      ],
+      "needed_change": "Remove the suggestion that Clause 4 applies to dying without issue after the testator's death. Clarify that Clause 4 addresses predeceasing the testator, while Clause 7 addresses becoming 'heirless' later.",
+      "keep": "The quote of Clause 4."
+    },
+    {
+      "id": "F4",
+      "kind": "OMISSION",
+      "target": "The record does not clarify if the \"no right of transfer\" clause was intended to defeat the statutory succession rules",
+      "question": "What did the lower courts find regarding the 'no right of transfer' clause and its relation to the estate holder?",
+      "original_answer": "The draft claims the record does not clarify the intent of the 'no right of transfer' clause.",
+      "source_answer": "Source Sf45dbac59824 explicitly links the lack of power of transfer to the protection against ejection by the proprietor: 'Although Dhuj Singh and his heirs are not given: the power of transfer... the result is that the proprietor of the estate or my other heirs and successors will not eject Dhuj Singh or his heirs or successors in any way.' This provides a clear textual basis for the restriction's purpose (security of tenure against the elder line), which the draft overlooks.",
+      "source_ids": [
+        "Sf45dbac59824"
+      ],
+      "evidence": [
+        {
+          "source_id": "Sf45dbac59824",
+          "quote": "Although Dhuj Singh and his heirs are not given: the power of transfer... the result is that the proprietor of the estate or my other heirs and successors will not eject Dhuj Singh or his heirs or successors in any way."
+        }
+      ],
+      "needed_change": "Add that the will explicitly connects the restraint on alienation to preventing ejection by the estate proprietor/other heirs.",
+      "keep": "The discussion of ambiguity between absolute ownership and restrictions."
+    },
+    {
+      "id": "F5",
+      "kind": "BINDING",
+      "target": "The Defendant’s (Widow) Position ... Her substantive construction of the will was that it created a life estate for Dhuj Singh, followed by a devise in favor of the widow as his \"personal heir\"",
+      "question": "Did the defendant argue for a life estate for Dhuj Singh followed by a devise to herself?",
+      "original_answer": "The draft states the defendant argued the will created a life estate for Dhuj Singh followed by a devise to her.",
+      "source_answer": "Source Sea2ab0080131 states the defendant's contention was that 'Bisheshwar Bux Singh... was competent to dispose of them in any way he liked and under his will it was the defendant and not the plaintiff in whom the properties vested after the death of Dhuj Singh.' It notes the contention was 'in substance' that the will created a life estate for Dhuj Singh followed by a devise to the widow. The draft accurately reflects this attributed position.",
+      "source_ids": [
+        "Sea2ab0080131"
+      ],
+      "evidence": [
+        {
+          "source_id": "Sea2ab0080131",
+          "quote": "The contention, in . substance, was that the will created a life estate for Dhuj 236 Singh followed by a devise in favour of the widow as his personal heir."
+        }
+      ],
+      "needed_change": "None required; this finding is supported.",
+      "keep": "The description of the defendant's legal position."
+    },
+    {
+      "id": "F6",
+      "kind": "LEGAL_INFERENCE",
+      "target": "For the non-taluqdari item, general Hindu law or the Transfer of Property Act principles regarding wills would apply",
+      "question": "Do the sources indicate that general Hindu law or TPA applies to the non-taluqdari property?",
+      "original_answer": "The draft infers that general Hindu law or TPA principles apply to the non-taluqdari property.",
+      "source_answer": "The provided sources do not discuss the applicable law for the non-taluqdari property specifically. Source S29fb4571d5c7 merely identifies it as non-taluqdari. The draft introduces external legal frameworks (Hindu Law/TPA) not present in the permitted originals. While likely true in reality, it is unsupported by the provided scope.",
+      "source_ids": [
+        "S29fb4571d5c7"
+      ],
+      "evidence": [
+        {
+          "source_id": "S29fb4571d5c7",
+          "quote": "The fifth item is set out in list B and admittedly this property is not taluqdari in its character."
+        }
+      ],
+      "needed_change": "Remove the speculation about Hindu Law/TPA application as it is outside the provided source material.",
+      "keep": "The distinction that the fifth property is non-taluqdari."
+    }
+  ],
+  "unresolved": [
+    "Whether the Supreme Court ultimately upheld the lower courts' construction of the will or accepted the statutory succession argument (outcome withheld)."
+  ]
+}

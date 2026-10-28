@@ -1,11 +1,11 @@
 # ChatGPT review entry
 
-Registered review snapshot: RAPIDO V22 and a single-call ordinary baseline: actual inputs, complete evidence, and pending independent review
+Registered review snapshot: RAPIDO V51: complete ten-case development and component evidence
 
-A0 delivered both cases in one call each. C produced a report with errors after 77 calls on the first case and timed out during the second case after 43 calls. Permitted CASE/LAW materials and questions were shared; C used additional history, rules, and computation. Primary completeness, coverage, and serious errors are evaluated separately. Current judgments await independent Pro review. Actual requests, responses, source, prompts, materials, and failures are preserved in the review package.
+F has higher ten-case mean important-content coverage than ordinary one-call A0, with eight positive R directions, one negative and one unresolved. Two A0 assertion inventories are missing; the full A0 H mean is unknown. F delivered ten reports, nine full chains, and six zero-change edits. Model-reference development evidence does not establish confirmatory significance or independent generalization.
 
-[Selected report](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/README.md), [Project state](../docs/PROJECT_STATE.json), [Experiment index](../docs/EXPERIMENT_INDEX.md).
+[Selected report](../outputs/rapido-v51-ten-case-development-2026-10-28-v1/README.md), [Project state](../docs/PROJECT_STATE.json), [Experiment index](../docs/EXPERIMENT_INDEX.md).
 
-[Evaluation criteria](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/QUESTIONS_AND_RUBRIC.md); [Actual pipeline and inputs](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/PIPELINE_AND_INPUT_AUDIT.md); [Original full review prompt](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/PRO_REVIEW_PROMPT.md); [Evidence manifest](../outputs/rapido-v22-baseline-pro-review-2026-10-24-v1/EVIDENCE_MANIFEST.json).
+[All50endpoint slots](../outputs/rapido-v51-ten-case-development-2026-10-28-v1/comparison.html); [CSV](../outputs/rapido-v51-ten-case-development-2026-10-28-v1/comparison.csv); [Metrics](../outputs/rapido-v51-ten-case-development-2026-10-28-v1/EVALUATION.md); [Actual method](../outputs/rapido-v51-ten-case-development-2026-10-28-v1/METHOD.md); [Case studies](../outputs/rapido-v51-ten-case-development-2026-10-28-v1/CASE_STUDIES.md); [Evidence hashes](../outputs/rapido-v51-ten-case-development-2026-10-28-v1/SNAPSHOT_MANIFEST.json).
 
 Publication status is determined by the actual commit and remote verification. Model references are not human gold; source alignment and program tests do not establish legal correctness. Historical SOURCES_01–04 belong to the earlier relation baseline, not the selected run.

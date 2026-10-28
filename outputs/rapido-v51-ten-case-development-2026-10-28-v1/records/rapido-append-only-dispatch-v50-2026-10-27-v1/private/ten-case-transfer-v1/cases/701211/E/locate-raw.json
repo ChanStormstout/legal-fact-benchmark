@@ -1,0 +1,123 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "CONTRADICTION",
+      "target": "The Lime Co. accepted this offer on April 15, 1934, and obtained possession on that date, though the leases were to take effect from April 1, 1934",
+      "question": "Did the Lime Co. accept the May 1, 1934 offer before it was made?",
+      "original_answer": "States acceptance occurred on April 15, 1934.",
+      "source_answer": "Source S2c4036b2445a states the offer was made by letter dated May 1, 1934 (Annexure B) and accepted by letter dated April 15, 1934 (Annexure C). This chronology is internally contradictory in the source text or implies the draft misread dates; however, standard interpretation of 'offer... dated May 1' and 'accepted... April 15' suggests a typo in source or draft. Draft asserts April 15 acceptance for May 1 offer.",
+      "source_ids": [
+        "S2c4036b2445a"
+      ],
+      "evidence": [
+        {
+          "source_id": "S2c4036b2445a",
+          "quote": "This offer was made by a letter of the Board of Revenue dated the Slat March, 1934, (Annexure B) and was accepted 'by the Lime Co. in their letter dated the 15th April, 1934"
+        }
+      ],
+      "needed_change": "Correct the date of the offer. Source says 'Slat March' (likely 5th March) not May 1. If offer was March 5, April 15 acceptance is valid. Draft incorrectly cites May 1.",
+      "keep": "Acceptance date and possession details."
+    },
+    {
+      "id": "F2",
+      "kind": "SOURCE_SUPPORT",
+      "target": "On May 1, 1934, Defendant No. 1 offered to grant leases",
+      "question": "What was the actual date of the Board of Revenue's offer letter?",
+      "original_answer": "May 1, 1934.",
+      "source_answer": "Source S2c4036b2445a reads 'dated the Slat March, 1934'. OCR error likely means 5th March. It does not support May 1.",
+      "source_ids": [
+        "S2c4036b2445a"
+      ],
+      "evidence": [
+        {
+          "source_id": "S2c4036b2445a",
+          "quote": "letter of the Board of Revenue dated the Slat March, 1934"
+        }
+      ],
+      "needed_change": "Change 'May 1, 1934' to 'March 5, 1934' (interpreting 'Slat' as 5th) or note the OCR ambiguity. Do not invent May 1.",
+      "keep": "Context of the offer."
+    },
+    {
+      "id": "F3",
+      "kind": "LEGAL_INFERENCE",
+      "target": "Crucially, they declared the agreement void under Section 20 of the Indian Contract Act due to mutual mistake of fact regarding the Government's title to the subject matter",
+      "question": "Did the High Court declare the agreement void under Section 20 ICA?",
+      "original_answer": "Yes, attributed to High Court.",
+      "source_answer": "Source S4da221281e65 states High Court held contract was made out but specific performance sought was not the contract entered into, and agreement was void under section 20 ICA due to mistake of fact as regards title. This is supported.",
+      "source_ids": [
+        "S4da221281e65"
+      ],
+      "evidence": [
+        {
+          "source_id": "S4da221281e65",
+          "quote": "agreement was void under cite15†section 20 of the Indian Contract Act, as both parties were under a mistake of fact as regards the title"
+        }
+      ],
+      "needed_change": "No change needed for this specific inference if F1/F2 are fixed. However, check if 'title' vs 'competence' distinction matters. Source says 'title'. Draft says 'title'. OK.",
+      "keep": "Attribution to High Court."
+    },
+    {
+      "id": "F4",
+      "kind": "OMISSION",
+      "target": "The attempt to seek compensation or alternative relief failed because the Lime Co. did not strictly adhere to the requirements of Section 15 of the Specific Relief Act, specifically the relinquishment of all claims for deficiency or damages for prior periods",
+      "question": "Did the Lime Co. actually fail to relinquish claims, or did they make an application doing so?",
+      "original_answer": "Failed because did not strictly adhere/relinquish.",
+      "source_answer": "Source S952f65c826eb says High Court disallowed claim because application dated Feb 18, 1952 did not show relinquishment. But Source S7093796118f1 quotes an application claiming relief under Sec 15 AND relinquishing claims for period prior to April 1, 1948. The conflict is whether the *pleaded* case matched the *statutory* requirement. The draft omits that the Lime Co. *did* file an application attempting to relinquish, but the HC found it insufficient or inconsistent with the suit's main prayer.",
+      "source_ids": [
+        "S952f65c826eb",
+        "S7093796118f1"
+      ],
+      "evidence": [
+        {
+          "source_id": "S7093796118f1",
+          "quote": "He further relinquishes all claims to further performance and all right to compensation either for the deficiency or for the loss or damages sustained by him for default of the defendant for the period prior to 1st April, 1948."
+        }
+      ],
+      "needed_change": "Clarify that while the Lime Co. filed an application purporting to relinquish claims (S7093796118f1), the High Court held the conditions of Section 15 were not fulfilled (S952f65c826eb), possibly due to inconsistency with the main suit or timing.",
+      "keep": "HC finding of non-compliance."
+    },
+    {
+      "id": "F5",
+      "kind": "BINDING",
+      "target": "Defendant No. 2 also claimed protection as a subsequent lessee for valuable consideration",
+      "question": "Did Defendant No. 2 claim protection as a subsequent lessee for valuable consideration?",
+      "original_answer": "Yes.",
+      "source_answer": "Source S575f63eec68a states Defendant No. 2 denied right to specific performance and stated Lime Co. was not entitled to equity against defendant No. 2 who were subsequent lessees for valuable consideration. Supported.",
+      "source_ids": [
+        "S575f63eec68a"
+      ],
+      "evidence": [
+        {
+          "source_id": "S575f63eec68a",
+          "quote": "not entitled to claim any equity against defendant No. 2 who were subsequent lessees of the Murli Hills for valuable consideration"
+        }
+      ],
+      "needed_change": "None.",
+      "keep": "Accurate attribution."
+    },
+    {
+      "id": "F6",
+      "kind": "SOURCE_SUPPORT",
+      "target": "The trial court framed issues regarding the existence of a valid contract and whether the agreement was defective for lack of essential terms or uncertainty",
+      "question": "Did the trial court frame an issue about 'lack of settlement of any essential term'?",
+      "original_answer": "Yes, cited Sea59ce9cf59a and S80dc026f442c.",
+      "source_answer": "Source S80dc026f442c quotes Issue 4: 'Was the agreement... defective for lack of settlement of any essential term... and was it bad for uncertainty or vagueness?'. Supported.",
+      "source_ids": [
+        "S80dc026f442c"
+      ],
+      "evidence": [
+        {
+          "source_id": "S80dc026f442c",
+          "quote": "defective for lack of settlement of any essential term as alleged by the defendants, and was it bad for uncertainty or vagueness"
+        }
+      ],
+      "needed_change": "None.",
+      "keep": "Issue framing."
+    }
+  ],
+  "unresolved": [
+    "The exact date of the Board of Revenue offer ('Slat March') requires interpretation of OCR error (likely 5th March). Draft uses May 1 which contradicts the April 15 acceptance logic unless 'Slat' is misread as 'May' (unlikely) or dates are swapped.",
+    "Whether the High Court's rejection of Section 15 relief was solely due to the content of the Feb 1952 application or broader procedural inconsistencies with the original plaint."
+  ]
+}

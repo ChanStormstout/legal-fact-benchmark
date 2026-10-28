@@ -1,0 +1,7 @@
+# Portability and byte preservation
+
+This is an audit archive with navigable reports and exact selected evidence, not a tested one-command reproduction environment. Original frozen scripts, requests, model replies, annotations and scores preserve their bytes, source language and historical absolute paths. PATH_MAP.json maps selected local paths to repository-relative copies. New comparison.csv, comparison.html and experiment-data.json provide portable report links without changing original evidence.
+
+Models, credentials, environments, full corpora, third-party PDFs, browser/account state, raw SSE/reasoning streams, and ongoing independent-source construction are outside this publication. Their absence is not a zero-cost claim, independent-test result, or permission to retrieve hidden targets. Per-call receipts and actual serialized requests/responses provide the selected execution evidence; not every original stream byte is published. Any missing dependency is a portability limitation, not replaced with a fabricated file.
+
+The archived method has spending and immutability guards and references inherited prefixes. Do not invoke itsrun or prepare commands as a publication check. The supported offline publication checks inspect JSON, report/source hashes, metric-table agreement, file selection and frozen-byte preservation. Model-quality verification is the separate source annotation/adjudication process; packaging tests cannot certify the legal meaning of an answer.
